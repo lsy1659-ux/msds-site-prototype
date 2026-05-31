@@ -19,6 +19,7 @@ from typing import Any
 
 DEFAULT_DATA = Path("data/msds.local.json")
 DEFAULT_OVERRIDES = Path("data/msds-overrides.local.json")
+DEFAULT_REGISTRATION_QUEUE = Path("data/pdf-registration-queue.local.json")
 DEFAULT_PDF_DIR = Path("pdf")
 DEFAULT_REPORT_JSON = Path("reports/msds-workflow-audit.local.json")
 DEFAULT_REPORT_CSV = Path("reports/msds-workflow-audit.local.csv")
@@ -28,6 +29,14 @@ EXTRACT_FAILURE_STATUSES = {
     "scanned_pdf_or_image_pdf",
     "manual_review_required",
 }
+REGISTRATION_DECISIONS = (
+    "미검토",
+    "엑셀등록필요",
+    "기존제품매핑필요",
+    "중복의심",
+    "제외",
+    "보류",
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -36,6 +45,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--data", default=DEFAULT_DATA, type=Path, help="Converted MSDS product JSON.")
     parser.add_argument("--overrides", default=DEFAULT_OVERRIDES, type=Path, help="Local PDF extraction override JSON.")
+    parser.add_argument("--registration-queue", default=DEFAULT_REGISTRATION_QUEUE, type=Path, help="Local PDF-only registration queue JSON.")
     parser.add_argument("--pdf-dir", default=DEFAULT_PDF_DIR, type=Path, help="Local PDF folder.")
     parser.add_argument("--report-json", default=DEFAULT_REPORT_JSON, type=Path, help="Local JSON report path.")
     parser.add_argument("--report-csv", default=DEFAULT_REPORT_CSV, type=Path, help="Local CSV report path.")
@@ -105,9 +115,14 @@ def limited(items: list[Any], limit: int) -> list[Any]:
     return items[: max(0, limit)]
 
 
+def queue_file_name(item: dict[str, Any]) -> str:
+    return str(item.get("fileName") or Path(str(item.get("relativePath") or "")).name).strip()
+
+
 def build_audit(args: argparse.Namespace) -> dict[str, Any]:
     products = read_json_list(args.data, "products")
     overrides = read_json_list(args.overrides, "overrides")
+    registration_queue = read_json_list(args.registration_queue)
     pdf_paths = pdf_files(args.pdf_dir)
 
     pdf_names = {path.name for path in pdf_paths}
@@ -188,6 +203,16 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
     ]
 
     ingredient_count = sum(len(product_ingredients(product)) for product in products)
+    queue_decision_counts = Counter({decision: 0 for decision in REGISTRATION_DECISIONS})
+    queue_decision_counts.update(str(item.get("reviewDecision") or "미검토") for item in registration_queue)
+    active_registration_queue = [
+        item for item in registration_queue
+        if item.get("status") != "missing_from_pdf_library"
+    ]
+    missing_from_library_queue = [
+        item for item in registration_queue
+        if item.get("status") == "missing_from_pdf_library"
+    ]
     summary = {
         "convertedProductCount": len(products),
         "ingredientCount": ingredient_count,
@@ -206,6 +231,13 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
         "pdfPreviewPossibleEstimateCount": len(linked_products),
         "pdfWithoutOverrideCount": len(pdf_without_override),
         "overrideWithoutPdfCount": len(overrides_missing_pdf),
+        "registrationQueueCount": len(registration_queue),
+        "activeRegistrationQueueCount": len(active_registration_queue),
+        "registrationQueueMissingFromPdfLibraryCount": len(missing_from_library_queue),
+        "registrationQueueDecisionCounts": {
+            decision: queue_decision_counts.get(decision, 0)
+            for decision in REGISTRATION_DECISIONS
+        },
     }
 
     examples = {
@@ -233,12 +265,21 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
             }
             for override in limited(manual_review_required, args.example_limit)
         ],
+        "registrationQueue": [
+            {
+                "fileName": queue_file_name(item),
+                "status": item.get("status", ""),
+                "reviewDecision": item.get("reviewDecision", ""),
+            }
+            for item in limited(active_registration_queue, args.example_limit)
+        ],
     }
 
     return {
         "inputs": {
             "data": str(args.data),
             "overrides": str(args.overrides),
+            "registrationQueue": str(args.registration_queue),
             "pdfDir": str(args.pdf_dir),
         },
         "summary": summary,
@@ -288,6 +329,18 @@ def print_console_summary(report: dict[str, Any]) -> None:
     print(f"- 수동 확인 필요 항목 수: {summary['manualReviewRequiredCount']}")
     print(f"- PDF는 있으나 override가 없는 항목 수: {summary['pdfWithoutOverrideCount']}")
     print(f"- override는 있으나 PDF 파일이 없는 항목 수: {summary['overrideWithoutPdfCount']}")
+
+    queue = summary["registrationQueueDecisionCounts"]
+    print(f"- 엑셀 미등록 PDF 검토 큐 전체: {summary['activeRegistrationQueueCount']}")
+    print(
+        "- 큐 상태: "
+        f"미검토 {queue['미검토']}, "
+        f"엑셀등록필요 {queue['엑셀등록필요']}, "
+        f"기존제품매핑필요 {queue['기존제품매핑필요']}, "
+        f"중복의심 {queue['중복의심']}, "
+        f"제외 {queue['제외']}, "
+        f"보류 {queue['보류']}"
+    )
 
     example_count = sum(len(items) for items in report["examples"].values())
     if example_count:

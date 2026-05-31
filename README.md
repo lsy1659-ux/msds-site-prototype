@@ -344,3 +344,43 @@ PDF 원본 폴더를 통째로 갱신할 때 권장 흐름은 아래와 같습�
 6. `audit_msds_workflow.py`를 실행합니다.
 
 엑셀 원본과 `data/msds.local.json`은 실제 제품정보가 들어가므로 GitHub에 올리지 않습니다. 엑셀이 바뀌면 기존 PDF 매칭 상태도 반드시 audit로 다시 확인합니다.
+
+## 엑셀 미등록 PDF 검토 큐
+
+PDF 원본 라이브러리가 실제 기준이고, 엑셀은 아직 미완성 색인일 수 있습니다. 따라서 PDF는 있지만 엑셀에 없는 파일은 오류가 아니라 `엑셀 미등록 PDF`로 따로 관리합니다.
+
+인벤토리를 만든 뒤 아래 스크립트를 실행합니다.
+
+```bash
+python scripts/build_pdf_registration_queue.py
+```
+
+이 스크립트는 `data/pdf-inventory.local.json`에서 `excel_missing_pdf` 상태의 PDF를 찾아 아래 로컬 전용 큐를 생성합니다.
+
+```text
+data/pdf-registration-queue.local.json
+```
+
+큐 항목은 `reviewDecision`으로 관리합니다.
+
+- `미검토`
+- `엑셀등록필요`
+- `기존제품매핑필요`
+- `중복의심`
+- `제외`
+- `보류`
+
+기존 큐가 있으면 `reviewDecision`, 메모, 수동 입력 필드는 보존합니다. PDF 라이브러리에서 더 이상 보이지 않는 항목은 삭제하지 않고 `missing_from_pdf_library` 상태로 남겨 다시 확인할 수 있게 합니다.
+
+PDF가 엑셀보다 많을 때 권장 흐름은 아래와 같습니다.
+
+1. 원본 PDF 폴더를 `sync_pdf_library.py`로 반영합니다.
+2. `build_pdf_inventory.py`를 실행합니다.
+3. `build_pdf_registration_queue.py`를 실행합니다.
+4. `audit_msds_workflow.py`를 실행합니다.
+5. `data/pdf-registration-queue.local.json`에서 엑셀 미등록 PDF를 검토합니다.
+6. 엑셀에 추가할 항목은 다음 엑셀 업데이트 때 반영합니다.
+7. 엑셀 수정 후 `convert_excel_to_json.py`를 다시 실행합니다.
+8. inventory와 audit을 다시 실행합니다.
+
+`data/pdf-registration-queue.local.json`은 실제 PDF 목록과 검토 메모가 들어갈 수 있으므로 GitHub에 올리지 않습니다. 저장소에는 구조 참고용 `data/pdf-registration-queue.sample.json`만 올립니다.

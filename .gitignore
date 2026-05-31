@@ -6,6 +6,8 @@ data/original/
 data/backups/
 data/pdf-inventory.local.json
 data/*inventory*.local.json
+data/pdf-registration-queue.local.json
+data/*registration-queue*.local.json
 data/msds.local.json
 data/*.local.json
 data/*.reviewed.local.json

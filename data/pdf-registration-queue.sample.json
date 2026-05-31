@@ -1,0 +1,16 @@
+[
+  {
+    "relativePath": "3M/example.pdf",
+    "fileName": "example.pdf",
+    "status": "excel_missing_pdf",
+    "reviewDecision": "미검토",
+    "suggestedAction": "엑셀등록검토",
+    "tempProductName": "",
+    "supplier": "",
+    "category": "",
+    "note": "",
+    "matchedExcelCandidate": "",
+    "duplicateCandidate": false,
+    "excludeReason": ""
+  }
+]
