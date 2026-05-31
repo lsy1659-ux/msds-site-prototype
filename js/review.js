@@ -128,6 +128,11 @@ function normalizeReviewOverride(override) {
     msdsNoCandidate: override.msdsNoCandidate || "",
     revisionDateCandidate: override.revisionDateCandidate || "",
     signalWordCandidate: override.signalWordCandidate || "",
+    ghsSource: override.ghsSource || "",
+    labelGhsCodes: Array.isArray(override.labelGhsCodes) ? override.labelGhsCodes : [],
+    labelGhsPictograms: Array.isArray(override.labelGhsPictograms) ? override.labelGhsPictograms : [],
+    classificationGhsCodes: Array.isArray(override.classificationGhsCodes) ? override.classificationGhsCodes : [],
+    classificationGhsPictograms: Array.isArray(override.classificationGhsPictograms) ? override.classificationGhsPictograms : [],
     ghsCodes: Array.isArray(override.ghsCodes) ? override.ghsCodes : [],
     ghsPictograms: Array.isArray(override.ghsPictograms) ? override.ghsPictograms : [],
     hazardStatements: Array.isArray(override.hazardStatements) ? override.hazardStatements : [],
@@ -251,12 +256,14 @@ function renderReviewDetail() {
         ${reviewItem("MSDS번호 후보", override.msdsNoCandidate)}
         ${reviewItem("개정일 후보", override.revisionDateCandidate)}
         ${reviewItem("신호어 후보", override.signalWordCandidate)}
+        ${reviewItem("GHS 표시 기준", override.ghsSource)}
         ${reviewItem("추출 상태", override.extractStatus)}
         ${reviewItem("검토 상태", override.reviewStatus)}
       </div>
     `)}
 
-    ${reviewSection("GHS 후보", renderGhsCandidates(override))}
+    ${reviewSection("GHS 실제 표지/현장 표시", renderGhsCandidates(override, "label"))}
+    ${reviewSection("GHS 분류문구 기준 후보", renderGhsCandidates(override, "classification"))}
     ${reviewSection("유해위험문구 후보", renderSimpleList(override.hazardStatements))}
     ${reviewSection("예방조치문구 후보", renderPrecautionCandidates(override.precautionaryStatements))}
     ${reviewSection("PPE 후보", renderSimpleList(override.ppeCandidates))}
@@ -431,9 +438,21 @@ function reviewItem(label, value) {
   `;
 }
 
-function getReviewGhsItems(override) {
-  const codes = Array.isArray(override?.ghsCodes) ? override.ghsCodes : [];
-  const pictograms = Array.isArray(override?.ghsPictograms) ? override.ghsPictograms : [];
+function getReviewGhsItems(override, mode = "display") {
+  let codes = Array.isArray(override?.ghsCodes) ? override.ghsCodes : [];
+  let pictograms = Array.isArray(override?.ghsPictograms) ? override.ghsPictograms : [];
+  if (mode === "label") {
+    codes = Array.isArray(override?.labelGhsCodes) && override.labelGhsCodes.length
+      ? override.labelGhsCodes
+      : codes;
+    pictograms = Array.isArray(override?.labelGhsPictograms) && override.labelGhsPictograms.length
+      ? override.labelGhsPictograms
+      : pictograms;
+  }
+  if (mode === "classification") {
+    codes = Array.isArray(override?.classificationGhsCodes) ? override.classificationGhsCodes : [];
+    pictograms = Array.isArray(override?.classificationGhsPictograms) ? override.classificationGhsPictograms : [];
+  }
   const items = [
     ...codes.map((code) => ({ code, label: code })),
     ...pictograms
@@ -447,9 +466,9 @@ function getReviewGhsItems(override) {
   });
 }
 
-function renderGhsCandidates(override) {
-  const items = getReviewGhsItems(override);
-  if (!items.length) return `<p class="summary-note">GHS ?? ??</p>`;
+function renderGhsCandidates(override, mode = "display") {
+  const items = getReviewGhsItems(override, mode);
+  if (!items.length) return `<p class="summary-note">GHS 후보 없음</p>`;
   return `
     <div class="review-chip-list">
       ${items.map((item) => `<span class="review-chip">${escapeHtml([item.code, item.label].filter(Boolean).join(" "))}</span>`).join("")}

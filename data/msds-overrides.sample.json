@@ -6,6 +6,7 @@
       "productName": "2차이형제 (S6)"
     },
     "sourcePdfPath": "/pdf/2차이형제(S6) 2024.pdf",
+    "sourceRelativePath": "2차이형제(S6) 2024.pdf",
     "extractStatus": "candidate_extracted",
     "reviewStatus": "검토필요",
     "productNameCandidate": "2차이형제 (S6)",
@@ -13,10 +14,35 @@
     "msdsNoCandidate": "SAMPLE-MSDS-0001",
     "revisionDateCandidate": "2024-01-01",
     "signalWordCandidate": "위험",
+    "ghsSource": "section2_classification_fallback",
+    "labelGhsCodes": [],
+    "labelGhsPictograms": [],
+    "classificationGhsCodes": [
+      "GHS02",
+      "GHS07"
+    ],
+    "classificationGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      }
+    ],
+    "ghsCodes": [
+      "GHS02",
+      "GHS07"
+    ],
     "ghsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
     "hazardStatements": [
@@ -40,9 +66,6 @@
     "ppeCandidates": [
       "샘플 보호구 문구"
     ],
-    "notes": "PDF 자동 추출 후보이며 검토 필요. 현장용 화면에서는 설정에 따라 검토 상태 문구가 숨겨질 수 있습니다.",
-    "ghsCodes": [
-      "GHS02"
-    ]
+    "notes": "PDF 자동 추출 후보이며 검토 필요. 현장 화면에서는 설정에 따라 검토 상태 문구가 숨겨질 수 있습니다."
   }
 ]

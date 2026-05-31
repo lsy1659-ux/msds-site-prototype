@@ -528,6 +528,10 @@ function normalizeProduct(product) {
     ppeSummary: product.ppeSummary || "",
     revisionDate: product.revisionDate || "",
     hazardBadge: product.hazardBadge || "확인",
+    labelGhsCodes: normalizeGhsCodeList(product.labelGhsCodes || product.labelGhsPictograms || []),
+    labelGhsPictograms: Array.isArray(product.labelGhsPictograms) ? product.labelGhsPictograms : [],
+    classificationGhsCodes: normalizeGhsCodeList(product.classificationGhsCodes || product.classificationGhsPictograms || []),
+    classificationGhsPictograms: Array.isArray(product.classificationGhsPictograms) ? product.classificationGhsPictograms : [],
     ghsCodes: normalizeGhsCodeList(product.ghsCodes || product.ghsPictograms || []),
     ghsPictograms: normalizeGhsList(product),
     hazardStatements: product.hazardStatements || [],
@@ -557,6 +561,11 @@ function normalizeOverride(override) {
     extractStatus: override.extractStatus || "",
     reviewStatus: override.reviewStatus || "검토필요",
     signalWordCandidate: override.signalWordCandidate || "",
+    ghsSource: override.ghsSource || "",
+    labelGhsCodes: normalizeGhsCodeList(override.labelGhsCodes || override.labelGhsPictograms || []),
+    labelGhsPictograms: Array.isArray(override.labelGhsPictograms) ? override.labelGhsPictograms : [],
+    classificationGhsCodes: normalizeGhsCodeList(override.classificationGhsCodes || override.classificationGhsPictograms || []),
+    classificationGhsPictograms: Array.isArray(override.classificationGhsPictograms) ? override.classificationGhsPictograms : [],
     ghsCodes: normalizeGhsCodeList(override.ghsCodes || override.ghsPictograms || []),
     ghsPictograms: Array.isArray(override.ghsPictograms) ? override.ghsPictograms : [],
     hazardStatements: Array.isArray(override.hazardStatements) ? override.hazardStatements : [],
@@ -701,8 +710,23 @@ function normalizeGhsList(source = {}) {
   }));
 }
 
+function normalizeLabelGhsList(source = {}) {
+  return normalizeGhsList({
+    ghsCodes: source?.labelGhsCodes || [],
+    ghsPictograms: source?.labelGhsPictograms || []
+  });
+}
+
+function normalizeClassificationGhsList(source = {}) {
+  return normalizeGhsList({
+    ghsCodes: source?.classificationGhsCodes || [],
+    ghsPictograms: source?.classificationGhsPictograms || []
+  });
+}
+
 function getOverrideGhsItems(override) {
-  return normalizeGhsList(override || {});
+  const labelItems = normalizeLabelGhsList(override || {});
+  return labelItems.length ? labelItems : normalizeGhsList(override || {});
 }
 
 
