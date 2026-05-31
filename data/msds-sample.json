@@ -2,7 +2,7 @@
   "products": [
     {
       "id": "sample-msds-001",
-      "siteLabel": "현장 부착용 MSDS 요약",
+      "siteLabel": "사출구역 부착(NO.1)",
       "hazardBadge": "위험",
       "productName": "2차이형제 (S6)",
       "erpName": "샘플 ERP 품명 - 2차 이형제 S6",

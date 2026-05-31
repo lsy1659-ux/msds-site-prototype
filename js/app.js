@@ -9,7 +9,7 @@ const APP_CONFIG = {
 const FALLBACK_PRODUCTS = [
   {
     id: "sample-msds-001",
-    siteLabel: "현장 부착용 MSDS 요약",
+    siteLabel: "사출구역 부착(NO.1)",
     hazardBadge: "위험",
     productName: "2차이형제 (S6)",
     erpName: "샘플 ERP 품명 - 2차 이형제 S6",
@@ -400,7 +400,7 @@ function render() {
   if (selected) state.selectedId = selected.id;
 
   elements.emptySearchGuide.classList.toggle("is-hidden", Boolean(state.query.trim()));
-  elements.resultCount.textContent = `${results.length}건`;
+  elements.resultCount.textContent = `검색 결과 ${results.length}건`;
   elements.resultSubtitle.textContent = state.query.trim()
     ? `"${state.query}" 검색 결과 중 1개를 선택하세요.`
     : "초기에는 첫 번째 샘플 제품이 선택됩니다.";
@@ -412,7 +412,7 @@ function render() {
 
 function renderSelectionList(results) {
   if (!results.length) {
-    elements.selectionList.innerHTML = `<div class="notice">검색 결과가 없습니다. 제품명, 용도, 제조사, CAS No. 일부를 다시 입력해 주세요.</div>`;
+    elements.selectionList.innerHTML = `<div class="notice">검색 결과가 없습니다. 제품명, 용도, CAS No. 등으로 다시 검색해보세요.</div>`;
     return;
   }
 
@@ -438,10 +438,6 @@ function renderPoster(product) {
   }
 
   elements.posterPanel.innerHTML = `
-    <div class="poster-headline">
-      <span>${escapeHtml(product.siteLabel || "현장 안전정보 요약")}</span>
-      <span class="sample-logo">CAMS</span>
-    </div>
     <div class="poster-product-row">
       <h2>${escapeHtml(product.productName)}</h2>
       <span class="hazard-badge">${escapeHtml(product.hazardBadge || "주의")}</span>
@@ -449,11 +445,10 @@ function renderPoster(product) {
     <div class="poster-ghs-row">
       ${renderGhsList(product, "poster")}
     </div>
-    ${posterSection("유해 위험 문구", renderBulletList(product.hazardStatements || []))}
-    ${posterSection("예방조치 문구", renderPrecautions(product.precautionaryStatements || {}))}
+    ${posterSection("유해 위험 문구", renderBulletList(product.hazardStatements || []), "poster-hazard-statements")}
+    ${posterSection("예방조치 문구", renderPrecautions(product.precautionaryStatements || {}), "poster-precaution-statements")}
     <footer class="poster-footer">
-      <p>이 자료는 현장 확인용 요약본입니다.</p>
-      <p>상세 사항은 우측 PDF 또는 정식 MSDS를 참고하세요.</p>
+      <p>현장 확인용 요약본이며, 상세 사항은 우측 PDF 또는 정식 MSDS를 참고하세요.</p>
       <p>공급자 정보: ${escapeHtml(product.supplier)}</p>
     </footer>
   `;
@@ -538,9 +533,9 @@ function renderDetail(product) {
   `;
 }
 
-function posterSection(title, content) {
+function posterSection(title, content, className) {
   return `
-    <section class="poster-block">
+    <section class="poster-block ${escapeAttribute(className)}">
       <h3><span aria-hidden="true">■</span> ${escapeHtml(title)}</h3>
       ${content}
     </section>
