@@ -5,6 +5,8 @@ const APP_CONFIG = {
   sampleDataUrl: "data/msds-sample.json",
   localOverridesUrl: "data/msds-overrides.local.json",
   sampleOverridesUrl: "data/msds-overrides.sample.json",
+  localInventoryUrl: "data/pdf-inventory.local.json",
+  sampleInventoryUrl: "data/pdf-inventory.sample.json",
   minSearchCharacters: 2,
   initialResultLimit: 8,
   showDownloadButton: false,
@@ -272,6 +274,8 @@ const state = {
   showAllResults: false,
   selectionCollapsed: false,
   dataMode: "샘플 데이터 모드",
+  pdfOverrides: [],
+  pdfInventory: [],
   pdfAvailability: {},
   pdfModal: {
     isOpen: false,
@@ -286,6 +290,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   bindElements();
   bindEvents();
   const data = await loadProducts();
+  state.pdfOverrides = data.overrides || [];
+  state.pdfInventory = data.inventory || [];
   state.products = data.products;
   state.dataMode = data.mode;
   state.selectedId = state.products[0]?.id || null;
@@ -374,29 +380,39 @@ function updateSelectedProductForQuery() {
 }
 
 async function loadProducts() {
+  const pdfLookupData = await loadPdfLookupData();
+
   const localData = await fetchProducts(APP_CONFIG.localDataUrl);
   if (localData) {
-    const overrides = await loadOverrides();
     return {
       mode: "로컬 변환 데이터 모드",
-      products: applyOverrides(localData.map(normalizeProduct), overrides)
+      products: applyOverrides(localData.map(normalizeProduct), pdfLookupData.overrides),
+      ...pdfLookupData
     };
   }
 
   const sampleData = await fetchProducts(APP_CONFIG.sampleDataUrl);
   if (sampleData) {
-    const overrides = await loadOverrides();
     return {
       mode: "샘플 데이터 모드",
-      products: applyOverrides(sampleData.map(normalizeProduct), overrides)
+      products: applyOverrides(sampleData.map(normalizeProduct), pdfLookupData.overrides),
+      ...pdfLookupData
     };
   }
 
-  const overrides = await loadOverrides();
   return {
     mode: "샘플 데이터 모드",
-    products: applyOverrides(FALLBACK_PRODUCTS.map(normalizeProduct), overrides)
+    products: applyOverrides(FALLBACK_PRODUCTS.map(normalizeProduct), pdfLookupData.overrides),
+    ...pdfLookupData
   };
+}
+
+async function loadPdfLookupData() {
+  const [overrides, inventory] = await Promise.all([
+    loadOverrides(),
+    loadInventory()
+  ]);
+  return { overrides, inventory };
 }
 
 async function fetchProducts(url) {
@@ -422,6 +438,16 @@ async function loadOverrides() {
   return [];
 }
 
+async function loadInventory() {
+  const localInventory = await fetchInventory(APP_CONFIG.localInventoryUrl);
+  if (localInventory) return localInventory.map(normalizeInventoryItem);
+
+  const sampleInventory = await fetchInventory(APP_CONFIG.sampleInventoryUrl);
+  if (sampleInventory) return sampleInventory.map(normalizeInventoryItem);
+
+  return [];
+}
+
 async function fetchOverrides(url) {
   try {
     const response = await fetch(url, { cache: "no-store" });
@@ -429,6 +455,21 @@ async function fetchOverrides(url) {
     const data = await response.json();
     if (Array.isArray(data)) return data;
     if (Array.isArray(data.overrides)) return data.overrides;
+    return null;
+  } catch (error) {
+    return null;
+  }
+}
+
+async function fetchInventory(url) {
+  try {
+    const response = await fetch(url, { cache: "no-store" });
+    if (!response.ok) throw new Error(`Inventory request failed: ${url}`);
+    const data = await response.json();
+    if (Array.isArray(data)) return data;
+    if (Array.isArray(data.items)) return data.items;
+    if (Array.isArray(data.pdfs)) return data.pdfs;
+    if (Array.isArray(data.inventory)) return data.inventory;
     return null;
   } catch (error) {
     return null;
@@ -496,6 +537,15 @@ function normalizeOverride(override) {
   };
 }
 
+function normalizeInventoryItem(item) {
+  return {
+    ...item,
+    fileName: item.fileName || getPathBasename(item.relativePath || item.pdfPath || ""),
+    relativePath: item.relativePath || "",
+    pdfPath: item.pdfPath || ""
+  };
+}
+
 function applyOverrides(products, overrides) {
   if (!overrides.length) return products;
 
@@ -513,6 +563,7 @@ function findOverrideForProduct(product, overrides) {
   return findOverrideByField(product, overrides, "fileName")
     || findOverrideByField(product, overrides, "msdsNo")
     || findOverrideByField(product, overrides, "productName")
+    || findOverrideByPdfName(product, overrides)
     || null;
 }
 
@@ -520,6 +571,62 @@ function findOverrideByField(product, overrides, field) {
   const productValue = normalizeSearchText(product[field]);
   if (!productValue) return null;
   return overrides.find((override) => normalizeSearchText(override.match?.[field]) === productValue);
+}
+
+function findOverrideByPdfName(product, overrides = []) {
+  const productNames = getProductPdfNameKeys(product);
+  if (!productNames.length) return null;
+
+  return overrides.find((override) => {
+    const match = override.match || {};
+    const overrideNames = [
+      match.fileName,
+      getPathBasename(match.relativePath),
+      getPathBasename(override.sourceRelativePath),
+      getPathBasename(override.sourcePdfPath)
+    ].map(normalizeSearchText).filter(Boolean);
+
+    return overrideNames.some((name) => productNames.includes(name));
+  }) || null;
+}
+
+function findInventoryForProduct(product) {
+  const productNames = getProductPdfNameKeys(product);
+  if (!productNames.length || !state.pdfInventory.length) return null;
+
+  return state.pdfInventory.find((item) => {
+    const itemNames = [
+      item.fileName,
+      getPathBasename(item.relativePath),
+      getPathBasename(item.pdfPath)
+    ].map(normalizeSearchText).filter(Boolean);
+
+    return itemNames.some((name) => productNames.includes(name));
+  }) || null;
+}
+
+function findPdfOverrideForProduct(product) {
+  return product.pdfSummaryOverride || findOverrideForProduct(product, state.pdfOverrides);
+}
+
+function getProductPdfNameKeys(product) {
+  return [
+    product.fileName,
+    getPathBasename(product.pdfPath),
+    getPathBasename(product.relativePath),
+    getPathBasename(product.sourceRelativePath)
+  ].map(normalizeSearchText).filter(Boolean);
+}
+
+function getPathBasename(path) {
+  const value = String(path || "").replace(/\\/g, "/").trim();
+  if (!value) return "";
+  const cleanValue = value.split("?")[0].split("#")[0].replace(/\/$/, "");
+  try {
+    return decodeURIComponent(cleanValue.split("/").pop() || "");
+  } catch (error) {
+    return cleanValue.split("/").pop() || "";
+  }
 }
 
 function normalizeSearchText(value) {
@@ -1145,10 +1252,16 @@ function renderOverrideDetail(override) {
 
 function buildPdfInfo(product) {
   const fileName = String(product.fileName || "").trim();
-  const relativePath = String(product.relativePath || "").trim();
-  const displayPath = product.pdfPath
-    || (relativePath ? `/pdf/${relativePath.replace(/^\/?pdf\//, "")}` : "")
-    || (fileName ? `/pdf/${fileName}` : "");
+  const override = findPdfOverrideForProduct(product) || {};
+  const overrideMatch = override.match || {};
+  const inventoryItem = findInventoryForProduct(product) || {};
+  const displayPath = normalizePdfDisplayPath(override.sourcePdfPath)
+    || normalizePdfDisplayPath(override.sourceRelativePath || overrideMatch.relativePath)
+    || normalizePdfDisplayPath(inventoryItem.pdfPath)
+    || normalizePdfDisplayPath(inventoryItem.relativePath)
+    || normalizePdfDisplayPath(product.relativePath || product.sourceRelativePath)
+    || normalizePdfDisplayPath(product.pdfPath)
+    || (fileName ? normalizePdfDisplayPath(fileName) : "");
 
   if (!fileName && !displayPath) {
     return {
@@ -1165,6 +1278,16 @@ function buildPdfInfo(product) {
     encodedPath: encodePdfPath(displayPath),
     title: product.productName || fileName || displayPath
   };
+}
+
+function normalizePdfDisplayPath(path) {
+  const value = String(path || "").trim().replace(/\\/g, "/");
+  if (!value) return "";
+  if (/^https?:\/\//i.test(value)) return value;
+  if (value.startsWith("/pdf/")) return value;
+  if (value.startsWith("pdf/")) return `/${value}`;
+  if (value.startsWith("/")) return value;
+  return `/pdf/${value.replace(/^\/?pdf\//, "")}`;
 }
 
 function encodePdfPath(path) {
