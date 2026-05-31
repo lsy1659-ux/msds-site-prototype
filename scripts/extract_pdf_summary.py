@@ -369,7 +369,18 @@ def merge_override_item(existing_item: dict[str, Any] | None, override: dict[str
         if key.startswith("manual") or key.startswith("reviewed"):
             merged[key] = value
 
-    merged["reviewStatus"] = "검토필요"
+    # Preserve review workflow state. Re-extraction refreshes generated
+    # candidates, but it must not reset reviewed/excluded/edit-needed records.
+    merged["reviewStatus"] = existing_item.get("reviewStatus") or override.get("reviewStatus", "검토필요")
+
+    existing_notes = str(existing_item.get("notes") or "").strip()
+    generated_notes = {
+        "PDF 자동 추출 후보이며 검토 필요",
+        "PDF 텍스트 추출 실패 또는 이미지 PDF로 추정되며 수동 확인 필요",
+    }
+    if existing_notes and existing_notes not in generated_notes:
+        merged["notes"] = existing_notes
+
     return merged
 
 
@@ -611,7 +622,7 @@ def main() -> None:
     args.output.write_text(json.dumps(merged, ensure_ascii=False, indent=2), encoding="utf-8")
 
     if args.pdf_dir:
-        report = build_batch_report(overrides)
+        report = build_batch_report(merged)
         write_report_files(report, args.report_json, args.report_csv)
         print_batch_summary(report, args.output, args.report_json, args.report_csv)
         return
