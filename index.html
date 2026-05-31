@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MSDS 현장 조회</title>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <p class="eyebrow">QR 현장 안전정보</p>
+        <h1>MSDS 현장 조회</h1>
+        <p class="header-note">검색 후 선택한 제품의 현장 부착용 요약판과 상세 안전정보를 함께 확인합니다.</p>
+      </div>
+    </header>
+
+    <main class="app-shell">
+      <section class="search-panel" aria-label="MSDS 검색">
+        <div class="search-title-row">
+          <div>
+            <label class="search-label" for="searchInput">현장 물질 검색</label>
+            <p class="search-help">예: 이형, 2차, S6, 신너, 도료, CAS No.</p>
+          </div>
+          <span class="safety-badge">조회 전용</span>
+        </div>
+
+        <div class="search-box">
+          <input
+            id="searchInput"
+            class="search-input"
+            type="search"
+            placeholder="물질명, 제품명, 용도, CAS No. 입력"
+            autocomplete="off"
+            autofocus
+          >
+          <button class="clear-button" id="clearSearch" type="button">검색 초기화</button>
+        </div>
+
+        <div id="emptySearchGuide" class="empty-search-guide">
+          <p>검색어가 없을 때는 아래 샘플 분류로 바로 선택할 수 있습니다.</p>
+          <div class="quick-search" aria-label="샘플 분류 검색">
+            <button type="button" data-query="이형제">이형제</button>
+            <button type="button" data-query="신너">신너</button>
+            <button type="button" data-query="도료">도료</button>
+            <button type="button" data-query="세척제">세척제</button>
+          </div>
+        </div>
+
+        <div class="selection-panel" aria-labelledby="selectionTitle">
+          <div class="selection-heading">
+            <div>
+              <h2 id="selectionTitle">제품 선택</h2>
+              <p id="resultSubtitle">검색어를 입력하거나 샘플 분류를 선택하세요.</p>
+            </div>
+            <span id="resultCount" class="result-count">0건</span>
+          </div>
+          <div id="selectionList" class="selection-list"></div>
+        </div>
+      </section>
+
+      <section class="board-layout" aria-label="MSDS 안전정보">
+        <section class="poster-section" aria-labelledby="posterTitle">
+          <h2 id="posterTitle" class="visually-hidden">현장 부착용 요약 안전정보</h2>
+          <div id="posterPanel" class="poster-board"></div>
+        </section>
+
+        <aside class="detail-section" aria-labelledby="detailTitle">
+          <div class="section-heading">
+            <div>
+              <h2 id="detailTitle">간략 상세정보</h2>
+              <p class="section-subtitle">선택한 제품의 실무 확인용 정보입니다.</p>
+            </div>
+          </div>
+          <div id="detailPanel" class="detail-panel empty-detail">
+            <p>제품을 선택하면 상세 안전정보가 표시됩니다.</p>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <script src="js/app.js" defer></script>
+  </body>
+</html>

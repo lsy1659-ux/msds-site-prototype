@@ -1,0 +1,295 @@
+{
+  "products": [
+    {
+      "id": "sample-msds-001",
+      "siteLabel": "현장 부착용 MSDS 요약",
+      "hazardBadge": "위험",
+      "productName": "2차이형제 (S6)",
+      "erpName": "샘플 ERP 품명 - 2차 이형제 S6",
+      "msdsNo": "SAMPLE-MSDS-0001",
+      "fileName": "2차이형제(S6) 2024.pdf",
+      "pdfPath": "/pdf/2차이형제(S6) 2024.pdf",
+      "useCategory": "사출 소모품/이형제",
+      "recommendedUse": "사출 공정에서 금형과 제품의 분리를 돕는 샘플 용도",
+      "supplier": "샘플 제조사",
+      "emergencyContact": "샘플 안전보건 담당 연락처",
+      "hazardSummary": "인화성 에어로졸 등 샘플",
+      "dangerousGoods": "제4류 위험물 등 샘플",
+      "ppeSummary": "보안경, 보호장갑, 호흡보호구",
+      "revisionDate": "2024-04-01",
+      "ghsPictograms": [
+        { "code": "flame", "label": "인화성" },
+        { "code": "exclamation", "label": "유해/자극성" }
+      ],
+      "hazardStatements": [
+        "고인화성 에어로졸 및 증기 샘플",
+        "눈에 자극을 일으킬 수 있음",
+        "흡입 시 졸음 또는 현기증을 일으킬 수 있음"
+      ],
+      "precautionaryStatements": {
+        "prevention": [
+          "열, 스파크, 화염으로부터 멀리하시오.",
+          "보호장갑, 보안경, 호흡보호구를 착용하시오.",
+          "작업장은 충분히 환기하시오."
+        ],
+        "response": [
+          "피부에 묻으면 비누와 물로 씻으시오.",
+          "흡입한 경우 신선한 공기가 있는 곳으로 이동하시오."
+        ],
+        "storage": [
+          "환기가 잘 되는 곳에 보관하시오.",
+          "직사광선과 고온을 피하시오."
+        ],
+        "disposal": [
+          "관련 법규에 따라 폐기하시오."
+        ]
+      },
+      "components": [
+        {
+          "chemicalName": "샘플 탄화수소 혼합물",
+          "casNo": "64742-49-0",
+          "content": "30~40%",
+          "controlledSubstance": "해당 없음",
+          "workEnvironmentMeasurement": "검토 필요",
+          "specialHealthExam": "해당 없음"
+        },
+        {
+          "chemicalName": "샘플 실리콘 화합물",
+          "casNo": "63148-62-9",
+          "content": "5~10%",
+          "controlledSubstance": "해당 없음",
+          "workEnvironmentMeasurement": "해당 없음",
+          "specialHealthExam": "해당 없음"
+        }
+      ]
+    },
+    {
+      "id": "sample-msds-002",
+      "siteLabel": "도장부스 부착(NO.2)",
+      "hazardBadge": "위험",
+      "productName": "신너 샘플 A",
+      "erpName": "샘플 ERP 품명 - 일반 신너",
+      "msdsNo": "SAMPLE-MSDS-0002",
+      "fileName": "신너샘플A 2024.pdf",
+      "pdfPath": "/pdf/신너샘플A 2024.pdf",
+      "useCategory": "도장 보조재/신너",
+      "recommendedUse": "도료 점도 조정을 위한 샘플 용도",
+      "supplier": "샘플 공급업체",
+      "emergencyContact": "샘플 안전보건 담당 연락처",
+      "hazardSummary": "인화성 액체 및 흡입 유해성 샘플",
+      "dangerousGoods": "제4류 위험물 등 샘플",
+      "ppeSummary": "보안경, 보호장갑, 방독마스크",
+      "revisionDate": "2024-03-15",
+      "ghsPictograms": [
+        { "code": "flame", "label": "인화성" },
+        { "code": "health", "label": "건강유해성" }
+      ],
+      "hazardStatements": [
+        "고인화성 액체 및 증기 샘플",
+        "흡입 시 신체에 유해할 수 있음",
+        "장기간 또는 반복 노출 시 신체에 손상을 일으킬 수 있음"
+      ],
+      "precautionaryStatements": {
+        "prevention": [
+          "열, 고온의 표면, 스파크, 화염으로부터 멀리하시오.",
+          "방폭형 전기기구와 환기설비를 사용하시오.",
+          "증기 흡입을 피하고 보호구를 착용하시오."
+        ],
+        "response": [
+          "흡입한 경우 신선한 공기가 있는 곳으로 이동하시오.",
+          "이상 증상이 있으면 의학적 조치를 받으시오."
+        ],
+        "storage": [
+          "용기를 밀폐하고 환기가 잘 되는 곳에 보관하시오."
+        ],
+        "disposal": [
+          "내용물과 용기는 관련 법규에 따라 폐기하시오."
+        ]
+      },
+      "components": [
+        {
+          "chemicalName": "샘플 톨루엔",
+          "casNo": "108-88-3",
+          "content": "10~20%",
+          "controlledSubstance": "샘플 해당",
+          "workEnvironmentMeasurement": "샘플 대상",
+          "specialHealthExam": "샘플 대상"
+        },
+        {
+          "chemicalName": "샘플 자일렌",
+          "casNo": "1330-20-7",
+          "content": "5~15%",
+          "controlledSubstance": "샘플 해당",
+          "workEnvironmentMeasurement": "샘플 대상",
+          "specialHealthExam": "검토 필요"
+        }
+      ]
+    },
+    {
+      "id": "sample-msds-003",
+      "siteLabel": "세척구역 부착(NO.3)",
+      "hazardBadge": "경고",
+      "productName": "세척제 샘플 C",
+      "erpName": "샘플 ERP 품명 - 금형 세척제",
+      "msdsNo": "SAMPLE-MSDS-0003",
+      "fileName": "세척제샘플C 2024.pdf",
+      "pdfPath": "/pdf/세척제샘플C 2024.pdf",
+      "useCategory": "세척제/표면 세정",
+      "recommendedUse": "장비 표면 오염 제거를 위한 샘플 용도",
+      "supplier": "샘플 케미칼",
+      "emergencyContact": "샘플 안전보건 담당 연락처",
+      "hazardSummary": "피부 부식성 및 눈 손상성 샘플",
+      "dangerousGoods": "부식성 물질 샘플",
+      "ppeSummary": "보안면, 내화학 장갑, 앞치마",
+      "revisionDate": "2024-02-28",
+      "ghsPictograms": [
+        { "code": "corrosion", "label": "부식성" },
+        { "code": "exclamation", "label": "유해/자극성" }
+      ],
+      "hazardStatements": [
+        "피부와 눈에 심한 손상을 일으킬 수 있음",
+        "금속을 부식시킬 수 있음",
+        "삼키거나 흡입하면 유해할 수 있음"
+      ],
+      "precautionaryStatements": {
+        "prevention": [
+          "보안면, 내화학 장갑, 보호복을 착용하시오.",
+          "분무 또는 증기를 흡입하지 마시오."
+        ],
+        "response": [
+          "피부에 묻으면 오염된 의복을 벗고 물로 씻으시오.",
+          "눈에 들어가면 몇 분간 물로 조심해서 씻으시오."
+        ],
+        "storage": [
+          "내부식성 용기에 보관하시오."
+        ],
+        "disposal": [
+          "폐액은 지정된 용기에 모아 처리하시오."
+        ]
+      },
+      "components": [
+        {
+          "chemicalName": "샘플 수산화나트륨",
+          "casNo": "1310-73-2",
+          "content": "1~5%",
+          "controlledSubstance": "샘플 해당",
+          "workEnvironmentMeasurement": "검토 필요",
+          "specialHealthExam": "해당 없음"
+        }
+      ]
+    },
+    {
+      "id": "sample-msds-004",
+      "siteLabel": "도료보관구역 부착(NO.4)",
+      "hazardBadge": "위험",
+      "productName": "도료 샘플 B",
+      "erpName": "샘플 ERP 품명 - 유성 도료",
+      "msdsNo": "SAMPLE-MSDS-0004",
+      "fileName": "도료샘플B 2024.pdf",
+      "pdfPath": "/pdf/도료샘플B 2024.pdf",
+      "useCategory": "도료/표면처리",
+      "recommendedUse": "금속 표면 보호용 샘플 도료",
+      "supplier": "샘플 제조사",
+      "emergencyContact": "샘플 안전보건 담당 연락처",
+      "hazardSummary": "인화성 및 수생환경 유해성 샘플",
+      "dangerousGoods": "제4류 위험물 등 샘플",
+      "ppeSummary": "보안경, 보호장갑, 환기설비",
+      "revisionDate": "2024-02-20",
+      "ghsPictograms": [
+        { "code": "flame", "label": "인화성" },
+        { "code": "environment", "label": "환경유해성" }
+      ],
+      "hazardStatements": [
+        "인화성 액체 및 증기 샘플",
+        "수생생물에 유해할 수 있음",
+        "눈과 피부에 자극을 일으킬 수 있음"
+      ],
+      "precautionaryStatements": {
+        "prevention": [
+          "화기와 점화원을 피하시오.",
+          "옥외 또는 환기가 잘 되는 곳에서만 사용하시오."
+        ],
+        "response": [
+          "누출 시 배수구로 유입되지 않게 하시오.",
+          "오염된 보호구는 재사용 전 세척하시오."
+        ],
+        "storage": [
+          "용기를 단단히 밀폐하고 서늘한 곳에 보관하시오."
+        ],
+        "disposal": [
+          "잔량과 용기는 관련 법규에 따라 폐기하시오."
+        ]
+      },
+      "components": [
+        {
+          "chemicalName": "샘플 아크릴 수지",
+          "casNo": "9003-01-4",
+          "content": "20~30%",
+          "controlledSubstance": "해당 없음",
+          "workEnvironmentMeasurement": "해당 없음",
+          "specialHealthExam": "해당 없음"
+        },
+        {
+          "chemicalName": "샘플 용제 혼합물",
+          "casNo": "64742-95-6",
+          "content": "10~20%",
+          "controlledSubstance": "검토 필요",
+          "workEnvironmentMeasurement": "샘플 대상",
+          "specialHealthExam": "검토 필요"
+        }
+      ]
+    },
+    {
+      "id": "sample-msds-005",
+      "siteLabel": "에어로졸 보관구역 부착(NO.5)",
+      "hazardBadge": "경고",
+      "productName": "고압가스 샘플 D",
+      "erpName": "샘플 ERP 품명 - 에어로졸 보조제",
+      "msdsNo": "SAMPLE-MSDS-0005",
+      "fileName": "고압가스샘플D 2024.pdf",
+      "pdfPath": "/pdf/고압가스샘플D 2024.pdf",
+      "useCategory": "소모품/에어로졸",
+      "recommendedUse": "장비 보조 분사용 샘플 용도",
+      "supplier": "샘플 가스",
+      "emergencyContact": "샘플 안전보건 담당 연락처",
+      "hazardSummary": "고압가스 및 인화성 에어로졸 샘플",
+      "dangerousGoods": "고압가스 샘플",
+      "ppeSummary": "보안경, 보호장갑, 환기",
+      "revisionDate": "2024-01-12",
+      "ghsPictograms": [
+        { "code": "gas", "label": "고압가스" },
+        { "code": "flame", "label": "인화성" }
+      ],
+      "hazardStatements": [
+        "가열하면 폭발할 수 있음",
+        "고압가스를 포함하고 있음",
+        "인화성 에어로졸 샘플"
+      ],
+      "precautionaryStatements": {
+        "prevention": [
+          "고온과 직사광선을 피하시오.",
+          "사용 후에도 용기에 구멍을 뚫거나 태우지 마시오."
+        ],
+        "response": [
+          "누출 시 점화원을 제거하고 환기하시오."
+        ],
+        "storage": [
+          "50도 이상 온도에 노출하지 마시오."
+        ],
+        "disposal": [
+          "빈 용기도 관련 기준에 따라 폐기하시오."
+        ]
+      },
+      "components": [
+        {
+          "chemicalName": "샘플 프로판",
+          "casNo": "74-98-6",
+          "content": "20~30%",
+          "controlledSubstance": "해당 없음",
+          "workEnvironmentMeasurement": "검토 필요",
+          "specialHealthExam": "해당 없음"
+        }
+      ]
+    }
+  ]
+}
