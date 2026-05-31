@@ -281,3 +281,66 @@ PDF와 엑셀 제품의 연결 후보는 단순히 CAS No.가 하나 겹치는�
 한 제품에 여러 PDF 후보가 있을 때도 `strong` 또는 `probable` 후보가 2개 이상일 때만 `multiple_pdf_candidates`로 집계합니다. 이미 파일명 정확 일치가 있는 제품은 약한 내용 기반 후보를 여러 후보 집계에서 제외합니다.
 
 중복 의심 PDF는 자동 삭제, 이동, 이름변경하지 않고 확인 필요 리포트로만 관리합니다.
+
+## PDF 라이브러리 동기화
+
+회사 원본 MSDS 폴더를 사이트용 `pdf/` 폴더에 다시 반영할 때는 바로 덮어쓰기하지 않고, 먼저 dry-run으로 변경점을 확인합니다.
+
+```bash
+python scripts/sync_pdf_library.py --source "D:\MSDS 원본" --target pdf --dry-run
+```
+
+문제가 없을 때만 아래처럼 실제 적용합니다.
+
+```bash
+python scripts/sync_pdf_library.py --source "D:\MSDS 원본" --target pdf --apply
+```
+
+기본 원칙은 다음과 같습니다.
+
+- `--dry-run` 또는 옵션 없음: 파일을 바꾸지 않고 변경점 리포트만 생성
+- `--apply`: 신규 PDF와 같은 경로에서 내용이 바뀐 PDF만 복사
+- 같은 경로의 기존 PDF를 덮어쓸 때는 `data/backups/pdf-sync/` 아래에 먼저 백업
+- 원본에서 사라진 PDF는 `deleted_from_source`로 리포트만 남기고 자동 삭제하지 않음
+- 파일 이동/이름변경 의심, 완전 중복, 같은 파일명 중복은 확인 필요 대상으로만 표시
+
+동기화 리포트는 로컬 전용 파일로 생성됩니다.
+
+```text
+reports/pdf-sync-preview.local.json
+reports/pdf-sync-preview.local.csv
+reports/pdf-sync-apply.local.json
+reports/pdf-sync-apply.local.csv
+```
+
+동기화 후에는 아래 순서로 상태를 다시 확인합니다.
+
+```bash
+python scripts/build_pdf_inventory.py
+python scripts/check_pdf_links.py --data data/msds.local.json --pdf-dir pdf
+python scripts/audit_msds_workflow.py
+```
+
+필요하면 `sync_pdf_library.py`에 `--run-audit` 옵션을 붙여 후속 점검 스크립트를 함께 실행할 수 있습니다.
+
+PDF 원본 폴더를 통째로 갱신할 때 권장 흐름은 아래와 같습니다.
+
+1. 원본 MSDS 폴더를 정리합니다.
+2. `sync_pdf_library.py --dry-run`을 실행합니다.
+3. 신규, 변경, 중복, 삭제 의심 항목을 확인합니다.
+4. 문제가 없으면 `sync_pdf_library.py --apply`를 실행합니다.
+5. `build_pdf_inventory.py`를 실행합니다.
+6. `check_pdf_links.py`를 실행합니다.
+7. `audit_msds_workflow.py`를 실행합니다.
+8. `review.html`에서 확인 필요한 항목을 검토합니다.
+
+엑셀이 갱신된 경우에는 아래 순서로 다시 점검합니다.
+
+1. 최신 엑셀을 `data/raw/`에 저장합니다.
+2. `convert_excel_to_json.py`를 실행합니다.
+3. `data/msds.local.json`이 갱신됩니다.
+4. `build_pdf_inventory.py`를 실행합니다.
+5. `check_pdf_links.py`를 실행합니다.
+6. `audit_msds_workflow.py`를 실행합니다.
+
+엑셀 원본과 `data/msds.local.json`은 실제 제품정보가 들어가므로 GitHub에 올리지 않습니다. 엑셀이 바뀌면 기존 PDF 매칭 상태도 반드시 audit로 다시 확인합니다.
