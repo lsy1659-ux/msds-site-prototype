@@ -696,10 +696,14 @@ function renderSelectionList(results, hasQuery, canShowCandidates) {
       `).join("")}
     </div>
     <div class="result-navigation" aria-label="제품 검색 결과 이동">
-      ${hasPrevious ? `<button class="result-nav-button" type="button" id="showPreviousResults">위로</button>` : ""}
-      ${hasNext ? `<button class="result-nav-button" type="button" id="showNextResults">아래로</button>` : ""}
-      ${hasMore ? `<button class="result-nav-button" type="button" id="showMoreResults">더보기</button>` : ""}
-      ${results.length > APP_CONFIG.initialResultLimit && !state.showAllResults ? `<button class="result-nav-button" type="button" id="showAllResults">모두보기</button>` : ""}
+      ${state.showAllResults
+        ? `<button class="result-nav-button result-collapse-button" type="button" id="collapseResults">접기</button>`
+        : `
+          ${hasPrevious ? `<button class="result-nav-button" type="button" id="showPreviousResults">위로</button>` : ""}
+          ${hasNext ? `<button class="result-nav-button" type="button" id="showNextResults">아래로</button>` : ""}
+          ${hasMore ? `<button class="result-nav-button" type="button" id="showMoreResults">더보기</button>` : ""}
+          ${results.length > APP_CONFIG.initialResultLimit ? `<button class="result-nav-button" type="button" id="showAllResults">모두보기</button>` : ""}
+        `}
     </div>
   `;
 
@@ -730,6 +734,11 @@ function renderSelectionList(results, hasQuery, canShowCandidates) {
   elements.selectionList.querySelector("#showAllResults")?.addEventListener("click", () => {
     state.showAllResults = true;
     state.resultOffset = 0;
+    render();
+  });
+
+  elements.selectionList.querySelector("#collapseResults")?.addEventListener("click", () => {
+    resetResultWindow();
     render();
   });
 }
@@ -962,7 +971,20 @@ function getDetailData(product) {
 }
 
 function buildWorkerCautionPoints(product, detailData) {
-  const points = [];
+  const groups = {
+    work: [],
+    ppe: [],
+    ventilation: [],
+    fireStorage: [],
+    legal: []
+  };
+  const componentText = (product.components || []).map((component) => [
+    component.chemicalName,
+    component.casNo,
+    component.controlledSubstance ? `관리대상 ${component.controlledSubstance}` : "",
+    component.workEnvironmentMeasurement ? `작업환경측정 ${component.workEnvironmentMeasurement}` : "",
+    component.specialHealthExam ? `특수건강진단 ${component.specialHealthExam}` : ""
+  ].join(" ")).join(" ");
   const text = normalizeSearchText([
     product.productName,
     product.erpName,
@@ -978,37 +1000,50 @@ function buildWorkerCautionPoints(product, detailData) {
     flattenPrecautions(detailData.precautionaryStatements),
     (detailData.ppeCandidates || []).join(" "),
     (detailData.ghsPictograms || []).map((item) => `${item.code || ""} ${item.label || ""}`).join(" "),
-    (product.components || []).map((component) => [
-      component.chemicalName,
-      component.casNo,
-      component.controlledSubstance,
-      component.workEnvironmentMeasurement,
-      component.specialHealthExam
-    ].join(" ")).join(" ")
+    componentText
   ].join(" "));
 
-  addCautionIf(points, text, ["인화", "가연", "화재", "스파크", "화염", "flam", "fire"], "화기, 스파크, 고온 표면 근처에서 사용하지 말고 점화원을 관리하세요.");
-  addCautionIf(points, text, ["증기", "미스트", "분진", "흡입", "호흡", "환기", "vapor", "mist", "dust", "inhal"], "작업장은 충분히 환기하고 필요 시 호흡보호구를 착용하세요.");
-  addCautionIf(points, text, ["눈", "피부", "자극", "부식", "corros", "irrit"], "눈과 피부 접촉을 피하고 보안경과 보호장갑을 착용하세요.");
-  addCautionIf(points, text, ["톨루엔", "자일렌", "mibk", "butylacetate", "nbutylacetate", "ethylbenzene", "에틸벤젠", "부틸아세테이트"], "유기용제 증기 노출을 줄이고 장시간 흡입을 피하세요.");
-  addCautionIf(points, text, ["보안경", "보호장갑", "호흡보호구", "보호구", "ppe", "goggle", "glove", "respir"], "작업 전 지정된 보호구 착용 상태를 확인하세요.");
-  addCautionIf(points, text, ["제4류", "위험물", "인화성액체", "flammableliquid"], "위험물 보관 기준에 맞게 관리하고 주변 점화원을 제거하세요.");
-  addCautionIf(points, text, ["관리대상", "작업환경측정", "특수건강진단"], "관리대상 물질, 작업환경측정, 특수건강진단 해당 여부를 확인하세요.");
-  addCautionIf(points, text, ["고압가스", "gas", "cylinder"], "고압가스 용기는 충격과 고온 노출을 피하고 고정 상태를 확인하세요.");
+  addCautionIf(groups.work, text, ["인화", "가연", "화재", "스파크", "화염", "flam", "fire"], "화기, 스파크, 고온 표면 근처에서 사용하지 말고 점화원을 관리하세요.");
+  addCautionIf(groups.work, text, ["분사", "도포", "혼합", "미스트", "mist"], "분사, 도포, 혼합 작업 시 증기나 미스트 발생 여부를 확인하세요.");
+  addCautionIf(groups.work, text, ["고압가스", "gas", "cylinder"], "고압가스 용기는 충격과 고온 노출을 피하고 고정 상태를 확인하세요.");
 
-  if (!points.length) {
-    return ["정식 MSDS PDF를 확인하세요."];
+  addCautionIf(groups.ppe, text, ["보안경", "보호장갑", "호흡보호구", "보호구", "ppe", "goggle", "glove", "respir"], "작업 전 지정된 보호구 착용 상태를 확인하세요.");
+  addCautionIf(groups.ppe, text, ["눈", "피부", "자극", "부식", "corros", "irrit"], "눈과 피부 접촉을 피하고 보안경과 보호장갑을 착용하세요.");
+  addCautionIf(groups.ppe, text, ["호흡", "흡입", "유기용제", "용제", "vapor", "respir"], "필요 시 유기용제용 호흡보호구 착용을 검토하세요.");
+
+  addCautionIf(groups.ventilation, text, ["증기", "미스트", "분진", "흡입", "호흡", "환기", "국소배기", "vapor", "mist", "dust", "inhal"], "작업장은 충분히 환기하고 필요 시 국소배기 상태를 확인하세요.");
+  addCautionIf(groups.ventilation, text, ["톨루엔", "자일렌", "mibk", "butylacetate", "nbutylacetate", "ethylbenzene", "에틸벤젠", "부틸아세테이트", "유기용제", "용제"], "유기용제 증기 노출을 줄이고 장시간 흡입을 피하세요.");
+  addCautionIf(groups.ventilation, text, ["반복노출", "장기간", "신체손상", "노출"], "반복 노출 가능성이 있는 작업은 작업시간과 환기 상태를 함께 확인하세요.");
+
+  addCautionIf(groups.fireStorage, text, ["제4류", "위험물", "인화성액체", "flammableliquid"], "위험물 보관 기준에 맞게 관리하고 주변 점화원을 제거하세요.");
+  addCautionIf(groups.fireStorage, text, ["인화", "고온", "직사광선", "화기", "보관", "storage"], "인화성 물질은 고온, 직사광선, 화기 근처에 보관하지 마세요.");
+  addCautionIf(groups.fireStorage, text, ["밀폐", "용기", "폐기", "disposal"], "사용 후 용기는 밀폐하고 지정 보관장소에 보관하세요.");
+
+  addCautionIf(groups.legal, text, ["관리대상", "작업환경측정", "특수건강진단"], "관리대상 유해물질 여부를 확인하세요.");
+  addCautionIf(groups.legal, text, ["작업환경측정", "특수건강진단"], "작업환경측정 및 특수건강진단 대상 여부를 확인하세요.");
+  addCautionIf(groups.legal, text, ["cas", "casno", "관리대상", "성분"], "성분정보와 CAS No. 기준으로 관리대상 여부를 확인하세요.");
+
+  const totalCount = Object.values(groups).reduce((sum, items) => sum + items.length, 0);
+  if (!totalCount) {
+    return {
+      emptyMessage: "현재 데이터만으로 자동 주의 포인트를 충분히 생성하기 어렵습니다. 정식 MSDS PDF를 확인하세요.",
+      sections: []
+    };
   }
 
-  [
-    "작업 전 제품명과 용도를 확인하고 현장에 비치된 정식 MSDS와 대조하세요.",
-    "누출이나 이상 냄새가 있으면 작업을 멈추고 관리 담당자에게 알리세요.",
-    "사용 후에는 용기를 밀폐하고 지정된 장소에 보관하세요."
-  ].forEach((message) => {
-    if (points.length < 3 && !points.includes(message)) points.push(message);
-  });
-
-  return points.slice(0, 7);
+  return {
+    emptyMessage: "",
+    sections: [
+      { key: "work", title: "현장 작업 중 주의사항", items: groups.work },
+      { key: "ppe", title: "보호구 착용사항", items: groups.ppe },
+      { key: "ventilation", title: "환기 및 노출관리", items: groups.ventilation },
+      { key: "fireStorage", title: "화재·보관 관리", items: groups.fireStorage },
+      { key: "legal", title: "법적관리 확인사항", items: groups.legal }
+    ].map((section) => ({
+      ...section,
+      items: section.items.slice(0, 5)
+    })).filter((section) => section.items.length)
+  };
 }
 
 function addCautionIf(points, normalizedText, keywords, message) {
@@ -1018,13 +1053,23 @@ function addCautionIf(points, normalizedText, keywords, message) {
   }
 }
 
-function renderWorkerCautionPoints(points) {
+function renderWorkerCautionPoints(cautionData) {
+  const sections = cautionData.sections || [];
   return `
     <div class="worker-caution-box">
       <p class="worker-caution-subtitle">MSDS 및 성분정보를 바탕으로 정리한 참고용 안내입니다.</p>
-      <ul class="worker-caution-list">
-        ${points.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}
-      </ul>
+      ${sections.length ? `
+        <div class="worker-caution-categories">
+          ${sections.map((section) => `
+            <section class="worker-caution-category">
+              <h4>${escapeHtml(section.title)}</h4>
+              <ul class="worker-caution-list">
+                ${section.items.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}
+              </ul>
+            </section>
+          `).join("")}
+        </div>
+      ` : `<p class="summary-note">${escapeHtml(cautionData.emptyMessage)}</p>`}
     </div>
   `;
 }

@@ -377,6 +377,12 @@ h1 {
   background: #eef8f5;
 }
 
+/* Result collapse button */
+.result-collapse-button {
+  border-color: #9fb1ad;
+  color: #33423e;
+}
+
 .selection-name {
   font-weight: 950;
 }
@@ -832,7 +838,7 @@ h1 {
 /* Worker caution points */
 .worker-caution-box {
   display: grid;
-  gap: 10px;
+  gap: 12px;
   padding: 12px;
   border: 1px solid #dbe6e3;
   border-radius: var(--radius-ui);
@@ -844,6 +850,28 @@ h1 {
   color: var(--color-muted);
   font-size: 0.9rem;
   font-weight: 800;
+}
+
+/* Worker caution category */
+.worker-caution-categories {
+  display: grid;
+  gap: 10px;
+}
+
+.worker-caution-category {
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+  border: 1px solid #e0ebe8;
+  border-radius: var(--radius-ui);
+  background: #ffffff;
+}
+
+.worker-caution-category h4 {
+  margin-bottom: 0;
+  color: #24302d;
+  font-size: 0.92rem;
+  font-weight: 950;
 }
 
 .worker-caution-list {
