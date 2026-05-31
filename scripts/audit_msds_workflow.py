@@ -119,6 +119,10 @@ def override_relative_path(override: dict[str, Any]) -> str:
     return ""
 
 
+def override_identity_key(override: dict[str, Any]) -> str:
+    return override_relative_path(override) or override_file_name(override)
+
+
 def has_override_summary(override: dict[str, Any]) -> bool:
     precautions = override.get("precautionaryStatements") if isinstance(override.get("precautionaryStatements"), dict) else {}
     return bool(
@@ -282,31 +286,44 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
         for override in overrides
         if any(override_matches_queue_item(override, item) for item in non_msds_excluded_queue_items)
     ]
+    non_msds_excluded_failed_overrides = [
+        override
+        for override in non_msds_excluded_overrides
+        if str(override.get("extractStatus") or "") in EXTRACT_FAILURE_STATUSES
+    ]
+    non_msds_excluded_override_keys = {
+        key for override in non_msds_excluded_overrides
+        if (key := override_identity_key(override))
+    }
+
+    def is_non_msds_excluded_override(override: dict[str, Any]) -> bool:
+        key = override_identity_key(override)
+        return bool(key and key in non_msds_excluded_override_keys)
 
     extract_success = [
         override
         for override in overrides
-        if override not in non_msds_excluded_overrides
+        if not is_non_msds_excluded_override(override)
         and str(override.get("extractStatus") or "") not in EXTRACT_FAILURE_STATUSES
     ]
     extract_failed = [
         override
         for override in overrides
-        if override not in non_msds_excluded_overrides
+        if not is_non_msds_excluded_override(override)
         and str(override.get("extractStatus") or "") in EXTRACT_FAILURE_STATUSES
     ]
 
     field_displayable = [
         override
         for override in overrides
-        if override not in non_msds_excluded_overrides
+        if not is_non_msds_excluded_override(override)
         and override.get("reviewStatus") != "제외"
         and has_override_summary(override)
     ]
     manual_review_required = [
         override
         for override in overrides
-        if override not in non_msds_excluded_overrides
+        if not is_non_msds_excluded_override(override)
         and (override.get("reviewStatus") in {"검토필요", "수정필요"}
         or str(override.get("extractStatus") or "") in EXTRACT_FAILURE_STATUSES
         )
@@ -366,7 +383,8 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
         "excelMissingPdfWithoutOverrideCount": len(excel_missing_pdf_without_override),
         "pdfExtractSuccessCount": len(extract_success),
         "pdfExtractFailureCount": len(extract_failed),
-        "nonMsdsExcludedOverrideCount": len(non_msds_excluded_overrides),
+        "nonMsdsExcludedOverrideCount": len(non_msds_excluded_failed_overrides),
+        "nonMsdsQrExcludedCount": len(non_msds_excluded_queue_items),
         "reviewStatusCounts": {status: review_counts.get(status, 0) for status in REVIEW_STATUSES},
         "fieldDisplayableCount": len(field_displayable),
         "reviewCompletedCount": review_counts.get("검토완료", 0),
@@ -470,6 +488,8 @@ def print_console_summary(report: dict[str, Any]) -> None:
     print(f"- 엑셀 미등록 PDF 중 override 있는 수: {summary['excelMissingPdfWithOverrideCount']}")
     print(f"- PDF 추출 성공 수: {summary['pdfExtractSuccessCount']}")
     print(f"- PDF 추출 실패 수: {summary['pdfExtractFailureCount']}")
+    print(f"- 비MSDS/QR코드 제외 수: {summary['nonMsdsQrExcludedCount']}")
+    print(f"- QR코드/안내문 제외 수: {summary['qrGuideExcludedCount']}")
     print(f"- PDF 추출 제외로 분리된 비MSDS override 수: {summary['nonMsdsExcludedOverrideCount']}")
     print(
         "- reviewStatus: "
