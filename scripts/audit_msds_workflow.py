@@ -139,6 +139,35 @@ def queue_file_name(item: dict[str, Any]) -> str:
     return str(item.get("fileName") or Path(str(item.get("relativePath") or "")).name).strip()
 
 
+def queue_relative_path(item: dict[str, Any]) -> str:
+    return str(item.get("relativePath") or "").replace("\\", "/").strip()
+
+
+def is_non_msds_excluded_queue_item(item: dict[str, Any]) -> bool:
+    decision = str(item.get("reviewDecision") or "").strip()
+    reason = str(item.get("excludeReason") or "").strip()
+    if decision != "제외":
+        return False
+    return (
+        reason in NON_MSDS_EXCLUDE_REASONS
+        or "QR" in reason.upper()
+        or "안내" in reason
+        or "비MSDS" in reason
+    )
+
+
+def override_matches_queue_item(override: dict[str, Any], queue_item: dict[str, Any]) -> bool:
+    override_name = override_file_name(override)
+    override_relative = override_relative_path(override)
+    queue_name = queue_file_name(queue_item)
+    queue_relative = queue_relative_path(queue_item)
+    return bool(
+        (override_relative and queue_relative and override_relative == queue_relative)
+        or (override_name and queue_name and override_name == queue_name)
+        or (override_name and queue_relative and override_name == Path(queue_relative).name)
+    )
+
+
 def build_audit(args: argparse.Namespace) -> dict[str, Any]:
     products = read_json_list(args.data, "products")
     overrides = read_json_list(args.overrides, "overrides")
@@ -152,6 +181,10 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
         if args.pdf_dir.exists()
     }
     pdf_names_normalized = {normalize_text(path.name): path.name for path in pdf_paths}
+    non_msds_excluded_queue_items = [
+        item for item in registration_queue
+        if is_non_msds_excluded_queue_item(item)
+    ]
 
     product_file_names = [
         str(product.get("fileName") or "").strip()
@@ -244,27 +277,39 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
     review_counts = Counter({status: 0 for status in REVIEW_STATUSES})
     review_counts.update(str(override.get("reviewStatus") or "검토필요") for override in overrides)
 
+    non_msds_excluded_overrides = [
+        override
+        for override in overrides
+        if any(override_matches_queue_item(override, item) for item in non_msds_excluded_queue_items)
+    ]
+
     extract_success = [
         override
         for override in overrides
-        if str(override.get("extractStatus") or "") not in EXTRACT_FAILURE_STATUSES
+        if override not in non_msds_excluded_overrides
+        and str(override.get("extractStatus") or "") not in EXTRACT_FAILURE_STATUSES
     ]
     extract_failed = [
         override
         for override in overrides
-        if str(override.get("extractStatus") or "") in EXTRACT_FAILURE_STATUSES
+        if override not in non_msds_excluded_overrides
+        and str(override.get("extractStatus") or "") in EXTRACT_FAILURE_STATUSES
     ]
 
     field_displayable = [
         override
         for override in overrides
-        if override.get("reviewStatus") != "제외" and has_override_summary(override)
+        if override not in non_msds_excluded_overrides
+        and override.get("reviewStatus") != "제외"
+        and has_override_summary(override)
     ]
     manual_review_required = [
         override
         for override in overrides
-        if override.get("reviewStatus") in {"검토필요", "수정필요"}
+        if override not in non_msds_excluded_overrides
+        and (override.get("reviewStatus") in {"검토필요", "수정필요"}
         or str(override.get("extractStatus") or "") in EXTRACT_FAILURE_STATUSES
+        )
     ]
 
     ingredient_count = sum(len(product_ingredients(product)) for product in products)
@@ -321,6 +366,7 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
         "excelMissingPdfWithoutOverrideCount": len(excel_missing_pdf_without_override),
         "pdfExtractSuccessCount": len(extract_success),
         "pdfExtractFailureCount": len(extract_failed),
+        "nonMsdsExcludedOverrideCount": len(non_msds_excluded_overrides),
         "reviewStatusCounts": {status: review_counts.get(status, 0) for status in REVIEW_STATUSES},
         "fieldDisplayableCount": len(field_displayable),
         "reviewCompletedCount": review_counts.get("검토완료", 0),
@@ -424,6 +470,7 @@ def print_console_summary(report: dict[str, Any]) -> None:
     print(f"- 엑셀 미등록 PDF 중 override 있는 수: {summary['excelMissingPdfWithOverrideCount']}")
     print(f"- PDF 추출 성공 수: {summary['pdfExtractSuccessCount']}")
     print(f"- PDF 추출 실패 수: {summary['pdfExtractFailureCount']}")
+    print(f"- PDF 추출 제외로 분리된 비MSDS override 수: {summary['nonMsdsExcludedOverrideCount']}")
     print(
         "- reviewStatus: "
         f"검토필요 {review['검토필요']}, "

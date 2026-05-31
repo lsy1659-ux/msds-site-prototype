@@ -502,7 +502,9 @@ QR, QR코드, 코드, 안내, 표지, 카탈로그, catalog, brochure, 시험성
 
 `extract_pdf_summary.py`는 기본적으로 `reviewDecision`이 `제외`이고 `excludeReason`이 비MSDS, QR코드/안내문, 카탈로그 계열인 항목을 요약 추출 대상에서 제외합니다. 필요할 때만 `--no-skip-excluded` 옵션으로 포함할 수 있습니다.
 
-`audit_msds_workflow.py`에서는 엑셀 미등록 PDF 중 제외 수, 비MSDS 제외 수, QR코드/안내문 제외 수, 카탈로그/기타 제외 수, 비MSDS 의심표시 수, 순수 미검토 등록 대상 수를 확인할 수 있습니다.
+`audit_msds_workflow.py`에서는 엑셀 미등록 PDF 중 제외 수, 비MSDS 제외 수, QR코드/안내문 제외 수, 카탈로그/기타 제외 수, 비MSDS 의심표시 수, 순수 미검토 등록 대상 수를 확인할 수 있습니다. 이미 override에 실패 기록이 있더라도 큐에서 비MSDS/QR코드/안내문으로 제외된 PDF는 PDF 추출 실패가 아니라 비MSDS 제외 항목으로 별도 집계합니다.
+
+즉 QR코드 안내문이나 카탈로그는 PDF 파일을 삭제하지 않고, local queue의 상태만 `제외`와 `excludeReason`으로 기록합니다. 이후 기본 배치 추출과 `--retry-failed`에서도 제외되며, audit에서는 추출 실패 수와 분리되어 표시됩니다.
 
 ## 긴 텍스트와 반응형 화면
 
