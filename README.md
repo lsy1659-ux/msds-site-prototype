@@ -399,7 +399,32 @@ pdf-queue.html
 pdf-registration-queue.reviewed.local.json
 ```
 
-다운로드한 큐 파일은 나중에 별도 적용 스크립트로 `data/pdf-registration-queue.local.json`에 반영할 예정입니다. 이 검토 화면은 PDF 파일을 삭제, 이동, 이름변경하지 않고 상태와 메모만 분류합니다.
+다운로드한 큐 파일은 아래 보조 스크립트로 검증한 뒤 `data/pdf-registration-queue.local.json`에 반영합니다. 이 검토 화면과 적용 스크립트는 PDF 파일을 삭제, 이동, 이름변경하지 않고 상태와 메모만 분류합니다.
+
+```bash
+python scripts/apply_pdf_registration_queue.py --input "C:\Users\lsy16\Downloads\pdf-registration-queue.reviewed.local.json" --dry-run
+python scripts/apply_pdf_registration_queue.py --input "C:\Users\lsy16\Downloads\pdf-registration-queue.reviewed.local.json"
+```
+
+`--dry-run`은 입력 JSON이 열리는지, 배열 구조인지, `relativePath`, `fileName`, `reviewDecision`이 있는지, `reviewDecision` 값이 허용 상태인지 확인하고 상태별 수량만 보여줍니다. 실제 파일은 바꾸지 않습니다.
+
+`--dry-run` 없이 실행하면 기존 `data/pdf-registration-queue.local.json`을 먼저 아래 폴더에 백업한 뒤 검증된 큐를 적용합니다.
+
+```text
+data/backups/
+```
+
+`data/pdf-registration-queue.local.json`, `data/backups/`, `pdf-registration-queue.reviewed.local.json`은 실제 PDF 목록과 검토 메모가 들어갈 수 있으므로 GitHub에 올리지 않습니다.
+
+권장 적용 흐름은 아래와 같습니다.
+
+1. `pdf-queue.html`에 접속합니다.
+2. 엑셀 미등록 PDF 상태를 분류합니다.
+3. `수정 큐 JSON 다운로드`로 reviewed local 파일을 받습니다.
+4. `apply_pdf_registration_queue.py --dry-run`으로 검증합니다.
+5. 문제가 없으면 `apply_pdf_registration_queue.py`로 실제 적용합니다.
+6. `audit_msds_workflow.py`를 다시 실행합니다.
+7. 미검토, 엑셀등록필요, 중복의심, 제외, 보류 수량을 확인합니다.
 
 ## 긴 텍스트와 반응형 화면
 
