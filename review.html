@@ -47,7 +47,8 @@
         </div>
 
         <div id="reviewCounts" class="review-counts" aria-label="검토 상태별 건수"></div>
-        <p class="review-help">정적 웹사이트에서는 local JSON을 직접 덮어쓸 수 없습니다. 다운로드한 파일을 확인한 뒤 `data/msds-overrides.local.json`으로 교체하세요.</p>
+        <p id="reviewDirtyNotice" class="review-dirty-notice is-hidden">저장되지 않은 변경사항이 있습니다. 수정 JSON을 다운로드하세요.</p>
+        <p class="review-help">다운로드한 파일은 `apply_reviewed_overrides.py`로 검증 후 적용하세요. 정적 웹사이트에서는 local JSON을 직접 덮어쓸 수 없습니다.</p>
       </section>
 
       <section class="review-layout" aria-label="PDF 추출 후보 검토">

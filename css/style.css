@@ -1114,6 +1114,16 @@ body.modal-open {
   font-weight: 750;
 }
 
+.review-dirty-notice {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border: 1px solid #ead08f;
+  border-radius: var(--radius-ui);
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+  font-weight: 900;
+}
+
 .review-layout {
   display: grid;
   gap: 18px;
@@ -1225,6 +1235,31 @@ body.modal-open {
   font-weight: 900;
 }
 
+.quick-status-buttons,
+.review-navigation-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.quick-status-button {
+  min-height: 40px;
+  padding: 0 12px;
+  border: var(--border-ui);
+  border-radius: var(--radius-ui);
+  background: #ffffff;
+  color: var(--color-ink);
+  font-weight: 900;
+}
+
+.quick-status-button:hover,
+.quick-status-button.is-active {
+  border-color: var(--color-accent);
+  background: #eef8f5;
+  color: var(--color-accent-dark);
+}
+
 .review-actions {
   margin-top: 12px;
 }
@@ -1278,6 +1313,10 @@ body.modal-open {
 
 .review-component-table {
   min-width: 520px;
+}
+
+.review-pdf-frame {
+  min-height: 620px;
 }
 
 /* Utilities and responsive behavior */

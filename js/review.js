@@ -11,7 +11,13 @@ const reviewState = {
   query: "",
   statusFilter: "all",
   dataMode: "데이터 확인 중",
-  dirty: false
+  dirty: false,
+  pdfAvailability: {},
+  pdfModal: {
+    isOpen: false,
+    title: "",
+    path: ""
+  }
 };
 
 const reviewElements = {};
@@ -35,6 +41,7 @@ function bindReviewElements() {
   reviewElements.listSummary = document.querySelector("#reviewListSummary");
   reviewElements.detail = document.querySelector("#reviewDetail");
   reviewElements.dataMode = document.querySelector("#reviewDataMode");
+  reviewElements.dirtyNotice = document.querySelector("#reviewDirtyNotice");
 }
 
 function bindReviewEvents() {
@@ -51,6 +58,25 @@ function bindReviewEvents() {
   });
 
   reviewElements.download.addEventListener("click", downloadReviewedJson);
+
+  document.addEventListener("click", (event) => {
+    const enlargeButton = event.target.closest("[data-review-open-pdf-modal]");
+    if (enlargeButton) {
+      openReviewPdfModal(enlargeButton.dataset.pdfTitle, enlargeButton.dataset.pdfPath);
+      return;
+    }
+
+    const closeButton = event.target.closest("[data-review-close-pdf-modal]");
+    if (closeButton || event.target.classList.contains("pdf-modal-backdrop")) {
+      closeReviewPdfModal();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && reviewState.pdfModal.isOpen) {
+      closeReviewPdfModal();
+    }
+  });
 }
 
 async function loadReviewOverrides() {
@@ -119,9 +145,11 @@ function normalizeReviewOverride(override) {
 function renderReview() {
   reviewElements.dataMode.textContent = `${reviewState.dataMode}${reviewState.dirty ? " / 수정됨" : ""}`;
   reviewElements.dataMode.classList.toggle("is-local", reviewState.dataMode.includes("로컬"));
+  reviewElements.dirtyNotice.classList.toggle("is-hidden", !reviewState.dirty);
   renderCounts();
   renderReviewList();
   renderReviewDetail();
+  renderReviewPdfModal();
 }
 
 function renderCounts() {
@@ -187,6 +215,7 @@ function renderReviewDetail() {
   }
 
   const { override, index } = selected;
+  const pdfInfo = buildReviewPdfInfo(override);
   reviewElements.detail.className = "review-detail";
   reviewElements.detail.innerHTML = `
     <section class="review-detail-block">
@@ -197,6 +226,17 @@ function renderReviewDetail() {
             <option value="${escapeAttribute(status)}" ${status === override.reviewStatus ? "selected" : ""}>${escapeHtml(status)}</option>
           `).join("")}
         </select>
+      </div>
+      <div class="quick-status-buttons" aria-label="빠른 검토 상태 변경">
+        ${quickStatusButton("검토완료", override.reviewStatus)}
+        ${quickStatusButton("수정필요", override.reviewStatus)}
+        ${quickStatusButton("제외", override.reviewStatus)}
+        ${quickStatusButton("검토필요", override.reviewStatus, "검토필요로 되돌리기")}
+      </div>
+      <div class="review-navigation-buttons" aria-label="검토 항목 이동">
+        <button class="result-nav-button" type="button" data-review-nav="previous">이전 항목</button>
+        <button class="result-nav-button" type="button" data-review-nav="next">다음 항목</button>
+        <button class="result-nav-button" type="button" data-review-nav="next-needed">다음 검토필요 항목</button>
       </div>
     </section>
 
@@ -209,8 +249,8 @@ function renderReviewDetail() {
         ${reviewItem("개정일 후보", override.revisionDateCandidate)}
         ${reviewItem("신호어 후보", override.signalWordCandidate)}
         ${reviewItem("추출 상태", override.extractStatus)}
+        ${reviewItem("검토 상태", override.reviewStatus)}
       </div>
-      ${renderPdfOpenButton(override)}
     `)}
 
     ${reviewSection("GHS 후보", renderGhsCandidates(override.ghsPictograms))}
@@ -218,16 +258,72 @@ function renderReviewDetail() {
     ${reviewSection("예방조치문구 후보", renderPrecautionCandidates(override.precautionaryStatements))}
     ${reviewSection("PPE 후보", renderSimpleList(override.ppeCandidates))}
     ${reviewSection("성분/CAS 후보", renderIngredientCandidates(override.ingredients))}
+    ${reviewSection("원본 PDF 미리보기", renderReviewPdfPreview(pdfInfo))}
   `;
 
   reviewElements.detail.querySelector("#reviewStatusSelect")?.addEventListener("change", (event) => {
-    reviewState.overrides[index].reviewStatus = event.target.value;
-    reviewState.dirty = true;
-    if (!getFilteredOverrides().some((entry) => getOverrideKey(entry.override, entry.index) === reviewState.selectedKey)) {
-      selectFirstVisible();
-    }
-    renderReview();
+    setReviewStatus(index, event.target.value);
   });
+
+  reviewElements.detail.querySelectorAll("[data-review-status]").forEach((button) => {
+    button.addEventListener("click", () => setReviewStatus(index, button.dataset.reviewStatus));
+  });
+
+  reviewElements.detail.querySelectorAll("[data-review-nav]").forEach((button) => {
+    button.addEventListener("click", () => moveReviewSelection(button.dataset.reviewNav));
+  });
+}
+
+function quickStatusButton(status, currentStatus, label = status) {
+  return `
+    <button class="quick-status-button ${status === currentStatus ? "is-active" : ""}" type="button" data-review-status="${escapeAttribute(status)}">
+      ${escapeHtml(label)}
+    </button>
+  `;
+}
+
+function setReviewStatus(index, status) {
+  if (!REVIEW_CONFIG.statuses.includes(status)) return;
+  reviewState.overrides[index].reviewStatus = status;
+  reviewState.dirty = true;
+  if (!getFilteredOverrides().some((entry) => getOverrideKey(entry.override, entry.index) === reviewState.selectedKey)) {
+    selectFirstVisible();
+  }
+  renderReview();
+}
+
+function moveReviewSelection(action) {
+  const filtered = getFilteredOverrides();
+  if (!filtered.length) return;
+  const currentIndex = filtered.findIndex((entry) => getOverrideKey(entry.override, entry.index) === reviewState.selectedKey);
+
+  if (action === "previous") {
+    const nextIndex = currentIndex <= 0 ? filtered.length - 1 : currentIndex - 1;
+    reviewState.selectedKey = getOverrideKey(filtered[nextIndex].override, filtered[nextIndex].index);
+    renderReview();
+    return;
+  }
+
+  if (action === "next") {
+    const nextIndex = currentIndex < 0 || currentIndex >= filtered.length - 1 ? 0 : currentIndex + 1;
+    reviewState.selectedKey = getOverrideKey(filtered[nextIndex].override, filtered[nextIndex].index);
+    renderReview();
+    return;
+  }
+
+  if (action === "next-needed") {
+    const allEntries = reviewState.overrides.map((override, index) => ({ override, index }));
+    const selected = getSelectedEntry();
+    const start = selected ? selected.index + 1 : 0;
+    const ordered = [...allEntries.slice(start), ...allEntries.slice(0, start)];
+    const nextNeeded = ordered.find((entry) => entry.override.reviewStatus === "검토필요");
+    if (nextNeeded) {
+      reviewState.selectedKey = getOverrideKey(nextNeeded.override, nextNeeded.index);
+      reviewState.statusFilter = "all";
+      reviewElements.statusFilter.value = "all";
+      renderReview();
+    }
+  }
 }
 
 function getFilteredOverrides() {
@@ -380,6 +476,174 @@ function renderPdfOpenButton(override) {
       <a class="pdf-open-button" href="${escapeAttribute(encodePdfPath(pdfPath))}" target="_blank" rel="noopener">원본 PDF 열기</a>
     </div>
   `;
+}
+
+function buildReviewPdfInfo(override) {
+  const displayPath = override.sourcePdfPath || (getFileName(override) ? `/pdf/${getFileName(override)}` : "");
+  if (!displayPath) {
+    return {
+      status: "no-path",
+      displayPath: "",
+      encodedPath: "",
+      title: getDisplayTitle(override)
+    };
+  }
+  const encodedPath = encodePdfPath(displayPath);
+  return {
+    status: reviewState.pdfAvailability[encodedPath] || "unchecked",
+    displayPath,
+    encodedPath,
+    title: getDisplayTitle(override)
+  };
+}
+
+function renderReviewPdfPreview(pdfInfo) {
+  if (pdfInfo.status === "no-path") {
+    return `
+      <div class="pdf-preview is-missing">
+        <p class="pdf-message">PDF 경로 정보가 없어 미리보기가 어렵습니다.</p>
+        <div class="pdf-frame-placeholder">PDF 파일명 또는 sourcePdfPath 확인 필요</div>
+      </div>
+    `;
+  }
+
+  if (pdfInfo.status === "unchecked") {
+    scheduleReviewPdfAvailabilityCheck(pdfInfo.encodedPath);
+    pdfInfo.status = "checking";
+  }
+
+  if (pdfInfo.status === "available") {
+    return `
+      <div class="pdf-preview is-connected">
+        <p class="pdf-message">PDF 연결 완료</p>
+        <div class="info-item">
+          <span class="info-label">PDF 경로</span>
+          <span class="info-value">${escapeHtml(pdfInfo.displayPath)}</span>
+        </div>
+        <iframe class="pdf-frame review-pdf-frame" title="원본 PDF 미리보기" src="${escapeAttribute(pdfInfo.encodedPath)}"></iframe>
+        <div class="pdf-actions">
+          <button class="pdf-enlarge-button" type="button" data-review-open-pdf-modal data-pdf-title="${escapeAttribute(pdfInfo.title)}" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}">크게 보기</button>
+          <a class="pdf-open-button" href="${escapeAttribute(pdfInfo.encodedPath)}" target="_blank" rel="noopener">새 탭에서 열기</a>
+        </div>
+      </div>
+    `;
+  }
+
+  if (pdfInfo.status === "checking") {
+    return `
+      <div class="pdf-preview">
+        <p class="pdf-message">PDF 파일 연결 상태 확인 중입니다.</p>
+        <div class="info-item">
+          <span class="info-label">확인 경로</span>
+          <span class="info-value">${escapeHtml(pdfInfo.displayPath)}</span>
+        </div>
+        <div class="pdf-frame-placeholder">PDF 원본을 확인하고 있습니다.</div>
+        <div class="pdf-actions">
+          <a class="pdf-open-button" href="${escapeAttribute(pdfInfo.encodedPath)}" target="_blank" rel="noopener">새 탭에서 열기</a>
+        </div>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="pdf-preview is-missing">
+      <p class="pdf-message">PDF 파일이 아직 등록되지 않았습니다.</p>
+      <div class="info-item">
+        <span class="info-label">예상 경로</span>
+        <span class="info-value">${escapeHtml(pdfInfo.displayPath)}</span>
+      </div>
+      <div class="pdf-frame-placeholder">PDF 원본을 pdf 폴더에 추가하면 미리보기로 확인할 수 있습니다.</div>
+    </div>
+  `;
+}
+
+function scheduleReviewPdfAvailabilityCheck(path) {
+  reviewState.pdfAvailability[path] = "checking";
+  checkReviewPdfExists(path).then((exists) => {
+    reviewState.pdfAvailability[path] = exists ? "available" : "missing";
+    const selected = getSelectedEntry();
+    if (selected && buildReviewPdfInfo(selected.override).encodedPath === path) renderReview();
+  });
+}
+
+async function checkReviewPdfExists(path) {
+  if (!path || window.location.protocol === "file:") return false;
+
+  try {
+    const response = await fetch(path, { method: "HEAD", cache: "no-store" });
+    if (response.ok) return true;
+    if (response.status !== 405) return false;
+  } catch (error) {
+    return false;
+  }
+
+  try {
+    const response = await fetch(path, {
+      method: "GET",
+      cache: "no-store",
+      headers: { Range: "bytes=0-0" }
+    });
+    return response.ok || response.status === 206;
+  } catch (error) {
+    return false;
+  }
+}
+
+function openReviewPdfModal(title, path) {
+  if (!path) return;
+  reviewState.pdfModal = {
+    isOpen: true,
+    title: title || "PDF 미리보기",
+    path
+  };
+  renderReviewPdfModal();
+}
+
+function closeReviewPdfModal() {
+  reviewState.pdfModal = {
+    isOpen: false,
+    title: "",
+    path: ""
+  };
+  renderReviewPdfModal();
+}
+
+function ensureReviewPdfModalElement() {
+  let modal = document.querySelector("#reviewPdfPreviewModal");
+  if (!modal) {
+    modal = document.createElement("div");
+    modal.id = "reviewPdfPreviewModal";
+    document.body.appendChild(modal);
+  }
+  return modal;
+}
+
+function renderReviewPdfModal() {
+  const modal = ensureReviewPdfModalElement();
+  document.body.classList.toggle("modal-open", reviewState.pdfModal.isOpen);
+
+  if (!reviewState.pdfModal.isOpen) {
+    modal.className = "pdf-modal is-hidden";
+    modal.innerHTML = "";
+    return;
+  }
+
+  modal.className = "pdf-modal";
+  modal.innerHTML = `
+    <div class="pdf-modal-backdrop">
+      <section class="pdf-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="reviewPdfModalTitle">
+        <header class="pdf-modal-toolbar">
+          <div>
+            <h2 id="reviewPdfModalTitle">PDF 미리보기</h2>
+            <p>${escapeHtml(reviewState.pdfModal.title)}</p>
+          </div>
+          <button class="pdf-modal-close" type="button" data-review-close-pdf-modal aria-label="PDF 크게 보기 닫기">닫기</button>
+        </header>
+        <iframe class="pdf-modal-frame" title="${escapeAttribute(reviewState.pdfModal.title)} PDF 크게 보기" src="${escapeAttribute(reviewState.pdfModal.path)}"></iframe>
+      </section>
+    </div>
+  `;
+  modal.querySelector("[data-review-close-pdf-modal]")?.focus();
 }
 
 function downloadReviewedJson() {

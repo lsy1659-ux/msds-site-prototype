@@ -129,6 +129,18 @@ review.html
 - 수정필요
 - 제외
 
+추천 검토 흐름은 아래와 같습니다.
+
+1. `review.html`에 접속합니다.
+2. `검토필요` 항목을 선택합니다.
+3. 원본 PDF 미리보기와 추출 후보를 비교합니다.
+4. `검토완료`, `수정필요`, `제외` 중 하나를 선택합니다.
+5. 필요하면 `다음 검토필요 항목` 버튼으로 다음 항목으로 이동합니다.
+6. 모든 변경 후 `수정 JSON 다운로드`를 실행합니다.
+7. `apply_reviewed_overrides.py --dry-run`으로 다운로드 파일을 검증합니다.
+8. 문제가 없으면 실제 적용합니다.
+9. `audit_msds_workflow.py`를 다시 실행해 `검토필요` 수가 줄었는지 확인합니다.
+
 정적 웹사이트는 로컬 JSON 파일을 직접 덮어쓸 수 없으므로, 검토 화면에서 상태를 바꾼 뒤 `msds-overrides.reviewed.local.json` 파일을 다운로드합니다. 다운로드한 파일을 사람이 확인한 다음 `data/msds-overrides.local.json`으로 교체해서 사용합니다.
 
 `data/msds-overrides.local.json`은 실제 제품정보와 PDF 후보 정보가 들어갈 수 있는 로컬 전용 파일이므로 GitHub에 올리지 않습니다. 운영 전 최종 확인 대상은 `reviewStatus`가 `검토완료`인 항목을 기준으로 삼는 것을 권장합니다.
