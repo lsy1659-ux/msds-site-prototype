@@ -5,6 +5,9 @@ data/raw/
 data/original/
 data/msds.local.json
 data/*.local.json
+reports/*.local.json
+reports/*.local.csv
+reports/*.local.*
 .env
 config.local.json
 __pycache__/

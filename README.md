@@ -4,6 +4,10 @@
 
 현재는 실제 운영본이 아니라 GitHub에 올려도 안전한 샘플 데이터 기반 화면입니다.
 
+화면은 검색 중심 현장 조회형 UI입니다. 처음부터 전체 제품 목록을 길게 보여주지 않고, 검색어를 입력하거나 분류 버튼을 눌렀을 때 후보 제품을 소형 선택 리스트로 표시합니다.
+
+작업 기준은 먼저 `docs/10_현재_작업상태.md`, `docs/11_운영원칙.md`, `docs/12_다음작업.md` 문서를 확인합니다. 새 Codex 대화에서는 이 문서들을 읽고 이어서 작업합니다.
+
 ## 실행 방법
 
 `index.html` 파일을 더블클릭하면 브라우저에서 확인할 수 있습니다.
@@ -45,6 +49,29 @@ python scripts/convert_excel_to_json.py --input data/raw/MSDS_통합대장_누�
 ```bash
 python scripts/convert_excel_to_json.py --input data/raw/MSDS_통합대장_누적3.xlsx --output data/msds.local.json --sheet 통합종합_보기용 --header-row 3
 ```
+
+## PDF 연결 검사 방법
+
+실제 PDF 파일은 저장소에 올리지 않고, 로컬 PC의 `pdf/` 폴더에만 넣고 검사합니다.
+
+```bash
+python scripts/check_pdf_links.py --data data/msds.local.json --pdf-dir pdf
+```
+
+이 검사는 엑셀의 파일명과 PDF 파일명이 정확히 같은 경우뿐 아니라, 정규화한 파일명과 PDF 내부 텍스트도 함께 확인합니다. PDF 파일명이 엑셀 파일명과 달라도 PDF 내부의 제품명, 물질명, CAS No.가 엑셀 데이터와 같으면 연결 후보로 볼 수 있습니다.
+
+다만 PDF 내부 텍스트 기반 매칭은 오탐 가능성이 있으므로 자동 확정하지 않고 확인 필요 대상으로 분류합니다. 스캔본 PDF처럼 텍스트 추출이 되지 않는 파일도 `text_extract_failed`, `scanned_pdf_or_image_pdf`, `manual_review_required` 상태로 보고 사람이 확인할 수 있게 합니다.
+
+같은 PDF가 파일명만 다르게 중복 저장된 경우도 검사 대상입니다. 중복 또는 유사 매칭 결과는 삭제, 이름 변경, 이동 없이 리포트로만 제공합니다.
+
+검사 결과는 아래 로컬 리포트로 저장됩니다.
+
+```text
+reports/pdf-link-report.local.json
+reports/pdf-link-report.local.csv
+```
+
+이 리포트에는 실제 제품명이나 PDF 정보가 들어갈 수 있으므로 GitHub에 올리지 않습니다.
 
 ## 주의사항
 

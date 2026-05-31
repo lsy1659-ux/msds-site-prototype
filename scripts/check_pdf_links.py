@@ -1,0 +1,424 @@
+#!/usr/bin/env python
+"""Check PDF link candidates for converted MSDS data.
+
+This tool does not modify, move, rename, or delete PDF files. It only writes
+local report files that are ignored by Git.
+"""
+
+from __future__ import annotations
+
+import argparse
+import csv
+import hashlib
+import json
+import re
+from collections import defaultdict
+from pathlib import Path
+from typing import Any
+
+
+CAS_RE = re.compile(r"\b\d{2,7}-\d{2}-\d\b")
+DEFAULT_DATA = Path("data/msds.local.json")
+DEFAULT_PDF_DIR = Path("pdf")
+DEFAULT_JSON_REPORT = Path("reports/pdf-link-report.local.json")
+DEFAULT_CSV_REPORT = Path("reports/pdf-link-report.local.csv")
+
+
+def normalize_text(value: Any) -> str:
+    text = str(value or "").lower()
+    text = re.sub(r"\.pdf", "", text)
+    return re.sub(r"[\s()[\]{}<>（）［］｛｝_\-/\\]", "", text)
+
+
+def read_json(path: Path) -> list[dict[str, Any]]:
+    with path.open("r", encoding="utf-8") as file:
+        data = json.load(file)
+    if isinstance(data, list):
+        return data
+    if isinstance(data, dict) and isinstance(data.get("products"), list):
+        return data["products"]
+    raise SystemExit(f"Unsupported JSON structure: {path}")
+
+
+def product_ingredients(product: dict[str, Any]) -> list[dict[str, Any]]:
+    ingredients = product.get("ingredients")
+    if isinstance(ingredients, list):
+        return ingredients
+    components = product.get("components")
+    if isinstance(components, list):
+        return components
+    return []
+
+
+def product_search_terms(product: dict[str, Any]) -> dict[str, Any]:
+    ingredients = product_ingredients(product)
+    chemical_names = [
+        str(item.get("chemicalName", "")).strip()
+        for item in ingredients
+        if str(item.get("chemicalName", "")).strip()
+    ]
+    cas_numbers = {
+        cas
+        for item in ingredients
+        for cas in CAS_RE.findall(str(item.get("casNo", "")))
+    }
+    file_name = str(product.get("fileName", "")).strip()
+    return {
+        "productName": str(product.get("productName", "")).strip(),
+        "fileName": file_name,
+        "normalizedFileName": normalize_text(file_name),
+        "chemicalNames": chemical_names,
+        "normalizedChemicalNames": [
+            normalize_text(name)
+            for name in chemical_names
+            if len(normalize_text(name)) >= 3
+        ],
+        "casNumbers": cas_numbers,
+    }
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as file:
+        for chunk in iter(lambda: file.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def extract_pdf_text(path: Path, max_pages: int) -> tuple[str, str, str]:
+    try:
+        from pypdf import PdfReader
+    except Exception as exc:  # pragma: no cover - environment dependent
+        return "", "text_extract_failed", f"pypdf_import_failed: {exc}"
+
+    try:
+        reader = PdfReader(str(path))
+        chunks: list[str] = []
+        for page in reader.pages[:max_pages]:
+            chunks.append(page.extract_text() or "")
+        text = "\n".join(chunks).strip()
+    except Exception as exc:
+        return "", "text_extract_failed", str(exc)
+
+    if not text:
+        return "", "scanned_pdf_or_image_pdf", "No extractable text in selected pages"
+    return text, "text_extracted", ""
+
+
+def scan_pdfs(pdf_dir: Path, max_pages: int) -> list[dict[str, Any]]:
+    if not pdf_dir.exists():
+        return []
+
+    pdfs: list[dict[str, Any]] = []
+    for path in sorted(pdf_dir.rglob("*.pdf")):
+        text, text_status, error = extract_pdf_text(path, max_pages)
+        normalized_text = normalize_text(text)
+        cas_numbers = sorted(set(CAS_RE.findall(text)))
+        pdfs.append(
+            {
+                "path": str(path),
+                "fileName": path.name,
+                "normalizedFileName": normalize_text(path.name),
+                "sha256": sha256_file(path),
+                "textStatus": text_status,
+                "textError": error,
+                "casNumbers": cas_numbers,
+                "normalizedText": normalized_text,
+                "contentKey": "|".join(cas_numbers),
+            }
+        )
+    return pdfs
+
+
+def duplicate_groups(pdfs: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    by_hash: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    by_content: dict[str, list[dict[str, Any]]] = defaultdict(list)
+
+    for pdf in pdfs:
+        by_hash[pdf["sha256"]].append(pdf)
+        if pdf["contentKey"]:
+            by_content[pdf["contentKey"]].append(pdf)
+
+    exact = [
+        {
+            "type": "exact_duplicate_pdf",
+            "sha256": file_hash,
+            "files": [pdf["fileName"] for pdf in group],
+        }
+        for file_hash, group in by_hash.items()
+        if len(group) > 1
+    ]
+    content = [
+        {
+            "type": "possible_content_duplicate",
+            "contentKey": key,
+            "files": [pdf["fileName"] for pdf in group],
+        }
+        for key, group in by_content.items()
+        if len(group) > 1
+    ]
+    return exact, content
+
+
+def pdf_duplicate_names(exact_groups: list[dict[str, Any]], content_groups: list[dict[str, Any]]) -> set[str]:
+    names: set[str] = set()
+    for group in exact_groups + content_groups:
+        names.update(group["files"])
+    return names
+
+
+def match_pdf_to_product(product: dict[str, Any], pdf: dict[str, Any]) -> list[str]:
+    terms = product_search_terms(product)
+    reasons: list[str] = []
+
+    if terms["fileName"] and terms["fileName"] == pdf["fileName"]:
+        reasons.append("exact_file_match")
+
+    if (
+        terms["normalizedFileName"]
+        and terms["normalizedFileName"] == pdf["normalizedFileName"]
+        and "exact_file_match" not in reasons
+    ):
+        reasons.append("normalized_filename_match")
+
+    if pdf["textStatus"] == "text_extracted":
+        pdf_text = pdf["normalizedText"]
+        normalized_product_name = normalize_text(terms["productName"])
+        if len(normalized_product_name) >= 3 and normalized_product_name in pdf_text:
+            reasons.append("content_match")
+
+        if terms["casNumbers"].intersection(pdf["casNumbers"]):
+            reasons.append("content_match")
+
+        if any(name in pdf_text for name in terms["normalizedChemicalNames"]):
+            reasons.append("content_match")
+
+    return sorted(set(reasons))
+
+
+def decide_status(candidates: list[dict[str, Any]], duplicate_names: set[str]) -> tuple[str, bool]:
+    if not candidates:
+        return "manual_review_required", True
+
+    duplicate_candidate = any(candidate["fileName"] in duplicate_names for candidate in candidates)
+    if len(candidates) > 1:
+        return "multiple_candidates", True
+    if duplicate_candidate:
+        return "possible_duplicate", True
+
+    reasons = candidates[0]["reasons"]
+    if "exact_file_match" in reasons:
+        return "exact_file_match", False
+    if "normalized_filename_match" in reasons:
+        return "normalized_filename_match", True
+    if "content_match" in reasons:
+        return "content_match", True
+    return "manual_review_required", True
+
+
+def find_content_duplicate_groups(product_results: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    groups: list[dict[str, Any]] = []
+    for item in product_results:
+        files = [
+            candidate["fileName"]
+            for candidate in item["candidates"]
+            if "content_match" in candidate["reasons"]
+        ]
+        if len(files) > 1:
+            groups.append(
+                {
+                    "type": "possible_content_duplicate",
+                    "basis": "same_product_content_match",
+                    "productIndex": item["productIndex"],
+                    "files": files,
+                }
+            )
+    return groups
+
+
+def find_multiple_candidate_groups(product_results: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    groups: list[dict[str, Any]] = []
+    for item in product_results:
+        if len(item["candidates"]) > 1:
+            groups.append(
+                {
+                    "type": "multiple_pdf_candidates",
+                    "productIndex": item["productIndex"],
+                    "files": [candidate["fileName"] for candidate in item["candidates"]],
+                }
+            )
+    return groups
+
+
+def build_report(products: list[dict[str, Any]], pdfs: list[dict[str, Any]]) -> dict[str, Any]:
+    exact_groups, content_groups = duplicate_groups(pdfs)
+
+    raw_product_results: list[dict[str, Any]] = []
+    for index, product in enumerate(products, start=1):
+        candidates: list[dict[str, Any]] = []
+        for pdf in pdfs:
+            reasons = match_pdf_to_product(product, pdf)
+            if reasons:
+                candidates.append(
+                    {
+                        "fileName": pdf["fileName"],
+                        "textStatus": pdf["textStatus"],
+                        "reasons": reasons,
+                        "reviewRequired": "exact_file_match" not in reasons,
+                    }
+                )
+
+        raw_product_results.append(
+            {
+                "productIndex": index,
+                "productId": product.get("id", ""),
+                "candidateCount": len(candidates),
+                "candidates": candidates,
+            }
+        )
+
+    content_duplicate_groups = find_content_duplicate_groups(raw_product_results)
+    multiple_candidate_groups = find_multiple_candidate_groups(raw_product_results)
+    duplicate_groups_all = exact_groups + content_groups + content_duplicate_groups + multiple_candidate_groups
+    duplicate_names = pdf_duplicate_names(duplicate_groups_all, [])
+
+    product_results: list[dict[str, Any]] = []
+    for item in raw_product_results:
+        status, review_required = decide_status(item["candidates"], duplicate_names)
+        product_results.append(
+            {
+                **item,
+                "status": status,
+                "reviewRequired": review_required,
+            }
+        )
+
+    text_failed = [
+        pdf for pdf in pdfs
+        if pdf["textStatus"] in {"text_extract_failed", "scanned_pdf_or_image_pdf"}
+    ]
+    duplicate_pdf_count = len(duplicate_names)
+    multiple_candidates = [item for item in product_results if item["status"] == "multiple_candidates"]
+    manual_review_products = [item for item in product_results if item["reviewRequired"]]
+
+    summary = {
+        "totalProducts": len(products),
+        "totalPdfs": len(pdfs),
+        "exactFileMatchCount": sum(1 for item in product_results if item["status"] == "exact_file_match"),
+        "normalizedFilenameMatchCount": sum(1 for item in product_results if item["status"] == "normalized_filename_match"),
+        "contentMatchCandidateCount": sum(1 for item in product_results if item["status"] == "content_match"),
+        "pdfTextExtractFailedCount": len(text_failed),
+        "suspectedDuplicatePdfCount": duplicate_pdf_count,
+        "multiplePdfCandidatesCount": len(multiple_candidates),
+        "manualReviewRequiredCount": len(manual_review_products) + len(text_failed),
+    }
+
+    examples = [
+        {
+            "productIndex": item["productIndex"],
+            "status": item["status"],
+            "candidateCount": item["candidateCount"],
+            "candidateStatuses": sorted({reason for candidate in item["candidates"] for reason in candidate["reasons"]}),
+        }
+        for item in product_results
+        if item["reviewRequired"] or item["candidateCount"] > 1
+    ][:5]
+
+    return {
+        "summary": summary,
+        "examples": examples,
+        "products": product_results,
+        "pdfs": [
+            {
+                "fileName": pdf["fileName"],
+                "textStatus": pdf["textStatus"],
+                "textError": pdf["textError"],
+                "casCount": len(pdf["casNumbers"]),
+            }
+            for pdf in pdfs
+        ],
+        "duplicateGroups": duplicate_groups_all,
+    }
+
+
+def write_reports(report: dict[str, Any], json_path: Path, csv_path: Path) -> None:
+    json_path.parent.mkdir(parents=True, exist_ok=True)
+    json_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    csv_path.parent.mkdir(parents=True, exist_ok=True)
+    with csv_path.open("w", encoding="utf-8-sig", newline="") as file:
+        writer = csv.DictWriter(
+            file,
+            fieldnames=[
+                "productIndex",
+                "productId",
+                "status",
+                "reviewRequired",
+                "candidateCount",
+                "candidateFiles",
+                "candidateReasons",
+            ],
+        )
+        writer.writeheader()
+        for item in report["products"]:
+            writer.writerow(
+                {
+                    "productIndex": item["productIndex"],
+                    "productId": item["productId"],
+                    "status": item["status"],
+                    "reviewRequired": item["reviewRequired"],
+                    "candidateCount": item["candidateCount"],
+                    "candidateFiles": "; ".join(candidate["fileName"] for candidate in item["candidates"]),
+                    "candidateReasons": "; ".join(
+                        ",".join(candidate["reasons"])
+                        for candidate in item["candidates"]
+                    ),
+                }
+            )
+
+
+def print_summary(report: dict[str, Any], json_path: Path, csv_path: Path) -> None:
+    summary = report["summary"]
+    print("PDF link check summary")
+    print(f"- Products: {summary['totalProducts']}")
+    print(f"- PDF files: {summary['totalPdfs']}")
+    print(f"- Exact file matches: {summary['exactFileMatchCount']}")
+    print(f"- Normalized filename match candidates: {summary['normalizedFilenameMatchCount']}")
+    print(f"- PDF text content match candidates: {summary['contentMatchCandidateCount']}")
+    print(f"- PDF text extraction failures: {summary['pdfTextExtractFailedCount']}")
+    print(f"- Suspected duplicate PDFs: {summary['suspectedDuplicatePdfCount']}")
+    print(f"- Products with multiple PDF candidates: {summary['multiplePdfCandidatesCount']}")
+    print(f"- Manual review required items: {summary['manualReviewRequiredCount']}")
+    print(f"- JSON report: {json_path}")
+    print(f"- CSV report: {csv_path}")
+    if report["examples"]:
+        print("- Representative review examples (redacted):")
+        for example in report["examples"]:
+            print(
+                f"  productIndex={example['productIndex']}, "
+                f"status={example['status']}, "
+                f"candidateCount={example['candidateCount']}"
+            )
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Check MSDS PDF link candidates.")
+    parser.add_argument("--data", type=Path, default=DEFAULT_DATA, help="Converted MSDS JSON path")
+    parser.add_argument("--pdf-dir", type=Path, default=DEFAULT_PDF_DIR, help="PDF directory")
+    parser.add_argument("--pages", type=int, default=3, help="Number of first pages to extract")
+    parser.add_argument("--json-report", type=Path, default=DEFAULT_JSON_REPORT, help="Local JSON report output")
+    parser.add_argument("--csv-report", type=Path, default=DEFAULT_CSV_REPORT, help="Local CSV report output")
+    return parser.parse_args()
+
+
+def main() -> None:
+    args = parse_args()
+    products = read_json(args.data)
+    pdfs = scan_pdfs(args.pdf_dir, max(args.pages, 1))
+    report = build_report(products, pdfs)
+    write_reports(report, args.json_report, args.csv_report)
+    print_summary(report, args.json_report, args.csv_report)
+
+
+if __name__ == "__main__":
+    main()

@@ -3,6 +3,8 @@
 const APP_CONFIG = {
   localDataUrl: "data/msds.local.json",
   sampleDataUrl: "data/msds-sample.json",
+  minSearchCharacters: 2,
+  initialResultLimit: 10,
   showDownloadButton: false,
   showPdfIframeWhenAvailable: false
 };
@@ -259,6 +261,7 @@ const state = {
   products: [],
   selectedId: null,
   query: "",
+  resultLimit: APP_CONFIG.initialResultLimit,
   dataMode: "샘플 데이터 모드"
 };
 
@@ -280,6 +283,8 @@ function bindElements() {
   elements.resultCount = document.querySelector("#resultCount");
   elements.resultSubtitle = document.querySelector("#resultSubtitle");
   elements.selectionList = document.querySelector("#selectionList");
+  elements.selectionPanel = document.querySelector(".selection-panel");
+  elements.currentSelection = document.querySelector("#currentSelection");
   elements.posterPanel = document.querySelector("#posterPanel");
   elements.detailPanel = document.querySelector("#detailPanel");
   elements.quickSearch = document.querySelector(".quick-search");
@@ -290,13 +295,15 @@ function bindElements() {
 function bindEvents() {
   elements.searchInput.addEventListener("input", (event) => {
     state.query = event.target.value;
-    state.selectedId = getFilteredProducts()[0]?.id || null;
+    state.resultLimit = APP_CONFIG.initialResultLimit;
+    updateSelectedProductForQuery();
     render();
   });
 
   elements.clearSearch.addEventListener("click", () => {
     state.query = "";
     elements.searchInput.value = "";
+    state.resultLimit = APP_CONFIG.initialResultLimit;
     state.selectedId = state.products[0]?.id || null;
     elements.searchInput.focus();
     render();
@@ -307,9 +314,20 @@ function bindEvents() {
     if (!button) return;
     state.query = button.dataset.query;
     elements.searchInput.value = state.query;
-    state.selectedId = getFilteredProducts()[0]?.id || null;
+    state.resultLimit = APP_CONFIG.initialResultLimit;
+    updateSelectedProductForQuery();
     render();
   });
+}
+
+function updateSelectedProductForQuery() {
+  const normalizedQuery = normalizeSearchText(state.query);
+  if (!normalizedQuery) {
+    state.selectedId = state.products[0]?.id || null;
+    return;
+  }
+  if (normalizedQuery.length < APP_CONFIG.minSearchCharacters) return;
+  state.selectedId = getFilteredProducts()[0]?.id || state.selectedId;
 }
 
 async function loadProducts() {
@@ -462,41 +480,76 @@ function getSelectedProduct(results) {
 }
 
 function render() {
-  const results = getFilteredProducts();
-  const selected = getSelectedProduct(results);
+  const normalizedQuery = normalizeSearchText(state.query);
+  const hasQuery = Boolean(normalizedQuery);
+  const canShowCandidates = normalizedQuery.length >= APP_CONFIG.minSearchCharacters;
+  const results = hasQuery ? getFilteredProducts() : [];
+  const selectedPool = canShowCandidates ? results : state.products;
+  const selected = getSelectedProduct(selectedPool);
   if (selected) state.selectedId = selected.id;
 
   elements.emptySearchGuide.classList.toggle("is-hidden", Boolean(state.query.trim()));
-  elements.resultCount.textContent = `검색 결과 ${results.length}건`;
+  elements.selectionPanel.classList.toggle("is-collapsed", !hasQuery);
+  elements.resultCount.textContent = hasQuery ? `검색 결과 ${results.length}건` : "검색 전";
   elements.dataMode.textContent = state.dataMode;
   elements.dataMode.classList.toggle("is-local", state.dataMode.includes("로컬"));
-  elements.resultSubtitle.textContent = state.query.trim()
-    ? `"${state.query}" 검색 결과 중 1개를 선택하세요.`
-    : "초기에는 첫 번째 샘플 제품이 선택됩니다.";
+  elements.currentSelection.textContent = selected
+    ? `현재 선택 제품: ${selected.productName}`
+    : "현재 선택 제품: 없음";
+  elements.resultSubtitle.textContent = getResultSubtitle(hasQuery, canShowCandidates, results.length);
 
-  renderSelectionList(results);
+  renderSelectionList(results, hasQuery, canShowCandidates);
   renderPoster(selected);
   renderDetail(selected);
 }
 
-function renderSelectionList(results) {
+function getResultSubtitle(hasQuery, canShowCandidates, totalCount) {
+  if (!hasQuery) return "검색어를 입력하면 후보 제품이 표시됩니다.";
+  if (!canShowCandidates) return `${APP_CONFIG.minSearchCharacters}글자 이상 입력하면 후보 제품을 표시합니다.`;
+  if (!totalCount) return "제품명, 용도, CAS No. 등으로 다시 검색해보세요.";
+  return `상위 ${Math.min(totalCount, state.resultLimit)}건을 먼저 표시합니다.`;
+}
+
+function renderSelectionList(results, hasQuery, canShowCandidates) {
+  if (!hasQuery) {
+    elements.selectionList.innerHTML = "";
+    return;
+  }
+
+  if (!canShowCandidates) {
+    elements.selectionList.innerHTML = `<div class="notice">검색어가 너무 짧습니다. 2글자 이상 입력하면 후보 제품이 표시됩니다.</div>`;
+    return;
+  }
+
   if (!results.length) {
     elements.selectionList.innerHTML = `<div class="notice">검색 결과가 없습니다. 제품명, 용도, CAS No. 등으로 다시 검색해보세요.</div>`;
     return;
   }
 
-  elements.selectionList.innerHTML = results.map((product) => `
-    <button class="selection-item ${product.id === state.selectedId ? "is-selected" : ""}" type="button" data-product-id="${escapeAttribute(product.id)}">
-      <span class="selection-name">${escapeHtml(product.productName)}</span>
-      <span class="selection-meta">${escapeHtml(product.useCategory)} · ${escapeHtml(product.supplier)}</span>
-    </button>
-  `).join("");
+  const visibleResults = results.slice(0, state.resultLimit);
+  const hasMore = results.length > visibleResults.length;
+  elements.selectionList.innerHTML = `
+    <div class="selection-scroll">
+      ${visibleResults.map((product) => `
+        <button class="selection-item ${product.id === state.selectedId ? "is-selected" : ""}" type="button" data-product-id="${escapeAttribute(product.id)}">
+          <span class="selection-name">${escapeHtml(product.productName)}</span>
+          <span class="selection-meta">${escapeHtml(product.useCategory)} · ${escapeHtml(product.supplier)}</span>
+        </button>
+      `).join("")}
+    </div>
+    ${hasMore ? `<button class="show-more-button" type="button" id="showMoreResults">더보기 (${results.length - visibleResults.length}건)</button>` : ""}
+  `;
 
   elements.selectionList.querySelectorAll("[data-product-id]").forEach((button) => {
     button.addEventListener("click", () => {
       state.selectedId = button.dataset.productId;
       render();
     });
+  });
+
+  elements.selectionList.querySelector("#showMoreResults")?.addEventListener("click", () => {
+    state.resultLimit += APP_CONFIG.initialResultLimit;
+    render();
   });
 }
 
