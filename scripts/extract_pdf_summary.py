@@ -78,6 +78,12 @@ NON_MSDS_EXCLUDE_REASONS = {
     "인증서",
     "기타",
 }
+FAILED_EXTRACT_STATUSES = {
+    "text_extract_failed",
+    "scanned_pdf_or_image_pdf",
+    "manual_review_required",
+    "pypdf_import_failed",
+}
 
 
 @dataclass
@@ -448,6 +454,19 @@ def override_file_name(item: dict[str, Any]) -> str:
     return Path(source_path).name if source_path else ""
 
 
+def is_failed_override(item: dict[str, Any]) -> bool:
+    status = str(item.get("extractStatus") or "").strip().lower()
+    notes = str(item.get("notes") or "").lower()
+    meta = item.get("extractionMeta") if isinstance(item.get("extractionMeta"), dict) else {}
+    error = str(meta.get("error") or "").lower()
+    return (
+        status in FAILED_EXTRACT_STATUSES
+        or "failed" in status
+        or "pypdf_import_failed" in notes
+        or "pypdf_import_failed" in error
+    )
+
+
 def read_existing_overrides(output_path: Path) -> list[dict[str, Any]]:
     return read_json_list(output_path, "overrides")
 
@@ -602,7 +621,24 @@ def discover_targets(args: argparse.Namespace, existing_overrides: list[dict[str
     inventory_by_relative = {normalize_path(item.get("relativePath")): item for item in inventory if item.get("relativePath")}
     inventory_by_file = {str(item.get("fileName") or ""): item for item in inventory if item.get("fileName")}
 
-    if args.input:
+    if args.retry_failed:
+        retry_paths: list[Path] = []
+        for item in existing_overrides:
+            if not is_failed_override(item):
+                continue
+            relative_path = normalize_path(item.get("sourceRelativePath") or item.get("match", {}).get("relativePath"))
+            if relative_path:
+                retry_paths.append(args.pdf_dir / Path(relative_path))
+                continue
+            file_name = override_file_name(item)
+            if file_name:
+                inventory_item = inventory_by_file.get(file_name)
+                if inventory_item and inventory_item.get("relativePath"):
+                    retry_paths.append(args.pdf_dir / Path(normalize_path(inventory_item["relativePath"])))
+                else:
+                    retry_paths.append(args.pdf_dir / file_name)
+        pdf_paths = retry_paths
+    elif args.input:
         pdf_paths = [args.input]
     elif inventory and args.pdf_dir == DEFAULT_PDF_DIR:
         pdf_paths = []
@@ -726,6 +762,11 @@ def build_batch_report(
             "reviewStatusPreservedCount": merge_stats["reviewStatusPreserved"],
             "reviewRequiredOverrideCount": len(manual_review),
             "manualReviewRequiredPdfCount": len(manual_review),
+            "retryCandidateCount": filtered_target_count if args.retry_failed else 0,
+            "retrySuccessCount": len(text_success) if args.retry_failed else 0,
+            "retryFailureCount": len(text_failed) if args.retry_failed else 0,
+            "retryStillFailedCount": len(text_failed) if args.retry_failed else 0,
+            "retryRecoveredCount": len(text_success) if args.retry_failed else 0,
         },
         "items": [
             {
@@ -816,6 +857,12 @@ def print_batch_summary(report: dict[str, Any], json_path: Path, csv_path: Path)
     print(f"- 기존 override 갱신 수: {summary['existingOverrideUpdatedCount']}")
     print(f"- 기존 reviewStatus 보존 수: {summary['reviewStatusPreservedCount']}")
     print(f"- 수동확인 필요 수: {summary['manualReviewRequiredPdfCount']}")
+    if summary.get("retryCandidateCount"):
+        print(f"- retry 대상 수: {summary['retryCandidateCount']}")
+        print(f"- retry 성공 수: {summary['retrySuccessCount']}")
+        print(f"- retry 실패 수: {summary['retryFailureCount']}")
+        print(f"- 성공으로 전환된 수: {summary['retryRecoveredCount']}")
+        print(f"- 기존 실패 유지 수: {summary['retryStillFailedCount']}")
     print(f"- JSON report: {json_path}")
     print(f"- CSV report: {csv_path}")
 
@@ -861,6 +908,7 @@ def parse_args() -> argparse.Namespace:
         default="all",
         help="Select all PDFs, Excel-linked PDFs, or Excel-missing PDFs.",
     )
+    parser.add_argument("--retry-failed", action="store_true", help="Retry only existing overrides whose previous extraction failed.")
     parser.add_argument("--only-missing-overrides", action="store_true", help="Process only PDFs that do not have a local override yet.")
     parser.add_argument("--skip-excluded", action=argparse.BooleanOptionalAction, default=True, help="Skip queue items excluded as non-MSDS/QR/guide/catalog documents. Default: true.")
     parser.add_argument("--limit", type=int, default=0, help="Maximum PDFs to process in this batch. 0 means no limit.")

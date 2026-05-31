@@ -474,6 +474,14 @@ python -m pip install -r requirements.txt
 
 특히 `pypdf`가 없는 Python으로 실행하면 PDF 텍스트 추출이 전부 실패처럼 보일 수 있습니다. 최신 스크립트는 `pypdf`가 없으면 override를 만들지 않고 중단하도록 처리합니다.
 
+이미 `data/msds-overrides.local.json`에 실패 상태로 들어간 항목은 아래 옵션으로 다시 추출할 수 있습니다.
+
+```bash
+python scripts/extract_pdf_summary.py --pdf-dir pdf --output data/msds-overrides.local.json --retry-failed --limit 20
+```
+
+`--retry-failed`는 기존 override 중 `text_extract_failed`, `scanned_pdf_or_image_pdf`, `manual_review_required`, `pypdf_import_failed` 또는 error/notes에 `pypdf_import_failed`가 있는 항목만 다시 처리합니다. 재추출해도 기존 `reviewStatus`, `검토완료`, `수정필요`, `제외`, `manual*`, `reviewed*`, 사람이 작성한 notes는 보존됩니다.
+
 ## 비MSDS PDF 제외 흐름
 
 `pdf/` 폴더에는 실제 MSDS 원본 외에도 QR코드 안내문, 표지, 카탈로그, 브로슈어, 시험성적서, 인증서, 사진 파일을 PDF로 만든 자료가 섞일 수 있습니다. 이런 파일은 PDF 파일이더라도 엑셀등록필요 대상으로 바로 보지 않고, `pdf-queue.html`에서 제외 또는 보류로 분류합니다.
