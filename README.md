@@ -384,3 +384,30 @@ PDF가 엑셀보다 많을 때 권장 흐름은 아래와 같습니다.
 8. inventory와 audit을 다시 실행합니다.
 
 `data/pdf-registration-queue.local.json`은 실제 PDF 목록과 검토 메모가 들어갈 수 있으므로 GitHub에 올리지 않습니다. 저장소에는 구조 참고용 `data/pdf-registration-queue.sample.json`만 올립니다.
+
+엑셀 미등록 PDF는 아래 내부 화면에서 검토할 수 있습니다.
+
+```text
+pdf-queue.html
+```
+
+`pdf-queue.html`은 `data/pdf-registration-queue.local.json`을 읽어 미검토, 엑셀등록필요, 기존제품매핑필요, 중복의심, 제외, 보류 상태로 분류하는 내부 검토 화면입니다. local 큐가 없으면 `data/pdf-registration-queue.sample.json`을 사용하고, 둘 다 없으면 안내문을 표시합니다.
+
+정적 웹사이트에서는 local JSON을 직접 덮어쓸 수 없으므로, 검토 화면에서 수정한 결과는 아래 파일명으로 다운로드됩니다.
+
+```text
+pdf-registration-queue.reviewed.local.json
+```
+
+다운로드한 큐 파일은 나중에 별도 적용 스크립트로 `data/pdf-registration-queue.local.json`에 반영할 예정입니다. 이 검토 화면은 PDF 파일을 삭제, 이동, 이름변경하지 않고 상태와 메모만 분류합니다.
+
+## 긴 텍스트와 반응형 화면
+
+현장 조회 화면과 내부 검토 화면은 긴 제품명, PDF 파일명, 하위폴더 상대경로, 성분명, CAS 정보가 화면 폭을 밀어내지 않도록 줄바꿈 기준을 공통으로 적용합니다.
+
+- `index.html`, `review.html`, `pdf-queue.html`은 좁은 화면에서 1열 흐름을 우선합니다.
+- 긴 파일명과 상대경로는 목록 안에서 2~3줄까지만 보이고, 상세 영역에서는 칸 안에서 자연스럽게 줄바꿈됩니다.
+- 성분정보 표는 작은 화면에서 표 전체가 화면을 깨뜨리지 않도록 표 영역 안에서 가로 스크롤로 확인합니다.
+- PDF 미리보기와 크게보기 기능은 기존처럼 유지하며, 좁은 화면에서는 PDF 영역이 아래로 이어지도록 배치합니다.
+
+디자인이나 줄바꿈 기준을 바꾸려면 `css/style.css`의 `Long text and responsive stability`, `Ingredient section`, `PDF registration queue review page`, `Mobile stacked flow` 영역을 우선 확인하면 됩니다.

@@ -691,8 +691,8 @@ function renderSelectionList(results, hasQuery, canShowCandidates) {
     <div class="selection-scroll">
       ${visibleResults.map((product) => `
         <button class="selection-item ${product.id === state.selectedId ? "is-selected" : ""}" type="button" data-product-id="${escapeAttribute(product.id)}">
-          <span class="selection-name">${escapeHtml(product.productName)}</span>
-          <span class="selection-meta">${escapeHtml(product.useCategory)} · ${escapeHtml(product.supplier)}</span>
+          <span class="selection-name text-break clamp-2">${escapeHtml(product.productName)}</span>
+          <span class="selection-meta text-muted-path clamp-2">${escapeHtml(product.useCategory)} · ${escapeHtml(product.supplier)}</span>
         </button>
       `).join("")}
     </div>

@@ -192,8 +192,8 @@ function renderReviewList() {
     return `
       <button class="review-list-item ${key === reviewState.selectedKey ? "is-selected" : ""}" type="button" data-review-key="${escapeAttribute(key)}">
         <span class="review-status ${getStatusClass(override.reviewStatus)}">${escapeHtml(override.reviewStatus)}</span>
-        <strong>${escapeHtml(getDisplayTitle(override))}</strong>
-        <span>${escapeHtml(getFileName(override))}</span>
+        <strong class="text-break clamp-2">${escapeHtml(getDisplayTitle(override))}</strong>
+        <span class="text-muted-path clamp-2">${escapeHtml(getFileName(override))}</span>
       </button>
     `;
   }).join("");

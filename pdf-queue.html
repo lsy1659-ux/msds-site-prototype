@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PDF 미등록 자료 검토</title>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body class="review-page pdf-queue-page">
+    <header class="site-header review-header">
+      <div class="header-inner">
+        <p class="eyebrow">내부 검토용</p>
+        <h1>PDF 미등록 자료 검토</h1>
+        <p class="header-note">
+          엑셀에 아직 등록되지 않은 PDF 원본을 검토하고, 엑셀등록필요/기존제품매핑필요/중복의심/제외/보류로 분류하는 내부 검토 화면입니다.
+        </p>
+      </div>
+    </header>
+
+    <main class="app-shell review-shell">
+      <section class="review-toolbar" aria-label="PDF 미등록 자료 필터">
+        <div class="review-toolbar-top">
+          <div>
+            <label class="search-label" for="queueSearch">미등록 PDF 검색</label>
+            <p class="search-help">파일명, 상대경로, 임시 제품명, 공급업체, 분류, 메모로 검색합니다.</p>
+          </div>
+          <div class="mode-badges">
+            <span class="safety-badge">내부 검토</span>
+            <span id="queueDataMode" class="data-mode">데이터 확인 중</span>
+          </div>
+        </div>
+
+        <div class="review-search-row pdf-queue-search-row">
+          <input
+            id="queueSearch"
+            class="search-input"
+            type="search"
+            placeholder="파일명, 경로, 임시 제품명, 공급업체, 메모"
+            autocomplete="off"
+          >
+          <select id="queueDecisionFilter" class="review-select" aria-label="검토 상태 필터">
+            <option value="all">전체</option>
+            <option value="미검토">미검토</option>
+            <option value="엑셀등록필요">엑셀등록필요</option>
+            <option value="기존제품매핑필요">기존제품매핑필요</option>
+            <option value="중복의심">중복의심</option>
+            <option value="제외">제외</option>
+            <option value="보류">보류</option>
+          </select>
+          <button id="downloadQueueJson" class="clear-button" type="button">수정 큐 JSON 다운로드</button>
+        </div>
+
+        <div id="queueCounts" class="review-counts" aria-label="검토 상태별 건수"></div>
+        <p id="queueDirtyNotice" class="review-dirty-notice is-hidden">저장되지 않은 변경사항이 있습니다. 수정 큐 JSON을 다운로드하세요.</p>
+        <p class="review-help">
+          정적 화면에서는 local JSON을 직접 덮어쓸 수 없습니다. 다운로드한 파일은 나중에 적용 스크립트로 반영합니다. PDF 파일은 삭제/이동/이름변경하지 않습니다.
+        </p>
+      </section>
+
+      <section class="review-layout pdf-queue-layout" aria-label="PDF 미등록 자료 검토">
+        <section class="review-list-panel" aria-labelledby="queueListTitle">
+          <div class="section-heading">
+            <div>
+              <h2 id="queueListTitle">엑셀 미등록 PDF 목록</h2>
+              <p id="queueListSummary" class="section-subtitle">목록을 불러오는 중입니다.</p>
+            </div>
+          </div>
+          <div id="queueList" class="review-list"></div>
+        </section>
+
+        <section class="review-detail-panel" aria-labelledby="queueDetailTitle">
+          <div class="section-heading">
+            <div>
+              <h2 id="queueDetailTitle">상세 검토</h2>
+              <p class="section-subtitle">선택한 PDF의 등록 여부와 처리 방향을 기록합니다.</p>
+            </div>
+          </div>
+          <div id="queueDetail" class="review-detail empty-detail">
+            <p>항목을 선택하면 상세정보가 표시됩니다.</p>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="js/pdf-queue.js" defer></script>
+  </body>
+</html>
