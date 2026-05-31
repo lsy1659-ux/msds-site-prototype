@@ -3,13 +3,16 @@
 *.pdf
 data/raw/
 data/original/
+data/backups/
 data/msds.local.json
 data/*.local.json
+data/*.reviewed.local.json
 data/msds-overrides.local.json
 data/*overrides*.local.json
 reports/*.local.json
 reports/*.local.csv
 reports/*.local.*
+*reviewed.local.json
 .env
 config.local.json
 __pycache__/

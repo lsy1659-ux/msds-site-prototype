@@ -133,6 +133,20 @@ review.html
 
 `data/msds-overrides.local.json`은 실제 제품정보와 PDF 후보 정보가 들어갈 수 있는 로컬 전용 파일이므로 GitHub에 올리지 않습니다. 운영 전 최종 확인 대상은 `reviewStatus`가 `검토완료`인 항목을 기준으로 삼는 것을 권장합니다.
 
+다운로드한 검토 결과를 적용할 때는 보조 스크립트를 사용할 수 있습니다. 먼저 dry-run으로 JSON 구조와 상태별 건수를 확인합니다.
+
+```bash
+python scripts/apply_reviewed_overrides.py --input msds-overrides.reviewed.local.json --dry-run
+```
+
+문제가 없으면 아래처럼 적용합니다.
+
+```bash
+python scripts/apply_reviewed_overrides.py --input msds-overrides.reviewed.local.json
+```
+
+적용 시 기존 `data/msds-overrides.local.json`이 있으면 `data/backups/msds-overrides.local.YYYYMMDD_HHMMSS.json` 형태로 자동 백업한 뒤 새 파일을 적용합니다. `data/msds-overrides.local.json`, `data/backups/`, `*reviewed.local.json` 파일은 실제 검토 데이터가 들어갈 수 있으므로 GitHub에 올리지 않습니다.
+
 ## 작업자 주의 포인트
 
 오른쪽 상세정보의 `작업자 주의 포인트`는 제품명, 유해성 문구, 위험물 구분, 성분정보, 보호구 문구를 바탕으로 로컬 규칙에 따라 표시합니다. 화면에서는 현장 작업, 보호구, 환기 및 노출관리, 화재·보관, 법적관리 확인사항처럼 필요한 파트만 나누어 보여줍니다.
