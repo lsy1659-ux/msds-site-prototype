@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="GHS09 환경유해성">
+  <rect x="16" y="16" width="68" height="68" transform="rotate(45 50 50)" fill="#fff" stroke="#d71920" stroke-width="6"/>
+  <path d="M16 68c15 4 25 0 35-12 7-8 15-12 32-10-13 7-17 20-30 27-12 6-25 5-37-5zM23 31c12 2 20 8 24 20-13-2-22-8-24-20zM50 52c4-18 13-28 28-32-1 16-11 27-28 32z" fill="#111"/>
+</svg>

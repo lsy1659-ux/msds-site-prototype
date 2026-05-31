@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="GHS03 산화성">
+  <rect x="16" y="16" width="68" height="68" transform="rotate(45 50 50)" fill="#fff" stroke="#d71920" stroke-width="6"/>
+  <circle cx="50" cy="63" r="14" fill="#fff" stroke="#111" stroke-width="6"/>
+  <path d="M50 68c10-7 17-15 17-27 0-10-6-18-13-26 1 10-4 15-10 21-5 5-10 10-10 18 0 8 7 13 16 14z" fill="#111"/>
+</svg>

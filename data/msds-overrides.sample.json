@@ -15,7 +15,7 @@
     "signalWordCandidate": "위험",
     "ghsPictograms": [
       {
-        "code": "flame",
+        "code": "GHS02",
         "label": "인화성"
       }
     ],
@@ -40,6 +40,9 @@
     "ppeCandidates": [
       "샘플 보호구 문구"
     ],
-    "notes": "PDF 자동 추출 후보이며 검토 필요. 현장용 화면에서는 설정에 따라 검토 상태 문구가 숨겨질 수 있습니다."
+    "notes": "PDF 자동 추출 후보이며 검토 필요. 현장용 화면에서는 설정에 따라 검토 상태 문구가 숨겨질 수 있습니다.",
+    "ghsCodes": [
+      "GHS02"
+    ]
   }
 ]

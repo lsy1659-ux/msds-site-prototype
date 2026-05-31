@@ -246,16 +246,49 @@ const FALLBACK_PRODUCTS = [
   }
 ];
 
-const GHS_ICON_PARTS = {
-  flame: `<path d="M49 71c10-7 17-15 17-27 0-12-7-20-14-28 1 12-5 17-11 23-5 5-10 10-10 19 0 10 8 16 18 13Z"/><path d="M49 70c-6-5-8-10-5-17 2-4 5-7 8-11 4 7 10 15 5 23-2 3-5 5-8 5Z" fill="#fff"/>`,
-  exclamation: `<rect x="44" y="20" width="10" height="36" rx="5"/><circle cx="49" cy="68" r="6"/>`,
-  health: `<circle cx="49" cy="25" r="10"/><path d="M27 76c2-18 11-29 22-29s20 11 22 29H27Z"/><path d="M43 52l6 9 6-9 8 24H35l8-24Z" fill="#fff"/>`,
-  corrosion: `<path d="M20 58h34v8H20z"/><path d="M24 71h26v5H24z"/><path d="M56 27l23 11-4 8-23-11z"/><path d="M22 28l23 11-4 8-23-11z"/><path d="M63 48c5 2 7 4 7 7 0 4-3 7-7 7s-7-3-7-7c0-3 2-5 7-7Z"/><path d="M36 50c5 2 7 4 7 7 0 4-3 7-7 7s-7-3-7-7c0-3 2-5 7-7Z"/>`,
-  environment: `<path d="M16 66c15 4 24 0 34-12 7-8 15-12 31-10-12 7-16 20-29 27-12 6-24 5-36-5Z"/><path d="M22 30c12 2 20 8 24 20-13-2-22-8-24-20Z"/><path d="M49 51c4-18 13-28 28-32-1 16-11 27-28 32Z"/>`,
-  gas: `<rect x="31" y="18" width="36" height="61" rx="13"/><rect x="39" y="12" width="20" height="9" rx="3"/><path d="M34 34h30M34 63h30"/>`,
-  oxidizer: `<circle cx="49" cy="59" r="14" fill="#fff"/><path d="M49 73c10-7 17-15 17-27 0-10-6-18-12-25 1 10-4 15-9 20-5 5-10 10-10 18 0 8 6 13 14 14Z"/><circle cx="49" cy="59" r="12"/>`,
-  skull: `<circle cx="49" cy="35" r="21"/><circle cx="41" cy="33" r="5" fill="#fff"/><circle cx="57" cy="33" r="5" fill="#fff"/><path d="M45 47h8l-4-6Z" fill="#fff"/><path d="M31 66l36 10M67 66L31 76" stroke="#111" stroke-width="7" stroke-linecap="round"/>`,
-  explosive: `<path d="M49 17l7 19 19-8-9 18 18 7-19 5 8 19-18-10-7 18-6-19-19 9 10-18-19-7 19-5-9-18 18 9 7-19Z"/>`
+const GHS_DEFINITIONS = {
+  GHS01: { label: "폭발성", icon: "assets/ghs/ghs01.svg", order: 1 },
+  GHS02: { label: "인화성", icon: "assets/ghs/ghs02.svg", order: 2 },
+  GHS03: { label: "산화성", icon: "assets/ghs/ghs03.svg", order: 3 },
+  GHS04: { label: "고압가스", icon: "assets/ghs/ghs04.svg", order: 4 },
+  GHS05: { label: "부식성", icon: "assets/ghs/ghs05.svg", order: 5 },
+  GHS06: { label: "급성독성", icon: "assets/ghs/ghs06.svg", order: 6 },
+  GHS07: { label: "유해/자극성", icon: "assets/ghs/ghs07.svg", order: 7 },
+  GHS08: { label: "건강유해성", icon: "assets/ghs/ghs08.svg", order: 8 },
+  GHS09: { label: "환경유해성", icon: "assets/ghs/ghs09.svg", order: 9 }
+};
+
+const GHS_CODE_ALIASES = {
+  explosive: "GHS01",
+  explosion: "GHS01",
+  flame: "GHS02",
+  flammable: "GHS02",
+  oxidizer: "GHS03",
+  oxidizing: "GHS03",
+  gas: "GHS04",
+  cylinder: "GHS04",
+  corrosion: "GHS05",
+  corrosive: "GHS05",
+  skull: "GHS06",
+  skullcrossbones: "GHS06",
+  exclamation: "GHS07",
+  irritant: "GHS07",
+  harmful: "GHS07",
+  health: "GHS08",
+  healthhazard: "GHS08",
+  environment: "GHS09",
+  aquatic: "GHS09",
+  "폭발성": "GHS01",
+  "인화성": "GHS02",
+  "산화성": "GHS03",
+  "고압가스": "GHS04",
+  "부식성": "GHS05",
+  "급성독성": "GHS06",
+  "유해자극성": "GHS07",
+  "건강유해성": "GHS08",
+  "환경유해성": "GHS09",
+  "??": "GHS07",
+  "???": "GHS07"
 };
 
 const PRECAUTION_LABELS = {
@@ -495,7 +528,8 @@ function normalizeProduct(product) {
     ppeSummary: product.ppeSummary || "",
     revisionDate: product.revisionDate || "",
     hazardBadge: product.hazardBadge || "확인",
-    ghsPictograms: product.ghsPictograms || [],
+    ghsCodes: normalizeGhsCodeList(product.ghsCodes || product.ghsPictograms || []),
+    ghsPictograms: normalizeGhsList(product),
     hazardStatements: product.hazardStatements || [],
     precautionaryStatements: {
       prevention: product.precautionaryStatements?.prevention || [],
@@ -523,6 +557,7 @@ function normalizeOverride(override) {
     extractStatus: override.extractStatus || "",
     reviewStatus: override.reviewStatus || "검토필요",
     signalWordCandidate: override.signalWordCandidate || "",
+    ghsCodes: normalizeGhsCodeList(override.ghsCodes || override.ghsPictograms || []),
     ghsPictograms: Array.isArray(override.ghsPictograms) ? override.ghsPictograms : [],
     hazardStatements: Array.isArray(override.hazardStatements) ? override.hazardStatements : [],
     precautionaryStatements: {
@@ -636,18 +671,40 @@ function normalizeSearchText(value) {
     .replace(/[\s()[\]{}<>（）［］｛｝_\-\/\\]/g, "");
 }
 
-function normalizeGhsList(product) {
-  return (product.ghsPictograms || []).map((item) => {
-    if (typeof item === "string") {
-      const code = item === "불꽃" ? "flame" : item === "느낌표" ? "exclamation" : "health";
-      return { code, label: item };
-    }
-    return {
-      code: item.code || "exclamation",
-      label: item.label || "유해/자극성"
-    };
-  });
+function normalizeGhsCode(value) {
+  const raw = typeof value === "string" ? value : (value?.code || value?.label || "");
+  const text = String(raw || "").trim();
+  if (!text) return "";
+  const upper = text.toUpperCase().replace(/[^A-Z0-9]/g, "");
+  const direct = upper.match(/^GHS0[1-9]$/)?.[0];
+  if (direct && GHS_DEFINITIONS[direct]) return direct;
+  const normalized = normalizeSearchText(text).replace(/[^a-z0-9?-?]/gi, "");
+  return GHS_CODE_ALIASES[normalized] || GHS_CODE_ALIASES[normalized.toLowerCase()] || "";
 }
+
+function normalizeGhsCodeList(items = []) {
+  const list = Array.isArray(items) ? items : [];
+  return [...new Set(list.map(normalizeGhsCode).filter(Boolean))]
+    .sort((a, b) => GHS_DEFINITIONS[a].order - GHS_DEFINITIONS[b].order);
+}
+
+function normalizeGhsList(source = {}) {
+  const rawCodes = Array.isArray(source.ghsCodes) ? source.ghsCodes : [];
+  const rawItems = Array.isArray(source.ghsPictograms)
+    ? source.ghsPictograms
+    : (Array.isArray(source) ? source : []);
+  const codes = normalizeGhsCodeList([...rawCodes, ...rawItems]);
+  return codes.map((code) => ({
+    code,
+    label: GHS_DEFINITIONS[code].label,
+    icon: GHS_DEFINITIONS[code].icon
+  }));
+}
+
+function getOverrideGhsItems(override) {
+  return normalizeGhsList(override || {});
+}
+
 
 function buildSearchSource(product) {
   const componentText = (product.components || [])
@@ -916,7 +973,7 @@ function getPosterData(product) {
     };
   }
 
-  const hasProductSummary = hasAnySummary(product.ghsPictograms, product.hazardStatements, product.precautionaryStatements);
+  const hasProductSummary = hasAnySummary(normalizeGhsList(product), product.hazardStatements, product.precautionaryStatements);
   const showUnregisteredStatus = !APP_CONFIG.fieldDisplayMode;
   return {
     statusClass: hasProductSummary ? "" : "is-unregistered-summary",
@@ -924,7 +981,8 @@ function getPosterData(product) {
     reviewBadge: hasProductSummary ? "" : "요약정보 미등록",
     reviewMessage: hasProductSummary ? "" : "정식 MSDS PDF를 확인하세요.",
     hazardBadge: product.hazardBadge || "확인",
-    ghsPictograms: product.ghsPictograms || [],
+    ghsCodes: normalizeGhsCodeList(product.ghsCodes || product.ghsPictograms || []),
+    ghsPictograms: normalizeGhsList(product),
     hazardStatements: product.hazardStatements || [],
     precautionaryStatements: product.precautionaryStatements || {},
     ppeCandidates: [],
@@ -955,7 +1013,7 @@ function canUseOverride(override) {
 }
 
 function hasOverrideSummary(override) {
-  return hasAnySummary(override.ghsPictograms, override.hazardStatements, override.precautionaryStatements)
+  return hasAnySummary(getOverrideGhsItems(override), override.hazardStatements, override.precautionaryStatements)
     || Boolean(override.signalWordCandidate)
     || Boolean(override.sourcePdfPath)
     || Boolean((override.ppeCandidates || []).length);
@@ -974,7 +1032,7 @@ function containsNoGhsLabelElement(value) {
 
 function shouldSuppressGhsPictograms(product) {
   const override = product.pdfSummaryOverride;
-  if (!override?.ghsPictograms?.length) return false;
+  if (!getOverrideGhsItems(override).length) return false;
   return containsNoGhsLabelElement(override.signalWordCandidate)
     || containsNoGhsLabelElement(product.hazardSummary)
     || containsNoGhsLabelElement(product.hazardClassification);
@@ -983,7 +1041,8 @@ function shouldSuppressGhsPictograms(product) {
 function getDisplayGhsPictograms(product) {
   if (shouldSuppressGhsPictograms(product)) return [];
   const override = canUseOverride(product.pdfSummaryOverride) ? product.pdfSummaryOverride : null;
-  return override?.ghsPictograms?.length ? override.ghsPictograms : (product.ghsPictograms || []);
+  const overrideGhs = getOverrideGhsItems(override);
+  return overrideGhs.length ? overrideGhs : normalizeGhsList(product);
 }
 
 function hasAnySummary(ghsPictograms = [], hazardStatements = [], precautions = {}) {
@@ -1245,7 +1304,7 @@ function renderOverrideDetail(override) {
       ${detailItem("PDF 요약 추출 상태", override.extractStatus || "미확인")}
       ${detailItem("검토 상태", override.reviewStatus || "검토필요")}
       ${detailItem("PDF 출처", override.sourcePdfPath || "")}
-      ${detailItem("후보 항목", `GHS ${override.ghsPictograms.length}건 / 유해문구 ${override.hazardStatements.length}건 / 구성성분 후보 ${override.ingredients.length}건`)}
+      ${detailItem("후보 항목", `GHS ${getOverrideGhsItems(override).length}건 / 유해문구 ${override.hazardStatements.length}건 / 구성성분 후보 ${override.ingredients.length}건`)}
     </div>
   `;
 }
@@ -1528,26 +1587,23 @@ function detailItem(label, value) {
 }
 
 function renderGhsList(product, size) {
-  return renderGhsListFromItems(product.ghsPictograms, size);
+  return renderGhsListFromItems(product, size);
 }
 
 function renderGhsListFromItems(items, size) {
-  const list = normalizeGhsList({ ghsPictograms: items || [] });
+  const list = normalizeGhsList(Array.isArray(items) ? { ghsPictograms: items || [] } : (items || {}));
   if (!list.length) return `<span class="no-ghs">GHS 정보 없음</span>`;
   return list.map((item) => renderGhsPictogram(item, size)).join("");
 }
 
 function renderGhsPictogram(item, size) {
-  const iconPart = GHS_ICON_PARTS[item.code] || GHS_ICON_PARTS.exclamation;
+  const definition = GHS_DEFINITIONS[item.code] || GHS_DEFINITIONS.GHS07;
   return `
     <figure class="ghs-item ${size}">
       <span class="ghs-diamond" aria-hidden="true">
-        <svg viewBox="0 0 98 98" focusable="false">
-          <rect class="diamond-border" x="15" y="15" width="68" height="68" transform="rotate(45 49 49)"/>
-          <g class="ghs-symbol">${iconPart}</g>
-        </svg>
+        <img src="${escapeAttribute(definition.icon)}" alt="" loading="lazy">
       </span>
-      <figcaption>${escapeHtml(item.label)}</figcaption>
+      <figcaption>${escapeHtml(definition.label)}</figcaption>
     </figure>
   `;
 }

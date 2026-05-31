@@ -45,46 +45,30 @@ CONTENT_RE = re.compile(
     r"|\b\d{1,3}(?:\.\d+)?\s*%"
 )
 
-GHS_PATTERNS = [
-    ("explosive", "폭발성", ["폭발", "폭탄"]),
-    ("flame", "인화성", ["인화", "화염", "불꽃"]),
-    ("oxidizer", "산화성", ["산화"]),
-    ("gas", "고압가스", ["고압가스", "가스 실린더"]),
-    ("corrosion", "부식성", ["부식"]),
-    ("skull", "급성독성", ["급성독성", "해골"]),
-    ("exclamation", "유해/자극성", ["자극", "유해"]),
-    ("health", "건강유해성", ["건강유해", "발암", "생식독성", "흡인유해"]),
-    ("environment", "환경유해성", ["환경유해", "수생환경"]),
-]
+GHS_DEFINITIONS = {
+    'GHS01': {"label": '폭발성', "legacy": 'explosive'},
+    'GHS02': {"label": '인화성', "legacy": 'flame'},
+    'GHS03': {"label": '산화성', "legacy": 'oxidizer'},
+    'GHS04': {"label": '고압가스', "legacy": 'gas'},
+    'GHS05': {"label": '부식성', "legacy": 'corrosion'},
+    'GHS06': {"label": '급성독성', "legacy": 'skull'},
+    'GHS07': {"label": '유해/자극성', "legacy": 'exclamation'},
+    'GHS08': {"label": '건강유해성', "legacy": 'health'},
+    'GHS09': {"label": '환경유해성', "legacy": 'environment'},
+}
+GHS_LEGACY_TO_CODE = {item["legacy"]: code for code, item in GHS_DEFINITIONS.items()}
 
 SECTION_MARKERS = {
-    "section1": ["1. 화학제품", "화학제품과 회사"],
-    "section2": ["2. 유해성", "유해성·위험성", "유해성 위험성"],
-    "section3": ["3. 구성성분", "구성성분의 명칭", "구성성분"],
-    "section4": ["4. 응급조치", "응급조치"],
+    "section1": ['1. 화학제품', '화학제품과 회사', "1. Chemical product", "Identification"],
+    "section2": ['2. 유해성', '2. 유해 위험성', '2. 유해성·위험성', '유해성·위험성', '유해 위험성', "Hazards identification"],
+    "section3": ['3. 구성성분', '3. 구성 성분', '구성성분의 명칭', '구성성분', '구성 성분', "Composition", "Ingredients"],
+    "section4": ['4. 응급조치', '응급조치', "First aid"],
 }
 
-LOCKED_REVIEW_STATUSES = {"검토완료", "수정필요", "제외"}
-GENERATED_NOTES = {
-    "PDF 자동 추출 후보이며 검토 필요",
-    "PDF 텍스트 추출 실패 또는 이미지 PDF로 추정되며 수동 확인 필요",
-}
-NON_MSDS_EXCLUDE_REASONS = {
-    "비MSDS",
-    "QR코드/안내문",
-    "카탈로그/기타자료",
-    "카탈로그",
-    "시험성적서",
-    "인증서",
-    "기타",
-}
-FAILED_EXTRACT_STATUSES = {
-    "text_extract_failed",
-    "scanned_pdf_or_image_pdf",
-    "manual_review_required",
-    "pypdf_import_failed",
-}
-
+LOCKED_REVIEW_STATUSES = {'검토완료', '수정필요', '제외'}
+GENERATED_NOTES = {'PDF 자동 추출 후보이며 검토 필요', 'PDF 텍스트 추출 실패 또는 이미지 PDF로 추정되며 수동 확인 필요' }
+NON_MSDS_EXCLUDE_REASONS = {'비MSDS', 'QR코드/안내문', '카탈로그/기타자료', '카탈로그', '시험성적서', '인증서', '기타' }
+FAILED_EXTRACT_STATUSES = {"text_extract_failed", "scanned_pdf_or_image_pdf", "manual_review_required", "pypdf_import_failed"}
 
 @dataclass
 class PdfTarget:
@@ -118,15 +102,7 @@ def read_json_list(path: Path, list_key: str | None = None) -> list[dict[str, An
 
 def read_pdf_text(path: Path, pages: int = 0) -> tuple[str, dict[str, Any]]:
     if PdfReader is None:
-        return "", {
-            "method": "pypdf",
-            "status": "text_extract_failed",
-            "error": f"pypdf_import_failed: {PDF_IMPORT_ERROR}",
-            "pageCount": 0,
-            "extractedPageCount": 0,
-            "extractedCharacterCount": 0,
-        }
-
+        return "", {"method": "pypdf", "status": "text_extract_failed", "error": f"pypdf_import_failed: {PDF_IMPORT_ERROR}", "pageCount": 0, "extractedPageCount": 0, "extractedCharacterCount": 0}
     try:
         reader = PdfReader(str(path))
         total_pages = len(reader.pages)
@@ -140,28 +116,13 @@ def read_pdf_text(path: Path, pages: int = 0) -> tuple[str, dict[str, Any]]:
             chunks.append(text)
         text = "\n".join(chunks).strip()
     except Exception as exc:
-        return "", {
-            "method": "pypdf",
-            "status": "text_extract_failed",
-            "error": str(exc),
-            "pageCount": 0,
-            "extractedPageCount": 0,
-            "extractedCharacterCount": 0,
-        }
-
-    return text, {
-        "method": "pypdf",
-        "status": "text_extracted" if text else "scanned_pdf_or_image_pdf",
-        "error": "",
-        "pageCount": total_pages,
-        "extractedPageCount": extracted_pages,
-        "extractedCharacterCount": len(text),
-    }
+        return "", {"method": "pypdf", "status": "text_extract_failed", "error": str(exc), "pageCount": 0, "extractedPageCount": 0, "extractedCharacterCount": 0}
+    return text, {"method": "pypdf", "status": "text_extracted" if text else "scanned_pdf_or_image_pdf", "error": "", "pageCount": total_pages, "extractedPageCount": extracted_pages, "extractedCharacterCount": len(text)}
 
 
 def clean_line(value: str) -> str:
     value = re.sub(r"\s+", " ", value or "").strip()
-    return value.strip("-ㆍ•·* ")
+    return value.strip("-????* ")
 
 
 def clean_lines(text: str) -> list[str]:
@@ -187,7 +148,7 @@ def first_label_value(lines: list[str], labels: list[str]) -> str:
         for label in labels:
             if label not in line:
                 continue
-            match = re.search(rf"{re.escape(label)}\s*[:：]?\s*(.+)", line)
+            match = re.search(rf"{re.escape(label)}\s*[:?>\-]?\s*(.+)", line)
             if match:
                 value = clean_line(match.group(1))
                 if value and value != label:
@@ -207,33 +168,151 @@ def first_regex(lines: list[str], pattern: re.Pattern[str]) -> str:
 
 def has_no_ghs_label_element(text: str) -> bool:
     compact = re.sub(r"\s+", "", text).lower()
-    no_label_markers = [
-        "그림문자해당없음",
-        "심볼(문자)해당없음",
-        "심볼해당없음",
-        "신호어해당없음",
-        "유해위험문구해당없음",
-        "유해▪위험문구해당없음",
-        "유해화학물질로분류되지않음",
-        "notclassified",
-        "noghslabelelement",
-        "notapplicable",
-    ]
+    no_label_markers = ['그림문자해당없음', '그림문자없음', '신호어해당없음', '신호어없음', '유해위험문구해당없음', '유해화학물질로분류되지않음', '분류되지않음', '해당없음', "notclassified", "noghslabelelement", "nosignalword", "notapplicable"]
     return any(marker in compact for marker in no_label_markers)
 
 
-def extract_ghs_candidates(text: str) -> list[dict[str, str]]:
-    if has_no_ghs_label_element(text):
+def lines_before_precautions(lines: list[str]) -> list[str]:
+    stop_keywords = ['예방조치문구', '예방 조치', '예방조치', "Precautionary statements", "Precautionary statement", "Precautionary", '3. 구성성분', '구성성분의 명칭']
+    result: list[str] = []
+    for line in lines:
+        if any(keyword.lower() in line.lower() for keyword in stop_keywords):
+            break
+        result.append(line)
+    return result
+
+
+def has_any_pattern(text: str, patterns: list[str]) -> bool:
+    return any(re.search(pattern, text, flags=re.IGNORECASE) for pattern in patterns)
+
+
+def compact_ghs_evidence(value: str) -> str:
+    return re.sub(r"[\s:???,;()\[\]{}<>/\\_\-]+", "", value or "").lower()
+
+
+def ghs_item(code: str) -> dict[str, str]:
+    definition = GHS_DEFINITIONS[code]
+    return {"code": code, "label": definition["label"]}
+
+
+def acute_toxicity_categories(compact_lines: list[str]) -> set[int]:
+    categories: set[int] = set()
+    for line in compact_lines:
+        if '급성독성' not in line and "acutetoxicity" not in line:
+            continue
+        for match in re.finditer(r"급성독성.{0,40}?구분([1-5])", line, flags=re.IGNORECASE):
+            categories.add(int(match.group(1)))
+        for match in re.finditer(r"acutetoxicity.{0,50}?(?:category|categories)([1-5])", line, flags=re.IGNORECASE):
+            categories.add(int(match.group(1)))
+    return categories
+
+
+def has_h_code(evidence_text: str, codes: set[str]) -> bool:
+    found = set(re.findall(r"\bH\d{3}\b", evidence_text.upper()))
+    return bool(found & codes)
+
+
+
+
+PICTOGRAM_TEXT_MAP = [
+    ("GHS01", ["???", "??", "explosive", "explosion"]),
+    ("GHS02", ["???", "??", "flame", "flammable"]),
+    ("GHS03", ["???", "oxidizer", "oxidizing"]),
+    ("GHS04", ["????", "?????", "gas cylinder", "gases under pressure"]),
+    ("GHS05", ["???", "corrosion", "corrosive"]),
+    ("GHS06", ["????", "??", "skull", "skull and crossbones"]),
+    ("GHS07", ["??/???", "??????", "??", "???", "???", "exclamation", "irritant", "harmful"]),
+    ("GHS08", ["?????", "?? ???", "health hazard"]),
+    ("GHS09", ["?????", "?? ???", "environment"]),
+]
+PICTOGRAM_START_WORDS = ["????", "?? ??", "pictogram", "pictograms", "symbol"]
+PICTOGRAM_STOP_WORDS = ["???", "??????", "?? ?? ??", "????", "Precautionary", "signal word", "hazard statement"]
+
+
+def explicit_ghs_codes_from_pictogram_area(lines: list[str]) -> list[str] | None:
+    """Use the MSDS section 2 pictogram/label area when text extraction exposes it.
+
+    Many MSDS PDFs keep GHS pictograms as images. In that case this function
+    returns None and the caller can fall back to strict section-2 classification.
+    When the pictogram area is text-readable, it is more authoritative than
+    keyword inference from other section-2 lines.
+    """
+    start = -1
+    for index, line in enumerate(lines):
+        lower = line.lower()
+        if any(word.lower() in lower for word in PICTOGRAM_START_WORDS):
+            start = index
+            break
+    if start < 0:
+        return None
+
+    area: list[str] = []
+    for line in lines[start:start + 12]:
+        lower = line.lower()
+        if area and any(word.lower() in lower for word in PICTOGRAM_STOP_WORDS):
+            break
+        area.append(line)
+
+    area_text = " ".join(area)
+    if has_no_ghs_label_element(area_text):
         return []
 
-    compact_text = re.sub(r"\s+", "", text)
-    found: list[dict[str, str]] = []
-    for code, label, keywords in GHS_PATTERNS:
-        compact_keywords = [re.sub(r"\s+", "", keyword) for keyword in keywords]
-        if any(keyword in text or compact_keyword in compact_text for keyword, compact_keyword in zip(keywords, compact_keywords)):
-            found.append({"code": code, "label": label})
-    return found
+    compact = normalize_for_pictogram_match(area_text)
+    found: list[str] = []
+    for code, keywords in PICTOGRAM_TEXT_MAP:
+        for keyword in keywords:
+            if normalize_for_pictogram_match(keyword) in compact:
+                if code not in found:
+                    found.append(code)
+                break
+    return found if found else None
 
+
+def normalize_for_pictogram_match(value: str) -> str:
+    return re.sub(r"[\s:???,;()\[\]{}<>/\\_\-.]+", "", value or "").lower()
+
+
+def extract_ghs_candidates(text: str) -> list[dict[str, str]]:
+    """Return GHS01-GHS09 candidates from MSDS section 2 evidence only."""
+    if has_no_ghs_label_element(text):
+        return []
+    section_lines = clean_lines(text)
+    evidence_lines = lines_before_precautions(section_lines)
+    if not evidence_lines:
+        return []
+    evidence_text = "\n".join(evidence_lines)
+    if has_no_ghs_label_element(evidence_text):
+        return []
+    explicit_codes = explicit_ghs_codes_from_pictogram_area(section_lines)
+    if explicit_codes is not None:
+        return [ghs_item(code) for code in explicit_codes]
+    compact_lines = [compact_ghs_evidence(line) for line in evidence_lines]
+    found: list[str] = []
+    def add(code: str) -> None:
+        if code not in found:
+            found.append(code)
+    def has_class(patterns: list[str]) -> bool:
+        return any(has_any_pattern(line, patterns) for line in compact_lines)
+    if has_class([r"인화성(?:액체|고압가스|에어로졸|고체).*?(?:구분)?[1-4]", r"flammable(?:liquid|liquids|gas|gases|aerosol|aerosols|solid|solids).*?(?:category|categories)?[1-4]"]):
+        add("GHS02")
+    if has_class([r"폭발성.*?(?:구분)?[1-6a-f]*", r"자기반응성.*?(?:구분)?[ab]", r"유기과산화물.*?(?:구분)?[ab]", r"explosives?.*?(?:category|division)?", r"selfreactive.*?(?:type)?[ab]", r"organicperoxide.*?(?:type)?[ab]"]):
+        add("GHS01")
+    if has_class([r"산화성(?:고압가스|액체|고체).*?(?:구분)?[1-3]", r"oxidizing(?:gas|gases|liquid|liquids|solid|solids).*?(?:category|categories)?[1-3]"]):
+        add("GHS03")
+    if has_class([r"고압가스", r"압축가스", r"액화가스", r"냉동액화가스", r"gasesunderpressure", r"compressedgas", r"liquefiedgas", r"refrigeratedliquefiedgas"]):
+        add("GHS04")
+    if has_class([r"피부(?:부식성)?/?(?:자극성)?.*?(?:구분)?1[abc]?", r"피부부식성.*?(?:구분)?1[abc]?", r"심한눈손상.*?(?:구분)?1", r"눈손상.*?(?:구분)?1", r"금속부식성.*?(?:구분)?1", r"skincorrosion.*?(?:category|categories)?1[abc]?", r"seriouseyedamage.*?(?:category|categories)?1", r"corrosivetometals.*?(?:category|categories)?1"]):
+        add("GHS05")
+    acute_categories = acute_toxicity_categories(compact_lines)
+    if any(category in {1, 2, 3} for category in acute_categories) or has_h_code(evidence_text, {"H300", "H301", "H310", "H311", "H330", "H331"}):
+        add("GHS06")
+    if has_class([r"피부(?:부식성)?/?(?:자극성)?.*?(?:구분)?2", r"피부자극성.*?(?:구분)?2", r"눈(?:눈손상)?/?(?:자극성)?.*?(?:구분)?2a?", r"눈자극성.*?(?:구분)?2a?", r"심한눈손상/?눈자극성.*?(?:구분)?2a?", r"특정표적장기독성.*?1회노출.*?(?:구분)?3", r"skinirritation.*?(?:category|categories)?2", r"eyeirritation.*?(?:category|categories)?2a?", r"stotse.*?(?:category|categories)?3", r"specifictargetorgantoxicitysingleexposure.*?(?:category|categories)?3"]) or 4 in acute_categories or has_h_code(evidence_text, {"H302", "H312", "H332"}):
+        add("GHS07")
+    if has_class([r"발암성.*?(?:구분)?[12]", r"생식독성.*?(?:구분)?[12]", r"생식세포변이원성.*?(?:구분)?[12]", r"특정표적장기독성.*?반복노출.*?(?:구분)?[12]", r"흡인유해성.*?(?:구분)?1", r"호흡기과민성.*?(?:구분)?1", r"carcinogenicity.*?(?:category|categories)?[12]", r"reproductivetoxicity.*?(?:category|categories)?[12]", r"germcellmutagenicity.*?(?:category|categories)?[12]", r"stotre.*?(?:category|categories)?[12]", r"specifictargetorgantoxicityrepeatedexposure.*?(?:category|categories)?[12]", r"aspirationhazard.*?(?:category|categories)?1", r"respiratorysensiti[sz]ation.*?(?:category|categories)?1"]):
+        add("GHS08")
+    if has_class([r"수생환경(?:유해성)?.*?(?:급성|만성)?.*?(?:구분)?[1-4]", r"환경유해성유해성.*?(?:구분)?[1-4]", r"hazardoustotheaquaticenvironment", r"aquatic(?:acute|chronic).*?(?:category|categories)?[1-4]"]):
+        add("GHS09")
+    return [ghs_item(code) for code in found]
 
 def unique_keep_order(items: list[str]) -> list[str]:
     seen: set[str] = set()
@@ -267,11 +346,29 @@ def subsection_lines(lines: list[str], start_keywords: list[str], stop_keywords:
 
 def filter_statement_candidates(lines: list[str]) -> list[str]:
     blocked = ["분류", "그림문자", "신호어", "예방조치", "해당없음", "자료없음"]
-    return unique_keep_order([line for line in lines if not any(word in line for word in blocked) and len(line) >= 4])
+    return unique_keep_order([
+        line for line in lines
+        if not any(word in line for word in blocked)
+        and not re.search(r"\bP\d{3}\b", line)
+        and len(line) >= 4
+    ])
 
 
 def h_code_candidates(lines: list[str]) -> list[str]:
-    return unique_keep_order([line for line in lines if re.search(r"\bH\d{3}\b", line)])
+    return unique_keep_order([
+        line for line in lines
+        if re.search(r"\bH\d{3}\b", line) and not re.search(r"\bP\d{3}\b", line)
+    ])
+
+
+def h_code_candidates_before_precautions(lines: list[str]) -> list[str]:
+    result: list[str] = []
+    for line in lines:
+        if re.search(r"\bP\d{3}\b", line):
+            break
+        if re.search(r"\bH\d{3}\b", line) and not re.search(r"\bP\d{3}\b", line):
+            result.append(line)
+    return unique_keep_order(result)
 
 
 def is_precaution_candidate(line: str) -> bool:
@@ -343,8 +440,41 @@ def dedupe_ingredients(items: list[dict[str, str]]) -> list[dict[str, str]]:
 
 
 def extract_ppe_candidates(lines: list[str]) -> list[str]:
-    keywords = ["보호구", "보호장갑", "보안경", "호흡", "마스크", "보호복", "개인보호"]
-    return unique_keep_order([line for line in lines if any(keyword in line for keyword in keywords)])
+    keywords = [
+        "보호구",
+        "보호장갑",
+        "보안경",
+        "안면보호",
+        "보호의",
+        "보호복",
+        "호흡보호",
+        "호흡용",
+        "방독",
+        "마스크",
+        "국소배기",
+        "환기",
+        "노출관리",
+        "개인보호",
+        "protective gloves",
+        "eye protection",
+        "face protection",
+        "respiratory protection",
+        "ventilation",
+        "local exhaust",
+        "personal protective",
+    ]
+    result: list[str] = []
+    for line in lines:
+        lower_line = line.lower()
+        has_keyword = any(keyword.lower() in lower_line for keyword in keywords)
+        if not has_keyword:
+            continue
+        if re.search(r"\bH\d{3}\b", line):
+            continue
+        if re.search(r"\bP\d{3}\b", line) and not re.search(r"\bP280\b", line):
+            continue
+        result.append(line)
+    return unique_keep_order(result)
 
 
 def source_pdf_path(relative_path: str) -> str:
@@ -361,14 +491,16 @@ def build_override(target: PdfTarget, text: str, metadata: dict[str, Any]) -> di
 
     hazard_lines = subsection_lines(
         section2_lines,
-        ["유해·위험문구", "유해 위험문구", "유해위험문구"],
-        ["예방조치문구", "예방 조치", "예방"],
+        ["유해·위험문구", "유해ᆞ위험문구", "유해ㆍ위험문구", "유해∙위험문구", "유해 위험문구", "유해 위험 문구", "유해위험문구"],
+        ["예방조치문구", "예방조치", "예방 조치", "예방"],
     )
     precaution_lines = subsection_lines(
         section2_lines,
-        ["예방조치문구", "예방 조치"],
+        ["예방조치문구", "예방조치", "예방 조치"],
         ["3. 구성성분", "구성성분의 명칭"],
     )
+
+    ghs_candidates = extract_ghs_candidates(section2 or text)
 
     return {
         "match": {
@@ -387,8 +519,13 @@ def build_override(target: PdfTarget, text: str, metadata: dict[str, Any]) -> di
         "msdsNoCandidate": first_label_value(lines, ["MSDS번호", "MSDS No", "MSDS No."]),
         "revisionDateCandidate": first_label_value(lines, ["개정일", "최종 개정일", "작성일"]) or first_regex(lines, DATE_RE),
         "signalWordCandidate": first_label_value(section2_lines or lines, ["신호어"]),
-        "ghsPictograms": extract_ghs_candidates(section2 or text),
-        "hazardStatements": unique_keep_order(filter_statement_candidates(hazard_lines) + h_code_candidates(section2_lines)),
+        "ghsCodes": [item["code"] for item in ghs_candidates],
+        "ghsPictograms": ghs_candidates,
+        "hazardStatements": unique_keep_order(
+            filter_statement_candidates(hazard_lines)
+            + h_code_candidates(hazard_lines)
+            + ([] if hazard_lines else h_code_candidates_before_precautions(section2_lines))
+        ),
         "precautionaryStatements": split_precautions(precaution_lines),
         "ingredients": extract_ingredients(section3 or text),
         "ppeCandidates": extract_ppe_candidates(lines),
@@ -404,6 +541,8 @@ def build_override(target: PdfTarget, text: str, metadata: dict[str, Any]) -> di
 
 
 def build_failed_override(target: PdfTarget, metadata: dict[str, Any]) -> dict[str, Any]:
+    ghs_candidates = extract_ghs_candidates(section2 or text)
+
     return {
         "match": {
             "fileName": target.file_name,
@@ -421,6 +560,7 @@ def build_failed_override(target: PdfTarget, metadata: dict[str, Any]) -> dict[s
         "msdsNoCandidate": "",
         "revisionDateCandidate": "",
         "signalWordCandidate": "",
+        "ghsCodes": [],
         "ghsPictograms": [],
         "hazardStatements": [],
         "precautionaryStatements": {"prevention": [], "response": [], "storage": [], "disposal": []},
@@ -483,6 +623,7 @@ def merge_override_item(existing_item: dict[str, Any] | None, override: dict[str
         "msdsNoCandidate",
         "revisionDateCandidate",
         "signalWordCandidate",
+        "ghsCodes",
         "ghsPictograms",
         "hazardStatements",
         "precautionaryStatements",
@@ -529,9 +670,13 @@ def merge_overrides(output_path: Path, overrides: list[dict[str, Any]]) -> tuple
         target_key = override_key(override)
         file_name = override_file_name(override)
         existing_item = by_key.get(target_key) or by_file.get(file_name)
+        existing_key = override_key(existing_item) if existing_item else ""
         merged, existed, preserved_status = merge_override_item(existing_item, override)
         if existed:
             stats["updated"] += 1
+            if existing_key and target_key and existing_key != target_key:
+                by_key.pop(existing_key, None)
+                original_order = [target_key if key == existing_key else key for key in original_order]
         else:
             stats["created"] += 1
             new_order.append(target_key)
@@ -689,7 +834,7 @@ def discover_targets(args: argparse.Namespace, existing_overrides: list[dict[str
 def override_counts(override: dict[str, Any]) -> dict[str, int]:
     precautions = override.get("precautionaryStatements") if isinstance(override.get("precautionaryStatements"), dict) else {}
     return {
-        "ghsPictograms": len(override.get("ghsPictograms", [])),
+        "ghsPictograms": len(override.get("ghsCodes") or override.get("ghsPictograms", [])),
         "hazardStatements": len(override.get("hazardStatements", [])),
         "preventionStatements": len(precautions.get("prevention", [])),
         "responseStatements": len(precautions.get("response", [])),
@@ -877,6 +1022,7 @@ def print_single_summary(override: dict[str, Any], output_path: Path) -> None:
         "pdfRegistrationType": override.get("pdfRegistrationType", ""),
         "counts": override_counts(override),
         "preview": {
+            "ghsCodes": override.get("ghsCodes", [])[:5],
             "ghsPictograms": override.get("ghsPictograms", [])[:5],
             "hazardStatements": override.get("hazardStatements", [])[:5],
             "preventionStatements": precautions.get("prevention", [])[:5],

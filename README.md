@@ -524,3 +524,23 @@ QR, QR코드, 코드, 안내, 표지, 카탈로그, catalog, brochure, 시험성
 - PDF 미리보기와 크게보기 기능은 기존처럼 유지하며, 좁은 화면에서는 PDF 영역이 아래로 이어지도록 배치합니다.
 
 디자인이나 줄바꿈 기준을 바꾸려면 `css/style.css`의 `Long text and responsive stability`, `Ingredient section`, `PDF registration queue review page`, `Mobile stacked flow` 영역을 우선 확인하면 됩니다.
+## GHS code-based display and extraction
+
+The field page now renders GHS pictograms from `ghsCodes` first, while keeping legacy `ghsPictograms` for compatibility.
+
+- `GHS01`: 폭발성
+- `GHS02`: 인화성
+- `GHS03`: 산화성
+- `GHS04`: 고압가스
+- `GHS05`: 부식성
+- `GHS06`: 급성독성
+- `GHS07`: 유해/자극성
+- `GHS08`: 건강유해성
+- `GHS09`: 환경유해성
+
+GHS SVG assets live in `assets/ghs/ghs01.svg` through `assets/ghs/ghs09.svg`. These are local GHS-style display assets, not externally downloaded official files.
+
+PDF extraction assigns GHS codes only from MSDS section 2 hazard classification / pictogram / signal word / hazard statement evidence. Words found only in precaution, storage, disposal, fire response, or PPE sections must not create extra pictograms.
+
+H-code statements are kept in the hazard statement area, P-code statements are kept in the precautionary statement area, and PPE candidates are limited to real PPE or exposure-control sentences such as gloves, goggles, respirators, ventilation, and local exhaust.
+

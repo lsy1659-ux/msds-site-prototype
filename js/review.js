@@ -128,6 +128,7 @@ function normalizeReviewOverride(override) {
     msdsNoCandidate: override.msdsNoCandidate || "",
     revisionDateCandidate: override.revisionDateCandidate || "",
     signalWordCandidate: override.signalWordCandidate || "",
+    ghsCodes: Array.isArray(override.ghsCodes) ? override.ghsCodes : [],
     ghsPictograms: Array.isArray(override.ghsPictograms) ? override.ghsPictograms : [],
     hazardStatements: Array.isArray(override.hazardStatements) ? override.hazardStatements : [],
     precautionaryStatements: {
@@ -255,7 +256,7 @@ function renderReviewDetail() {
       </div>
     `)}
 
-    ${reviewSection("GHS 후보", renderGhsCandidates(override.ghsPictograms))}
+    ${reviewSection("GHS 후보", renderGhsCandidates(override))}
     ${reviewSection("유해위험문구 후보", renderSimpleList(override.hazardStatements))}
     ${reviewSection("예방조치문구 후보", renderPrecautionCandidates(override.precautionaryStatements))}
     ${reviewSection("PPE 후보", renderSimpleList(override.ppeCandidates))}
@@ -403,7 +404,7 @@ function containsNoGhsLabelElement(value) {
 }
 
 function getGhsConflict(override) {
-  if (!override.ghsPictograms?.length) return "";
+  if (!getReviewGhsItems(override).length) return "";
   const noLabelSignal = containsNoGhsLabelElement(override.signalWordCandidate);
   const noHazardStatements = !override.hazardStatements?.length;
   if (noLabelSignal || noHazardStatements) {
@@ -430,11 +431,28 @@ function reviewItem(label, value) {
   `;
 }
 
-function renderGhsCandidates(items) {
-  if (!items.length) return `<p class="summary-note">GHS 후보 없음</p>`;
+function getReviewGhsItems(override) {
+  const codes = Array.isArray(override?.ghsCodes) ? override.ghsCodes : [];
+  const pictograms = Array.isArray(override?.ghsPictograms) ? override.ghsPictograms : [];
+  const items = [
+    ...codes.map((code) => ({ code, label: code })),
+    ...pictograms
+  ];
+  const seen = new Set();
+  return items.filter((item) => {
+    const key = String(item.code || item.label || item || "").trim();
+    if (!key || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function renderGhsCandidates(override) {
+  const items = getReviewGhsItems(override);
+  if (!items.length) return `<p class="summary-note">GHS ?? ??</p>`;
   return `
     <div class="review-chip-list">
-      ${items.map((item) => `<span class="review-chip">${escapeHtml(item.label || item.code || "GHS 후보")}</span>`).join("")}
+      ${items.map((item) => `<span class="review-chip">${escapeHtml([item.code, item.label].filter(Boolean).join(" "))}</span>`).join("")}
     </div>
   `;
 }

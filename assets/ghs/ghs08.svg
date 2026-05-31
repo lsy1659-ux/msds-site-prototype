@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="GHS08 건강유해성">
+  <rect x="16" y="16" width="68" height="68" transform="rotate(45 50 50)" fill="#fff" stroke="#d71920" stroke-width="6"/>
+  <circle cx="50" cy="28" r="10" fill="#111"/>
+  <path d="M28 80c2-19 11-30 22-30s20 11 22 30z" fill="#111"/>
+  <path d="M44 55l6 10 6-10 8 25H36z" fill="#fff"/>
+</svg>

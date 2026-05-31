@@ -805,7 +805,7 @@ h1 {
   background: var(--color-reviewed-bg);
 }
 
-/* Shared GHS pictograms */
+/* Shared GHS pictograms: rendered from assets/ghs/ghs01.svg ~ ghs09.svg */
 .ghs-grid {
   display: flex;
   flex-wrap: wrap;
@@ -845,22 +845,11 @@ h1 {
   height: 88px;
 }
 
-.ghs-diamond svg {
+.ghs-diamond img {
   display: block;
   width: 100%;
   height: 100%;
-}
-
-.diamond-border {
-  fill: #ffffff;
-  stroke: #d9231f;
-  stroke-width: 7;
-}
-
-.ghs-symbol {
-  fill: #111111;
-  stroke: #111111;
-  stroke-width: 0;
+  object-fit: contain;
 }
 
 .no-ghs {

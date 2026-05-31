@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="GHS05 부식성">
+  <rect x="16" y="16" width="68" height="68" transform="rotate(45 50 50)" fill="#fff" stroke="#d71920" stroke-width="6"/>
+  <path d="M18 68h34v7H18zM22 78h26v5H22z" fill="#111"/>
+  <path d="M58 25l22 10-4 8-22-10zM23 28l22 10-4 8-22-10z" fill="#111"/>
+  <path d="M64 48c5 2 8 5 8 8a8 8 0 1 1-16 0c0-3 3-6 8-8zM36 50c5 2 8 5 8 8a8 8 0 1 1-16 0c0-3 3-6 8-8z" fill="#111"/>
+</svg>
