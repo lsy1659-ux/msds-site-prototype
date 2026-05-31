@@ -99,6 +99,17 @@ def override_file_name(override: dict[str, Any]) -> str:
     return source_path.split("/").pop() if source_path else ""
 
 
+def override_relative_path(override: dict[str, Any]) -> str:
+    match = override.get("match") if isinstance(override.get("match"), dict) else {}
+    relative_path = str(match.get("relativePath") or override.get("sourceRelativePath") or "").replace("\\", "/").strip()
+    if relative_path:
+        return relative_path
+    source_path = str(override.get("sourcePdfPath") or "").replace("\\", "/").strip()
+    if source_path.startswith("/pdf/"):
+        return source_path.removeprefix("/pdf/")
+    return ""
+
+
 def has_override_summary(override: dict[str, Any]) -> bool:
     precautions = override.get("precautionaryStatements") if isinstance(override.get("precautionaryStatements"), dict) else {}
     return bool(
@@ -126,6 +137,11 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
     pdf_paths = pdf_files(args.pdf_dir)
 
     pdf_names = {path.name for path in pdf_paths}
+    pdf_relative_paths = {
+        str(path.relative_to(args.pdf_dir)).replace("\\", "/")
+        for path in pdf_paths
+        if args.pdf_dir.exists()
+    }
     pdf_names_normalized = {normalize_text(path.name): path.name for path in pdf_paths}
 
     product_file_names = [
@@ -155,12 +171,14 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
     ]
 
     override_names = {name for override in overrides if (name := override_file_name(override))}
+    override_relative_paths = {relative for override in overrides if (relative := override_relative_path(override))}
     override_names_normalized = {normalize_text(name): name for name in override_names}
     override_with_pdf = [
         override
         for override in overrides
         if override_file_name(override) in pdf_names
         or normalize_text(override_file_name(override)) in pdf_names_normalized
+        or override_relative_path(override) in pdf_relative_paths
     ]
     overrides_missing_pdf = [
         override
@@ -170,9 +188,47 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
         and normalize_text(override_file_name(override)) not in pdf_names_normalized
     ]
 
+    pdf_files_with_override = [
+        path
+        for path in pdf_paths
+        if str(path.relative_to(args.pdf_dir)).replace("\\", "/") in override_relative_paths
+        or path.name in override_names
+        or normalize_text(path.name) in override_names_normalized
+    ]
+    pdf_without_override_paths = [
+        path
+        for path in pdf_paths
+        if path not in pdf_files_with_override
+    ]
     pdf_without_override = [
+        str(path.relative_to(args.pdf_dir)).replace("\\", "/")
+        for path in pdf_without_override_paths
+    ]
+
+    excel_linked_overrides = [
+        override
+        for override in override_with_pdf
+        if override.get("pdfRegistrationType") == "excel_linked"
+        or override_file_name(override) in product_file_set
+        or normalize_text(override_file_name(override)) in product_file_normalized
+    ]
+    excel_missing_overrides = [
+        override
+        for override in override_with_pdf
+        if override.get("pdfRegistrationType") == "excel_missing_pdf"
+        or (
+            override_file_name(override) in unregistered_pdf_names
+            and override not in excel_linked_overrides
+        )
+    ]
+    excel_linked_pdf_without_override = [
         name
-        for name in sorted(pdf_names)
+        for name in sorted(product_file_set & pdf_names)
+        if name not in override_names and normalize_text(name) not in override_names_normalized
+    ]
+    excel_missing_pdf_without_override = [
+        name
+        for name in unregistered_pdf_names
         if name not in override_names and normalize_text(name) not in override_names_normalized
     ]
 
@@ -222,6 +278,12 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
         "pdfMissingProductCount": len(missing_pdf_products),
         "unregisteredPdfCount": len(unregistered_pdf_names),
         "overrideCount": len(overrides),
+        "pdfWithOverrideCount": len(pdf_files_with_override),
+        "pdfWithoutOverrideCount": len(pdf_without_override),
+        "excelLinkedPdfWithOverrideCount": len(excel_linked_overrides),
+        "excelMissingPdfWithOverrideCount": len(excel_missing_overrides),
+        "excelLinkedPdfWithoutOverrideCount": len(excel_linked_pdf_without_override),
+        "excelMissingPdfWithoutOverrideCount": len(excel_missing_pdf_without_override),
         "pdfExtractSuccessCount": len(extract_success),
         "pdfExtractFailureCount": len(extract_failed),
         "reviewStatusCounts": {status: review_counts.get(status, 0) for status in REVIEW_STATUSES},
@@ -229,7 +291,6 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
         "reviewCompletedCount": review_counts.get("검토완료", 0),
         "manualReviewRequiredCount": len(manual_review_required),
         "pdfPreviewPossibleEstimateCount": len(linked_products),
-        "pdfWithoutOverrideCount": len(pdf_without_override),
         "overrideWithoutPdfCount": len(overrides_missing_pdf),
         "registrationQueueCount": len(registration_queue),
         "activeRegistrationQueueCount": len(active_registration_queue),
@@ -316,6 +377,10 @@ def print_console_summary(report: dict[str, Any]) -> None:
     print(f"- PDF 미등록 수: {summary['pdfMissingProductCount']}")
     print(f"- 엑셀 미등록 PDF 수: {summary['unregisteredPdfCount']}")
     print(f"- PDF 추출 override 수: {summary['overrideCount']}")
+    print(f"- override 있는 PDF 수: {summary['pdfWithOverrideCount']}")
+    print(f"- override 없는 PDF 수: {summary['pdfWithoutOverrideCount']}")
+    print(f"- 엑셀 등록 PDF 중 override 있는 수: {summary['excelLinkedPdfWithOverrideCount']}")
+    print(f"- 엑셀 미등록 PDF 중 override 있는 수: {summary['excelMissingPdfWithOverrideCount']}")
     print(f"- PDF 추출 성공 수: {summary['pdfExtractSuccessCount']}")
     print(f"- PDF 추출 실패 수: {summary['pdfExtractFailureCount']}")
     print(

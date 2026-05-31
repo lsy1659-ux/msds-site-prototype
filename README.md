@@ -426,6 +426,46 @@ data/backups/
 6. `audit_msds_workflow.py`를 다시 실행합니다.
 7. 미검토, 엑셀등록필요, 중복의심, 제외, 보류 수량을 확인합니다.
 
+## PDF-first 배치 추출 흐름
+
+이 프로젝트에서는 엑셀을 최종 DB가 아니라 아직 미완성인 검색 색인으로 봅니다. 실제 관리 기준은 `pdf/` 폴더에 들어 있는 PDF 원본 전체이며, 엑셀에 아직 등록되지 않은 PDF도 요약 추출과 내부 검토 대상입니다.
+
+전체 PDF를 한 번에 확정하지 말고, 아래처럼 일부씩 배치 추출하고 검토하는 방식을 권장합니다.
+
+```bash
+python scripts/extract_pdf_summary.py --pdf-dir pdf --output data/msds-overrides.local.json --only-missing-overrides --limit 20
+python scripts/extract_pdf_summary.py --pdf-dir pdf --output data/msds-overrides.local.json --target excel-missing --limit 20
+python scripts/extract_pdf_summary.py --pdf-dir pdf --output data/msds-overrides.local.json --target excel-linked --limit 20
+```
+
+추출된 override에는 PDF가 엑셀 등록 제품과 연결된 것인지, 엑셀 미등록 PDF인지 구분하기 위해 아래 정보가 함께 저장됩니다.
+
+- `pdfRegistrationType`: `excel_linked` 또는 `excel_missing_pdf`
+- `excelProductMatched`: 엑셀 제품과 연결되었는지 여부
+- `sourceRelativePath`: `pdf/` 기준 상대경로
+- `queueReviewDecision`: 엑셀 미등록 PDF 큐의 검토 결정값
+
+기존 `data/msds-overrides.local.json`에 있는 항목은 fileName 또는 relativePath 기준으로 병합됩니다. `검토완료`, `수정필요`, `제외` 상태와 사람이 작성한 `manual*`, `reviewed*`, 메모 필드는 재추출로 초기화하지 않습니다.
+
+배치 추출 후에는 아래 local report가 생성됩니다.
+
+```text
+reports/pdf-summary-batch-extract.local.json
+reports/pdf-summary-batch-extract.local.csv
+```
+
+PDF-first 권장 운영 흐름은 아래와 같습니다.
+
+1. `sync_pdf_library.py`로 PDF 원본 폴더를 반영합니다.
+2. `build_pdf_inventory.py`를 실행합니다.
+3. `build_pdf_registration_queue.py`를 실행합니다.
+4. `extract_pdf_summary.py --only-missing-overrides --limit 20`으로 일부씩 추출합니다.
+5. `review.html`과 `pdf-queue.html`에서 추출 후보와 엑셀 미등록 PDF를 검토합니다.
+6. 검토 결과 JSON을 다운로드하고 apply 스크립트로 적용합니다.
+7. `audit_msds_workflow.py`를 실행해 override, 검토상태, 엑셀 등록/미등록 PDF 수량을 확인합니다.
+
+추출 결과는 자동 확정값이 아니며, 기본 `reviewStatus`는 `검토필요`입니다. 운영 전 내부 검토를 거쳐 필요한 항목을 `검토완료`로 바꾸는 것을 권장합니다.
+
 ## 긴 텍스트와 반응형 화면
 
 현장 조회 화면과 내부 검토 화면은 긴 제품명, PDF 파일명, 하위폴더 상대경로, 성분명, CAS 정보가 화면 폭을 밀어내지 않도록 줄바꿈 기준을 공통으로 적용합니다.
