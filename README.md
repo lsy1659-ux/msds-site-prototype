@@ -93,7 +93,18 @@ data/msds-overrides.sample.json
 
 사이트는 제품 기본정보를 읽은 뒤 `data/msds-overrides.local.json`을 추가로 읽어 PDF 추출 후보 또는 검토완료 정보를 제품에 연결합니다. 로컬 override가 없으면 `data/msds-overrides.sample.json`을 사용하고, 둘 다 없거나 읽기 실패해도 기본 조회 화면은 계속 동작합니다.
 
-`reviewStatus`가 `검토필요`이면 좌측 현장 요약판에 PDF 추출 후보로 표시되며, 현장 사용 전 사람이 확인해야 합니다. 사람이 확인한 뒤 `reviewStatus`를 `검토완료`로 바꾸면 좌측 요약판에서 확정 정보에 가까운 스타일로 표시할 수 있습니다.
+PDF 추출 결과는 내부적으로 `reviewStatus`와 `extractStatus`를 가집니다. 현장용 화면에서는 `PDF 추출 후보`, `검토필요` 같은 문구를 숨기고 깔끔한 요약정보처럼 표시할 수 있습니다.
+
+표시 모드는 `js/app.js`의 `APP_CONFIG`에서 관리합니다.
+
+```text
+fieldDisplayMode
+showReviewStatusOnFieldPoster
+showExtractionStatusInDetail
+allowCandidateOverrideDisplay
+```
+
+운영 전에는 내부 검토를 거쳐 `reviewStatus`를 `검토완료`로 바꾸는 것을 권장합니다. 현장용 화면은 깔끔한 요약정보 표시를 우선하지만, 정식 근거자료는 항상 PDF 원본입니다.
 
 최종 구축 방향은 엑셀을 제품 검색용 보조 색인으로 사용하고, PDF 원본에서 제품정보와 안전문구를 자동 또는 반자동으로 구축한 뒤 사람이 검토완료 처리하는 구조입니다.
 

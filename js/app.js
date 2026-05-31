@@ -8,7 +8,11 @@ const APP_CONFIG = {
   minSearchCharacters: 2,
   initialResultLimit: 10,
   showDownloadButton: false,
-  showPdfIframeWhenAvailable: true
+  showPdfIframeWhenAvailable: true,
+  fieldDisplayMode: true,
+  showReviewStatusOnFieldPoster: false,
+  showExtractionStatusInDetail: false,
+  allowCandidateOverrideDisplay: true
 };
 
 const FALLBACK_PRODUCTS = [
@@ -672,7 +676,7 @@ function renderPoster(product) {
   const posterData = getPosterData(product);
   elements.posterPanel.className = `poster-board ${posterData.statusClass}`;
   elements.posterPanel.innerHTML = `
-    ${posterData.reviewBadge ? `
+    ${posterData.showReviewStrip ? `
       <div class="poster-review-strip">
         <span class="review-badge ${posterData.statusClass}">${escapeHtml(posterData.reviewBadge)}</span>
         <span>${escapeHtml(posterData.reviewMessage)}</span>
@@ -687,44 +691,50 @@ function renderPoster(product) {
     </div>
     ${posterSection(posterData.hazardTitle, renderBulletList(posterData.hazardStatements, posterData.isCandidate), "poster-hazard-statements")}
     ${posterSection(posterData.precautionTitle, renderPrecautions(posterData.precautionaryStatements, posterData.isCandidate), "poster-precaution-statements")}
-    ${posterData.ppeCandidates.length ? posterSection("PPE/보호구 후보", renderBulletList(posterData.ppeCandidates, true), "poster-ppe-candidates") : ""}
+    ${posterData.ppeCandidates.length ? posterSection(posterData.ppeTitle, renderBulletList(posterData.ppeCandidates, posterData.isCandidate), "poster-ppe-candidates") : ""}
     <footer class="poster-footer">
-      <p>${escapeHtml(posterData.footerNotice)}</p>
+      ${posterData.footerNotice.map((notice) => `<p>${escapeHtml(notice)}</p>`).join("")}
       <p>공급자 정보: ${escapeHtml(product.supplier)}</p>
-      ${posterData.sourcePdfPath ? `<p>PDF 출처: ${escapeHtml(posterData.sourcePdfPath)}</p>` : ""}
+      ${posterData.showSourcePdfPath && posterData.sourcePdfPath ? `<p>PDF 출처: ${escapeHtml(posterData.sourcePdfPath)}</p>` : ""}
     </footer>
   `;
 }
 
 function getPosterData(product) {
   const override = product.pdfSummaryOverride;
-  if (override && hasOverrideSummary(override)) {
+  if (canUseOverride(override) && hasOverrideSummary(override)) {
     const isReviewed = override.reviewStatus === "검토완료";
-    const isCandidate = !isReviewed;
+    const showReviewStatus = shouldShowReviewStatusOnFieldPoster();
     return {
       statusClass: isReviewed ? "is-reviewed" : "is-review-needed",
+      showReviewStrip: showReviewStatus,
       reviewBadge: isReviewed ? "검토완료" : "PDF 추출 후보 / 검토 필요",
       reviewMessage: isReviewed
         ? "검토 완료된 PDF 기반 요약정보입니다."
         : "PDF 자동 추출 후보입니다. 현장 사용 전 검토가 필요합니다.",
-      hazardBadge: override.signalWordCandidate || product.hazardBadge || (isReviewed ? "확인" : "후보"),
+      hazardBadge: override.signalWordCandidate || product.hazardBadge || "확인",
       ghsPictograms: override.ghsPictograms || [],
       hazardStatements: override.hazardStatements || [],
       precautionaryStatements: override.precautionaryStatements || {},
-      ppeCandidates: override.ppeCandidates || [],
-      hazardTitle: isCandidate ? "유해 위험 문구 후보" : "유해 위험 문구",
-      precautionTitle: isCandidate ? "예방조치 문구 후보" : "예방조치 문구",
-      footerNotice: isReviewed
-        ? "PDF 검토완료 요약정보입니다. 상세 사항은 우측 PDF 또는 정식 MSDS를 참고하세요."
-        : "PDF 자동 추출 후보입니다. 현장 사용 전 검토가 필요합니다.",
+      ppeCandidates: limitList(override.ppeCandidates || [], 5),
+      ppeTitle: "PPE 및 보호구",
+      hazardTitle: "유해 위험 문구",
+      precautionTitle: "예방조치 문구",
+      footerNotice: [
+        "이 자료는 현장 확인용 요약본입니다.",
+        "상세 사항은 우측 PDF 또는 정식 MSDS를 참고하세요."
+      ],
       sourcePdfPath: override.sourcePdfPath || "",
-      isCandidate
+      showSourcePdfPath: !APP_CONFIG.fieldDisplayMode,
+      isCandidate: !isReviewed && showReviewStatus
     };
   }
 
   const hasProductSummary = hasAnySummary(product.ghsPictograms, product.hazardStatements, product.precautionaryStatements);
+  const showUnregisteredStatus = !APP_CONFIG.fieldDisplayMode;
   return {
     statusClass: hasProductSummary ? "" : "is-unregistered-summary",
+    showReviewStrip: !hasProductSummary && showUnregisteredStatus,
     reviewBadge: hasProductSummary ? "" : "요약정보 미등록",
     reviewMessage: hasProductSummary ? "" : "정식 MSDS PDF를 확인하세요.",
     hazardBadge: product.hazardBadge || "확인",
@@ -732,14 +742,30 @@ function getPosterData(product) {
     hazardStatements: product.hazardStatements || [],
     precautionaryStatements: product.precautionaryStatements || {},
     ppeCandidates: [],
+    ppeTitle: "PPE 및 보호구",
     hazardTitle: "유해 위험 문구",
     precautionTitle: "예방조치 문구",
-    footerNotice: hasProductSummary
-      ? "현장 확인용 요약본이며, 상세 사항은 우측 PDF 또는 정식 MSDS를 참고하세요."
-      : "요약정보 미등록 상태입니다. 상세 사항은 우측 PDF 또는 정식 MSDS를 확인하세요.",
+    footerNotice: [
+      "이 자료는 현장 확인용 요약본입니다.",
+      "상세 사항은 우측 PDF 또는 정식 MSDS를 참고하세요."
+    ],
     sourcePdfPath: "",
+    showSourcePdfPath: false,
     isCandidate: false
   };
+}
+
+function shouldShowReviewStatusOnFieldPoster() {
+  return !APP_CONFIG.fieldDisplayMode || APP_CONFIG.showReviewStatusOnFieldPoster;
+}
+
+function shouldShowExtractionStatusInDetail() {
+  return !APP_CONFIG.fieldDisplayMode || APP_CONFIG.showExtractionStatusInDetail;
+}
+
+function canUseOverride(override) {
+  if (!override) return false;
+  return override.reviewStatus === "검토완료" || APP_CONFIG.allowCandidateOverrideDisplay;
 }
 
 function hasOverrideSummary(override) {
@@ -764,35 +790,47 @@ function renderDetail(product) {
 
   const pdfInfo = buildPdfInfo(product);
   const override = product.pdfSummaryOverride;
+  const detailData = getDetailData(product);
   elements.detailPanel.className = "detail-panel";
   elements.detailPanel.innerHTML = `
     ${detailSection("제품 기본정보", `
       <div class="info-grid">
-        ${detailItem("제품명", product.productName)}
+        ${detailItem("제품명", detailData.productName)}
         ${detailItem("ERP 품명", product.erpName)}
-        ${detailItem("MSDS번호", product.msdsNo)}
+        ${detailItem("MSDS번호", detailData.msdsNo)}
         ${detailItem("파일명", product.fileName)}
         ${detailItem("용도분류", product.useCategory)}
         ${detailItem("권고용도/사용용도", product.recommendedUse)}
-        ${detailItem("제조사/공급업체", product.supplier)}
+        ${detailItem("제조사/공급업체", detailData.supplier)}
         ${detailItem("정보제공 및 긴급연락처", product.emergencyContact)}
-        ${detailItem("개정일", product.revisionDate)}
+        ${detailItem("개정일", detailData.revisionDate)}
       </div>
     `)}
 
     ${detailSection("핵심 위험 요약", `
       <div class="risk-summary-grid">
-        ${summaryItem("주요 유해성 분류", product.hazardSummary, "danger")}
+        ${summaryItem("주요 유해성 분류", detailData.hazardSummary, "danger")}
         ${summaryItem("위험물 구분", product.dangerousGoods, "warning")}
-        ${summaryItem("PPE 요약", product.ppeSummary, "protect")}
+        ${summaryItem("PPE 요약", detailData.ppeSummary, "protect")}
       </div>
+      ${detailData.overrideApplied && APP_CONFIG.fieldDisplayMode ? `<p class="summary-note pdf-summary-applied">PDF 기반 요약정보 반영됨</p>` : ""}
     `)}
 
-    ${detailSection("PDF 요약 추출 상태", renderOverrideDetail(override))}
+    ${shouldRenderExtractionStatusSection(override) ? detailSection("PDF 요약 추출 상태", renderOverrideDetail(override)) : ""}
 
     ${detailSection("GHS 그림문자", `
-      <div class="ghs-grid">${renderGhsList(product, "large")}</div>
+      <div class="ghs-grid">${renderGhsListFromItems(detailData.ghsPictograms, "large")}</div>
     `)}
+
+    ${detailSection("유해 위험 문구", renderDetailList(detailData.hazardStatements))}
+
+    ${detailSection("예방조치 문구", renderPrecautions(detailData.precautionaryStatements))}
+
+    ${detailData.ppeCandidates.length ? detailSection("PPE 및 보호구", renderDetailList(detailData.ppeCandidates)) : ""}
+
+    ${detailData.signalWord ? detailSection("신호어", `
+      <p class="summary-note">${escapeHtml(detailData.signalWord)}</p>
+    `) : ""}
 
     ${detailSection("성분정보", `
       <div class="component-table-wrap">
@@ -827,6 +865,58 @@ function renderDetail(product) {
       ${renderPdfPreview(pdfInfo)}
     `)}
   `;
+}
+
+function getDetailData(product) {
+  const override = canUseOverride(product.pdfSummaryOverride) ? product.pdfSummaryOverride : null;
+  const overrideApplied = Boolean(override && hasOverrideSummary(override));
+  const hazardStatements = override?.hazardStatements?.length ? override.hazardStatements : (product.hazardStatements || []);
+  const precautionaryStatements = hasPrecautionSummary(override?.precautionaryStatements)
+    ? override.precautionaryStatements
+    : (product.precautionaryStatements || {});
+  const ppeCandidates = override?.ppeCandidates?.length ? override.ppeCandidates : [];
+
+  return {
+    overrideApplied,
+    productName: displayValue(override?.productNameCandidate, product.productName),
+    supplier: displayValue(override?.supplierCandidate, product.supplier),
+    msdsNo: displayValue(override?.msdsNoCandidate, product.msdsNo),
+    revisionDate: displayValue(override?.revisionDateCandidate, product.revisionDate),
+    signalWord: override?.signalWordCandidate || "",
+    hazardSummary: displayValue(summarizeItems(hazardStatements, 2, " / "), product.hazardSummary),
+    ppeSummary: displayValue(summarizeItems(ppeCandidates, 3, ", "), product.ppeSummary),
+    ghsPictograms: override?.ghsPictograms?.length ? override.ghsPictograms : (product.ghsPictograms || []),
+    hazardStatements,
+    precautionaryStatements,
+    ppeCandidates
+  };
+}
+
+function displayValue(preferred, fallback) {
+  const preferredText = Array.isArray(preferred) ? preferred.filter(Boolean).join(", ") : String(preferred || "").trim();
+  if (preferredText) return preferredText;
+  const fallbackText = String(fallback || "").trim();
+  return fallbackText || "정보 없음";
+}
+
+function summarizeItems(items = [], limit = 3, separator = ", ") {
+  if (!Array.isArray(items) || !items.length) return "";
+  const visible = items.filter(Boolean).slice(0, limit);
+  const suffix = items.length > visible.length ? ` 외 ${items.length - visible.length}건` : "";
+  return `${visible.join(separator)}${suffix}`;
+}
+
+function limitList(items = [], limit = 5) {
+  if (!Array.isArray(items) || items.length <= limit) return items || [];
+  return [...items.slice(0, limit), `외 ${items.length - limit}건은 PDF 원본에서 확인하세요.`];
+}
+
+function hasPrecautionSummary(precautions = {}) {
+  return Object.values(precautions || {}).some((items) => Array.isArray(items) && items.length);
+}
+
+function shouldRenderExtractionStatusSection(override) {
+  return Boolean(override) && shouldShowExtractionStatusInDetail();
 }
 
 function renderOverrideDetail(override) {
@@ -1047,6 +1137,16 @@ function posterSection(title, content, className) {
 function renderBulletList(items, isCandidate = false) {
   if (!items.length) return `<p class="empty-text">등록된 문구가 없습니다.</p>`;
   return `<ul class="poster-list ${isCandidate ? "is-candidate" : ""}">${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
+}
+
+function renderDetailList(items) {
+  if (!items.length) return `<p class="summary-note">정보 없음</p>`;
+  const visible = items.slice(0, 5);
+  const moreCount = items.length - visible.length;
+  return `
+    <ul class="detail-list">${visible.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+    ${moreCount > 0 ? `<p class="summary-note">외 ${moreCount}건은 PDF 원본에서 확인하세요.</p>` : ""}
+  `;
 }
 
 function renderPrecautions(precautions, isCandidate = false) {
