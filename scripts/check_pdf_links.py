@@ -85,6 +85,17 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def extract_pages_text(reader: Any, page_count: int) -> tuple[str, int]:
+    chunks: list[str] = []
+    extracted_pages = 0
+    for page in reader.pages[:page_count]:
+        text = page.extract_text() or ""
+        if text.strip():
+            extracted_pages += 1
+        chunks.append(text)
+    return "\n".join(chunks).strip(), extracted_pages
+
+
 def extract_pdf_text(path: Path, max_pages: int) -> tuple[str, str, str]:
     try:
         from pypdf import PdfReader
@@ -93,16 +104,17 @@ def extract_pdf_text(path: Path, max_pages: int) -> tuple[str, str, str]:
 
     try:
         reader = PdfReader(str(path))
-        chunks: list[str] = []
-        for page in reader.pages[:max_pages]:
-            chunks.append(page.extract_text() or "")
-        text = "\n".join(chunks).strip()
+        total_pages = len(reader.pages)
+        page_count = total_pages if max_pages <= 0 else min(max_pages, total_pages)
+        text, extracted_pages = extract_pages_text(reader, page_count)
+        if not text and page_count < total_pages:
+            text, extracted_pages = extract_pages_text(reader, total_pages)
     except Exception as exc:
         return "", "text_extract_failed", str(exc)
 
     if not text:
         return "", "scanned_pdf_or_image_pdf", "No extractable text in selected pages"
-    return text, "text_extracted", ""
+    return text, "text_extracted", f"extracted_pages={extracted_pages}"
 
 
 def scan_pdfs(pdf_dir: Path, max_pages: int) -> list[dict[str, Any]]:
@@ -405,7 +417,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Check MSDS PDF link candidates.")
     parser.add_argument("--data", type=Path, default=DEFAULT_DATA, help="Converted MSDS JSON path")
     parser.add_argument("--pdf-dir", type=Path, default=DEFAULT_PDF_DIR, help="PDF directory")
-    parser.add_argument("--pages", type=int, default=3, help="Number of first pages to extract")
+    parser.add_argument("--pages", type=int, default=3, help="Number of first pages to extract; use 0 for all pages")
     parser.add_argument("--json-report", type=Path, default=DEFAULT_JSON_REPORT, help="Local JSON report output")
     parser.add_argument("--csv-report", type=Path, default=DEFAULT_CSV_REPORT, help="Local CSV report output")
     return parser.parse_args()

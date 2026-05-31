@@ -5,6 +5,8 @@ data/raw/
 data/original/
 data/msds.local.json
 data/*.local.json
+data/msds-overrides.local.json
+data/*overrides*.local.json
 reports/*.local.json
 reports/*.local.csv
 reports/*.local.*

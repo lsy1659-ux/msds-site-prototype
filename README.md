@@ -73,6 +73,24 @@ reports/pdf-link-report.local.csv
 
 이 리포트에는 실제 제품명이나 PDF 정보가 들어갈 수 있으므로 GitHub에 올리지 않습니다.
 
+## PDF 요약 후보 추출 방법
+
+PDF 원문에서 좌측 현장 요약판에 넣을 후보 정보를 뽑을 때는 아래 스크립트를 사용합니다.
+
+```bash
+python scripts/extract_pdf_summary.py --input pdf/PN3021.pdf --output data/msds-overrides.local.json
+```
+
+이 결과는 자동 확정값이 아니라 `검토필요` 상태의 후보입니다. 사람이 확인하기 전까지 좌측 요약판의 확정 정보처럼 사용하지 않습니다.
+
+샘플 구조는 아래 파일에서 확인할 수 있습니다.
+
+```text
+data/msds-overrides.sample.json
+```
+
+실제 PDF에서 추출한 결과인 `data/msds-overrides.local.json`은 실제 제품정보가 들어갈 수 있으므로 GitHub에 올리지 않습니다.
+
 ## 주의사항
 
 - 실제 회사 엑셀 원본은 이 저장소에 넣지 않습니다.
@@ -80,6 +98,7 @@ reports/pdf-link-report.local.csv
 - 실제 내부자료, 거래처 자료, 운영 데이터는 GitHub에 올리지 않습니다.
 - 실제 엑셀 원본은 로컬 PC의 `data/raw/`에만 둡니다.
 - 변환 결과인 `data/msds.local.json`도 GitHub에 올리지 않습니다.
+- PDF 요약 후보 파일인 `data/msds-overrides.local.json`도 GitHub에 올리지 않습니다.
 - 현재 `pdf/` 폴더에는 샘플 단계 안내 문서만 두며, 실제 PDF는 포함하지 않습니다.
 
 나중에 실제 PDF를 연결할 때는 `pdf/` 폴더에 파일을 넣고, 샘플 데이터의 `fileName` 또는 `pdfPath`와 맞춰 관리합니다.

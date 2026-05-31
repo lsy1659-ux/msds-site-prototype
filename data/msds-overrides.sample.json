@@ -1,0 +1,43 @@
+[
+  {
+    "match": {
+      "fileName": "SAMPLE.pdf"
+    },
+    "sourcePdfPath": "/pdf/SAMPLE.pdf",
+    "extractStatus": "candidate_extracted",
+    "reviewStatus": "검토필요",
+    "productNameCandidate": "샘플 제품명",
+    "supplierCandidate": "샘플 공급업체",
+    "msdsNoCandidate": "SAMPLE-MSDS-0001",
+    "revisionDateCandidate": "2024-01-01",
+    "signalWordCandidate": "위험",
+    "ghsPictograms": [
+      {
+        "code": "flame",
+        "label": "인화성"
+      }
+    ],
+    "hazardStatements": [
+      "샘플 유해 위험 문구"
+    ],
+    "precautionaryStatements": {
+      "prevention": [
+        "샘플 예방 문구"
+      ],
+      "response": [],
+      "storage": [],
+      "disposal": []
+    },
+    "ingredients": [
+      {
+        "chemicalName": "샘플 물질명",
+        "casNo": "000-00-0",
+        "content": "10~20%"
+      }
+    ],
+    "ppeCandidates": [
+      "샘플 보호구 문구"
+    ],
+    "notes": "PDF 자동 추출 후보이며 검토 필요"
+  }
+]
