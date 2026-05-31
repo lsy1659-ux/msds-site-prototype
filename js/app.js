@@ -6,7 +6,7 @@ const APP_CONFIG = {
   localOverridesUrl: "data/msds-overrides.local.json",
   sampleOverridesUrl: "data/msds-overrides.sample.json",
   minSearchCharacters: 2,
-  initialResultLimit: 10,
+  initialResultLimit: 8,
   showDownloadButton: false,
   showPdfIframeWhenAvailable: true,
   fieldDisplayMode: true,
@@ -268,6 +268,9 @@ const state = {
   selectedId: null,
   query: "",
   resultLimit: APP_CONFIG.initialResultLimit,
+  resultOffset: 0,
+  showAllResults: false,
+  selectionCollapsed: false,
   dataMode: "샘플 데이터 모드",
   pdfAvailability: {},
   pdfModal: {
@@ -307,7 +310,8 @@ function bindElements() {
 function bindEvents() {
   elements.searchInput.addEventListener("input", (event) => {
     state.query = event.target.value;
-    state.resultLimit = APP_CONFIG.initialResultLimit;
+    resetResultWindow();
+    state.selectionCollapsed = false;
     updateSelectedProductForQuery();
     render();
   });
@@ -315,8 +319,9 @@ function bindEvents() {
   elements.clearSearch.addEventListener("click", () => {
     state.query = "";
     elements.searchInput.value = "";
-    state.resultLimit = APP_CONFIG.initialResultLimit;
+    resetResultWindow();
     state.selectedId = state.products[0]?.id || null;
+    state.selectionCollapsed = false;
     elements.searchInput.focus();
     render();
   });
@@ -326,7 +331,8 @@ function bindEvents() {
     if (!button) return;
     state.query = button.dataset.query;
     elements.searchInput.value = state.query;
-    state.resultLimit = APP_CONFIG.initialResultLimit;
+    resetResultWindow();
+    state.selectionCollapsed = false;
     updateSelectedProductForQuery();
     render();
   });
@@ -349,6 +355,12 @@ function bindEvents() {
       closePdfModal();
     }
   });
+}
+
+function resetResultWindow() {
+  state.resultLimit = APP_CONFIG.initialResultLimit;
+  state.resultOffset = 0;
+  state.showAllResults = false;
 }
 
 function updateSelectedProductForQuery() {
@@ -620,7 +632,10 @@ function getResultSubtitle(hasQuery, canShowCandidates, totalCount) {
   if (!hasQuery) return "검색어를 입력하면 후보 제품이 표시됩니다.";
   if (!canShowCandidates) return `${APP_CONFIG.minSearchCharacters}글자 이상 입력하면 후보 제품을 표시합니다.`;
   if (!totalCount) return "제품명, 용도, CAS No. 등으로 다시 검색해보세요.";
-  return `상위 ${Math.min(totalCount, state.resultLimit)}건을 먼저 표시합니다.`;
+  if (state.showAllResults) return "전체 결과 표시 중";
+  const start = Math.min(state.resultOffset + 1, totalCount);
+  const end = Math.min(state.resultOffset + state.resultLimit, totalCount);
+  return `현재 ${start}~${end}건 표시`;
 }
 
 function renderSelectionList(results, hasQuery, canShowCandidates) {
@@ -639,9 +654,39 @@ function renderSelectionList(results, hasQuery, canShowCandidates) {
     return;
   }
 
-  const visibleResults = results.slice(0, state.resultLimit);
-  const hasMore = results.length > visibleResults.length;
+  const selectedProduct = getSelectedProduct(results);
+  if (state.selectionCollapsed && selectedProduct) {
+    elements.selectionList.innerHTML = `
+      <div class="selection-collapsed-card">
+        <div>
+          <span class="selection-collapsed-label">선택된 제품</span>
+          <strong>${escapeHtml(selectedProduct.productName)}</strong>
+          <span>${escapeHtml(selectedProduct.useCategory)} · ${escapeHtml(selectedProduct.supplier)}</span>
+        </div>
+        <button class="show-more-button" type="button" id="expandSelectionList">다른 제품 선택</button>
+      </div>
+    `;
+    elements.selectionList.querySelector("#expandSelectionList")?.addEventListener("click", () => {
+      state.selectionCollapsed = false;
+      render();
+    });
+    return;
+  }
+
+  const maxOffset = Math.max(0, results.length - 1);
+  state.resultOffset = Math.min(state.resultOffset, maxOffset);
+  const startIndex = state.showAllResults ? 0 : state.resultOffset;
+  const endIndex = state.showAllResults ? results.length : Math.min(results.length, startIndex + state.resultLimit);
+  const visibleResults = results.slice(startIndex, endIndex);
+  const hasPrevious = !state.showAllResults && startIndex > 0;
+  const hasNext = !state.showAllResults && endIndex < results.length;
+  const hasMore = !state.showAllResults && state.resultLimit < results.length;
   elements.selectionList.innerHTML = `
+    <div class="result-range">
+      ${state.showAllResults
+        ? `전체 ${results.length}건 표시 중`
+        : `현재 ${startIndex + 1}~${endIndex}건 표시 / 전체 ${results.length}건`}
+    </div>
     <div class="selection-scroll">
       ${visibleResults.map((product) => `
         <button class="selection-item ${product.id === state.selectedId ? "is-selected" : ""}" type="button" data-product-id="${escapeAttribute(product.id)}">
@@ -650,18 +695,41 @@ function renderSelectionList(results, hasQuery, canShowCandidates) {
         </button>
       `).join("")}
     </div>
-    ${hasMore ? `<button class="show-more-button" type="button" id="showMoreResults">더보기 (${results.length - visibleResults.length}건)</button>` : ""}
+    <div class="result-navigation" aria-label="제품 검색 결과 이동">
+      ${hasPrevious ? `<button class="result-nav-button" type="button" id="showPreviousResults">위로</button>` : ""}
+      ${hasNext ? `<button class="result-nav-button" type="button" id="showNextResults">아래로</button>` : ""}
+      ${hasMore ? `<button class="result-nav-button" type="button" id="showMoreResults">더보기</button>` : ""}
+      ${results.length > APP_CONFIG.initialResultLimit && !state.showAllResults ? `<button class="result-nav-button" type="button" id="showAllResults">모두보기</button>` : ""}
+    </div>
   `;
 
   elements.selectionList.querySelectorAll("[data-product-id]").forEach((button) => {
     button.addEventListener("click", () => {
       state.selectedId = button.dataset.productId;
+      state.selectionCollapsed = true;
       render();
     });
   });
 
   elements.selectionList.querySelector("#showMoreResults")?.addEventListener("click", () => {
     state.resultLimit += APP_CONFIG.initialResultLimit;
+    state.resultOffset = 0;
+    render();
+  });
+
+  elements.selectionList.querySelector("#showPreviousResults")?.addEventListener("click", () => {
+    state.resultOffset = Math.max(0, state.resultOffset - state.resultLimit);
+    render();
+  });
+
+  elements.selectionList.querySelector("#showNextResults")?.addEventListener("click", () => {
+    state.resultOffset = Math.min(results.length - 1, state.resultOffset + state.resultLimit);
+    render();
+  });
+
+  elements.selectionList.querySelector("#showAllResults")?.addEventListener("click", () => {
+    state.showAllResults = true;
+    state.resultOffset = 0;
     render();
   });
 }
@@ -791,7 +859,9 @@ function renderDetail(product) {
   const pdfInfo = buildPdfInfo(product);
   const override = product.pdfSummaryOverride;
   const detailData = getDetailData(product);
-  elements.detailPanel.className = "detail-panel";
+  const workerCautions = buildWorkerCautionPoints(product, detailData);
+  const isFieldMode = APP_CONFIG.fieldDisplayMode;
+  elements.detailPanel.className = `detail-panel ${isFieldMode ? "is-field-mode" : "is-review-mode"}`;
   elements.detailPanel.innerHTML = `
     ${detailSection("제품 기본정보", `
       <div class="info-grid">
@@ -807,30 +877,16 @@ function renderDetail(product) {
       </div>
     `)}
 
-    ${detailSection("핵심 위험 요약", `
+    ${!isFieldMode ? detailSection("핵심 위험 요약", `
       <div class="risk-summary-grid">
         ${summaryItem("주요 유해성 분류", detailData.hazardSummary, "danger")}
         ${summaryItem("위험물 구분", product.dangerousGoods, "warning")}
         ${summaryItem("PPE 요약", detailData.ppeSummary, "protect")}
       </div>
       ${detailData.overrideApplied && APP_CONFIG.fieldDisplayMode ? `<p class="summary-note pdf-summary-applied">PDF 기반 요약정보 반영됨</p>` : ""}
-    `)}
+    `) : ""}
 
     ${shouldRenderExtractionStatusSection(override) ? detailSection("PDF 요약 추출 상태", renderOverrideDetail(override)) : ""}
-
-    ${detailSection("GHS 그림문자", `
-      <div class="ghs-grid">${renderGhsListFromItems(detailData.ghsPictograms, "large")}</div>
-    `)}
-
-    ${detailSection("유해 위험 문구", renderDetailList(detailData.hazardStatements))}
-
-    ${detailSection("예방조치 문구", renderPrecautions(detailData.precautionaryStatements))}
-
-    ${detailData.ppeCandidates.length ? detailSection("PPE 및 보호구", renderDetailList(detailData.ppeCandidates)) : ""}
-
-    ${detailData.signalWord ? detailSection("신호어", `
-      <p class="summary-note">${escapeHtml(detailData.signalWord)}</p>
-    `) : ""}
 
     ${detailSection("성분정보", `
       <div class="component-table-wrap">
@@ -859,6 +915,19 @@ function renderDetail(product) {
           </tbody>
         </table>
       </div>
+    `)}
+
+    ${detailSection("작업자 주의 포인트", `
+      ${renderWorkerCautionPoints(workerCautions)}
+      ${!isFieldMode ? `
+        ${detailData.signalWord ? `<p class="summary-note"><strong>신호어:</strong> ${escapeHtml(detailData.signalWord)}</p>` : ""}
+        <div class="ghs-grid">${renderGhsListFromItems(detailData.ghsPictograms, "large")}</div>
+        <h4 class="detail-subheading">유해 위험 문구</h4>
+        ${renderDetailList(detailData.hazardStatements)}
+        <h4 class="detail-subheading">예방조치 문구</h4>
+        ${renderPrecautions(detailData.precautionaryStatements)}
+        ${detailData.ppeCandidates.length ? `<h4 class="detail-subheading">PPE 및 보호구</h4>${renderDetailList(detailData.ppeCandidates)}` : ""}
+      ` : ""}
     `)}
 
     ${detailSection("PDF 미리보기", `
@@ -890,6 +959,74 @@ function getDetailData(product) {
     precautionaryStatements,
     ppeCandidates
   };
+}
+
+function buildWorkerCautionPoints(product, detailData) {
+  const points = [];
+  const text = normalizeSearchText([
+    product.productName,
+    product.erpName,
+    product.useCategory,
+    product.recommendedUse,
+    product.hazardSummary,
+    product.dangerousGoods,
+    product.ppeSummary,
+    detailData.hazardSummary,
+    detailData.ppeSummary,
+    detailData.signalWord,
+    (detailData.hazardStatements || []).join(" "),
+    flattenPrecautions(detailData.precautionaryStatements),
+    (detailData.ppeCandidates || []).join(" "),
+    (detailData.ghsPictograms || []).map((item) => `${item.code || ""} ${item.label || ""}`).join(" "),
+    (product.components || []).map((component) => [
+      component.chemicalName,
+      component.casNo,
+      component.controlledSubstance,
+      component.workEnvironmentMeasurement,
+      component.specialHealthExam
+    ].join(" ")).join(" ")
+  ].join(" "));
+
+  addCautionIf(points, text, ["인화", "가연", "화재", "스파크", "화염", "flam", "fire"], "화기, 스파크, 고온 표면 근처에서 사용하지 말고 점화원을 관리하세요.");
+  addCautionIf(points, text, ["증기", "미스트", "분진", "흡입", "호흡", "환기", "vapor", "mist", "dust", "inhal"], "작업장은 충분히 환기하고 필요 시 호흡보호구를 착용하세요.");
+  addCautionIf(points, text, ["눈", "피부", "자극", "부식", "corros", "irrit"], "눈과 피부 접촉을 피하고 보안경과 보호장갑을 착용하세요.");
+  addCautionIf(points, text, ["톨루엔", "자일렌", "mibk", "butylacetate", "nbutylacetate", "ethylbenzene", "에틸벤젠", "부틸아세테이트"], "유기용제 증기 노출을 줄이고 장시간 흡입을 피하세요.");
+  addCautionIf(points, text, ["보안경", "보호장갑", "호흡보호구", "보호구", "ppe", "goggle", "glove", "respir"], "작업 전 지정된 보호구 착용 상태를 확인하세요.");
+  addCautionIf(points, text, ["제4류", "위험물", "인화성액체", "flammableliquid"], "위험물 보관 기준에 맞게 관리하고 주변 점화원을 제거하세요.");
+  addCautionIf(points, text, ["관리대상", "작업환경측정", "특수건강진단"], "관리대상 물질, 작업환경측정, 특수건강진단 해당 여부를 확인하세요.");
+  addCautionIf(points, text, ["고압가스", "gas", "cylinder"], "고압가스 용기는 충격과 고온 노출을 피하고 고정 상태를 확인하세요.");
+
+  if (!points.length) {
+    return ["정식 MSDS PDF를 확인하세요."];
+  }
+
+  [
+    "작업 전 제품명과 용도를 확인하고 현장에 비치된 정식 MSDS와 대조하세요.",
+    "누출이나 이상 냄새가 있으면 작업을 멈추고 관리 담당자에게 알리세요.",
+    "사용 후에는 용기를 밀폐하고 지정된 장소에 보관하세요."
+  ].forEach((message) => {
+    if (points.length < 3 && !points.includes(message)) points.push(message);
+  });
+
+  return points.slice(0, 7);
+}
+
+function addCautionIf(points, normalizedText, keywords, message) {
+  if (points.includes(message)) return;
+  if (keywords.some((keyword) => normalizedText.includes(normalizeSearchText(keyword)))) {
+    points.push(message);
+  }
+}
+
+function renderWorkerCautionPoints(points) {
+  return `
+    <div class="worker-caution-box">
+      <p class="worker-caution-subtitle">MSDS 및 성분정보를 바탕으로 정리한 참고용 안내입니다.</p>
+      <ul class="worker-caution-list">
+        ${points.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}
+      </ul>
+    </div>
+  `;
 }
 
 function displayValue(preferred, fallback) {

@@ -9,6 +9,7 @@ content as reviewed.
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import re
 from pathlib import Path
@@ -17,6 +18,8 @@ from typing import Any
 
 DEFAULT_INPUT = Path("pdf/PN3021.pdf")
 DEFAULT_OUTPUT = Path("data/msds-overrides.local.json")
+DEFAULT_REPORT_JSON = Path("reports/pdf-summary-extract-report.local.json")
+DEFAULT_REPORT_CSV = Path("reports/pdf-summary-extract-report.local.csv")
 CAS_RE = re.compile(r"\b\d{2,7}-\d{2}-\d\b")
 DATE_RE = re.compile(r"\b(?:19|20)\d{2}[.\-/년]\s?\d{1,2}[.\-/월]\s?\d{1,2}\s?일?\b")
 CONTENT_RE = re.compile(
@@ -315,7 +318,7 @@ def build_override(pdf_path: Path, text: str, metadata: dict[str, Any]) -> dict[
     return override
 
 
-def merge_override(output_path: Path, override: dict[str, Any]) -> list[dict[str, Any]]:
+def read_existing_overrides(output_path: Path) -> list[dict[str, Any]]:
     existing: list[dict[str, Any]] = []
     if output_path.exists():
         try:
@@ -324,14 +327,213 @@ def merge_override(output_path: Path, override: dict[str, Any]) -> list[dict[str
                 existing = data
         except json.JSONDecodeError:
             existing = []
+    return existing
 
-    target_file = override["match"]["fileName"]
-    merged = [
-        item for item in existing
-        if item.get("match", {}).get("fileName") != target_file
-    ]
-    merged.append(override)
+
+def merge_override_item(existing_item: dict[str, Any] | None, override: dict[str, Any]) -> dict[str, Any]:
+    if not existing_item:
+        return override
+
+    merged = {
+        **existing_item,
+        **override,
+        "match": {
+            **existing_item.get("match", {}),
+            **override.get("match", {}),
+        },
+    }
+
+    # Keep manual sidecar fields if a reviewer later adds them. Generated
+    # candidate fields are refreshed from the PDF on each run.
+    for key, value in existing_item.items():
+        if key.startswith("manual") or key.startswith("reviewed"):
+            merged[key] = value
+
+    merged["reviewStatus"] = "검토필요"
     return merged
+
+
+def merge_overrides(output_path: Path, overrides: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    existing = read_existing_overrides(output_path)
+    by_file = {
+        item.get("match", {}).get("fileName"): item
+        for item in existing
+        if item.get("match", {}).get("fileName")
+    }
+
+    for override in overrides:
+        target_file = override["match"]["fileName"]
+        by_file[target_file] = merge_override_item(by_file.get(target_file), override)
+
+    original_order = [
+        item.get("match", {}).get("fileName")
+        for item in existing
+        if item.get("match", {}).get("fileName")
+    ]
+    new_order = [
+        item["match"]["fileName"]
+        for item in overrides
+        if item["match"]["fileName"] not in original_order
+    ]
+    merged = [by_file[file_name] for file_name in original_order if file_name in by_file]
+    merged.extend(by_file[file_name] for file_name in new_order)
+    return merged
+
+
+def build_override_for_pdf(pdf_path: Path, pages: int) -> dict[str, Any]:
+    text, metadata = read_pdf_text(pdf_path, pages)
+    if text:
+        return build_override(pdf_path, text, metadata)
+
+    return {
+        "match": {"fileName": pdf_path.name},
+        "sourcePdfPath": f"/pdf/{pdf_path.name}",
+        "extractStatus": metadata["status"],
+        "reviewStatus": "검토필요",
+        "productNameCandidate": "",
+        "supplierCandidate": "",
+        "msdsNoCandidate": "",
+        "revisionDateCandidate": "",
+        "signalWordCandidate": "",
+        "ghsPictograms": [],
+        "hazardStatements": [],
+        "precautionaryStatements": {
+            "prevention": [],
+            "response": [],
+            "storage": [],
+            "disposal": []
+        },
+        "ingredients": [],
+        "ppeCandidates": [],
+        "notes": "PDF 텍스트 추출 실패 또는 이미지 PDF로 추정되며 수동 확인 필요",
+        "extractionMeta": {
+            **metadata,
+            "manualReviewRequired": True,
+            "textStored": False,
+        }
+    }
+
+
+def override_counts(override: dict[str, Any]) -> dict[str, int]:
+    precautions = override.get("precautionaryStatements", {})
+    return {
+        "ghsPictograms": len(override.get("ghsPictograms", [])),
+        "hazardStatements": len(override.get("hazardStatements", [])),
+        "preventionStatements": len(precautions.get("prevention", [])),
+        "responseStatements": len(precautions.get("response", [])),
+        "storageStatements": len(precautions.get("storage", [])),
+        "disposalStatements": len(precautions.get("disposal", [])),
+        "ingredients": len(override.get("ingredients", [])),
+        "ppeCandidates": len(override.get("ppeCandidates", [])),
+    }
+
+
+def is_text_success(override: dict[str, Any]) -> bool:
+    return override.get("extractStatus") == "candidate_extracted"
+
+
+def needs_manual_review(override: dict[str, Any]) -> bool:
+    return override.get("reviewStatus") == "검토필요" or override.get("extractStatus") in {
+        "text_extract_failed",
+        "scanned_pdf_or_image_pdf",
+        "manual_review_required",
+    }
+
+
+def build_batch_report(overrides: list[dict[str, Any]]) -> dict[str, Any]:
+    text_success = [item for item in overrides if is_text_success(item)]
+    text_failed = [item for item in overrides if not is_text_success(item)]
+    manual_review = [item for item in overrides if needs_manual_review(item)]
+    ghs = [item for item in overrides if override_counts(item)["ghsPictograms"] > 0]
+    hazards = [item for item in overrides if override_counts(item)["hazardStatements"] > 0]
+    precautions = [
+        item for item in overrides
+        if override_counts(item)["preventionStatements"]
+        or override_counts(item)["responseStatements"]
+        or override_counts(item)["storageStatements"]
+        or override_counts(item)["disposalStatements"]
+    ]
+    ingredients = [item for item in overrides if override_counts(item)["ingredients"] > 0]
+
+    return {
+        "summary": {
+            "processedPdfCount": len(overrides),
+            "textExtractSuccessCount": len(text_success),
+            "textExtractFailedCount": len(text_failed),
+            "ghsCandidatePdfCount": len(ghs),
+            "hazardStatementPdfCount": len(hazards),
+            "precautionStatementPdfCount": len(precautions),
+            "ingredientCandidatePdfCount": len(ingredients),
+            "reviewRequiredOverrideCount": len(manual_review),
+            "manualReviewRequiredPdfCount": len(manual_review),
+        },
+        "items": [
+            {
+                "fileName": item.get("match", {}).get("fileName", ""),
+                "extractStatus": item.get("extractStatus", ""),
+                "reviewStatus": item.get("reviewStatus", ""),
+                "counts": override_counts(item),
+            }
+            for item in overrides
+        ],
+        "examples": [
+            {
+                "fileName": item.get("match", {}).get("fileName", ""),
+                "extractStatus": item.get("extractStatus", ""),
+                "reviewStatus": item.get("reviewStatus", ""),
+                "counts": override_counts(item),
+            }
+            for item in overrides[:3]
+        ],
+        "notes": [
+            "Original PDF text is not stored in this report.",
+            "All extracted values are review-required candidates."
+        ],
+    }
+
+
+def write_report_files(report: dict[str, Any], json_path: Path, csv_path: Path) -> None:
+    json_path.parent.mkdir(parents=True, exist_ok=True)
+    json_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    csv_path.parent.mkdir(parents=True, exist_ok=True)
+    with csv_path.open("w", encoding="utf-8-sig", newline="") as file:
+        writer = csv.DictWriter(
+            file,
+            fieldnames=[
+                "fileName",
+                "extractStatus",
+                "reviewStatus",
+                "ghsPictograms",
+                "hazardStatements",
+                "preventionStatements",
+                "responseStatements",
+                "storageStatements",
+                "disposalStatements",
+                "ingredients",
+                "ppeCandidates",
+            ],
+        )
+        writer.writeheader()
+        for item in report["items"]:
+            writer.writerow({
+                "fileName": item["fileName"],
+                "extractStatus": item["extractStatus"],
+                "reviewStatus": item["reviewStatus"],
+                **item["counts"],
+            })
+
+
+def print_batch_summary(report: dict[str, Any], output_path: Path, json_path: Path, csv_path: Path) -> None:
+    summary = report["summary"]
+    console = {
+        **summary,
+        "outputPath": str(output_path),
+        "jsonReportPath": str(json_path),
+        "csvReportPath": str(csv_path),
+        "examples": report["examples"],
+    }
+    print(json.dumps(console, ensure_ascii=True, indent=2))
 
 
 def print_summary(override: dict[str, Any], output_path: Path) -> None:
@@ -369,48 +571,32 @@ def print_summary(override: dict[str, Any], output_path: Path) -> None:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Extract review-only MSDS summary candidates from a PDF.")
     parser.add_argument("--input", type=Path, default=DEFAULT_INPUT, help="PDF file path")
+    parser.add_argument("--pdf-dir", type=Path, help="PDF directory for batch extraction")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT, help="Local override JSON output")
+    parser.add_argument("--report-json", type=Path, default=DEFAULT_REPORT_JSON, help="Local JSON report output")
+    parser.add_argument("--report-csv", type=Path, default=DEFAULT_REPORT_CSV, help="Local CSV report output")
     parser.add_argument("--pages", type=int, default=0, help="Pages to extract; 0 means all pages")
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    text, metadata = read_pdf_text(args.input, args.pages)
-    if not text:
-        override = {
-            "match": {"fileName": args.input.name},
-            "sourcePdfPath": f"/pdf/{args.input.name}",
-            "extractStatus": metadata["status"],
-            "reviewStatus": "검토필요",
-            "productNameCandidate": "",
-            "supplierCandidate": "",
-            "msdsNoCandidate": "",
-            "revisionDateCandidate": "",
-            "signalWordCandidate": "",
-            "ghsPictograms": [],
-            "hazardStatements": [],
-            "precautionaryStatements": {
-                "prevention": [],
-                "response": [],
-                "storage": [],
-                "disposal": []
-            },
-            "ingredients": [],
-            "ppeCandidates": [],
-            "notes": "PDF 텍스트 추출 실패 또는 이미지 PDF로 추정되며 수동 확인 필요",
-            "extractionMeta": {
-                **metadata,
-                "textStored": False,
-            }
-        }
-    else:
-        override = build_override(args.input, text, metadata)
+    pdf_paths = [args.input]
+    if args.pdf_dir:
+        pdf_paths = sorted(args.pdf_dir.rglob("*.pdf"))
 
-    merged = merge_override(args.output, override)
+    overrides = [build_override_for_pdf(pdf_path, args.pages) for pdf_path in pdf_paths]
+    merged = merge_overrides(args.output, overrides)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(merged, ensure_ascii=False, indent=2), encoding="utf-8")
-    print_summary(override, args.output)
+
+    if args.pdf_dir:
+        report = build_batch_report(overrides)
+        write_report_files(report, args.report_json, args.report_csv)
+        print_batch_summary(report, args.output, args.report_json, args.report_csv)
+        return
+
+    print_summary(overrides[0], args.output)
 
 
 if __name__ == "__main__":
