@@ -2,7 +2,13 @@ const QUEUE_CONFIG = {
   localQueueUrl: "data/pdf-registration-queue.local.json",
   sampleQueueUrl: "data/pdf-registration-queue.sample.json",
   downloadFileName: "pdf-registration-queue.reviewed.local.json",
-  decisions: ["미검토", "엑셀등록필요", "기존제품매핑필요", "중복의심", "제외", "보류"]
+  decisions: ["미검토", "엑셀등록필요", "기존제품매핑필요", "중복의심", "제외", "보류"],
+  nonMsdsKeywords: ["qr", "QR", "QR코드", "코드", "안내", "표지", "카탈로그", "catalog", "brochure", "시험성적", "성적서", "인증서", "사진", "이미지"],
+  nonMsdsExcludeReasons: {
+    nonMsds: "비MSDS",
+    qrGuide: "QR코드/안내문",
+    catalog: "카탈로그/기타자료"
+  }
 };
 
 const queueState = {
@@ -116,7 +122,7 @@ async function fetchQueueFile(url) {
 }
 
 function normalizeQueueItem(item) {
-  return {
+  const normalized = {
     ...item,
     relativePath: item.relativePath || "",
     fileName: item.fileName || fileNameFromPath(item.relativePath) || "",
@@ -132,6 +138,27 @@ function normalizeQueueItem(item) {
     excludeReason: item.excludeReason || "",
     duplicateStatuses: Array.isArray(item.duplicateStatuses) ? item.duplicateStatuses : []
   };
+  const suspectNote = buildNonMsdsSuspectNote(normalized);
+  if (suspectNote && (!normalized.suggestedAction || normalized.suggestedAction === "엑셀등록검토")) {
+    normalized.suggestedAction = "비MSDS확인필요";
+  }
+  if (suspectNote && !normalized.note) {
+    normalized.note = suspectNote;
+  }
+  return normalized;
+}
+
+function buildNonMsdsSuspectNote(item) {
+  const source = `${item.relativePath || ""} ${item.fileName || ""}`.toLowerCase();
+  const seen = new Set();
+  const matches = QUEUE_CONFIG.nonMsdsKeywords.filter((keyword) => {
+    const key = String(keyword).toLowerCase();
+    if (seen.has(key) || !source.includes(key)) return false;
+    seen.add(key);
+    return true;
+  });
+  if (!matches.length) return "";
+  return `파일명 또는 경로에 ${matches.slice(0, 5).join(", ")} 키워드가 포함되어 MSDS 원본이 아닐 수 있음`;
 }
 
 function renderQueue() {
@@ -237,6 +264,11 @@ function renderQueueDetail() {
         ${quickDecisionButton("보류", item.reviewDecision)}
         ${quickDecisionButton("미검토", item.reviewDecision, "미검토로 되돌리기")}
       </div>
+      <div class="quick-status-buttons queue-exclude-buttons" aria-label="비MSDS 빠른 제외">
+        ${quickExcludeButton("비MSDS 제외", QUEUE_CONFIG.nonMsdsExcludeReasons.nonMsds)}
+        ${quickExcludeButton("QR코드/안내문 제외", QUEUE_CONFIG.nonMsdsExcludeReasons.qrGuide)}
+        ${quickExcludeButton("카탈로그/기타 제외", QUEUE_CONFIG.nonMsdsExcludeReasons.catalog)}
+      </div>
       <div class="review-navigation-buttons" aria-label="검토 항목 이동">
         <button class="result-nav-button" type="button" data-queue-nav="previous">이전 항목</button>
         <button class="result-nav-button" type="button" data-queue-nav="next">다음 항목</button>
@@ -252,6 +284,7 @@ function renderQueueDetail() {
         ${queueItem("검토 결정", item.reviewDecision)}
         ${queueItem("권장 작업", item.suggestedAction)}
         ${queueItem("중복 후보 여부", item.duplicateCandidate ? "예" : "아니오")}
+        ${queueItem("제외 사유", item.excludeReason)}
       </div>
     `)}
 
@@ -265,6 +298,14 @@ function renderQueueDetail() {
 
   queueElements.detail.querySelectorAll("[data-queue-decision]").forEach((button) => {
     button.addEventListener("click", () => updateQueueItem(index, { reviewDecision: button.dataset.queueDecision }));
+  });
+
+  queueElements.detail.querySelectorAll("[data-queue-exclude-reason]").forEach((button) => {
+    button.addEventListener("click", () => updateQueueItem(index, {
+      reviewDecision: "제외",
+      excludeReason: button.dataset.queueExcludeReason,
+      suggestedAction: "제외확인"
+    }));
   });
 
   queueElements.detail.querySelectorAll("[data-queue-field]").forEach((field) => {
@@ -314,6 +355,14 @@ function textInput(field, label, value) {
 function quickDecisionButton(decision, currentDecision, label = decision) {
   return `
     <button class="quick-status-button ${decision === currentDecision ? "is-active" : ""}" type="button" data-queue-decision="${escapeAttribute(decision)}">
+      ${escapeHtml(label)}
+    </button>
+  `;
+}
+
+function quickExcludeButton(label, reason) {
+  return `
+    <button class="quick-status-button is-exclude-shortcut" type="button" data-queue-exclude-reason="${escapeAttribute(reason)}">
       ${escapeHtml(label)}
     </button>
   `;

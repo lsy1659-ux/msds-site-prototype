@@ -1363,6 +1363,12 @@ body.modal-open {
   color: var(--color-accent-dark);
 }
 
+.quick-status-button.is-exclude-shortcut {
+  border-color: #d8c38c;
+  background: #fffaf0;
+  color: #6f4d00;
+}
+
 .review-actions {
   margin-top: 12px;
 }

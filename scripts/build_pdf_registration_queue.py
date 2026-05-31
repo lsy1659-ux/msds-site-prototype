@@ -30,6 +30,22 @@ REVIEW_DECISIONS = (
     "보류",
 )
 
+NON_MSDS_KEYWORDS = (
+    "qr",
+    "qr코드",
+    "코드",
+    "안내",
+    "표지",
+    "카탈로그",
+    "catalog",
+    "brochure",
+    "시험성적",
+    "성적서",
+    "인증서",
+    "사진",
+    "이미지",
+)
+
 PRESERVE_FIELDS = {
     "reviewDecision",
     "suggestedAction",
@@ -96,25 +112,42 @@ def queue_key(item: dict[str, Any]) -> str:
 
 
 def default_suggested_action(inventory_item: dict[str, Any]) -> str:
+    if non_msds_keyword_matches(inventory_item):
+        return "비MSDS확인필요"
     duplicate_statuses = inventory_item.get("duplicateStatuses")
     if isinstance(duplicate_statuses, list) and duplicate_statuses:
         return "중복여부확인"
     return "엑셀등록검토"
 
 
+def non_msds_keyword_matches(inventory_item: dict[str, Any]) -> list[str]:
+    source = f"{inventory_item.get('relativePath', '')} {inventory_item.get('fileName', '')}".lower()
+    return [keyword for keyword in NON_MSDS_KEYWORDS if keyword.lower() in source]
+
+
+def non_msds_note(inventory_item: dict[str, Any]) -> str:
+    matches = non_msds_keyword_matches(inventory_item)
+    if not matches:
+        return ""
+    preview = ", ".join(matches[:5])
+    return f"파일명 또는 경로에 {preview} 키워드가 포함되어 MSDS 원본이 아닐 수 있음"
+
+
 def build_queue_item(inventory_item: dict[str, Any], existing: dict[str, Any] | None = None) -> dict[str, Any]:
     duplicate_statuses = inventory_item.get("duplicateStatuses")
     duplicate_candidate = bool(isinstance(duplicate_statuses, list) and duplicate_statuses)
+    default_action = default_suggested_action(inventory_item)
+    default_note = non_msds_note(inventory_item)
     item = {
         "relativePath": inventory_item.get("relativePath", ""),
         "fileName": inventory_item.get("fileName", ""),
         "status": "excel_missing_pdf",
         "reviewDecision": "미검토",
-        "suggestedAction": default_suggested_action(inventory_item),
+        "suggestedAction": default_action,
         "tempProductName": "",
         "supplier": "",
         "category": "",
-        "note": "",
+        "note": default_note,
         "matchedExcelCandidate": "",
         "duplicateCandidate": duplicate_candidate,
         "excludeReason": "",
@@ -130,6 +163,10 @@ def build_queue_item(inventory_item: dict[str, Any], existing: dict[str, Any] | 
         for key, value in existing.items():
             if key in PRESERVE_FIELDS or key.startswith("manual") or key.startswith("reviewed"):
                 item[key] = value
+        if default_action == "비MSDS확인필요" and str(existing.get("suggestedAction") or "") in {"", "엑셀등록검토"}:
+            item["suggestedAction"] = default_action
+        if default_note and not str(existing.get("note") or "").strip():
+            item["note"] = default_note
         decision = str(item.get("reviewDecision") or "미검토")
         if decision not in REVIEW_DECISIONS:
             item["reviewDecision"] = "미검토"
@@ -201,6 +238,21 @@ def write_sample(path: Path) -> None:
             "supplier": "",
             "category": "",
             "note": "",
+            "matchedExcelCandidate": "",
+            "duplicateCandidate": False,
+            "excludeReason": "",
+        }
+        ,
+        {
+            "relativePath": "0. 캠스 MSDS QR 코드.pdf",
+            "fileName": "0. 캠스 MSDS QR 코드.pdf",
+            "status": "excel_missing_pdf",
+            "reviewDecision": "미검토",
+            "suggestedAction": "비MSDS확인필요",
+            "tempProductName": "",
+            "supplier": "",
+            "category": "",
+            "note": "파일명 또는 경로에 QR, QR코드, 코드 키워드가 포함되어 MSDS 원본이 아닐 수 있음",
             "matchedExcelCandidate": "",
             "duplicateCandidate": False,
             "excludeReason": "",

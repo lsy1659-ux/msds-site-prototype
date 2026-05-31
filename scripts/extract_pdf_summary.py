@@ -62,6 +62,15 @@ GENERATED_NOTES = {
     "PDF 자동 추출 후보이며 검토 필요",
     "PDF 텍스트 추출 실패 또는 이미지 PDF로 추정되며 수동 확인 필요",
 }
+NON_MSDS_EXCLUDE_REASONS = {
+    "비MSDS",
+    "QR코드/안내문",
+    "카탈로그/기타자료",
+    "카탈로그",
+    "시험성적서",
+    "인증서",
+    "기타",
+}
 
 
 @dataclass
@@ -511,18 +520,38 @@ def merge_overrides(output_path: Path, overrides: list[dict[str, Any]]) -> tuple
     return merged_items, stats
 
 
-def queue_decisions(queue_path: Path) -> dict[str, str]:
+def queue_items_by_key(queue_path: Path) -> dict[str, dict[str, Any]]:
     queue = read_json_list(queue_path)
-    decisions: dict[str, str] = {}
+    lookup: dict[str, dict[str, Any]] = {}
     for item in queue:
-        decision = str(item.get("reviewDecision") or "").strip()
         relative_path = normalize_path(item.get("relativePath"))
         file_name = str(item.get("fileName") or "").strip()
         if relative_path:
-            decisions[relative_path] = decision
-        if file_name and file_name not in decisions:
-            decisions[file_name] = decision
-    return decisions
+            lookup[relative_path] = item
+        if file_name and file_name not in lookup:
+            lookup[file_name] = item
+    return lookup
+
+
+def queue_review_decision(queue_item: dict[str, Any] | None) -> str:
+    if not queue_item:
+        return ""
+    return str(queue_item.get("reviewDecision") or "").strip()
+
+
+def is_non_msds_excluded(queue_item: dict[str, Any] | None) -> bool:
+    if not queue_item:
+        return False
+    decision = str(queue_item.get("reviewDecision") or "").strip()
+    reason = str(queue_item.get("excludeReason") or "").strip()
+    if decision != "제외":
+        return False
+    return (
+        reason in NON_MSDS_EXCLUDE_REASONS
+        or "QR" in reason.upper()
+        or "안내" in reason
+        or "비MSDS" in reason
+    )
 
 
 def inventory_items(inventory_path: Path) -> list[dict[str, Any]]:
@@ -534,7 +563,7 @@ def inventory_items(inventory_path: Path) -> list[dict[str, Any]]:
     return []
 
 
-def make_target_from_path(pdf_path: Path, pdf_dir: Path, queue_lookup: dict[str, str], inventory_item: dict[str, Any] | None = None) -> PdfTarget:
+def make_target_from_path(pdf_path: Path, pdf_dir: Path, queue_lookup: dict[str, dict[str, Any]], inventory_item: dict[str, Any] | None = None) -> PdfTarget:
     try:
         relative_path = normalize_path(pdf_path.relative_to(pdf_dir))
     except ValueError:
@@ -545,7 +574,8 @@ def make_target_from_path(pdf_path: Path, pdf_dir: Path, queue_lookup: dict[str,
     excel_missing = inventory_status == "excel_missing_pdf"
     registration_type = "excel_missing_pdf" if excel_missing else "excel_linked"
     matched = not excel_missing
-    decision = queue_lookup.get(relative_path) or queue_lookup.get(file_name) or ""
+    queue_item = queue_lookup.get(relative_path) or queue_lookup.get(file_name)
+    decision = queue_review_decision(queue_item)
 
     return PdfTarget(
         path=pdf_path,
@@ -559,7 +589,7 @@ def make_target_from_path(pdf_path: Path, pdf_dir: Path, queue_lookup: dict[str,
 
 
 def discover_targets(args: argparse.Namespace, existing_overrides: list[dict[str, Any]]) -> tuple[list[PdfTarget], int]:
-    queue_lookup = queue_decisions(args.registration_queue)
+    queue_lookup = queue_items_by_key(args.registration_queue)
     existing_keys = {override_key(item) for item in existing_overrides if override_key(item)}
     existing_files = {override_file_name(item) for item in existing_overrides if override_file_name(item)}
 
@@ -586,6 +616,10 @@ def discover_targets(args: argparse.Namespace, existing_overrides: list[dict[str
         if item is None:
             item = inventory_by_file.get(pdf_path.name)
         target = make_target_from_path(pdf_path, args.pdf_dir, queue_lookup, item)
+        queue_item = queue_lookup.get(target.relative_path) or queue_lookup.get(target.file_name)
+
+        if args.skip_excluded and is_non_msds_excluded(queue_item):
+            continue
 
         if args.folder:
             folder = normalize_path(args.folder).strip("/")
@@ -823,6 +857,7 @@ def parse_args() -> argparse.Namespace:
         help="Select all PDFs, Excel-linked PDFs, or Excel-missing PDFs.",
     )
     parser.add_argument("--only-missing-overrides", action="store_true", help="Process only PDFs that do not have a local override yet.")
+    parser.add_argument("--skip-excluded", action=argparse.BooleanOptionalAction, default=True, help="Skip queue items excluded as non-MSDS/QR/guide/catalog documents. Default: true.")
     parser.add_argument("--limit", type=int, default=0, help="Maximum PDFs to process in this batch. 0 means no limit.")
     parser.add_argument("--folder", default="", help="Only process PDFs under this relative folder path.")
     return parser.parse_args()
@@ -837,7 +872,7 @@ def main() -> int:
     total_pdf_count = len(list(args.pdf_dir.rglob("*.pdf"))) if args.pdf_dir.exists() else 0
     targets, filtered_target_count = discover_targets(args, existing_overrides)
     if args.input and not targets and args.input.exists():
-        queue_lookup = queue_decisions(args.registration_queue)
+        queue_lookup = queue_items_by_key(args.registration_queue)
         targets = [make_target_from_path(args.input, args.input.parent, queue_lookup)]
         filtered_target_count = 1
 

@@ -12,5 +12,19 @@
     "matchedExcelCandidate": "",
     "duplicateCandidate": false,
     "excludeReason": ""
+  },
+  {
+    "relativePath": "0. 캠스 MSDS QR 코드.pdf",
+    "fileName": "0. 캠스 MSDS QR 코드.pdf",
+    "status": "excel_missing_pdf",
+    "reviewDecision": "미검토",
+    "suggestedAction": "비MSDS확인필요",
+    "tempProductName": "",
+    "supplier": "",
+    "category": "",
+    "note": "파일명 또는 경로에 QR, QR코드, 코드 키워드가 포함되어 MSDS 원본이 아닐 수 있음",
+    "matchedExcelCandidate": "",
+    "duplicateCandidate": false,
+    "excludeReason": ""
   }
 ]

@@ -37,6 +37,15 @@ REGISTRATION_DECISIONS = (
     "제외",
     "보류",
 )
+NON_MSDS_EXCLUDE_REASONS = {
+    "비MSDS",
+    "QR코드/안내문",
+    "카탈로그/기타자료",
+    "카탈로그",
+    "시험성적서",
+    "인증서",
+    "기타",
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -269,6 +278,32 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
         item for item in registration_queue
         if item.get("status") == "missing_from_pdf_library"
     ]
+    excluded_queue = [
+        item for item in active_registration_queue
+        if item.get("reviewDecision") == "제외"
+    ]
+    non_msds_excluded_queue = [
+        item for item in excluded_queue
+        if str(item.get("excludeReason") or "") == "비MSDS"
+    ]
+    qr_guide_excluded_queue = [
+        item for item in excluded_queue
+        if str(item.get("excludeReason") or "") == "QR코드/안내문"
+    ]
+    catalog_excluded_queue = [
+        item for item in excluded_queue
+        if str(item.get("excludeReason") or "") in {"카탈로그/기타자료", "카탈로그"}
+    ]
+    non_msds_suspected_queue = [
+        item for item in active_registration_queue
+        if item.get("reviewDecision") != "제외"
+        and str(item.get("suggestedAction") or "") == "비MSDS확인필요"
+    ]
+    pure_unreviewed_registration_queue = [
+        item for item in active_registration_queue
+        if item.get("reviewDecision") == "미검토"
+        and str(item.get("suggestedAction") or "") != "비MSDS확인필요"
+    ]
     summary = {
         "convertedProductCount": len(products),
         "ingredientCount": ingredient_count,
@@ -299,6 +334,12 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
             decision: queue_decision_counts.get(decision, 0)
             for decision in REGISTRATION_DECISIONS
         },
+        "excelMissingPdfExcludedCount": len(excluded_queue),
+        "nonMsdsExcludedCount": len(non_msds_excluded_queue),
+        "qrGuideExcludedCount": len(qr_guide_excluded_queue),
+        "catalogEtcExcludedCount": len(catalog_excluded_queue),
+        "nonMsdsSuspectedCount": len(non_msds_suspected_queue),
+        "pureUnreviewedRegistrationTargetCount": len(pure_unreviewed_registration_queue),
     }
 
     examples = {
@@ -406,6 +447,15 @@ def print_console_summary(report: dict[str, Any]) -> None:
         f"제외 {queue['제외']}, "
         f"보류 {queue['보류']}"
     )
+    print(
+        "- 비MSDS/제외: "
+        f"제외 {summary['excelMissingPdfExcludedCount']}, "
+        f"비MSDS {summary['nonMsdsExcludedCount']}, "
+        f"QR코드/안내문 {summary['qrGuideExcludedCount']}, "
+        f"카탈로그/기타 {summary['catalogEtcExcludedCount']}, "
+        f"의심표시 {summary['nonMsdsSuspectedCount']}"
+    )
+    print(f"- 엑셀등록 검토 대상 순수 미검토 수: {summary['pureUnreviewedRegistrationTargetCount']}")
 
     example_count = sum(len(items) for items in report["examples"].values())
     if example_count:
