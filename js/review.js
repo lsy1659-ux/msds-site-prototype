@@ -216,6 +216,7 @@ function renderReviewDetail() {
 
   const { override, index } = selected;
   const pdfInfo = buildReviewPdfInfo(override);
+  const conflict = getGhsConflict(override);
   reviewElements.detail.className = "review-detail";
   reviewElements.detail.innerHTML = `
     <section class="review-detail-block">
@@ -241,6 +242,7 @@ function renderReviewDetail() {
     </section>
 
     ${reviewSection("기본 후보", `
+      ${conflict ? `<div class="review-conflict-box">${escapeHtml(conflict)}</div>` : ""}
       <div class="info-grid">
         ${reviewItem("PDF 파일명", getFileName(override))}
         ${reviewItem("제품명 후보", override.productNameCandidate)}
@@ -388,6 +390,26 @@ function getStatusClass(status) {
   if (status === "수정필요") return "is-edit-needed";
   if (status === "제외") return "is-excluded";
   return "is-review-needed";
+}
+
+function containsNoGhsLabelElement(value) {
+  const normalized = normalizeText(value);
+  return normalized.includes("해당없음")
+    || normalized.includes("유해화학물질로분류되지않음")
+    || normalized.includes("분류되지않음")
+    || normalized.includes("notclassified")
+    || normalized.includes("noghslabelelement")
+    || normalized.includes("notapplicable");
+}
+
+function getGhsConflict(override) {
+  if (!override.ghsPictograms?.length) return "";
+  const noLabelSignal = containsNoGhsLabelElement(override.signalWordCandidate);
+  const noHazardStatements = !override.hazardStatements?.length;
+  if (noLabelSignal || noHazardStatements) {
+    return "확인 필요: 신호어 또는 유해위험문구가 해당없음 계열인데 GHS 후보가 있습니다. PDF 2번 항목의 그림문자/표지요소를 확인하세요.";
+  }
+  return "";
 }
 
 function reviewSection(title, content) {

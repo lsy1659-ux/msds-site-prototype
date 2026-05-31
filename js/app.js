@@ -782,6 +782,7 @@ function getPosterData(product) {
   if (canUseOverride(override) && hasOverrideSummary(override)) {
     const isReviewed = override.reviewStatus === "검토완료";
     const showReviewStatus = shouldShowReviewStatusOnFieldPoster();
+    const ghsPictograms = getDisplayGhsPictograms(product);
     return {
       statusClass: isReviewed ? "is-reviewed" : "is-review-needed",
       showReviewStrip: showReviewStatus,
@@ -790,7 +791,7 @@ function getPosterData(product) {
         ? "검토 완료된 PDF 기반 요약정보입니다."
         : "PDF 자동 추출 후보입니다. 현장 사용 전 검토가 필요합니다.",
       hazardBadge: override.signalWordCandidate || product.hazardBadge || "확인",
-      ghsPictograms: override.ghsPictograms || [],
+      ghsPictograms,
       hazardStatements: override.hazardStatements || [],
       precautionaryStatements: override.precautionaryStatements || {},
       ppeCandidates: limitList(override.ppeCandidates || [], 5),
@@ -850,6 +851,31 @@ function hasOverrideSummary(override) {
     || Boolean(override.signalWordCandidate)
     || Boolean(override.sourcePdfPath)
     || Boolean((override.ppeCandidates || []).length);
+}
+
+function containsNoGhsLabelElement(value) {
+  const text = String(value || "").toLowerCase();
+  const normalized = normalizeSearchText(text);
+  return normalized.includes("해당없음")
+    || normalized.includes("유해화학물질로분류되지않음")
+    || normalized.includes("분류되지않음")
+    || normalized.includes("notclassified")
+    || normalized.includes("noghslabelelement")
+    || normalized.includes("notapplicable");
+}
+
+function shouldSuppressGhsPictograms(product) {
+  const override = product.pdfSummaryOverride;
+  if (!override?.ghsPictograms?.length) return false;
+  return containsNoGhsLabelElement(override.signalWordCandidate)
+    || containsNoGhsLabelElement(product.hazardSummary)
+    || containsNoGhsLabelElement(product.hazardClassification);
+}
+
+function getDisplayGhsPictograms(product) {
+  if (shouldSuppressGhsPictograms(product)) return [];
+  const override = canUseOverride(product.pdfSummaryOverride) ? product.pdfSummaryOverride : null;
+  return override?.ghsPictograms?.length ? override.ghsPictograms : (product.ghsPictograms || []);
 }
 
 function hasAnySummary(ghsPictograms = [], hazardStatements = [], precautions = {}) {
@@ -963,7 +989,7 @@ function getDetailData(product) {
     signalWord: override?.signalWordCandidate || "",
     hazardSummary: displayValue(summarizeItems(hazardStatements, 2, " / "), product.hazardSummary),
     ppeSummary: displayValue(summarizeItems(ppeCandidates, 3, ", "), product.ppeSummary),
-    ghsPictograms: override?.ghsPictograms?.length ? override.ghsPictograms : (product.ghsPictograms || []),
+    ghsPictograms: getDisplayGhsPictograms(product),
     hazardStatements,
     precautionaryStatements,
     ppeCandidates

@@ -1235,6 +1235,16 @@ body.modal-open {
   font-weight: 900;
 }
 
+.review-conflict-box {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border: 1px solid #ead08f;
+  border-radius: var(--radius-ui);
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+  font-weight: 900;
+}
+
 .quick-status-buttons,
 .review-navigation-buttons {
   display: flex;

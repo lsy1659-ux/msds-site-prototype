@@ -140,6 +140,9 @@ def first_regex(lines: list[str], pattern: re.Pattern[str]) -> str:
 
 
 def extract_ghs_candidates(text: str) -> list[dict[str, str]]:
+    if has_no_ghs_label_element(text):
+        return []
+
     compact_text = re.sub(r"\s+", "", text)
     found: list[dict[str, str]] = []
     for code, label, keywords in GHS_PATTERNS:
@@ -147,6 +150,23 @@ def extract_ghs_candidates(text: str) -> list[dict[str, str]]:
         if any(keyword in text or compact_keyword in compact_text for keyword, compact_keyword in zip(keywords, compact_keywords)):
             found.append({"code": code, "label": label})
     return found
+
+
+def has_no_ghs_label_element(text: str) -> bool:
+    compact = re.sub(r"\s+", "", text).lower()
+    no_label_markers = [
+        "그림문자해당없음",
+        "심볼(문자)해당없음",
+        "심볼해당없음",
+        "신호어해당없음",
+        "유해위험문구해당없음",
+        "유해▪위험문구해당없음",
+        "유해화학물질로분류되지않음",
+        "notclassified",
+        "noghslabelelement",
+        "notapplicable",
+    ]
+    return any(marker in compact for marker in no_label_markers)
 
 
 def subsection_lines(lines: list[str], start_keywords: list[str], stop_keywords: list[str]) -> list[str]:
