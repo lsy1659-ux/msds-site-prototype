@@ -1,7 +1,8 @@
 "use strict";
 
 const APP_CONFIG = {
-  dataUrl: "data/msds-sample.json",
+  localDataUrl: "data/msds.local.json",
+  sampleDataUrl: "data/msds-sample.json",
   showDownloadButton: false,
   showPdfIframeWhenAvailable: false
 };
@@ -257,7 +258,8 @@ const PRECAUTION_LABELS = {
 const state = {
   products: [],
   selectedId: null,
-  query: ""
+  query: "",
+  dataMode: "샘플 데이터 모드"
 };
 
 const elements = {};
@@ -265,7 +267,9 @@ const elements = {};
 document.addEventListener("DOMContentLoaded", async () => {
   bindElements();
   bindEvents();
-  state.products = await loadProducts();
+  const data = await loadProducts();
+  state.products = data.products;
+  state.dataMode = data.mode;
   state.selectedId = state.products[0]?.id || null;
   render();
 });
@@ -280,6 +284,7 @@ function bindElements() {
   elements.detailPanel = document.querySelector("#detailPanel");
   elements.quickSearch = document.querySelector(".quick-search");
   elements.emptySearchGuide = document.querySelector("#emptySearchGuide");
+  elements.dataMode = document.querySelector("#dataMode");
 }
 
 function bindEvents() {
@@ -308,14 +313,76 @@ function bindEvents() {
 }
 
 async function loadProducts() {
-  try {
-    const response = await fetch(APP_CONFIG.dataUrl, { cache: "no-store" });
-    if (!response.ok) throw new Error("Sample data request failed.");
-    const data = await response.json();
-    return Array.isArray(data.products) ? data.products : FALLBACK_PRODUCTS;
-  } catch (error) {
-    return FALLBACK_PRODUCTS;
+  const localData = await fetchProducts(APP_CONFIG.localDataUrl);
+  if (localData) {
+    return {
+      mode: "로컬 변환 데이터 모드",
+      products: localData.map(normalizeProduct)
+    };
   }
+
+  const sampleData = await fetchProducts(APP_CONFIG.sampleDataUrl);
+  if (sampleData) {
+    return {
+      mode: "샘플 데이터 모드",
+      products: sampleData.map(normalizeProduct)
+    };
+  }
+
+  return {
+    mode: "샘플 데이터 모드",
+    products: FALLBACK_PRODUCTS.map(normalizeProduct)
+  };
+}
+
+async function fetchProducts(url) {
+  try {
+    const response = await fetch(url, { cache: "no-store" });
+    if (!response.ok) throw new Error(`Data request failed: ${url}`);
+    const data = await response.json();
+    if (Array.isArray(data)) return data;
+    if (Array.isArray(data.products)) return data.products;
+    return null;
+  } catch (error) {
+    return null;
+  }
+}
+
+function normalizeProduct(product) {
+  const ingredients = product.ingredients || product.components || [];
+  return {
+    ...product,
+    productName: product.productName || "",
+    erpName: product.erpName || "",
+    msdsNo: product.msdsNo || "",
+    fileName: product.fileName || "",
+    pdfPath: product.pdfPath || (product.fileName ? `/pdf/${product.fileName}` : ""),
+    useCategory: product.useCategory || product.category || "",
+    recommendedUse: product.recommendedUse || "",
+    supplier: product.supplier || "",
+    emergencyContact: product.emergencyContact || "",
+    hazardSummary: product.hazardSummary || product.hazardClassification || "",
+    dangerousGoods: product.dangerousGoods || "",
+    ppeSummary: product.ppeSummary || "",
+    revisionDate: product.revisionDate || "",
+    hazardBadge: product.hazardBadge || "확인",
+    ghsPictograms: product.ghsPictograms || [],
+    hazardStatements: product.hazardStatements || [],
+    precautionaryStatements: {
+      prevention: product.precautionaryStatements?.prevention || [],
+      response: product.precautionaryStatements?.response || [],
+      storage: product.precautionaryStatements?.storage || [],
+      disposal: product.precautionaryStatements?.disposal || []
+    },
+    components: ingredients.map((ingredient) => ({
+      chemicalName: ingredient.chemicalName || "",
+      casNo: ingredient.casNo || "",
+      content: ingredient.content || "",
+      controlledSubstance: ingredient.controlledSubstance || ingredient.managementTarget || "",
+      workEnvironmentMeasurement: ingredient.workEnvironmentMeasurement || ingredient.workplaceMonitoringTarget || "",
+      specialHealthExam: ingredient.specialHealthExam || ingredient.specialHealthCheckTarget || ""
+    }))
+  };
 }
 
 function normalizeSearchText(value) {
@@ -401,6 +468,8 @@ function render() {
 
   elements.emptySearchGuide.classList.toggle("is-hidden", Boolean(state.query.trim()));
   elements.resultCount.textContent = `검색 결과 ${results.length}건`;
+  elements.dataMode.textContent = state.dataMode;
+  elements.dataMode.classList.toggle("is-local", state.dataMode.includes("로컬"));
   elements.resultSubtitle.textContent = state.query.trim()
     ? `"${state.query}" 검색 결과 중 1개를 선택하세요.`
     : "초기에는 첫 번째 샘플 제품이 선택됩니다.";

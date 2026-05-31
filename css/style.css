@@ -162,6 +162,28 @@ h1 {
   font-weight: 900;
 }
 
+.mode-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.data-mode {
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #f1f3f2;
+  color: var(--color-muted);
+  font-size: var(--text-small);
+  font-weight: 900;
+}
+
+.data-mode.is-local {
+  background: #eaf2ff;
+  color: #1b4d92;
+}
+
 .search-box {
   display: grid;
   grid-template-columns: 1fr;

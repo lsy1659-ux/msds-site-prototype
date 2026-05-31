@@ -3,5 +3,9 @@
 *.pdf
 data/raw/
 data/original/
+data/msds.local.json
+data/*.local.json
 .env
 config.local.json
+__pycache__/
+*.pyc
