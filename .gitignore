@@ -4,6 +4,8 @@
 data/raw/
 data/original/
 data/backups/
+data/pdf-inventory.local.json
+data/*inventory*.local.json
 data/msds.local.json
 data/*.local.json
 data/*.reviewed.local.json

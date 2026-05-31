@@ -213,3 +213,56 @@ css/style.css
 CSS 상단의 변수 영역에서 색상, 테두리, 여백, 글자 크기를 조정할 수 있습니다.
 
 좌측 현장 요약판, 검색 영역, 우측 상세패널은 CSS 주석으로 구분되어 있어 나중에 `A4 안내문 스타일`, `카드형 스타일`, `모바일 간편조회 스타일`로 바꾸기 쉽게 정리되어 있습니다.
+## PDF 라이브러리 인벤토리
+
+전체 PDF를 투입하기 전에는 `pdf/` 폴더를 하위폴더까지 재귀적으로 스캔해 PDF 인벤토리를 먼저 생성합니다.
+
+```bash
+python scripts/build_pdf_inventory.py
+```
+
+이 스크립트는 PDF 파일을 수정, 삭제, 이동, 이름변경하지 않고 읽기 전용으로 확인합니다. 각 PDF의 상대경로, 파일명, 파일크기, 수정일, SHA-256 해시, 텍스트 추출 상태, 제품명 후보, CAS No. 후보, MSDS번호 후보, 텍스트 fingerprint를 기록합니다.
+
+생성되는 로컬 전용 파일은 아래와 같습니다.
+
+```text
+data/pdf-inventory.local.json
+reports/pdf-inventory-report.local.json
+reports/pdf-inventory-report.local.csv
+```
+
+이 파일들은 실제 PDF 목록과 제품 후보 정보가 들어갈 수 있으므로 GitHub에 올리지 않습니다. 저장소에는 구조 참고용 `data/pdf-inventory.sample.json`만 올립니다.
+
+인벤토리에서는 아래 항목을 확인합니다.
+
+- 같은 SHA-256 해시를 가진 완전 중복 PDF: `exact_duplicate_pdf`
+- 같은 파일명이 여러 하위폴더에 있는 경우: `filename_duplicate`
+- 파일명은 다르지만 내부 텍스트 fingerprint 또는 CAS 후보가 유사한 경우: `possible_content_duplicate`
+- 엑셀 제품 하나에 여러 PDF 후보가 연결될 수 있는 경우: `multiple_pdf_candidates`
+- PDF는 있지만 엑셀 변환 데이터에 없는 경우: `excel_missing_pdf`
+
+중복 의심 PDF는 자동 삭제, 이동, 이름변경하지 않고 리포트에 확인 필요 대상으로만 남깁니다.
+
+PDF 미리보기는 앞으로 `fileName`뿐 아니라 `relativePath` 또는 `pdfPath`도 사용할 수 있습니다.
+
+```json
+{
+  "fileName": "PN3021.pdf",
+  "relativePath": "3M/PN3021.pdf",
+  "pdfPath": "/pdf/3M/PN3021.pdf"
+}
+```
+
+현재처럼 `pdf/` 바로 아래에 있는 파일도 계속 지원합니다.
+
+## 엑셀 갱신 후 재점검 흐름
+
+엑셀이 수정되면 아래 순서로 다시 점검합니다.
+
+1. `data/raw/`에 최신 엑셀을 저장합니다.
+2. `convert_excel_to_json.py`를 실행해 `data/msds.local.json`을 갱신합니다.
+3. `build_pdf_inventory.py`를 실행해 PDF 인벤토리를 갱신합니다.
+4. `check_pdf_links.py` 또는 `audit_msds_workflow.py`를 실행합니다.
+5. PDF 연결, PDF 미등록, 엑셀 미등록 PDF, 중복 의심, 매핑 필요 항목을 확인합니다.
+
+전체 PDF를 투입할 때는 먼저 현재 테스트 PDF 상태를 Commit/Push한 뒤, 실제 PDF 원본 폴더 구조를 `pdf/` 아래에 그대로 복사합니다. 그 다음 GitHub Desktop에 PDF 파일이 변경 목록으로 뜨지 않는지 확인하고, 인벤토리와 audit 리포트를 실행해 상태를 점검합니다. 일부 항목을 `review.html`에서 검토한 뒤 문제가 없으면 전체 PDF 요약 추출을 진행합니다.

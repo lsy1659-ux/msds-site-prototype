@@ -1,0 +1,57 @@
+{
+  "generatedAt": "sample",
+  "summary": {
+    "pdfCount": 1,
+    "productCount": 1,
+    "textExtractedPdfCount": 1,
+    "excelMissingPdfCount": 0,
+    "pdfMissingProductCount": 0
+  },
+  "items": [
+    {
+      "fileName": "PN3021.pdf",
+      "relativePath": "3M/PN3021.pdf",
+      "pdfPath": "/pdf/3M/PN3021.pdf",
+      "fileSize": 123456,
+      "modifiedTime": "2026-05-31T09:00:00",
+      "sha256": "sample-sha256",
+      "normalizedFileName": "pn3021",
+      "textExtractStatus": "text_extracted",
+      "textCharCount": 2500,
+      "pageCount": 19,
+      "productNameCandidates": [
+        "샘플 제품명"
+      ],
+      "casNoCandidates": [
+        "000-00-0"
+      ],
+      "msdsNoCandidates": [
+        "SAMPLE-MSDS-001"
+      ],
+      "firstPagesTextFingerprint": "sample-fingerprint",
+      "inventoryStatus": "exact_file_match",
+      "duplicateStatuses": [],
+      "matchCandidates": []
+    }
+  ],
+  "productLinkResults": [
+    {
+      "productIndex": 1,
+      "productId": "sample-001",
+      "fileName": "PN3021.pdf",
+      "status": "exact_file_match",
+      "candidateCount": 1,
+      "candidates": [
+        {
+          "relativePath": "3M/PN3021.pdf",
+          "fileName": "PN3021.pdf",
+          "reasons": [
+            "exact_file_match"
+          ]
+        }
+      ],
+      "reviewRequired": false
+    }
+  ],
+  "duplicateGroups": []
+}

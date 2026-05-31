@@ -437,13 +437,14 @@ async function fetchOverrides(url) {
 
 function normalizeProduct(product) {
   const ingredients = product.ingredients || product.components || [];
+  const relativePdfPath = product.relativePath ? `/pdf/${String(product.relativePath).replace(/^\/?pdf\//, "")}` : "";
   return {
     ...product,
     productName: product.productName || "",
     erpName: product.erpName || "",
     msdsNo: product.msdsNo || "",
     fileName: product.fileName || "",
-    pdfPath: product.pdfPath || (product.fileName ? `/pdf/${product.fileName}` : ""),
+    pdfPath: product.pdfPath || relativePdfPath || (product.fileName ? `/pdf/${product.fileName}` : ""),
     useCategory: product.useCategory || product.category || "",
     recommendedUse: product.recommendedUse || "",
     supplier: product.supplier || "",
@@ -1144,7 +1145,12 @@ function renderOverrideDetail(override) {
 
 function buildPdfInfo(product) {
   const fileName = String(product.fileName || "").trim();
-  if (!fileName) {
+  const relativePath = String(product.relativePath || "").trim();
+  const displayPath = product.pdfPath
+    || (relativePath ? `/pdf/${relativePath.replace(/^\/?pdf\//, "")}` : "")
+    || (fileName ? `/pdf/${fileName}` : "");
+
+  if (!fileName && !displayPath) {
     return {
       status: "no-file-name",
       displayPath: "",
@@ -1153,12 +1159,11 @@ function buildPdfInfo(product) {
     };
   }
 
-  const displayPath = product.pdfPath || `/pdf/${fileName}`;
   return {
     status: state.pdfAvailability[encodePdfPath(displayPath)] || "unchecked",
     displayPath,
     encodedPath: encodePdfPath(displayPath),
-    title: product.productName || fileName
+    title: product.productName || fileName || displayPath
   };
 }
 

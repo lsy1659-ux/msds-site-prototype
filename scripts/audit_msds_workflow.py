@@ -77,7 +77,7 @@ def normalize_text(value: Any) -> str:
 def pdf_files(pdf_dir: Path) -> list[Path]:
     if not pdf_dir.exists():
         return []
-    return sorted(path for path in pdf_dir.glob("*.pdf") if path.is_file())
+    return sorted(path for path in pdf_dir.rglob("*.pdf") if path.is_file())
 
 
 def override_file_name(override: dict[str, Any]) -> str:
