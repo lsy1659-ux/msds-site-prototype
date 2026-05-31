@@ -29,6 +29,13 @@ DEFAULT_REGISTRATION_QUEUE = Path("data/pdf-registration-queue.local.json")
 DEFAULT_REPORT_JSON = Path("reports/pdf-summary-batch-extract.local.json")
 DEFAULT_REPORT_CSV = Path("reports/pdf-summary-batch-extract.local.csv")
 logging.getLogger("pypdf").setLevel(logging.CRITICAL)
+PDF_IMPORT_ERROR = ""
+
+try:
+    from pypdf import PdfReader
+except Exception as exc:  # pragma: no cover - depends on local env
+    PdfReader = None  # type: ignore[assignment]
+    PDF_IMPORT_ERROR = str(exc)
 
 CAS_RE = re.compile(r"\b\d{2,7}-\d{2}-\d\b")
 DATE_RE = re.compile(r"\b(?:19|20)\d{2}[.\-/년]\s?\d{1,2}[.\-/월]\s?\d{1,2}\s?일?\b")
@@ -104,13 +111,11 @@ def read_json_list(path: Path, list_key: str | None = None) -> list[dict[str, An
 
 
 def read_pdf_text(path: Path, pages: int = 0) -> tuple[str, dict[str, Any]]:
-    try:
-        from pypdf import PdfReader
-    except Exception as exc:  # pragma: no cover - depends on local env
+    if PdfReader is None:
         return "", {
             "method": "pypdf",
             "status": "text_extract_failed",
-            "error": f"pypdf_import_failed: {exc}",
+            "error": f"pypdf_import_failed: {PDF_IMPORT_ERROR}",
             "pageCount": 0,
             "extractedPageCount": 0,
             "extractedCharacterCount": 0,
@@ -597,7 +602,7 @@ def discover_targets(args: argparse.Namespace, existing_overrides: list[dict[str
     inventory_by_relative = {normalize_path(item.get("relativePath")): item for item in inventory if item.get("relativePath")}
     inventory_by_file = {str(item.get("fileName") or ""): item for item in inventory if item.get("fileName")}
 
-    if args.input and not args.pdf_dir:
+    if args.input:
         pdf_paths = [args.input]
     elif inventory and args.pdf_dir == DEFAULT_PDF_DIR:
         pdf_paths = []
@@ -865,8 +870,11 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
-    if args.input:
-        args.pdf_dir = args.input.parent
+    if PdfReader is None:
+        print("Error: pypdf is not installed in this Python environment.")
+        print("Install dependencies with: python -m pip install -r requirements.txt")
+        print("No override or report files were changed.")
+        return 1
 
     existing_overrides = read_existing_overrides(args.output)
     total_pdf_count = len(list(args.pdf_dir.rglob("*.pdf"))) if args.pdf_dir.exists() else 0
