@@ -1,12 +1,14 @@
 [
   {
     "match": {
-      "fileName": "SAMPLE.pdf"
+      "fileName": "2차이형제(S6) 2024.pdf",
+      "msdsNo": "SAMPLE-MSDS-0001",
+      "productName": "2차이형제 (S6)"
     },
-    "sourcePdfPath": "/pdf/SAMPLE.pdf",
+    "sourcePdfPath": "/pdf/2차이형제(S6) 2024.pdf",
     "extractStatus": "candidate_extracted",
     "reviewStatus": "검토필요",
-    "productNameCandidate": "샘플 제품명",
+    "productNameCandidate": "2차이형제 (S6)",
     "supplierCandidate": "샘플 공급업체",
     "msdsNoCandidate": "SAMPLE-MSDS-0001",
     "revisionDateCandidate": "2024-01-01",

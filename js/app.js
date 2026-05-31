@@ -3,6 +3,8 @@
 const APP_CONFIG = {
   localDataUrl: "data/msds.local.json",
   sampleDataUrl: "data/msds-sample.json",
+  localOverridesUrl: "data/msds-overrides.local.json",
+  sampleOverridesUrl: "data/msds-overrides.sample.json",
   minSearchCharacters: 2,
   initialResultLimit: 10,
   showDownloadButton: false,
@@ -358,23 +360,26 @@ function updateSelectedProductForQuery() {
 async function loadProducts() {
   const localData = await fetchProducts(APP_CONFIG.localDataUrl);
   if (localData) {
+    const overrides = await loadOverrides();
     return {
       mode: "로컬 변환 데이터 모드",
-      products: localData.map(normalizeProduct)
+      products: applyOverrides(localData.map(normalizeProduct), overrides)
     };
   }
 
   const sampleData = await fetchProducts(APP_CONFIG.sampleDataUrl);
   if (sampleData) {
+    const overrides = await loadOverrides();
     return {
       mode: "샘플 데이터 모드",
-      products: sampleData.map(normalizeProduct)
+      products: applyOverrides(sampleData.map(normalizeProduct), overrides)
     };
   }
 
+  const overrides = await loadOverrides();
   return {
     mode: "샘플 데이터 모드",
-    products: FALLBACK_PRODUCTS.map(normalizeProduct)
+    products: applyOverrides(FALLBACK_PRODUCTS.map(normalizeProduct), overrides)
   };
 }
 
@@ -385,6 +390,29 @@ async function fetchProducts(url) {
     const data = await response.json();
     if (Array.isArray(data)) return data;
     if (Array.isArray(data.products)) return data.products;
+    return null;
+  } catch (error) {
+    return null;
+  }
+}
+
+async function loadOverrides() {
+  const localOverrides = await fetchOverrides(APP_CONFIG.localOverridesUrl);
+  if (localOverrides) return localOverrides.map(normalizeOverride);
+
+  const sampleOverrides = await fetchOverrides(APP_CONFIG.sampleOverridesUrl);
+  if (sampleOverrides) return sampleOverrides.map(normalizeOverride);
+
+  return [];
+}
+
+async function fetchOverrides(url) {
+  try {
+    const response = await fetch(url, { cache: "no-store" });
+    if (!response.ok) throw new Error(`Override request failed: ${url}`);
+    const data = await response.json();
+    if (Array.isArray(data)) return data;
+    if (Array.isArray(data.overrides)) return data.overrides;
     return null;
   } catch (error) {
     return null;
@@ -426,6 +454,55 @@ function normalizeProduct(product) {
       specialHealthExam: ingredient.specialHealthExam || ingredient.specialHealthCheckTarget || ""
     }))
   };
+}
+
+function normalizeOverride(override) {
+  const precautions = override.precautionaryStatements || {};
+  return {
+    ...override,
+    match: override.match || {},
+    sourcePdfPath: override.sourcePdfPath || "",
+    extractStatus: override.extractStatus || "",
+    reviewStatus: override.reviewStatus || "검토필요",
+    signalWordCandidate: override.signalWordCandidate || "",
+    ghsPictograms: Array.isArray(override.ghsPictograms) ? override.ghsPictograms : [],
+    hazardStatements: Array.isArray(override.hazardStatements) ? override.hazardStatements : [],
+    precautionaryStatements: {
+      prevention: Array.isArray(precautions.prevention) ? precautions.prevention : [],
+      response: Array.isArray(precautions.response) ? precautions.response : [],
+      storage: Array.isArray(precautions.storage) ? precautions.storage : [],
+      disposal: Array.isArray(precautions.disposal) ? precautions.disposal : []
+    },
+    ingredients: Array.isArray(override.ingredients) ? override.ingredients : [],
+    ppeCandidates: Array.isArray(override.ppeCandidates) ? override.ppeCandidates : [],
+    notes: override.notes || ""
+  };
+}
+
+function applyOverrides(products, overrides) {
+  if (!overrides.length) return products;
+
+  return products.map((product) => {
+    const override = findOverrideForProduct(product, overrides);
+    if (!override) return product;
+    return {
+      ...product,
+      pdfSummaryOverride: override
+    };
+  });
+}
+
+function findOverrideForProduct(product, overrides) {
+  return findOverrideByField(product, overrides, "fileName")
+    || findOverrideByField(product, overrides, "msdsNo")
+    || findOverrideByField(product, overrides, "productName")
+    || null;
+}
+
+function findOverrideByField(product, overrides, field) {
+  const productValue = normalizeSearchText(product[field]);
+  if (!productValue) return null;
+  return overrides.find((override) => normalizeSearchText(override.match?.[field]) === productValue);
 }
 
 function normalizeSearchText(value) {
@@ -477,6 +554,12 @@ function buildSearchSource(product) {
     product.hazardSummary,
     product.dangerousGoods,
     product.ppeSummary,
+    product.pdfSummaryOverride?.reviewStatus,
+    product.pdfSummaryOverride?.extractStatus,
+    product.pdfSummaryOverride?.signalWordCandidate,
+    (product.pdfSummaryOverride?.hazardStatements || []).join(" "),
+    flattenPrecautions(product.pdfSummaryOverride?.precautionaryStatements),
+    (product.pdfSummaryOverride?.ppeCandidates || []).join(" "),
     ghsText,
     (product.hazardStatements || []).join(" "),
     flattenPrecautions(product.precautionaryStatements),
@@ -581,25 +664,95 @@ function renderSelectionList(results, hasQuery, canShowCandidates) {
 
 function renderPoster(product) {
   if (!product) {
+    elements.posterPanel.className = "poster-board";
     elements.posterPanel.innerHTML = `<div class="poster-empty">선택된 제품이 없습니다.</div>`;
     return;
   }
 
+  const posterData = getPosterData(product);
+  elements.posterPanel.className = `poster-board ${posterData.statusClass}`;
   elements.posterPanel.innerHTML = `
+    ${posterData.reviewBadge ? `
+      <div class="poster-review-strip">
+        <span class="review-badge ${posterData.statusClass}">${escapeHtml(posterData.reviewBadge)}</span>
+        <span>${escapeHtml(posterData.reviewMessage)}</span>
+      </div>
+    ` : ""}
     <div class="poster-product-row">
       <h2>${escapeHtml(product.productName)}</h2>
-      <span class="hazard-badge">${escapeHtml(product.hazardBadge || "주의")}</span>
+      <span class="hazard-badge">${escapeHtml(posterData.hazardBadge)}</span>
     </div>
     <div class="poster-ghs-row">
-      ${renderGhsList(product, "poster")}
+      ${renderGhsListFromItems(posterData.ghsPictograms, "poster")}
     </div>
-    ${posterSection("유해 위험 문구", renderBulletList(product.hazardStatements || []), "poster-hazard-statements")}
-    ${posterSection("예방조치 문구", renderPrecautions(product.precautionaryStatements || {}), "poster-precaution-statements")}
+    ${posterSection(posterData.hazardTitle, renderBulletList(posterData.hazardStatements, posterData.isCandidate), "poster-hazard-statements")}
+    ${posterSection(posterData.precautionTitle, renderPrecautions(posterData.precautionaryStatements, posterData.isCandidate), "poster-precaution-statements")}
+    ${posterData.ppeCandidates.length ? posterSection("PPE/보호구 후보", renderBulletList(posterData.ppeCandidates, true), "poster-ppe-candidates") : ""}
     <footer class="poster-footer">
-      <p>현장 확인용 요약본이며, 상세 사항은 우측 PDF 또는 정식 MSDS를 참고하세요.</p>
+      <p>${escapeHtml(posterData.footerNotice)}</p>
       <p>공급자 정보: ${escapeHtml(product.supplier)}</p>
+      ${posterData.sourcePdfPath ? `<p>PDF 출처: ${escapeHtml(posterData.sourcePdfPath)}</p>` : ""}
     </footer>
   `;
+}
+
+function getPosterData(product) {
+  const override = product.pdfSummaryOverride;
+  if (override && hasOverrideSummary(override)) {
+    const isReviewed = override.reviewStatus === "검토완료";
+    const isCandidate = !isReviewed;
+    return {
+      statusClass: isReviewed ? "is-reviewed" : "is-review-needed",
+      reviewBadge: isReviewed ? "검토완료" : "PDF 추출 후보 / 검토 필요",
+      reviewMessage: isReviewed
+        ? "검토 완료된 PDF 기반 요약정보입니다."
+        : "PDF 자동 추출 후보입니다. 현장 사용 전 검토가 필요합니다.",
+      hazardBadge: override.signalWordCandidate || product.hazardBadge || (isReviewed ? "확인" : "후보"),
+      ghsPictograms: override.ghsPictograms || [],
+      hazardStatements: override.hazardStatements || [],
+      precautionaryStatements: override.precautionaryStatements || {},
+      ppeCandidates: override.ppeCandidates || [],
+      hazardTitle: isCandidate ? "유해 위험 문구 후보" : "유해 위험 문구",
+      precautionTitle: isCandidate ? "예방조치 문구 후보" : "예방조치 문구",
+      footerNotice: isReviewed
+        ? "PDF 검토완료 요약정보입니다. 상세 사항은 우측 PDF 또는 정식 MSDS를 참고하세요."
+        : "PDF 자동 추출 후보입니다. 현장 사용 전 검토가 필요합니다.",
+      sourcePdfPath: override.sourcePdfPath || "",
+      isCandidate
+    };
+  }
+
+  const hasProductSummary = hasAnySummary(product.ghsPictograms, product.hazardStatements, product.precautionaryStatements);
+  return {
+    statusClass: hasProductSummary ? "" : "is-unregistered-summary",
+    reviewBadge: hasProductSummary ? "" : "요약정보 미등록",
+    reviewMessage: hasProductSummary ? "" : "정식 MSDS PDF를 확인하세요.",
+    hazardBadge: product.hazardBadge || "확인",
+    ghsPictograms: product.ghsPictograms || [],
+    hazardStatements: product.hazardStatements || [],
+    precautionaryStatements: product.precautionaryStatements || {},
+    ppeCandidates: [],
+    hazardTitle: "유해 위험 문구",
+    precautionTitle: "예방조치 문구",
+    footerNotice: hasProductSummary
+      ? "현장 확인용 요약본이며, 상세 사항은 우측 PDF 또는 정식 MSDS를 참고하세요."
+      : "요약정보 미등록 상태입니다. 상세 사항은 우측 PDF 또는 정식 MSDS를 확인하세요.",
+    sourcePdfPath: "",
+    isCandidate: false
+  };
+}
+
+function hasOverrideSummary(override) {
+  return hasAnySummary(override.ghsPictograms, override.hazardStatements, override.precautionaryStatements)
+    || Boolean(override.signalWordCandidate)
+    || Boolean(override.sourcePdfPath)
+    || Boolean((override.ppeCandidates || []).length);
+}
+
+function hasAnySummary(ghsPictograms = [], hazardStatements = [], precautions = {}) {
+  return Boolean((ghsPictograms || []).length)
+    || Boolean((hazardStatements || []).length)
+    || Object.values(precautions || {}).some((items) => Array.isArray(items) && items.length);
 }
 
 function renderDetail(product) {
@@ -610,6 +763,7 @@ function renderDetail(product) {
   }
 
   const pdfInfo = buildPdfInfo(product);
+  const override = product.pdfSummaryOverride;
   elements.detailPanel.className = "detail-panel";
   elements.detailPanel.innerHTML = `
     ${detailSection("제품 기본정보", `
@@ -633,6 +787,8 @@ function renderDetail(product) {
         ${summaryItem("PPE 요약", product.ppeSummary, "protect")}
       </div>
     `)}
+
+    ${detailSection("PDF 요약 추출 상태", renderOverrideDetail(override))}
 
     ${detailSection("GHS 그림문자", `
       <div class="ghs-grid">${renderGhsList(product, "large")}</div>
@@ -670,6 +826,21 @@ function renderDetail(product) {
     ${detailSection("PDF 미리보기", `
       ${renderPdfPreview(pdfInfo)}
     `)}
+  `;
+}
+
+function renderOverrideDetail(override) {
+  if (!override) {
+    return `<p class="summary-note">PDF 요약 후보가 아직 연결되지 않았습니다.</p>`;
+  }
+
+  return `
+    <div class="override-status-box ${override.reviewStatus === "검토완료" ? "is-reviewed" : "is-review-needed"}">
+      ${detailItem("PDF 요약 추출 상태", override.extractStatus || "미확인")}
+      ${detailItem("검토 상태", override.reviewStatus || "검토필요")}
+      ${detailItem("PDF 출처", override.sourcePdfPath || "")}
+      ${detailItem("후보 항목", `GHS ${override.ghsPictograms.length}건 / 유해문구 ${override.hazardStatements.length}건 / 구성성분 후보 ${override.ingredients.length}건`)}
+    </div>
   `;
 }
 
@@ -873,17 +1044,17 @@ function posterSection(title, content, className) {
   `;
 }
 
-function renderBulletList(items) {
+function renderBulletList(items, isCandidate = false) {
   if (!items.length) return `<p class="empty-text">등록된 문구가 없습니다.</p>`;
-  return `<ul class="poster-list">${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
+  return `<ul class="poster-list ${isCandidate ? "is-candidate" : ""}">${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
 }
 
-function renderPrecautions(precautions) {
+function renderPrecautions(precautions, isCandidate = false) {
   const groups = Object.entries(PRECAUTION_LABELS).map(([key, label]) => {
     const items = Array.isArray(precautions[key]) ? precautions[key] : [];
     if (!items.length) return "";
     return `
-      <div class="precaution-group">
+      <div class="precaution-group ${isCandidate ? "is-candidate" : ""}">
         <strong>${escapeHtml(label)}</strong>
         <ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
       </div>
@@ -921,7 +1092,11 @@ function detailItem(label, value) {
 }
 
 function renderGhsList(product, size) {
-  const list = normalizeGhsList(product);
+  return renderGhsListFromItems(product.ghsPictograms, size);
+}
+
+function renderGhsListFromItems(items, size) {
+  const list = normalizeGhsList({ ghsPictograms: items || [] });
   if (!list.length) return `<span class="no-ghs">GHS 정보 없음</span>`;
   return list.map((item) => renderGhsPictogram(item, size)).join("");
 }

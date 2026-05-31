@@ -15,6 +15,10 @@
   --color-danger-bg: #fff1ef;
   --color-warning: #875d00;
   --color-warning-bg: #fff5d9;
+  --color-review: #8a5a00;
+  --color-review-bg: #fff7df;
+  --color-reviewed: #0b6f57;
+  --color-reviewed-bg: #eaf8f3;
   --color-protect: #1957a5;
   --color-protect-bg: #edf4ff;
   --color-focus: #145bd6;
@@ -350,6 +354,52 @@ h1 {
   box-shadow: var(--shadow-ui);
 }
 
+/* PDF extraction review status */
+.poster-board.is-review-needed {
+  background: #fffdf6;
+}
+
+.poster-board.is-reviewed {
+  background: #fbfffd;
+}
+
+.poster-review-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid #555555;
+  background: var(--color-review-bg);
+  color: var(--color-review);
+  font-weight: 900;
+}
+
+.poster-board.is-reviewed .poster-review-strip {
+  background: var(--color-reviewed-bg);
+  color: var(--color-reviewed);
+}
+
+.review-badge {
+  display: inline-grid;
+  min-height: 30px;
+  place-items: center;
+  padding: 0 10px;
+  border-radius: var(--radius-ui);
+  background: #ffffff;
+  color: var(--color-review);
+  font-size: 0.84rem;
+  font-weight: 1000;
+}
+
+.review-badge.is-reviewed {
+  color: var(--color-reviewed);
+}
+
+.review-badge.is-unregistered-summary {
+  color: var(--color-muted);
+}
+
 /* Field poster: product name area */
 .poster-product-row {
   display: grid;
@@ -411,6 +461,11 @@ h1 {
   padding: 8px 14px 10px 28px;
 }
 
+.poster-list.is-candidate,
+.precaution-group.is-candidate ul {
+  background: rgba(255, 247, 223, 0.48);
+}
+
 .poster-list li,
 .precaution-group li {
   margin-bottom: 3px;
@@ -451,6 +506,10 @@ h1 {
   padding: 10px 14px;
   color: var(--color-muted);
   font-weight: 800;
+}
+
+.poster-ppe-candidates {
+  border-bottom: 1px solid #555555;
 }
 
 /* Right detail panel */
@@ -573,6 +632,26 @@ h1 {
 
 .summary-item.protect strong {
   color: var(--color-protect);
+}
+
+.summary-note {
+  margin-bottom: 0;
+  color: var(--color-muted);
+  font-weight: 850;
+}
+
+.override-status-box {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid #ead08f;
+  border-radius: var(--radius-ui);
+  background: var(--color-review-bg);
+}
+
+.override-status-box.is-reviewed {
+  border-color: #9fcfc0;
+  background: var(--color-reviewed-bg);
 }
 
 /* Shared GHS pictograms */

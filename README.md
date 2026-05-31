@@ -91,6 +91,12 @@ data/msds-overrides.sample.json
 
 실제 PDF에서 추출한 결과인 `data/msds-overrides.local.json`은 실제 제품정보가 들어갈 수 있으므로 GitHub에 올리지 않습니다.
 
+사이트는 제품 기본정보를 읽은 뒤 `data/msds-overrides.local.json`을 추가로 읽어 PDF 추출 후보 또는 검토완료 정보를 제품에 연결합니다. 로컬 override가 없으면 `data/msds-overrides.sample.json`을 사용하고, 둘 다 없거나 읽기 실패해도 기본 조회 화면은 계속 동작합니다.
+
+`reviewStatus`가 `검토필요`이면 좌측 현장 요약판에 PDF 추출 후보로 표시되며, 현장 사용 전 사람이 확인해야 합니다. 사람이 확인한 뒤 `reviewStatus`를 `검토완료`로 바꾸면 좌측 요약판에서 확정 정보에 가까운 스타일로 표시할 수 있습니다.
+
+최종 구축 방향은 엑셀을 제품 검색용 보조 색인으로 사용하고, PDF 원본에서 제품정보와 안전문구를 자동 또는 반자동으로 구축한 뒤 사람이 검토완료 처리하는 구조입니다.
+
 ## 주의사항
 
 - 실제 회사 엑셀 원본은 이 저장소에 넣지 않습니다.
