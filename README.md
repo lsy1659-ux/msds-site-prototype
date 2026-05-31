@@ -147,6 +147,23 @@ python scripts/apply_reviewed_overrides.py --input msds-overrides.reviewed.local
 
 적용 시 기존 `data/msds-overrides.local.json`이 있으면 `data/backups/msds-overrides.local.YYYYMMDD_HHMMSS.json` 형태로 자동 백업한 뒤 새 파일을 적용합니다. `data/msds-overrides.local.json`, `data/backups/`, `*reviewed.local.json` 파일은 실제 검토 데이터가 들어갈 수 있으므로 GitHub에 올리지 않습니다.
 
+전체 PDF를 투입하기 전에는 운영 상태 점검 리포트를 먼저 확인하는 것을 권장합니다.
+
+```bash
+python scripts/audit_msds_workflow.py
+```
+
+이 스크립트는 엑셀 변환 제품 수, 성분정보 수, PDF 연결 상태, override 추출 상태, `reviewStatus`별 건수, PDF는 있으나 override가 없는 항목, override는 있으나 PDF가 없는 항목을 요약합니다.
+
+리포트는 아래 로컬 파일로 생성됩니다.
+
+```text
+reports/msds-workflow-audit.local.json
+reports/msds-workflow-audit.local.csv
+```
+
+local report에는 실제 제품/PDF 정보가 들어갈 수 있으므로 GitHub에 올리지 않습니다. 전체 PDF 투입 전 이 리포트로 PDF 연결, override 생성 여부, 검토완료 상태를 확인합니다.
+
 ## 작업자 주의 포인트
 
 오른쪽 상세정보의 `작업자 주의 포인트`는 제품명, 유해성 문구, 위험물 구분, 성분정보, 보호구 문구를 바탕으로 로컬 규칙에 따라 표시합니다. 화면에서는 현장 작업, 보호구, 환기 및 노출관리, 화재·보관, 법적관리 확인사항처럼 필요한 파트만 나누어 보여줍니다.
