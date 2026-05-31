@@ -5,7 +5,14 @@
     "productCount": 1,
     "textExtractedPdfCount": 1,
     "excelMissingPdfCount": 0,
-    "pdfMissingProductCount": 0
+    "pdfMissingProductCount": 0,
+    "strongMatchCandidateCount": 1,
+    "probableMatchCandidateCount": 0,
+    "weakMatchCandidateCount": 0,
+    "ignoredLowConfidenceCount": 0,
+    "multipleCandidatesStrongProbableOnlyCount": 0,
+    "candidatesSuppressedByExactMatchCount": 0,
+    "casOnlyWeakMatchCount": 0
   },
   "items": [
     {

@@ -18,6 +18,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from pdf_match_utils import is_strong_or_probable, score_pdf_candidate
+
 
 DEFAULT_DATA = Path("data/msds.local.json")
 DEFAULT_PDF_DIR = Path("pdf")
@@ -249,6 +251,7 @@ def build_pdf_item(path: Path, pdf_dir: Path, pages: int) -> dict[str, Any]:
         "casNoCandidates": cas_candidates[:30],
         "msdsNoCandidates": extract_msds_no_candidates(text),
         "firstPagesTextFingerprint": fingerprint_text(text),
+        "_normalizedText": normalize_text(text),
         "inventoryStatus": "unclassified",
         "duplicateStatuses": [],
         "matchCandidates": [],
@@ -266,9 +269,7 @@ def add_duplicate_statuses(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     group_specs = [
         ("exact_duplicate_pdf", "sha256"),
         ("filename_duplicate", "fileName"),
-        ("possible_content_duplicate", "firstPagesTextFingerprint"),
     ]
-    by_relative = {item["relativePath"]: item for item in items}
 
     for duplicate_type, key in group_specs:
         grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
@@ -288,10 +289,33 @@ def add_duplicate_statuses(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "reviewRequired": True,
             })
 
+    fingerprint_groups: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for item in items:
+        fingerprint = item.get("firstPagesTextFingerprint")
+        if fingerprint:
+            fingerprint_groups[str(fingerprint)].append(item)
+    for fingerprint, group in fingerprint_groups.items():
+        if len(group) <= 1:
+            continue
+        common_cas = set(group[0].get("casNoCandidates") or [])
+        for item in group[1:]:
+            common_cas &= set(item.get("casNoCandidates") or [])
+        if len(common_cas) < 2:
+            continue
+        for item in group:
+            if "possible_content_duplicate" not in item["duplicateStatuses"]:
+                item["duplicateStatuses"].append("possible_content_duplicate")
+        groups.append({
+            "type": "possible_content_duplicate",
+            "basis": "same_text_fingerprint_and_cas_2plus",
+            "files": [item["relativePath"] for item in group],
+            "reviewRequired": True,
+        })
+
     cas_groups: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for item in items:
         cas_key = "|".join(item.get("casNoCandidates") or [])
-        if cas_key and len(item.get("casNoCandidates") or []) >= 2:
+        if cas_key and len(item.get("casNoCandidates") or []) >= 3:
             cas_groups[cas_key].append(item)
     for cas_key, group in cas_groups.items():
         if len(group) <= 1:
@@ -380,34 +404,91 @@ def compare_products_to_pdfs(
     products: list[dict[str, Any]],
     pdf_items: list[dict[str, Any]],
     mappings: list[dict[str, str]],
-) -> list[dict[str, Any]]:
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, int]]:
     product_results: list[dict[str, Any]] = []
+    scoring_summary = {
+        "strongMatchCandidateCount": 0,
+        "probableMatchCandidateCount": 0,
+        "weakMatchCandidateCount": 0,
+        "ignoredLowConfidenceCount": 0,
+        "candidatesSuppressedByExactMatchCount": 0,
+        "casOnlyWeakMatchCount": 0,
+    }
 
     for index, product in enumerate(products, start=1):
         mapped_paths = mapped_paths_for_product(product, mappings)
         candidates: list[dict[str, Any]] = []
+        ignored_candidates: list[dict[str, Any]] = []
         for pdf in pdf_items:
-            reasons = match_reasons(product, pdf, mapped_paths)
-            if reasons:
-                candidates.append({
-                    "relativePath": pdf["relativePath"],
-                    "fileName": pdf["fileName"],
-                    "reasons": reasons,
-                })
+            mapped = pdf["relativePath"] in mapped_paths or pdf["pdfPath"].lstrip("/") in mapped_paths
+            candidate = score_pdf_candidate(product, pdf, mapped=mapped)
+            if candidate["casOnlyWeak"]:
+                scoring_summary["casOnlyWeakMatchCount"] += 1
+            if not candidate["include"]:
+                if candidate["score"] > 0:
+                    ignored_candidates.append(candidate)
+                    scoring_summary["ignoredLowConfidenceCount"] += 1
+                continue
+            candidates.append(candidate)
+
+        exact_candidates = [
+            candidate for candidate in candidates
+            if "exact_file_match" in candidate["reasons"] or "mapped" in candidate["reasons"]
+        ]
+        if exact_candidates:
+            suppressed = [
+                candidate for candidate in candidates
+                if candidate["confidence"] == "weak_match_candidate"
+                and candidate["relativePath"] not in {item["relativePath"] for item in exact_candidates}
+            ]
+            scoring_summary["candidatesSuppressedByExactMatchCount"] += len(suppressed)
+            candidates = [
+                candidate for candidate in candidates
+                if candidate["confidence"] != "weak_match_candidate"
+                or candidate["relativePath"] in {item["relativePath"] for item in exact_candidates}
+            ]
 
         has_duplicate = any(
             pdf["duplicateStatuses"]
             for pdf in pdf_items
             if any(candidate["relativePath"] == pdf["relativePath"] for candidate in candidates)
         )
-        first_reasons = candidates[0]["reasons"] if candidates else []
-        status = "pdf_missing" if not candidates else status_from_reasons(first_reasons, len(candidates), has_duplicate)
+        candidates = sorted(candidates, key=lambda item: item["score"], reverse=True)
+        for candidate in candidates:
+            if candidate["confidence"] == "strong_match_candidate":
+                scoring_summary["strongMatchCandidateCount"] += 1
+            elif candidate["confidence"] == "probable_match_candidate":
+                scoring_summary["probableMatchCandidateCount"] += 1
+            elif candidate["confidence"] == "weak_match_candidate":
+                scoring_summary["weakMatchCandidateCount"] += 1
+
+        strong_probable = [candidate for candidate in candidates if is_strong_or_probable(candidate)]
+        first_candidate = candidates[0] if candidates else {}
+        first_reasons = first_candidate.get("reasons", [])
+        if not candidates:
+            status = "pdf_missing"
+        elif has_duplicate:
+            status = "duplicate_candidate"
+        elif any("exact_file_match" in candidate["reasons"] for candidate in candidates):
+            status = "exact_file_match"
+        elif any("mapped" in candidate["reasons"] for candidate in candidates):
+            status = "mapped"
+        elif any("normalized_filename_match" in candidate["reasons"] for candidate in candidates):
+            status = "normalized_filename_match"
+        elif len(strong_probable) >= 2:
+            status = "multiple_pdf_candidates"
+        else:
+            status = first_candidate.get("confidence", "mapping_needed")
+
         product_results.append({
             "productIndex": index,
             "productId": product.get("id", ""),
             "fileName": product.get("fileName", ""),
             "status": status,
             "candidateCount": len(candidates),
+            "strongProbableCandidateCount": len(strong_probable),
+            "weakCandidateCount": sum(1 for candidate in candidates if candidate["confidence"] == "weak_match_candidate"),
+            "ignoredLowConfidenceCount": len(ignored_candidates),
             "candidates": candidates,
             "reviewRequired": status not in {"exact_file_match", "linked"},
         })
@@ -425,24 +506,47 @@ def compare_products_to_pdfs(
             result for result in product_results
             if any(candidate["relativePath"] == pdf["relativePath"] for candidate in result["candidates"])
         ]
+        for result in matching_results:
+            for candidate in result["candidates"]:
+                if candidate["relativePath"] == pdf["relativePath"] and is_strong_or_probable(candidate):
+                    pdf["matchCandidates"].append({
+                        "productIndex": result["productIndex"],
+                        "status": result["status"],
+                        "score": candidate["score"],
+                        "confidence": candidate["confidence"],
+                        "reasons": candidate["reasons"],
+                    })
         if pdf["duplicateStatuses"]:
             pdf["inventoryStatus"] = "duplicate_candidate"
-        elif len(matching_results) > 1:
+        elif any(result["status"] == "exact_file_match" for result in matching_results):
+            pdf["inventoryStatus"] = "exact_file_match"
+        elif len([
+            result for result in matching_results
+            if any(
+                candidate["relativePath"] == pdf["relativePath"] and is_strong_or_probable(candidate)
+                for candidate in result["candidates"]
+            )
+        ]) > 1:
             pdf["inventoryStatus"] = "multiple_pdf_candidates"
         else:
-            pdf["inventoryStatus"] = matching_results[0]["status"]
+            pdf["inventoryStatus"] = matching_results[0]["status"] if matching_results else "excel_missing_pdf"
 
     multiple_groups = [
         {
             "type": "multiple_pdf_candidates",
             "productIndex": result["productIndex"],
-            "files": [candidate["relativePath"] for candidate in result["candidates"]],
+            "files": [
+                candidate["relativePath"]
+                for candidate in result["candidates"]
+                if is_strong_or_probable(candidate)
+            ],
             "reviewRequired": True,
         }
         for result in product_results
-        if result["candidateCount"] > 1
+        if result["status"] == "multiple_pdf_candidates"
     ]
-    return product_results, multiple_groups
+    scoring_summary["multipleCandidatesStrongProbableOnlyCount"] = len(multiple_groups)
+    return product_results, multiple_groups, scoring_summary
 
 
 def build_inventory(args: argparse.Namespace) -> dict[str, Any]:
@@ -450,7 +554,7 @@ def build_inventory(args: argparse.Namespace) -> dict[str, Any]:
     mappings = read_pdf_map(args.map)
     pdf_items = scan_pdf_inventory(args.pdf_dir, args.pages)
     duplicate_groups = add_duplicate_statuses(pdf_items)
-    product_results, multiple_groups = compare_products_to_pdfs(products, pdf_items, mappings)
+    product_results, multiple_groups, scoring_summary = compare_products_to_pdfs(products, pdf_items, mappings)
     duplicate_groups.extend(multiple_groups)
 
     pdf_file_names = {item["fileName"] for item in pdf_items}
@@ -491,9 +595,13 @@ def build_inventory(args: argparse.Namespace) -> dict[str, Any]:
         "filenameDuplicateGroupCount": sum(1 for group in duplicate_groups if group["type"] == "filename_duplicate"),
         "possibleContentDuplicateGroupCount": sum(1 for group in duplicate_groups if group["type"] == "possible_content_duplicate"),
         "multiplePdfCandidateProductCount": sum(1 for group in duplicate_groups if group["type"] == "multiple_pdf_candidates"),
+        **scoring_summary,
         "inventoryStatusCounts": dict(sorted(status_counts.items())),
         "productLinkStatusCounts": dict(sorted(product_status_counts.items())),
     }
+
+    for item in pdf_items:
+        item.pop("_normalizedText", None)
 
     return {
         "generatedAt": datetime.now().isoformat(timespec="seconds"),
@@ -545,6 +653,13 @@ def build_sample_inventory() -> dict[str, Any]:
             "textExtractedPdfCount": 1,
             "excelMissingPdfCount": 0,
             "pdfMissingProductCount": 0,
+            "strongMatchCandidateCount": 1,
+            "probableMatchCandidateCount": 0,
+            "weakMatchCandidateCount": 0,
+            "ignoredLowConfidenceCount": 0,
+            "multipleCandidatesStrongProbableOnlyCount": 0,
+            "candidatesSuppressedByExactMatchCount": 0,
+            "casOnlyWeakMatchCount": 0,
         },
         "items": [
             {
@@ -645,6 +760,12 @@ def print_summary(report: dict[str, Any], inventory_path: Path, json_path: Path,
     print(f"- Filename duplicate groups: {summary['filenameDuplicateGroupCount']}")
     print(f"- Possible content duplicate groups: {summary['possibleContentDuplicateGroupCount']}")
     print(f"- Products with multiple PDF candidates: {summary['multiplePdfCandidateProductCount']}")
+    print(f"- Strong match candidates: {summary['strongMatchCandidateCount']}")
+    print(f"- Probable match candidates: {summary['probableMatchCandidateCount']}")
+    print(f"- Weak match candidates: {summary['weakMatchCandidateCount']}")
+    print(f"- Ignored low confidence candidates: {summary['ignoredLowConfidenceCount']}")
+    print(f"- Suppressed by exact match: {summary['candidatesSuppressedByExactMatchCount']}")
+    print(f"- CAS-only weak matches: {summary['casOnlyWeakMatchCount']}")
     print(f"- Inventory: {inventory_path}")
     print(f"- JSON report: {json_path}")
     print(f"- CSV report: {csv_path}")

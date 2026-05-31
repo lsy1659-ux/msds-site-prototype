@@ -16,6 +16,8 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
+from pdf_match_utils import is_strong_or_probable, score_pdf_candidate
+
 
 CAS_RE = re.compile(r"\b\d{2,7}-\d{2}-\d\b")
 DEFAULT_DATA = Path("data/msds.local.json")
@@ -65,6 +67,9 @@ def product_search_terms(product: dict[str, Any]) -> dict[str, Any]:
     file_name = str(product.get("fileName", "")).strip()
     return {
         "productName": str(product.get("productName", "")).strip(),
+        "erpName": str(product.get("erpName", "")).strip(),
+        "msdsNo": str(product.get("msdsNo", "")).strip(),
+        "supplier": str(product.get("supplier", "")).strip(),
         "fileName": file_name,
         "normalizedFileName": normalize_text(file_name),
         "chemicalNames": chemical_names,
@@ -130,11 +135,13 @@ def scan_pdfs(pdf_dir: Path, max_pages: int) -> list[dict[str, Any]]:
             {
                 "path": str(path),
                 "fileName": path.name,
+                "relativePath": path.relative_to(pdf_dir).as_posix(),
                 "normalizedFileName": normalize_text(path.name),
                 "sha256": sha256_file(path),
                 "textStatus": text_status,
                 "textError": error,
                 "casNumbers": cas_numbers,
+                "casNoCandidates": cas_numbers,
                 "normalizedText": normalized_text,
                 "contentKey": "|".join(cas_numbers),
             }
@@ -144,12 +151,9 @@ def scan_pdfs(pdf_dir: Path, max_pages: int) -> list[dict[str, Any]]:
 
 def duplicate_groups(pdfs: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     by_hash: dict[str, list[dict[str, Any]]] = defaultdict(list)
-    by_content: dict[str, list[dict[str, Any]]] = defaultdict(list)
 
     for pdf in pdfs:
         by_hash[pdf["sha256"]].append(pdf)
-        if pdf["contentKey"]:
-            by_content[pdf["contentKey"]].append(pdf)
 
     exact = [
         {
@@ -160,16 +164,7 @@ def duplicate_groups(pdfs: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], 
         for file_hash, group in by_hash.items()
         if len(group) > 1
     ]
-    content = [
-        {
-            "type": "possible_content_duplicate",
-            "contentKey": key,
-            "files": [pdf["fileName"] for pdf in group],
-        }
-        for key, group in by_content.items()
-        if len(group) > 1
-    ]
-    return exact, content
+    return exact, []
 
 
 def pdf_duplicate_names(exact_groups: list[dict[str, Any]], content_groups: list[dict[str, Any]]) -> set[str]:
@@ -179,52 +174,30 @@ def pdf_duplicate_names(exact_groups: list[dict[str, Any]], content_groups: list
     return names
 
 
-def match_pdf_to_product(product: dict[str, Any], pdf: dict[str, Any]) -> list[str]:
-    terms = product_search_terms(product)
-    reasons: list[str] = []
-
-    if terms["fileName"] and terms["fileName"] == pdf["fileName"]:
-        reasons.append("exact_file_match")
-
-    if (
-        terms["normalizedFileName"]
-        and terms["normalizedFileName"] == pdf["normalizedFileName"]
-        and "exact_file_match" not in reasons
-    ):
-        reasons.append("normalized_filename_match")
-
-    if pdf["textStatus"] == "text_extracted":
-        pdf_text = pdf["normalizedText"]
-        normalized_product_name = normalize_text(terms["productName"])
-        if len(normalized_product_name) >= 3 and normalized_product_name in pdf_text:
-            reasons.append("content_match")
-
-        if terms["casNumbers"].intersection(pdf["casNumbers"]):
-            reasons.append("content_match")
-
-        if any(name in pdf_text for name in terms["normalizedChemicalNames"]):
-            reasons.append("content_match")
-
-    return sorted(set(reasons))
+def match_pdf_to_product(product: dict[str, Any], pdf: dict[str, Any]) -> dict[str, Any]:
+    return score_pdf_candidate(product, pdf)
 
 
 def decide_status(candidates: list[dict[str, Any]], duplicate_names: set[str]) -> tuple[str, bool]:
     if not candidates:
         return "manual_review_required", True
 
+    strong_probable = [candidate for candidate in candidates if is_strong_or_probable(candidate)]
+    if any("exact_file_match" in candidate["reasons"] for candidate in candidates):
+        return "exact_file_match", False
+    if any("normalized_filename_match" in candidate["reasons"] for candidate in candidates):
+        return "normalized_filename_match", True
     duplicate_candidate = any(candidate["fileName"] in duplicate_names for candidate in candidates)
-    if len(candidates) > 1:
-        return "multiple_candidates", True
     if duplicate_candidate:
         return "possible_duplicate", True
-
-    reasons = candidates[0]["reasons"]
-    if "exact_file_match" in reasons:
-        return "exact_file_match", False
-    if "normalized_filename_match" in reasons:
-        return "normalized_filename_match", True
-    if "content_match" in reasons:
-        return "content_match", True
+    if len(strong_probable) > 1:
+        return "multiple_candidates", True
+    if candidates[0]["confidence"] == "strong_match_candidate":
+        return "strong_match_candidate", True
+    if candidates[0]["confidence"] == "probable_match_candidate":
+        return "probable_match_candidate", True
+    if candidates[0]["confidence"] == "weak_match_candidate":
+        return "weak_match_candidate", True
     return "manual_review_required", True
 
 
@@ -234,7 +207,8 @@ def find_content_duplicate_groups(product_results: list[dict[str, Any]]) -> list
         files = [
             candidate["fileName"]
             for candidate in item["candidates"]
-            if "content_match" in candidate["reasons"]
+            if is_strong_or_probable(candidate)
+            and any(reason in candidate["reasons"] for reason in ("product_name_strong", "erp_name_strong", "cas_2plus_match", "msds_no_match"))
         ]
         if len(files) > 1:
             groups.append(
@@ -251,12 +225,13 @@ def find_content_duplicate_groups(product_results: list[dict[str, Any]]) -> list
 def find_multiple_candidate_groups(product_results: list[dict[str, Any]]) -> list[dict[str, Any]]:
     groups: list[dict[str, Any]] = []
     for item in product_results:
-        if len(item["candidates"]) > 1:
+        strong_probable = [candidate for candidate in item["candidates"] if is_strong_or_probable(candidate)]
+        if len(strong_probable) > 1 and not any("exact_file_match" in candidate["reasons"] for candidate in item["candidates"]):
             groups.append(
                 {
                     "type": "multiple_pdf_candidates",
                     "productIndex": item["productIndex"],
-                    "files": [candidate["fileName"] for candidate in item["candidates"]],
+                    "files": [candidate["fileName"] for candidate in strong_probable],
                 }
             )
     return groups
@@ -266,30 +241,45 @@ def build_report(products: list[dict[str, Any]], pdfs: list[dict[str, Any]]) -> 
     exact_groups, content_groups = duplicate_groups(pdfs)
 
     raw_product_results: list[dict[str, Any]] = []
+    ignored_low_confidence_count = 0
+    cas_only_weak_count = 0
+    suppressed_by_exact_count = 0
     for index, product in enumerate(products, start=1):
         candidates: list[dict[str, Any]] = []
         for pdf in pdfs:
-            reasons = match_pdf_to_product(product, pdf)
-            if reasons:
-                candidates.append(
-                    {
-                        "fileName": pdf["fileName"],
-                        "textStatus": pdf["textStatus"],
-                        "reasons": reasons,
-                        "reviewRequired": "exact_file_match" not in reasons,
-                    }
-                )
+            candidate = match_pdf_to_product(product, pdf)
+            if candidate["casOnlyWeak"]:
+                cas_only_weak_count += 1
+            if not candidate["include"]:
+                if candidate["score"] > 0:
+                    ignored_low_confidence_count += 1
+                continue
+            candidate["textStatus"] = pdf["textStatus"]
+            candidate["reviewRequired"] = "exact_file_match" not in candidate["reasons"]
+            candidates.append(candidate)
+
+        if any("exact_file_match" in candidate["reasons"] for candidate in candidates):
+            before = len(candidates)
+            candidates = [
+                candidate for candidate in candidates
+                if candidate["confidence"] != "weak_match_candidate"
+                or "exact_file_match" in candidate["reasons"]
+            ]
+            suppressed_by_exact_count += before - len(candidates)
+        candidates = sorted(candidates, key=lambda item: item["score"], reverse=True)
 
         raw_product_results.append(
             {
                 "productIndex": index,
                 "productId": product.get("id", ""),
                 "candidateCount": len(candidates),
+                "strongProbableCandidateCount": sum(1 for candidate in candidates if is_strong_or_probable(candidate)),
+                "weakCandidateCount": sum(1 for candidate in candidates if candidate["confidence"] == "weak_match_candidate"),
                 "candidates": candidates,
             }
         )
 
-    content_duplicate_groups = find_content_duplicate_groups(raw_product_results)
+    content_duplicate_groups: list[dict[str, Any]] = []
     multiple_candidate_groups = find_multiple_candidate_groups(raw_product_results)
     duplicate_groups_all = exact_groups + content_groups + content_duplicate_groups + multiple_candidate_groups
     duplicate_names = pdf_duplicate_names(duplicate_groups_all, [])
@@ -318,10 +308,17 @@ def build_report(products: list[dict[str, Any]], pdfs: list[dict[str, Any]]) -> 
         "totalPdfs": len(pdfs),
         "exactFileMatchCount": sum(1 for item in product_results if item["status"] == "exact_file_match"),
         "normalizedFilenameMatchCount": sum(1 for item in product_results if item["status"] == "normalized_filename_match"),
-        "contentMatchCandidateCount": sum(1 for item in product_results if item["status"] == "content_match"),
+        "strongMatchCandidateCount": sum(1 for item in product_results for candidate in item["candidates"] if candidate["confidence"] == "strong_match_candidate"),
+        "probableMatchCandidateCount": sum(1 for item in product_results for candidate in item["candidates"] if candidate["confidence"] == "probable_match_candidate"),
+        "weakMatchCandidateCount": sum(1 for item in product_results for candidate in item["candidates"] if candidate["confidence"] == "weak_match_candidate"),
+        "ignoredLowConfidenceCount": ignored_low_confidence_count,
+        "candidatesSuppressedByExactMatchCount": suppressed_by_exact_count,
+        "casOnlyWeakMatchCount": cas_only_weak_count,
+        "contentMatchCandidateCount": sum(1 for item in product_results if item["status"] in {"strong_match_candidate", "probable_match_candidate", "weak_match_candidate"}),
         "pdfTextExtractFailedCount": len(text_failed),
         "suspectedDuplicatePdfCount": duplicate_pdf_count,
         "multiplePdfCandidatesCount": len(multiple_candidates),
+        "multipleCandidatesStrongProbableOnlyCount": len(multiple_candidates),
         "manualReviewRequiredCount": len(manual_review_products) + len(text_failed),
     }
 
@@ -369,6 +366,8 @@ def write_reports(report: dict[str, Any], json_path: Path, csv_path: Path) -> No
                 "candidateCount",
                 "candidateFiles",
                 "candidateReasons",
+                "candidateScores",
+                "candidateConfidence",
             ],
         )
         writer.writeheader()
@@ -385,6 +384,8 @@ def write_reports(report: dict[str, Any], json_path: Path, csv_path: Path) -> No
                         ",".join(candidate["reasons"])
                         for candidate in item["candidates"]
                     ),
+                    "candidateScores": "; ".join(str(candidate["score"]) for candidate in item["candidates"]),
+                    "candidateConfidence": "; ".join(candidate["confidence"] for candidate in item["candidates"]),
                 }
             )
 
@@ -396,10 +397,15 @@ def print_summary(report: dict[str, Any], json_path: Path, csv_path: Path) -> No
     print(f"- PDF files: {summary['totalPdfs']}")
     print(f"- Exact file matches: {summary['exactFileMatchCount']}")
     print(f"- Normalized filename match candidates: {summary['normalizedFilenameMatchCount']}")
-    print(f"- PDF text content match candidates: {summary['contentMatchCandidateCount']}")
+    print(f"- Strong match candidates: {summary['strongMatchCandidateCount']}")
+    print(f"- Probable match candidates: {summary['probableMatchCandidateCount']}")
+    print(f"- Weak match candidates: {summary['weakMatchCandidateCount']}")
+    print(f"- Ignored low confidence candidates: {summary['ignoredLowConfidenceCount']}")
+    print(f"- Candidates suppressed by exact match: {summary['candidatesSuppressedByExactMatchCount']}")
+    print(f"- CAS-only weak matches: {summary['casOnlyWeakMatchCount']}")
     print(f"- PDF text extraction failures: {summary['pdfTextExtractFailedCount']}")
     print(f"- Suspected duplicate PDFs: {summary['suspectedDuplicatePdfCount']}")
-    print(f"- Products with multiple PDF candidates: {summary['multiplePdfCandidatesCount']}")
+    print(f"- Products with multiple strong/probable PDF candidates: {summary['multiplePdfCandidatesCount']}")
     print(f"- Manual review required items: {summary['manualReviewRequiredCount']}")
     print(f"- JSON report: {json_path}")
     print(f"- CSV report: {csv_path}")
