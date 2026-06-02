@@ -2,8 +2,10 @@
 
 const APP_CONFIG = {
   localDataUrl: "data/msds.local.json",
+  publicDataUrl: "data/msds.public.json",
   sampleDataUrl: "data/msds-sample.json",
   localOverridesUrl: "data/msds-overrides.local.json",
+  publicOverridesUrl: "data/msds-overrides.public.json",
   sampleOverridesUrl: "data/msds-overrides.sample.json",
   localInventoryUrl: "data/pdf-inventory.local.json",
   sampleInventoryUrl: "data/pdf-inventory.sample.json",
@@ -422,8 +424,18 @@ async function loadProducts() {
   if (localData) {
     return {
       mode: "로컬 변환 데이터 모드",
-      publicNotice: "",
+      publicNotice: "로컬 실행 화면입니다. 로컬 MSDS 데이터와 PDF를 사용 중입니다.",
       products: applyOverrides(localData.map(normalizeProduct), pdfLookupData.overrides),
+      ...pdfLookupData
+    };
+  }
+
+  const publicData = await fetchProducts(APP_CONFIG.publicDataUrl);
+  if (publicData) {
+    return {
+      mode: "공개 운영 데이터 모드",
+      publicNotice: "GitHub Pages 공개 운영 화면입니다. 공개용 MSDS 데이터와 PDF를 사용 중입니다.",
+      products: applyOverrides(publicData.map(normalizeProduct), pdfLookupData.overrides),
       ...pdfLookupData
     };
   }
@@ -432,7 +444,7 @@ async function loadProducts() {
   if (sampleData) {
     return {
       mode: "샘플 데이터 모드",
-      publicNotice: "공개 배포 화면입니다. 실제 MSDS 운영 데이터는 로컬 실행 환경에서만 표시됩니다.",
+      publicNotice: "샘플 데이터 화면입니다. 실제 운영 데이터가 로드되지 않았습니다.",
       products: applyOverrides(sampleData.map(normalizeProduct), pdfLookupData.overrides),
       ...pdfLookupData
     };
@@ -440,7 +452,7 @@ async function loadProducts() {
 
   return {
     mode: "샘플 데이터 모드",
-    publicNotice: "공개 배포 화면입니다. 실제 MSDS 운영 데이터는 로컬 실행 환경에서만 표시됩니다.",
+    publicNotice: "샘플 데이터 화면입니다. 실제 운영 데이터가 로드되지 않았습니다.",
     products: applyOverrides(FALLBACK_PRODUCTS.map(normalizeProduct), pdfLookupData.overrides),
     ...pdfLookupData
   };
@@ -470,6 +482,9 @@ async function fetchProducts(url) {
 async function loadOverrides() {
   const localOverrides = await fetchOverrides(APP_CONFIG.localOverridesUrl);
   if (localOverrides) return localOverrides.map(normalizeOverride);
+
+  const publicOverrides = await fetchOverrides(APP_CONFIG.publicOverridesUrl);
+  if (publicOverrides) return publicOverrides.map(normalizeOverride);
 
   const sampleOverrides = await fetchOverrides(APP_CONFIG.sampleOverridesUrl);
   if (sampleOverrides) return sampleOverrides.map(normalizeOverride);
@@ -524,7 +539,7 @@ function normalizeProduct(product) {
     erpName: product.erpName || "",
     msdsNo: product.msdsNo || "",
     fileName: product.fileName || "",
-    pdfPath: product.pdfPath || relativePdfPath || (product.fileName ? `/pdf/${product.fileName}` : ""),
+    pdfPath: product.pdfPath || relativePdfPath || (product.fileName ? `pdf/${product.fileName}` : ""),
     useCategory: product.useCategory || product.category || "",
     recommendedUse: product.recommendedUse || "",
     supplier: product.supplier || "",

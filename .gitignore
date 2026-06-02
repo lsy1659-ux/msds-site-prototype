@@ -26,6 +26,10 @@ __pycache__/
 *.pyc
 # MSDS local-only operation files
 *.pdf
+!pdf/
+!pdf/**/
+!pdf/*.pdf
+!pdf/**/*.pdf
 *.xlsx
 data/msds.local.json
 data/msds-overrides.local.json

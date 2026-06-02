@@ -2,7 +2,7 @@
 
 현장 작업자가 QR코드로 접속해 MSDS 핵심 안전정보를 빠르게 확인하는 조회용 프로토타입입니다.
 
-현재는 실제 운영본이 아니라 GitHub에 올려도 안전한 샘플 데이터 기반 화면입니다.
+현재 GitHub Pages 공개 화면은 `data/msds.public.json`, `data/msds-overrides.public.json`, `pdf/` 폴더의 PDF를 사용해 실제 제품 검색과 PDF 미리보기를 제공합니다. 로컬 실행 화면은 `data/msds.local.json`, `data/msds-overrides.local.json`이 있으면 그 파일을 우선 사용합니다.
 
 화면은 검색 중심 현장 조회형 UI입니다. 처음부터 전체 제품 목록을 길게 보여주지 않고, 검색어를 입력하거나 분류 버튼을 눌렀을 때 후보 제품을 소형 선택 리스트로 표시합니다.
 
@@ -14,16 +14,17 @@
 
 ## 실행 방법
 
-`index.html` 파일을 더블클릭하면 브라우저에서 확인할 수 있습니다.
+현장용 로컬 실행은 `start_msds_site.bat` 파일을 더블클릭해서 사용합니다. `index.html` 파일을 직접 더블클릭하는 방식보다 로컬 서버 실행 방식이 JSON과 PDF를 안정적으로 불러옵니다.
 
 ```text
-C:\Users\lsy16\Documents\GitHub\msds-site-prototype\index.html
+C:\Users\lsy16\Documents\GitHub\msds-site-prototype\start_msds_site.bat
 ```
 
-기본 화면은 먼저 `data/msds.local.json`을 읽으려고 시도합니다.
+기본 화면은 아래 순서로 데이터를 읽습니다.
 
 - `data/msds.local.json`이 있으면 로컬 변환 데이터 모드로 표시됩니다.
-- `data/msds.local.json`이 없거나 읽기 실패하면 `data/msds-sample.json`을 읽습니다.
+- `data/msds.local.json`이 없고 `data/msds.public.json`이 있으면 공개 운영 데이터 모드로 표시됩니다.
+- local/public 데이터가 없거나 읽기 실패하면 `data/msds-sample.json`을 읽습니다.
 - 브라우저 보안 설정 때문에 JSON 읽기가 막히더라도 `js/app.js` 안의 fallback 샘플 데이터로 기본 화면과 검색 기능이 동작하도록 구성되어 있습니다.
 
 ## 엑셀을 JSON으로 변환하는 방법
@@ -56,7 +57,7 @@ python scripts/convert_excel_to_json.py --input data/raw/MSDS_통합대장_누�
 
 ## PDF 연결 검사 방법
 
-실제 PDF 파일은 저장소에 올리지 않고, 로컬 PC의 `pdf/` 폴더에만 넣고 검사합니다.
+GitHub Pages 공개 운영을 위해 `pdf/` 폴더의 실제 MSDS PDF는 저장소에 올릴 수 있습니다. PDF 연결 검사는 로컬 PC의 `pdf/` 폴더 구조를 기준으로 수행합니다.
 
 ```bash
 python scripts/check_pdf_links.py --data data/msds.local.json --pdf-dir pdf
@@ -191,16 +192,16 @@ local report에는 실제 제품/PDF 정보가 들어갈 수 있으므로 GitHub
 ## 주의사항
 
 - 실제 회사 엑셀 원본은 이 저장소에 넣지 않습니다.
-- 실제 MSDS PDF 파일은 이 저장소에 넣지 않습니다.
+- GitHub Pages 공개 운영에 필요한 MSDS PDF는 `pdf/` 폴더에 넣어 저장소에 올릴 수 있습니다.
 - 실제 내부자료, 거래처 자료, 운영 데이터는 GitHub에 올리지 않습니다.
 - 실제 엑셀 원본은 로컬 PC의 `data/raw/`에만 둡니다.
 - 변환 결과인 `data/msds.local.json`도 GitHub에 올리지 않습니다.
 - PDF 요약 후보 파일인 `data/msds-overrides.local.json`도 GitHub에 올리지 않습니다.
-- 현재 `pdf/` 폴더에는 샘플 단계 안내 문서만 두며, 실제 PDF는 포함하지 않습니다.
+- 공개용 변환 결과인 `data/msds.public.json`, `data/msds-overrides.public.json`은 GitHub Pages용으로 커밋할 수 있습니다.
 
-나중에 실제 PDF를 연결할 때는 `pdf/` 폴더에 파일을 넣고, 샘플 데이터의 `fileName` 또는 `pdfPath`와 맞춰 관리합니다.
+실제 PDF를 연결할 때는 `pdf/` 폴더의 기존 하위폴더 구조를 유지하고, public JSON의 `pdfPath` 또는 `relativePath`와 맞춰 관리합니다.
 
-현재 `.gitignore` 설정으로 엑셀 파일, PDF 파일, `data/raw/`, `data/original/`, `data/msds.local.json`, `data/*.local.json`은 GitHub에 올라가지 않도록 제외되어 있습니다.
+현재 `.gitignore` 설정으로 엑셀 파일, `data/raw/`, `data/original/`, `data/msds.local.json`, `data/*.local.json`, reports local 파일은 GitHub에 올라가지 않도록 제외되어 있습니다. 단, `pdf/` 폴더 안의 PDF는 GitHub Pages 공개 운영을 위해 추적할 수 있습니다.
 
 ## 디자인 수정 위치
 
@@ -239,7 +240,7 @@ reports/pdf-inventory-report.local.json
 reports/pdf-inventory-report.local.csv
 ```
 
-이 파일들은 실제 PDF 목록과 제품 후보 정보가 들어갈 수 있으므로 GitHub에 올리지 않습니다. 저장소에는 구조 참고용 `data/pdf-inventory.sample.json`만 올립니다.
+이 local report와 local inventory 파일들은 실제 PDF 목록과 제품 후보 정보가 들어갈 수 있으므로 GitHub에 올리지 않습니다. 저장소에는 구조 참고용 `data/pdf-inventory.sample.json`과 공개 운영용 public JSON만 올립니다.
 
 인벤토리에서는 아래 항목을 확인합니다.
 
@@ -550,7 +551,13 @@ H-code statements are kept in the hazard statement area, P-code statements are k
 
 현장용 로컬 실행 방법은 [현장용 로컬 실행 가이드](docs/현장용_로컬_실행_가이드.md)를 확인하세요. 비개발자는 프로젝트 폴더의 `start_msds_site.bat` 파일을 더블클릭해 현장 검색용 화면을 실행하면 됩니다.
 
-GitHub Pages 인터넷 배포는 [GitHub Pages 인터넷 배포 가이드](docs/GitHub_Pages_인터넷_배포_가이드.md)를 기준으로 합니다. 공개 URL은 <https://lsy1659-ux.github.io/msds-site-prototype/> 입니다. 공개 사이트는 샘플/안내용이며 실제 MSDS 운영 데이터는 로컬 실행 환경에서만 표시됩니다. 실제 현장 사용은 `start_msds_site.bat` 로컬 실행을 기준으로 합니다. 실제 PDF, 엑셀, local JSON, reports local 파일은 GitHub에 올리지 않습니다.
+GitHub Pages 인터넷 배포는 [GitHub Pages 인터넷 배포 가이드](docs/GitHub_Pages_인터넷_배포_가이드.md)를 기준으로 합니다. 공개 URL은 <https://lsy1659-ux.github.io/msds-site-prototype/> 입니다. 공개 사이트는 `data/msds.public.json`, `data/msds-overrides.public.json`, `pdf/` 폴더의 PDF를 사용합니다. 실제 엑셀, raw 데이터, local JSON, reports local 파일은 GitHub에 올리지 않습니다. 실제 현장 사용은 여전히 `start_msds_site.bat` 로컬 실행을 기준으로 할 수 있습니다.
+
+공개용 데이터 생성:
+
+```powershell
+python scripts/build_public_data.py
+```
 
 실행 전 로컬 환경 점검:
 
