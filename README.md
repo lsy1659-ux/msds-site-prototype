@@ -544,3 +544,18 @@ PDF extraction assigns GHS codes only from MSDS section 2 hazard classification 
 
 H-code statements are kept in the hazard statement area, P-code statements are kept in the precautionary statement area, and PPE candidates are limited to real PPE or exposure-control sentences such as gloves, goggles, respirators, ventilation, and local exhaust.
 
+# MSDS 로컬 운영 안내
+
+로컬 운영 방식과 회사 노트북에서 새 PDF를 추가하는 절차는 [로컬 운영 및 PDF 추가 가이드](docs/로컬_운영_및_PDF_추가_가이드.md)를 기준으로 합니다.
+
+실행 전 로컬 환경 점검:
+
+```powershell
+python scripts/check_local_runtime_ready.py
+```
+
+incoming PDF 점검:
+
+```powershell
+python scripts/check_incoming_pdfs.py
+```
