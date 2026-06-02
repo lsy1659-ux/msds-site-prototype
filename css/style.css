@@ -238,6 +238,17 @@ h1 {
   color: #1b4d92;
 }
 
+.public-deploy-notice {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid #d7c58d;
+  border-radius: var(--radius-ui);
+  background: #fff7dd;
+  color: #625015;
+  font-size: 0.92rem;
+  font-weight: 850;
+}
+
 .search-box {
   display: grid;
   grid-template-columns: 1fr;

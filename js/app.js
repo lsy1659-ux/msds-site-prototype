@@ -307,6 +307,7 @@ const state = {
   showAllResults: false,
   selectionCollapsed: false,
   dataMode: "샘플 데이터 모드",
+  publicNotice: "",
   pdfOverrides: [],
   pdfInventory: [],
   pdfAvailability: {},
@@ -327,6 +328,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   state.pdfInventory = data.inventory || [];
   state.products = data.products;
   state.dataMode = data.mode;
+  state.publicNotice = data.publicNotice || "";
   state.selectedId = state.products[0]?.id || null;
   render();
 });
@@ -344,6 +346,7 @@ function bindElements() {
   elements.quickSearch = document.querySelector(".quick-search");
   elements.emptySearchGuide = document.querySelector("#emptySearchGuide");
   elements.dataMode = document.querySelector("#dataMode");
+  elements.publicDeployNotice = document.querySelector("#publicDeployNotice");
 }
 
 function bindEvents() {
@@ -419,6 +422,7 @@ async function loadProducts() {
   if (localData) {
     return {
       mode: "로컬 변환 데이터 모드",
+      publicNotice: "",
       products: applyOverrides(localData.map(normalizeProduct), pdfLookupData.overrides),
       ...pdfLookupData
     };
@@ -428,6 +432,7 @@ async function loadProducts() {
   if (sampleData) {
     return {
       mode: "샘플 데이터 모드",
+      publicNotice: "공개 배포 화면입니다. 실제 MSDS 운영 데이터는 로컬 실행 환경에서만 표시됩니다.",
       products: applyOverrides(sampleData.map(normalizeProduct), pdfLookupData.overrides),
       ...pdfLookupData
     };
@@ -435,6 +440,7 @@ async function loadProducts() {
 
   return {
     mode: "샘플 데이터 모드",
+    publicNotice: "공개 배포 화면입니다. 실제 MSDS 운영 데이터는 로컬 실행 환경에서만 표시됩니다.",
     products: applyOverrides(FALLBACK_PRODUCTS.map(normalizeProduct), pdfLookupData.overrides),
     ...pdfLookupData
   };
@@ -511,7 +517,7 @@ async function fetchInventory(url) {
 
 function normalizeProduct(product) {
   const ingredients = product.ingredients || product.components || [];
-  const relativePdfPath = product.relativePath ? `/pdf/${String(product.relativePath).replace(/^\/?pdf\//, "")}` : "";
+  const relativePdfPath = product.relativePath ? `pdf/${String(product.relativePath).replace(/^\/?pdf\//, "")}` : "";
   return {
     ...product,
     productName: product.productName || "",
@@ -806,6 +812,10 @@ function render() {
   elements.resultCount.textContent = hasQuery ? `검색 결과 ${results.length}건` : "검색 전";
   elements.dataMode.textContent = state.dataMode;
   elements.dataMode.classList.toggle("is-local", state.dataMode.includes("로컬"));
+  if (elements.publicDeployNotice) {
+    elements.publicDeployNotice.textContent = state.publicNotice;
+    elements.publicDeployNotice.classList.toggle("is-hidden", !state.publicNotice);
+  }
   elements.currentSelection.textContent = selected
     ? `현재 선택 제품: ${selected.productName}`
     : "현재 선택 제품: 없음";
@@ -1367,10 +1377,10 @@ function normalizePdfDisplayPath(path) {
   const value = String(path || "").trim().replace(/\\/g, "/");
   if (!value) return "";
   if (/^https?:\/\//i.test(value)) return value;
-  if (value.startsWith("/pdf/")) return value;
-  if (value.startsWith("pdf/")) return `/${value}`;
-  if (value.startsWith("/")) return value;
-  return `/pdf/${value.replace(/^\/?pdf\//, "")}`;
+  if (value.startsWith("/pdf/")) return value.replace(/^\/+/, "");
+  if (value.startsWith("pdf/")) return value;
+  if (value.startsWith("/")) return value.replace(/^\/+/, "");
+  return `pdf/${value.replace(/^\/?pdf\//, "")}`;
 }
 
 function encodePdfPath(path) {

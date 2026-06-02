@@ -528,7 +528,7 @@ function renderIngredientCandidates(ingredients) {
 }
 
 function renderPdfOpenButton(override) {
-  const pdfPath = override.sourcePdfPath || (getFileName(override) ? `/pdf/${getFileName(override)}` : "");
+  const pdfPath = normalizeReviewPdfDisplayPath(override.sourcePdfPath || (getFileName(override) ? `pdf/${getFileName(override)}` : ""));
   if (!pdfPath) return `<p class="summary-note">원본 PDF 경로 정보가 없습니다.</p>`;
   return `
     <div class="review-actions">
@@ -538,7 +538,7 @@ function renderPdfOpenButton(override) {
 }
 
 function buildReviewPdfInfo(override) {
-  const displayPath = override.sourcePdfPath || (getFileName(override) ? `/pdf/${getFileName(override)}` : "");
+  const displayPath = normalizeReviewPdfDisplayPath(override.sourcePdfPath || (getFileName(override) ? `pdf/${getFileName(override)}` : ""));
   if (!displayPath) {
     return {
       status: "no-path",
@@ -716,6 +716,16 @@ function downloadReviewedJson() {
   link.click();
   link.remove();
   URL.revokeObjectURL(url);
+}
+
+function normalizeReviewPdfDisplayPath(path) {
+  const value = String(path || "").trim().replace(/\\/g, "/");
+  if (!value) return "";
+  if (/^https?:\/\//i.test(value)) return value;
+  if (value.startsWith("/pdf/")) return value.replace(/^\/+/, "");
+  if (value.startsWith("pdf/")) return value;
+  if (value.startsWith("/")) return value.replace(/^\/+/, "");
+  return `pdf/${value.replace(/^\/?pdf\//, "")}`;
 }
 
 function encodePdfPath(path) {
