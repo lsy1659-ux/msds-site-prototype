@@ -2,7 +2,9 @@
 
 현장 작업자가 QR코드로 접속해 MSDS 핵심 안전정보를 빠르게 확인하는 조회용 프로토타입입니다.
 
-현재 GitHub Pages 공개 화면은 `data/msds.public.json`, `data/msds-overrides.public.json`, `pdf/` 폴더의 PDF를 사용해 실제 제품 검색과 PDF 미리보기를 제공합니다. 로컬 실행 화면은 `data/msds.local.json`, `data/msds-overrides.local.json`이 있으면 그 파일을 우선 사용합니다.
+현재 상태는 GitHub Pages 실제 MSDS PDF 미리보기 공개 운영 완료입니다. 공개 URL은 <https://lsy1659-ux.github.io/msds-site-prototype/> 이며, 공개 화면은 `data/msds.public.json`, `data/msds-overrides.public.json`, `pdf/` 폴더의 PDF 239개를 사용해 실제 제품 검색, 상세정보 표시, PDF 미리보기, 새 탭 열기를 제공합니다. 로컬 실행 화면은 `data/msds.local.json`, `data/msds-overrides.local.json`이 있으면 그 파일을 우선 사용합니다.
+
+공개 운영 확인 결과 `data/msds.public.json`과 `data/msds-overrides.public.json` 접근은 정상이고, `data/msds.local.json`, `data/msds-overrides.local.json`, `reports/*.local.*` 파일은 공개 URL에서 404로 비공개 상태를 유지합니다. 실제 엑셀, `data/raw/`, `data/original/`, `.env`도 계속 GitHub에 올리지 않습니다.
 
 화면은 검색 중심 현장 조회형 UI입니다. 처음부터 전체 제품 목록을 길게 보여주지 않고, 검색어를 입력하거나 분류 버튼을 눌렀을 때 후보 제품을 소형 선택 리스트로 표시합니다.
 
@@ -551,7 +553,7 @@ H-code statements are kept in the hazard statement area, P-code statements are k
 
 현장용 로컬 실행 방법은 [현장용 로컬 실행 가이드](docs/현장용_로컬_실행_가이드.md)를 확인하세요. 비개발자는 프로젝트 폴더의 `start_msds_site.bat` 파일을 더블클릭해 현장 검색용 화면을 실행하면 됩니다.
 
-GitHub Pages 인터넷 배포는 [GitHub Pages 인터넷 배포 가이드](docs/GitHub_Pages_인터넷_배포_가이드.md)를 기준으로 합니다. 공개 URL은 <https://lsy1659-ux.github.io/msds-site-prototype/> 입니다. 공개 사이트는 `data/msds.public.json`, `data/msds-overrides.public.json`, `pdf/` 폴더의 PDF를 사용합니다. 실제 엑셀, raw 데이터, local JSON, reports local 파일은 GitHub에 올리지 않습니다. 실제 현장 사용은 여전히 `start_msds_site.bat` 로컬 실행을 기준으로 할 수 있습니다.
+GitHub Pages 인터넷 배포는 [GitHub Pages 인터넷 배포 가이드](docs/GitHub_Pages_인터넷_배포_가이드.md)를 기준으로 합니다. 공개 URL은 <https://lsy1659-ux.github.io/msds-site-prototype/> 입니다. GitHub Pages 실제 MSDS PDF 미리보기 공개 운영은 완료되었고, 공개 사이트는 `data/msds.public.json`, `data/msds-overrides.public.json`, `pdf/` 폴더의 PDF 239개를 사용합니다. 실제 엑셀, raw 데이터, original 데이터, `.env`, local JSON, reports local 파일은 GitHub에 올리지 않습니다. 실제 현장 사용은 여전히 `start_msds_site.bat` 로컬 실행을 기준으로 할 수 있습니다.
 
 공개용 데이터 생성:
 
