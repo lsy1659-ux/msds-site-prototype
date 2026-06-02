@@ -524,7 +524,7 @@ QR, QR코드, 코드, 안내, 표지, 카탈로그, catalog, brochure, 시험성
 - `index.html`, `review.html`, `pdf-queue.html`은 좁은 화면에서 1열 흐름을 우선합니다.
 - 긴 파일명과 상대경로는 목록 안에서 2~3줄까지만 보이고, 상세 영역에서는 칸 안에서 자연스럽게 줄바꿈됩니다.
 - 성분정보 표는 작은 화면에서 표 전체가 화면을 깨뜨리지 않도록 표 영역 안에서 가로 스크롤로 확인합니다.
-- PDF 미리보기와 크게보기 기능은 기존처럼 유지하며, 좁은 화면에서는 PDF 영역이 아래로 이어지도록 배치합니다.
+- PDF 미리보기는 `PDF 미리보기` 버튼을 눌렀을 때 같은 영역 안에 표시하며, 좁은 화면에서는 PDF 영역이 아래로 이어지도록 배치합니다.
 
 디자인이나 줄바꿈 기준을 바꾸려면 `css/style.css`의 `Long text and responsive stability`, `Ingredient section`, `PDF registration queue review page`, `Mobile stacked flow` 영역을 우선 확인하면 됩니다.
 ## GHS code-based display and extraction

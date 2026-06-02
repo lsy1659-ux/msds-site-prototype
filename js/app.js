@@ -11,10 +11,9 @@ const APP_CONFIG = {
   sampleInventoryUrl: "data/pdf-inventory.sample.json",
   pdfJsModuleUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.mjs",
   pdfJsWorkerUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.mjs",
-  pdfPreviewMaxPages: 3,
+  pdfPreviewMaxPages: 1,
   minSearchCharacters: 2,
   initialResultLimit: 8,
-  showDownloadButton: false,
   fieldDisplayMode: true,
   showReviewStatusOnFieldPoster: false,
   showExtractionStatusInDetail: false,
@@ -314,12 +313,6 @@ const state = {
   publicNotice: "",
   pdfOverrides: [],
   pdfInventory: [],
-  pdfAvailability: {},
-  pdfModal: {
-    isOpen: false,
-    title: "",
-    path: ""
-  },
   pdfPreview: {
     path: "",
     title: "",
@@ -397,22 +390,6 @@ function bindEvents() {
       return;
     }
 
-    const enlargeButton = event.target.closest("[data-open-pdf-modal]");
-    if (enlargeButton) {
-      openPdfModal(enlargeButton.dataset.pdfTitle, enlargeButton.dataset.pdfPath);
-      return;
-    }
-
-    const closeButton = event.target.closest("[data-close-pdf-modal]");
-    if (closeButton || event.target.classList.contains("pdf-modal-backdrop")) {
-      closePdfModal();
-    }
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && state.pdfModal.isOpen) {
-      closePdfModal();
-    }
   });
 }
 
@@ -854,7 +831,6 @@ function render() {
   renderSelectionList(results, hasQuery, canShowCandidates);
   renderPoster(selected);
   renderDetail(selected);
-  renderPdfModal();
   hydrateRequestedPdfPreview();
 }
 
@@ -1398,7 +1374,7 @@ function buildPdfInfo(product) {
   }
 
   return {
-    status: state.pdfAvailability[encodePdfPath(displayPath)] || "unchecked",
+    status: "connected",
     displayPath,
     encodedPath: encodePdfPath(displayPath),
     title: product.productName || fileName || displayPath
@@ -1439,54 +1415,31 @@ function renderPdfPreview(pdfInfo) {
     `;
   }
 
-  if (pdfInfo.status === "unchecked") {
-    schedulePdfAvailabilityCheck(pdfInfo.encodedPath);
-    pdfInfo.status = "checking";
-  }
-
-  if (pdfInfo.status === "available") {
+  if (pdfInfo.status === "missing") {
     return `
-      <div class="pdf-preview is-connected">
-        <p class="pdf-message">PDF 연결 완료</p>
-        <div class="info-item">
-          <span class="info-label">PDF 경로</span>
-          <span class="info-value">${escapeHtml(pdfInfo.displayPath)}</span>
-        </div>
-        ${renderPdfPreviewBody(pdfInfo)}
-        <div class="pdf-actions">
-          <button class="pdf-preview-button" type="button" data-preview-pdf data-pdf-title="${escapeAttribute(pdfInfo.title)}" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}">PDF 미리보기</button>
-          <a class="pdf-open-button" href="${escapeAttribute(pdfInfo.encodedPath)}" target="_blank" rel="noopener">새 탭에서 열기</a>
-          ${renderDownloadButton(pdfInfo.encodedPath)}
-        </div>
-      </div>
-    `;
-  }
-
-  if (pdfInfo.status === "checking") {
-    return `
-      <div class="pdf-preview">
-        <p class="pdf-message">PDF 파일 연결 상태 확인 중입니다.</p>
-        <div class="info-item">
-          <span class="info-label">확인 경로</span>
-          <span class="info-value">${escapeHtml(pdfInfo.displayPath)}</span>
-        </div>
-        <div class="pdf-frame-placeholder">PDF 미리보기를 보려면 아래 버튼을 눌러주세요.</div>
-        <div class="pdf-actions">
-          <button class="pdf-preview-button" type="button" data-preview-pdf data-pdf-title="${escapeAttribute(pdfInfo.title)}" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}">PDF 미리보기</button>
-          <a class="pdf-open-button" href="${escapeAttribute(pdfInfo.encodedPath)}" target="_blank" rel="noopener">새 탭에서 열기</a>
-        </div>
-      </div>
-    `;
-  }
-
-  return `
-    <div class="pdf-preview is-missing">
+      <div class="pdf-preview is-missing">
       <p class="pdf-message">PDF 파일이 아직 등록되지 않았습니다.</p>
       <div class="info-item">
         <span class="info-label">예상 경로</span>
         <span class="info-value">${escapeHtml(pdfInfo.displayPath)}</span>
       </div>
       <div class="pdf-frame-placeholder">PDF 원본을 pdf 폴더에 추가하면 자동 연결됩니다.</div>
+    </div>
+    `;
+  }
+
+  return `
+    <div class="pdf-preview is-connected">
+      <p class="pdf-message">PDF 파일이 연결되어 있습니다.</p>
+      <div class="info-item">
+        <span class="info-label">PDF 경로</span>
+        <span class="info-value">${escapeHtml(pdfInfo.displayPath)}</span>
+      </div>
+      ${renderPdfPreviewBody(pdfInfo)}
+      <div class="pdf-actions">
+        <button class="pdf-preview-button" type="button" data-preview-pdf data-pdf-title="${escapeAttribute(pdfInfo.title)}" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}">PDF 미리보기</button>
+        <a class="pdf-open-button" href="${escapeAttribute(pdfInfo.encodedPath)}" target="_blank" rel="noopener">새 탭에서 열기</a>
+      </div>
     </div>
   `;
 }
@@ -1505,7 +1458,7 @@ function renderPdfPreviewBody(pdfInfo) {
   if (state.pdfPreview.status === "error") {
     return `
       <div class="pdf-frame-placeholder is-error">
-        <p>모바일 브라우저에서 미리보기가 제한될 수 있습니다. 새 탭에서 열기를 사용해주세요.</p>
+        <p>PDF 미리보기를 불러오지 못했습니다. 새 탭에서 열기를 사용해주세요.</p>
         ${state.pdfPreview.error ? `<p class="pdf-error-text">${escapeHtml(state.pdfPreview.error)}</p>` : ""}
       </div>
     `;
@@ -1516,13 +1469,6 @@ function renderPdfPreviewBody(pdfInfo) {
       <div class="pdf-frame-placeholder">PDF.js 미리보기를 준비하고 있습니다.</div>
     </div>
   `;
-}
-
-function renderDownloadButton(path) {
-  if (!APP_CONFIG.showDownloadButton) {
-    return "";
-  }
-  return `<a class="download-button" href="${escapeAttribute(path)}" target="_blank" rel="noopener">다운로드</a>`;
 }
 
 function syncPdfPreviewForProduct(pdfInfo) {
@@ -1582,7 +1528,8 @@ async function renderPdfJsPreview(mount, path, title) {
     for (let pageNumber = 1; pageNumber <= pageCount; pageNumber += 1) {
       const page = await pdf.getPage(pageNumber);
       const baseViewport = page.getViewport({ scale: 1 });
-      const availableWidth = Math.max(280, Math.min(mount.clientWidth || 720, 980));
+      const mountWidth = mount.clientWidth || 720;
+      const availableWidth = Math.max(240, Math.min(mountWidth - 40, 920));
       const scale = availableWidth / baseViewport.width;
       const viewport = page.getViewport({ scale });
       const pixelRatio = window.devicePixelRatio || 1;
@@ -1618,103 +1565,11 @@ async function renderPdfJsPreview(mount, path, title) {
     };
     mount.innerHTML = `
       <div class="pdf-frame-placeholder is-error">
-        <p>모바일 브라우저에서 미리보기가 제한될 수 있습니다. 새 탭에서 열기를 사용해주세요.</p>
+        <p>PDF 미리보기를 불러오지 못했습니다. 새 탭에서 열기를 사용해주세요.</p>
         <p class="pdf-error-text">PDF.js 미리보기 로딩에 실패했습니다.</p>
       </div>
     `;
   }
-}
-
-function schedulePdfAvailabilityCheck(path) {
-  state.pdfAvailability[path] = "checking";
-  checkPdfExists(path).then((exists) => {
-    state.pdfAvailability[path] = exists ? "available" : "missing";
-    const selected = state.products.find((product) => product.id === state.selectedId);
-    if (selected && buildPdfInfo(selected).encodedPath === path) render();
-  });
-}
-
-async function checkPdfExists(path) {
-  if (!path || window.location.protocol === "file:") return false;
-
-  try {
-    const response = await fetch(path, { method: "HEAD", cache: "no-store" });
-    if (response.ok) return true;
-    if (response.status !== 405) return false;
-  } catch (error) {
-    return false;
-  }
-
-  try {
-    const response = await fetch(path, {
-      method: "GET",
-      cache: "no-store",
-      headers: { Range: "bytes=0-0" }
-    });
-    return response.ok || response.status === 206;
-  } catch (error) {
-    return false;
-  }
-}
-
-function openPdfModal(title, path) {
-  if (!path) return;
-  state.pdfModal = {
-    isOpen: true,
-    title: title || "PDF 미리보기",
-    path
-  };
-  renderPdfModal();
-}
-
-function closePdfModal() {
-  state.pdfModal = {
-    isOpen: false,
-    title: "",
-    path: ""
-  };
-  renderPdfModal();
-}
-
-function ensurePdfModalElement() {
-  let modal = document.querySelector("#pdfPreviewModal");
-  if (!modal) {
-    modal = document.createElement("div");
-    modal.id = "pdfPreviewModal";
-    document.body.appendChild(modal);
-  }
-  return modal;
-}
-
-function renderPdfModal() {
-  const modal = ensurePdfModalElement();
-  document.body.classList.toggle("modal-open", state.pdfModal.isOpen);
-
-  if (!state.pdfModal.isOpen) {
-    modal.className = "pdf-modal is-hidden";
-    modal.innerHTML = "";
-    return;
-  }
-
-  modal.className = "pdf-modal";
-  modal.innerHTML = `
-    <div class="pdf-modal-backdrop">
-      <section class="pdf-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="pdfModalTitle">
-        <header class="pdf-modal-toolbar">
-          <div>
-            <h2 id="pdfModalTitle">PDF 미리보기</h2>
-            <p>${escapeHtml(state.pdfModal.title)}</p>
-          </div>
-          <button class="pdf-modal-close" type="button" data-close-pdf-modal aria-label="PDF 크게 보기 닫기">닫기</button>
-        </header>
-        <div class="pdf-frame-placeholder">
-          PDF 미리보기는 상세정보 영역의 PDF 미리보기 버튼으로 실행해주세요.
-          <a class="pdf-open-button" href="${escapeAttribute(state.pdfModal.path)}" target="_blank" rel="noopener">새 탭에서 열기</a>
-        </div>
-      </section>
-    </div>
-  `;
-  modal.querySelector("[data-close-pdf-modal]")?.focus();
 }
 
 function posterSection(title, content, className) {

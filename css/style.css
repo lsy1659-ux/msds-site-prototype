@@ -276,8 +276,7 @@ h1 {
 
 .clear-button,
 .quick-search button,
-.selection-item,
-.download-button {
+.selection-item {
   min-height: 44px;
   border: var(--border-ui);
   border-radius: var(--radius-ui);
@@ -1029,9 +1028,7 @@ h1 {
 }
 
 .pdf-preview-button,
-.pdf-enlarge-button,
-.pdf-open-button,
-.download-button {
+.pdf-open-button {
   justify-self: start;
   padding: 0 14px;
   display: inline-grid;
@@ -1046,7 +1043,6 @@ h1 {
 }
 
 .pdf-preview-button,
-.pdf-enlarge-button,
 .pdf-open-button {
   border-color: var(--color-accent);
   color: var(--color-accent-dark);
@@ -1069,6 +1065,7 @@ h1 {
 }
 
 .pdf-js-page {
+  width: 100%;
   max-width: 100%;
   padding: 8px;
   border: 1px solid #ced8d5;
@@ -1079,6 +1076,7 @@ h1 {
 
 .pdf-js-page canvas {
   display: block;
+  margin: 0 auto;
   max-width: 100%;
   height: auto !important;
 }
@@ -1095,81 +1093,6 @@ h1 {
 
 .pdf-frame-placeholder.is-error {
   color: var(--color-danger-dark);
-}
-
-/* PDF preview modal */
-body.modal-open {
-  overflow: hidden;
-}
-
-.pdf-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-}
-
-.pdf-modal-backdrop {
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100%;
-  padding: 18px;
-  background: rgba(8, 18, 16, 0.72);
-}
-
-.pdf-modal-dialog {
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  width: min(94vw, 1180px);
-  height: min(92vh, 920px);
-  border-radius: var(--radius-ui);
-  background: #ffffff;
-  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.34);
-  overflow: hidden;
-}
-
-/* PDF preview toolbar */
-.pdf-modal-toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--color-line);
-  background: #f7faf9;
-}
-
-.pdf-modal-toolbar h2 {
-  margin-bottom: 2px;
-  font-size: 1.08rem;
-}
-
-.pdf-modal-toolbar p {
-  margin-bottom: 0;
-  color: var(--color-muted);
-  font-size: 0.9rem;
-  font-weight: 800;
-  overflow-wrap: anywhere;
-}
-
-.pdf-modal-close {
-  flex: 0 0 auto;
-  min-height: 40px;
-  padding: 0 14px;
-  border: 1px solid var(--color-danger);
-  border-radius: var(--radius-ui);
-  background: #ffffff;
-  color: var(--color-danger-dark);
-  font-weight: 950;
-}
-
-/* PDF preview iframe */
-.pdf-modal-frame {
-  width: 100%;
-  height: 100%;
-  min-height: 0;
-  border: 0;
-  background: #ffffff;
 }
 
 /* Internal review page */
@@ -1723,33 +1646,12 @@ body.modal-open {
   }
 
   /* PDF preview mobile layout */
-  .pdf-frame,
   .pdf-js-preview {
     min-height: 62vh;
   }
 
   .pdf-actions {
     display: grid;
-  }
-
-  .pdf-modal-backdrop {
-    align-items: stretch;
-    padding: 8px;
-    overflow-y: auto;
-  }
-
-  .pdf-modal-dialog {
-    width: 100%;
-    height: calc(100dvh - 16px);
-  }
-
-  .pdf-modal-toolbar {
-    align-items: flex-start;
-    padding: 10px;
-  }
-
-  .pdf-modal-close {
-    min-width: 64px;
   }
 }
 
