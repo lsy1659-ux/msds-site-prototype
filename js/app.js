@@ -317,8 +317,8 @@ const state = {
     title: "",
     status: "idle",
     error: "",
-    currentPage: 1,
     totalPages: 0,
+    renderedPages: 0,
     scale: 1,
     fitToWidth: true,
     document: null,
@@ -1449,7 +1449,6 @@ function renderPdfPreview(pdfInfo) {
       ${renderPdfPreviewBody(pdfInfo)}
       <div class="pdf-actions">
         <button class="pdf-preview-button" type="button" data-preview-pdf data-pdf-title="${escapeAttribute(pdfInfo.title)}" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}">PDF 미리보기</button>
-        <a class="pdf-open-button" href="${escapeAttribute(pdfInfo.encodedPath)}" target="_blank" rel="noopener">새 탭에서 열기</a>
       </div>
     </div>
   `;
@@ -1495,8 +1494,8 @@ function startPdfPreview(title, path) {
     title: title || "PDF 미리보기",
     status: "loading",
     error: "",
-    currentPage: 1,
     totalPages: 0,
+    renderedPages: 0,
     scale: 1,
     fitToWidth: true,
     document: null,
@@ -1511,8 +1510,8 @@ function resetPdfPreviewState() {
     title: "",
     status: "idle",
     error: "",
-    currentPage: 1,
     totalPages: 0,
+    renderedPages: 0,
     scale: 1,
     fitToWidth: true,
     document: null,
@@ -1550,7 +1549,7 @@ async function preparePdfJsPreview(mount, path, title) {
     if (state.pdfPreview.document && state.pdfPreview.path === path) {
       mount.dataset.viewerReady = "true";
       renderPdfViewerShell(mount);
-      await renderCurrentPdfPage(mount);
+      await renderAllPdfPages(mount);
       return;
     }
 
@@ -1558,11 +1557,11 @@ async function preparePdfJsPreview(mount, path, title) {
     const pdf = await pdfjs.getDocument({ url: path }).promise;
     state.pdfPreview.document = pdf;
     state.pdfPreview.totalPages = pdf.numPages;
-    state.pdfPreview.currentPage = 1;
+    state.pdfPreview.renderedPages = 0;
     state.pdfPreview.title = title || state.pdfPreview.title;
     mount.dataset.viewerReady = "true";
     renderPdfViewerShell(mount);
-    await renderCurrentPdfPage(mount);
+    await renderAllPdfPages(mount);
   } catch (error) {
     state.pdfPreview = {
       ...state.pdfPreview,
@@ -1581,9 +1580,7 @@ async function preparePdfJsPreview(mount, path, title) {
 function renderPdfViewerShell(mount) {
   mount.innerHTML = `
     <div class="pdf-viewer-toolbar" aria-label="PDF 미리보기 조작">
-      <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="prev">이전</button>
-      <span class="pdf-page-status" data-pdf-page-status>1 / ${state.pdfPreview.totalPages || 1}쪽</span>
-      <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="next">다음</button>
+      <span class="pdf-page-status" data-pdf-page-status>0 / ${state.pdfPreview.totalPages || 1}쪽</span>
       <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="zoom-out">축소</button>
       <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="zoom-in">확대</button>
       <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="fit">폭맞춤</button>
@@ -1596,19 +1593,15 @@ function renderPdfViewerShell(mount) {
 }
 
 function updatePdfViewerControls(mount) {
-  const { currentPage, totalPages, status } = state.pdfPreview;
+  const { renderedPages, totalPages, status } = state.pdfPreview;
   const isBusy = status === "rendering";
   const pageStatus = mount.querySelector("[data-pdf-page-status]");
-  if (pageStatus) pageStatus.textContent = `${currentPage || 1} / ${totalPages || 1}쪽`;
+  if (pageStatus) pageStatus.textContent = `${renderedPages || 0} / ${totalPages || 1}쪽`;
 
-  const prevButton = mount.querySelector('[data-pdf-viewer-action="prev"]');
-  const nextButton = mount.querySelector('[data-pdf-viewer-action="next"]');
   const zoomOutButton = mount.querySelector('[data-pdf-viewer-action="zoom-out"]');
   const zoomInButton = mount.querySelector('[data-pdf-viewer-action="zoom-in"]');
   const fitButton = mount.querySelector('[data-pdf-viewer-action="fit"]');
 
-  if (prevButton) prevButton.disabled = isBusy || currentPage <= 1;
-  if (nextButton) nextButton.disabled = isBusy || currentPage >= totalPages;
   if (zoomOutButton) zoomOutButton.disabled = isBusy || state.pdfPreview.scale <= 0.6;
   if (zoomInButton) zoomInButton.disabled = isBusy || state.pdfPreview.scale >= 2.8;
   if (fitButton) fitButton.disabled = isBusy || state.pdfPreview.fitToWidth;
@@ -1619,11 +1612,7 @@ async function handlePdfViewerAction(action) {
   if (!mount || !state.pdfPreview.document) return;
 
   const preview = state.pdfPreview;
-  if (action === "prev") {
-    preview.currentPage = Math.max(1, preview.currentPage - 1);
-  } else if (action === "next") {
-    preview.currentPage = Math.min(preview.totalPages, preview.currentPage + 1);
-  } else if (action === "zoom-in") {
+  if (action === "zoom-in") {
     preview.fitToWidth = false;
     preview.scale = Math.min(2.8, Number((preview.scale + 0.2).toFixed(2)));
   } else if (action === "zoom-out") {
@@ -1633,10 +1622,10 @@ async function handlePdfViewerAction(action) {
     preview.fitToWidth = true;
   }
 
-  await renderCurrentPdfPage(mount);
+  await renderAllPdfPages(mount);
 }
 
-async function renderCurrentPdfPage(mount) {
+async function renderAllPdfPages(mount) {
   const preview = state.pdfPreview;
   const stage = mount.querySelector("[data-pdf-page-stage]");
   if (!stage || !preview.document) return;
@@ -1644,35 +1633,19 @@ async function renderCurrentPdfPage(mount) {
   const renderToken = preview.renderToken + 1;
   preview.renderToken = renderToken;
   preview.status = "rendering";
+  preview.renderedPages = 0;
   updatePdfViewerControls(mount);
-  stage.innerHTML = `<div class="pdf-frame-placeholder">PDF 페이지를 불러오는 중입니다.</div>`;
+  stage.innerHTML = `<div class="pdf-frame-placeholder">PDF 전체 미리보기를 불러오는 중입니다...</div>`;
 
   try {
-    const page = await preview.document.getPage(preview.currentPage);
-    const baseViewport = page.getViewport({ scale: 1 });
-    const availableWidth = Math.max(240, (stage.clientWidth || mount.clientWidth || 720) - 32);
-    const scale = preview.fitToWidth ? availableWidth / baseViewport.width : preview.scale;
-    const viewport = page.getViewport({ scale });
-    const pixelRatio = window.devicePixelRatio || 1;
-    const canvas = document.createElement("canvas");
-    const pageWrap = document.createElement("div");
-    const context = canvas.getContext("2d");
-
-    if (preview.fitToWidth) preview.scale = scale;
-    pageWrap.className = "pdf-js-page";
-    canvas.width = Math.floor(viewport.width * pixelRatio);
-    canvas.height = Math.floor(viewport.height * pixelRatio);
-    canvas.style.width = `${Math.floor(viewport.width)}px`;
-    canvas.style.height = `${Math.floor(viewport.height)}px`;
-    canvas.setAttribute("aria-label", `${preview.title || "PDF"} ${preview.currentPage}쪽 미리보기`);
-    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-
-    await page.render({ canvasContext: context, viewport }).promise;
-    if (renderToken !== preview.renderToken) return;
-
-    pageWrap.appendChild(canvas);
     stage.innerHTML = "";
-    stage.appendChild(pageWrap);
+    for (let pageNumber = 1; pageNumber <= preview.totalPages; pageNumber += 1) {
+      if (renderToken !== preview.renderToken) return;
+      await renderPdfPageIntoStage(stage, pageNumber, renderToken);
+      preview.renderedPages = pageNumber;
+      updatePdfViewerControls(mount);
+      await nextFrame();
+    }
     preview.status = "rendered";
     updatePdfViewerControls(mount);
   } catch (error) {
@@ -1686,6 +1659,41 @@ async function renderCurrentPdfPage(mount) {
     `;
     updatePdfViewerControls(mount);
   }
+}
+
+async function renderPdfPageIntoStage(stage, pageNumber, renderToken) {
+  const preview = state.pdfPreview;
+  const page = await preview.document.getPage(pageNumber);
+  const baseViewport = page.getViewport({ scale: 1 });
+  const availableWidth = Math.max(240, (stage.clientWidth || stage.parentElement?.clientWidth || 720) - 32);
+  const scale = preview.fitToWidth ? availableWidth / baseViewport.width : preview.scale;
+  const viewport = page.getViewport({ scale });
+  const pixelRatio = window.devicePixelRatio || 1;
+  const canvas = document.createElement("canvas");
+  const pageWrap = document.createElement("section");
+  const pageLabel = document.createElement("div");
+  const context = canvas.getContext("2d");
+
+  if (preview.fitToWidth && pageNumber === 1) preview.scale = scale;
+  pageWrap.className = "pdf-js-page";
+  pageLabel.className = "pdf-js-page-label";
+  pageLabel.textContent = `${pageNumber} / ${preview.totalPages}쪽`;
+  canvas.width = Math.floor(viewport.width * pixelRatio);
+  canvas.height = Math.floor(viewport.height * pixelRatio);
+  canvas.style.width = `${Math.floor(viewport.width)}px`;
+  canvas.style.height = `${Math.floor(viewport.height)}px`;
+  canvas.setAttribute("aria-label", `${preview.title || "PDF"} ${pageNumber}쪽 미리보기`);
+  context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+
+  pageWrap.appendChild(pageLabel);
+  pageWrap.appendChild(canvas);
+  stage.appendChild(pageWrap);
+  await page.render({ canvasContext: context, viewport }).promise;
+  if (renderToken !== preview.renderToken) return;
+}
+
+function nextFrame() {
+  return new Promise((resolve) => window.requestAnimationFrame(resolve));
 }
 
 function posterSection(title, content, className) {

@@ -1027,8 +1027,7 @@ h1 {
   gap: 8px;
 }
 
-.pdf-preview-button,
-.pdf-open-button {
+.pdf-preview-button {
   justify-self: start;
   padding: 0 14px;
   display: inline-grid;
@@ -1042,8 +1041,7 @@ h1 {
   text-decoration: none;
 }
 
-.pdf-preview-button,
-.pdf-open-button {
+.pdf-preview-button {
   border-color: var(--color-accent);
   color: var(--color-accent-dark);
 }
@@ -1097,6 +1095,7 @@ h1 {
 
 .pdf-js-page-stage {
   display: grid;
+  gap: 16px;
   justify-items: center;
   min-width: max-content;
   padding: 12px;
@@ -1111,6 +1110,17 @@ h1 {
   border-radius: var(--radius-ui);
   background: #ffffff;
   box-shadow: 0 4px 12px rgba(17, 37, 31, 0.12);
+}
+
+.pdf-js-page-label {
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  border-radius: var(--radius-ui);
+  background: #e8f3ef;
+  color: var(--color-accent-dark);
+  font-size: 0.92rem;
+  font-weight: 950;
+  text-align: center;
 }
 
 .pdf-js-page canvas {

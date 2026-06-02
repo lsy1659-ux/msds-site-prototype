@@ -2,7 +2,7 @@
 
 현장 작업자가 QR코드로 접속해 MSDS 핵심 안전정보를 빠르게 확인하는 조회용 프로토타입입니다.
 
-현재 상태는 GitHub Pages 실제 MSDS PDF 미리보기 공개 운영 완료입니다. 공개 URL은 <https://lsy1659-ux.github.io/msds-site-prototype/> 이며, 공개 화면은 `data/msds.public.json`, `data/msds-overrides.public.json`, `pdf/` 폴더의 PDF 239개를 사용해 실제 제품 검색, 상세정보 표시, PDF 미리보기, 새 탭 열기를 제공합니다. 로컬 실행 화면은 `data/msds.local.json`, `data/msds-overrides.local.json`이 있으면 그 파일을 우선 사용합니다.
+현재 상태는 GitHub Pages 실제 MSDS PDF 미리보기 공개 운영 완료입니다. 공개 URL은 <https://lsy1659-ux.github.io/msds-site-prototype/> 이며, 공개 화면은 `data/msds.public.json`, `data/msds-overrides.public.json`, `pdf/` 폴더의 PDF 239개를 사용해 실제 제품 검색, 상세정보 표시, 사이트 내부 전체 페이지 PDF 미리보기를 제공합니다. 로컬 실행 화면은 `data/msds.local.json`, `data/msds-overrides.local.json`이 있으면 그 파일을 우선 사용합니다.
 
 공개 운영 확인 결과 `data/msds.public.json`과 `data/msds-overrides.public.json` 접근은 정상이고, `data/msds.local.json`, `data/msds-overrides.local.json`, `reports/*.local.*` 파일은 공개 URL에서 404로 비공개 상태를 유지합니다. 실제 엑셀, `data/raw/`, `data/original/`, `.env`도 계속 GitHub에 올리지 않습니다.
 
@@ -557,7 +557,7 @@ GitHub Pages 인터넷 배포는 [GitHub Pages 인터넷 배포 가이드](docs/
 
 모바일 브라우저에서 PDF가 자동 다운로드되는 것을 막기 위해 PDF 원본은 페이지 로드나 제품 선택 직후 자동 삽입하지 않습니다. 사용자가 `PDF 미리보기` 버튼을 누른 경우에만 PDF.js로 사이트 안에 미리보기를 표시합니다. 현재 최소 수정안은 CDN PDF.js를 사용하므로 인터넷 연결이 필요합니다. 더 안정적인 운영이 필요하면 `vendor/pdfjs/` 또는 `lib/pdfjs/`에 PDF.js 정적 파일을 포함하고 `js/app.js`의 PDF.js 경로를 내부 경로로 바꿉니다.
 
-PDF.js 미리보기 안에서는 이전/다음 페이지 이동, 현재 페이지 표시, 확대, 축소, 폭맞춤을 사용할 수 있습니다. `새 탭에서 열기`는 원본 확인용 보조 버튼이며, 모바일 미리보기의 필수 동작은 아닙니다.
+PDF.js 미리보기는 전체 페이지를 세로로 렌더링해 사이트 안에서 스크롤로 확인하는 방식입니다. 확대, 축소, 폭맞춤을 사용할 수 있습니다. PDF는 GitHub Pages에 공개되어 있으므로 주소를 직접 알면 기술적으로 다운로드를 완전히 막을 수는 없지만, 사이트 UI에서는 다운로드나 새 탭 열기를 제공하지 않고 내부 미리보기를 기본 흐름으로 사용합니다.
 
 공개용 데이터 생성:
 
