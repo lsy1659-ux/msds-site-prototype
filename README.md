@@ -550,7 +550,7 @@ H-code statements are kept in the hazard statement area, P-code statements are k
 
 현장용 로컬 실행 방법은 [현장용 로컬 실행 가이드](docs/현장용_로컬_실행_가이드.md)를 확인하세요. 비개발자는 프로젝트 폴더의 `start_msds_site.bat` 파일을 더블클릭해 현장 검색용 화면을 실행하면 됩니다.
 
-GitHub Pages 인터넷 배포는 [GitHub Pages 인터넷 배포 가이드](docs/GitHub_Pages_인터넷_배포_가이드.md)를 기준으로 합니다. 공개 배포는 샘플/안내용이며 실제 PDF, 엑셀, local JSON, local report는 GitHub에 올리지 않습니다. 실제 현장 사용은 `start_msds_site.bat` 로컬 실행을 기준으로 합니다.
+GitHub Pages 인터넷 배포는 [GitHub Pages 인터넷 배포 가이드](docs/GitHub_Pages_인터넷_배포_가이드.md)를 기준으로 합니다. 공개 URL은 <https://lsy1659-ux.github.io/msds-site-prototype/> 입니다. 공개 사이트는 샘플/안내용이며 실제 MSDS 운영 데이터는 로컬 실행 환경에서만 표시됩니다. 실제 현장 사용은 `start_msds_site.bat` 로컬 실행을 기준으로 합니다. 실제 PDF, 엑셀, local JSON, reports local 파일은 GitHub에 올리지 않습니다.
 
 실행 전 로컬 환경 점검:
 

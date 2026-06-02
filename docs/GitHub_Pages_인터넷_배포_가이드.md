@@ -4,6 +4,24 @@
 
 GitHub Pages 배포는 MSDS 조회 사이트의 공개용 정적 화면을 인터넷에서 확인하기 위한 용도입니다. 공개 배포 화면은 샘플/안내용 화면이며, 실제 현장 운영 데이터는 로컬 실행 환경을 기준으로 합니다.
 
+## 배포 완료 기록
+
+- 완료 상태: GitHub Pages 공개 배포 완료
+- 완료일: 2026-06-02
+- 공개 URL: <https://lsy1659-ux.github.io/msds-site-prototype/>
+
+공개 사이트는 샘플/안내용입니다. 실제 MSDS 운영 데이터는 `start_msds_site.bat`로 실행하는 로컬 환경에서만 표시됩니다.
+
+## 배포 후 확인 완료 항목
+
+- 사이트 접속 정상
+- 샘플 데이터 표시 정상
+- 공개 안내 문구 표시 정상
+- 실제 PDF 미노출 정상
+- `data/msds.local.json` 404/Not Found 정상
+- `data/msds-overrides.local.json` 404/Not Found 정상
+- `reports/incoming-pdf-check.local.json` 404/Not Found 정상
+
 ## 공개 배포 시 주의사항
 
 GitHub에는 실제 MSDS PDF, 엑셀, 실사용 local JSON, local report를 올리지 않습니다.
