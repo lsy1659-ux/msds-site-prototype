@@ -1028,6 +1028,7 @@ h1 {
   gap: 8px;
 }
 
+.pdf-preview-button,
 .pdf-enlarge-button,
 .pdf-open-button,
 .download-button {
@@ -1044,10 +1045,56 @@ h1 {
   text-decoration: none;
 }
 
+.pdf-preview-button,
 .pdf-enlarge-button,
 .pdf-open-button {
   border-color: var(--color-accent);
   color: var(--color-accent-dark);
+}
+
+.pdf-js-preview {
+  min-height: 500px;
+  max-height: 70vh;
+  overflow: auto;
+  border: var(--border-ui);
+  border-radius: var(--radius-ui);
+  background: #e8eeec;
+}
+
+.pdf-js-pages {
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+  padding: 12px;
+}
+
+.pdf-js-page {
+  max-width: 100%;
+  padding: 8px;
+  border: 1px solid #ced8d5;
+  border-radius: var(--radius-ui);
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(17, 37, 31, 0.12);
+}
+
+.pdf-js-page canvas {
+  display: block;
+  max-width: 100%;
+  height: auto !important;
+}
+
+.pdf-js-note,
+.pdf-error-text {
+  margin: 0;
+  padding: 0 12px 12px;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.pdf-frame-placeholder.is-error {
+  color: var(--color-danger-dark);
 }
 
 /* PDF preview modal */
@@ -1676,7 +1723,8 @@ body.modal-open {
   }
 
   /* PDF preview mobile layout */
-  .pdf-frame {
+  .pdf-frame,
+  .pdf-js-preview {
     min-height: 62vh;
   }
 

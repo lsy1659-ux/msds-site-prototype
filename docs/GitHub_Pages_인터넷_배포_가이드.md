@@ -54,6 +54,16 @@ public JSON은 local JSON을 직접 커밋하지 않고 아래 명령으로 생�
 python scripts/build_public_data.py
 ```
 
+## 모바일 PDF 미리보기 기준
+
+모바일 브라우저에서는 PDF 원본을 iframe, object, embed에 바로 넣으면 브라우저가 미리보기 대신 자동 다운로드로 처리할 수 있습니다. 그래서 공개 화면은 사이트 접속 직후나 제품 선택 직후 PDF를 자동 로드하지 않습니다.
+
+PDF 영역에는 먼저 파일 경로와 버튼만 표시합니다. 사용자가 `PDF 미리보기` 버튼을 누른 경우에만 PDF.js로 사이트 안에 PDF 일부를 미리보기로 표시합니다. `새 탭에서 열기`는 유지하지만 사용자가 직접 누를 때만 동작합니다.
+
+현재 적용한 최소 수정안은 CDN PDF.js를 사용합니다. 이 방식은 빠르게 적용할 수 있지만, PDF 미리보기를 보려면 인터넷에서 CDN 파일을 불러올 수 있어야 합니다.
+
+더 안정적인 수정안은 PDF.js 정적 파일을 `vendor/pdfjs/` 또는 `lib/pdfjs/` 폴더에 포함한 뒤, `js/app.js`의 PDF.js 경로를 내부 파일로 바꾸는 방식입니다. 이 경우 CDN 연결 상태와 무관하게 GitHub Pages와 로컬 실행에서 같은 PDF.js 파일을 사용할 수 있습니다.
+
 ## GitHub Pages 설정 방법
 
 1. GitHub 저장소에 접속합니다.

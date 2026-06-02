@@ -555,6 +555,8 @@ H-code statements are kept in the hazard statement area, P-code statements are k
 
 GitHub Pages 인터넷 배포는 [GitHub Pages 인터넷 배포 가이드](docs/GitHub_Pages_인터넷_배포_가이드.md)를 기준으로 합니다. 공개 URL은 <https://lsy1659-ux.github.io/msds-site-prototype/> 입니다. GitHub Pages 실제 MSDS PDF 미리보기 공개 운영은 완료되었고, 공개 사이트는 `data/msds.public.json`, `data/msds-overrides.public.json`, `pdf/` 폴더의 PDF 239개를 사용합니다. 실제 엑셀, raw 데이터, original 데이터, `.env`, local JSON, reports local 파일은 GitHub에 올리지 않습니다. 실제 현장 사용은 여전히 `start_msds_site.bat` 로컬 실행을 기준으로 할 수 있습니다.
 
+모바일 브라우저에서 PDF가 자동 다운로드되는 것을 막기 위해 PDF 원본은 페이지 로드나 제품 선택 직후 자동 삽입하지 않습니다. 사용자가 `PDF 미리보기` 버튼을 누른 경우에만 PDF.js로 사이트 안에 미리보기를 표시합니다. 현재 최소 수정안은 CDN PDF.js를 사용하므로 인터넷 연결이 필요합니다. 더 안정적인 운영이 필요하면 `vendor/pdfjs/` 또는 `lib/pdfjs/`에 PDF.js 정적 파일을 포함하고 `js/app.js`의 PDF.js 경로를 내부 경로로 바꿉니다.
+
 공개용 데이터 생성:
 
 ```powershell
