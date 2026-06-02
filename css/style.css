@@ -1057,16 +1057,55 @@ h1 {
   background: #e8eeec;
 }
 
-.pdf-js-pages {
+.pdf-viewer-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-bottom: var(--border-ui);
+  background: #f7faf9;
+}
+
+.pdf-viewer-button {
+  min-height: 40px;
+  padding: 0 12px;
+  border: var(--border-ui);
+  border-radius: var(--radius-ui);
+  background: #ffffff;
+  color: var(--color-ink);
+  font-weight: 900;
+}
+
+.pdf-viewer-button:disabled {
+  opacity: 0.45;
+}
+
+.pdf-page-status {
+  min-height: 40px;
+  padding: 0 12px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: var(--radius-ui);
+  background: #e8f3ef;
+  color: var(--color-accent-dark);
+  font-weight: 950;
+}
+
+.pdf-js-page-stage {
   display: grid;
-  gap: 14px;
   justify-items: center;
+  min-width: max-content;
   padding: 12px;
 }
 
 .pdf-js-page {
-  width: 100%;
-  max-width: 100%;
+  width: max-content;
+  max-width: none;
+  min-width: 100%;
   padding: 8px;
   border: 1px solid #ced8d5;
   border-radius: var(--radius-ui);
@@ -1077,7 +1116,7 @@ h1 {
 .pdf-js-page canvas {
   display: block;
   margin: 0 auto;
-  max-width: 100%;
+  max-width: none;
   height: auto !important;
 }
 

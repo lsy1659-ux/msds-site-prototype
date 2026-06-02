@@ -11,7 +11,6 @@ const APP_CONFIG = {
   sampleInventoryUrl: "data/pdf-inventory.sample.json",
   pdfJsModuleUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.mjs",
   pdfJsWorkerUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.mjs",
-  pdfPreviewMaxPages: 1,
   minSearchCharacters: 2,
   initialResultLimit: 8,
   fieldDisplayMode: true,
@@ -317,7 +316,13 @@ const state = {
     path: "",
     title: "",
     status: "idle",
-    error: ""
+    error: "",
+    currentPage: 1,
+    totalPages: 0,
+    scale: 1,
+    fitToWidth: true,
+    document: null,
+    renderToken: 0
   }
 };
 
@@ -384,6 +389,12 @@ function bindEvents() {
   });
 
   document.addEventListener("click", (event) => {
+    const viewerControl = event.target.closest("[data-pdf-viewer-action]");
+    if (viewerControl) {
+      handlePdfViewerAction(viewerControl.dataset.pdfViewerAction);
+      return;
+    }
+
     const previewButton = event.target.closest("[data-preview-pdf]");
     if (previewButton) {
       startPdfPreview(previewButton.dataset.pdfTitle, previewButton.dataset.pdfPath);
@@ -1458,7 +1469,7 @@ function renderPdfPreviewBody(pdfInfo) {
   if (state.pdfPreview.status === "error") {
     return `
       <div class="pdf-frame-placeholder is-error">
-        <p>PDF 미리보기를 불러오지 못했습니다. 새 탭에서 열기를 사용해주세요.</p>
+        <p>PDF 미리보기를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.</p>
         ${state.pdfPreview.error ? `<p class="pdf-error-text">${escapeHtml(state.pdfPreview.error)}</p>` : ""}
       </div>
     `;
@@ -1473,12 +1484,7 @@ function renderPdfPreviewBody(pdfInfo) {
 
 function syncPdfPreviewForProduct(pdfInfo) {
   if (state.pdfPreview.path && state.pdfPreview.path !== pdfInfo.encodedPath) {
-    state.pdfPreview = {
-      path: "",
-      title: "",
-      status: "idle",
-      error: ""
-    };
+    resetPdfPreviewState();
   }
 }
 
@@ -1488,9 +1494,30 @@ function startPdfPreview(title, path) {
     path,
     title: title || "PDF 미리보기",
     status: "loading",
-    error: ""
+    error: "",
+    currentPage: 1,
+    totalPages: 0,
+    scale: 1,
+    fitToWidth: true,
+    document: null,
+    renderToken: 0
   };
   render();
+}
+
+function resetPdfPreviewState() {
+  state.pdfPreview = {
+    path: "",
+    title: "",
+    status: "idle",
+    error: "",
+    currentPage: 1,
+    totalPages: 0,
+    scale: 1,
+    fitToWidth: true,
+    document: null,
+    renderToken: 0
+  };
 }
 
 function hydrateRequestedPdfPreview() {
@@ -1499,8 +1526,9 @@ function hydrateRequestedPdfPreview() {
   const path = mount.dataset.pdfPath || "";
   if (path !== state.pdfPreview.path) return;
   if (state.pdfPreview.status === "rendering" && mount.dataset.previewStarted === "true") return;
+  if (state.pdfPreview.status === "rendered" && mount.dataset.viewerReady === "true") return;
 
-  renderPdfJsPreview(mount, path, mount.dataset.pdfTitle || state.pdfPreview.title);
+  preparePdfJsPreview(mount, path, mount.dataset.pdfTitle || state.pdfPreview.title);
 }
 
 async function loadPdfJsModule() {
@@ -1513,50 +1541,28 @@ async function loadPdfJsModule() {
   return pdfJsModulePromise;
 }
 
-async function renderPdfJsPreview(mount, path, title) {
+async function preparePdfJsPreview(mount, path, title) {
   state.pdfPreview.status = "rendering";
   mount.dataset.previewStarted = "true";
   mount.innerHTML = `<div class="pdf-frame-placeholder">PDF.js 미리보기를 불러오는 중입니다.</div>`;
 
   try {
+    if (state.pdfPreview.document && state.pdfPreview.path === path) {
+      mount.dataset.viewerReady = "true";
+      renderPdfViewerShell(mount);
+      await renderCurrentPdfPage(mount);
+      return;
+    }
+
     const pdfjs = await loadPdfJsModule();
     const pdf = await pdfjs.getDocument({ url: path }).promise;
-    const pageCount = Math.min(pdf.numPages, APP_CONFIG.pdfPreviewMaxPages);
-    const previewPages = document.createElement("div");
-    previewPages.className = "pdf-js-pages";
-
-    for (let pageNumber = 1; pageNumber <= pageCount; pageNumber += 1) {
-      const page = await pdf.getPage(pageNumber);
-      const baseViewport = page.getViewport({ scale: 1 });
-      const mountWidth = mount.clientWidth || 720;
-      const availableWidth = Math.max(240, Math.min(mountWidth - 40, 920));
-      const scale = availableWidth / baseViewport.width;
-      const viewport = page.getViewport({ scale });
-      const pixelRatio = window.devicePixelRatio || 1;
-      const canvas = document.createElement("canvas");
-      const pageWrap = document.createElement("div");
-      pageWrap.className = "pdf-js-page";
-      canvas.width = Math.floor(viewport.width * pixelRatio);
-      canvas.height = Math.floor(viewport.height * pixelRatio);
-      canvas.style.width = `${Math.floor(viewport.width)}px`;
-      canvas.style.height = `${Math.floor(viewport.height)}px`;
-      canvas.setAttribute("aria-label", `${title || "PDF"} ${pageNumber}쪽 미리보기`);
-      const context = canvas.getContext("2d");
-      context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-      await page.render({ canvasContext: context, viewport }).promise;
-      pageWrap.appendChild(canvas);
-      previewPages.appendChild(pageWrap);
-    }
-
-    mount.innerHTML = "";
-    mount.appendChild(previewPages);
-    if (pdf.numPages > pageCount) {
-      const note = document.createElement("p");
-      note.className = "pdf-js-note";
-      note.textContent = `미리보기는 처음 ${pageCount}쪽만 표시합니다. 전체 문서는 새 탭에서 열어 확인하세요.`;
-      mount.appendChild(note);
-    }
-    state.pdfPreview.status = "rendered";
+    state.pdfPreview.document = pdf;
+    state.pdfPreview.totalPages = pdf.numPages;
+    state.pdfPreview.currentPage = 1;
+    state.pdfPreview.title = title || state.pdfPreview.title;
+    mount.dataset.viewerReady = "true";
+    renderPdfViewerShell(mount);
+    await renderCurrentPdfPage(mount);
   } catch (error) {
     state.pdfPreview = {
       ...state.pdfPreview,
@@ -1565,10 +1571,120 @@ async function renderPdfJsPreview(mount, path, title) {
     };
     mount.innerHTML = `
       <div class="pdf-frame-placeholder is-error">
-        <p>PDF 미리보기를 불러오지 못했습니다. 새 탭에서 열기를 사용해주세요.</p>
+        <p>PDF 미리보기를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.</p>
         <p class="pdf-error-text">PDF.js 미리보기 로딩에 실패했습니다.</p>
       </div>
     `;
+  }
+}
+
+function renderPdfViewerShell(mount) {
+  mount.innerHTML = `
+    <div class="pdf-viewer-toolbar" aria-label="PDF 미리보기 조작">
+      <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="prev">이전</button>
+      <span class="pdf-page-status" data-pdf-page-status>1 / ${state.pdfPreview.totalPages || 1}쪽</span>
+      <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="next">다음</button>
+      <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="zoom-out">축소</button>
+      <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="zoom-in">확대</button>
+      <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="fit">폭맞춤</button>
+    </div>
+    <div class="pdf-js-page-stage" data-pdf-page-stage>
+      <div class="pdf-frame-placeholder">PDF 페이지를 불러오는 중입니다.</div>
+    </div>
+  `;
+  updatePdfViewerControls(mount);
+}
+
+function updatePdfViewerControls(mount) {
+  const { currentPage, totalPages, status } = state.pdfPreview;
+  const isBusy = status === "rendering";
+  const pageStatus = mount.querySelector("[data-pdf-page-status]");
+  if (pageStatus) pageStatus.textContent = `${currentPage || 1} / ${totalPages || 1}쪽`;
+
+  const prevButton = mount.querySelector('[data-pdf-viewer-action="prev"]');
+  const nextButton = mount.querySelector('[data-pdf-viewer-action="next"]');
+  const zoomOutButton = mount.querySelector('[data-pdf-viewer-action="zoom-out"]');
+  const zoomInButton = mount.querySelector('[data-pdf-viewer-action="zoom-in"]');
+  const fitButton = mount.querySelector('[data-pdf-viewer-action="fit"]');
+
+  if (prevButton) prevButton.disabled = isBusy || currentPage <= 1;
+  if (nextButton) nextButton.disabled = isBusy || currentPage >= totalPages;
+  if (zoomOutButton) zoomOutButton.disabled = isBusy || state.pdfPreview.scale <= 0.6;
+  if (zoomInButton) zoomInButton.disabled = isBusy || state.pdfPreview.scale >= 2.8;
+  if (fitButton) fitButton.disabled = isBusy || state.pdfPreview.fitToWidth;
+}
+
+async function handlePdfViewerAction(action) {
+  const mount = document.querySelector("[data-pdfjs-preview-mount]");
+  if (!mount || !state.pdfPreview.document) return;
+
+  const preview = state.pdfPreview;
+  if (action === "prev") {
+    preview.currentPage = Math.max(1, preview.currentPage - 1);
+  } else if (action === "next") {
+    preview.currentPage = Math.min(preview.totalPages, preview.currentPage + 1);
+  } else if (action === "zoom-in") {
+    preview.fitToWidth = false;
+    preview.scale = Math.min(2.8, Number((preview.scale + 0.2).toFixed(2)));
+  } else if (action === "zoom-out") {
+    preview.fitToWidth = false;
+    preview.scale = Math.max(0.6, Number((preview.scale - 0.2).toFixed(2)));
+  } else if (action === "fit") {
+    preview.fitToWidth = true;
+  }
+
+  await renderCurrentPdfPage(mount);
+}
+
+async function renderCurrentPdfPage(mount) {
+  const preview = state.pdfPreview;
+  const stage = mount.querySelector("[data-pdf-page-stage]");
+  if (!stage || !preview.document) return;
+
+  const renderToken = preview.renderToken + 1;
+  preview.renderToken = renderToken;
+  preview.status = "rendering";
+  updatePdfViewerControls(mount);
+  stage.innerHTML = `<div class="pdf-frame-placeholder">PDF 페이지를 불러오는 중입니다.</div>`;
+
+  try {
+    const page = await preview.document.getPage(preview.currentPage);
+    const baseViewport = page.getViewport({ scale: 1 });
+    const availableWidth = Math.max(240, (stage.clientWidth || mount.clientWidth || 720) - 32);
+    const scale = preview.fitToWidth ? availableWidth / baseViewport.width : preview.scale;
+    const viewport = page.getViewport({ scale });
+    const pixelRatio = window.devicePixelRatio || 1;
+    const canvas = document.createElement("canvas");
+    const pageWrap = document.createElement("div");
+    const context = canvas.getContext("2d");
+
+    if (preview.fitToWidth) preview.scale = scale;
+    pageWrap.className = "pdf-js-page";
+    canvas.width = Math.floor(viewport.width * pixelRatio);
+    canvas.height = Math.floor(viewport.height * pixelRatio);
+    canvas.style.width = `${Math.floor(viewport.width)}px`;
+    canvas.style.height = `${Math.floor(viewport.height)}px`;
+    canvas.setAttribute("aria-label", `${preview.title || "PDF"} ${preview.currentPage}쪽 미리보기`);
+    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+
+    await page.render({ canvasContext: context, viewport }).promise;
+    if (renderToken !== preview.renderToken) return;
+
+    pageWrap.appendChild(canvas);
+    stage.innerHTML = "";
+    stage.appendChild(pageWrap);
+    preview.status = "rendered";
+    updatePdfViewerControls(mount);
+  } catch (error) {
+    preview.status = "error";
+    preview.error = "PDF 페이지 렌더링에 실패했습니다.";
+    stage.innerHTML = `
+      <div class="pdf-frame-placeholder is-error">
+        <p>PDF 미리보기를 불러오지 못했습니다.</p>
+        <p class="pdf-error-text">잠시 후 다시 시도해주세요.</p>
+      </div>
+    `;
+    updatePdfViewerControls(mount);
   }
 }
 
