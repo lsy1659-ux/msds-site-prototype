@@ -3,24 +3,25 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MSDS 현장 조회</title>
+    <title>물질안전보건자료(MSDS) 안전정보 조회</title>
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <header class="site-header">
       <div class="header-inner">
-        <p class="eyebrow">QR 현장 안전정보</p>
-        <h1>MSDS 현장 조회</h1>
-        <p class="header-note">검색 후 선택한 제품의 현장 부착용 요약판과 상세 안전정보를 함께 확인합니다.</p>
+        <h1>물질안전보건자료(MSDS) 안전정보 조회</h1>
+        <p class="header-note">물질명, 제품명, 용도, CAS No.를 검색해 핵심 안전정보를 먼저 확인하고, <strong>화면 하단의 MSDS 원본자료를 반드시 확인하세요.</strong></p>
       </div>
     </header>
 
     <main class="app-shell">
+      <div id="currentSelection" class="current-selection">현재 선택 제품 확인 중</div>
+
       <section class="search-panel" aria-label="MSDS 검색">
         <div class="search-title-row">
           <div>
-            <label class="search-label" for="searchInput">현장 물질 검색</label>
-            <p class="search-help">예: 이형, 2차, S6, 신너, 도료, CAS No.</p>
+            <label class="search-label" for="searchInput">현장 안전정보 검색</label>
+            <p class="search-help">물질명, 제품명, 용도, CAS No.로 검색하세요.</p>
           </div>
           <div class="mode-badges">
             <span class="safety-badge">조회 전용</span>
@@ -43,27 +44,31 @@
         </div>
 
         <div id="emptySearchGuide" class="empty-search-guide">
-          <p>검색어가 없을 때는 아래 샘플 분류로 바로 선택할 수 있습니다.</p>
-          <div class="quick-search" aria-label="샘플 분류 검색">
-            <button type="button" data-query="이형제">이형제</button>
+          <p>검색 후 핵심 안전정보를 확인하고, 하단 MSDS 원본자료를 반드시 확인하세요.</p>
+          <div class="quick-search" aria-label="대표 분류 검색">
             <button type="button" data-query="신너">신너</button>
-            <button type="button" data-query="도료">도료</button>
-            <button type="button" data-query="세척제">세척제</button>
+            <button type="button" data-query="페인트">페인트</button>
+            <button type="button" data-query="원재료">원재료</button>
+            <button type="button" data-query="용접">용접</button>
+            <button type="button" data-action="show-all">전체 제품 보기</button>
           </div>
         </div>
-
-        <div id="currentSelection" class="current-selection">현재 선택 제품 확인 중</div>
 
         <div class="selection-panel" aria-labelledby="selectionTitle">
           <div class="selection-heading">
             <div>
               <h2 id="selectionTitle">제품 선택</h2>
-              <p id="resultSubtitle">검색어를 입력하거나 샘플 분류를 선택하세요.</p>
+              <p id="resultSubtitle">검색어를 입력하거나 대표 분류를 선택하세요.</p>
             </div>
             <span id="resultCount" class="result-count">0건</span>
           </div>
           <div id="selectionList" class="selection-list"></div>
         </div>
+      </section>
+
+      <section class="msds-required-banner" aria-label="MSDS 원본자료 필수 확인">
+        <strong>MSDS 원본자료 필수 확인</strong>
+        <span>상단 요약정보는 빠른 확인용입니다. 작업 전에는 화면 하단의 MSDS 원본자료 전체 내용을 반드시 확인하세요.</span>
       </section>
 
       <section class="board-layout" aria-label="MSDS 안전정보">
@@ -75,8 +80,8 @@
         <aside class="detail-section" aria-labelledby="detailTitle">
           <div class="section-heading">
             <div>
-              <h2 id="detailTitle">간략 상세정보</h2>
-              <p class="section-subtitle">선택한 제품의 실무 확인용 정보입니다.</p>
+              <h2 id="detailTitle">상세 안전정보</h2>
+              <p class="section-subtitle">제품 기본정보, 성분정보, 작업자 주의사항, MSDS 원본자료를 확인하세요.</p>
             </div>
           </div>
           <div id="detailPanel" class="detail-panel empty-detail">
