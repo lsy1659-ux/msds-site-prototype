@@ -2744,6 +2744,18 @@ function encodePdfPath(path) {
     .join("/");
 }
 
+function pdfPanelIconSvg(type) {
+  const icons = {
+    shield: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 2.7v5.8c0 4.2-2.7 8-7 9.5-4.3-1.5-7-5.3-7-9.5V5.7L12 3z"/><path d="m8.8 12.1 2.1 2.1 4.6-4.8"/></svg>`,
+    alert: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.3 4.2 2.8 17.1A2 2 0 0 0 4.5 20h15a2 2 0 0 0 1.7-2.9L13.7 4.2a2 2 0 0 0-3.4 0z"/><path d="M12 8v5"/><path d="M12 17h.01"/></svg>`,
+    check: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.3 2.4 2.4 5.6-5.8"/></svg>`,
+    document: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v5h5"/><path d="M9.5 12h5"/><path d="M9.5 16h5"/></svg>`,
+    eye: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"/><circle cx="12" cy="12" r="3"/></svg>`,
+    expand: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5"/><path d="M16 3h5v5"/><path d="M21 16v5h-5"/><path d="M3 16v5h5"/></svg>`
+  };
+  return icons[type] || icons.document;
+}
+
 function renderPdfPreview(pdfInfo) {
   if (pdfInfo.status === "no-file-name") {
     return `
@@ -2768,20 +2780,21 @@ function renderPdfPreview(pdfInfo) {
   }
 
   return `
-    <div class="pdf-preview is-connected">
-      <div class="pdf-required-callout">
-        <strong>MSDS 원본자료 필수 확인</strong>
-        <span>아래 미리보기에서 원본 MSDS 전체 내용을 확인하세요.</span>
+    <div class="pdf-preview is-connected pdf-confirm-panel">
+      <div class="pdf-confirm-alert">
+        <span class="pdf-confirm-alert-icon">${pdfPanelIconSvg("alert")}</span>
+        <div class="pdf-confirm-alert-copy">
+          <strong>작업 전 반드시 원본 MSDS 전체 내용을 확인하세요.</strong>
+          <span>요약 정보만으로는 모든 위험성과 안전조치 사항을 충분히 파악할 수 없습니다.</span>
+        </div>
+        <span class="pdf-confirm-alert-art">${pdfPanelIconSvg("document")}</span>
       </div>
-      <p class="pdf-message">PDF 파일이 연결되어 있습니다.</p>
-      <div class="info-item">
-        <span class="info-label">PDF 경로</span>
-        <span class="info-value">${escapeHtml(pdfInfo.displayPath)}</span>
+      <div class="pdf-viewer-shell">
+        ${renderPdfPreviewBody(pdfInfo)}
       </div>
-      ${renderPdfPreviewBody(pdfInfo)}
       <div class="pdf-actions">
-        <button class="pdf-preview-button" type="button" data-preview-pdf data-pdf-title="${escapeAttribute(pdfInfo.title)}" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}">PDF 미리보기</button>
-        <button class="pdf-preview-button is-secondary" type="button" data-pdf-full-view data-pdf-title="${escapeAttribute(pdfInfo.title)}" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}">원본자료 전체보기</button>
+        <button class="pdf-preview-button" type="button" data-preview-pdf data-pdf-title="${escapeAttribute(pdfInfo.title)}" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}"><span class="pdf-button-icon">${pdfPanelIconSvg("eye")}</span>PDF 미리보기</button>
+        <button class="pdf-preview-button is-secondary" type="button" data-pdf-full-view data-pdf-title="${escapeAttribute(pdfInfo.title)}" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}"><span class="pdf-button-icon">${pdfPanelIconSvg("expand")}</span>원본자료 전체보기</button>
       </div>
       ${state.pdfFullView.isOpen && state.pdfFullView.path === pdfInfo.encodedPath ? renderPdfFullView(pdfInfo) : ""}
     </div>
