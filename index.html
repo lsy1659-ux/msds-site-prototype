@@ -43,7 +43,26 @@
             autocomplete="off"
             autofocus
           >
+          <button class="search-button" id="runSearch" type="button">검색</button>
           <button class="clear-button" id="clearSearch" type="button">검색 초기화</button>
+        </div>
+
+        <div class="search-control-bar" aria-label="검색 결과 제어">
+          <button class="filter-toggle-button" id="toggleSearchFilters" type="button" aria-expanded="true">
+            검색 조건 닫기
+          </button>
+          <label class="sort-control">
+            <span>정렬</span>
+            <select id="resultSortMode" class="sort-select">
+              <option value="relevance">관련도순</option>
+              <option value="name">이름순</option>
+              <option value="supplier">업체명순</option>
+            </select>
+          </label>
+          <div class="view-toggle" role="group" aria-label="결과 보기 방식">
+            <button class="view-toggle-button is-active" type="button" data-view-mode="grid" aria-pressed="true" title="카드형 보기">▦</button>
+            <button class="view-toggle-button" type="button" data-view-mode="list" aria-pressed="false" title="리스트형 보기">☰</button>
+          </div>
         </div>
 
         <div id="emptySearchGuide" class="empty-search-guide">

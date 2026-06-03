@@ -378,6 +378,9 @@ const state = {
   resultOffset: 0,
   showAllResults: false,
   showFullList: false,
+  resultViewMode: "grid",
+  resultSortMode: "relevance",
+  searchFiltersOpen: true,
   showBackToFullList: false,
   fullListReturnY: 0,
   selectionCollapsed: false,
@@ -443,7 +446,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 function bindElements() {
   elements.searchInput = document.querySelector("#searchInput");
+  elements.runSearch = document.querySelector("#runSearch");
   elements.clearSearch = document.querySelector("#clearSearch");
+  elements.toggleSearchFilters = document.querySelector("#toggleSearchFilters");
+  elements.resultSortMode = document.querySelector("#resultSortMode");
+  elements.viewToggle = document.querySelector(".view-toggle");
   elements.resultCount = document.querySelector("#resultCount");
   elements.resultSubtitle = document.querySelector("#resultSubtitle");
   elements.selectionList = document.querySelector("#selectionList");
@@ -465,6 +472,34 @@ function bindEvents() {
     resetResultWindow();
     state.selectionCollapsed = false;
     updateSelectedProductForQuery();
+    render();
+  });
+
+  elements.runSearch?.addEventListener("click", () => {
+    state.query = elements.searchInput.value;
+    state.showFullList = false;
+    resetFullListNavigation();
+    resetResultWindow();
+    state.selectionCollapsed = false;
+    updateSelectedProductForQuery();
+    render();
+  });
+
+  elements.toggleSearchFilters?.addEventListener("click", () => {
+    state.searchFiltersOpen = !state.searchFiltersOpen;
+    render();
+  });
+
+  elements.resultSortMode?.addEventListener("change", (event) => {
+    state.resultSortMode = event.target.value;
+    resetResultWindow();
+    render();
+  });
+
+  elements.viewToggle?.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-view-mode]");
+    if (!button) return;
+    state.resultViewMode = button.dataset.viewMode === "list" ? "list" : "grid";
     render();
   });
 
@@ -1798,6 +1833,27 @@ function getFilteredProducts() {
   return rankProductsForQuery(state.products, queryInfo);
 }
 
+function getSortedSearchResults(results = []) {
+  if (state.resultSortMode === "name") {
+    return [...results].sort((a, b) => String(a.productName || "").localeCompare(String(b.productName || ""), "ko"));
+  }
+  if (state.resultSortMode === "supplier") {
+    return [...results].sort((a, b) => (
+      getDisplaySupplierName(a).localeCompare(getDisplaySupplierName(b), "ko")
+      || String(a.productName || "").localeCompare(String(b.productName || ""), "ko")
+    ));
+  }
+  return results;
+}
+
+function syncResultViewToggle() {
+  elements.viewToggle?.querySelectorAll("[data-view-mode]").forEach((button) => {
+    const isActive = button.dataset.viewMode === state.resultViewMode;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
+}
+
 function getSelectedProduct(results) {
   return results.find((product) => product.id === state.selectedId) || results[0] || null;
 }
@@ -1810,12 +1866,18 @@ function render() {
   const normalizedQuery = normalizeSearchText(state.query);
   const hasQuery = Boolean(normalizedQuery);
   const canShowCandidates = normalizedQuery.length >= APP_CONFIG.minSearchCharacters;
-  const results = hasQuery ? getFilteredProducts() : [];
+  const results = hasQuery ? getSortedSearchResults(getFilteredProducts()) : [];
   const selectedPool = canShowCandidates ? results : getAllSelectableProducts();
   const selected = getSelectedProduct(selectedPool);
   if (selected) state.selectedId = selected.id;
 
-  elements.emptySearchGuide.classList.toggle("is-hidden", Boolean(state.query.trim()));
+  elements.emptySearchGuide.classList.toggle("is-hidden", !state.searchFiltersOpen);
+  elements.toggleSearchFilters?.setAttribute("aria-expanded", String(state.searchFiltersOpen));
+  if (elements.toggleSearchFilters) {
+    elements.toggleSearchFilters.textContent = state.searchFiltersOpen ? "검색 조건 닫기" : "검색 조건 열기";
+  }
+  if (elements.resultSortMode) elements.resultSortMode.value = state.resultSortMode;
+  syncResultViewToggle();
   elements.selectionPanel.classList.toggle("is-collapsed", !hasQuery && !state.showFullList);
   elements.resultCount.textContent = state.showFullList ? `전체 MSDS ${getAllSelectableProducts().length}건` : (hasQuery ? `검색 결과 ${results.length}건` : "검색 전");
   elements.dataMode.textContent = state.dataMode;
@@ -1895,18 +1957,28 @@ function renderSelectionList(results, hasQuery, canShowCandidates) {
   const hasPrevious = !state.showAllResults && startIndex > 0;
   const hasNext = !state.showAllResults && endIndex < results.length;
   const hasMore = !state.showAllResults && state.resultLimit < results.length;
+  const viewModeClass = state.resultViewMode === "list" ? "is-list-view" : "is-grid-view";
+  const metaTextFor = (product) => [
+    product.category || product.useCategory,
+    getDisplaySupplierName(product)
+  ].filter(Boolean).join(" · ");
   elements.selectionList.innerHTML = `
-    <div class="result-range">
-      ${state.showAllResults
+    <div class="result-range ${viewModeClass}">
+      <span>${state.showAllResults
         ? `전체 ${results.length}건 표시 중`
-        : `현재 ${startIndex + 1}~${endIndex}건 표시 / 전체 ${results.length}건`}
+        : `현재 ${startIndex + 1}~${endIndex}건 표시 / 전체 ${results.length}건`}</span>
+      <span class="result-sort-label">${state.resultSortMode === "name" ? "이름순" : state.resultSortMode === "supplier" ? "업체명순" : "관련도순"}</span>
     </div>
-    <div class="selection-scroll">
+    <div class="selection-scroll ${viewModeClass}">
       ${visibleResults.map((product) => `
         <button class="selection-item ${product.id === state.selectedId ? "is-selected" : ""}" type="button" data-product-id="${escapeAttribute(product.id)}">
+          ${product.id === state.selectedId ? `<span class="selection-check" aria-hidden="true">✓</span>` : ""}
           <span class="selection-name text-break clamp-2">${escapeHtml(product.productName)}</span>
-          <span class="selection-meta text-muted-path clamp-2">${escapeHtml([product.useCategory, getDisplaySupplierName(product)].filter(Boolean).join(" · "))}</span>
-          ${product.__searchReason ? `<span class="selection-match-reason">${escapeHtml(product.__searchReason)}</span>` : ""}
+          <span class="selection-meta text-muted-path clamp-2">${escapeHtml(metaTextFor(product))}</span>
+          <span class="selection-card-footer">
+            ${product.__searchReason ? `<span class="selection-match-reason">${escapeHtml(product.__searchReason)}</span>` : ""}
+            <span class="selection-action-chip">MSDS 보기</span>
+          </span>
         </button>
       `).join("")}
     </div>
@@ -1962,20 +2034,21 @@ function renderSelectionList(results, hasQuery, canShowCandidates) {
 function renderFullProductList() {
   const allProducts = getAllSelectableProducts();
   const groups = buildProductGroups(allProducts);
+  const viewModeClass = state.resultViewMode === "list" ? "is-list-view" : "is-grid-view";
   elements.selectionList.innerHTML = `
-    <div class="full-list-panel">
+    <div class="full-list-panel ${viewModeClass}">
       <div class="full-list-summary">
         <strong>전체 MSDS 보기</strong>
-        <span>업체별 MSDS ${allProducts.length}개 표시 중</span>
+        <span>업체별 MSDS ${allProducts.length}개 표시 중 · ${state.resultViewMode === "list" ? "리스트형 보기" : "카드형 보기"}</span>
       </div>
-      <div class="full-product-groups">
+      <div class="full-product-groups ${viewModeClass}">
         ${groups.map((group) => `
           <section class="product-company-group">
             <header class="product-company-header">
               <h3>${escapeHtml(group.name)}</h3>
               <span>${group.products.length}개 제품</span>
             </header>
-            <div class="product-company-list">
+            <div class="product-company-list ${viewModeClass}">
               ${group.products.map((product, index) => renderFullProductItem(product, index)).join("")}
             </div>
           </section>
@@ -2046,6 +2119,7 @@ function renderFullProductItem(product, index) {
 
   return `
     <div class="full-product-item ${isPdfBased ? "is-pdf-based" : ""} ${product.id === state.selectedId ? "is-selected" : ""}" role="button" tabindex="0" data-product-id="${escapeAttribute(product.id)}">
+      ${product.id === state.selectedId ? `<span class="full-product-check" aria-hidden="true">✓</span>` : ""}
       <span class="full-product-number">${index + 1}</span>
       <span class="full-product-main">
         <strong title="${escapeAttribute(product.productName)}">${escapeHtml(product.productName || "제품명 미확인")}</strong>
@@ -2055,7 +2129,7 @@ function renderFullProductItem(product, index) {
         <span class="full-risk-badge">${escapeHtml(product.hazardBadge || "확인")}</span>
         <span class="full-pdf-badge ${pdfInfo.status === "connected" ? "is-connected" : ""}">${pdfLabel}</span>
       </span>
-      <button class="full-detail-button" type="button" data-view-detail data-product-id="${escapeAttribute(product.id)}">상세정보 보기</button>
+      <button class="full-detail-button" type="button" data-view-detail data-product-id="${escapeAttribute(product.id)}">MSDS 보기</button>
     </div>
   `;
 }
