@@ -2405,7 +2405,7 @@ function renderDetail(product) {
         ${renderPrecautions(detailData.precautionaryStatements)}
         ${detailData.ppeCandidates.length ? `<h4 class="detail-subheading">PPE 및 보호구</h4>${renderDetailList(detailData.ppeCandidates)}` : ""}
       ` : ""}
-    `)}
+    `, "detail-block-worker-caution")}
 
     ${detailSection("MSDS 원본자료 필수 확인", `
       ${renderPdfPreview(pdfInfo)}

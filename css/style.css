@@ -5814,6 +5814,208 @@ body {
   hyphens: none;
 }
 
+.worker-caution-premium {
+  display: grid;
+  gap: 22px;
+}
+
+.worker-caution-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #cfe7df;
+}
+
+.worker-caution-header-icon,
+.worker-caution-card-icon,
+.worker-caution-banner-icon {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  color: #087149;
+}
+
+.worker-caution-header-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 18px;
+  background: #e5f7ef;
+}
+
+.worker-caution-header svg,
+.worker-caution-card-icon svg,
+.worker-caution-banner svg,
+.worker-caution-card-watermark svg {
+  width: 25px;
+  height: 25px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.15;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.worker-caution-header h4 {
+  margin: 0 0 4px;
+  color: #102622;
+  font-size: clamp(1.28rem, 1.6vw, 1.65rem);
+  font-weight: 1000;
+  letter-spacing: 0;
+}
+
+.worker-caution-header p {
+  margin: 0;
+  color: #63756f;
+  font-size: 0.95rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.worker-caution-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.worker-caution-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 260px;
+  padding: 20px 20px 46px;
+  border: 1px solid #dbe8e4;
+  border-radius: 22px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(249, 253, 251, 0.94));
+  box-shadow: 0 16px 38px rgba(18, 45, 39, 0.08);
+}
+
+.worker-caution-card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #d7e8e3;
+}
+
+.worker-caution-card-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #e5f7ef;
+}
+
+.worker-caution-card-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.worker-caution-card h5 {
+  margin: 0;
+  color: #152a25;
+  font-size: 1rem;
+  font-weight: 950;
+  line-height: 1.35;
+  word-break: keep-all;
+}
+
+.worker-caution-card .worker-caution-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.worker-caution-card .worker-caution-list li {
+  position: relative;
+  margin: 0;
+  padding-left: 18px;
+  color: #263833;
+  font-size: 0.92rem;
+  font-weight: 650;
+  line-height: 1.62;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.worker-caution-card .worker-caution-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #087149;
+  box-shadow: 0 0 0 3px rgba(8, 113, 73, 0.08);
+}
+
+.worker-caution-card-watermark {
+  position: absolute;
+  right: 22px;
+  bottom: 16px;
+  color: rgba(8, 113, 73, 0.12);
+}
+
+.worker-caution-card-watermark svg {
+  width: 34px;
+  height: 34px;
+}
+
+.worker-caution-banner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  overflow: hidden;
+  padding: 16px 18px;
+  border: 1px solid #b9dcd4;
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(235, 250, 245, 0.98), rgba(252, 255, 254, 0.96));
+}
+
+.worker-caution-banner-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #0a805f;
+  color: #ffffff;
+}
+
+.worker-caution-banner-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.worker-caution-banner p {
+  display: grid;
+  gap: 3px;
+  margin: 0;
+  color: #5d706a;
+  font-size: 0.9rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.worker-caution-banner strong {
+  color: #087149;
+  font-weight: 950;
+}
+
+.worker-caution-banner-art {
+  color: rgba(8, 113, 73, 0.14);
+  transform: translate(4px, 10px);
+}
+
+.worker-caution-banner-art svg {
+  width: 72px;
+  height: 72px;
+}
+
 .info-value.is-empty {
   color: #a4b2ae;
   font-weight: 750;
@@ -5872,8 +6074,24 @@ body {
   color: #9d2b14;
 }
 
+.detail-block-worker-caution > .detail-block-heading {
+  display: none;
+}
+
+.detail-block-worker-caution {
+  padding-top: clamp(20px, 2vw, 24px);
+}
+
+.detail-block-worker-caution .worker-caution-premium {
+  margin-top: 0;
+}
+
 @media (max-width: 1199px) {
   .detail-info-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .worker-caution-card-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -5947,6 +6165,94 @@ body {
 
   .detail-block h3 {
     font-size: 1.08rem;
+  }
+
+  .worker-caution-premium {
+    gap: 16px;
+  }
+
+  .worker-caution-header {
+    align-items: flex-start;
+    gap: 12px;
+    padding-bottom: 14px;
+  }
+
+  .worker-caution-header-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+  }
+
+  .worker-caution-header svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .worker-caution-header h4 {
+    font-size: 1.18rem;
+  }
+
+  .worker-caution-header p {
+    font-size: 0.86rem;
+  }
+
+  .worker-caution-card-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .worker-caution-card {
+    min-height: 0;
+    padding: 16px 16px 38px;
+    border-radius: 18px;
+  }
+
+  .worker-caution-card-head {
+    gap: 10px;
+    margin-bottom: 13px;
+    padding-bottom: 11px;
+  }
+
+  .worker-caution-card-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .worker-caution-card-icon svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .worker-caution-card h5 {
+    font-size: 0.96rem;
+  }
+
+  .worker-caution-card .worker-caution-list {
+    gap: 9px;
+  }
+
+  .worker-caution-card .worker-caution-list li {
+    font-size: 0.86rem;
+    line-height: 1.56;
+  }
+
+  .worker-caution-banner {
+    grid-template-columns: 34px minmax(0, 1fr);
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .worker-caution-banner-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .worker-caution-banner p {
+    font-size: 0.82rem;
+  }
+
+  .worker-caution-banner-art {
+    display: none;
   }
 
   .detail-info-grid {
