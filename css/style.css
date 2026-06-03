@@ -3610,3 +3610,122 @@ body.is-pdf-full-view-open {
     grid-template-columns: repeat(2, minmax(78px, 1fr));
   }
 }
+
+/* Korean copy wrapping cleanup */
+.header-note,
+.search-help,
+.empty-search-guide p,
+.selection-heading p,
+.msds-required-banner strong,
+.msds-required-banner span,
+.poster-product-row h2,
+.poster-block h3,
+.poster-list li,
+.detail-block h3,
+.detail-subheading,
+.info-label,
+.info-value,
+.summary-note,
+.worker-caution-outside-title,
+.worker-caution-subtitle,
+.worker-caution-group h5,
+.worker-caution-list li,
+.full-product-main strong,
+.full-product-main span,
+.pdf-preview-card,
+.pdf-preview-card p {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-break: strict;
+}
+
+.header-note,
+.msds-required-banner span,
+.search-help,
+.empty-search-guide p {
+  text-wrap: pretty;
+}
+
+.info-value {
+  line-height: 1.48;
+  overflow-wrap: break-word;
+}
+
+.worker-caution-subtitle {
+  line-height: 1.55;
+}
+
+.worker-caution-list {
+  gap: 10px;
+}
+
+.worker-caution-list li {
+  line-height: 1.62;
+  padding-left: 20px;
+}
+
+.component-table th,
+.component-table td {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-height: 1.48;
+}
+
+.component-table th:nth-child(2),
+.component-table td:nth-child(2) {
+  white-space: nowrap;
+}
+
+.text-muted-path,
+.pdf-path,
+.full-product-path {
+  word-break: normal;
+  overflow-wrap: anywhere;
+  line-break: auto;
+}
+
+@media (min-width: 900px) {
+  .header-note {
+    max-width: 58rem;
+  }
+
+  .worker-caution-list li,
+  .poster-list li {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 679px) {
+  .header-note,
+  .msds-required-banner span,
+  .search-help,
+  .empty-search-guide p,
+  .worker-caution-subtitle,
+  .worker-caution-list li,
+  .info-value {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  .worker-caution-list {
+    gap: 8px;
+  }
+
+  .worker-caution-list li {
+    line-height: 1.56;
+    padding-left: 18px;
+  }
+
+  .worker-caution-category {
+    padding: 14px;
+  }
+
+  .detail-block {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .info-grid {
+    gap: 10px;
+  }
+}

@@ -1926,25 +1926,25 @@ function buildWorkerCautionPoints(product, detailData) {
     componentText
   ].join(" "));
 
-  addCautionIf(groups.work, text, ["인화", "가연", "화재", "스파크", "화염", "flam", "fire"], "화기, 스파크, 고온 표면 근처에서 사용하지 말고 점화원을 관리하세요.");
-  addCautionIf(groups.work, text, ["분사", "도포", "혼합", "미스트", "mist"], "분사, 도포, 혼합 작업 시 증기나 미스트 발생 여부를 확인하세요.");
-  addCautionIf(groups.work, text, ["고압가스", "gas", "cylinder"], "고압가스 용기는 충격과 고온 노출을 피하고 고정 상태를 확인하세요.");
+  addCautionIf(groups.work, text, ["인화", "가연", "화재", "스파크", "화염", "flam", "fire"], "화기·스파크·고온 표면을 피하고 점화원을 관리하세요.");
+  addCautionIf(groups.work, text, ["분사", "도포", "혼합", "미스트", "mist"], "분사·도포·혼합 작업 시 증기나 미스트 발생을 확인하세요.");
+  addCautionIf(groups.work, text, ["고압가스", "gas", "cylinder"], "고압가스 용기는 충격과 고온 노출을 피하고 고정하세요.");
 
   addCautionIf(groups.ppe, text, ["보안경", "보호장갑", "호흡보호구", "보호구", "ppe", "goggle", "glove", "respir"], "작업 전 지정된 보호구 착용 상태를 확인하세요.");
-  addCautionIf(groups.ppe, text, ["눈", "피부", "자극", "부식", "corros", "irrit"], "눈과 피부 접촉을 피하고 보안경과 보호장갑을 착용하세요.");
-  addCautionIf(groups.ppe, text, ["호흡", "흡입", "유기용제", "용제", "vapor", "respir"], "필요 시 유기용제용 호흡보호구 착용을 검토하세요.");
+  addCautionIf(groups.ppe, text, ["눈", "피부", "자극", "부식", "corros", "irrit"], "눈·피부 접촉을 피하고 보안경과 보호장갑을 착용하세요.");
+  addCautionIf(groups.ppe, text, ["호흡", "흡입", "유기용제", "용제", "vapor", "respir"], "필요 시 유기용제용 호흡보호구를 착용하세요.");
 
-  addCautionIf(groups.ventilation, text, ["증기", "미스트", "분진", "흡입", "호흡", "환기", "국소배기", "vapor", "mist", "dust", "inhal"], "작업장은 충분히 환기하고 필요 시 국소배기 상태를 확인하세요.");
+  addCautionIf(groups.ventilation, text, ["증기", "미스트", "분진", "흡입", "호흡", "환기", "국소배기", "vapor", "mist", "dust", "inhal"], "작업장을 충분히 환기하고 국소배기 상태를 확인하세요.");
   addCautionIf(groups.ventilation, text, ["톨루엔", "자일렌", "mibk", "butylacetate", "nbutylacetate", "ethylbenzene", "에틸벤젠", "부틸아세테이트", "유기용제", "용제"], "유기용제 증기 노출을 줄이고 장시간 흡입을 피하세요.");
-  addCautionIf(groups.ventilation, text, ["반복노출", "장기간", "신체손상", "노출"], "반복 노출 가능성이 있는 작업은 작업시간과 환기 상태를 함께 확인하세요.");
+  addCautionIf(groups.ventilation, text, ["반복노출", "장기간", "신체손상", "노출"], "반복 노출 작업은 작업시간과 환기 상태를 함께 확인하세요.");
 
-  addCautionIf(groups.fireStorage, text, ["제4류", "위험물", "인화성액체", "flammableliquid"], "위험물 보관 기준에 맞게 관리하고 주변 점화원을 제거하세요.");
+  addCautionIf(groups.fireStorage, text, ["제4류", "위험물", "인화성액체", "flammableliquid"], "위험물 보관 기준을 지키고 주변 점화원을 제거하세요.");
   addCautionIf(groups.fireStorage, text, ["인화", "고온", "직사광선", "화기", "보관", "storage"], "인화성 물질은 고온, 직사광선, 화기 근처에 보관하지 마세요.");
-  addCautionIf(groups.fireStorage, text, ["밀폐", "용기", "폐기", "disposal"], "사용 후 용기는 밀폐하고 지정 보관장소에 보관하세요.");
+  addCautionIf(groups.fireStorage, text, ["밀폐", "용기", "폐기", "disposal"], "사용 후 용기는 밀폐하여 지정 장소에 보관하세요.");
 
   addCautionIf(groups.legal, text, ["관리대상", "작업환경측정", "특수건강진단"], "관리대상 유해물질 여부를 확인하세요.");
   addCautionIf(groups.legal, text, ["작업환경측정", "특수건강진단"], "작업환경측정 및 특수건강진단 대상 여부를 확인하세요.");
-  addCautionIf(groups.legal, text, ["cas", "casno", "관리대상", "성분"], "성분정보와 CAS No. 기준으로 관리대상 여부를 확인하세요.");
+  addCautionIf(groups.legal, text, ["cas", "casno", "관리대상", "성분"], "성분정보와 CAS No.로 관리대상 여부를 확인하세요.");
 
   const totalCount = Object.values(groups).reduce((sum, items) => sum + items.length, 0);
   if (!totalCount) {
@@ -1982,7 +1982,7 @@ function renderWorkerCautionPoints(cautionData) {
     <div class="worker-caution-wrap">
       <h4 class="worker-caution-outside-title">현장 작업 중 주의사항</h4>
       <div class="worker-caution-box">
-        <p class="worker-caution-subtitle">MSDS 및 성분정보를 바탕으로 정리한 참고용 안내입니다.</p>
+        <p class="worker-caution-subtitle">MSDS와 성분정보 기준의 현장 참고 안내입니다.</p>
         ${sections.length ? `
         <div class="worker-caution-categories">
           ${sections.map((section) => `
