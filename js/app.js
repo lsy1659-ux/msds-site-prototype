@@ -370,6 +370,28 @@ const PRECAUTION_LABELS = {
   disposal: "폐기"
 };
 
+const PRECAUTION_CODE_GROUPS = {
+  prevention: new Set([
+    "P201", "P202", "P203", "P210", "P211", "P220", "P221", "P222", "P223", "P230",
+    "P231", "P232", "P233", "P234", "P235", "P240", "P241", "P242", "P243", "P244",
+    "P250", "P251", "P260", "P261", "P262", "P263", "P264", "P270", "P271", "P272",
+    "P273", "P280", "P281", "P282", "P283", "P284", "P285"
+  ]),
+  response: new Set([
+    "P301", "P302", "P303", "P304", "P305", "P306", "P307", "P308", "P309", "P310",
+    "P311", "P312", "P313", "P314", "P315", "P320", "P321", "P322", "P330", "P331",
+    "P332", "P333", "P334", "P335", "P336", "P337", "P338", "P340", "P341", "P342",
+    "P350", "P351", "P352", "P353", "P360", "P361", "P362", "P363", "P370", "P371",
+    "P372", "P373", "P374", "P375", "P376", "P377", "P378", "P380", "P381", "P390",
+    "P391"
+  ]),
+  storage: new Set([
+    "P401", "P402", "P403", "P404", "P405", "P406", "P407", "P410", "P411", "P412",
+    "P413", "P420", "P422"
+  ]),
+  disposal: new Set(["P501", "P502"])
+};
+
 const state = {
   products: [],
   selectedId: null,
@@ -2170,15 +2192,18 @@ function renderPoster(product) {
       </div>
     ` : ""}
     <div class="poster-product-row">
-      <h2 title="${escapeAttribute(product.productName)}">${escapeHtml(product.productName)}</h2>
+      <div class="poster-product-title">
+        <h2 title="${escapeAttribute(product.productName)}">${escapeHtml(product.productName)}</h2>
+        ${product.fileName ? `<p title="${escapeAttribute(product.fileName)}">${escapeHtml(product.fileName)}</p>` : ""}
+      </div>
       <span class="hazard-badge">${escapeHtml(posterData.hazardBadge)}</span>
     </div>
     <div class="poster-ghs-row">
       ${renderGhsListFromItems(posterData.ghsPictograms, "poster", hasLinkedPdf(product))}
     </div>
-    ${posterSection(posterData.hazardTitle, renderBulletList(posterData.hazardStatements, posterData.isCandidate), "poster-hazard-statements")}
-    ${posterSection(posterData.precautionTitle, renderPrecautions(posterData.precautionaryStatements, posterData.isCandidate), "poster-precaution-statements")}
-    ${posterData.ppeCandidates.length ? posterSection(posterData.ppeTitle, renderBulletList(posterData.ppeCandidates, posterData.isCandidate), "poster-ppe-candidates") : ""}
+    ${posterSection(posterData.hazardTitle, renderSafetyStatementList(posterData.hazardStatements, "H", posterData.isCandidate), "poster-hazard-statements")}
+    ${posterSection(posterData.precautionTitle, renderPrecautionCards(posterData.precautionaryStatements, posterData.isCandidate), "poster-precaution-statements")}
+    ${posterData.ppeCandidates.length ? posterSection(posterData.ppeTitle, renderPpeCards(posterData.ppeCandidates), "poster-ppe-candidates") : ""}
     <footer class="poster-footer">
       ${posterData.footerNotice.map((notice) => `<p>${escapeHtml(notice)}</p>`).join("")}
       <p>공급자 정보: ${escapeHtml(getDisplaySupplierName(product))}</p>
@@ -2204,7 +2229,7 @@ function getPosterData(product) {
       ghsPictograms,
       hazardStatements: override.hazardStatements || [],
       precautionaryStatements: override.precautionaryStatements || {},
-      ppeCandidates: limitList(override.ppeCandidates || [], 5),
+      ppeCandidates: limitList(buildPpeDisplayItems(override.ppeCandidates, product.ppeSummary), 6),
       ppeTitle: "PPE 및 보호구",
       hazardTitle: "유해 위험 문구",
       precautionTitle: "예방조치 문구",
@@ -2230,7 +2255,7 @@ function getPosterData(product) {
     ghsPictograms: normalizeGhsList(product),
     hazardStatements: product.hazardStatements || [],
     precautionaryStatements: product.precautionaryStatements || {},
-    ppeCandidates: [],
+    ppeCandidates: buildPpeDisplayItems([], product.ppeSummary),
     ppeTitle: "PPE 및 보호구",
     hazardTitle: "유해 위험 문구",
     precautionTitle: "예방조치 문구",
@@ -3151,6 +3176,63 @@ function renderBulletList(items, isCandidate = false) {
   return `<ul class="poster-list ${isCandidate ? "is-candidate" : ""}">${displayItems.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
 }
 
+function renderSafetyStatementList(items, codePrefix = "H", isCandidate = false) {
+  const displayItems = normalizeSafetyStatementItems(items, codePrefix);
+  if (!displayItems.length) return `<p class="empty-text">등록된 문구가 없습니다.</p>`;
+  const parsedItems = displayItems.map((item) => parseSafetyStatement(item, codePrefix));
+  const visibleItems = parsedItems.slice(0, 5);
+  const hiddenItems = parsedItems.slice(5);
+  return `
+    <div class="safety-statement-list ${isCandidate ? "is-candidate" : ""}">
+      ${visibleItems.map(renderSafetyStatementItem).join("")}
+      ${hiddenItems.length ? `
+        <details class="safety-more">
+          <summary>
+            <span class="more-label">전체 보기 (${parsedItems.length})</span>
+            <span class="less-label">접기</span>
+          </summary>
+          <div class="safety-more-list">
+            ${hiddenItems.map(renderSafetyStatementItem).join("")}
+          </div>
+        </details>
+      ` : ""}
+    </div>
+  `;
+}
+
+function renderSafetyStatementItem(item) {
+  const hasCode = Boolean(item.code);
+  return `
+    <div class="safety-statement-item ${hasCode ? "has-code" : "is-code-missing"}">
+      ${hasCode ? `<span class="safety-code-badge">${escapeHtml(item.code)}</span>` : ""}
+      <span class="safety-statement-text">${escapeHtml(item.text || item.raw)}</span>
+    </div>
+  `;
+}
+
+function parseSafetyStatement(value, codePrefix = "H") {
+  const raw = formatDisplayText(value);
+  const pattern = codePrefix === "P"
+    ? /^((?:P\d{3}(?:\+P?\d{3})*)(?:\s*,\s*(?:P\d{3}(?:\+P?\d{3})*))*)\s*(.*)$/i
+    : /^((?:H\d{3}(?:\+H?\d{3})*)(?:\s*,\s*(?:H\d{3}(?:\+H?\d{3})*))*)\s*(.*)$/i;
+  const match = raw.match(pattern);
+  if (!match) {
+    const inlinePattern = codePrefix === "P"
+      ? /((?:P\d{3}(?:\+P?\d{3})*)(?:\s*,\s*(?:P\d{3}(?:\+P?\d{3})*))*)/i
+      : /((?:H\d{3}(?:\+H?\d{3})*)(?:\s*,\s*(?:H\d{3}(?:\+H?\d{3})*))*)/i;
+    const inlineMatch = raw.match(inlinePattern);
+    if (!inlineMatch) return { code: "", text: raw, raw };
+    const code = inlineMatch[1].replace(/\s+/g, "");
+    const text = cleanSafetyStatementText(raw.replace(inlineMatch[1], "").replace(/^(예방|대응|저장|폐기)\s*[:：-]?\s*/i, ""));
+    return { code, text: text || raw, raw };
+  }
+  return {
+    code: match[1].replace(/\s+/g, ""),
+    text: cleanSafetyStatementText(match[2] || raw.replace(match[1], "")),
+    raw
+  };
+}
+
 function renderDetailList(items) {
   const displayItems = normalizeDisplayItems(items);
   if (!displayItems.length) return `<p class="summary-note">정보 없음</p>`;
@@ -3175,6 +3257,252 @@ function renderPrecautions(precautions, isCandidate = false) {
   }).join("");
 
   return groups || `<p class="empty-text">등록된 예방조치 문구가 없습니다.</p>`;
+}
+
+function renderPrecautionCards(precautions, isCandidate = false) {
+  const normalizedGroups = groupPrecautionStatements(precautions);
+  const groups = Object.entries(PRECAUTION_LABELS).map(([key, label]) => {
+    const items = normalizedGroups[key] || [];
+    if (!items.length) return "";
+    const visibleItems = items.slice(0, 5);
+    const hiddenItems = items.slice(5);
+    return `
+      <article class="precaution-card ${isCandidate ? "is-candidate" : ""}">
+        <div class="precaution-card-head">
+          <span class="precaution-mark" aria-hidden="true"></span>
+          <div class="precaution-summary-text">
+            <strong>${escapeHtml(label)}</strong>
+            <span class="precaution-description">${escapeHtml(getPrecautionDescription(key))}</span>
+          </div>
+          <span class="precaution-count">${items.length}개</span>
+        </div>
+        <div class="precaution-card-body">
+          ${visibleItems.map(renderSafetyStatementItem).join("")}
+          ${hiddenItems.length ? `
+            <details class="safety-more precaution-more">
+              <summary>
+                <span class="more-label">더보기 (${hiddenItems.length}개)</span>
+                <span class="less-label">접기</span>
+              </summary>
+              <div class="safety-more-list">
+                ${hiddenItems.map(renderSafetyStatementItem).join("")}
+              </div>
+            </details>
+          ` : ""}
+        </div>
+      </article>
+    `;
+  }).join("");
+
+  return groups ? `<div class="precaution-card-list">${groups}</div>` : `<p class="empty-text">원본 MSDS 예방조치 항목을 확인하세요.</p>`;
+}
+
+function groupPrecautionStatements(precautions = {}) {
+  const groups = { prevention: [], response: [], storage: [], disposal: [] };
+  Object.entries(precautions || {}).forEach(([key, values]) => {
+    normalizePrecautionItems(Array.isArray(values) ? values : []).forEach((value) => {
+      const parsed = parseSafetyStatement(value, "P");
+      const groupKey = getPrecautionGroupKey(parsed.code, parsed.text) || getPrecautionGroupByText(parsed.text) || key;
+      if (!groups[groupKey]) groups[groupKey] = [];
+      if (!groups[groupKey].some((item) => normalizeSearchText(item.raw) === normalizeSearchText(parsed.raw))) {
+        groups[groupKey].push(parsed);
+      }
+    });
+  });
+  return groups;
+}
+
+function normalizePrecautionItems(values = []) {
+  return values
+    .flatMap(splitPrecautionItem)
+    .map(formatDisplayText)
+    .filter(Boolean);
+}
+
+function normalizeSafetyStatementItems(items = [], codePrefix = "H") {
+  return normalizeDisplayItems(items)
+    .flatMap((item) => splitSafetyCodesInText(item, codePrefix))
+    .map(formatDisplayText)
+    .filter(Boolean);
+}
+
+function splitPrecautionItem(value) {
+  const rawText = String(value || "").replace(/\r/g, "\n").trim();
+  if (!rawText) return [];
+  const parts = rawText
+    .split(/\s*(?:\n+|[;；]|ㆍ|•)\s*/g)
+    .map(formatDisplayText)
+    .filter(Boolean);
+  const sourceParts = parts.length > 1 ? parts : [formatDisplayText(rawText)];
+  return sourceParts.flatMap(splitPrecautionCodesInText);
+}
+
+function splitPrecautionCodesInText(text = "") {
+  return splitSafetyCodesInText(text, "P");
+}
+
+function splitSafetyCodesInText(text = "", codePrefix = "H") {
+  const source = formatDisplayText(text);
+  const pattern = codePrefix === "P" ? /P\d{3}(?:\+P?\d{3})*/gi : /H\d{3}(?:\+H?\d{3})*/gi;
+  const codeMatches = [...source.matchAll(pattern)];
+  if (codeMatches.length <= 1) return [source];
+  return codeMatches.map((match, index) => {
+    const start = match.index;
+    const end = index + 1 < codeMatches.length ? codeMatches[index + 1].index : source.length;
+    const segment = source.slice(start, end);
+    return formatDisplayText(segment);
+  }).filter(Boolean);
+}
+
+function cleanSafetyStatementText(value = "") {
+  return formatDisplayText(value)
+    .replace(/^(?:[-–—•·*]\s*)+/g, "")
+    .replace(/^(?:[:：]\s*)+/g, "")
+    .replace(/^(예방|대응|저장|폐기)\s*[:：-]?\s*/i, "")
+    .replace(/^(?:[-–—•·*]\s*)+/g, "")
+    .trim();
+}
+
+function getPrecautionGroupKey(code = "", text = "") {
+  const codes = [...String(code || "").matchAll(/P(\d{3})/gi)].map((match) => `P${match[1]}`);
+  if (!codes.length) return "";
+  if (codes.some((item) => PRECAUTION_CODE_GROUPS.storage.has(item))) return "storage";
+  if (codes.some((item) => PRECAUTION_CODE_GROUPS.disposal.has(item))) return "disposal";
+  if (codes.some((item) => PRECAUTION_CODE_GROUPS.response.has(item))) return "response";
+  if (codes.some((item) => PRECAUTION_CODE_GROUPS.prevention.has(item))) return "prevention";
+  const textGroup = getPrecautionGroupByText(text);
+  if (textGroup) return textGroup;
+  const digits = codes.map((item) => item[1]);
+  if (digits.includes("4")) return "storage";
+  if (digits.includes("5")) return "disposal";
+  if (digits.includes("3")) return "response";
+  if (digits.includes("2")) return "prevention";
+  return "";
+}
+
+function getPrecautionGroupByText(text = "") {
+  const normalized = normalizeSearchText(text);
+  if (!normalized) return "";
+  if (["폐기", "폐기물", "법령에따라"].some((keyword) => normalized.includes(normalizeSearchText(keyword)))) return "disposal";
+  if (["보관", "저장", "잠금", "환기가잘되는곳", "저온"].some((keyword) => normalized.includes(normalizeSearchText(keyword)))) return "storage";
+  if (["삼켰", "흡입", "접촉", "노출", "화재", "불을끄", "의료", "응급", "씻", "오염된의복"].some((keyword) => normalized.includes(normalizeSearchText(keyword)))) return "response";
+  if (["사용전", "취급", "멀리하", "금연", "보호", "환기", "방폭", "정전기", "흡입을피"].some((keyword) => normalized.includes(normalizeSearchText(keyword)))) return "prevention";
+  return "";
+}
+
+function getPrecautionDescription(key) {
+  return {
+    prevention: "작업 전 미리 방지해야 할 조치",
+    response: "노출·화재·사고 발생 시 즉시 해야 할 조치",
+    storage: "보관 시 지켜야 할 사항",
+    disposal: "폐기 시 지켜야 할 사항"
+  }[key] || "원본 MSDS 기준 조치사항";
+}
+
+function buildPpeDisplayItems(candidates = [], summary = "") {
+  const values = [...normalizeDisplayItems(candidates)];
+  const source = normalizeSearchText([summary, values.join(" ")].join(" "));
+  const add = (label, keywords) => {
+    if (keywords.some((keyword) => source.includes(normalizeSearchText(keyword))) && !values.some((value) => normalizeSearchText(value).includes(normalizeSearchText(label)))) {
+      values.push(label);
+    }
+  };
+  add("보안경", ["보안경", "고글", "눈 보호", "goggle", "safetyglasses"]);
+  add("보호장갑", ["보호장갑", "장갑", "glove"]);
+  add("방독마스크", ["방독마스크", "호흡보호구", "마스크", "respir", "mask"]);
+  add("보호복", ["보호복", "보호의", "앞치마", "apron", "protectiveclothing"]);
+  add("안전화", ["안전화", "안전장화", "boots", "safetyshoes"]);
+  return [...new Set(values)].slice(0, 6);
+}
+
+function renderPpeCards(items = []) {
+  const displayItems = buildPpeDisplayItems(items);
+  if (!displayItems.length) return `<p class="empty-text">등록된 보호구 정보가 없습니다.</p>`;
+  return `
+    <div class="ppe-card-grid">
+      ${displayItems.map((item) => `
+        <div class="ppe-card">
+          ${renderPpeSign(item)}
+          <span class="ppe-name">${escapeHtml(getPpeLabel(item))}</span>
+          <span class="ppe-purpose">${escapeHtml(getPpePurpose(item))}</span>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderPpeSign(value = "") {
+  const type = getPpeType(value);
+  const icons = {
+    goggles: `
+      <svg viewBox="0 0 64 64" role="img" aria-label="보안경">
+        <path d="M14 31c3-7 8-10 16-7 2 1 6 1 8 0 8-3 13 0 16 7" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+        <path d="M12 34c2 9 10 13 18 8 2-1 6-1 8 0 8 5 16 1 18-8" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+        <path d="M30 33h8" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+    `,
+    gloves: `
+      <svg viewBox="0 0 64 64" role="img" aria-label="보호장갑">
+        <path d="M19 33V14c0-3 5-3 5 0v16" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+        <path d="M26 30V11c0-3 5-3 5 0v19" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+        <path d="M33 30V13c0-3 5-3 5 0v18" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+        <path d="M40 33V18c0-3 5-3 5 0v22c0 9-6 15-15 15s-16-6-16-15v-7c0-3 5-3 5 0Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    `,
+    mask: `
+      <svg viewBox="0 0 64 64" role="img" aria-label="호흡보호구">
+        <path d="M21 27c0-8 18-8 18 0v8c0 5-4 9-9 9s-9-4-9-9Z" fill="none" stroke="currentColor" stroke-width="5"/>
+        <circle cx="18" cy="42" r="8" fill="none" stroke="currentColor" stroke-width="5"/>
+        <circle cx="44" cy="42" r="8" fill="none" stroke="currentColor" stroke-width="5"/>
+        <path d="M27 48h6" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+    `,
+    suit: `
+      <svg viewBox="0 0 64 64" role="img" aria-label="보호복">
+        <path d="M24 12h16l8 11-7 6v43H24V29l-7-6Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M32 13v43" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+        <path d="M24 56h16" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+    `,
+    boots: `
+      <svg viewBox="0 0 64 64" role="img" aria-label="안전화">
+        <path d="M19 13h19v22l8 7c3 2 5 5 5 9v3H14v-8c0-4 5-4 5-9Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M14 53h37" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+    `
+  };
+  return `<span class="ppe-sign ppe-sign--${type}" aria-hidden="true">${icons[type] || icons.suit}</span>`;
+}
+
+function getPpeType(value = "") {
+  const label = getPpeLabel(value);
+  if (label === "보안경") return "goggles";
+  if (label === "보호장갑") return "gloves";
+  if (label === "방독마스크") return "mask";
+  if (label === "보호복") return "suit";
+  if (label === "안전화") return "boots";
+  return "suit";
+}
+
+function getPpeLabel(value = "") {
+  const text = normalizeSearchText(value);
+  if (["보안경", "고글", "눈"].some((keyword) => text.includes(normalizeSearchText(keyword)))) return "보안경";
+  if (["장갑"].some((keyword) => text.includes(normalizeSearchText(keyword)))) return "보호장갑";
+  if (["마스크", "호흡", "방독"].some((keyword) => text.includes(normalizeSearchText(keyword)))) return "방독마스크";
+  if (["보호복", "보호의", "앞치마"].some((keyword) => text.includes(normalizeSearchText(keyword)))) return "보호복";
+  if (["안전화", "장화"].some((keyword) => text.includes(normalizeSearchText(keyword)))) return "안전화";
+  return value;
+}
+
+function getPpePurpose(value = "") {
+  const label = getPpeLabel(value);
+  return {
+    "보안경": "눈 자극·비산물 보호",
+    "보호장갑": "피부 접촉 저감",
+    "방독마스크": "증기·분진 흡입 저감",
+    "보호복": "피부·의복 오염 방지",
+    "안전화": "발 보호 및 미끄럼 저감"
+  }[label] || "MSDS 원문 기준 보호구";
 }
 
 function normalizeDisplayItems(items = []) {

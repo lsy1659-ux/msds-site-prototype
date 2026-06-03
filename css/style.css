@@ -2443,6 +2443,23 @@ h1 {
   line-height: 1.18;
 }
 
+.poster-product-title {
+  display: grid;
+  min-width: 0;
+  gap: 7px;
+}
+
+.poster-product-title p {
+  overflow: hidden;
+  margin: 0;
+  color: rgba(232, 251, 246, 0.86);
+  font-size: 0.82rem;
+  font-weight: 780;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .hazard-badge {
   min-width: 82px;
   padding: 10px 16px;
@@ -2507,6 +2524,233 @@ h1 {
   color: var(--color-primary);
   font-size: 0.9rem;
   font-weight: 950;
+}
+
+.safety-statement-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+  padding: 18px 20px;
+}
+
+.safety-statement-item {
+  display: grid;
+  grid-template-columns: minmax(148px, 148px) minmax(0, 1fr);
+  align-items: start;
+  column-gap: 12px;
+  row-gap: 4px;
+  min-width: 0;
+  padding: 8px 4px;
+  border-radius: 10px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.safety-statement-item.is-code-missing {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.safety-code-badge {
+  display: inline-grid;
+  width: max-content;
+  min-width: 58px;
+  min-height: 28px;
+  place-items: center;
+  padding: 0 9px;
+  border: 1px solid rgba(11, 93, 77, 0.14);
+  border-radius: 9px;
+  background: #e4f4ef;
+  color: var(--color-primary);
+  font-size: 0.8rem;
+  font-weight: 950;
+  line-height: 1;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.safety-statement-text {
+  min-width: 0;
+  color: #24342f;
+  font-size: 0.88rem;
+  font-weight: 620;
+  line-height: 1.55;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.safety-more {
+  display: grid;
+  grid-column: 1 / -1;
+  border-top: 1px solid #e7f0ed;
+}
+
+.safety-more summary {
+  display: grid;
+  order: 1;
+  place-items: center;
+  min-height: 42px;
+  color: var(--color-primary);
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.safety-more[open] summary {
+  order: 2;
+}
+
+.safety-more summary::-webkit-details-marker {
+  display: none;
+}
+
+.less-label {
+  display: none;
+}
+
+.safety-more[open] .more-label {
+  display: none;
+}
+
+.safety-more[open] .less-label {
+  display: inline;
+}
+
+.safety-more-list {
+  display: grid;
+  order: 1;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+  padding-top: 10px;
+}
+
+.precaution-card-list {
+  display: grid;
+  gap: 12px;
+  padding: 18px 20px;
+}
+
+.precaution-card {
+  border: 1px solid #dfeae6;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff, #fbfefd);
+  box-shadow: 0 10px 22px rgba(12, 36, 31, 0.04);
+  overflow: hidden;
+}
+
+.precaution-card-head {
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 64px;
+  padding: 12px 16px;
+  color: #24342f;
+}
+
+.precaution-mark {
+  display: inline-grid;
+  width: 10px;
+  height: 38px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #9fe7d2, #0b5d4d);
+}
+
+.precaution-summary-text {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+}
+
+.precaution-card-head strong {
+  color: var(--color-primary);
+  font-size: 0.94rem;
+  font-weight: 950;
+}
+
+.precaution-description {
+  color: #536a63;
+  font-size: 0.78rem;
+  font-weight: 650;
+  line-height: 1.35;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.precaution-count {
+  overflow: hidden;
+  max-width: 220px;
+  padding: 5px 9px;
+  border: 1px solid rgba(11, 93, 77, 0.12);
+  border-radius: 999px;
+  background: #f0faf6;
+  color: #0a6b58;
+  font-size: 0.74rem;
+  font-weight: 850;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.precaution-card-body {
+  display: grid;
+  gap: 6px;
+  padding: 0 16px 14px 38px;
+}
+
+.precaution-more {
+  margin-top: 2px;
+}
+
+.ppe-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(126px, 1fr));
+  gap: 12px;
+  padding: 18px 20px 20px;
+}
+
+.ppe-card {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 7px;
+  min-height: 128px;
+  padding: 13px 10px 12px;
+  border: 1px solid #dfeae6;
+  border-radius: 18px;
+  background: #fbfefd;
+  color: #263a35;
+  text-align: center;
+}
+
+.ppe-sign {
+  display: inline-grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 22%, #2f9de5, #0b67a3 72%);
+  color: #ffffff;
+  box-shadow: 0 0 0 1px rgba(11, 103, 163, 0.18), 0 8px 18px rgba(11, 103, 163, 0.18);
+}
+
+.ppe-sign svg {
+  width: 42px;
+  height: 42px;
+}
+
+.ppe-name {
+  color: #15322d;
+  font-size: 0.84rem;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.ppe-purpose {
+  color: #5b706a;
+  font-size: 0.72rem;
+  font-weight: 650;
+  line-height: 1.38;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 .poster-list,
@@ -3648,6 +3892,10 @@ body.is-pdf-full-view-open {
     -webkit-line-clamp: 2;
   }
 
+  .poster-product-title p {
+    font-size: 0.72rem;
+  }
+
   .hazard-badge {
     padding: 8px 14px;
     font-size: 0.9rem;
@@ -3683,6 +3931,111 @@ body.is-pdf-full-view-open {
     padding-left: 14px;
     padding-right: 14px;
   }
+
+  .safety-statement-list {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 14px;
+  }
+
+  .safety-more-list {
+    grid-template-columns: 1fr;
+  }
+
+  .safety-statement-item {
+    grid-template-columns: minmax(124px, 124px) minmax(0, 1fr);
+    gap: 8px;
+    padding: 7px 2px;
+  }
+
+  .safety-statement-item.is-code-missing {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .safety-code-badge {
+    width: max-content;
+    min-width: 54px;
+    min-height: 26px;
+    font-size: 0.76rem;
+  }
+
+  .safety-statement-text {
+    font-size: 0.82rem;
+    font-weight: 620;
+    line-height: 1.58;
+  }
+
+  .safety-more summary {
+    min-height: 38px;
+    font-size: 0.86rem;
+  }
+
+  .precaution-card-list {
+    gap: 10px;
+    padding: 14px;
+  }
+
+  .precaution-card-head {
+    grid-template-columns: 8px minmax(0, 1fr);
+    gap: 8px;
+    min-height: 50px;
+    padding: 10px 11px;
+  }
+
+  .precaution-mark {
+    width: 8px;
+    height: 34px;
+  }
+
+  .precaution-card-head strong {
+    font-size: 0.82rem;
+  }
+
+  .precaution-description {
+    font-size: 0.72rem;
+  }
+
+  .precaution-count {
+    grid-column: 2;
+    justify-self: start;
+    max-width: 100%;
+    font-size: 0.7rem;
+  }
+
+  .precaution-card-body {
+    padding: 0 11px 11px 31px;
+  }
+
+  .ppe-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 14px;
+  }
+
+  .ppe-card {
+    min-height: 116px;
+    padding: 10px 8px;
+    border-radius: 15px;
+  }
+
+  .ppe-sign {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+  }
+
+  .ppe-sign svg {
+    width: 34px;
+    height: 34px;
+  }
+
+  .ppe-name {
+    font-size: 0.76rem;
+  }
+
+  .ppe-purpose {
+    font-size: 0.66rem;
+  }
 }
 
 @media (max-width: 380px) {
@@ -3698,6 +4051,10 @@ body.is-pdf-full-view-open {
   .poster-ghs-row {
     grid-template-columns: repeat(2, minmax(78px, 1fr));
   }
+
+  .ppe-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 /* Korean copy wrapping cleanup */
@@ -3710,6 +4067,11 @@ body.is-pdf-full-view-open {
 .poster-product-row h2,
 .poster-block h3,
 .poster-list li,
+.safety-statement-text,
+.precaution-description,
+.precaution-empty,
+.ppe-name,
+.ppe-purpose,
 .detail-block h3,
 .detail-subheading,
 .info-label,
