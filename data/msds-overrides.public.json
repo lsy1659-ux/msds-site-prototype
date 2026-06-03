@@ -387,10 +387,8 @@
     "classificationGhsCodes": [
       "GHS02",
       "GHS04",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
@@ -402,29 +400,19 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
       "GHS04",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsPictograms": [
       {
@@ -436,20 +424,12 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -1797,12 +1777,12 @@
     "signalWordCandidate": "적용되지 않음",
     "ghsPictograms": [
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       },
       {
         "code": "GHS05",
@@ -1834,26 +1814,26 @@
       "textStored": false
     },
     "ghsCodes": [
-      "GHS09",
       "GHS07",
+      "GHS09",
       "GHS05"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
-      "GHS09",
       "GHS07",
+      "GHS09",
       "GHS05"
     ],
     "classificationGhsPictograms": [
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       },
       {
         "code": "GHS05",
@@ -2000,12 +1980,12 @@
     "signalWordCandidate": "(GHS KR)",
     "ghsPictograms": [
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
     "hazardStatements": [
@@ -2094,24 +2074,24 @@
       "textStored": false
     },
     "ghsCodes": [
-      "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS07"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
-      "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS07"
     ],
     "classificationGhsPictograms": [
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ]
   },
@@ -2138,16 +2118,16 @@
         "label": "유해/자극성"
       },
       {
+        "code": "GHS05",
+        "label": "부식성"
+      },
+      {
         "code": "GHS08",
         "label": "건강유해성"
       },
       {
         "code": "GHS09",
         "label": "환경유해성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       }
     ],
     "hazardStatements": [
@@ -2261,23 +2241,27 @@
     },
     "ghsCodes": [
       "GHS07",
+      "GHS05",
       "GHS08",
-      "GHS09",
-      "GHS05"
+      "GHS09"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS07",
+      "GHS05",
       "GHS08",
-      "GHS09",
-      "GHS05"
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS07",
         "label": "유해/자극성"
+      },
+      {
+        "code": "GHS05",
+        "label": "부식성"
       },
       {
         "code": "GHS08",
@@ -2286,10 +2270,6 @@
       {
         "code": "GHS09",
         "label": "환경유해성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       }
     ]
   },
@@ -2316,12 +2296,12 @@
         "label": "유해/자극성"
       },
       {
-        "code": "GHS08",
-        "label": "건강유해성"
-      },
-      {
         "code": "GHS05",
         "label": "부식성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
       }
     ],
     "hazardStatements": [
@@ -2414,16 +2394,16 @@
     },
     "ghsCodes": [
       "GHS07",
-      "GHS08",
-      "GHS05"
+      "GHS05",
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS07",
-      "GHS08",
-      "GHS05"
+      "GHS05",
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
@@ -2431,12 +2411,12 @@
         "label": "유해/자극성"
       },
       {
-        "code": "GHS08",
-        "label": "건강유해성"
-      },
-      {
         "code": "GHS05",
         "label": "부식성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
       }
     ]
   },
@@ -2463,16 +2443,12 @@
         "label": "부식성"
       },
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
     "hazardStatements": [
@@ -2575,18 +2551,16 @@
     },
     "ghsCodes": [
       "GHS05",
-      "GHS07",
       "GHS08",
-      "GHS09"
+      "GHS07"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS05",
-      "GHS07",
       "GHS08",
-      "GHS09"
+      "GHS07"
     ],
     "classificationGhsPictograms": [
       {
@@ -2594,16 +2568,12 @@
         "label": "부식성"
       },
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ]
   },
@@ -2630,16 +2600,16 @@
         "label": "유해/자극성"
       },
       {
+        "code": "GHS05",
+        "label": "부식성"
+      },
+      {
         "code": "GHS08",
         "label": "건강유해성"
       },
       {
         "code": "GHS09",
         "label": "환경유해성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       }
     ],
     "hazardStatements": [
@@ -2748,23 +2718,27 @@
     },
     "ghsCodes": [
       "GHS07",
+      "GHS05",
       "GHS08",
-      "GHS09",
-      "GHS05"
+      "GHS09"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS07",
+      "GHS05",
       "GHS08",
-      "GHS09",
-      "GHS05"
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS07",
         "label": "유해/자극성"
+      },
+      {
+        "code": "GHS05",
+        "label": "부식성"
       },
       {
         "code": "GHS08",
@@ -2773,10 +2747,6 @@
       {
         "code": "GHS09",
         "label": "환경유해성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       }
     ]
   },
@@ -2803,16 +2773,12 @@
         "label": "부식성"
       },
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
     "hazardStatements": [
@@ -2927,18 +2893,16 @@
     },
     "ghsCodes": [
       "GHS05",
-      "GHS07",
       "GHS08",
-      "GHS09"
+      "GHS07"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS05",
-      "GHS07",
       "GHS08",
-      "GHS09"
+      "GHS07"
     ],
     "classificationGhsPictograms": [
       {
@@ -2946,16 +2910,12 @@
         "label": "부식성"
       },
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ]
   },
@@ -2978,16 +2938,12 @@
     "signalWordCandidate": "(GHS KR)",
     "ghsPictograms": [
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
     "hazardStatements": [
@@ -3082,30 +3038,24 @@
       "textStored": false
     },
     "ghsCodes": [
-      "GHS07",
       "GHS08",
-      "GHS09"
+      "GHS07"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
-      "GHS07",
       "GHS08",
-      "GHS09"
+      "GHS07"
     ],
     "classificationGhsPictograms": [
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
       {
         "code": "GHS08",
         "label": "건강유해성"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ]
   },
@@ -3128,16 +3078,12 @@
     "signalWordCandidate": "(GHS KR)",
     "ghsPictograms": [
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
     "hazardStatements": [
@@ -3232,30 +3178,24 @@
       "textStored": false
     },
     "ghsCodes": [
-      "GHS07",
       "GHS08",
-      "GHS09"
+      "GHS07"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
-      "GHS07",
       "GHS08",
-      "GHS09"
+      "GHS07"
     ],
     "classificationGhsPictograms": [
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
       {
         "code": "GHS08",
         "label": "건강유해성"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ]
   },
@@ -3277,10 +3217,6 @@
     "revisionDateCandidate": "2021-11-08",
     "signalWordCandidate": "(GHS KR)",
     "ghsPictograms": [
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
       {
         "code": "GHS07",
         "label": "유해/자극성"
@@ -3352,7 +3288,6 @@
       "textStored": false
     },
     "ghsCodes": [
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -3360,15 +3295,10 @@
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
     "classificationGhsPictograms": [
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
       {
         "code": "GHS07",
         "label": "유해/자극성"
@@ -3525,10 +3455,6 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS02",
         "label": "인화성"
       },
@@ -3539,6 +3465,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -3633,29 +3563,25 @@
     },
     "ghsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS02",
@@ -3668,6 +3594,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ]
   },
@@ -3692,10 +3622,6 @@
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS07",
@@ -3781,7 +3707,6 @@
     },
     "ghsCodes": [
       "GHS04",
-      "GHS09",
       "GHS07",
       "GHS08"
     ],
@@ -3790,7 +3715,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS04",
-      "GHS09",
       "GHS07",
       "GHS08"
     ],
@@ -3798,10 +3722,6 @@
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS07",
@@ -3836,10 +3756,6 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS02",
         "label": "인화성"
       },
@@ -3850,6 +3766,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -3944,29 +3864,25 @@
     },
     "ghsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS02",
@@ -3979,6 +3895,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ]
   },
@@ -4005,10 +3925,6 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS02",
         "label": "인화성"
       },
@@ -4019,6 +3935,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -4122,29 +4042,25 @@
     },
     "ghsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS02",
@@ -4157,6 +4073,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ]
   },
@@ -4183,10 +4103,6 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS02",
         "label": "인화성"
       },
@@ -4197,6 +4113,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -4300,29 +4220,25 @@
     },
     "ghsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS02",
@@ -4335,6 +4251,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ]
   },
@@ -4361,10 +4281,6 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS02",
         "label": "인화성"
       },
@@ -4375,6 +4291,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -4460,29 +4380,25 @@
     },
     "ghsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS02",
@@ -4495,6 +4411,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ]
   },
@@ -4521,16 +4441,16 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS02",
         "label": "인화성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -4624,27 +4544,23 @@
     },
     "ghsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS02",
@@ -4653,6 +4569,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ]
   },
@@ -4770,10 +4690,6 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS02",
         "label": "인화성"
       },
@@ -4784,6 +4700,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -4904,29 +4824,25 @@
     },
     "ghsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS02",
@@ -4939,6 +4855,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ]
   },
@@ -5067,16 +4987,16 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS02",
         "label": "인화성"
       },
       {
         "code": "GHS07",
         "label": "유해/자극성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -5179,27 +5099,23 @@
     },
     "ghsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
-      "GHS07"
+      "GHS07",
+      "GHS09"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
-      "GHS07"
+      "GHS07",
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS02",
@@ -5208,6 +5124,10 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ]
   },
@@ -5234,16 +5154,16 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS02",
         "label": "인화성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -5328,27 +5248,23 @@
     },
     "ghsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS02",
@@ -5357,6 +5273,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ]
   },
@@ -5383,16 +5303,16 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS02",
         "label": "인화성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -5477,27 +5397,23 @@
     },
     "ghsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS02",
@@ -5506,6 +5422,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ]
   },
@@ -5527,10 +5447,6 @@
     "revisionDateCandidate": "1996-06-20",
     "signalWordCandidate": "위험",
     "ghsPictograms": [
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
       {
         "code": "GHS07",
         "label": "유해/자극성"
@@ -5608,7 +5524,6 @@
       "textStored": false
     },
     "ghsCodes": [
-      "GHS09",
       "GHS07",
       "GHS08"
     ],
@@ -5616,15 +5531,10 @@
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
-      "GHS09",
       "GHS07",
       "GHS08"
     ],
     "classificationGhsPictograms": [
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
       {
         "code": "GHS07",
         "label": "유해/자극성"
@@ -5660,14 +5570,6 @@
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -5837,8 +5739,6 @@
     "ghsCodes": [
       "GHS02",
       "GHS04",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -5848,8 +5748,6 @@
     "classificationGhsCodes": [
       "GHS02",
       "GHS04",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -5861,14 +5759,6 @@
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -5901,6 +5791,18 @@
       {
         "code": "GHS02",
         "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
       }
     ],
     "hazardStatements": [
@@ -6085,18 +5987,36 @@
       "textStored": false
     },
     "ghsCodes": [
-      "GHS02"
+      "GHS02",
+      "GHS04",
+      "GHS07",
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
-      "GHS02"
+      "GHS02",
+      "GHS04",
+      "GHS07",
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
       }
     ]
   },
@@ -6125,14 +6045,6 @@
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -6298,8 +6210,6 @@
     "ghsCodes": [
       "GHS02",
       "GHS04",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -6309,8 +6219,6 @@
     "classificationGhsCodes": [
       "GHS02",
       "GHS04",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -6322,14 +6230,6 @@
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -6362,6 +6262,18 @@
       {
         "code": "GHS02",
         "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
       }
     ],
     "hazardStatements": [
@@ -6515,18 +6427,36 @@
       "textStored": false
     },
     "ghsCodes": [
-      "GHS02"
+      "GHS02",
+      "GHS04",
+      "GHS07",
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
-      "GHS02"
+      "GHS02",
+      "GHS04",
+      "GHS07",
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
       }
     ]
   },
@@ -8979,24 +8909,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -9112,35 +9030,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -9149,10 +9053,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -9179,24 +9079,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -9292,35 +9180,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -9329,10 +9203,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -9357,14 +9227,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -9465,8 +9327,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -9475,8 +9335,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -9484,14 +9342,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -9602,24 +9452,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -9775,35 +9613,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -9812,10 +9636,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -9840,14 +9660,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -10031,8 +9843,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -10042,8 +9852,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -10052,14 +9860,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -10098,24 +9898,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -10271,35 +10059,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -10308,10 +10082,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -10336,10 +10106,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -10479,7 +10245,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08"
     ],
@@ -10488,7 +10253,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08"
     ],
@@ -10496,10 +10260,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -10534,20 +10294,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -10699,29 +10451,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -10730,10 +10474,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -10758,14 +10498,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -10912,8 +10644,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -10922,8 +10652,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -10931,14 +10659,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -10973,24 +10693,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -11151,35 +10859,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -11188,10 +10882,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -11218,24 +10908,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -11351,35 +11029,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -11388,10 +11052,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -11416,10 +11076,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -11538,7 +11194,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -11548,7 +11203,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -11557,10 +11211,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -11597,10 +11247,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -11707,7 +11353,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -11717,7 +11362,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -11726,10 +11370,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -11768,20 +11408,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -11885,29 +11517,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -11916,10 +11540,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -11944,10 +11564,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -12066,7 +11682,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -12076,7 +11691,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -12085,10 +11699,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -12125,10 +11735,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -12240,7 +11846,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -12250,7 +11855,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -12259,10 +11863,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -12301,20 +11901,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -12413,29 +12005,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -12444,10 +12028,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -12474,20 +12054,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -12665,29 +12237,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -12696,10 +12260,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -12726,20 +12286,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -12919,29 +12471,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -12950,10 +12494,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -12980,20 +12520,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -13178,29 +12710,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -13209,10 +12733,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -13237,10 +12757,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -13395,7 +12911,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -13405,7 +12920,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -13414,10 +12928,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -13454,10 +12964,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -13625,7 +13131,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -13635,7 +13140,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -13644,10 +13148,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -13686,20 +13186,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -13855,29 +13347,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -13886,10 +13370,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -13914,10 +13394,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -14120,7 +13596,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -14130,7 +13605,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -14139,10 +13613,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -14179,10 +13649,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -14316,7 +13782,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -14326,7 +13791,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -14335,10 +13799,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -14375,10 +13835,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -14507,7 +13963,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -14517,7 +13972,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -14526,10 +13980,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -14568,20 +14018,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -14746,29 +14188,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -14777,10 +14211,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -14807,20 +14237,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -14985,29 +14407,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -15016,10 +14430,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -15046,20 +14456,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -15249,29 +14651,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -15280,10 +14674,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -15310,20 +14700,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -15488,29 +14870,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -15519,10 +14893,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -15549,24 +14919,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -15686,35 +15044,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -15723,10 +15067,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -15753,24 +15093,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -15899,35 +15227,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -15936,10 +15250,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -15966,10 +15276,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS06",
         "label": "급성독성"
       },
@@ -15980,10 +15286,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -16095,31 +15397,23 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS06",
@@ -16132,10 +15426,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -16162,24 +15452,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -16286,35 +15564,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -16323,10 +15587,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -16351,14 +15611,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -16490,8 +15742,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -16500,8 +15750,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -16509,14 +15757,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -16549,14 +15789,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -16696,8 +15928,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -16706,8 +15936,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -16715,14 +15943,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -16757,24 +15977,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -16903,35 +16111,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -16940,10 +16134,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -16970,24 +16160,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -17121,35 +16299,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -17158,10 +16322,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -17186,14 +16346,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -17310,8 +16462,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -17320,8 +16470,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -17329,14 +16477,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -17371,20 +16511,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -17512,29 +16644,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -17543,10 +16667,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -17571,14 +16691,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -17729,8 +16841,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -17739,8 +16849,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -17748,14 +16856,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -17788,14 +16888,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -17924,8 +17016,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -17934,8 +17024,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -17943,14 +17031,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -17983,14 +17063,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -18140,8 +17212,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -18150,8 +17220,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -18159,14 +17227,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -18199,14 +17259,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -18333,8 +17385,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -18343,8 +17393,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -18352,14 +17400,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -18392,14 +17432,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -18544,8 +17576,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -18554,8 +17584,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -18563,14 +17591,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -18605,24 +17625,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -18747,35 +17755,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -18784,10 +17778,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -18814,24 +17804,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -18964,35 +17942,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -19001,10 +17965,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -19031,24 +17991,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -19187,35 +18135,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -19224,10 +18158,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -19254,20 +18184,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -19385,29 +18307,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -19416,10 +18330,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -19446,24 +18356,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -19613,35 +18511,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -19650,10 +18534,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -19678,14 +18558,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -19798,8 +18670,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -19808,8 +18678,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -19817,14 +18685,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -19857,14 +18717,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -19989,8 +18841,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -19999,8 +18849,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -20008,14 +18856,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -20179,24 +19019,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -20290,35 +19118,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -20327,10 +19141,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -20355,10 +19165,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -20464,7 +19270,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -20474,7 +19279,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -20483,10 +19287,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -20523,14 +19323,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -20645,8 +19437,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -20656,8 +19446,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -20666,14 +19454,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -20712,24 +19492,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -20835,35 +19603,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -20872,10 +19626,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -20900,14 +19650,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -21023,8 +19765,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -21034,8 +19774,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -21044,14 +19782,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -21090,24 +19820,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -21207,35 +19925,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -21244,10 +19948,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -21272,14 +19972,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -21393,8 +20085,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -21404,8 +20094,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -21414,14 +20102,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -21458,10 +20138,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -21542,7 +20218,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08"
     ],
@@ -21551,7 +20226,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08"
     ],
@@ -21559,10 +20233,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -21592,10 +20262,6 @@
     "revisionDateCandidate": "2024-12-19",
     "signalWordCandidate": "위험",
     "ghsPictograms": [
-      {
-        "code": "GHS02",
-        "label": "인화성"
-      },
       {
         "code": "GHS05",
         "label": "부식성"
@@ -21658,7 +20324,6 @@
       "textStored": false
     },
     "ghsCodes": [
-      "GHS02",
       "GHS05",
       "GHS06",
       "GHS07"
@@ -21667,16 +20332,11 @@
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
-      "GHS02",
       "GHS05",
       "GHS06",
       "GHS07"
     ],
     "classificationGhsPictograms": [
-      {
-        "code": "GHS02",
-        "label": "인화성"
-      },
       {
         "code": "GHS05",
         "label": "부식성"
@@ -21786,20 +20446,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -21892,29 +20544,21 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -21923,10 +20567,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -21951,10 +20591,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -22029,7 +20665,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -22038,7 +20673,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -22046,10 +20680,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -22812,10 +21442,6 @@
     "signalWordCandidate": "",
     "ghsPictograms": [
       {
-        "code": "GHS02",
-        "label": "인화성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -22888,7 +21514,6 @@
       "textStored": false
     },
     "ghsCodes": [
-      "GHS02",
       "GHS07",
       "GHS08"
     ],
@@ -22896,15 +21521,10 @@
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
-      "GHS02",
       "GHS07",
       "GHS08"
     ],
     "classificationGhsPictograms": [
-      {
-        "code": "GHS02",
-        "label": "인화성"
-      },
       {
         "code": "GHS07",
         "label": "유해/자극성"
@@ -22936,10 +21556,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -23008,7 +21624,6 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08"
     ],
@@ -23017,7 +21632,6 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08"
     ],
@@ -23025,10 +21639,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -24111,16 +22721,8 @@
         "label": "인화성"
       },
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -24225,18 +22827,14 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
@@ -24244,16 +22842,8 @@
         "label": "인화성"
       },
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -24275,10 +22865,6 @@
     "revisionDateCandidate": "2025-01-02",
     "signalWordCandidate": "",
     "ghsPictograms": [
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
       {
         "code": "GHS07",
         "label": "유해/자극성"
@@ -24381,7 +22967,6 @@
       "textStored": false
     },
     "ghsCodes": [
-      "GHS09",
       "GHS07",
       "GHS08"
     ],
@@ -24389,15 +22974,10 @@
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
-      "GHS09",
       "GHS07",
       "GHS08"
     ],
     "classificationGhsPictograms": [
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
       {
         "code": "GHS07",
         "label": "유해/자극성"
@@ -24437,6 +23017,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -24593,7 +23177,8 @@
     "ghsCodes": [
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
@@ -24601,7 +23186,8 @@
     "classificationGhsCodes": [
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
@@ -24615,6 +23201,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ]
   },
@@ -25527,6 +24117,10 @@
         "label": "인화성"
       },
       {
+        "code": "GHS08",
+        "label": "건강유해성"
+      },
+      {
         "code": "GHS07",
         "label": "유해/자극성"
       }
@@ -25603,6 +24197,7 @@
     },
     "ghsCodes": [
       "GHS02",
+      "GHS08",
       "GHS07"
     ],
     "ghsSource": "section2_classification_fallback",
@@ -25610,12 +24205,17 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
+      "GHS08",
       "GHS07"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
       },
       {
         "code": "GHS07",
@@ -26664,10 +25264,6 @@
         "label": "부식성"
       },
       {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       }
@@ -26722,7 +25318,6 @@
     },
     "ghsCodes": [
       "GHS05",
-      "GHS06",
       "GHS07"
     ],
     "ghsSource": "section2_classification_fallback",
@@ -26730,17 +25325,12 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS05",
-      "GHS06",
       "GHS07"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS05",
         "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -26849,10 +25439,6 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ],
     "hazardStatements": [
@@ -26932,8 +25518,7 @@
     "ghsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
@@ -26941,8 +25526,7 @@
     "classificationGhsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "classificationGhsPictograms": [
       {
@@ -26956,10 +25540,6 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ]
   },
@@ -26992,10 +25572,6 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ],
     "hazardStatements": [
@@ -27075,8 +25651,7 @@
     "ghsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
@@ -27084,8 +25659,7 @@
     "classificationGhsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "classificationGhsPictograms": [
       {
@@ -27099,10 +25673,6 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ]
   },
@@ -27135,10 +25705,6 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ],
     "hazardStatements": [
@@ -27218,8 +25784,7 @@
     "ghsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
@@ -27227,8 +25792,7 @@
     "classificationGhsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "classificationGhsPictograms": [
       {
@@ -27242,10 +25806,6 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ]
   },
@@ -27278,10 +25838,6 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ],
     "hazardStatements": [
@@ -27361,8 +25917,7 @@
     "ghsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
@@ -27370,8 +25925,7 @@
     "classificationGhsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "classificationGhsPictograms": [
       {
@@ -27385,10 +25939,6 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ]
   },
@@ -27421,10 +25971,6 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ],
     "hazardStatements": [
@@ -27504,8 +26050,7 @@
     "ghsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
@@ -27513,8 +26058,7 @@
     "classificationGhsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "classificationGhsPictograms": [
       {
@@ -27528,10 +26072,6 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ]
   },
@@ -27564,10 +26104,6 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ],
     "hazardStatements": [
@@ -27647,8 +26183,7 @@
     "ghsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
@@ -27656,8 +26191,7 @@
     "classificationGhsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "classificationGhsPictograms": [
       {
@@ -27671,10 +26205,6 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ]
   },
@@ -28063,6 +26593,10 @@
     "signalWordCandidate": "위험",
     "ghsPictograms": [
       {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
         "code": "GHS04",
         "label": "고압가스"
       },
@@ -28132,6 +26666,7 @@
       "textStored": false
     },
     "ghsCodes": [
+      "GHS02",
       "GHS04",
       "GHS08"
     ],
@@ -28139,10 +26674,15 @@
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
+      "GHS02",
       "GHS04",
       "GHS08"
     ],
     "classificationGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
       {
         "code": "GHS04",
         "label": "고압가스"
@@ -28267,16 +26807,8 @@
         "label": "부식성"
       },
       {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       },
       {
         "code": "GHS09",
@@ -28324,9 +26856,7 @@
     },
     "ghsCodes": [
       "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
       "GHS09"
     ],
     "ghsSource": "section2_classification_fallback",
@@ -28334,9 +26864,7 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
       "GHS09"
     ],
     "classificationGhsPictograms": [
@@ -28345,16 +26873,8 @@
         "label": "부식성"
       },
       {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       },
       {
         "code": "GHS09",
@@ -28680,10 +27200,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -28722,8 +27238,7 @@
     "ghsCodes": [
       "GHS05",
       "GHS06",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
@@ -28731,8 +27246,7 @@
     "classificationGhsCodes": [
       "GHS05",
       "GHS06",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
@@ -28746,10 +27260,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -28911,6 +27421,10 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
       }
     ],
     "hazardStatements": [],
@@ -28941,7 +27455,8 @@
       "GHS03",
       "GHS05",
       "GHS06",
-      "GHS07"
+      "GHS07",
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
@@ -28950,7 +27465,8 @@
       "GHS03",
       "GHS05",
       "GHS06",
-      "GHS07"
+      "GHS07",
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
@@ -28968,6 +27484,10 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
       }
     ]
   },
@@ -28998,16 +27518,8 @@
         "label": "급성독성"
       },
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -29042,9 +27554,7 @@
     "ghsCodes": [
       "GHS05",
       "GHS06",
-      "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
@@ -29052,9 +27562,7 @@
     "classificationGhsCodes": [
       "GHS05",
       "GHS06",
-      "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
@@ -29066,16 +27574,8 @@
         "label": "급성독성"
       },
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ]
   },
@@ -30068,6 +28568,10 @@
     "signalWordCandidate": "위험",
     "ghsPictograms": [
       {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
         "code": "GHS04",
         "label": "고압가스"
       },
@@ -30144,6 +28648,7 @@
       "textStored": false
     },
     "ghsCodes": [
+      "GHS02",
       "GHS04",
       "GHS07"
     ],
@@ -30151,10 +28656,15 @@
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
+      "GHS02",
       "GHS04",
       "GHS07"
     ],
     "classificationGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
       {
         "code": "GHS04",
         "label": "고압가스"
@@ -30183,6 +28693,10 @@
     "revisionDateCandidate": "2022-09-28",
     "signalWordCandidate": "위험",
     "ghsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
       {
         "code": "GHS04",
         "label": "고압가스"
@@ -30280,6 +28794,7 @@
       "textStored": false
     },
     "ghsCodes": [
+      "GHS02",
       "GHS04",
       "GHS07"
     ],
@@ -30287,10 +28802,15 @@
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
+      "GHS02",
       "GHS04",
       "GHS07"
     ],
     "classificationGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
       {
         "code": "GHS04",
         "label": "고압가스"
@@ -30542,10 +29062,6 @@
     "signalWordCandidate": "위험",
     "ghsPictograms": [
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -30641,7 +29157,6 @@
       "textStored": false
     },
     "ghsCodes": [
-      "GHS05",
       "GHS07",
       "GHS08"
     ],
@@ -30649,15 +29164,10 @@
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
-      "GHS05",
       "GHS07",
       "GHS08"
     ],
     "classificationGhsPictograms": [
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
       {
         "code": "GHS07",
         "label": "유해/자극성"
@@ -31060,12 +29570,12 @@
     "signalWordCandidate": "위험",
     "ghsPictograms": [
       {
-        "code": "GHS02",
-        "label": "인화성"
-      },
-      {
         "code": "GHS04",
         "label": "고압가스"
+      },
+      {
+        "code": "GHS02",
+        "label": "인화성"
       },
       {
         "code": "GHS07",
@@ -31154,26 +29664,26 @@
       "textStored": false
     },
     "ghsCodes": [
-      "GHS02",
       "GHS04",
+      "GHS02",
       "GHS07"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
-      "GHS02",
       "GHS04",
+      "GHS02",
       "GHS07"
     ],
     "classificationGhsPictograms": [
       {
-        "code": "GHS02",
-        "label": "인화성"
-      },
-      {
         "code": "GHS04",
         "label": "고압가스"
+      },
+      {
+        "code": "GHS02",
+        "label": "인화성"
       },
       {
         "code": "GHS07",
@@ -31911,12 +30421,12 @@
     "signalWordCandidate": "(GHS KR)",
     "ghsPictograms": [
       {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
+      },
+      {
+        "code": "GHS06",
+        "label": "급성독성"
       },
       {
         "code": "GHS08",
@@ -32036,26 +30546,26 @@
       "textStored": false
     },
     "ghsCodes": [
-      "GHS06",
       "GHS07",
+      "GHS06",
       "GHS08"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
-      "GHS06",
       "GHS07",
+      "GHS06",
       "GHS08"
     ],
     "classificationGhsPictograms": [
       {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
+      },
+      {
+        "code": "GHS06",
+        "label": "급성독성"
       },
       {
         "code": "GHS08",
@@ -32081,6 +30591,10 @@
     "revisionDateCandidate": "2023-06-13",
     "signalWordCandidate": "",
     "ghsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
       {
         "code": "GHS04",
         "label": "고압가스"
@@ -32130,15 +30644,21 @@
       "textStored": false
     },
     "ghsCodes": [
+      "GHS02",
       "GHS04"
     ],
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
+      "GHS02",
       "GHS04"
     ],
     "classificationGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
       {
         "code": "GHS04",
         "label": "고압가스"

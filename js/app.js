@@ -2343,23 +2343,36 @@ async function preparePdfJsPreview(mount, path, title) {
 }
 
 function renderPdfViewerShell(mount) {
-  const isFullView = mount.dataset.pdfViewerMode === "full";
   const viewer = getPdfViewerStateForMount(mount);
   mount.innerHTML = `
     <div class="pdf-viewer-toolbar" aria-label="PDF 미리보기 조작">
       <div class="pdf-viewer-group is-page-nav" aria-label="PDF 페이지 이동">
-        <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="first-page">처음</button>
-        <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="prev-page">이전</button>
+        <button class="pdf-viewer-button is-edge-control" type="button" data-pdf-viewer-action="first-page" aria-label="첫 페이지">
+          <span class="pdf-control-full">처음</span><span class="pdf-control-compact" aria-hidden="true">«</span>
+        </button>
+        <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="prev-page" aria-label="이전 페이지">
+          <span class="pdf-control-full">이전</span><span class="pdf-control-compact" aria-hidden="true">‹</span>
+        </button>
         <span class="pdf-page-status" data-pdf-page-status>0 / ${viewer.totalPages || 1}쪽</span>
-        <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="next-page">다음</button>
-        <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="last-page">마지막</button>
+        <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="next-page" aria-label="다음 페이지">
+          <span class="pdf-control-full">다음</span><span class="pdf-control-compact" aria-hidden="true">›</span>
+        </button>
+        <button class="pdf-viewer-button is-edge-control" type="button" data-pdf-viewer-action="last-page" aria-label="마지막 페이지">
+          <span class="pdf-control-full">마지막</span><span class="pdf-control-compact" aria-hidden="true">»</span>
+        </button>
       </div>
       <div class="pdf-viewer-group is-view-control" aria-label="PDF 보기 조정">
-        <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="zoom-out">축소</button>
-        <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="zoom-in">확대</button>
-        <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="fit">화면 맞춤</button>
+        <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="zoom-out" aria-label="축소">
+          <span class="pdf-control-full">축소</span><span class="pdf-control-compact" aria-hidden="true">−</span>
+        </button>
+        <span class="pdf-zoom-status" data-pdf-zoom-status>100%</span>
+        <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="zoom-in" aria-label="확대">
+          <span class="pdf-control-full">확대</span><span class="pdf-control-compact" aria-hidden="true">＋</span>
+        </button>
+        <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="fit" aria-label="화면 맞춤">
+          <span class="pdf-control-full">화면 맞춤</span><span class="pdf-control-compact" aria-hidden="true">맞춤</span>
+        </button>
       </div>
-      ${isFullView ? `<div class="pdf-viewer-group is-dialog-control"><button class="pdf-viewer-button is-close" type="button" data-close-pdf-full-view>닫기</button></div>` : ""}
     </div>
     <div class="pdf-js-page-stage" data-pdf-page-stage>
       <div class="pdf-frame-placeholder">PDF 페이지를 불러오는 중입니다.</div>
@@ -2391,6 +2404,7 @@ function updatePdfViewerControls(mount) {
   const zoomOutButton = mount.querySelector('[data-pdf-viewer-action="zoom-out"]');
   const zoomInButton = mount.querySelector('[data-pdf-viewer-action="zoom-in"]');
   const fitButton = mount.querySelector('[data-pdf-viewer-action="fit"]');
+  const zoomStatus = mount.querySelector("[data-pdf-zoom-status]");
 
   if (firstButton) firstButton.disabled = isBusy || currentPage <= 1;
   if (prevButton) prevButton.disabled = isBusy || currentPage <= 1;
@@ -2399,6 +2413,7 @@ function updatePdfViewerControls(mount) {
   if (zoomOutButton) zoomOutButton.disabled = isBusy || viewer.scale <= 0.6;
   if (zoomInButton) zoomInButton.disabled = isBusy || viewer.scale >= 2.8;
   if (fitButton) fitButton.disabled = isBusy || (viewer.fitToWidth && viewer.fitRatio === 1);
+  if (zoomStatus) zoomStatus.textContent = `${Math.round((viewer.scale || 1) * 100)}%`;
 }
 
 async function handlePdfViewerAction(action, mount = null) {
@@ -2498,7 +2513,9 @@ async function renderPdfPageIntoStage(stage, pageNumber, renderToken, mountOverr
   const preview = getPdfViewerStateForMount(mount);
   const page = await preview.document.getPage(pageNumber);
   const baseViewport = page.getViewport({ scale: 1 });
-  const availableWidth = Math.max(240, (mount?.clientWidth || stage.parentElement?.clientWidth || 720) - 56);
+  const isMobileViewer = window.matchMedia?.("(max-width: 679px)")?.matches;
+  const horizontalChrome = isMobileViewer ? 18 : 56;
+  const availableWidth = Math.max(240, (mount?.clientWidth || stage.parentElement?.clientWidth || 720) - horizontalChrome);
   const fitRatio = Number(preview.fitRatio || 1);
   const scale = preview.fitToWidth ? (availableWidth * fitRatio) / baseViewport.width : preview.scale;
   const viewport = page.getViewport({ scale });

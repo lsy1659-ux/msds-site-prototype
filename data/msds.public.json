@@ -104,24 +104,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -181,24 +169,13 @@
     "supplierAddress": "울산광역시 동구 방어진순환도로 30(방어동)",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -207,23 +184,17 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "- P280 보호장갑·보호의·보안경·안면보호구를(을) 착용하시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KCC/KCC_MSDS_UT595(F)-CLEAR(G-25).pdf"
   },
   {
@@ -363,10 +334,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -423,7 +390,6 @@
     "supplierAddress": "울산광역시 동구 방어진순환도로 30(방어동)",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08"
     ],
@@ -431,10 +397,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -447,13 +409,13 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08"
     ],
     "ppeCandidates": [
       "- P280 보호장갑·보호의·보안경·안면보호구를(을) 착용하시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KCC/KCC_MSDS_UT5731-TGW(GGM).pdf"
   },
   {
@@ -625,20 +587,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -694,19 +648,13 @@
     "supplierAddress": "울산광역시 동구 방어진순환도로 30(방어동)",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -715,22 +663,17 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "- P280 보호장갑·보호의·보안경·안면보호구를(을) 착용하시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KCC/KCC_MSDS_UT5731-TKS(GGM).pdf"
   },
   {
@@ -886,14 +829,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -957,8 +892,6 @@
     "supplierAddress": "울산광역시 동구 방어진순환도로 30(방어동)",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -966,14 +899,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -986,14 +911,13 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
     "ppeCandidates": [
       "- P280 보호장갑·보호의·보안경·안면보호구를(을) 착용하시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KCC/KCC_MSDS_UT5731-UMA(GGM).pdf"
   },
   {
@@ -1181,24 +1105,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -1258,24 +1170,13 @@
     "supplierAddress": "울산광역시 동구 방어진순환도로 30(방어동)",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -1284,23 +1185,17 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "- P280 보호장갑·보호의·보안경·안면보호구를(을) 착용하시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KCC/KCC_MSDS_UT5731-ZRM(GGM).pdf"
   },
   {
@@ -1368,24 +1263,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -1445,24 +1328,13 @@
     "supplierAddress": "울산광역시 동구 방어진순환도로 30(방어동)",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -1471,23 +1343,17 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "- P280 보호장갑·보호의·보안경·안면보호구를(을) 착용하시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KCC/KCC_MSDS_064(BP).pdf"
   },
   {
@@ -1587,24 +1453,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -1664,24 +1518,13 @@
     "supplierAddress": "울산광역시 동구 방어진순환도로 30(방어동)",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -1690,23 +1533,17 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "- P280 보호장갑·보호의·보안경·안면보호구를(을) 착용하시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KCC/KCC_MSDS_0278(HMC).pdf"
   },
   {
@@ -1774,14 +1611,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -1844,8 +1673,6 @@
     "supplierAddress": "울산광역시 동구 방어진순환도로 30(방어동)",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -1853,14 +1680,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -1873,14 +1692,13 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
     "ppeCandidates": [
       "- P280 보호장갑·보호의·보안경·안면보호구를(을) 착용하시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KCC/KCC_MSDS_TH0261(AP).pdf"
   },
   {
@@ -2000,6 +1818,7 @@
     "ppeCandidates": [
       "- P280 보호장갑·보호의·보앆경·앆면보호구를(을) 착용하시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KCC/KCC_MSDS_TH0261(N).pdf"
   },
   {
@@ -2171,24 +1990,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -2248,24 +2055,13 @@
     "supplierAddress": "울산광역시 동구 방어진순환도로 30(방어동)",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -2274,23 +2070,17 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "- P280 보호장갑·보호의·보안경·안면보호구를(을) 착용하시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KCC/KCC_MSDS_UT5731-JUG(KIA).pdf"
   },
   {
@@ -2486,14 +2276,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -2564,8 +2346,6 @@
     "supplierAddress": "울산광역시 동구 방어진순환도로 30(방어동)",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -2574,14 +2354,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -2598,8 +2370,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -2607,6 +2377,7 @@
     "ppeCandidates": [
       "- P280 보호장갑·보호의·보안경·안면보호구를(을) 착용하시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KCC/KCC_MSDS_UT5731-KLG(KIA).pdf"
   },
   {
@@ -2786,24 +2557,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -2863,24 +2622,13 @@
     "supplierAddress": "울산광역시 동구 방어진순환도로 30(방어동)",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -2889,23 +2637,17 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "- P280 보호장갑·보호의·보안경·안면보호구를(을) 착용하시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KCC/KCC_MSDS_UT5731-SRM(GGM)(FRT).pdf"
   },
   {
@@ -2981,10 +2723,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS06",
         "label": "급성독성"
       },
@@ -2995,10 +2733,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -3068,20 +2802,14 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS06",
@@ -3094,25 +2822,20 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오.",
       "P284 (환기가 잘 되지 않는 경우)호흡기 보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PUB795101 (KR).pdf"
   },
   {
@@ -3236,14 +2959,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -3307,8 +3022,6 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -3316,14 +3029,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -3336,8 +3041,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -3345,6 +3048,7 @@
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PUJ004751 (KR).pdf"
   },
   {
@@ -3500,14 +3204,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -3569,8 +3265,6 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -3578,14 +3272,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -3598,8 +3284,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -3607,6 +3291,7 @@
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PUJ005231 (KR).pdf"
   },
   {
@@ -3746,24 +3431,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -3827,24 +3500,13 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -3853,24 +3515,18 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PUJ005521 (KR).pdf"
   },
   {
@@ -4010,24 +3666,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -4089,24 +3733,13 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -4115,24 +3748,18 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PUJ005731 (KR).pdf"
   },
   {
@@ -4288,24 +3915,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -4368,24 +3983,13 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -4394,24 +3998,18 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PUJ007641 (KR).pdf"
   },
   {
@@ -4503,20 +4101,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -4573,19 +4163,13 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -4594,23 +4178,18 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PUJ007651 (KR).pdf"
   },
   {
@@ -4742,24 +4321,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -4823,24 +4390,13 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -4849,24 +4405,18 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PUJ008761 (KR).pdf"
   },
   {
@@ -4950,14 +4500,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -5017,8 +4559,6 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -5026,14 +4566,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -5046,8 +4578,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -5055,6 +4585,7 @@
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PUJ030001 (KR).pdf"
   },
   {
@@ -5154,14 +4685,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -5223,8 +4746,6 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -5232,14 +4753,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -5252,8 +4765,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -5261,6 +4772,7 @@
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PUJ042701 (KR).pdf"
   },
   {
@@ -5413,6 +4925,7 @@
       "유기가스용 방독마스크 기타 적절한 보호구/보호의/보호장갑을 착용하고 작업할 것."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/SG0000021 (KR).pdf"
   },
   {
@@ -5480,24 +4993,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -5555,24 +5056,13 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -5581,24 +5071,18 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/SG3010101 (KR).pdf"
   },
   {
@@ -5664,10 +5148,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -5736,7 +5216,6 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -5745,10 +5224,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -5765,7 +5240,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -5775,6 +5249,7 @@
       "적절한 보호구를 화재 상황에 따라 사용 할 것."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/SG3030401 (KR).pdf"
   },
   {
@@ -5850,14 +5325,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -5929,8 +5396,6 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -5939,14 +5404,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -5963,8 +5420,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -5973,6 +5428,7 @@
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/SG3030501 (KR).pdf"
   },
   {
@@ -6056,24 +5512,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -6133,24 +5577,13 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -6159,24 +5592,18 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/SG3031101 (KR).pdf"
   },
   {
@@ -6252,14 +5679,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -6332,8 +5751,6 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -6342,14 +5759,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -6366,8 +5775,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -6376,6 +5783,7 @@
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/SG3200001 (KR).pdf"
   },
   {
@@ -6451,24 +5859,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -6527,24 +5923,13 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -6553,24 +5938,18 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/SG3240001 (KR).pdf"
   },
   {
@@ -6646,14 +6025,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -6724,8 +6095,6 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단7길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -6734,14 +6103,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -6758,8 +6119,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -6768,6 +6127,7 @@
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/SG9001902 (KR).pdf"
   },
   {
@@ -6875,24 +6235,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -6956,24 +6304,13 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -6982,24 +6319,18 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PGE007902 (KR).pdf"
   },
   {
@@ -7123,24 +6454,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -7203,24 +6522,13 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -7229,24 +6537,18 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PGE008002 (KR).pdf"
   },
   {
@@ -7314,10 +6616,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -7367,7 +6665,6 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08"
     ],
@@ -7375,10 +6672,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -7391,7 +6684,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08"
     ],
@@ -7402,6 +6694,7 @@
       "○ 착용할 보호구 :"
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/SG9007201 (KR).pdf"
   },
   {
@@ -7477,10 +6770,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS06",
         "label": "급성독성"
       },
@@ -7491,10 +6780,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -7564,20 +6849,14 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS06",
@@ -7590,25 +6869,20 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오.",
       "P284 (환기가 잘 되지 않는 경우)호흡기 보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PUB795101 (KR).pdf"
   },
   {
@@ -7732,24 +7006,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -7810,24 +7072,13 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단7길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -7836,24 +7087,18 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PUG034691 (KR).pdf"
   },
   {
@@ -7993,14 +7238,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -8064,8 +7301,6 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -8073,14 +7308,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -8093,8 +7320,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -8102,6 +7327,7 @@
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PUG107851 (KR).pdf"
   },
   {
@@ -8249,14 +7475,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -8323,8 +7541,6 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -8332,14 +7548,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -8352,8 +7560,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -8361,6 +7567,7 @@
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PUG107861 (KR).pdf"
   },
   {
@@ -8500,24 +7707,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -8580,24 +7775,13 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -8606,24 +7790,18 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PUG107871 (KR).pdf"
   },
   {
@@ -8771,24 +7949,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -8851,24 +8017,13 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -8877,24 +8032,18 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PUG124221 (KR).pdf"
   },
   {
@@ -9002,14 +8151,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -9073,8 +8214,6 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -9082,14 +8221,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -9102,8 +8233,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -9111,6 +8240,7 @@
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PUJ001951 (KR).pdf"
   },
   {
@@ -9250,20 +8380,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -9325,19 +8447,13 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -9346,23 +8462,18 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PUJ003511 (KR).pdf"
   },
   {
@@ -9526,14 +8637,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -9601,8 +8704,6 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -9610,14 +8711,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -9630,8 +8723,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -9639,6 +8730,7 @@
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PUJ003631 (KR).pdf"
   },
   {
@@ -9778,14 +8870,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -9846,8 +8930,6 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -9855,14 +8937,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -9875,8 +8949,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -9884,6 +8956,7 @@
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PUJ003891 (KR).pdf"
   },
   {
@@ -10031,14 +9104,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -10110,8 +9175,6 @@
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -10119,14 +9182,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -10139,8 +9194,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -10148,6 +9201,7 @@
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/NAC(노루오토코팅)/PUJ004361 (KR).pdf"
   },
   {
@@ -10231,10 +9285,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -10300,7 +9350,6 @@
     "supplierAddress": "(451-821) 17959 경기도 평택시 포승읍 포승공단로 152",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -10309,10 +9358,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -10329,7 +9374,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -10343,6 +9387,7 @@
       "적절한 보호의를 착용하지 않고 파손된 용기나 누출물에 손대지 마시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KNK/E 201 신나 (T802D0101T) .pdf"
   },
   {
@@ -10410,10 +9455,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -10477,7 +9518,6 @@
     "supplierAddress": "(451-821) 17959 경기도 평택시 포승읍 포승공단로 152",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -10486,10 +9526,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -10506,7 +9542,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -10520,6 +9555,7 @@
       "적절한 보호의를 착용하지 않고 파손된 용기나 누출물에 손대지 마시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KNK/E 301 신나 (T803D0104T).pdf"
   },
   {
@@ -10603,20 +9639,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -10670,19 +9698,13 @@
     "supplierAddress": "(451-821) 17959 경기도 평택시 포승읍 포승공단로 152",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -10691,18 +9713,12 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구 등 보호구를 착용하시오.",
@@ -10712,6 +9728,7 @@
       "적절한 보호의를 착용하지 않고 파손된 용기나 누출물에 손대지 마시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KNK/E 301 신나 (동절용)_T803D0106.pdf"
   },
   {
@@ -10795,10 +9812,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -10864,7 +9877,6 @@
     "supplierAddress": "(451-821) 17959 경기도 평택시 포승읍 포승공단로 152",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -10873,10 +9885,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -10893,7 +9901,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -10907,6 +9914,7 @@
       "적절한 보호의를 착용하지 않고 파손된 용기나 누출물에 손대지 마시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KNK/E 412 신나 (T804D1203T).pdf"
   },
   {
@@ -10982,10 +9990,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -11049,7 +10053,6 @@
     "supplierAddress": "(451-821) 17959 경기도 평택시 포승읍 포승공단로 152",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -11058,10 +10061,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -11078,7 +10077,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -11092,6 +10090,7 @@
       "적절한 보호의를 착용하지 않고 파손된 용기나 누출물에 손대지 마시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KNK/E 413 신나 (T804D1204T).pdf"
   },
   {
@@ -11167,20 +10166,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -11231,19 +10222,13 @@
     "supplierAddress": "(451-821) 17959 경기도 평택시 포승읍 포승공단로 152",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -11252,18 +10237,12 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구 등 보호구를 착용하시오.",
@@ -11275,6 +10254,7 @@
       "8. 노출방지 및 개인보호구"
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KNK/KU 4150KNK.. (H600-H0554H).pdf"
   },
   {
@@ -11510,20 +10490,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -11578,19 +10550,13 @@
     "supplierAddress": "(451-821) 17959 경기도 평택시 포승읍 포승공단로 152",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -11599,18 +10565,12 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구 등 보호구를 착용하시오.",
@@ -11618,6 +10578,7 @@
       "구조자는 적절한 보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KNK/듀프렉스 그래비티 그레이 (MGG) (A203C7071).pdf"
   },
   {
@@ -11845,20 +10806,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -11913,19 +10866,13 @@
     "supplierAddress": "(451-821) 17959 경기도 평택시 포승읍 포승공단로 152",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -11934,18 +10881,12 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구 등 보호구를 착용하시오.",
@@ -11955,6 +10896,7 @@
       "적절한 보호의를 착용하지 않고 파손된 용기나 누출물에 손대지 마시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KNK/듀프렉스 그래비티그레이 KDG (A203-C7060).pdf"
   },
   {
@@ -12190,20 +11132,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -12258,19 +11192,13 @@
     "supplierAddress": "(451-821) 17959 경기도 평택시 포승읍 포승공단로 152",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -12279,18 +11207,12 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구 등 보호구를 착용하시오.",
@@ -12300,6 +11222,7 @@
       "적절한 보호의를 착용하지 않고 파손된 용기나 누출물에 손대지 마시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KNK/듀프렉스 그래비티그레이 KDT-GP2 (A203-C7066).pdf"
   },
   {
@@ -12463,10 +11386,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -12529,7 +11448,6 @@
     "supplierAddress": "(451-821) 17959 경기도 평택시 포승읍 포승공단로 152",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -12538,10 +11456,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -12558,7 +11472,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -12571,6 +11484,7 @@
       "적절한 보호의를 착용하지 않고 파손된 용기나 누출물에 손대지 마시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KNK/듀프렉스 언블리치드 아이보리_NES_A203X7020_MSDS(260304).pdf"
   },
   {
@@ -12734,10 +11648,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -12802,7 +11712,6 @@
     "supplierAddress": "(451-821) 17959 경기도 평택시 포승읍 포승공단로 152",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -12811,10 +11720,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -12831,7 +11736,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -12845,6 +11749,7 @@
       "공학적 관리 및 개인보호구를 참조하여 작업하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KNK/듀프렉스 에어로실버 (T4M) A203C7086.pdf"
   },
   {
@@ -13032,20 +11937,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -13100,19 +11997,13 @@
     "supplierAddress": "(451-821) 17959 경기도 평택시 포승읍 포승공단로 152",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -13121,18 +12012,12 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구 등 보호구를 착용하시오.",
@@ -13143,6 +12028,7 @@
       "공학적 관리 및 개인보호구를 참조하여 작업하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KNK/듀프렉스 인페르노레드 AJR (A203-R7038).pdf"
   },
   {
@@ -13394,10 +12280,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -13463,7 +12345,6 @@
     "supplierAddress": "(451-821) 17959 경기도 평택시 포승읍 포승공단로 152",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -13472,10 +12353,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -13492,7 +12369,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -13505,6 +12381,7 @@
       "적절한 보호의를 착용하지 않고 파손된 용기나 누출물에 손대지 마시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KNK/듀프렉스 플루톤 블루 (PLU) (A203-K7077)_MSDS.pdf"
   },
   {
@@ -13628,10 +12505,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -13696,7 +12569,6 @@
     "supplierAddress": "(451-821) 17959 경기도 평택시 포승읍 포승공단로 152",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -13705,10 +12577,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -13725,7 +12593,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -13740,6 +12607,7 @@
       "8. 노출방지 및 개인보호구"
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KNK/소프렉스#500 무광투명 G-30 (K806-A4005).pdf"
   },
   {
@@ -13855,10 +12723,6 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -13923,7 +12787,6 @@
     "supplierAddress": "(451-821) 17959 경기도 평택시 포승읍 포승공단로 152",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -13932,10 +12795,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -13952,7 +12811,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08",
       "GHS09"
@@ -13967,6 +12825,7 @@
       "8. 노출방지 및 개인보호구"
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KNK/소프렉스#500 크리어 DL (K806-A0070).pdf"
   },
   {
@@ -14146,20 +13005,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -14214,19 +13065,13 @@
     "supplierAddress": "(451-821) 17959 경기도 평택시 포승읍 포승공단로 152",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -14235,18 +13080,12 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구 등 보호구를 착용하시오.",
@@ -14256,6 +13095,7 @@
       "적절한 보호의를 착용하지 않고 파손된 용기나 누출물에 손대지 마시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KNK/아크렉스 마그마 레드 (OVR) A203R7054.pdf"
   },
   {
@@ -14435,20 +13275,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -14503,19 +13335,13 @@
     "supplierAddress": "(451-821) 17959 경기도 평택시 포승읍 포승공단로 152",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -14524,18 +13350,12 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구 등 보호구를 착용하시오.",
@@ -14545,6 +13365,7 @@
       "적절한 보호의를 착용하지 않고 파손된 용기나 누출물에 손대지 마시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KNK/아크렉스 아이보리 실버 (ISG)A203S7058.pdf"
   },
   {
@@ -14772,20 +13593,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -14840,19 +13653,13 @@
     "supplierAddress": "(451-821) 17959 경기도 평택시 포승읍 포승공단로 152",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -14861,18 +13668,12 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구 등 보호구를 착용하시오.",
@@ -14882,6 +13683,7 @@
       "적절한 보호의를 착용하지 않고 파손된 용기나 누출물에 손대지 마시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KNK/아크렉스 아이스버그 그린 (IEG)A203G7033.pdf"
   },
   {
@@ -15069,20 +13871,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -15137,19 +13931,13 @@
     "supplierAddress": "(451-821) 17959 경기도 평택시 포승읍 포승공단로 152",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -15158,18 +13946,12 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구 등 보호구를 착용하시오.",
@@ -15179,6 +13961,7 @@
       "적절한 보호의를 착용하지 않고 파손된 용기나 누출물에 손대지 마시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "01_ 도장/KNK/아크렉스 프로스트 블루 (EBB)A203K7079.pdf"
   },
   {
@@ -15439,6 +14222,7 @@
       "적절한 보호의를 착용하지 않고 파손된 용기나 누출물에 손대지 마시오"
     ],
     "supplierAddress": "충남 당진시 순성면 순성로 773",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/대하/HW160-COLOR.pdf"
   },
   {
@@ -16219,6 +15003,7 @@
       "- 엎질러진 것을 즉시 닦아내고, 보호구 항의 예방조치를 따르시오.",
       "- 적절한 보호의를 착용하지 않고 파손된 용기나 누출물에 손대지 마시오"
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/일신케미칼/MSDS(GHS)-뿌리는그리스(KOR).pdf"
   },
   {
@@ -16620,6 +15405,7 @@
       "적절한 보호의를 착용하지 않고 파손된 용기나 누출물에 손대지 마시오.-"
     ],
     "signalWord": "경고",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/GS칼텍스/Kixx Grease EP 0 MSDS.pdf"
   },
   {
@@ -16793,6 +15579,7 @@
       "구조자는 적절한 보호구를 착용하시오.-"
     ],
     "signalWord": "경고",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/GS칼텍스/Kixx Grease EP 1.pdf"
   },
   {
@@ -16976,6 +15763,7 @@
       "보호구 항(「８. 노출방지 및 개인보호구」항 참조)의 예방조치를 하고, 엎질러진 것을 즉"
     ],
     "signalWord": "경고",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/GS칼텍스/Kixx Grease EP 3.pdf"
   },
   {
@@ -17159,6 +15947,7 @@
       "보호구 항(「８. 노출방지 및 개인보호구」항 참조)의 예방조치를 하고, 엎질러진 것을 즉"
     ],
     "signalWord": "경고",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/GS칼텍스/Kixx Grease EP 4.pdf"
   },
   {
@@ -17343,6 +16132,7 @@
       "다. 화재 진압 시 착용할 보호구 및 예방조치"
     ],
     "supplierAddress": "서울스퀘어빌딩 22층., 416 한강대로, 중구 서울 대한민국",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/MOBIL코리아/DTE25 MSDS 2021.03.18.pdf"
   },
   {
@@ -17434,6 +16224,7 @@
       "가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구"
     ],
     "supplierAddress": "서울스퀘어빌딩 22층., 416 한강대로, 중구 서울 대한민국",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/MOBIL코리아/MOBILUX EP 0 MSDS 2021.03.30.pdf"
   },
   {
@@ -17527,6 +16318,7 @@
       "다. 화재 진압 시 착용할 보호구 및 예방조치"
     ],
     "supplierAddress": "서울스퀘어빌딩 22층., 416 한강대로, 중구 서울 대한민국",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/MOBIL코리아/SPARTAN EP 220. MSDS 22.06.13.pdf"
   },
   {
@@ -17574,12 +16366,12 @@
     "hazardBadge": "위험",
     "ghsPictograms": [
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       },
       {
         "code": "GHS05",
@@ -17600,18 +16392,18 @@
     },
     "issueDate": "2021-09-27",
     "classificationGhsCodes": [
-      "GHS09",
       "GHS07",
+      "GHS09",
       "GHS05"
     ],
     "classificationGhsPictograms": [
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       },
       {
         "code": "GHS05",
@@ -17619,14 +16411,15 @@
       }
     ],
     "ghsCodes": [
-      "GHS09",
       "GHS07",
+      "GHS09",
       "GHS05"
     ],
     "ppeCandidates": [
       "다. 화재 진압 시 착용할 보호구 및 예방조치"
     ],
     "supplierAddress": "서울스퀘어빌딩 22층., 416 한강대로, 중구 서울 대한민국",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/MOBIL코리아/XHP222 MSDS. 2021.09.27.pdf"
   },
   {
@@ -17751,6 +16544,7 @@
       "P280 - 보호장갑/보호의/보안경/안면보호구 를(을) 착용하시오.",
       "P284 - 호흡기 보호구를 착용하시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/고려용접봉/KC-28 2023.01.11.pdf"
   },
   {
@@ -17850,16 +16644,16 @@
         "label": "유해/자극성"
       },
       {
+        "code": "GHS05",
+        "label": "부식성"
+      },
+      {
         "code": "GHS08",
         "label": "건강유해성"
       },
       {
         "code": "GHS09",
         "label": "환경유해성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       }
     ],
     "hazardStatements": [
@@ -17916,14 +16710,18 @@
     "supplierAddress": "(51544) 대한민국 경상남도 창원시 성산구 공단로 704",
     "classificationGhsCodes": [
       "GHS07",
+      "GHS05",
       "GHS08",
-      "GHS09",
-      "GHS05"
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS07",
         "label": "유해/자극성"
+      },
+      {
+        "code": "GHS05",
+        "label": "부식성"
       },
       {
         "code": "GHS08",
@@ -17932,22 +16730,19 @@
       {
         "code": "GHS09",
         "label": "환경유해성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       }
     ],
     "ghsCodes": [
       "GHS07",
+      "GHS05",
       "GHS08",
-      "GHS09",
-      "GHS05"
+      "GHS09"
     ],
     "ppeCandidates": [
       "P280 - 보호장갑/보호의/보안경/안면보호구를(을) 착용하시오.",
       "P284 - [환기가 잘 되지 않는 경우] 호흡기 보호구를 착용하시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/고려용접봉/KFN-50. 2021.12.29.pdf"
   },
   {
@@ -18023,12 +16818,12 @@
         "label": "유해/자극성"
       },
       {
-        "code": "GHS08",
-        "label": "건강유해성"
-      },
-      {
         "code": "GHS05",
         "label": "부식성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
       }
     ],
     "hazardStatements": [
@@ -18079,8 +16874,8 @@
     "supplierAddress": "(51544) 대한민국 경상남도 창원시 성산구 공단로 704",
     "classificationGhsCodes": [
       "GHS07",
-      "GHS08",
-      "GHS05"
+      "GHS05",
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
@@ -18088,23 +16883,24 @@
         "label": "유해/자극성"
       },
       {
-        "code": "GHS08",
-        "label": "건강유해성"
-      },
-      {
         "code": "GHS05",
         "label": "부식성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
       }
     ],
     "ghsCodes": [
       "GHS07",
-      "GHS08",
-      "GHS05"
+      "GHS05",
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280 - 보호장갑/보호의/보안경/안면보호구를(을) 착용하시오.",
       "P284 - [환기가 잘 되지 않는 경우] 호흡기 보호구를 착용하시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/고려용접봉/KH-500LF. 2021.12.22.pdf"
   },
   {
@@ -18188,16 +16984,12 @@
         "label": "부식성"
       },
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
     "hazardStatements": [
@@ -18253,9 +17045,8 @@
     "supplierAddress": "(51544) 대한민국 경상남도 창원시 성산구 공단로 704",
     "classificationGhsCodes": [
       "GHS05",
-      "GHS07",
       "GHS08",
-      "GHS09"
+      "GHS07"
     ],
     "classificationGhsPictograms": [
       {
@@ -18263,28 +17054,24 @@
         "label": "부식성"
       },
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
     "ghsCodes": [
       "GHS05",
-      "GHS07",
       "GHS08",
-      "GHS09"
+      "GHS07"
     ],
     "ppeCandidates": [
       "P280 - 보호장갑/보호의/보안경/안면보호구를(을) 착용하시오.",
       "P284 - [환기가 잘 되지 않는 경우] 호흡기 보호구를 착용하시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/고려용접봉/KR-3000. 2021.10.14.pdf"
   },
   {
@@ -18376,16 +17163,16 @@
         "label": "유해/자극성"
       },
       {
+        "code": "GHS05",
+        "label": "부식성"
+      },
+      {
         "code": "GHS08",
         "label": "건강유해성"
       },
       {
         "code": "GHS09",
         "label": "환경유해성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       }
     ],
     "hazardStatements": [
@@ -18442,14 +17229,18 @@
     "supplierAddress": "(51544) 대한민국 경상남도 창원시 성산구 공단로 704",
     "classificationGhsCodes": [
       "GHS07",
+      "GHS05",
       "GHS08",
-      "GHS09",
-      "GHS05"
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS07",
         "label": "유해/자극성"
+      },
+      {
+        "code": "GHS05",
+        "label": "부식성"
       },
       {
         "code": "GHS08",
@@ -18458,22 +17249,19 @@
       {
         "code": "GHS09",
         "label": "환경유해성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       }
     ],
     "ghsCodes": [
       "GHS07",
+      "GHS05",
       "GHS08",
-      "GHS09",
-      "GHS05"
+      "GHS09"
     ],
     "ppeCandidates": [
       "P280 - 보호장갑/보호의/보안경/안면보호구를(을) 착용하시오.",
       "P284 - [환기가 잘 되지 않는 경우] 호흡기 보호구를 착용하시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/고려용접봉/KSN-100.2021.12.19.pdf"
   },
   {
@@ -18573,16 +17361,12 @@
         "label": "부식성"
       },
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
     "hazardStatements": [
@@ -18640,9 +17424,8 @@
     "supplierAddress": "(51544) 대한민국 경상남도 창원시 성산구 공단로 704",
     "classificationGhsCodes": [
       "GHS05",
-      "GHS07",
       "GHS08",
-      "GHS09"
+      "GHS07"
     ],
     "classificationGhsPictograms": [
       {
@@ -18650,28 +17433,24 @@
         "label": "부식성"
       },
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
     "ghsCodes": [
       "GHS05",
-      "GHS07",
       "GHS08",
-      "GHS09"
+      "GHS07"
     ],
     "ppeCandidates": [
       "P280 - 보호장갑/보호의/보안경/안면보호구 를(을) 착용하시오.",
       "P284 - 호흡기 보호구를 착용하시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/고려용접봉/KST-308. 2021.12.29.pdf"
   },
   {
@@ -18743,16 +17522,12 @@
     "hazardBadge": "위험",
     "ghsPictograms": [
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
     "hazardStatements": [
@@ -18805,33 +17580,28 @@
     "issueDate": "2021-12-16",
     "supplierAddress": "(51544) 대한민국 경상남도 창원시 성산구 공단로 704",
     "classificationGhsCodes": [
-      "GHS07",
       "GHS08",
-      "GHS09"
+      "GHS07"
     ],
     "classificationGhsPictograms": [
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
       {
         "code": "GHS08",
         "label": "건강유해성"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
     "ghsCodes": [
-      "GHS07",
       "GHS08",
-      "GHS09"
+      "GHS07"
     ],
     "ppeCandidates": [
       "P280 - 보호장갑/보호의/보안경/안면보호구를(을) 착용하시오.",
       "P284 - [환기가 잘 되지 않는 경우] 호흡기 보호구를 착용하시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/고려용접봉/M-3081. 2021.12.16.pdf"
   },
   {
@@ -18887,10 +17657,6 @@
     "hazardBadge": "위험",
     "ghsPictograms": [
       {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -18928,15 +17694,10 @@
     "issueDate": "2021-11-08",
     "supplierAddress": "(51544) 대한민국 경상남도 창원시 성산구 공단로 704",
     "classificationGhsCodes": [
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
     "classificationGhsPictograms": [
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
       {
         "code": "GHS07",
         "label": "유해/자극성"
@@ -18947,7 +17708,6 @@
       }
     ],
     "ghsCodes": [
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -18956,6 +17716,7 @@
       "다. 화재 진압 시 착용할 보호구 및 예방조치",
       "화재 진압 중 보호 : 적절한 보호 장비 없이 조치를 취하려고 하지 마시오. 자급식 호흡보호구. 전신 보호복."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/고려용접봉/T-50.pdf"
   },
   {
@@ -19027,16 +17788,12 @@
     "hazardBadge": "위험",
     "ghsPictograms": [
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
     "hazardStatements": [
@@ -19089,33 +17846,28 @@
     "issueDate": "2021-12-16",
     "supplierAddress": "(51544) 대한민국 경상남도 창원시 성산구 공단로 704",
     "classificationGhsCodes": [
-      "GHS07",
       "GHS08",
-      "GHS09"
+      "GHS07"
     ],
     "classificationGhsPictograms": [
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
       {
         "code": "GHS08",
         "label": "건강유해성"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
     "ghsCodes": [
-      "GHS07",
       "GHS08",
-      "GHS09"
+      "GHS07"
     ],
     "ppeCandidates": [
       "P280 - 보호장갑/보호의/보안경/안면보호구 를(을) 착용하시오.",
       "P284 - 호흡기 보호구를 착용하시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/고려용접봉/T-3083.2021.12.16.pdf"
   },
   {
@@ -19207,10 +17959,6 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS02",
         "label": "인화성"
       },
@@ -19221,6 +17969,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -19279,19 +18031,15 @@
     "supplierAddress": "(제조자) : 충청남도 아산시 둔포면 봉재길 63번길 81",
     "classificationGhsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS02",
@@ -19304,19 +18052,24 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/BD-3(나바켐)(24)+(GHS).pdf"
   },
   {
@@ -19384,10 +18137,6 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -19432,7 +18181,6 @@
     "supplierAddress": "(제조자) : 경기도 평택시 팽성읍 추팔산단 1길 204",
     "classificationGhsCodes": [
       "GHS04",
-      "GHS09",
       "GHS07",
       "GHS08"
     ],
@@ -19440,10 +18188,6 @@
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS07",
@@ -19456,7 +18200,6 @@
     ],
     "ghsCodes": [
       "GHS04",
-      "GHS09",
       "GHS07",
       "GHS08"
     ],
@@ -19467,6 +18210,7 @@
       "엎질러진 것을 즉시 닦아내고, 보호구 항의 예방조치를 따르시오. 가능하다면 누출용기를 돌려"
     ],
     "signalWord": "경고",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/DC-3000(32)+(GHS).pdf"
   },
   {
@@ -19550,10 +18294,6 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS02",
         "label": "인화성"
       },
@@ -19564,6 +18304,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -19622,19 +18366,15 @@
     "supplierAddress": "(제조자) :충청남도 아산시 둔포면 봉재길 63번길 81",
     "classificationGhsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS02",
@@ -19647,19 +18387,24 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/K1(24)+(GHS).pdf"
   },
   {
@@ -19775,10 +18520,6 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS02",
         "label": "인화성"
       },
@@ -19789,6 +18530,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -19846,19 +18591,15 @@
     "supplierAddress": "(제조자) : 경기도 평택시 팽성읍 추팔산단 1길 204",
     "classificationGhsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS02",
@@ -19871,19 +18612,24 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/LONG#2+Spray(38)+(GHS).pdf"
   },
   {
@@ -20007,10 +18753,6 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS02",
         "label": "인화성"
       },
@@ -20021,6 +18763,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -20078,19 +18824,15 @@
     "supplierAddress": "(제조자) : 경기도 평택시 팽성읍 추팔산단 1길 204",
     "classificationGhsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS02",
@@ -20103,19 +18845,24 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/LONG+#2H(23)+(GHS).pdf"
   },
   {
@@ -20183,10 +18930,6 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS02",
         "label": "인화성"
       },
@@ -20197,6 +18940,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -20256,19 +19003,15 @@
     "supplierAddress": "(제조자) : 경기도 평택시 팽성읍 추팔산단 1길 204",
     "classificationGhsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS02",
@@ -20281,19 +19024,24 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/Mega+check+처리제+(6)+(GHS).pdf"
   },
   {
@@ -20369,16 +19117,16 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS02",
         "label": "인화성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -20429,18 +19177,14 @@
     "supplierAddress": "(제조자) : 경기도 평택시 팽성읍 추팔산단 1길 204",
     "classificationGhsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS02",
@@ -20449,13 +19193,17 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오.",
@@ -20463,6 +19211,7 @@
       "가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구"
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/Mega+check+침투제(5)+(GHS).pdf"
   },
   {
@@ -20583,6 +19332,7 @@
       "8. 노출방지 및 개인보호구"
     ],
     "signalWord": "경고",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/Mega+check+침투제W+(5)+(GHS).pdf"
   },
   {
@@ -20698,10 +19448,6 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS02",
         "label": "인화성"
       },
@@ -20712,6 +19458,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -20781,19 +19531,15 @@
     "supplierAddress": "(제조자) : 경기도 평택시 팽성읍 추팔산단 1길 204",
     "classificationGhsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS02",
@@ -20806,19 +19552,24 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/Mega+check+현상제+(5)+(GHS).pdf"
   },
   {
@@ -20948,6 +19699,7 @@
       "예방조치를 따르시오. 피해야할 물질 및 조건에 유의하시오. 공학적 관리 및 개인보호구를 참조하여"
     ],
     "signalWord": "경고",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/NB-1(분무기)(2)+(나바켐)+(GHS).pdf"
   },
   {
@@ -21055,16 +19807,16 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS02",
         "label": "인화성"
       },
       {
         "code": "GHS07",
         "label": "유해/자극성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -21126,18 +19878,14 @@
     "supplierAddress": "(제조자) : 경기도 평택시 팽성읍 추팔산단 1길 204",
     "classificationGhsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
-      "GHS07"
+      "GHS07",
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS02",
@@ -21146,18 +19894,23 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
-      "GHS07"
+      "GHS07",
+      "GHS09"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/PMC-3(32)+(GHS).pdf"
   },
   {
@@ -21241,16 +19994,16 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS02",
         "label": "인화성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -21298,18 +20051,14 @@
     "supplierAddress": "(제조자) : 충청남도 아산시 둔포면 봉재길 63번길 81",
     "classificationGhsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS02",
@@ -21318,19 +20067,24 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오.",
       "다. 화재 진압 시 착용할 보호구 및 예방조치 : 구조자는 적절한 보호구를 착용하시오. 지역을 벗어나"
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/SSR-220(나바켐)(24)+(GHS).pdf"
   },
   {
@@ -21414,16 +20168,16 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
         "code": "GHS02",
         "label": "인화성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -21471,18 +20225,14 @@
     "supplierAddress": "(제조자) : 충청남도 아산시 둔포면 봉재길 63번길 81",
     "classificationGhsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS04",
         "label": "고압가스"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       },
       {
         "code": "GHS02",
@@ -21491,19 +20241,24 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS04",
-      "GHS09",
       "GHS02",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "ppeCandidates": [
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오.",
       "다. 화재 진압 시 착용할 보호구 및 예방조치 : 구조자는 적절한 보호구를 착용하시오. 지역을 벗어나"
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/SSR-450(나바켐)(26)+(GHS).pdf"
   },
   {
@@ -21550,10 +20305,6 @@
     "siteLabel": "",
     "hazardBadge": "위험",
     "ghsPictograms": [
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
       {
         "code": "GHS07",
         "label": "유해/자극성"
@@ -21608,15 +20359,10 @@
     "issueDate": "1996-06-20",
     "supplierAddress": "(제조자) : 경기도 평택시 팽성읍 추팔산단 1길 204",
     "classificationGhsCodes": [
-      "GHS09",
       "GHS07",
       "GHS08"
     ],
     "classificationGhsPictograms": [
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
       {
         "code": "GHS07",
         "label": "유해/자극성"
@@ -21627,7 +20373,6 @@
       }
     ],
     "ghsCodes": [
-      "GHS09",
       "GHS07",
       "GHS08"
     ],
@@ -21637,6 +20382,7 @@
       "구조자는 적절한 보호구를 착용하시오. 지역을 벗어나 안전거리를 유지하여 소화하시오. 대부분"
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/TC#1(36)+(GHS).pdf"
   },
   {
@@ -21878,6 +20624,7 @@
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(분홍색).pdf"
   },
   {
@@ -22069,14 +20816,6 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -22157,8 +20896,6 @@
     "classificationGhsCodes": [
       "GHS02",
       "GHS04",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -22172,14 +20909,6 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -22191,14 +20920,13 @@
     "ghsCodes": [
       "GHS02",
       "GHS04",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
     "ppeCandidates": [
       "P280 보호장갑/보호의/보안경/안면보호구를(을)착용하시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐 - 아이보리색 MSDS.pdf"
   },
   {
@@ -22398,14 +21126,6 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -22482,8 +21202,6 @@
     "classificationGhsCodes": [
       "GHS02",
       "GHS04",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -22497,14 +21215,6 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
@@ -22516,8 +21226,6 @@
     "ghsCodes": [
       "GHS02",
       "GHS04",
-      "GHS05",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -22525,6 +21233,7 @@
       "P280 보호장갑/보호의/보안경/안면보호구를(을)착용하시오."
     ],
     "supplierAddress": "경남 양산시 유산공단 4길 28-140",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐 - 진청색 MSDS.pdf"
   },
   {
@@ -22766,6 +21475,7 @@
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(기계색).pdf"
   },
   {
@@ -22977,6 +21687,7 @@
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(은색).pdf"
   },
   {
@@ -23218,6 +21929,7 @@
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(적색).pdf"
   },
   {
@@ -23459,6 +22171,7 @@
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(중회색).pdf"
   },
   {
@@ -23732,6 +22445,7 @@
       "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(황색).pdf"
   },
   {
@@ -23763,10 +22477,6 @@
     "hazardBadge": "위험",
     "ghsPictograms": [
       {
-        "code": "GHS02",
-        "label": "인화성"
-      },
-      {
         "code": "GHS05",
         "label": "부식성"
       },
@@ -23789,16 +22499,11 @@
     "issueDate": "2024-12-19",
     "supplierAddress": "6-15-9 Toshima, Kita-ku, Tokyo 114-0003, Japan",
     "classificationGhsCodes": [
-      "GHS02",
       "GHS05",
       "GHS06",
       "GHS07"
     ],
     "classificationGhsPictograms": [
-      {
-        "code": "GHS02",
-        "label": "인화성"
-      },
       {
         "code": "GHS05",
         "label": "부식성"
@@ -23813,7 +22518,6 @@
       }
     ],
     "ghsCodes": [
-      "GHS02",
       "GHS05",
       "GHS06",
       "GHS07"
@@ -23824,6 +22528,7 @@
       "필요한 조치 사항 및 보호구"
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "03_ 시험실(시약)/TCI-GR(Isovaleric Acid)_TGI_세진씨아이.pdf"
   },
   {
@@ -23979,20 +22684,12 @@
         "label": "인화성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -24044,19 +22741,13 @@
     "supplierAddress": "충청남도 서산시 평신2로 182 HD현대오일뱅크",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -24065,22 +22756,17 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "- P280 보호장갑·보호의·보안경·안면보호구를(을) 착용하시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "03_ 시험실(시약)/가솔린.pdf"
   },
   {
@@ -24114,10 +22800,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -24174,7 +22856,6 @@
     "supplierAddress": "충청남도 서산시 평신2로 182 HD현대오일뱅크",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -24182,10 +22863,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS06",
-        "label": "급성독성"
       },
       {
         "code": "GHS07",
@@ -24198,7 +22875,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS06",
       "GHS07",
       "GHS08"
     ],
@@ -24207,6 +22883,7 @@
       "다. 화재 진압 시 착용할 보호구 및 예방조치",
       "가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구"
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "03_ 시험실(시약)/디젤.pdf"
   },
   {
@@ -24322,6 +22999,7 @@
       "GHS07"
     ],
     "signalWord": "경고",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "03_ 시험실(시약)/불스원 물 없이 바로 쓰는 부동액.pdf"
   },
   {
@@ -24514,6 +23192,7 @@
       "P280 보호장갑/보호의/보안경/안면보호구를(을) 착용하시오."
     ],
     "signalWord": "경고",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "03_ 시험실(시약)/블스원 3in1 장벽 유리 크리너.pdf"
   },
   {
@@ -24600,6 +23279,7 @@
       "다. 화재진압시 착용할 보호구 및 예방조치"
     ],
     "signalWord": "경고",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "03_ 시험실(시약)/블스원 RainOK 에탄올 3in1 코팅워셔.pdf"
   },
   {
@@ -24832,6 +23512,7 @@
       "- 엎질러진 것을 즉시 닦아내고, 보호구 항의 예방조치를 따르시오.",
       "- 적절한 보호의를 착용하지 않고 파손된 용기나 누출물에 손대지 마시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "03_ 시험실(시약)/수산화나트륨(Sulfuric Acid, 7664-93-9)_DUSAN.pdf"
   },
   {
@@ -24901,6 +23582,7 @@
     "ghsCodes": [
       "GHS07"
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "03_ 시험실(시약)/아세톤(Acetone)_DC Chemicals.pdf"
   },
   {
@@ -24939,10 +23621,6 @@
     "siteLabel": "",
     "hazardBadge": "위험",
     "ghsPictograms": [
-      {
-        "code": "GHS02",
-        "label": "인화성"
-      },
       {
         "code": "GHS07",
         "label": "유해/자극성"
@@ -24998,15 +23676,10 @@
     "issueDate": "2002-07-30",
     "supplierAddress": "경기도 평택시 산단로 16번길 117(모곡동)",
     "classificationGhsCodes": [
-      "GHS02",
       "GHS07",
       "GHS08"
     ],
     "classificationGhsPictograms": [
-      {
-        "code": "GHS02",
-        "label": "인화성"
-      },
       {
         "code": "GHS07",
         "label": "유해/자극성"
@@ -25017,7 +23690,6 @@
       }
     ],
     "ghsCodes": [
-      "GHS02",
       "GHS07",
       "GHS08"
     ],
@@ -25032,6 +23704,7 @@
       "◦눈 보호 화학물질로 인핚 인체유해성이 우려되므로 취급시 화학물질용 보안경을 착용핛",
       "Section 8 – 노출방지 및 개인보호구"
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "03_ 시험실(시약)/에탄올 94.5%(에틸 알코올Ethanol)_삼천순약공업(주).pdf"
   },
   {
@@ -25065,10 +23738,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -25124,7 +23793,6 @@
     "supplierAddress": "및 전화번호 : 인천광역시 남구 학익동 587-46번지 TEL : (032) 860 – 6116",
     "classificationGhsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08"
     ],
@@ -25132,10 +23800,6 @@
       {
         "code": "GHS02",
         "label": "인화성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
       },
       {
         "code": "GHS07",
@@ -25148,7 +23812,6 @@
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS05",
       "GHS07",
       "GHS08"
     ],
@@ -25158,6 +23821,7 @@
       "3) 화재진압시 착용할 보호구 및 예방조치"
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "03_ 시험실(시약)/에탄올(에틸 알코올Ethanol)_DC Chemicals.pdf"
   },
   {
@@ -25238,6 +23902,7 @@
       "다. 화재 진압 시 착용할 보호구 및 예방조치"
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "03_ 시험실(시약)/에틸렌(Ethylene).pdf"
   },
   {
@@ -25313,6 +23978,7 @@
       "- 방열복 및 공기호흡기등 필요한 보호구를 반드시 착용후 화재진압을 하고 불가능시 즉각 철수 할 것.",
       "A. Personal precautions and protective equipm ent : - 작업자는 적절한 보호구(『８. 노출방지 및 개인보호구』항"
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "03_ 시험실(시약)/염산(Hydrochloric acid, 7647-01-0)_DUSAN.pdf"
   },
   {
@@ -25400,6 +24066,7 @@
       "3) 개인보호구"
     ],
     "signalWord": "경고",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "03_ 시험실(시약)/염화 나트륨(sodium chloride_ 7647-14-5)_OCI.pdf"
   },
   {
@@ -25541,6 +24208,7 @@
       "구조자는 적절한 보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "03_ 시험실(시약)/염화 제이구리 2수화물.pdf"
   },
   {
@@ -25641,6 +24309,7 @@
       "GHS05",
       "GHS08"
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "03_ 시험실(시약)/인산_junsel.pdf"
   },
   {
@@ -25750,6 +24419,7 @@
       "- 엎질러진 것을 즉시 닦아내고, 보호구 항의 예방조치를 따르시오.",
       "- 적절한 보호의를 착용하지 않고 파손된 용기나 누출물에 손대지 마시오."
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "03_ 시험실(시약)/황산(sodium hydroxide,1310-73-2)_DUSAN.pdf"
   },
   {
@@ -26035,6 +24705,7 @@
       "6.1. 인체를 보호하기 위해 필요한 조치 사항 및 보호구"
     ],
     "signalWord": "경고",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "3M/PN3021.pdf"
   },
   {
@@ -26269,20 +24940,12 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -26349,10 +25012,8 @@
     "classificationGhsCodes": [
       "GHS02",
       "GHS04",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
@@ -26364,29 +25025,19 @@
         "label": "고압가스"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
       "GHS04",
-      "GHS05",
       "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "P280D (보호장갑·보호의·보안경·안면보호구)를(을) 착용하시오.",
@@ -26395,6 +25046,7 @@
       "P280E 보호장갑을 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "3M/Stainless Steel Coat.pdf"
   },
   {
@@ -26508,6 +25160,7 @@
       "5.3. 화재 진압 시 착용할 보호구 및 예방조치"
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "3M/프로슈터. 2020.12.11.pdf"
   },
   {
@@ -26543,10 +25196,6 @@
         "label": "부식성"
       },
       {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       }
@@ -26580,7 +25229,6 @@
     "supplierAddress": "및 전화번호 : 충청남도 당진시 신평면 당진항만로 45 TEL : (031) 684 – 7600",
     "classificationGhsCodes": [
       "GHS05",
-      "GHS06",
       "GHS07"
     ],
     "classificationGhsPictograms": [
@@ -26589,17 +25237,12 @@
         "label": "부식성"
       },
       {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
       }
     ],
     "ghsCodes": [
       "GHS05",
-      "GHS06",
       "GHS07"
     ],
     "ppeCandidates": [
@@ -26611,6 +25254,7 @@
       "적절한 보호의를 착용하지 않고 파손된 용기나 누출물에 손대지 마시오"
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "OCI주식회사/소다회 MSDS.2019.06.01.pdf"
   },
   {
@@ -26756,10 +25400,6 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ],
     "hazardStatements": [
@@ -26804,8 +25444,7 @@
     "classificationGhsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "classificationGhsPictograms": [
       {
@@ -26819,17 +25458,12 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "ppeCandidates": [
       "P280 (보호장갑·보호의·보안경·안면보호구)를",
@@ -26839,6 +25473,7 @@
     ],
     "signalWord": "위험",
     "supplierAddress": "서울시 강남구 역삼로 221",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "대륙제관(부탄)/대륙 부탄 CRV_2023.pdf"
   },
   {
@@ -26904,10 +25539,6 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ],
     "hazardStatements": [
@@ -26952,8 +25583,7 @@
     "classificationGhsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "classificationGhsPictograms": [
       {
@@ -26967,17 +25597,12 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "ppeCandidates": [
       "P280 (보호장갑·보호의·보안경·안면보호구)를",
@@ -26987,6 +25612,7 @@
     ],
     "signalWord": "위험",
     "supplierAddress": "서울시 강남구 역삼로 221",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "대륙제관(부탄)/맥스 부탄 CRV_2023.pdf"
   },
   {
@@ -27052,10 +25678,6 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ],
     "hazardStatements": [
@@ -27100,8 +25722,7 @@
     "classificationGhsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "classificationGhsPictograms": [
       {
@@ -27115,17 +25736,12 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "ppeCandidates": [
       "P280 (보호장갑·보호의·보안경·안면보호구)를",
@@ -27135,6 +25751,7 @@
     ],
     "signalWord": "위험",
     "supplierAddress": "서울시 강남구 역삼로 221",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "대륙제관(부탄)/세이프 부탄 CRV_2023.pdf"
   },
   {
@@ -27200,10 +25817,6 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ],
     "hazardStatements": [
@@ -27248,8 +25861,7 @@
     "classificationGhsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "classificationGhsPictograms": [
       {
@@ -27263,17 +25875,12 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "ppeCandidates": [
       "P280 (보호장갑·보호의·보안경·안면보호구)를",
@@ -27283,6 +25890,7 @@
     ],
     "signalWord": "위험",
     "supplierAddress": "서울시 강남구 역삼로 221",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "대륙제관(부탄)/썬플라워 CRV_2023.pdf"
   },
   {
@@ -27348,10 +25956,6 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ],
     "hazardStatements": [
@@ -27396,8 +26000,7 @@
     "classificationGhsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "classificationGhsPictograms": [
       {
@@ -27411,17 +26014,12 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "ppeCandidates": [
       "P280 (보호장갑·보호의·보안경·안면보호구)를",
@@ -27431,6 +26029,7 @@
     ],
     "signalWord": "위험",
     "supplierAddress": "서울시 강남구 역삼로 221",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "대륙제관(부탄)/썬히트 CRV_2023.pdf"
   },
   {
@@ -27496,10 +26095,6 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ],
     "hazardStatements": [
@@ -27544,8 +26139,7 @@
     "classificationGhsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "classificationGhsPictograms": [
       {
@@ -27559,17 +26153,12 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       }
     ],
     "ghsCodes": [
       "GHS02",
       "GHS04",
-      "GHS07",
-      "GHS08"
+      "GHS07"
     ],
     "ppeCandidates": [
       "P280 (보호장갑·보호의·보안경·안면보호구)를",
@@ -27579,6 +26168,7 @@
     ],
     "signalWord": "위험",
     "supplierAddress": "서울시 강남구 역삼로 221",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "대륙제관(부탄)/퍼펙트 부탄 CRV_2023.pdf"
   },
   {
@@ -27861,6 +26451,7 @@
       "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구 :"
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "록타이트(LOCTITE)/록타이트 순간접착제용 경화촉진제.pdf"
   },
   {
@@ -28018,6 +26609,7 @@
       "미확인된 기체가 존재하는 공간에서 구조작업을 할 경우 적합한 호흡 보호구를 착용하시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "백스인터코퍼레이션(WD-40)/WD-40.pdf"
   },
   {
@@ -28085,16 +26677,8 @@
         "label": "부식성"
       },
       {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       },
       {
         "code": "GHS09",
@@ -28131,9 +26715,7 @@
     "issueDate": "2024-05-22",
     "classificationGhsCodes": [
       "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
       "GHS09"
     ],
     "classificationGhsPictograms": [
@@ -28142,16 +26724,8 @@
         "label": "부식성"
       },
       {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
       },
       {
         "code": "GHS09",
@@ -28160,9 +26734,7 @@
     ],
     "ghsCodes": [
       "GHS05",
-      "GHS06",
       "GHS07",
-      "GHS08",
       "GHS09"
     ],
     "ppeCandidates": [
@@ -28170,6 +26742,7 @@
     ],
     "signalWord": "위험",
     "supplierAddress": "경기도광주시초월읍산수로554번길41",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "산도깨비(곰팡이제거제)/곰팡이제거제 MSDS [2024].pdf"
   },
   {
@@ -28404,6 +26977,7 @@
       "탱크 화재시 소화가 진화된 후에도 다량의 물로 용기를 식히시오다. 화재 진압 시 착용할 보호구 및 예방조치소화수의 처분을 위해 도랑을 파서 가두고 물질이 흩어지지 않게 하시오탱크 화재시 압력 방출장치에서 고음이 있거나 탱크가 변색할 경우 즉시 물러나시오위험하지 않다면 화재지역에서 용기를 옮기시오탱크 화재시 화염에 휩싸인 탱크에서 물러나시오",
       "비인화성, 물질 자체는 타지 않으나 가열시 분해하여 부식성/독성 흄을 발생할 수 있음다. 화재 진압 시 착용할 보호구 및 예방조치구조자는 적절한 보호구를 착용하시오.지역을 벗어나 안전거리를 유지하여 소화하시오접촉 시 피부와 눈에 화상을 입힐 수 있음누출물은 오염을 유발할 수 있음"
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "삼풍트라이텍/[삼풍트라이텍]PK-3830_GHS_MSDS.pdf"
   },
   {
@@ -28493,6 +27067,7 @@
     ],
     "signalWord": "위험",
     "supplierAddress": "충 청 북 도 옥 천 군 동 이 면 동 이 농 공 길 73- 25",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "삼풍트라이텍/[삼풍트라이텍]AF-1(난실리콘소포제)_GHS_MSDS.pdf"
   },
   {
@@ -28542,10 +27117,6 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -28567,8 +27138,7 @@
     "classificationGhsCodes": [
       "GHS05",
       "GHS06",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
@@ -28582,17 +27152,12 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS05",
       "GHS06",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "흡입하지 마시오(P260). 취급 후에는 손을 철저히 씻으시오(P264). 보호장갑·",
@@ -28605,6 +27170,7 @@
       "지 말 것. 개인용 보호장비를 착용할 것(“8. 노출방지 및 개인보호구” 참조)."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "세방전지/배터리전해액.pdf"
   },
   {
@@ -28692,6 +27258,7 @@
       "8. 노출방지 및 개인보호구"
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "수도씨에이씨(SUDO CAC ltd)/231-S250 MSDS Kor Ver.pdf"
   },
   {
@@ -28839,6 +27406,7 @@
       "○ 눈보호: 제품을 소분하는 등 노출 수준이 높을 경우 보안경 착용을 권장"
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "식당/7_퍼크린 오븐제로엠 GHS MSDS.pdf"
   },
   {
@@ -28933,6 +27501,7 @@
       "공학적 관리 및 개인보호구를 참조하여 작업하시오"
     ],
     "supplierAddress": "충남 아산시 둔포면 장영실로 903-9",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "식당/600074 하이락스 (1).pdf"
   },
   {
@@ -29034,6 +27603,10 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
       }
     ],
     "hazardStatements": [],
@@ -29049,7 +27622,8 @@
       "GHS03",
       "GHS05",
       "GHS06",
-      "GHS07"
+      "GHS07",
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
@@ -29067,13 +27641,18 @@
       {
         "code": "GHS07",
         "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
       }
     ],
     "ghsCodes": [
       "GHS03",
       "GHS05",
       "GHS06",
-      "GHS07"
+      "GHS07",
+      "GHS08"
     ],
     "ppeCandidates": [
       "○ 신호어: 위험○ 유해 · 위험 문구:화재를 강렬하게 함: 산화제흡입하면 유해함피부에 심한 화상과 눈 손상을 일으킴눈에 심한 손상을 일으킴호흡기계 자극을 일으킬 수 있음○ 예방조치문구예방:열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연의류 및 그 밖의 가연성 물질로부터 멀리하시오.가연성 물질 및 그 밖의 물질과 혼합되지 않도록 조치하시오. 보호장갑/보호의/보안경/안면보호구를 착용하시오.분진/흄/가스/미스트/증기/스프레이의 흡입을 피하시오.옥외 또는 환기가 잘 되는 곳에서만 취급하시오.취급 후에는 취급 부위를 철저히 씻으시오.대응:화재 시: 불을 끄기 위해 물을 사용하시오. 흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.불편함을 느끼면 의료기관/의사의 진찰을 받으시오.삼켰다면: 입을 씻어내시오. 토하게 하지 마시오.피부(또는 머리카락)에 묻으면: 오염된 모든 의류를 즉시 벗으시오.피부를 물로 씻으시오[또는 샤워하시오].다시 사용전 오염된 의복은 세척하시오.신속한 처치를 하시오.눈에 묻으면: 몇 분간 물로 조심해서 씻으시오.가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.즉시 의료기관/의사의 진찰을 받으시오.저장:잠금장치를 하여 저장하시오.환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오.",
@@ -29081,6 +27660,7 @@
       "7. 취급 및 저장방법가. 안전취급요령: 고온에 주의하시오.공학적 관리 및 개인보호구를 참조하여 작업하시오.취급 후 철저히 씻으시오.피해야할 물질 및 조건에 유의하시오.나. 안전한 저장방법:밀폐하여 보관하시오.서늘하고 건조한 장소에 저장하시오.피해야할 물질 및 조건에 유의하시오.8. 노출방지 및 개인보호구가. 화학물질의 노출 기준, 생물학적 노출기준 등국내규정: 자료없음ACGIH 규정: 자료없음생물학적 노출기준: 자료없음기타 노출기준: 자료없음나. 적절한 공학적 관리: 공정격리, 국소배기를 사용하거나 공기수준을 노출기준 이하로 유지하시오.다. 개인보호구호흡기보호: 제품을 지속적으로 직접 취급시 마스크 착용을 권장눈보호: 제품을 소분하는 등 노출 수준이 높을 경우 보안경 착용을 권장손보호: 피부에 직접 접촉을 방지하는 고무장갑 착용을 권장신체보호: 신체에 직접 접촉을 방지하는 앞치마 착용을 권장9. 물리 · 화학적 특성가. 외관: 백색 분말나. 냄새: 경미한 제품 특유취"
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "식당/0_그린플러스 GHS MSDS.pdf"
   },
   {
@@ -29128,16 +27708,8 @@
         "label": "급성독성"
       },
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [],
@@ -29150,9 +27722,7 @@
     "classificationGhsCodes": [
       "GHS05",
       "GHS06",
-      "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
@@ -29164,29 +27734,20 @@
         "label": "급성독성"
       },
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "ghsCodes": [
       "GHS05",
       "GHS06",
-      "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ppeCandidates": [
       "삼켜서 기도로 유입되면 유해할 수 있음수생 생물에 매우 유독함장기적인 영향에 의해 수생 생물에게 고독성이 있음예방조치문구예방원래의 용기에만 보관하시오.보호장갑 보호의와 보안경 등의 안면 보호구를 착용하시오, .분진 흄 가스 미스트 증기 스프레이를 흡입하지 마시오, , , , , .옥외 또는 환기가 잘 되는 곳에서만 취급하시오.취급 후에는 손을 철저히 씻으시오.환경으로 배출하지 마시오.대응물질 손상을 방지하기 위해 누출물을 흡수시키시오.불편함을 느끼면 의료기관 의사 의 진찰을 받으시오( ) .다시 사용 전 오염된 의류는 세척하시오.피부에 묻으면 다량의 물과 비누로 씻으시오.흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.즉시 의료기관 의사 의 진찰을 받으시오( ) .응급처치를 하시오.삼켰다면 입을 씻어내시오 토하게 하려 하지 마시오. .피부 또는 머리카락 에 묻으면 오염된 모든 의복은 벗거나 제거하시오( ) .피부를 물로 씻으시오 계속 샤워하시오. .눈에 묻으면 몇 분간 물로 조심해서 씻으시오 가능하면 콘택트렌즈를 제거하시오. .계속 씻으시오.삼켰다면 즉시 의료기관 의사 의 도움을 받으시오( ) .토하게 하지 마시오.누출물을 모으시오.저장밀봉하여 저장하시오.금속 부식성 물질이므로 제조자 또는 행정관청에서 정한 내부식성 용기에 보관하시오( ) .폐기관련 법규에 명시된 내용에 따라 내용물 용기에 폐기하시오.유해 위험성 분류 기준에 포함되지 않는 기타 유해 위험성· · (NFPA)보건3화재0"
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "식당/0_멀티크로MSDS.pdf"
   },
   {
@@ -29373,6 +27934,7 @@
       "기타 의사의 주의사항의료 인력이 해당 물질에 대해 인지하고 보호 조치를 취하도록 하시오.폭발 화재 시 대처 방법5. ·적절한 소화제이 물질과 관련된 소화 시 내알코올 포말 이산화탄소 또는 물 분무를 사용하시오, .질식 소화 시 건조한 모래 또는 흙을 사용하시오.화학물질로부터 생기는 특정 유해성비인화성으로 물질 자체는 타지 않으나 연소에 의해 자극적이고 유독한 가스가 발생할 수 있음화재진압 시 착용할 보호구 및 예방 조치구조자는 적절한 보호구를 착용하시오.지역을 벗어나 안전거리를 유지하여 소화하시오.누출 사고 시 대처 방법6.인체를 보호하기 위해 필요한 조치사항 및 보호구엎질러진 것을 즉시 닦아내고 보호구 항의 예방조치를 따르시오, .피해야 할 물질 및 조건에 유의하시오.환경을 보호하기 위해 필요한 조치사항수로 하수구 지하실 밀폐공간으로의 유입을 방지하시오, , , .정화 또는 제거 방법불활성 물질 예를 들어 건조한 모래 또는 흙 로 엎지른 것을 흡수하고 폐기물 용기에 넣으시오( , ) .취급 및 저장 방법7.안전한 취급 요령이 제품을 사용할 때에는 먹거나 마시거나 흡연하지 마시오, .피부에 자극이 있는 경우 제품 사용을 중지하고 의사의 진료를 받으시오.습진 염증 등의 피부질환이 있는 경우 사용하지 마시오 피부 질환을 악화시킬 수 있음, . ( )취급 저장에 주의하여 사용하시오/ .개봉 전에 조심스럽게 마개를 여시오.피해야 할 물질 및 조건에 유의하시오."
     ],
     "signalWord": "경고",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "식당/2_더폼 MSDS.pdf"
   },
   {
@@ -29466,6 +28028,7 @@
       "4. 응급조치 요령가. 눈에 들어갔을 때: 눈에 묻으면 몇 분간 물로 조심해서 씻으시오.가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.눈에 자극이 지속되면 의학적인 조치·조언을 구하시오.나. 피부에 접촉했을 때:경미한 피부 접촉 시 오염부위 확산을 방지하시오.긴급 의료조치를 받으시오.뜨거운 물질인 경우, 열을 없애기 위해 영향을 받은 부위를 다량의 차가운 물에담그거나 씻어내시오.물질과 접촉시 즉시 20분 이상 흐르는 물에 피부와 눈을 씻어내시오.오염된 옷과 신발을 제거하고 오염지역을 격리하시오.오염된 의복은 벗고 다시 사용 전 세탁하시오.피부 자극이 생기면 의학적인 조치·조언을 구하시오.다. 흡입했을 때: 과량의 먼지 또는 흄에 노출된 경우 깨끗한 공기로 제거하고 기침이나 다른 증상이있을 경우 의료 조치를 취하시오.긴급 의료조치를 받으시오.라. 먹었을 때: 물질을 먹거나 흡입하였을 경우 구강대구강법으로 인공호흡을 하지 말고 적절한호흡의료장비를 이용하시오.삼켜서 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.입을 씻어내시오.마. 기타 의사의 주의사항:의료인력이 해당물질에 대해 인지하고 보호조치를 취하도록 하시오.접촉·흡입하여 생긴 증상은 지연될 수 있음5. 폭발·화재시 대처방법가. 적절한 소화제: 이 물질과 관련된 소화시 알코올 포말, 이산화탄소 또는 물분무를 사용할 것질식소화시 건조한 모래 또는 흙을 사용할 것나. 화학물질로부터 생기는 특정 유해성:가열시 용기가 폭발할 수 있음독성: 흡입, 섭취, 피부 접촉시 심각한 부상 및 사망을 초래할 수 있음비인화성, 물질 자체는 타지 않으나 가열시 분해하여 부식성/독성 흄을발생할 수 있음용융물질과 접촉 시 피부와 눈에 심각한 화상을 입힐 수 있음일부는 금속과 접촉시 가연성 수소가스를 생성할 수 있음일부는 산화제로 가연성 물질을 점화할 수 있음타는 동안 열분해 또는 연소에 의해 자극적이고 매우 유독한 가스가발생될 수 있음다. 화재 진압시 착용할 보호구 및 예방조치:구조자는 적절한 보호구를 착용하시오.용기 내부에 물이 들어가지 않도록 하시오.위험하지 않다면 화재지역에서 용기를 옮기시오.지역을 벗어나 안전거리를 유지하여 소화하시오.6. 누출사고시 대처방법가. 인체를 보호하기 위해 필요한 조치사항 및 보호구: 분진·흄·가스·미스트·증기·스프레이의 흡입을 피하시오.모든 점화원을 제거하시오.엎질러진 것을 즉시 닦아내고, 보호구 항의 예방조치를따르시오.용기에 물이 들어가지 않도록 하시오.위험하지 않다면 누출을 멈추시오.적절한 보호의를 착용하지 않고 파손된 용기나 누출물에손대지 마시오.피해야할 물질 및 조건에 유의하시오.나. 환경을 보호하기 위해 필요한 조치사항: 누출물은 부식성/독성이며 오염을 유발할 수 있음수로, 하수구, 지하실, 밀폐공간으로의 유입을 방지하시오.퍼크린 202 GHS MSDS - 2",
       "다. 정화 또는 제거방법: 불활성 물질(예를 들어 건조한 모래 또는 흙)로 엎지른것을 흡수하고, 화학폐기물 용기에 넣으시오.액체를 흡수하고 오염된 지역을 세제와 물로 씻어 내시오.7. 취급 및 저장방법가. 안전취급요령: 분진·흄·가스·미스트·증기·스프레이의 흡입을 피하시오.개봉 전에 조심스럽게 마개를 여시오.공학적 관리 및 개인보호구를 참조하여 작업하시오.옥외 또는 환기가 잘 되는 곳에서만 취급하시오.용기가 비워진 후에도 제품 찌꺼기가 남아 있을 수 있으므로 모든 MSDS/라벨예방조치를 따르시오.이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오.장기간 또는 지속적인 피부접촉을 막으시오.취급 후에는 취급 부위를 철저히 씻으시오.취급/저장에 주의하여 사용하시오.피해야할 물질 및 조건에 유의하시오.나. 안전한 저장방법: 용기는 단단히 밀폐하여 저장하시오.음식과 음료수로부터 멀리하시오.피해야할 물질 및 조건에 유의하시오.8. 노출방지 및 개인보호구※ 제품에 대한 정보가 없으므로, 구성 성분별 자료 기재함.(참고)가. 화학물질의 노출 기준, 생물학적 노출기준 등 국내규정수산화나트륨: STEL - C 2 ㎎/㎥수산화 칼륨: STEL - C 2 ㎎/㎥ACGIH 규정수산화나트륨: STEL - C 2 ㎎/㎥수산화 칼륨: STEL - C 2 ㎎/㎥생물학적 노출기준:자료없음기타 노출기준: 자료없음나. 적절한 공학적 관리:공정격리, 국소배기를 사용하거나, 공기수준을 노출기준 이하로 조절하는다른 공학적 관리를 하시오.이 물질을 저장하거나 사용하는 설비는 세안설비와 안전 샤워를 설치하시오.다. 개인 보호구○ 호흡기보호: 제품을 지속적으로 직접 취급시, 마스크 착용을 권장○ 눈보호: 제품을 소분하는 등 노출 수준이 높을 경우 보안경 착용을 권장○ 손보호: 피부에 직접 접촉을 방지하는 고무장갑 착용을 권장○ 신체보호: 신체에 직접 접촉을 방지하는 앞치마 착용을 권장9. 물리 · 화학적 특성가. 외관: 무색 투명액상나. 냄새: 제품 특유취다. 냄새 역치: 자료없음라. pH(1% 용액, 25℃): 11.5 ± 0.8마. 녹는점/어는점: 자료없음바. 초기 끓는점과 끓는점 범위: 자료없음사. 인화점: 자료없음아. 증발속도: 자료없음자. 인화성: 자료없음차. 인화 또는 폭발 범위의 상한/하한: 자료없음카. 증기압: 자료없음타. 용해도: 물에 용해파. 증기밀도: 자료없음퍼크린 202 GHS MSDS - 3"
     ],
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "식당/2_퍼크린 202 GHS MSDS.pdf"
   },
   {
@@ -29685,6 +28248,7 @@
       "구조자는 적절한 보호구를 착용하시오."
     ],
     "supplierAddress": "경기도 안성시 공단로 63",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "식당/3_be chef. clean 주방세제 알뜰형_MSDS (1).pdf"
   },
   {
@@ -29807,6 +28371,7 @@
       "○ 눈보호: 제품을 소분하는 등 노출 수준이 높을 경우 보안경 착용을 권장"
     ],
     "signalWord": "경고",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "식당/4_퍼크린 린스 GHS MSDS.pdf"
   },
   {
@@ -29897,6 +28462,7 @@
       "눈에 대한 자극이 지속되면 의학적인 조언 주의를 받으시오· .피부에 접촉했을 때알레르기성이 있는 경우 자극 발진을 유발할 수 있음,경미한 피부 접촉 시 오염 부위 확산을 방지하시오.흡입했을 때자극 두통 나른함 술취한 감을 유발할 수 있음, , ,노출 또는 접촉이 우려되면 의학적인 조언 주의를 받으시오· .먹었을 때노출 또는 접촉이 우려되면 의학적인 조언 주의를 받으시오· .다량을 먹거나 흡입하였을 경우 구강대구강법으로 인공호흡을 하지 말고 적절한 알코올 해독제나 의학적인 조치를 취하시오.기타 의사의 주의사항의료 인력이 해당 물질에 대해 인지하고 보호 조치를 취하도록 하시오.폭발 화재 시 대처 방법5. ·적절한 소화제이 물질과 관련된 소화 시 내알코올 포말 이산화탄소 또는 물분무를 사용할 것,질식 소화 시 건조한 모래 또는 흙을 사용할 것화학물질로부터 생기는 특정 유해성인화성 액체 및 증기화재와 폭발을 일으킬 수 있음증기는 점화원에 옮겨져 발화될 수 있음인화점이나 그 이상에서 폭발성 혼합물을 형성할 수 있음가열시 용기가 폭발할 수 있음일부는 탈 수 있으나 쉽게 점화하지 않음화재진압 시 착용할 보호구 및 예방 조치구조자는 적절한 보호구를 착용하시오.지역을 벗어나 안전거리를 유지하여 소화하시오.대부분 물보다 가벼우니 주의하시오.대부분의 증기는 공기보다 무겁기 때문에 지면을 따라 확산하고 저지대나 밀폐 공간에 축적될 수 있음위험하지 않다면 화재지역에서 용기를 옮기시오."
     ],
     "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "식당/5_알펫ES MSDS.pdf"
   },
   {
@@ -29976,6 +28542,7 @@
       "근로자는 이물질에 의한 접촉방지를 위해 보안면 또는 보안경을 착용하시오"
     ],
     "signalWord": "경고",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "아르곤(알곤,Ar)/아르곤(알곤)_태경ECO(주).pdf"
   },
   {
@@ -30044,6 +28611,7 @@
       "공학적 관리 및 개인보호구를 참조하여 작업하시오"
     ],
     "signalWord": "경고",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "아르곤(알곤,Ar)/아르곤(알곤)_태경가스기술(주).pdf"
   },
   {
@@ -30120,6 +28688,7 @@
       "신체 보호 화학물질의 물리적 및 화학적 특성을 고려하여 적절한 재질의 보호의복을 착용하시오"
     ],
     "signalWord": "경고",
+    "ghsSource": "section2_classification_fallback",
     "relativePath": "아르곤(알곤,Ar)/아르곤(알곤)_대덕가스(주).pdf"
   },
   {
@@ -30428,7 +28997,8 @@
     "sourcePdfPath": "pdf/00_ 사출/GS칼텍스/Kixx Grease EP 0.pdf",
     "issueDate": "2012-11-30",
     "supplierAddress": "서울특별시 강남구 논현로 508",
-    "signalWord": "경고"
+    "signalWord": "경고",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-a54a4e462898861a",
@@ -30448,33 +29018,33 @@
     "revisionDate": "2021-12-14",
     "hazardBadge": "MSDS",
     "ghsCodes": [
-      "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS07"
     ],
     "ghsPictograms": [
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
-      "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS07"
     ],
     "classificationGhsPictograms": [
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
     "hazardStatements": [
@@ -30603,7 +29173,8 @@
     "dataSource": "msds_pdf",
     "sourcePdfPath": "pdf/00_ 사출/고려용접봉/KC-28. 2021.12.14.pdf",
     "issueDate": "2021-12-14",
-    "supplierAddress": "(51544) 대한민국 경상남도 창원시 성산구 공단로 704"
+    "supplierAddress": "(51544) 대한민국 경상남도 창원시 성산구 공단로 704",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-306f4ca012db5ce6",
@@ -30623,23 +29194,53 @@
     "revisionDate": "2011-08-01",
     "hazardBadge": "MSDS",
     "ghsCodes": [
-      "GHS02"
+      "GHS02",
+      "GHS04",
+      "GHS07",
+      "GHS08"
     ],
     "ghsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
       }
     ],
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
-      "GHS02"
+      "GHS02",
+      "GHS04",
+      "GHS07",
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
       }
     ],
     "hazardStatements": [
@@ -30985,7 +29586,8 @@
     "dataSource": "msds_pdf",
     "sourcePdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐 - 적색 MSDS.pdf",
     "issueDate": "2011-08-01",
-    "supplierAddress": "경남 양산시 유산공단 4길 28-140"
+    "supplierAddress": "경남 양산시 유산공단 4길 28-140",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-007b2f977ffa1b20",
@@ -31005,23 +29607,53 @@
     "revisionDate": "2011-08-01",
     "hazardBadge": "MSDS",
     "ghsCodes": [
-      "GHS02"
+      "GHS02",
+      "GHS04",
+      "GHS07",
+      "GHS08"
     ],
     "ghsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
       }
     ],
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
-      "GHS02"
+      "GHS02",
+      "GHS04",
+      "GHS07",
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
       }
     ],
     "hazardStatements": [
@@ -31325,7 +29957,8 @@
     "dataSource": "msds_pdf",
     "sourcePdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐 - 황색 MSDS.pdf",
     "issueDate": "2011-08-01",
-    "supplierAddress": "경남 양산시 유산공단 4길 28-140"
+    "supplierAddress": "경남 양산시 유산공단 4길 28-140",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-01bbccc7c4364b70",
@@ -31753,7 +30386,8 @@
     "sourcePdfPath": "pdf/GGM 상주원/[3M] PN3021(2000방 컴파운드).pdf",
     "issueDate": "2020-10-18",
     "supplierAddress": "서울특별시 영등포구 의사당대로 82, 19층 (우)07321",
-    "signalWord": "경고"
+    "signalWord": "경고",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-45aa4cdc6935f19d",
@@ -31990,9 +30624,7 @@
     "hazardBadge": "MSDS",
     "ghsCodes": [
       "GHS02",
-      "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "ghsPictograms": [
       {
@@ -32000,25 +30632,15 @@
         "label": "인화성"
       },
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS07",
-      "GHS08",
-      "GHS09"
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
@@ -32026,16 +30648,8 @@
         "label": "인화성"
       },
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -32191,7 +30805,8 @@
     "sourcePdfPath": "pdf/GGM 상주원/[IPO] 1000방 컴파운드(PN7001.7002).pdf",
     "issueDate": "2013-03-27",
     "supplierAddress": "경기도 화성시 양감면 사창리 53-1",
-    "signalWord": "위험"
+    "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-d1ef2fcc672a6120",
@@ -32211,15 +30826,10 @@
     "revisionDate": "2025-01-02",
     "hazardBadge": "MSDS",
     "ghsCodes": [
-      "GHS09",
       "GHS07",
       "GHS08"
     ],
     "ghsPictograms": [
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
       {
         "code": "GHS07",
         "label": "유해/자극성"
@@ -32232,15 +30842,10 @@
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
-      "GHS09",
       "GHS07",
       "GHS08"
     ],
     "classificationGhsPictograms": [
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
       {
         "code": "GHS07",
         "label": "유해/자극성"
@@ -32350,7 +30955,8 @@
     "dataSource": "msds_pdf",
     "sourcePdfPath": "pdf/GGM 상주원/[ISP] 자동차 내장재 스프레이.pdf",
     "issueDate": "2025-01-02",
-    "supplierAddress": "isp0400@naver.com"
+    "supplierAddress": "isp0400@naver.com",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-6cbf2ae6e822558d",
@@ -32372,7 +30978,8 @@
     "ghsCodes": [
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "ghsPictograms": [
       {
@@ -32386,6 +30993,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "labelGhsCodes": [],
@@ -32393,7 +31004,8 @@
     "classificationGhsCodes": [
       "GHS02",
       "GHS07",
-      "GHS08"
+      "GHS08",
+      "GHS09"
     ],
     "classificationGhsPictograms": [
       {
@@ -32407,6 +31019,10 @@
       {
         "code": "GHS08",
         "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
       }
     ],
     "hazardStatements": [
@@ -32700,7 +31316,8 @@
     "dataSource": "msds_pdf",
     "sourcePdfPath": "pdf/GGM 상주원/[KCC] SILVER(XAA).pdf",
     "issueDate": "2020-06-24",
-    "supplierAddress": "울산광역시 동구 방어진순환도로 30(방어동)"
+    "supplierAddress": "울산광역시 동구 방어진순환도로 30(방어동)",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-99c0868aa28d0e46",
@@ -33110,7 +31727,8 @@
     "dataSource": "msds_pdf",
     "sourcePdfPath": "pdf/GGM 상주원/[KCC] SRM.pdf",
     "issueDate": "2024-08-06",
-    "supplierAddress": "울산광역시 동구 방어진순환도로 30(방어동)"
+    "supplierAddress": "울산광역시 동구 방어진순환도로 30(방어동)",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-c30a4a45b677d34e",
@@ -33519,7 +32137,8 @@
     "dataSource": "msds_pdf",
     "sourcePdfPath": "pdf/GGM 상주원/[KCC] TKS.pdf",
     "issueDate": "2023-04-10",
-    "supplierAddress": "울산광역시 동구 방어진순환도로 30(방어동)"
+    "supplierAddress": "울산광역시 동구 방어진순환도로 30(방어동)",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-9c13bfc18fd404a8",
@@ -33862,7 +32481,8 @@
     "dataSource": "msds_pdf",
     "sourcePdfPath": "pdf/GGM 상주원/[KCC] YFB.pdf",
     "issueDate": "2024-04-18",
-    "supplierAddress": "울산광역시 동구 방어진순환도로 30(방어동)"
+    "supplierAddress": "울산광역시 동구 방어진순환도로 30(방어동)",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-def9c52b21a05593",
@@ -34257,7 +32877,8 @@
     "sourcePdfPath": "pdf/GGM 상주원/[KNK] NES(듀프렉스 뉴에크루).pdf",
     "issueDate": "2021-01-08",
     "supplierAddress": "(451-821) 17959 경기도 평택시 포승읍 포승공단로 152",
-    "signalWord": "위험"
+    "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-c198e71df3ae97f3",
@@ -34278,12 +32899,17 @@
     "hazardBadge": "MSDS",
     "ghsCodes": [
       "GHS02",
+      "GHS08",
       "GHS07"
     ],
     "ghsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
       },
       {
         "code": "GHS07",
@@ -34294,12 +32920,17 @@
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
+      "GHS08",
       "GHS07"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS02",
         "label": "인화성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
       },
       {
         "code": "GHS07",
@@ -34384,7 +33015,8 @@
     "dataSource": "msds_pdf",
     "sourcePdfPath": "pdf/GGM 상주원/[LG화학] 이소프로필알코올(220518).pdf",
     "issueDate": "2022-05-18",
-    "supplierAddress": "전라남도 여수시 여수산단2로 116-8"
+    "supplierAddress": "전라남도 여수시 여수산단2로 116-8",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-6f86d267b81dc0dd",
@@ -34709,7 +33341,8 @@
     "sourcePdfPath": "pdf/GGM 상주원/[NAC] A2B.pdf",
     "issueDate": "2024-06-05",
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
-    "signalWord": "위험"
+    "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-190209dce1d25ccf",
@@ -35062,7 +33695,8 @@
     "sourcePdfPath": "pdf/GGM 상주원/[NAC] SAW.pdf",
     "issueDate": "2023-06-07",
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
-    "signalWord": "위험"
+    "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-d6d0f180861314f7",
@@ -35382,7 +34016,8 @@
     "sourcePdfPath": "pdf/GGM 상주원/[NAC] YLC 1.pdf",
     "issueDate": "2024-06-05",
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
-    "signalWord": "위험"
+    "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-0945a600900a4461",
@@ -35709,7 +34344,8 @@
     "sourcePdfPath": "pdf/GGM 상주원/[NAC] YLC 2.pdf",
     "issueDate": "2024-06-05",
     "supplierAddress": "경기도 화성시 장안면 장안공단 7 길 28",
-    "signalWord": "위험"
+    "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-43261801e597af65",
@@ -36014,7 +34650,8 @@
     ],
     "dataSource": "msds_pdf",
     "sourcePdfPath": "pdf/GGM 상주원/[캉가루] 캉가루구두약_가정용_MSDS-ver04.pdf",
-    "supplierAddress": "인 천 광 역 시 부 평 구 청 천 마 차 로 104-1"
+    "supplierAddress": "인 천 광 역 시 부 평 구 청 천 마 차 로 104-1",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-7570ffa55f692a8b",
@@ -36034,10 +34671,15 @@
     "revisionDate": "2014-12-29",
     "hazardBadge": "MSDS",
     "ghsCodes": [
+      "GHS02",
       "GHS04",
       "GHS08"
     ],
     "ghsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
       {
         "code": "GHS04",
         "label": "고압가스"
@@ -36050,10 +34692,15 @@
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
+      "GHS02",
       "GHS04",
       "GHS08"
     ],
     "classificationGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
       {
         "code": "GHS04",
         "label": "고압가스"
@@ -36132,7 +34779,8 @@
     "sourcePdfPath": "pdf/부탄.pdf",
     "issueDate": "2014-12-29",
     "supplierAddress": "(44783) 울산 남구 용연로195번길 17 (용연동)",
-    "signalWord": "위험"
+    "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-0aeeb73308c96e86",
@@ -36237,7 +34885,8 @@
     "sourcePdfPath": "pdf/산소.pdf",
     "issueDate": "2014-12-29",
     "supplierAddress": "(44783) 울산 남구 용연로195번길 17 (용연동)",
-    "signalWord": "위험"
+    "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-f6b8f7761d44bb84",
@@ -36257,10 +34906,15 @@
     "revisionDate": "2014-12-29",
     "hazardBadge": "MSDS",
     "ghsCodes": [
+      "GHS02",
       "GHS04",
       "GHS07"
     ],
     "ghsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
       {
         "code": "GHS04",
         "label": "고압가스"
@@ -36273,10 +34927,15 @@
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
+      "GHS02",
       "GHS04",
       "GHS07"
     ],
     "classificationGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
       {
         "code": "GHS04",
         "label": "고압가스"
@@ -36362,7 +35021,8 @@
     "sourcePdfPath": "pdf/아세틸렌/아세틸렌.pdf",
     "issueDate": "2014-12-29",
     "supplierAddress": "(44783) 울산 남구 용연로195번길 17 (용연동)",
-    "signalWord": "위험"
+    "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-f566b59f33deed0f",
@@ -36382,10 +35042,15 @@
     "revisionDate": "2022-09-28",
     "hazardBadge": "MSDS",
     "ghsCodes": [
+      "GHS02",
       "GHS04",
       "GHS07"
     ],
     "ghsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
       {
         "code": "GHS04",
         "label": "고압가스"
@@ -36398,10 +35063,15 @@
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
+      "GHS02",
       "GHS04",
       "GHS07"
     ],
     "classificationGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
       {
         "code": "GHS04",
         "label": "고압가스"
@@ -36562,7 +35232,8 @@
     "sourcePdfPath": "pdf/아세틸렌/태경에코_아세틸렌_msds(221123).pdf",
     "issueDate": "2008-04-09",
     "supplierAddress": "경기 안산시 단원구 동산로 27번길 86-6",
-    "signalWord": "위험"
+    "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-37736004f8e3d7b1",
@@ -36689,15 +35360,10 @@
     "revisionDate": "2024-01-12",
     "hazardBadge": "MSDS",
     "ghsCodes": [
-      "GHS05",
       "GHS07",
       "GHS08"
     ],
     "ghsPictograms": [
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
       {
         "code": "GHS07",
         "label": "유해/자극성"
@@ -36710,15 +35376,10 @@
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
-      "GHS05",
       "GHS07",
       "GHS08"
     ],
     "classificationGhsPictograms": [
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
       {
         "code": "GHS07",
         "label": "유해/자극성"
@@ -36856,7 +35517,8 @@
     "sourcePdfPath": "pdf/알코텍(AL-TECH)/TIG 5356 알루미늄 티그봉.pdf",
     "issueDate": "2013-01-11",
     "signalWord": "위험",
-    "supplierAddress": "경상남도 창원시 성산구 정동로 62 번길 56(성주동 51 번지)"
+    "supplierAddress": "경상남도 창원시 성산구 정동로 62 번길 56(성주동 51 번지)",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-f6a7a80e940a8ea3",
@@ -36954,7 +35616,8 @@
     "sourcePdfPath": "pdf/액화석유가스(LPG)/LPG(C3).pdf",
     "issueDate": "2009-06-05",
     "supplierAddress": "(356-711) 충청남도 서산시 대산읍 독곶2로 103",
-    "signalWord": "위험"
+    "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-d8b98810abb35e60",
@@ -37061,7 +35724,8 @@
     "sourcePdfPath": "pdf/액화석유가스(LPG)/LPG(C4).pdf",
     "issueDate": "2009-03-10",
     "supplierAddress": "(356-711) 충청남도 서산시 대산읍 독곶2로 103",
-    "signalWord": "위험"
+    "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-7aeec8c87fe01629",
@@ -37139,7 +35803,8 @@
     "sourcePdfPath": "pdf/액화석유가스(LPG)/LPG(혼합)_태경ECO(주).pdf",
     "issueDate": "2012-11-27",
     "signalWord": "위험",
-    "supplierAddress": "충 북 청 주 시 청 원 구 내 수 읍 풍 정 길 26"
+    "supplierAddress": "충 북 청 주 시 청 원 구 내 수 읍 풍 정 길 26",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-25117e7770dfe7d6",
@@ -37240,18 +35905,18 @@
     "revisionDate": "2017-08-09",
     "hazardBadge": "MSDS",
     "ghsCodes": [
-      "GHS02",
       "GHS04",
+      "GHS02",
       "GHS07"
     ],
     "ghsPictograms": [
       {
-        "code": "GHS02",
-        "label": "인화성"
-      },
-      {
         "code": "GHS04",
         "label": "고압가스"
+      },
+      {
+        "code": "GHS02",
+        "label": "인화성"
       },
       {
         "code": "GHS07",
@@ -37261,18 +35926,18 @@
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
-      "GHS02",
       "GHS04",
+      "GHS02",
       "GHS07"
     ],
     "classificationGhsPictograms": [
       {
-        "code": "GHS02",
-        "label": "인화성"
-      },
-      {
         "code": "GHS04",
         "label": "고압가스"
+      },
+      {
+        "code": "GHS02",
+        "label": "인화성"
       },
       {
         "code": "GHS07",
@@ -37391,7 +36056,8 @@
     "sourcePdfPath": "pdf/연기 감지기 MSDS.pdf",
     "issueDate": "2017-08-09",
     "supplierAddress": "(제조자) : 경기도 평택시 팽성읍 추팔산단 1길 204",
-    "signalWord": "위험"
+    "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-00bd0830f6de7555",
@@ -37519,7 +36185,8 @@
     "dataSource": "msds_pdf",
     "sourcePdfPath": "pdf/오공본드(OKONG)/락카 스프레이(각색).pdf",
     "issueDate": "2024-04-01",
-    "supplierAddress": "인천광역시 남동구 함박뫼로 341 (남촌동)"
+    "supplierAddress": "인천광역시 남동구 함박뫼로 341 (남촌동)",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-c04f0260b76f1ff7",
@@ -37606,7 +36273,8 @@
     "sourcePdfPath": "pdf/장암칼스(CALS)/EP-OHQ(2) GHS MSDS (rev.1).pdf",
     "issueDate": "2023-03-20",
     "signalWord": "경고",
-    "supplierAddress": "서울시 영등포구 버드나루로 84 (영등포동 7가, 제일빌딩) 2층 O 정보제공서비스 또는 긴급연락"
+    "supplierAddress": "서울시 영등포구 버드나루로 84 (영등포동 7가, 제일빌딩) 2층 O 정보제공서비스 또는 긴급연락",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-f1d5241c30dc8b13",
@@ -37976,7 +36644,8 @@
     "sourcePdfPath": "pdf/조선선재(주)/CSW-0001_MSDS_용접재료(연강용 피복아크 용접봉)_(국문)v4_2021.09.30.pdf",
     "issueDate": "2020-09-25",
     "signalWord": "위험",
-    "supplierAddress": "경상북도 포항시 남구 괴동로 43 (장흥동)"
+    "supplierAddress": "경상북도 포항시 남구 괴동로 43 (장흥동)",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-e807f4edcc3681dc",
@@ -38116,7 +36785,8 @@
     "sourcePdfPath": "pdf/질소/질소(N2)_대덕가스(주).pdf",
     "issueDate": "2022-01-07",
     "supplierAddress": "인천광역시 남동구 남동서로 330번길 46 외 2곳",
-    "signalWord": "경고"
+    "signalWord": "경고",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-df5ff1a99215c913",
@@ -38212,7 +36882,8 @@
     "sourcePdfPath": "pdf/질소/질소(N2)_태경ECO(주).pdf",
     "issueDate": "2011-05-18",
     "supplierAddress": "경기 안산시 단원구 동산로 27번길 86-6",
-    "signalWord": "경고"
+    "signalWord": "경고",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-aff62f45049f6877",
@@ -38232,18 +36903,18 @@
     "revisionDate": "2021-08-24",
     "hazardBadge": "MSDS",
     "ghsCodes": [
-      "GHS06",
       "GHS07",
+      "GHS06",
       "GHS08"
     ],
     "ghsPictograms": [
       {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
+      },
+      {
+        "code": "GHS06",
+        "label": "급성독성"
       },
       {
         "code": "GHS08",
@@ -38253,18 +36924,18 @@
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
-      "GHS06",
       "GHS07",
+      "GHS06",
       "GHS08"
     ],
     "classificationGhsPictograms": [
       {
-        "code": "GHS06",
-        "label": "급성독성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
+      },
+      {
+        "code": "GHS06",
+        "label": "급성독성"
       },
       {
         "code": "GHS08",
@@ -38490,7 +37161,8 @@
     "dataSource": "msds_pdf",
     "sourcePdfPath": "pdf/크레토스(cretos)/CTS-50 스틸 티그봉.pdf",
     "issueDate": "2021-08-24",
-    "supplierAddress": "대구광역시 서구 와룡로 487(이현동)"
+    "supplierAddress": "대구광역시 서구 와룡로 487(이현동)",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-a26053814f066ef9",
@@ -38510,9 +37182,14 @@
     "revisionDate": "2023-06-13",
     "hazardBadge": "MSDS",
     "ghsCodes": [
+      "GHS02",
       "GHS04"
     ],
     "ghsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
       {
         "code": "GHS04",
         "label": "고압가스"
@@ -38521,9 +37198,14 @@
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
+      "GHS02",
       "GHS04"
     ],
     "classificationGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
       {
         "code": "GHS04",
         "label": "고압가스"
@@ -38568,7 +37250,8 @@
     "dataSource": "msds_pdf",
     "sourcePdfPath": "pdf/태양(SUN)/썬 라이타 가스 MSDS.pdf",
     "issueDate": "2023-06-13",
-    "supplierAddress": "충청남도 천안시 서북구 업성 1길 27"
+    "supplierAddress": "충청남도 천안시 서북구 업성 1길 27",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-52d86cde38911013",
@@ -38863,7 +37546,8 @@
     "sourcePdfPath": "pdf/프로판.pdf",
     "issueDate": "2024-03-28",
     "supplierAddress": "(44783) 울산 남구 용연로195번길 17 (용연동)",
-    "signalWord": "위험"
+    "signalWord": "위험",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-d53b862679ad3157",
@@ -39966,7 +38650,8 @@
     "sourcePdfPath": "pdf/현대종합금속/S-308.16N - 21.08.10.pdf",
     "issueDate": "2021-08-10",
     "supplierAddress": "본사 : 서울시 강남구 테헤란로 507 WeWork빌딩 15~17층 공장 : 경북 포항시 남구 대송로 100 - 정보제공서비스 또는 긴급연락 전화 : TEL 054-289-6281, 6286 FAX 054-289-6240 - 담당부서 및 연락처(MSDS작성자) : 품질보증본부 전봉석, 김현지2. 유해 · 위험성2.1. 유해·위험성 분류발암성 구분2특정표적장기 독성 물질 (반복 노출) 구분2피부과민성 구분12.2 예방조치문구를 포함한 경고 표지 항목2.2.1. 그림문자",
-    "signalWord": "경고"
+    "signalWord": "경고",
+    "ghsSource": "section2_classification_fallback"
   },
   {
     "id": "msds-pdf-65ea6911134f71e5",
@@ -40141,6 +38826,7 @@
     "dataSource": "msds_pdf",
     "sourcePdfPath": "pdf/홈키파/해피홈에어로솔수성(무향)_MSDS_Rav.pdf",
     "issueDate": "2019-01-22",
-    "supplierAddress": "충청북도 청주시 청원구 오창읍 연구단지로 219"
+    "supplierAddress": "충청북도 청주시 청원구 오창읍 연구단지로 219",
+    "ghsSource": "section2_classification_fallback"
   }
 ]

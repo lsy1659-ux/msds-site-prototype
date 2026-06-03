@@ -311,24 +311,62 @@ def add_code(codes: list[str], code: str) -> None:
         codes.append(code)
 
 
+def hazard_segments(text: str) -> list[str]:
+    return [
+        re.sub(r"\s+", "", segment).lower()
+        for segment in re.split(r"[\n,;ㆍ•·]+", text or "")
+        if re.sub(r"\s+", "", segment)
+    ]
+
+
+def segment_has(segment: str, names: tuple[str, ...], categories: tuple[str, ...] = ()) -> bool:
+    if not any(re.sub(r"\s+", "", name).lower() in segment for name in names):
+        return False
+    if not categories:
+        return True
+    for category in categories:
+        normalized = re.sub(r"\s+", "", category).lower()
+        if re.search(rf"{re.escape(normalized)}(?![0-9])", segment):
+            return True
+    return False
+
+
+def any_segment_has(segments: list[str], names: tuple[str, ...], categories: tuple[str, ...] = ()) -> bool:
+    return any(segment_has(segment, names, categories) for segment in segments)
+
+
 def infer_ghs_codes(text: str) -> list[str]:
-    compact = re.sub(r"\s+", "", text)
+    segments = hazard_segments(text)
+    compact = "\n".join(segments)
     codes: list[str] = []
-    if re.search(r"인화성(?:액체|가스|고체|에어로졸).*구분[1-4]", compact):
+    if any_segment_has(segments, ("인화성액체",), ("구분1", "구분2", "구분3")) \
+            or any_segment_has(segments, ("인화성가스", "인화성에어로졸", "인화성고체", "자연발화성", "자기발열성", "물반응성"), ("구분1", "구분2")):
         add_code(codes, "GHS02")
-    if re.search(r"산화성.*구분[1-3]", compact):
+    if any_segment_has(segments, ("산화성",), ("구분1", "구분2", "구분3")):
         add_code(codes, "GHS03")
     if re.search(r"고압가스|압축가스|액화가스", compact):
         add_code(codes, "GHS04")
-    if re.search(r"피부부식성.*구분1|심한눈손상성.*구분1|금속부식성.*구분1", compact):
+    if any_segment_has(segments, ("금속부식성", "금속부식성물질"), ("구분1",)) \
+            or any_segment_has(segments, ("피부부식성", "피부부식성피부자극성"), ("구분1", "구분1a", "구분1b", "구분1c")) \
+            or any_segment_has(segments, ("심한눈손상성", "눈손상성눈자극성", "심한눈손상성눈자극성"), ("구분1",)):
         add_code(codes, "GHS05")
-    if re.search(r"급성독성.*구분[1-3]", compact):
+    if any_segment_has(segments, ("급성독성",), ("구분1", "구분2", "구분3")):
         add_code(codes, "GHS06")
-    if re.search(r"피부.*자극성.*구분2|눈.*자극성.*구분2|급성독성.*구분4|특정표적장기독성\(1회노출\).*구분3", compact):
+    if any_segment_has(segments, ("급성독성",), ("구분4",)) \
+            or any_segment_has(segments, ("피부자극성", "피부부식성피부자극성"), ("구분2",)) \
+            or any_segment_has(segments, ("눈자극성", "눈손상성눈자극성", "심한눈손상성눈자극성"), ("구분2", "구분2a")) \
+            or any_segment_has(segments, ("피부과민성",), ("구분1", "구분1a", "구분1b")) \
+            or any_segment_has(segments, ("특정표적장기독성(1회노출)", "특정표적장기독성1회노출"), ("구분3",)):
         add_code(codes, "GHS07")
-    if re.search(r"발암성.*구분[12]|생식세포변이원성.*구분[12]|생식독성.*구분[12]|특정표적장기독성\(1회노출\).*구분[12]|특정표적장기독성\(반복노출\).*구분[12]|흡인유해성.*구분1|호흡기과민성.*구분1", compact):
+    if any_segment_has(segments, ("호흡기과민성",), ("구분1", "구분1a", "구분1b")) \
+            or any_segment_has(segments, ("생식세포변이원성", "변이원성"), ("구분1", "구분1a", "구분1b", "구분2")) \
+            or any_segment_has(segments, ("발암성",), ("구분1", "구분1a", "구분1b", "구분2")) \
+            or any_segment_has(segments, ("생식독성",), ("구분1", "구분1a", "구분1b", "구분2")) \
+            or any_segment_has(segments, ("특정표적장기독성(1회노출)", "특정표적장기독성1회노출", "특정표적장기독성(반복노출)", "특정표적장기독성반복노출"), ("구분1", "구분2")) \
+            or any_segment_has(segments, ("흡인유해성",), ("구분1", "구분2")):
         add_code(codes, "GHS08")
-    if re.search(r"수생환경.*유해성.*구분[1-4]|수생생물.*유해", compact):
+    if any_segment_has(segments, ("수생환경유해성급성", "급성수생환경유해성"), ("구분1",)) \
+            or any_segment_has(segments, ("수생환경유해성만성", "만성수생환경유해성"), ("구분1", "구분2")):
         add_code(codes, "GHS09")
 
     for hcode in re.findall(r"\bH\d{3}\b", text.upper()):
@@ -342,7 +380,7 @@ def infer_ghs_codes(text: str) -> list[str]:
             add_code(codes, "GHS07")
         if hcode in {"H304", "H334", "H340", "H341", "H350", "H351", "H360", "H361", "H370", "H371", "H372", "H373"}:
             add_code(codes, "GHS08")
-        if hcode in {"H400", "H410", "H411", "H412"}:
+        if hcode in {"H400", "H410", "H411"}:
             add_code(codes, "GHS09")
     return codes
 
@@ -419,6 +457,38 @@ def has_hazards(product: dict[str, Any]) -> bool:
     return bool(product.get("hazardStatements"))
 
 
+def has_label_ghs(source: dict[str, Any]) -> bool:
+    return bool(source.get("labelGhsCodes") or source.get("labelGhsPictograms"))
+
+
+def should_replace_classification_ghs(product: dict[str, Any], extracted_codes: list[str]) -> bool:
+    if has_label_ghs(product):
+        return False
+    current_classification_codes = normalize_code_list(product.get("classificationGhsCodes") or product.get("classificationGhsPictograms") or [])
+    current_general_codes = normalize_code_list(product.get("ghsCodes") or product.get("ghsPictograms") or [])
+    if product.get("classificationGhsCodes") or product.get("classificationGhsPictograms"):
+        return current_classification_codes != extracted_codes or current_general_codes != extracted_codes
+    if product.get("ghsSource") == "section2_classification_fallback":
+        return current_general_codes != extracted_codes
+    return bool(extracted_codes and current_general_codes and current_general_codes != extracted_codes)
+
+
+def normalize_code_list(items: Any) -> list[str]:
+    codes: list[str] = []
+    if not isinstance(items, list):
+        return codes
+    for item in items:
+        if isinstance(item, str):
+            code = item.strip().upper()
+        elif isinstance(item, dict):
+            code = str(item.get("code", "")).strip().upper()
+        else:
+            continue
+        if re.fullmatch(r"GHS0[1-9]", code) and code not in codes:
+            codes.append(code)
+    return codes
+
+
 def should_replace_emergency_contact(existing: str, supplier: dict[str, str]) -> bool:
     text = normalize_spaces(existing)
     if not text:
@@ -459,11 +529,12 @@ def apply_visible_data(product: dict[str, Any], extracted: dict[str, Any]) -> bo
     if extracted["signalWord"] and not normalize_spaces(product.get("signalWord")):
         product["signalWord"] = extracted["signalWord"]
         changed = True
-    if extracted["ghsCodes"] and not has_ghs(product):
+    if extracted["ghsCodes"] and (not has_ghs(product) or should_replace_classification_ghs(product, extracted["ghsCodes"])):
         product["classificationGhsCodes"] = extracted["ghsCodes"]
         product["classificationGhsPictograms"] = ghs_items(extracted["ghsCodes"])
         product["ghsCodes"] = extracted["ghsCodes"]
         product["ghsPictograms"] = ghs_items(extracted["ghsCodes"])
+        product["ghsSource"] = "section2_classification_fallback"
         changed = True
     if extracted["hazardStatements"] and not has_hazards(product):
         product["hazardStatements"] = extracted["hazardStatements"]
