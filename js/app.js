@@ -2340,19 +2340,19 @@ function renderDetail(product) {
   elements.detailPanel.innerHTML = `
     ${renderBackToFullListButton()}
     ${detailSection("제품 기본정보", `
-      <div class="info-grid">
-        ${detailItem("제품명", detailData.productName)}
-        ${detailItem("ERP 품명", product.erpName)}
-        ${detailItem("MSDS번호", detailData.msdsNo)}
-        ${detailItem("파일명", product.fileName)}
-        ${detailItem("용도분류", product.useCategory)}
-        ${detailItem("권고용도/사용용도", product.recommendedUse)}
-        ${detailItem("제조사/공급업체", detailData.supplier)}
-        ${detailItem("주소", product.supplierAddress)}
-        ${detailItem("정보제공 및 긴급연락처", product.emergencyContact)}
-        ${detailItem("최초 작성일 / 최종 개정일", detailData.dateSummary)}
+      <div class="info-grid detail-info-grid">
+        ${detailItem("제품명", detailData.productName, "tag", "is-highlight")}
+        ${detailItem("ERP 품명", product.erpName, "monitor")}
+        ${detailItem("MSDS번호", detailData.msdsNo, "document")}
+        ${detailItem("파일명", product.fileName, "file")}
+        ${detailItem("용도분류", product.useCategory, "flask")}
+        ${detailItem("권고용도/사용용도", product.recommendedUse, "roller")}
+        ${detailItem("제조사/공급업체", detailData.supplier, "factory")}
+        ${detailItem("주소", product.supplierAddress, "pin")}
+        ${detailItem("정보제공 및 긴급연락처", product.emergencyContact, "phone", "is-wide")}
+        ${detailItem("최초 작성일 / 최종 개정일", detailData.dateSummary, "calendar", "is-wide")}
       </div>
-    `)}
+    `, "detail-block-basic")}
 
     ${!isFieldMode ? detailSection("핵심 위험 요약", `
       <div class="risk-summary-grid">
@@ -2392,7 +2392,7 @@ function renderDetail(product) {
           </tbody>
         </table>
       </div>
-    `)}
+    `, "detail-block-components")}
 
     ${detailSection("작업자 주의 포인트", `
       ${renderWorkerCautionPoints(workerCautions)}
@@ -2541,29 +2541,111 @@ function addCautionIf(points, normalizedText, keywords, message) {
 }
 
 function renderWorkerCautionPoints(cautionData) {
-  const sections = cautionData.sections || [];
+  const sectionMap = new Map((cautionData.sections || []).map((section) => [section.key, section]));
+  const cards = getWorkerCautionCards().map((card) => ({
+    ...card,
+    items: (sectionMap.get(card.key)?.items || card.defaultItems).slice(0, 5)
+  }));
   return `
-    <div class="worker-caution-wrap">
-      <h4 class="worker-caution-outside-title">현장 작업 중 주의사항</h4>
-      <div class="worker-caution-box">
-        <p class="worker-caution-subtitle">MSDS와 성분정보 기준의 현장 참고 안내입니다.</p>
-        ${sections.length ? `
-        <div class="worker-caution-categories">
-          ${sections.map((section) => `
-              <section class="worker-caution-group ${section.key === "work" ? "is-primary" : ""}">
-                <h5>${escapeHtml(section.key === "work" ? "화기·스파크·고온 주의" : section.title)}</h5>
-                <div class="worker-caution-category">
-                <ul class="worker-caution-list">
-                  ${section.items.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}
-                </ul>
-                </div>
-              </section>
-            `).join("")}
+    <div class="worker-caution-premium">
+      <header class="worker-caution-header">
+        <span class="worker-caution-header-icon" aria-hidden="true">${workerCautionIconSvg("shield")}</span>
+        <div>
+          <h4>작업자 주의 포인트</h4>
+          <p>안전한 작업을 위한 필수 유의사항입니다.</p>
         </div>
-        ` : `<p class="summary-note">${escapeHtml(cautionData.emptyMessage)}</p>`}
+      </header>
+      <div class="worker-caution-card-grid">
+        ${cards.map((card) => `
+          <article class="worker-caution-card is-${escapeAttribute(card.key)}">
+            <div class="worker-caution-card-head">
+              <span class="worker-caution-card-icon" aria-hidden="true">${workerCautionIconSvg(card.icon)}</span>
+              <h5>${escapeHtml(card.title)}</h5>
+            </div>
+            <ul class="worker-caution-list">
+              ${card.items.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}
+            </ul>
+            <span class="worker-caution-card-watermark" aria-hidden="true">${workerCautionIconSvg("shield")}</span>
+          </article>
+        `).join("")}
+      </div>
+      <div class="worker-caution-banner">
+        <span class="worker-caution-banner-icon" aria-hidden="true">${workerCautionIconSvg("info")}</span>
+        <p>
+          <strong>MSDS와 성분정보 기준의 현장 참고 안내입니다.</strong>
+          <span>자세한 사항은 MSDS 본문 및 관련 법규를 반드시 확인하세요.</span>
+        </p>
+        <span class="worker-caution-banner-art" aria-hidden="true">${workerCautionIconSvg("clipboard")}</span>
       </div>
     </div>
   `;
+}
+
+function getWorkerCautionCards() {
+  return [
+    {
+      key: "work",
+      icon: "flame",
+      title: "화기·스파크·고온 주의",
+      defaultItems: [
+        "화기·스파크·고온 표면을 피하고 점화원을 관리하세요.",
+        "분사·도포·혼합 작업 시 증기나 미스트 발생을 확인하세요."
+      ]
+    },
+    {
+      key: "ppe",
+      icon: "glove",
+      title: "보호구 착용사항",
+      defaultItems: [
+        "작업 전 지정된 보호구 착용 상태를 확인하세요.",
+        "눈·피부 접촉을 피하고 보안경과 보호장갑을 착용하세요.",
+        "필요 시 유기용제용 호흡보호구를 착용하세요."
+      ]
+    },
+    {
+      key: "ventilation",
+      icon: "vent",
+      title: "환기 및 노출관리",
+      defaultItems: [
+        "작업장을 충분히 환기하고 국소배기 상태를 확인하세요.",
+        "유기용제 증기 노출을 줄이고 장시간 흡입을 피하세요.",
+        "반복 노출 작업은 작업시간과 환기 상태를 함께 확인하세요."
+      ]
+    },
+    {
+      key: "fireStorage",
+      icon: "storage",
+      title: "화재·보관 관리",
+      defaultItems: [
+        "위험물 보관 기준을 지키고 주변 점화원을 제거하세요.",
+        "인화성 물질은 고온·직사광선·화기 근처에 보관하지 마세요.",
+        "사용 후 용기는 밀폐하여 지정된 장소에 보관하세요."
+      ]
+    },
+    {
+      key: "legal",
+      icon: "clipboard",
+      title: "법적관리 확인사항",
+      defaultItems: [
+        "관리대상 유해물질 여부를 확인하세요.",
+        "작업환경측정 및 특수건강진단 대상 여부를 확인하세요.",
+        "성분정보와 CAS No.로 관리대상 여부를 확인하세요."
+      ]
+    }
+  ];
+}
+
+function workerCautionIconSvg(type = "shield") {
+  const icons = {
+    shield: `<svg viewBox="0 0 24 24" role="img" focusable="false"><path d="M12 3l7 3v5c0 4.5-2.8 8.4-7 10-4.2-1.6-7-5.5-7-10V6l7-3z"/><path d="M8.5 12l2.2 2.2 4.8-5"/></svg>`,
+    flame: `<svg viewBox="0 0 24 24" role="img" focusable="false"><path d="M12 21c3.5 0 6-2.4 6-5.9 0-2.7-1.5-4.7-3.2-6.5-.4 2-1.4 3.2-2.7 4-1.2-2.3-.4-4.8 1.2-7.6C9 7.2 6 10.7 6 15.1 6 18.6 8.5 21 12 21z"/></svg>`,
+    glove: `<svg viewBox="0 0 24 24" role="img" focusable="false"><path d="M7 12V6a1.5 1.5 0 0 1 3 0v5"/><path d="M10 11V4.8a1.5 1.5 0 0 1 3 0V11"/><path d="M13 11V6a1.5 1.5 0 0 1 3 0v6"/><path d="M16 12V8.2a1.5 1.5 0 0 1 3 0v6.3c0 4.2-2.7 6.5-6.3 6.5H12c-2.5 0-4.2-1.2-5.4-3.1L4.5 14a1.6 1.6 0 0 1 2.8-1.6L9 15"/></svg>`,
+    vent: `<svg viewBox="0 0 24 24" role="img" focusable="false"><path d="M4 8h9a2.5 2.5 0 1 0-2.5-2.5"/><path d="M4 12h15a2.5 2.5 0 1 1-2.5 2.5"/><path d="M4 16h8a2.5 2.5 0 1 1-2.5 2.5"/></svg>`,
+    storage: `<svg viewBox="0 0 24 24" role="img" focusable="false"><rect x="5" y="7" width="14" height="14" rx="2"/><path d="M8 7V5h8v2M9 12h6M9 16h4"/></svg>`,
+    clipboard: `<svg viewBox="0 0 24 24" role="img" focusable="false"><rect x="5" y="4" width="14" height="18" rx="2"/><path d="M9 4.5A2 2 0 0 1 11 3h2a2 2 0 0 1 2 1.5V6H9zM9 11h6M9 15h6M9 19h4"/></svg>`,
+    info: `<svg viewBox="0 0 24 24" role="img" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 10v6M12 7h.1"/></svg>`
+  };
+  return icons[type] || icons.shield;
 }
 
 function displayValue(preferred, fallback) {
@@ -3553,24 +3635,56 @@ function summaryItem(label, value, tone) {
   `;
 }
 
-function detailSection(title, content) {
+function detailSection(title, content, extraClass = "") {
   return `
-    <section class="detail-block">
-      <h3>${escapeHtml(title)}</h3>
+    <section class="detail-block ${escapeAttribute(extraClass)}">
+      <div class="detail-block-heading">
+        <span class="detail-block-icon" aria-hidden="true">${detailIconSvg(getDetailSectionIcon(title))}</span>
+        <h3>${escapeHtml(title)}</h3>
+      </div>
       ${content}
     </section>
   `;
 }
 
-function detailItem(label, value) {
+function detailItem(label, value, icon = "info", extraClass = "") {
   const text = String(value || "").trim();
   const isEmpty = !text || text === "-" || text === "정보 없음";
   return `
-    <div class="info-item ${isEmpty ? "is-empty" : ""}">
-      <span class="info-label">${escapeHtml(label)}</span>
-      <span class="info-value ${isEmpty ? "is-empty" : ""}">${isEmpty ? "" : escapeHtml(text)}</span>
+    <div class="info-item ${isEmpty ? "is-empty" : ""} ${escapeAttribute(extraClass)}">
+      <span class="info-icon" aria-hidden="true">${detailIconSvg(icon)}</span>
+      <span class="info-text">
+        <span class="info-label">${escapeHtml(label)}</span>
+        <span class="info-value ${isEmpty ? "is-empty" : ""}">${isEmpty ? "-" : escapeHtml(text)}</span>
+      </span>
     </div>
   `;
+}
+
+function getDetailSectionIcon(title = "") {
+  if (title.includes("제품")) return "document";
+  if (title.includes("성분")) return "flask";
+  if (title.includes("주의")) return "shield";
+  if (title.includes("원본")) return "file";
+  return "info";
+}
+
+function detailIconSvg(type = "info") {
+  const icons = {
+    shield: `<svg viewBox="0 0 24 24" role="img" focusable="false"><path d="M12 3l7 3v5c0 4.5-2.8 8.4-7 10-4.2-1.6-7-5.5-7-10V6l7-3z"/><path d="M8.4 12.1l2.2 2.2 5-5"/></svg>`,
+    tag: `<svg viewBox="0 0 24 24" role="img" focusable="false"><path d="M4 12.2V5h7.2L20 13.8 13.8 20 4 12.2z"/><path d="M8.5 8.5h.1"/></svg>`,
+    monitor: `<svg viewBox="0 0 24 24" role="img" focusable="false"><rect x="4" y="5" width="16" height="11" rx="1.8"/><path d="M9 20h6M12 16v4"/></svg>`,
+    document: `<svg viewBox="0 0 24 24" role="img" focusable="false"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v6h6M10 13h7M10 17h5"/></svg>`,
+    file: `<svg viewBox="0 0 24 24" role="img" focusable="false"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v6h6M10 12h6M10 16h6"/></svg>`,
+    flask: `<svg viewBox="0 0 24 24" role="img" focusable="false"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"/><path d="M8 17h8"/></svg>`,
+    roller: `<svg viewBox="0 0 24 24" role="img" focusable="false"><path d="M4 6h11v5H4zM15 8h3a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-4v3"/><path d="M14 16h4v5h-4z"/></svg>`,
+    factory: `<svg viewBox="0 0 24 24" role="img" focusable="false"><path d="M4 21V10l5 3V9l5 4V7h6v14z"/><path d="M8 18h2M13 18h2M17 18h2"/></svg>`,
+    pin: `<svg viewBox="0 0 24 24" role="img" focusable="false"><path d="M12 21s7-6.1 7-12a7 7 0 0 0-14 0c0 5.9 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/></svg>`,
+    phone: `<svg viewBox="0 0 24 24" role="img" focusable="false"><path d="M8 4l2 4-2 2c1.5 3 3.2 4.7 6 6l2-2 4 2v3c0 1-1 2-2.2 2C9.5 21 3 14.5 3 6.2 3 5 4 4 5 4z"/></svg>`,
+    calendar: `<svg viewBox="0 0 24 24" role="img" focusable="false"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M8 3v4M16 3v4M4 10h16M8 14h3M13 14h3M8 17h3"/></svg>`,
+    info: `<svg viewBox="0 0 24 24" role="img" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 10v6M12 7h.1"/></svg>`
+  };
+  return icons[type] || icons.info;
 }
 
 function buildDateSummary(issueDate, revisionDate) {
