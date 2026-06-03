@@ -958,15 +958,32 @@ function cleanPdfProductName(value) {
 function cleanPdfSupplierName(value) {
   const text = String(value || "").trim();
   if (!text || normalizeSearchText(text).length <= 1) return "";
-  if (["정보", "회사", "공급자", "제조자"].includes(text)) return "";
+  if (["정보", "정보:", "회사", "공급자", "제조자", "/유통업자 정보"].includes(text)) return "";
+  if (/자료\s*없음|유통업자\s*정보|공급자\s*\/\s*유통업자\s*정보|권고\s*용도|보관하시오|safety\s+data\s+sheet|information/i.test(text)) return "";
   return text;
 }
 
 function cleanPdfRevisionDate(value) {
   const text = String(value || "").trim();
   if (!text) return "";
-  if (/(개정횟수|최종\s*개정일자|작성일자|자료없음)/.test(text)) return "";
-  return text;
+  if (/자료\s*없음|해당\s*없음|개정\s*횟수\s*및\s*최종\s*개정일자|목록번호\s*최초\s*작성일자\s*최종\s*개정일자/.test(text)) return "";
+  if (/^\s*(?:-|자\s*:?\s*|년\s*월\s*일|신규\s*생산일|개정\s*횟수|최종\s*개정일)\s*$/.test(text)) return "";
+
+  const withoutPrefix = text
+    .replace(/^(?:최종\s*)?개정\s*일자?\s*[:：]?\s*/u, "")
+    .replace(/^자\s*[:：]?\s*/u, "")
+    .trim();
+
+  const ymd = withoutPrefix.match(/(19\d{2}|20\d{2})\s*(?:[.\-/]|년)\s*(\d{1,2})\s*(?:[.\-/]|월)\s*(\d{1,2})\s*(?:일)?/);
+  if (ymd) return `${ymd[1]}-${String(Number(ymd[2])).padStart(2, "0")}-${String(Number(ymd[3])).padStart(2, "0")}`;
+
+  const dmy = withoutPrefix.match(/(\d{1,2})\s*[.\-/]\s*(\d{1,2})\s*[.\-/]\s*(19\d{2}|20\d{2})/);
+  if (dmy) return `${dmy[3]}-${String(Number(dmy[2])).padStart(2, "0")}-${String(Number(dmy[1])).padStart(2, "0")}`;
+
+  const koreanMonth = withoutPrefix.match(/(\d{1,2})\s*(\d{1,2})\s*월\s*(19\d{2}|20\d{2})/);
+  if (koreanMonth) return `${koreanMonth[3]}-${String(Number(koreanMonth[2])).padStart(2, "0")}-${String(Number(koreanMonth[1])).padStart(2, "0")}`;
+
+  return "";
 }
 
 function isReliablePdfProductName(value) {
@@ -1869,12 +1886,8 @@ function getDetailData(product) {
   const overrideProductName = product.isPdfAbsorbed
     ? cleanPdfProductName(override?.productNameCandidate)
     : override?.productNameCandidate;
-  const overrideSupplier = product.isPdfAbsorbed
-    ? cleanPdfSupplierName(override?.supplierCandidate)
-    : override?.supplierCandidate;
-  const overrideRevisionDate = product.isPdfAbsorbed
-    ? cleanPdfRevisionDate(override?.revisionDateCandidate)
-    : override?.revisionDateCandidate;
+  const overrideSupplier = cleanPdfSupplierName(override?.supplierCandidate);
+  const overrideRevisionDate = cleanPdfRevisionDate(override?.revisionDateCandidate);
 
   return {
     overrideApplied,
@@ -2690,8 +2703,8 @@ function detailItem(label, value) {
 }
 
 function buildDateSummary(issueDate, revisionDate) {
-  const issue = String(issueDate || "").trim();
-  const revision = String(revisionDate || "").trim();
+  const issue = cleanPdfRevisionDate(issueDate) || String(issueDate || "").trim();
+  const revision = cleanPdfRevisionDate(revisionDate);
   const parts = [];
   if (issue && issue !== "-" && issue !== "정보 없음") parts.push(`최초 작성일: ${issue}`);
   if (revision && revision !== "-" && revision !== "정보 없음") parts.push(`최종 개정일: ${revision}`);

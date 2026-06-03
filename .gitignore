@@ -11,6 +11,7 @@ data/*registration-queue*.local.json
 *registration-queue.reviewed.local.json
 data/msds.local.json
 data/msds.local.backup.*.json
+data/*.local.backup.*.json
 data/*.local.json
 data/*.reviewed.local.json
 data/msds-overrides.local.json
