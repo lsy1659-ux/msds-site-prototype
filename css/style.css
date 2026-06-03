@@ -2095,6 +2095,21 @@ h1 {
   color: #71837e;
 }
 
+.selection-match-reason {
+  align-self: flex-start;
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 2px;
+  padding: 4px 8px;
+  border: 1px solid rgba(11, 93, 77, 0.18);
+  border-radius: 999px;
+  background: #eaf7f3;
+  color: var(--color-primary);
+  font-size: 0.76rem;
+  font-weight: 850;
+  line-height: 1.2;
+}
+
 .full-list-panel {
   display: grid;
   gap: 16px;

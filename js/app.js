@@ -1410,14 +1410,392 @@ function flattenPrecautions(precautions = {}) {
     .join(" ");
 }
 
-function getFilteredProducts() {
-  const normalizedQuery = normalizeSearchText(state.query);
-  if (!normalizedQuery) return state.products;
+const SEARCH_SYNONYM_GROUPS = [
+  ["신너", "신나", "시너", "thinner", "희석제", "solvent"],
+  ["세정제", "세척제", "클리너", "크리너", "cleaner"],
+  ["페인트", "도료", "paint", "coating"],
+  ["경화제", "경화재", "hardener"],
+  ["프라이머", "프라이마", "primer"],
+  ["그리스", "구리스", "grease"],
+  ["오일", "oil", "윤활유"],
+  ["클리어", "clear"],
+  ["그레이", "그래이", "gray", "grey"],
+  ["블랙", "black"],
+  ["화이트", "white"],
+  ["실버", "silver"],
+  ["락카", "라카", "lacquer"],
+  ["우레탄", "urethane"]
+].map((group) => group.map(normalizeSearchText).filter(Boolean));
 
-  return state.products.filter((product) => {
-    const normalizedSource = normalizeSearchText(buildSearchSource(product));
-    return normalizedSource.includes(normalizedQuery);
+const SEARCH_FUZZY_SOURCE_TERMS = [...new Set(SEARCH_SYNONYM_GROUPS.flat())];
+
+function getSearchQueryInfo(rawQuery) {
+  const raw = String(rawQuery || "").trim();
+  const normalized = normalizeSearchText(raw);
+  const tokenParts = raw
+    .split(/[\s,;]+/)
+    .map(normalizeSearchText)
+    .filter(Boolean);
+  const tokens = [...new Set(tokenParts.length ? tokenParts : [normalized].filter(Boolean))];
+  const units = [
+    ...(normalized ? [{ value: normalized, isWhole: true }] : []),
+    ...tokens
+      .filter((token) => token && token !== normalized)
+      .map((token) => ({ value: token, isWhole: false }))
+  ];
+  const normalizedRawCode = raw.toUpperCase().replace(/[^A-Z0-9]/g, "");
+  const synonymTermsByToken = new Map();
+  const fuzzyTermsByToken = new Map();
+
+  tokens.forEach((token) => {
+    if (!canUseLinguisticExpansion(token)) return;
+    const synonymTerms = getSynonymTermsForToken(token);
+    if (synonymTerms.length) synonymTermsByToken.set(token, synonymTerms);
+    const fuzzyTerms = getFuzzyTermsForToken(token, synonymTerms);
+    if (fuzzyTerms.length) fuzzyTermsByToken.set(token, fuzzyTerms);
   });
+
+  return {
+    raw,
+    normalized,
+    tokens,
+    units,
+    isNumericOnly: /^[0-9]+$/.test(normalized),
+    isHazardCodeQuery: /^[HP][0-9]{3}$/.test(normalizedRawCode),
+    hazardCode: normalizedRawCode,
+    isCasQuery: /^\d{2,7}-\d{2}-\d$/.test(raw.replace(/\s/g, "")),
+    casRaw: raw.replace(/\s/g, ""),
+    casCompact: raw.replace(/\D/g, ""),
+    synonymTermsByToken,
+    fuzzyTermsByToken
+  };
+}
+
+function canUseLinguisticExpansion(token) {
+  return Boolean(token)
+    && token.length >= 2
+    && !/[0-9]/.test(token)
+    && !/^[hp]\d{3}$/i.test(token);
+}
+
+function getSynonymTermsForToken(token) {
+  const terms = new Set();
+  SEARCH_SYNONYM_GROUPS
+    .filter((group) => group.includes(token))
+    .flat()
+    .forEach((term) => terms.add(term));
+  return [...terms];
+}
+
+function getFuzzyTermsForToken(token, synonymTerms = []) {
+  if (!/[가-힣]/.test(token) || token.length <= 1) return [];
+  const synonymSet = new Set(synonymTerms);
+  return SEARCH_FUZZY_SOURCE_TERMS
+    .filter((term) => term !== token)
+    .filter((term) => /[가-힣]/.test(term))
+    .filter((term) => !synonymSet.has(term))
+    .filter((term) => Math.abs(term.length - token.length) <= 1)
+    .filter((term) => getEditDistance(token, term) <= 1);
+}
+
+function getEditDistance(a, b) {
+  const left = Array.from(String(a || ""));
+  const right = Array.from(String(b || ""));
+  const rows = Array.from({ length: left.length + 1 }, () => []);
+  for (let i = 0; i <= left.length; i += 1) rows[i][0] = i;
+  for (let j = 0; j <= right.length; j += 1) rows[0][j] = j;
+  for (let i = 1; i <= left.length; i += 1) {
+    for (let j = 1; j <= right.length; j += 1) {
+      const cost = left[i - 1] === right[j - 1] ? 0 : 1;
+      rows[i][j] = Math.min(
+        rows[i - 1][j] + 1,
+        rows[i][j - 1] + 1,
+        rows[i - 1][j - 1] + cost
+      );
+    }
+  }
+  return rows[left.length][right.length];
+}
+
+function getProductSearchFields(product = {}) {
+  const componentItems = [
+    ...(Array.isArray(product.components) ? product.components : []),
+    ...(Array.isArray(product.ingredients) ? product.ingredients : [])
+  ];
+  const componentNames = componentItems.map((component) => component.chemicalName);
+  const casNumbers = componentItems.map((component) => component.casNo).filter(Boolean);
+  const hazardStatements = [
+    ...(Array.isArray(product.hazardStatements) ? product.hazardStatements : []),
+    ...(Array.isArray(product.pdfSummaryOverride?.hazardStatements) ? product.pdfSummaryOverride.hazardStatements : [])
+  ];
+  const precautionText = [
+    flattenPrecautions(product.precautionaryStatements),
+    flattenPrecautions(product.pdfSummaryOverride?.precautionaryStatements)
+  ].join(" ");
+  const ppeText = [
+    product.ppeSummary,
+    ...(Array.isArray(product.ppeCandidates) ? product.ppeCandidates : []),
+    ...(Array.isArray(product.pdfSummaryOverride?.ppeCandidates) ? product.pdfSummaryOverride.ppeCandidates : [])
+  ].join(" ");
+  const fileNames = [
+    product.fileName,
+    getPathBasename(product.pdfPath),
+    getPathBasename(product.relativePath),
+    getPathBasename(product.sourceRelativePath)
+  ];
+  const codeCandidates = extractProductCodeCandidates([
+    product.productName,
+    product.erpName,
+    product.fileName,
+    product.pdfPath,
+    product.relativePath,
+    product.sourceRelativePath
+  ].join(" "));
+
+  return {
+    productNames: getUniqueSearchValues([product.productName]),
+    productCodes: codeCandidates,
+    erpNames: getUniqueSearchValues([product.erpName]),
+    fileNames: getUniqueSearchValues(fileNames),
+    metaFields: getUniqueSearchValues([
+      product.category,
+      product.useCategory,
+      product.recommendedUse,
+      product.siteLabel,
+      getDisplaySupplierName(product),
+      product.supplier
+    ]),
+    componentNames: getUniqueSearchValues(componentNames),
+    casNumbers: getUniqueSearchValues(casNumbers),
+    hazardCodes: extractHazardCodes([hazardStatements.join(" "), precautionText].join(" ")),
+    detailTexts: getUniqueSearchValues([
+      product.hazardSummary,
+      product.hazardClassification,
+      product.dangerousGoods,
+      product.ppeSummary,
+      hazardStatements.join(" "),
+      precautionText,
+      ppeText
+    ])
+  };
+}
+
+function getUniqueSearchValues(values = []) {
+  return [...new Set(values.map((value) => String(value || "").trim()).filter(Boolean))];
+}
+
+function getNormalizedValues(values = []) {
+  return values.map(normalizeSearchText).filter(Boolean);
+}
+
+function extractProductCodeCandidates(text) {
+  const raw = String(text || "");
+  const candidates = new Set();
+  const codeMatches = raw.match(/[A-Za-z]{1,10}\s*[-_./]?\s*\d{1,8}(?:\s*[-_./]?\s*[A-Za-z0-9]{1,12})*/g) || [];
+  codeMatches.forEach((match) => {
+    const normalized = normalizeSearchText(match);
+    if (normalized.length >= 2) candidates.add(match);
+  });
+  return [...candidates];
+}
+
+function extractHazardCodes(text) {
+  const matches = String(text || "").match(/\b[HP]\s*[-_]?\s*\d{3}\b/gi) || [];
+  return [...new Set(matches.map((match) => match.toUpperCase().replace(/[^A-Z0-9]/g, "")))];
+}
+
+function hasNormalizedMatch(values, query, mode = "contains") {
+  if (!query) return false;
+  const normalizedValues = getNormalizedValues(values);
+  if (mode === "exact") return normalizedValues.some((value) => value === query);
+  return normalizedValues.some((value) => value.includes(query));
+}
+
+function hasCasMatch(casNumbers, queryInfo, mode = "exact") {
+  if (!queryInfo.casRaw && !queryInfo.normalized) return false;
+  return casNumbers.some((casNo) => {
+    const compact = String(casNo || "").replace(/\D/g, "");
+    const raw = String(casNo || "").replace(/\s/g, "");
+    if (mode === "exact") {
+      return queryInfo.isCasQuery
+        ? raw === queryInfo.casRaw
+        : compact === queryInfo.casCompact && queryInfo.casCompact.length >= 5;
+    }
+    return !queryInfo.isNumericOnly && queryInfo.casCompact.length >= 5 && compact.includes(queryInfo.casCompact);
+  });
+}
+
+function getSearchReasonLabel(reason) {
+  const labels = {
+    productExact: "제품명 정확 일치",
+    productCodeExact: "제품코드 일치",
+    productContains: "제품명 일치",
+    fileMatch: "파일명 일치",
+    erpMatch: "ERP 품명 일치",
+    metaMatch: "분류/업체 일치",
+    synonymMatch: "동의어 일치",
+    fuzzyMatch: "오타 보정",
+    componentMatch: "성분명 일치",
+    casExact: "CAS 일치",
+    casPartial: "CAS 후보",
+    hazardCodeMatch: "유해문구 코드 일치",
+    detailMatch: "상세문구 일치"
+  };
+  return labels[reason] || "";
+}
+
+function findMatchedSearchTerm(values, terms = []) {
+  return terms.find((term) => hasNormalizedMatch(values, term, "contains")) || "";
+}
+
+function getExpansionReasonLabel(reason, queryToken, matchedTerm) {
+  const baseLabel = getSearchReasonLabel(reason);
+  if (!queryToken || !matchedTerm || queryToken === matchedTerm) return baseLabel;
+  return `${baseLabel}: ${queryToken} → ${matchedTerm}`;
+}
+
+function scoreProductForQuery(product, queryInfo) {
+  const fields = getProductSearchFields(product);
+  const scoreState = {
+    score: 0,
+    reasons: [],
+    reasonLabels: [],
+    matchedTokens: new Set(),
+    directMatch: false,
+    exactMatch: false,
+    containsMatch: false,
+    detailOnly: true
+  };
+
+  const addScore = (points, reason, unit, options = {}) => {
+    if (!points) return;
+    scoreState.score += points;
+    if (!scoreState.reasons.includes(reason)) scoreState.reasons.push(reason);
+    const label = options.reasonLabel || getSearchReasonLabel(reason);
+    if (label && !scoreState.reasonLabels.includes(label)) scoreState.reasonLabels.push(label);
+    if (unit?.isWhole) {
+      queryInfo.tokens.forEach((token) => scoreState.matchedTokens.add(token));
+    } else if (unit?.value) {
+      scoreState.matchedTokens.add(unit.value);
+    }
+    if (options.direct) {
+      scoreState.directMatch = true;
+      scoreState.detailOnly = false;
+    }
+    if (options.exact) scoreState.exactMatch = true;
+    if (options.contains) scoreState.containsMatch = true;
+  };
+
+  queryInfo.units.forEach((unit) => {
+    if (hasNormalizedMatch(fields.productNames, unit.value, "exact")) {
+      addScore(1200, "productExact", unit, { direct: true, exact: true });
+    }
+    if (hasNormalizedMatch(fields.productCodes, unit.value, "exact")) {
+      addScore(1100, "productCodeExact", unit, { direct: true, exact: true });
+    }
+    if (hasNormalizedMatch([...fields.productNames, ...fields.productCodes], unit.value, "contains")) {
+      addScore(800, "productContains", unit, { direct: true, contains: true });
+    }
+    if (hasNormalizedMatch(fields.fileNames, unit.value, "contains")) {
+      addScore(600, "fileMatch", unit, { direct: true, contains: true });
+    }
+    if (hasNormalizedMatch(fields.erpNames, unit.value, "contains")) {
+      addScore(500, "erpMatch", unit, { direct: true, contains: true });
+    }
+    if (hasNormalizedMatch(fields.metaFields, unit.value, "contains")) {
+      addScore(300, "metaMatch", unit, { contains: true });
+      scoreState.detailOnly = false;
+    }
+    if (!queryInfo.isNumericOnly && hasNormalizedMatch(fields.componentNames, unit.value, "contains")) {
+      addScore(120, "componentMatch", unit, { contains: true });
+    }
+    if (!queryInfo.isNumericOnly && !queryInfo.isHazardCodeQuery && unit.value.length >= 2 && hasNormalizedMatch(fields.detailTexts, unit.value, "contains")) {
+      addScore(60, "detailMatch", unit, { contains: true });
+    }
+  });
+
+  queryInfo.tokens.forEach((token) => {
+    const synonymTerms = queryInfo.synonymTermsByToken.get(token) || [];
+    const synonymFields = [
+      ...fields.productNames,
+      ...fields.erpNames,
+      ...fields.fileNames,
+      ...fields.metaFields
+    ];
+    const matchedSynonymTerm = findMatchedSearchTerm(synonymFields, synonymTerms);
+    if (matchedSynonymTerm) {
+      addScore(220, "synonymMatch", { value: token }, {
+        contains: true,
+        reasonLabel: getExpansionReasonLabel("synonymMatch", token, matchedSynonymTerm)
+      });
+      scoreState.detailOnly = false;
+    }
+
+    const fuzzyTerms = queryInfo.fuzzyTermsByToken.get(token) || [];
+    const matchedFuzzyTerm = findMatchedSearchTerm(synonymFields, fuzzyTerms);
+    if (matchedFuzzyTerm) {
+      addScore(160, "fuzzyMatch", { value: token }, {
+        contains: true,
+        reasonLabel: getExpansionReasonLabel("fuzzyMatch", token, matchedFuzzyTerm)
+      });
+      scoreState.detailOnly = false;
+    }
+  });
+
+  if (hasCasMatch(fields.casNumbers, queryInfo, "exact")) {
+    addScore(350, "casExact", { value: queryInfo.normalized }, { exact: true });
+  } else if (hasCasMatch(fields.casNumbers, queryInfo, "partial")) {
+    addScore(25, "casPartial", { value: queryInfo.normalized }, { contains: true });
+  }
+
+  if (queryInfo.isHazardCodeQuery && fields.hazardCodes.includes(queryInfo.hazardCode)) {
+    addScore(200, "hazardCodeMatch", { value: queryInfo.normalized }, { exact: true });
+  }
+
+  return {
+    score: scoreState.score,
+    directMatch: scoreState.directMatch,
+    exactMatch: scoreState.exactMatch,
+    containsMatch: scoreState.containsMatch,
+    detailOnly: scoreState.detailOnly,
+    matchedTokenCount: scoreState.matchedTokens.size,
+    reason: scoreState.reasonLabels[0] || getSearchReasonLabel(scoreState.reasons[0])
+  };
+}
+
+function rankProductsForQuery(products, queryInfo) {
+  const isMultiTokenQuery = queryInfo.tokens.length > 1;
+  return products
+    .map((product) => {
+      const result = scoreProductForQuery(product, queryInfo);
+      return {
+        ...product,
+        __searchScore: result.score,
+        __searchReason: result.reason,
+        __searchDirectMatch: result.directMatch,
+        __searchExactMatch: result.exactMatch,
+        __searchContainsMatch: result.containsMatch,
+        __searchDetailOnly: result.detailOnly,
+        __searchMatchedTokenCount: result.matchedTokenCount
+      };
+    })
+    .filter((product) => product.__searchScore > 0)
+    .sort((a, b) => (
+      (isMultiTokenQuery ? b.__searchMatchedTokenCount - a.__searchMatchedTokenCount : 0)
+      || b.__searchScore - a.__searchScore
+      || Number(b.__searchDirectMatch) - Number(a.__searchDirectMatch)
+      || b.__searchMatchedTokenCount - a.__searchMatchedTokenCount
+      || Number(b.__searchExactMatch) - Number(a.__searchExactMatch)
+      || Number(b.__searchContainsMatch) - Number(a.__searchContainsMatch)
+      || Number(a.__searchDetailOnly) - Number(b.__searchDetailOnly)
+      || String(a.productName || "").localeCompare(String(b.productName || ""), "ko")
+    ));
+}
+
+function getFilteredProducts() {
+  const queryInfo = getSearchQueryInfo(state.query);
+  if (!queryInfo.normalized) return state.products;
+  return rankProductsForQuery(state.products, queryInfo);
 }
 
 function getSelectedProduct(results) {
@@ -1528,6 +1906,7 @@ function renderSelectionList(results, hasQuery, canShowCandidates) {
         <button class="selection-item ${product.id === state.selectedId ? "is-selected" : ""}" type="button" data-product-id="${escapeAttribute(product.id)}">
           <span class="selection-name text-break clamp-2">${escapeHtml(product.productName)}</span>
           <span class="selection-meta text-muted-path clamp-2">${escapeHtml([product.useCategory, getDisplaySupplierName(product)].filter(Boolean).join(" · "))}</span>
+          ${product.__searchReason ? `<span class="selection-match-reason">${escapeHtml(product.__searchReason)}</span>` : ""}
         </button>
       `).join("")}
     </div>
