@@ -70,7 +70,7 @@ const FALLBACK_PRODUCTS = [
         casNo: "64742-49-0",
         content: "30~40%",
         controlledSubstance: "해당 없음",
-        workEnvironmentMeasurement: "검토 필요",
+        workEnvironmentMeasurement: "",
         specialHealthExam: "해당 없음"
       }
     ]
@@ -155,7 +155,7 @@ const FALLBACK_PRODUCTS = [
         casNo: "1310-73-2",
         content: "1~5%",
         controlledSubstance: "샘플 해당",
-        workEnvironmentMeasurement: "검토 필요",
+        workEnvironmentMeasurement: "",
         specialHealthExam: "해당 없음"
       }
     ]
@@ -241,7 +241,7 @@ const FALLBACK_PRODUCTS = [
         casNo: "74-98-6",
         content: "20~30%",
         controlledSubstance: "해당 없음",
-        workEnvironmentMeasurement: "검토 필요",
+        workEnvironmentMeasurement: "",
         specialHealthExam: "해당 없음"
       }
     ]
@@ -722,6 +722,7 @@ function normalizeProduct(product) {
     hazardSummary: product.hazardSummary || product.hazardClassification || "",
     dangerousGoods: product.dangerousGoods || "",
     ppeSummary: product.ppeSummary || "",
+    issueDate: product.issueDate || product.preparationDate || "",
     revisionDate: product.revisionDate || "",
     hazardBadge: product.hazardBadge || "확인",
     labelGhsCodes: normalizeGhsCodeList(product.labelGhsCodes || product.labelGhsPictograms || []),
@@ -1785,7 +1786,7 @@ function renderDetail(product) {
         ${detailItem("권고용도/사용용도", product.recommendedUse)}
         ${detailItem("제조사/공급업체", detailData.supplier)}
         ${detailItem("정보제공 및 긴급연락처", product.emergencyContact)}
-        ${detailItem("개정일", detailData.revisionDate)}
+        ${detailItem("최초 작성일 / 최종 개정일", detailData.dateSummary)}
       </div>
     `)}
 
@@ -1881,6 +1882,7 @@ function getDetailData(product) {
     supplier: displayValue(overrideSupplier, product.supplier),
     msdsNo: displayValue(override?.msdsNoCandidate, product.msdsNo),
     revisionDate: displayValue(overrideRevisionDate, product.revisionDate),
+    dateSummary: buildDateSummary(product.issueDate || product.preparationDate, displayValue(overrideRevisionDate, product.revisionDate)),
     signalWord: override?.signalWordCandidate || "",
     hazardSummary: displayValue(summarizeItems(hazardStatements, 2, " / "), product.hazardSummary),
     ppeSummary: displayValue(summarizeItems(ppeCandidates, 3, ", "), product.ppeSummary),
@@ -2678,13 +2680,22 @@ function detailSection(title, content) {
 
 function detailItem(label, value) {
   const text = String(value || "").trim();
-  if (!text || text === "-" || text === "정보 없음") return "";
+  const isEmpty = !text || text === "-" || text === "정보 없음";
   return `
-    <div class="info-item">
+    <div class="info-item ${isEmpty ? "is-empty" : ""}">
       <span class="info-label">${escapeHtml(label)}</span>
-      <span class="info-value">${escapeHtml(text)}</span>
+      <span class="info-value ${isEmpty ? "is-empty" : ""}">${isEmpty ? "" : escapeHtml(text)}</span>
     </div>
   `;
+}
+
+function buildDateSummary(issueDate, revisionDate) {
+  const issue = String(issueDate || "").trim();
+  const revision = String(revisionDate || "").trim();
+  const parts = [];
+  if (issue && issue !== "-" && issue !== "정보 없음") parts.push(`최초 작성일: ${issue}`);
+  if (revision && revision !== "-" && revision !== "정보 없음") parts.push(`최종 개정일: ${revision}`);
+  return parts.join(" / ");
 }
 
 function renderGhsList(product, size) {
