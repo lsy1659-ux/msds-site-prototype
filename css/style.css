@@ -7139,3 +7139,112 @@ body {
     color: #ffffff;
   }
 }
+
+/* Mobile progress nav final lock: always visible, six steps in one compact row */
+@media (max-width: 767px) {
+  body {
+    padding-bottom: calc(56px + env(safe-area-inset-bottom));
+  }
+
+  .app-shell {
+    padding-bottom: calc(56px + env(safe-area-inset-bottom));
+  }
+
+  #scrollQuickNav.scroll-quick-nav,
+  #scrollQuickNav.scroll-quick-nav.is-hidden {
+    position: fixed;
+    inset: auto max(8px, env(safe-area-inset-right)) max(6px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+    z-index: 90;
+    display: grid !important;
+    grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+    grid-auto-flow: column;
+    align-items: center;
+    gap: 2px;
+    width: auto;
+    min-width: 0;
+    min-height: 0;
+    height: 46px;
+    padding: 4px 5px;
+    overflow: hidden;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(4, 58, 46, 0.96), rgba(5, 87, 69, 0.96));
+    box-shadow: 0 14px 30px rgba(3, 33, 27, 0.26);
+  }
+
+  #scrollQuickNav.scroll-quick-nav button {
+    display: grid;
+    grid-template-rows: 16px 13px;
+    place-items: center;
+    gap: 1px;
+    width: 100%;
+    min-width: 0;
+    height: 36px;
+    min-height: 36px;
+    padding: 0 1px;
+    overflow: hidden;
+    border-radius: 10px;
+    font-size: 0.56rem;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  #scrollQuickNav.scroll-quick-nav button span {
+    width: 22px;
+    height: 18px;
+    border-radius: 999px;
+    font-size: 0.62rem;
+    line-height: 1;
+  }
+
+  #scrollQuickNav.scroll-quick-nav button b {
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.58rem;
+    font-weight: 800;
+    line-height: 1;
+    text-overflow: clip;
+    white-space: nowrap;
+  }
+
+  #scrollQuickNav.scroll-quick-nav button.is-active {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  #scrollQuickNav.scroll-quick-nav button.is-active span {
+    background: #ffffff;
+    color: #006a58;
+    box-shadow: none;
+  }
+
+  #scrollQuickNav.scroll-quick-nav button.is-active b {
+    color: #ffffff;
+  }
+}
+
+@media (max-width: 380px) {
+  #scrollQuickNav.scroll-quick-nav,
+  #scrollQuickNav.scroll-quick-nav.is-hidden {
+    left: max(6px, env(safe-area-inset-left));
+    right: max(6px, env(safe-area-inset-right));
+    height: 44px;
+    padding: 4px;
+  }
+
+  #scrollQuickNav.scroll-quick-nav button {
+    height: 34px;
+    min-height: 34px;
+    font-size: 0.52rem;
+  }
+
+  #scrollQuickNav.scroll-quick-nav button span {
+    width: 20px;
+    height: 17px;
+    font-size: 0.58rem;
+  }
+
+  #scrollQuickNav.scroll-quick-nav button b {
+    font-size: 0.52rem;
+  }
+}

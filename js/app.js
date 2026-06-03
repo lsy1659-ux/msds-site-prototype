@@ -697,7 +697,7 @@ function scheduleScrollProgressUpdate() {
 }
 
 function updateScrollProgressActive() {
-  if (!elements.scrollQuickNav || elements.scrollQuickNav.classList.contains("is-hidden")) return;
+  if (!elements.scrollQuickNav) return;
   const sections = getScrollProgressSections();
   if (!sections.length) return;
   const viewportAnchor = Math.min(window.innerHeight * 0.42, 320);
@@ -1992,7 +1992,7 @@ function render() {
   renderSelectionList(results, hasQuery, canShowCandidates);
   renderPoster(selected);
   renderDetail(selected);
-  const shouldShowQuickNav = Boolean(selected);
+  const shouldShowQuickNav = Boolean(selected) || window.matchMedia("(max-width: 767px)").matches;
   elements.scrollQuickNav?.classList.toggle("is-hidden", !shouldShowQuickNav);
   scheduleScrollProgressUpdate();
   document.body.classList.toggle("is-pdf-full-view-open", state.pdfFullView.isOpen);
