@@ -651,8 +651,21 @@ function handleQuickScroll(target) {
     elements.selectionPanel?.scrollIntoView({ behavior: "smooth", block: "start" });
     return;
   }
-  if (target === "selected") {
+  if (target === "detail" || target === "selected") {
     document.querySelector(".detail-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+  if (target === "components") {
+    document.querySelector(".detail-block-components")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+  if (target === "caution") {
+    document.querySelector(".detail-block-worker-caution")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+  if (target === "pdf") {
+    document.querySelector(".detail-block-pdf")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
   }
 }
 
@@ -2409,7 +2422,7 @@ function renderDetail(product) {
 
     ${detailSection("MSDS 원본자료 필수 확인", `
       ${renderPdfPreview(pdfInfo)}
-    `)}
+    `, "detail-block-pdf")}
   `;
 }
 
