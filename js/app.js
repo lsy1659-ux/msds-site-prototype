@@ -1653,7 +1653,7 @@ function renderPoster(product) {
       <span class="hazard-badge">${escapeHtml(posterData.hazardBadge)}</span>
     </div>
     <div class="poster-ghs-row">
-      ${renderGhsListFromItems(posterData.ghsPictograms, "poster")}
+      ${renderGhsListFromItems(posterData.ghsPictograms, "poster", hasLinkedPdf(product))}
     </div>
     ${posterSection(posterData.hazardTitle, renderBulletList(posterData.hazardStatements, posterData.isCandidate), "poster-hazard-statements")}
     ${posterSection(posterData.precautionTitle, renderPrecautions(posterData.precautionaryStatements, posterData.isCandidate), "poster-precaution-statements")}
@@ -1802,6 +1802,7 @@ function renderDetail(product) {
         ${detailItem("용도분류", product.useCategory)}
         ${detailItem("권고용도/사용용도", product.recommendedUse)}
         ${detailItem("제조사/공급업체", detailData.supplier)}
+        ${detailItem("주소", product.supplierAddress)}
         ${detailItem("정보제공 및 긴급연락처", product.emergencyContact)}
         ${detailItem("최초 작성일 / 최종 개정일", detailData.dateSummary)}
       </div>
@@ -1851,7 +1852,7 @@ function renderDetail(product) {
       ${renderWorkerCautionPoints(workerCautions)}
       ${!isFieldMode ? `
         ${detailData.signalWord ? `<p class="summary-note"><strong>신호어:</strong> ${escapeHtml(detailData.signalWord)}</p>` : ""}
-        <div class="ghs-grid">${renderGhsListFromItems(detailData.ghsPictograms, "large")}</div>
+        <div class="ghs-grid">${renderGhsListFromItems(detailData.ghsPictograms, "large", hasLinkedPdf(product))}</div>
         <h4 class="detail-subheading">유해 위험 문구</h4>
         ${renderDetailList(detailData.hazardStatements)}
         <h4 class="detail-subheading">예방조치 문구</h4>
@@ -2715,10 +2716,23 @@ function renderGhsList(product, size) {
   return renderGhsListFromItems(product, size);
 }
 
-function renderGhsListFromItems(items, size) {
+function renderGhsListFromItems(items, size, usePdfFallback = false) {
   const list = normalizeGhsList(Array.isArray(items) ? { ghsPictograms: items || [] } : (items || {}));
-  if (!list.length) return `<span class="no-ghs">GHS 정보 없음</span>`;
+  if (!list.length) return `<span class="no-ghs">${usePdfFallback ? "PDF 원본 확인 필요" : "GHS 정보 없음"}</span>`;
   return list.map((item) => renderGhsPictogram(item, size)).join("");
+}
+
+function hasLinkedPdf(product) {
+  if (!product) return false;
+  const override = product.pdfSummaryOverride || {};
+  return Boolean(
+    product.pdfPath
+    || product.relativePath
+    || product.sourceRelativePath
+    || product.fileName
+    || override.sourcePdfPath
+    || override.sourceRelativePath
+  );
 }
 
 function renderGhsPictogram(item, size) {
