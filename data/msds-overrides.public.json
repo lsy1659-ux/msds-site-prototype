@@ -30584,12 +30584,12 @@
     "excelProductMatched": false,
     "queueReviewDecision": "미검토",
     "extractStatus": "candidate_extracted",
-    "reviewStatus": "검토필요",
+    "reviewStatus": "검토완료",
     "productNameCandidate": "",
     "supplierCandidate": "태양(SUN)",
     "msdsNoCandidate": "",
     "revisionDateCandidate": "2023-06-13",
-    "signalWordCandidate": "",
+    "signalWordCandidate": "위험",
     "ghsPictograms": [
       {
         "code": "GHS02",
@@ -30598,9 +30598,18 @@
       {
         "code": "GHS04",
         "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
-    "hazardStatements": [],
+    "hazardStatements": [
+      "H220 극인화성 가스",
+      "H280 고압가스 포함 ; 가열하면 폭발할 수 있음",
+      "H335 호흡기 자극을 일으킬 수 있음",
+      "H336 졸음 또는 현기증을 일으킬 수 있음"
+    ],
     "precautionaryStatements": {
       "prevention": [
         "P304+P340 흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정",
@@ -30613,7 +30622,32 @@
         "P501 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오."
       ]
     },
-    "ingredients": [],
+    "ingredients": [
+      {
+        "chemicalName": "이소부탄(ISOBUTANE) / 2-메틸 프로판(2-METHYL PROPANE)",
+        "casNo": "75-28-5",
+        "content": "24 ~ 34",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "노말 뷰테인(BUTANE)",
+        "casNo": "106-97-8",
+        "content": "41 ~ 51",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "프로판(PROPANE)",
+        "casNo": "74-98-6",
+        "content": "25 ~ 35",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      }
+    ],
     "ppeCandidates": [
       "밀폐된 공간에서의 가스 사용은 폭발 및 질식의 위험이 있으니 환기가 잘되는 곳에서",
       "누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오. 다. 화재진압시 착용할 보호구 및 예방조치",
@@ -30635,7 +30669,7 @@
       "화학물질용 보안경",
       "화학물질용 보호복"
     ],
-    "notes": "PDF 자동 추출 후보이며 검토 필요",
+    "notes": "PDF page 1-2 reviewed: added GHS07, H statements, and composition rows.",
     "extractionMeta": {
       "method": "pypdf",
       "pageCount": 9,
@@ -30645,14 +30679,16 @@
     },
     "ghsCodes": [
       "GHS02",
-      "GHS04"
+      "GHS04",
+      "GHS07"
     ],
-    "ghsSource": "section2_classification_fallback",
+    "ghsSource": "section2_classification_and_hazard_statement_reviewed",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS04"
+      "GHS04",
+      "GHS07"
     ],
     "classificationGhsPictograms": [
       {
@@ -30662,6 +30698,10 @@
       {
         "code": "GHS04",
         "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ]
   },

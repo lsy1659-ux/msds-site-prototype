@@ -37176,14 +37176,15 @@
     "recommendedUse": "",
     "supplier": "태양(SUN)",
     "emergencyContact": "",
-    "hazardSummary": "",
-    "dangerousGoods": "",
+    "hazardSummary": "인화성 가스 구분1 / 고압가스 액화가스 / 특정표적장기 독성(1회 노출) 구분3",
+    "dangerousGoods": "인화성 가스 / 고압가스",
     "ppeSummary": "",
     "revisionDate": "2023-06-13",
-    "hazardBadge": "MSDS",
+    "hazardBadge": "위험",
     "ghsCodes": [
       "GHS02",
-      "GHS04"
+      "GHS04",
+      "GHS07"
     ],
     "ghsPictograms": [
       {
@@ -37193,13 +37194,18 @@
       {
         "code": "GHS04",
         "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS04"
+      "GHS04",
+      "GHS07"
     ],
     "classificationGhsPictograms": [
       {
@@ -37209,9 +37215,18 @@
       {
         "code": "GHS04",
         "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
-    "hazardStatements": [],
+    "hazardStatements": [
+      "H220 극인화성 가스",
+      "H280 고압가스 포함 ; 가열하면 폭발할 수 있음",
+      "H335 호흡기 자극을 일으킬 수 있음",
+      "H336 졸음 또는 현기증을 일으킬 수 있음"
+    ],
     "precautionaryStatements": {
       "prevention": [
         "P304+P340 흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정",
@@ -37245,13 +37260,63 @@
       "화학물질용 보안경",
       "화학물질용 보호복"
     ],
-    "components": [],
-    "ingredients": [],
+    "components": [
+      {
+        "chemicalName": "이소부탄(ISOBUTANE) / 2-메틸 프로판(2-METHYL PROPANE)",
+        "casNo": "75-28-5",
+        "content": "24 ~ 34",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "노말 뷰테인(BUTANE)",
+        "casNo": "106-97-8",
+        "content": "41 ~ 51",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "프로판(PROPANE)",
+        "casNo": "74-98-6",
+        "content": "25 ~ 35",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      }
+    ],
+    "ingredients": [
+      {
+        "chemicalName": "이소부탄(ISOBUTANE) / 2-메틸 프로판(2-METHYL PROPANE)",
+        "casNo": "75-28-5",
+        "content": "24 ~ 34",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "노말 뷰테인(BUTANE)",
+        "casNo": "106-97-8",
+        "content": "41 ~ 51",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "프로판(PROPANE)",
+        "casNo": "74-98-6",
+        "content": "25 ~ 35",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      }
+    ],
     "dataSource": "msds_pdf",
     "sourcePdfPath": "pdf/태양(SUN)/썬 라이타 가스 MSDS.pdf",
     "issueDate": "2023-06-13",
     "supplierAddress": "충청남도 천안시 서북구 업성 1길 27",
-    "ghsSource": "section2_classification_fallback"
+    "ghsSource": "section2_classification_and_hazard_statement_reviewed"
   },
   {
     "id": "msds-pdf-52d86cde38911013",
