@@ -401,7 +401,8 @@ const state = {
     restorePage: null,
     restoreOffsetRatio: 0,
     document: null,
-    renderToken: 0
+    renderToken: 0,
+    suppressPageTracking: false
   },
   pdfFullView: {
     isOpen: false,
@@ -418,7 +419,8 @@ const state = {
     restorePage: null,
     restoreOffsetRatio: 0,
     document: null,
-    renderToken: 0
+    renderToken: 0,
+    suppressPageTracking: false
   }
 };
 
@@ -878,27 +880,27 @@ function shouldExcludeInventoryPdf(item = {}) {
 }
 
 function createPdfOnlyProduct(item, index, override = null) {
-  const fileName = item.fileName || getPathBasename(item.relativePath || item.pdfPath || "") || `PDF 원본자료 ${index + 1}`;
+  const fileName = item.fileName || getPathBasename(item.relativePath || item.pdfPath || "") || `MSDS ${index + 1}`;
   const candidateName = Array.isArray(item.productNameCandidates) ? item.productNameCandidates.find(Boolean) : "";
   const displayName = getPdfOnlyDisplayName({
     overrideName: override?.productNameCandidate,
     candidateName,
     fileName
   });
-  const supplierName = cleanPdfSupplierName(override?.supplierCandidate) || "PDF 원본자료";
-  const revisionDate = cleanPdfRevisionDate(override?.revisionDateCandidate);
   const relativePath = item.relativePath || item.pdfPath || fileName;
+  const supplierName = cleanPdfSupplierName(override?.supplierCandidate) || supplierFromPath(relativePath) || "업체 미확인";
+  const revisionDate = cleanPdfRevisionDate(override?.revisionDateCandidate);
 
   return normalizeProduct({
-    id: `pdf-only-${item.sha256 || item.normalizedFileName || index}`,
-    isPdfOnly: true,
+    id: `msds-pdf-${item.sha256 || item.normalizedFileName || index}`,
+    isPdfAbsorbed: true,
     productName: displayName,
     erpName: "",
     msdsNo: override?.msdsNoCandidate || (Array.isArray(item.msdsNoCandidates) ? item.msdsNoCandidates.find(Boolean) || "" : ""),
     fileName,
     pdfPath: normalizePdfDisplayPath(relativePath),
     relativePath,
-    useCategory: "PDF 원본자료",
+    useCategory: "",
     recommendedUse: "",
     supplier: supplierName,
     emergencyContact: "",
@@ -907,6 +909,7 @@ function createPdfOnlyProduct(item, index, override = null) {
     ppeSummary: "",
     revisionDate,
     hazardBadge: "PDF",
+    dataSource: "msds_pdf",
     ingredients: override?.ingredients || [],
     components: override?.ingredients || [],
     hazardStatements: override?.hazardStatements || [],
@@ -922,7 +925,21 @@ function getPdfOnlyDisplayName({ overrideName = "", candidateName = "", fileName
     || cleanPdfProductName(candidateName)
     || cleanPdfFileNameForProduct(fileName)
     || String(fileName || "").replace(/\.pdf$/i, "")
-    || "PDF 원본자료";
+    || "MSDS";
+}
+
+function supplierFromPath(path) {
+  const folder = String(path || "").replace(/\\/g, "/").split("/")[0] || "";
+  return normalizeSupplierDisplay(folder);
+}
+
+function normalizeSupplierDisplay(value) {
+  const text = String(value || "").trim();
+  if (!text || text.toLowerCase() === "pdf") return "";
+  return text
+    .replace(/\(주\)|㈜|주식회사|\(주식회사\)/g, "")
+    .replace(/\((그리스|구두약|파워피엔비)\)/g, "")
+    .trim();
 }
 
 function cleanPdfProductName(value) {
@@ -1346,7 +1363,7 @@ function render() {
 
   elements.emptySearchGuide.classList.toggle("is-hidden", Boolean(state.query.trim()));
   elements.selectionPanel.classList.toggle("is-collapsed", !hasQuery && !state.showFullList);
-  elements.resultCount.textContent = state.showFullList ? `전체 MSDS ${state.products.length + state.pdfOnlyProducts.length}건` : (hasQuery ? `검색 결과 ${results.length}건` : "검색 전");
+  elements.resultCount.textContent = state.showFullList ? `전체 MSDS ${getAllSelectableProducts().length}건` : (hasQuery ? `검색 결과 ${results.length}건` : "검색 전");
   elements.dataMode.textContent = state.dataMode;
   elements.dataMode.classList.toggle("is-local", state.dataMode.includes("로컬"));
   if (elements.publicDeployNotice) {
@@ -1366,7 +1383,7 @@ function render() {
 }
 
 function getResultSubtitle(hasQuery, canShowCandidates, totalCount) {
-  if (state.showFullList && !hasQuery) return "정식 등록 제품과 PDF 원본자료를 함께 정리한 전체 MSDS 보기입니다.";
+  if (state.showFullList && !hasQuery) return "전체 MSDS 자료를 업체별로 정리해 표시합니다.";
   if (!hasQuery) return "검색어를 입력하면 후보 제품이 표시됩니다.";
   if (!canShowCandidates) return `${APP_CONFIG.minSearchCharacters}글자 이상 입력하면 후보 제품을 표시합니다.`;
   if (!totalCount) return "제품명, 용도, CAS No. 등으로 다시 검색해보세요.";
@@ -1488,14 +1505,13 @@ function renderSelectionList(results, hasQuery, canShowCandidates) {
 }
 
 function renderFullProductList() {
-  const groups = buildProductGroups(state.products);
-  const pdfOnlyProducts = state.pdfOnlyProducts;
-  const totalVisibleCount = state.products.length + pdfOnlyProducts.length;
+  const allProducts = getAllSelectableProducts();
+  const groups = buildProductGroups(allProducts);
   elements.selectionList.innerHTML = `
     <div class="full-list-panel">
       <div class="full-list-summary">
         <strong>전체 MSDS 보기</strong>
-        <span>정식 등록 제품 ${state.products.length}개 + PDF 원본자료 ${pdfOnlyProducts.length}개 · 전체 ${totalVisibleCount}개</span>
+        <span>업체별 MSDS ${allProducts.length}개 표시 중</span>
       </div>
       <div class="full-product-groups">
         ${groups.map((group) => `
@@ -1509,17 +1525,6 @@ function renderFullProductList() {
             </div>
           </section>
         `).join("")}
-        ${pdfOnlyProducts.length ? `
-          <section class="product-company-group pdf-only-group">
-            <header class="product-company-header">
-              <h3>PDF 원본자료</h3>
-              <span>${pdfOnlyProducts.length}개 자료</span>
-            </header>
-            <div class="product-company-list">
-              ${pdfOnlyProducts.map((product, index) => renderFullProductItem(product, index)).join("")}
-            </div>
-          </section>
-        ` : ""}
       </div>
       <button class="full-list-floating-collapse" type="button" id="collapseFullProductList">전체 MSDS 접기</button>
     </div>
@@ -1581,25 +1586,28 @@ function getProductCompanyName(product) {
 
 function renderFullProductItem(product, index) {
   const pdfInfo = buildPdfInfo(product);
-  const isPdfOnly = Boolean(product.isPdfOnly);
+  const isPdfBased = Boolean(product.dataSource === "msds_pdf" || product.isPdfAbsorbed);
   const casItems = (product.components || [])
     .map((component) => component.casNo)
     .filter(Boolean)
     .slice(0, 2);
   const casText = casItems.length ? casItems.join(", ") : "CAS No. 미확인";
-  const pdfLabel = pdfInfo.status === "connected" ? "PDF 연결됨" : "PDF 원본자료";
+  const pdfLabel = pdfInfo.status === "connected" ? "PDF 연결됨" : "MSDS 원본 기준";
+  const metaText = [
+    product.useCategory || product.recommendedUse || "",
+    casText !== "CAS No. 미확인" ? casText : ""
+  ].filter(Boolean).join(" · ") || (isPdfBased ? "MSDS 원본 기준" : "용도 미확인");
 
   return `
-    <div class="full-product-item ${isPdfOnly ? "is-pdf-only" : ""} ${product.id === state.selectedId ? "is-selected" : ""}" role="button" tabindex="0" data-product-id="${escapeAttribute(product.id)}">
+    <div class="full-product-item ${isPdfBased ? "is-pdf-based" : ""} ${product.id === state.selectedId ? "is-selected" : ""}" role="button" tabindex="0" data-product-id="${escapeAttribute(product.id)}">
       <span class="full-product-number">${index + 1}</span>
       <span class="full-product-main">
         <strong title="${escapeAttribute(product.productName)}">${escapeHtml(product.productName || "제품명 미확인")}</strong>
-        <span>${isPdfOnly ? "PDF 원본 기준 · 원본자료 기반 안전정보" : `${escapeHtml(product.useCategory || product.recommendedUse || "용도 미확인")} · ${escapeHtml(casText)}`}</span>
+        <span>${escapeHtml(metaText)}</span>
       </span>
       <span class="full-product-tags">
-        ${isPdfOnly ? "" : `<span class="full-risk-badge">${escapeHtml(product.hazardBadge || "확인")}</span>`}
+        <span class="full-risk-badge">${escapeHtml(product.hazardBadge || "확인")}</span>
         <span class="full-pdf-badge ${pdfInfo.status === "connected" ? "is-connected" : ""}">${pdfLabel}</span>
-        ${isPdfOnly ? `<span class="full-pdf-badge">MSDS 원본 기준</span>` : ""}
       </span>
       <button class="full-detail-button" type="button" data-view-detail data-product-id="${escapeAttribute(product.id)}">상세정보 보기</button>
     </div>
@@ -1649,10 +1657,10 @@ function getPosterData(product) {
     return {
       statusClass: isReviewed ? "is-reviewed" : "is-review-needed",
       showReviewStrip: showReviewStatus,
-      reviewBadge: isReviewed ? "검토완료" : "PDF 원본자료",
+      reviewBadge: isReviewed ? "검토완료" : "MSDS 원본 기준",
       reviewMessage: isReviewed
-        ? "검토 완료된 PDF 기반 요약정보입니다."
-        : "PDF 원본 기준으로 정리한 안전정보입니다.",
+        ? "검토 완료된 MSDS 요약정보입니다."
+        : "MSDS 원본 기준으로 정리한 안전정보입니다.",
       hazardBadge: override.signalWordCandidate || product.hazardBadge || "확인",
       ghsPictograms,
       hazardStatements: override.hazardStatements || [],
@@ -1676,7 +1684,7 @@ function getPosterData(product) {
   return {
     statusClass: hasProductSummary ? "" : "is-unregistered-summary",
     showReviewStrip: !hasProductSummary && showUnregisteredStatus,
-    reviewBadge: hasProductSummary ? "" : "PDF 원본자료",
+    reviewBadge: hasProductSummary ? "" : "MSDS 원본 기준",
     reviewMessage: hasProductSummary ? "" : "정식 MSDS PDF를 확인하세요.",
     hazardBadge: product.hazardBadge || "확인",
     ghsCodes: normalizeGhsCodeList(product.ghsCodes || product.ghsPictograms || []),
@@ -1770,7 +1778,6 @@ function renderDetail(product) {
     ${detailSection("제품 기본정보", `
       <div class="info-grid">
         ${detailItem("제품명", detailData.productName)}
-        ${product.isPdfOnly ? detailItem("구분", "PDF 원본자료") : ""}
         ${detailItem("ERP 품명", product.erpName)}
         ${detailItem("MSDS번호", detailData.msdsNo)}
         ${detailItem("파일명", product.fileName)}
@@ -1788,10 +1795,10 @@ function renderDetail(product) {
         ${summaryItem("위험물 구분", product.dangerousGoods, "warning")}
         ${summaryItem("PPE 요약", detailData.ppeSummary, "protect")}
       </div>
-      ${detailData.overrideApplied && APP_CONFIG.fieldDisplayMode ? `<p class="summary-note pdf-summary-applied">PDF 기반 요약정보 반영됨</p>` : ""}
+      ${detailData.overrideApplied && APP_CONFIG.fieldDisplayMode ? `<p class="summary-note pdf-summary-applied">MSDS 원본 기준 요약정보 반영됨</p>` : ""}
     `) : ""}
 
-    ${shouldRenderExtractionStatusSection(override) ? detailSection("PDF 요약 추출 상태", renderOverrideDetail(override)) : ""}
+    ${shouldRenderExtractionStatusSection(override) ? detailSection("MSDS 요약 확인 상태", renderOverrideDetail(override)) : ""}
 
     ${detailSection("성분정보", `
       <div class="component-table-wrap">
@@ -1858,13 +1865,13 @@ function getDetailData(product) {
     ? override.precautionaryStatements
     : (product.precautionaryStatements || {});
   const ppeCandidates = override?.ppeCandidates?.length ? override.ppeCandidates : [];
-  const overrideProductName = product.isPdfOnly
+  const overrideProductName = product.isPdfAbsorbed
     ? cleanPdfProductName(override?.productNameCandidate)
     : override?.productNameCandidate;
-  const overrideSupplier = product.isPdfOnly
+  const overrideSupplier = product.isPdfAbsorbed
     ? cleanPdfSupplierName(override?.supplierCandidate)
     : override?.supplierCandidate;
-  const overrideRevisionDate = product.isPdfOnly
+  const overrideRevisionDate = product.isPdfAbsorbed
     ? cleanPdfRevisionDate(override?.revisionDateCandidate)
     : override?.revisionDateCandidate;
 
@@ -2022,12 +2029,12 @@ function shouldRenderExtractionStatusSection(override) {
 
 function renderOverrideDetail(override) {
   if (!override) {
-    return `<p class="summary-note">PDF 요약 후보가 아직 연결되지 않았습니다.</p>`;
+    return `<p class="summary-note">MSDS 요약 정보가 아직 연결되지 않았습니다.</p>`;
   }
 
   return `
     <div class="override-status-box ${override.reviewStatus === "검토완료" ? "is-reviewed" : "is-review-needed"}">
-      ${detailItem("PDF 요약 추출 상태", override.extractStatus || "미확인")}
+      ${detailItem("MSDS 요약 확인 상태", override.extractStatus || "미확인")}
       ${detailItem("검토 상태", override.reviewStatus || "검토필요")}
       ${detailItem("PDF 출처", override.sourcePdfPath || "")}
       ${detailItem("후보 항목", `GHS ${getOverrideGhsItems(override).length}건 / 유해문구 ${override.hazardStatements.length}건 / 구성성분 후보 ${override.ingredients.length}건`)}
@@ -2140,7 +2147,7 @@ function renderPdfFullView(pdfInfo) {
         <div class="pdf-full-view-header">
           <div>
             <strong>MSDS 원본자료 전체보기</strong>
-            <span>${escapeHtml(pdfInfo.title || "PDF 원본자료")}</span>
+            <span>${escapeHtml(pdfInfo.title || "MSDS 원본자료")}</span>
           </div>
           <button class="pdf-full-view-close" type="button" data-close-pdf-full-view>닫기</button>
         </div>
@@ -2227,7 +2234,7 @@ function startPdfFullView(title, path) {
 function closePdfFullView() {
   state.pdfFullView = createPdfViewerState();
   render();
-  document.querySelector(".pdf-preview.is-connected")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  document.querySelector(".pdf-preview.is-connected")?.scrollIntoView({ behavior: "auto", block: "start" });
 }
 
 function resetPdfPreviewState() {
@@ -2345,7 +2352,9 @@ function updatePdfViewerControls(mount) {
   const { renderedPages, totalPages, status } = viewer;
   const isBusy = status === "rendering";
   const pageStatus = mount.querySelector("[data-pdf-page-status]");
-  const currentPosition = status === "rendered" ? capturePdfScrollPosition(mount, viewer) : { page: renderedPages || 0 };
+  const currentPosition = status === "rendered" && !viewer.suppressPageTracking
+    ? capturePdfScrollPosition(mount, viewer)
+    : { page: viewer.currentPage || renderedPages || 0 };
   const currentPage = Math.max(0, currentPosition.page || 0);
   if (currentPage > 0) viewer.currentPage = currentPage;
   if (pageStatus) pageStatus.textContent = `${currentPage || renderedPages || 0} / ${totalPages || 1}쪽`;
@@ -2399,6 +2408,7 @@ async function renderAllPdfPages(mount, restorePosition = null) {
   const preview = getPdfViewerStateForMount(mount);
   const stage = mount.querySelector("[data-pdf-page-stage]");
   if (!stage || !preview.document) return;
+  const hasRenderedContent = Boolean(stage.querySelector("[data-pdf-page-number]"));
   const pendingRestore = restorePosition || (
     preview.restorePage
       ? { page: preview.restorePage, offsetRatio: preview.restoreOffsetRatio || 0 }
@@ -2408,28 +2418,39 @@ async function renderAllPdfPages(mount, restorePosition = null) {
   const renderToken = preview.renderToken + 1;
   preview.renderToken = renderToken;
   preview.status = "rendering";
+  preview.suppressPageTracking = true;
   preview.renderedPages = 0;
+  mount.classList.add("is-rendering");
   updatePdfViewerControls(mount);
-  stage.innerHTML = `<div class="pdf-frame-placeholder">PDF 전체 미리보기를 불러오는 중입니다...</div>`;
+  if (!hasRenderedContent) {
+    stage.innerHTML = `<div class="pdf-frame-placeholder">PDF 전체 미리보기를 불러오는 중입니다...</div>`;
+  }
 
   try {
-    stage.innerHTML = "";
+    const nextStage = document.createElement("div");
+    nextStage.className = "pdf-js-page-stage";
     for (let pageNumber = 1; pageNumber <= preview.totalPages; pageNumber += 1) {
       if (renderToken !== preview.renderToken) return;
-      await renderPdfPageIntoStage(stage, pageNumber, renderToken);
+      await renderPdfPageIntoStage(nextStage, pageNumber, renderToken, mount);
       preview.renderedPages = pageNumber;
       updatePdfViewerControls(mount);
-      await nextFrame();
+      if (!hasRenderedContent) await nextFrame();
     }
+    stage.replaceChildren(...Array.from(nextStage.childNodes));
     preview.status = "rendered";
     if (pendingRestore) {
       scrollPdfPageIntoView(mount, pendingRestore.page, pendingRestore.offsetRatio);
       preview.restorePage = null;
       preview.restoreOffsetRatio = 0;
     }
+    await nextFrame();
+    preview.suppressPageTracking = false;
+    mount.classList.remove("is-rendering");
     updatePdfViewerControls(mount);
   } catch (error) {
     preview.status = "error";
+    preview.suppressPageTracking = false;
+    mount.classList.remove("is-rendering");
     preview.error = "PDF 페이지 렌더링에 실패했습니다.";
     stage.innerHTML = `
       <div class="pdf-frame-placeholder is-error">
@@ -2441,8 +2462,8 @@ async function renderAllPdfPages(mount, restorePosition = null) {
   }
 }
 
-async function renderPdfPageIntoStage(stage, pageNumber, renderToken) {
-  const mount = stage.closest("[data-pdfjs-preview-mount]");
+async function renderPdfPageIntoStage(stage, pageNumber, renderToken, mountOverride = null) {
+  const mount = mountOverride || stage.closest("[data-pdfjs-preview-mount]");
   const preview = getPdfViewerStateForMount(mount);
   const page = await preview.document.getPage(pageNumber);
   const baseViewport = page.getViewport({ scale: 1 });
@@ -2481,7 +2502,10 @@ function capturePdfScrollPosition(mount, viewer = null) {
   const pages = [...mount.querySelectorAll("[data-pdf-page-number]")];
   if (!pages.length) return { page: viewer.currentPage || 1, offsetRatio: 0 };
   const mountRect = mount.getBoundingClientRect();
-  const targetY = mountRect.top + (mountRect.height / 2);
+  const toolbarHeight = mount.querySelector(".pdf-viewer-toolbar")?.offsetHeight || 0;
+  const visibleTop = mountRect.top + toolbarHeight;
+  const visibleHeight = Math.max(1, mount.clientHeight - toolbarHeight);
+  const targetY = visibleTop + (visibleHeight / 2);
   let currentPage = pages[0];
   let bestDistance = Number.POSITIVE_INFINITY;
 
@@ -2497,9 +2521,14 @@ function capturePdfScrollPosition(mount, viewer = null) {
     }
   });
 
+  if (!Number.isFinite(bestDistance)) {
+    const fallbackPage = Number(viewer.currentPage || 1);
+    return { page: fallbackPage, offsetRatio: viewer.restoreOffsetRatio || 0 };
+  }
+
   const pageNumber = Number(currentPage.dataset.pdfPageNumber || 1);
-  const pageTop = currentPage.offsetTop;
-  const centerInPage = Math.max(0, mount.scrollTop + (mount.clientHeight / 2) - pageTop);
+  const pageTop = getOffsetTopWithin(currentPage, mount);
+  const centerInPage = Math.max(0, mount.scrollTop + toolbarHeight + (visibleHeight / 2) - pageTop);
   const offsetRatio = currentPage.offsetHeight ? Math.min(1, centerInPage / currentPage.offsetHeight) : 0;
   return { page: pageNumber, offsetRatio };
 }
@@ -2509,9 +2538,25 @@ function scrollPdfPageIntoView(mount, pageNumber, offsetRatio = 0) {
   const viewer = getPdfViewerStateForMount(mount);
   const page = mount.querySelector(`[data-pdf-page-number="${pageNumber}"]`);
   if (!page) return;
+  const toolbarHeight = mount.querySelector(".pdf-viewer-toolbar")?.offsetHeight || 0;
+  const visibleHeight = Math.max(1, mount.clientHeight - toolbarHeight);
   const offset = Math.max(0, page.offsetHeight * Math.max(0, Math.min(1, offsetRatio || 0)));
-  mount.scrollTo({ top: Math.max(0, page.offsetTop + offset - (mount.clientHeight / 2)), behavior: "auto" });
+  const pageTop = getOffsetTopWithin(page, mount);
+  mount.scrollTop = Math.max(0, pageTop + offset - toolbarHeight - (visibleHeight / 2));
   viewer.currentPage = pageNumber;
+}
+
+function getOffsetTopWithin(element, ancestor) {
+  let top = 0;
+  let node = element;
+  while (node && node !== ancestor) {
+    top += node.offsetTop || 0;
+    node = node.offsetParent;
+  }
+  if (node === ancestor) return top;
+  const elementRect = element.getBoundingClientRect();
+  const ancestorRect = ancestor.getBoundingClientRect();
+  return elementRect.top - ancestorRect.top + ancestor.scrollTop;
 }
 
 function nextFrame() {

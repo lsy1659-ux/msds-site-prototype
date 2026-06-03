@@ -2160,15 +2160,6 @@ h1 {
   box-shadow: 0 10px 24px rgba(12, 36, 31, 0.06);
 }
 
-.product-company-group.pdf-only-group {
-  border-color: #cbded8;
-  background: linear-gradient(180deg, #f8fbfa, #eef5f2);
-}
-
-.product-company-group.pdf-only-group .product-company-header h3 {
-  color: #35534b;
-}
-
 .product-company-header {
   display: flex;
   flex-wrap: wrap;
@@ -2228,12 +2219,12 @@ h1 {
   box-shadow: inset 0 0 0 1px rgba(11, 93, 77, 0.18);
 }
 
-.full-product-item.is-pdf-only {
+.full-product-item.is-pdf-based {
   border-style: dashed;
   background: #ffffff;
 }
 
-.full-product-item.is-pdf-only .full-product-number {
+.full-product-item.is-pdf-based .full-product-number {
   background: #eef3f1;
   color: #49635c;
 }
@@ -2336,21 +2327,6 @@ h1 {
 .detail-return-button {
   justify-self: start;
   margin: 18px 18px 0;
-}
-
-.pdf-only-notice {
-  display: grid;
-  gap: 8px;
-  padding: 14px 16px;
-  border: 1px solid #dbe8e4;
-  border-radius: 16px;
-  background: #f8fcfb;
-  color: #40564f;
-  font-weight: 780;
-}
-
-.pdf-only-notice p {
-  margin: 0;
 }
 
 .board-layout {
@@ -2723,10 +2699,15 @@ h1 {
   min-height: 68vh;
   max-height: 78vh;
   overflow: auto;
+  scroll-behavior: auto;
   overscroll-behavior: contain;
   border: 1px solid #cbded8;
   border-radius: 18px;
   background: #e8f0ed;
+}
+
+.pdf-js-preview.is-rendering .pdf-js-page-stage {
+  pointer-events: none;
 }
 
 .pdf-viewer-toolbar {
@@ -2843,6 +2824,7 @@ body.is-pdf-full-view-open {
   min-width: 0;
   overflow-y: auto;
   overflow-x: auto;
+  scroll-behavior: auto;
   overscroll-behavior: contain;
   border: 0;
   border-radius: 0;
