@@ -9,22 +9,37 @@
   <body>
     <header class="site-header">
       <div class="header-inner">
-        <h1>
-          <span class="desktop-title">물질안전보건자료(MSDS) 안전정보 조회</span>
-          <span class="mobile-title">MSDS 안전정보 조회</span>
-        </h1>
-        <p class="header-note">물질명, 제품명, 용도, CAS No.로 검색하세요. <strong>MSDS 원본자료를 확인하세요.</strong></p>
+        <div class="hero-copy">
+          <h1>
+            <span class="desktop-title">물질안전보건자료(MSDS) 조회</span>
+            <span class="mobile-title">MSDS 조회</span>
+          </h1>
+          <p class="header-note">제품명, 물질명, 용도, CAS No.로 검색하고 작업 전 안전정보와 원문자료를 확인하세요.</p>
+          <div id="currentSelection" class="current-selection">현재 선택 제품 확인 중</div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="hero-visual-card hero-document">
+            <span class="hero-doc-title">MSDS</span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="hero-shield">✓</div>
+          <div class="hero-magnifier"></div>
+          <div class="hero-flask"></div>
+        </div>
       </div>
     </header>
 
     <main class="app-shell">
-      <div id="currentSelection" class="current-selection">현재 선택 제품 확인 중</div>
-
       <section class="search-panel" aria-label="MSDS 검색">
         <div class="search-title-row">
-          <div>
-            <label class="search-label" for="searchInput">현장 안전정보 검색</label>
-            <p class="search-help">물질명, 제품명, 용도, CAS No.로 검색하세요.</p>
+          <div class="search-heading">
+            <span class="search-heading-icon" aria-hidden="true">⌕</span>
+            <div>
+              <label class="search-label" for="searchInput">현장 안전정보 검색</label>
+              <p class="search-help">물질명, 제품명, 용도, CAS No.로 검색하세요.</p>
+            </div>
           </div>
           <div class="mode-badges">
             <span class="safety-badge">조회 전용</span>
