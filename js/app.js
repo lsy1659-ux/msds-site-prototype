@@ -2331,19 +2331,28 @@ function renderPdfViewerShell(mount) {
   const viewer = getPdfViewerStateForMount(mount);
   mount.innerHTML = `
     <div class="pdf-viewer-toolbar" aria-label="PDF 미리보기 조작">
-      <span class="pdf-page-status" data-pdf-page-status>0 / ${viewer.totalPages || 1}쪽</span>
-      <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="prev-page">이전</button>
-      <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="next-page">다음</button>
-      <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="zoom-out">축소</button>
-      <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="zoom-in">확대</button>
-      <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="fit">화면 맞춤</button>
-      ${isFullView ? `<button class="pdf-viewer-button is-close" type="button" data-close-pdf-full-view>닫기</button>` : ""}
+      <div class="pdf-viewer-group is-page-nav" aria-label="PDF 페이지 이동">
+        <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="first-page">처음</button>
+        <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="prev-page">이전</button>
+        <span class="pdf-page-status" data-pdf-page-status>0 / ${viewer.totalPages || 1}쪽</span>
+        <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="next-page">다음</button>
+        <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="last-page">마지막</button>
+      </div>
+      <div class="pdf-viewer-group is-view-control" aria-label="PDF 보기 조정">
+        <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="zoom-out">축소</button>
+        <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="zoom-in">확대</button>
+        <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="fit">화면 맞춤</button>
+      </div>
+      ${isFullView ? `<div class="pdf-viewer-group is-dialog-control"><button class="pdf-viewer-button is-close" type="button" data-close-pdf-full-view>닫기</button></div>` : ""}
     </div>
     <div class="pdf-js-page-stage" data-pdf-page-stage>
       <div class="pdf-frame-placeholder">PDF 페이지를 불러오는 중입니다.</div>
     </div>
   `;
-  mount.addEventListener("scroll", () => updatePdfViewerControls(mount), { passive: true });
+  if (!mount.dataset.viewerScrollBound) {
+    mount.addEventListener("scroll", () => updatePdfViewerControls(mount), { passive: true });
+    mount.dataset.viewerScrollBound = "true";
+  }
   updatePdfViewerControls(mount);
 }
 
@@ -2359,14 +2368,18 @@ function updatePdfViewerControls(mount) {
   if (currentPage > 0) viewer.currentPage = currentPage;
   if (pageStatus) pageStatus.textContent = `${currentPage || renderedPages || 0} / ${totalPages || 1}쪽`;
 
+  const firstButton = mount.querySelector('[data-pdf-viewer-action="first-page"]');
   const prevButton = mount.querySelector('[data-pdf-viewer-action="prev-page"]');
   const nextButton = mount.querySelector('[data-pdf-viewer-action="next-page"]');
+  const lastButton = mount.querySelector('[data-pdf-viewer-action="last-page"]');
   const zoomOutButton = mount.querySelector('[data-pdf-viewer-action="zoom-out"]');
   const zoomInButton = mount.querySelector('[data-pdf-viewer-action="zoom-in"]');
   const fitButton = mount.querySelector('[data-pdf-viewer-action="fit"]');
 
+  if (firstButton) firstButton.disabled = isBusy || currentPage <= 1;
   if (prevButton) prevButton.disabled = isBusy || currentPage <= 1;
   if (nextButton) nextButton.disabled = isBusy || currentPage >= totalPages;
+  if (lastButton) lastButton.disabled = isBusy || currentPage >= totalPages;
   if (zoomOutButton) zoomOutButton.disabled = isBusy || viewer.scale <= 0.6;
   if (zoomInButton) zoomInButton.disabled = isBusy || viewer.scale >= 2.8;
   if (fitButton) fitButton.disabled = isBusy || (viewer.fitToWidth && viewer.fitRatio === 1);
@@ -2377,11 +2390,13 @@ async function handlePdfViewerAction(action, mount = null) {
   const preview = getPdfViewerStateForMount(mount);
   if (!mount || !preview.document) return;
 
-  if (action === "prev-page" || action === "next-page") {
+  if (action === "first-page" || action === "prev-page" || action === "next-page" || action === "last-page") {
     const position = capturePdfScrollPosition(mount, preview);
-    const nextPage = action === "prev-page"
-      ? Math.max(1, position.page - 1)
-      : Math.min(preview.totalPages || 1, position.page + 1);
+    let nextPage = position.page;
+    if (action === "first-page") nextPage = 1;
+    if (action === "prev-page") nextPage = Math.max(1, position.page - 1);
+    if (action === "next-page") nextPage = Math.min(preview.totalPages || 1, position.page + 1);
+    if (action === "last-page") nextPage = preview.totalPages || 1;
     scrollPdfPageIntoView(mount, nextPage, 0);
     updatePdfViewerControls(mount);
     return;
@@ -2662,10 +2677,12 @@ function detailSection(title, content) {
 }
 
 function detailItem(label, value) {
+  const text = String(value || "").trim();
+  if (!text || text === "-" || text === "정보 없음") return "";
   return `
     <div class="info-item">
       <span class="info-label">${escapeHtml(label)}</span>
-      <span class="info-value">${escapeHtml(value)}</span>
+      <span class="info-value">${escapeHtml(text)}</span>
     </div>
   `;
 }

@@ -2714,13 +2714,36 @@ h1 {
   position: sticky;
   top: 0;
   z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
   padding: 12px;
   border-bottom: 1px solid #d8e5e1;
   background: rgba(250, 253, 252, 0.96);
   backdrop-filter: blur(6px);
 }
 
+.pdf-viewer-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.pdf-viewer-group.is-page-nav {
+  flex: 1 1 420px;
+}
+
+.pdf-viewer-group.is-view-control,
+.pdf-viewer-group.is-dialog-control {
+  flex: 0 1 auto;
+}
+
 .pdf-page-status {
+  min-width: 88px;
+  text-align: center;
   border-radius: 999px;
   background: #e4f4ef;
   color: var(--color-primary);
@@ -3025,10 +3048,21 @@ body.is-pdf-full-view-open {
 
   .pdf-viewer-toolbar {
     align-items: stretch;
+    gap: 8px;
+  }
+
+  .pdf-viewer-group {
+    width: 100%;
+  }
+
+  .pdf-viewer-group.is-page-nav,
+  .pdf-viewer-group.is-view-control,
+  .pdf-viewer-group.is-dialog-control {
+    flex: 1 1 100%;
   }
 
   .pdf-page-status {
-    flex: 1 0 100%;
+    flex: 1 1 88px;
   }
 
   .pdf-full-view {
