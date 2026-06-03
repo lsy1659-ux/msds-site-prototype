@@ -458,6 +458,7 @@ function bindElements() {
   elements.currentSelection = document.querySelector("#currentSelection");
   elements.posterPanel = document.querySelector("#posterPanel");
   elements.detailPanel = document.querySelector("#detailPanel");
+  elements.scrollQuickNav = document.querySelector("#scrollQuickNav");
   elements.quickSearch = document.querySelector(".quick-search");
   elements.emptySearchGuide = document.querySelector("#emptySearchGuide");
   elements.dataMode = document.querySelector("#dataMode");
@@ -548,6 +549,12 @@ function bindEvents() {
       return;
     }
 
+    const scrollButton = event.target.closest("[data-scroll-target]");
+    if (scrollButton) {
+      handleQuickScroll(scrollButton.dataset.scrollTarget);
+      return;
+    }
+
     const detailButton = event.target.closest("[data-view-detail]");
     if (detailButton) {
       selectFullListProduct(detailButton.dataset.productId, true);
@@ -615,6 +622,16 @@ function scrollBackToFullList() {
   state.showBackToFullList = false;
   render();
   window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
+}
+
+function handleQuickScroll(target) {
+  if (target === "results") {
+    elements.selectionPanel?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+  if (target === "selected") {
+    document.querySelector(".detail-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 }
 
 function updateSelectedProductForQuery() {
@@ -1894,6 +1911,8 @@ function render() {
   renderSelectionList(results, hasQuery, canShowCandidates);
   renderPoster(selected);
   renderDetail(selected);
+  const shouldShowQuickNav = Boolean((hasQuery && canShowCandidates && results.length) || state.showFullList);
+  elements.scrollQuickNav?.classList.toggle("is-hidden", !shouldShowQuickNav);
   document.body.classList.toggle("is-pdf-full-view-open", state.pdfFullView.isOpen);
   hydrateRequestedPdfPreview();
 }

@@ -4607,3 +4607,54 @@ body.is-pdf-full-view-open {
     grid-template-columns: 1fr;
   }
 }
+
+.scroll-quick-nav {
+  position: fixed;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  z-index: 30;
+  display: inline-flex;
+  gap: 8px;
+  padding: 7px;
+  border: 1px solid rgba(11, 93, 77, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 18px 42px rgba(8, 35, 29, 0.18);
+  backdrop-filter: blur(12px);
+}
+
+.scroll-quick-nav.is-hidden {
+  display: none;
+}
+
+.scroll-quick-nav button {
+  min-height: 38px;
+  padding: 0 13px;
+  border: 1px solid rgba(11, 93, 77, 0.18);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.scroll-quick-nav button:hover {
+  background: #e4f4ef;
+  border-color: rgba(11, 93, 77, 0.34);
+}
+
+@media (max-width: 767px) {
+  .scroll-quick-nav {
+    right: 12px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    gap: 5px;
+    padding: 5px;
+  }
+
+  .scroll-quick-nav button {
+    min-height: 34px;
+    padding: 0 10px;
+    font-size: 0.74rem;
+  }
+}
