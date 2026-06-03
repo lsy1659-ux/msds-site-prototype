@@ -32,7 +32,7 @@
     </header>
 
     <main class="app-shell">
-      <section class="search-panel" aria-label="MSDS 검색">
+      <section id="search-section" class="search-panel" aria-label="MSDS 검색">
         <div class="search-title-row">
           <div class="search-heading">
             <span class="search-heading-icon" aria-hidden="true">⌕</span>
@@ -109,12 +109,12 @@
       </section>
 
       <section class="board-layout" aria-label="MSDS 안전정보">
-        <section class="poster-section" aria-labelledby="posterTitle">
+        <section id="safety-summary-section" class="poster-section" aria-labelledby="posterTitle">
           <h2 id="posterTitle" class="visually-hidden">현장 부착용 요약 안전정보</h2>
           <div id="posterPanel" class="poster-board"></div>
         </section>
 
-        <aside class="detail-section" aria-labelledby="detailTitle">
+        <aside id="detail-section" class="detail-section" aria-labelledby="detailTitle">
           <div class="section-heading">
             <div>
               <h2 id="detailTitle">상세 안전정보</h2>
@@ -127,12 +127,13 @@
         </aside>
       </section>
 
-      <nav id="scrollQuickNav" class="scroll-quick-nav is-hidden" aria-label="화면 빠른 이동">
-        <button type="button" data-scroll-target="results"><span>01</span><b>검색</b></button>
-        <button type="button" data-scroll-target="detail"><span>02</span><b>상세정보</b></button>
-        <button type="button" data-scroll-target="components"><span>03</span><b>구성성분</b></button>
-        <button type="button" data-scroll-target="caution"><span>04</span><b>작업자 주의</b></button>
-        <button type="button" data-scroll-target="pdf"><span>05</span><b>원본 MSDS</b></button>
+      <nav id="scrollQuickNav" class="scroll-quick-nav is-hidden" aria-label="화면 진행 위치">
+        <button type="button" data-scroll-target="search"><span>01</span><b>검색</b></button>
+        <button type="button" data-scroll-target="summary"><span>02</span><b>안전요약</b></button>
+        <button type="button" data-scroll-target="detail"><span>03</span><b>상세정보</b></button>
+        <button type="button" data-scroll-target="components"><span>04</span><b>성분정보</b></button>
+        <button type="button" data-scroll-target="caution"><span>05</span><b>작업자주의</b></button>
+        <button type="button" data-scroll-target="pdf"><span>06</span><b>원본MSDS</b></button>
       </nav>
     </main>
 

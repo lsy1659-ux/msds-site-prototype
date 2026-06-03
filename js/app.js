@@ -451,6 +451,7 @@ const state = {
 
 const elements = {};
 let pdfJsModulePromise = null;
+let scrollProgressFrame = null;
 
 document.addEventListener("DOMContentLoaded", async () => {
   bindElements();
@@ -608,6 +609,9 @@ function bindEvents() {
     }
 
   });
+
+  window.addEventListener("scroll", scheduleScrollProgressUpdate, { passive: true });
+  window.addEventListener("resize", scheduleScrollProgressUpdate, { passive: true });
 }
 
 function resetResultWindow() {
@@ -647,26 +651,68 @@ function scrollBackToFullList() {
 }
 
 function handleQuickScroll(target) {
-  if (target === "results") {
-    elements.selectionPanel?.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (target === "search" || target === "results") {
+    document.querySelector("#search-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+  if (target === "summary") {
+    document.querySelector("#safety-summary-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
     return;
   }
   if (target === "detail" || target === "selected") {
-    document.querySelector(".detail-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.querySelector("#detail-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
     return;
   }
   if (target === "components") {
-    document.querySelector(".detail-block-components")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.querySelector("#ingredient-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
     return;
   }
   if (target === "caution") {
-    document.querySelector(".detail-block-worker-caution")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.querySelector("#worker-note-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
     return;
   }
   if (target === "pdf") {
-    document.querySelector(".detail-block-pdf")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.querySelector("#msds-original-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
     return;
   }
+}
+
+function getScrollProgressSections() {
+  return [
+    { key: "search", element: document.querySelector("#search-section") },
+    { key: "summary", element: document.querySelector("#safety-summary-section") },
+    { key: "detail", element: document.querySelector("#detail-section") },
+    { key: "components", element: document.querySelector("#ingredient-section") },
+    { key: "caution", element: document.querySelector("#worker-note-section") },
+    { key: "pdf", element: document.querySelector("#msds-original-section") }
+  ].filter((item) => item.element);
+}
+
+function scheduleScrollProgressUpdate() {
+  if (scrollProgressFrame) return;
+  scrollProgressFrame = window.requestAnimationFrame(() => {
+    scrollProgressFrame = null;
+    updateScrollProgressActive();
+  });
+}
+
+function updateScrollProgressActive() {
+  if (!elements.scrollQuickNav || elements.scrollQuickNav.classList.contains("is-hidden")) return;
+  const sections = getScrollProgressSections();
+  if (!sections.length) return;
+  const viewportAnchor = Math.min(window.innerHeight * 0.42, 320);
+  let active = sections[0].key;
+
+  sections.forEach(({ key, element }) => {
+    const rect = element.getBoundingClientRect();
+    if (rect.top <= viewportAnchor) active = key;
+  });
+
+  elements.scrollQuickNav.querySelectorAll("[data-scroll-target]").forEach((button) => {
+    const isActive = button.dataset.scrollTarget === active;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-current", isActive ? "step" : "false");
+  });
 }
 
 function updateSelectedProductForQuery() {
@@ -1946,8 +1992,9 @@ function render() {
   renderSelectionList(results, hasQuery, canShowCandidates);
   renderPoster(selected);
   renderDetail(selected);
-  const shouldShowQuickNav = Boolean((hasQuery && canShowCandidates && results.length) || state.showFullList);
+  const shouldShowQuickNav = Boolean(selected);
   elements.scrollQuickNav?.classList.toggle("is-hidden", !shouldShowQuickNav);
+  scheduleScrollProgressUpdate();
   document.body.classList.toggle("is-pdf-full-view-open", state.pdfFullView.isOpen);
   hydrateRequestedPdfPreview();
 }
@@ -3662,8 +3709,14 @@ function summaryItem(label, value, tone) {
 }
 
 function detailSection(title, content, extraClass = "") {
+  const sectionIds = {
+    "detail-block-components": "ingredient-section",
+    "detail-block-worker-caution": "worker-note-section",
+    "detail-block-pdf": "msds-original-section"
+  };
+  const sectionId = sectionIds[extraClass] ? ` id="${sectionIds[extraClass]}"` : "";
   return `
-    <section class="detail-block ${escapeAttribute(extraClass)}">
+    <section${sectionId} class="detail-block ${escapeAttribute(extraClass)}">
       <div class="detail-block-heading">
         <span class="detail-block-icon" aria-hidden="true">${detailIconSvg(getDetailSectionIcon(title))}</span>
         <h3>${escapeHtml(title)}</h3>

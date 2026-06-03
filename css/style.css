@@ -7077,3 +7077,65 @@ body {
     padding-inline: 8px;
   }
 }
+
+/* Scroll progress navigation only */
+.scroll-quick-nav button.is-active {
+  color: #063f36;
+}
+
+.scroll-quick-nav button.is-active span {
+  background: linear-gradient(180deg, #0f7f67, #075444);
+  color: #ffffff;
+  box-shadow: 0 0 0 5px rgba(11, 93, 77, 0.1);
+}
+
+.scroll-quick-nav button.is-active b {
+  color: #063f36;
+  font-weight: 1000;
+}
+
+@media (min-width: 1024px) {
+  .scroll-quick-nav {
+    width: 78px;
+  }
+
+  .scroll-quick-nav button {
+    min-height: 54px;
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    padding-bottom: calc(66px + env(safe-area-inset-bottom));
+  }
+
+  .scroll-quick-nav {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    min-height: 52px;
+    padding: 6px;
+  }
+
+  .scroll-quick-nav button {
+    min-height: 42px;
+    padding: 0 2px;
+    gap: 3px;
+    font-size: 0.56rem;
+  }
+
+  .scroll-quick-nav button span {
+    width: 24px;
+    height: 24px;
+    font-size: 0.64rem;
+  }
+
+  .scroll-quick-nav button b {
+    overflow: hidden;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .scroll-quick-nav button.is-active b {
+    color: #ffffff;
+  }
+}
