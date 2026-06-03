@@ -934,6 +934,63 @@ function supplierFromPath(path) {
   return normalizeSupplierDisplay(folder);
 }
 
+function getCompanyFromProductPath(product = {}) {
+  const path = String(product.sourceRelativePath || product.relativePath || product.pdfPath || product.sourcePdfPath || "")
+    .replace(/\\/g, "/")
+    .replace(/^\/?pdf\//, "");
+  const parts = path.split("/").filter(Boolean);
+  if (parts.length < 2) return "";
+  return cleanCompanyDisplayName(parts[parts.length - 2]);
+}
+
+function cleanCompanyDisplayName(value) {
+  let text = String(value || "").trim().replace(/\s+/g, " ");
+  if (!text) return "";
+  text = text
+    .replace(/^(?:\/|제조사\/공급업체|제조자\/공급업체|공급자\s*정보|제조자\s*정보|회사명)\s*[:：]?/i, "")
+    .replace(/^\d+_\s*/, "")
+    .replace(/\([^)]*\)/g, "")
+    .replace(/㈜|\(주\)|주식회사|\(유\)|유한회사/g, "")
+    .trim();
+
+  const stopPatterns = [
+    /(서울|경기|경기도|인천|강원|충북|충청북도|충남|충청남도|대전|세종|전북|전라북도|전남|전라남도|광주|경북|경상북도|경남|경상남도|대구|울산|부산|제주|제주도|\(\d{5}\))/,
+    /(주소|주\s*소|긴급|전화|전화번호|TEL|FAX|담당|연락|정보제공|제품명|권고|사용상|유해|위험|2\.|나\.|다\.|○)/i
+  ];
+  stopPatterns.forEach((pattern) => {
+    const match = text.match(pattern);
+    if (match && match.index > 0) text = text.slice(0, match.index).trim();
+  });
+
+  text = text.replace(/[,:：;/]+$/g, "").trim();
+  if (isInvalidCompanyDisplayName(text)) return "";
+  return text;
+}
+
+function isInvalidCompanyDisplayName(value) {
+  const text = String(value || "").trim();
+  if (!text) return true;
+  if (text.length > 45) return true;
+  if (/범위\s*\d{2,7}-\d{2,3}-\d{1,4}/.test(text)) return true;
+  if (/^\d{2,7}-\d{2,3}-\d{1,4}$/.test(text)) return true;
+  if (/CAS\s*(?:No\.?)?\s*(?:미기재|없음)|자료없음|해당없음|업체\s*미확인|제품정보\s*미등록/i.test(text)) return true;
+  if (/\d{2,4}\)?\s*\d{3,4}[-\s]\d{4}/.test(text)) return true;
+  if (/(도로|로\s*\d|길\s*\d|번길|산단로)/.test(text)) return true;
+  return false;
+}
+
+function getDisplaySupplierName(product = {}) {
+  const candidates = [
+    product.supplier,
+    product.manufacturer,
+    product.maker,
+    product.vendor,
+    product.companyName
+  ];
+  const directName = candidates.map(cleanCompanyDisplayName).find(Boolean);
+  return directName || getCompanyFromProductPath(product) || cleanCompanyDisplayName(product.siteLabel) || "업체 미확인";
+}
+
 function normalizeSupplierDisplay(value) {
   const text = String(value || "").trim();
   if (!text || text.toLowerCase() === "pdf") return "";
@@ -1328,6 +1385,7 @@ function buildSearchSource(product) {
     product.msdsNo,
     product.fileName,
     product.useCategory,
+    getDisplaySupplierName(product),
     product.supplier,
     product.recommendedUse,
     product.hazardSummary,
@@ -1439,7 +1497,7 @@ function renderSelectionList(results, hasQuery, canShowCandidates) {
         <div>
           <span class="selection-collapsed-label">선택된 제품</span>
           <strong>${escapeHtml(selectedProduct.productName)}</strong>
-          <span>${escapeHtml(selectedProduct.useCategory)} · ${escapeHtml(selectedProduct.supplier)}</span>
+          <span>${escapeHtml([selectedProduct.useCategory, getDisplaySupplierName(selectedProduct)].filter(Boolean).join(" · "))}</span>
         </div>
         <button class="show-more-button" type="button" id="expandSelectionList">다른 제품 선택</button>
       </div>
@@ -1469,7 +1527,7 @@ function renderSelectionList(results, hasQuery, canShowCandidates) {
       ${visibleResults.map((product) => `
         <button class="selection-item ${product.id === state.selectedId ? "is-selected" : ""}" type="button" data-product-id="${escapeAttribute(product.id)}">
           <span class="selection-name text-break clamp-2">${escapeHtml(product.productName)}</span>
-          <span class="selection-meta text-muted-path clamp-2">${escapeHtml(product.useCategory)} · ${escapeHtml(product.supplier)}</span>
+          <span class="selection-meta text-muted-path clamp-2">${escapeHtml([product.useCategory, getDisplaySupplierName(product)].filter(Boolean).join(" · "))}</span>
         </button>
       `).join("")}
     </div>
@@ -1590,16 +1648,7 @@ function buildProductGroups(products = []) {
 }
 
 function getProductCompanyName(product) {
-  const candidates = [
-    product.supplier,
-    product.manufacturer,
-    product.maker,
-    product.vendor,
-    product.companyName,
-    product.siteLabel
-  ];
-  const name = candidates.map((value) => String(value || "").trim()).find(Boolean);
-  return name || "업체 미확인";
+  return getDisplaySupplierName(product);
 }
 
 function renderFullProductItem(product, index) {
@@ -1660,7 +1709,7 @@ function renderPoster(product) {
     ${posterData.ppeCandidates.length ? posterSection(posterData.ppeTitle, renderBulletList(posterData.ppeCandidates, posterData.isCandidate), "poster-ppe-candidates") : ""}
     <footer class="poster-footer">
       ${posterData.footerNotice.map((notice) => `<p>${escapeHtml(notice)}</p>`).join("")}
-      <p>공급자 정보: ${escapeHtml(product.supplier)}</p>
+      <p>공급자 정보: ${escapeHtml(getDisplaySupplierName(product))}</p>
       ${posterData.showSourcePdfPath && posterData.sourcePdfPath ? `<p>PDF 출처: ${escapeHtml(posterData.sourcePdfPath)}</p>` : ""}
     </footer>
   `;
@@ -1889,11 +1938,15 @@ function getDetailData(product) {
     : override?.productNameCandidate;
   const overrideSupplier = cleanPdfSupplierName(override?.supplierCandidate);
   const overrideRevisionDate = cleanPdfRevisionDate(override?.revisionDateCandidate);
+  const detailSupplier = getDisplaySupplierName({
+    ...product,
+    supplier: displayValue(overrideSupplier, product.supplier)
+  });
 
   return {
     overrideApplied,
     productName: displayValue(overrideProductName, product.productName),
-    supplier: displayValue(overrideSupplier, product.supplier),
+    supplier: detailSupplier,
     msdsNo: displayValue(override?.msdsNoCandidate, product.msdsNo),
     revisionDate: displayValue(overrideRevisionDate, product.revisionDate),
     dateSummary: buildDateSummary(product.issueDate || product.preparationDate, displayValue(overrideRevisionDate, product.revisionDate)),
