@@ -13,9 +13,9 @@ const APP_CONFIG = {
   minSearchCharacters: 2,
   initialResultLimit: 8,
   fieldDisplayMode: true,
-  showReviewStatusOnFieldPoster: true,
-  showExtractionStatusInDetail: true,
-  allowCandidateOverrideDisplay: false,
+  showReviewStatusOnFieldPoster: false,
+  showExtractionStatusInDetail: false,
+  allowCandidateOverrideDisplay: true,
   runtimeMode: new URLSearchParams(window.location.search).get("dataMode") === "public"
     ? "public"
     : (["localhost", "127.0.0.1", ""].includes(window.location.hostname) ? "local" : "public")
@@ -845,8 +845,8 @@ async function loadProducts() {
     const localData = await fetchProducts(APP_CONFIG.localDataUrl);
     if (localData) {
       return {
-        mode: "로컬 검토 데이터 모드",
-        publicNotice: "로컬 검토자료입니다. 공개 전 담당자 승인 상태를 확인하세요.",
+        mode: "로컬 자동 추출 데이터 모드",
+        publicNotice: "자동 추출 요약은 참고용이며 작업 전 MSDS PDF 원문을 우선 확인하세요.",
         products: applyOverrides(localData.map(normalizeProduct), pdfLookupData.overrides),
         ...pdfLookupData
       };
@@ -1017,7 +1017,7 @@ function normalizeOverride(override) {
     match: override.match || {},
     sourcePdfPath: override.sourcePdfPath || "",
     extractStatus: override.extractStatus || "",
-    reviewStatus: override.reviewStatus || "검토필요",
+    reviewStatus: override.reviewStatus || "",
     signalWordCandidate: override.signalWordCandidate || "",
     ghsSource: override.ghsSource || "",
     labelGhsCodes: normalizeGhsCodeList(override.labelGhsCodes || override.labelGhsPictograms || []),
@@ -1420,17 +1420,8 @@ function applyOverrides(products, overrides) {
 }
 
 function isOverrideSafeForProduct(product = {}, override = {}) {
-  const publicationDecision = override.publication?.approvedForDisplay;
-  if (publicationDecision === false) return false;
-  if (publicationDecision !== true && override.reviewStatus !== "검토완료") return false;
-  const productRevision = cleanPdfRevisionDate(product.revisionDate);
-  const candidateRevision = cleanPdfRevisionDate(override.revisionDateCandidate);
-  if (productRevision && candidateRevision && productRevision !== candidateRevision) return false;
-  const rawSignalWord = String(override.signalWordCandidate || "").trim();
-  if (rawSignalWord && !cleanSignalWord(rawSignalWord)) return false;
-  const issueDate = cleanPdfRevisionDate(product.issueDate || product.preparationDate);
-  if (issueDate && productRevision && issueDate > productRevision) return false;
-  return true;
+  if (override.publication?.summaryAvailable === false) return false;
+  return hasOverrideSummary(override);
 }
 
 function findOverrideForProduct(product, overrides) {
@@ -1669,7 +1660,6 @@ function buildSearchSource(product) {
     product.hazardSummary,
     product.dangerousGoods,
     product.ppeSummary,
-    product.pdfSummaryOverride?.reviewStatus,
     product.pdfSummaryOverride?.extractStatus,
     product.pdfSummaryOverride?.signalWordCandidate,
     (product.pdfSummaryOverride?.hazardStatements || []).join(" "),
@@ -2316,15 +2306,8 @@ function getProductIdentityLine(product = {}) {
 }
 
 function getProductReviewMeta(product = {}) {
-  const override = product.pdfSummaryOverride || {};
-  const publication = override.publication || product.publication || {};
-  const status = override.reviewStatus || publication.reviewStatus || product.reviewStatus || "";
-  if (isProductSummaryReviewed(product)) return { label: "요약 검토완료", className: "is-reviewed" };
-  if (publication.validationStatus === "blocked" || (status === "검토완료" && override.clientApprovedForDisplay === false)) {
-    return { label: "자료 오류 검토중", className: "is-review-needed" };
-  }
-  if (status) return { label: "원본 확인 필요", className: "is-review-needed" };
-  return { label: "검토상태 미확인", className: "is-unknown" };
+  if (hasProductAutomaticSummary(product)) return { label: "자동 추출 요약", className: "is-reviewed" };
+  return { label: "PDF 원문 확인", className: "is-review-needed" };
 }
 
 function renderFullProductList() {
@@ -2464,8 +2447,8 @@ function renderPoster(product) {
     </div>
     ${posterData.summaryBlocked ? `
       <section class="poster-summary-blocked" role="alert">
-        <strong>요약 안전정보 검토 전</strong>
-        <p>자동 추출된 유해성·예방조치·성분정보는 담당자 원문 검토가 끝날 때까지 표시하지 않습니다.</p>
+        <strong>자동 추출 요약 없음</strong>
+        <p>이 제품은 자동 추출 요약이 충분하지 않습니다. 작업 전 MSDS PDF 원문을 확인하세요.</p>
         ${renderOriginalPdfLinks(pdfInfo, "poster")}
       </section>
     ` : `
@@ -2483,12 +2466,12 @@ function renderPoster(product) {
 
 function getPosterData(product) {
   const override = product.pdfSummaryOverride;
-  if (!isProductSummaryReviewed(product)) {
+  if (!hasProductAutomaticSummary(product)) {
     return {
       statusClass: "is-review-needed",
       showReviewStrip: true,
-      reviewBadge: "검토필요",
-      reviewMessage: "담당자 원문 검토 전입니다. 아래 MSDS 원본을 확인하세요.",
+      reviewBadge: "PDF 원문 확인",
+      reviewMessage: "자동 추출 요약이 없어 MSDS PDF 원문을 직접 확인해야 합니다.",
       hazardBadge: "원본 확인",
       ghsPictograms: [],
       hazardStatements: [],
@@ -2498,7 +2481,7 @@ function getPosterData(product) {
       hazardTitle: "유해·위험 문구",
       precautionTitle: "예방조치 문구",
       footerNotice: [
-        "검토되지 않은 자동 추출 요약은 표시하지 않습니다.",
+        "이 제품은 자동 추출된 요약 안전정보가 충분하지 않습니다.",
         "작업 전 MSDS 원본 전체 내용을 반드시 확인하세요."
       ],
       sourcePdfPath: override?.sourcePdfPath || "",
@@ -2508,16 +2491,13 @@ function getPosterData(product) {
     };
   }
   if (canUseOverride(override) && hasOverrideSummary(override)) {
-    const isReviewed = override.reviewStatus === "검토완료";
     const showReviewStatus = shouldShowReviewStatusOnFieldPoster();
     const ghsPictograms = getDisplayGhsPictograms(product);
     return {
-      statusClass: isReviewed ? "is-reviewed" : "is-review-needed",
+      statusClass: "is-reviewed",
       showReviewStrip: showReviewStatus,
-      reviewBadge: isReviewed ? "검토완료" : "MSDS 원본 기준",
-      reviewMessage: isReviewed
-        ? "검토 완료된 MSDS 요약정보입니다."
-        : "MSDS 원본 기준으로 정리한 안전정보입니다.",
+      reviewBadge: "자동 추출 요약",
+      reviewMessage: "참고용 요약정보이며 작업 전 MSDS PDF 원문을 우선 확인하세요.",
       hazardBadge: cleanSignalWord(override.signalWordCandidate) || cleanSignalWord(product.hazardBadge) || "원본 확인",
       ghsPictograms,
       hazardStatements: override.hazardStatements || [],
@@ -2564,13 +2544,14 @@ function getPosterData(product) {
   };
 }
 
-function isProductSummaryReviewed(product = {}) {
+function hasProductAutomaticSummary(product = {}) {
   const override = product.pdfSummaryOverride;
-  if (override) return canUseOverride(override);
-  if (product.publication && typeof product.publication.approvedForDisplay === "boolean") {
-    return product.publication.approvedForDisplay;
-  }
-  return product.reviewStatus === "검토완료";
+  if (override && canUseOverride(override) && hasOverrideSummary(override)) return true;
+  return hasAnySummary(normalizeGhsList(product), product.hazardStatements, product.precautionaryStatements)
+    || Boolean((product.components || []).length)
+    || Boolean(product.hazardSummary)
+    || Boolean(product.dangerousGoods)
+    || Boolean(product.ppeSummary);
 }
 
 function cleanSignalWord(value) {
@@ -2592,16 +2573,16 @@ function shouldShowExtractionStatusInDetail() {
 function canUseOverride(override) {
   if (!override) return false;
   if (typeof override.clientApprovedForDisplay === "boolean") return override.clientApprovedForDisplay;
-  if (override.publication && typeof override.publication.approvedForDisplay === "boolean") {
-    return override.publication.approvedForDisplay;
+  if (override.publication && typeof override.publication.summaryAvailable === "boolean") {
+    return override.publication.summaryAvailable;
   }
-  return override.reviewStatus === "검토완료" || APP_CONFIG.allowCandidateOverrideDisplay;
+  return APP_CONFIG.allowCandidateOverrideDisplay && hasOverrideSummary(override);
 }
 
 function hasOverrideSummary(override) {
   return hasAnySummary(getOverrideGhsItems(override), override.hazardStatements, override.precautionaryStatements)
     || Boolean(override.signalWordCandidate)
-    || Boolean(override.sourcePdfPath)
+    || Boolean((override.ingredients || []).length)
     || Boolean((override.ppeCandidates || []).length);
 }
 
@@ -2650,13 +2631,13 @@ function renderDetail(product) {
   syncPdfPreviewForProduct(pdfInfo);
   const override = product.pdfSummaryOverride;
   const detailData = getDetailData(product);
-  const summaryReviewed = isProductSummaryReviewed(product);
-  const workerCautions = summaryReviewed ? buildWorkerCautionPoints(product, detailData) : { emptyMessage: "", sections: [] };
+  const summaryAvailable = hasProductAutomaticSummary(product);
+  const workerCautions = summaryAvailable ? buildWorkerCautionPoints(product, detailData) : { emptyMessage: "", sections: [] };
   const isFieldMode = APP_CONFIG.fieldDisplayMode;
   elements.detailPanel.className = `detail-panel ${isFieldMode ? "is-field-mode" : "is-review-mode"}`;
   elements.detailPanel.innerHTML = `
     ${renderBackToFullListButton()}
-    ${renderSelectedProductBar(product, detailData, pdfInfo, summaryReviewed)}
+    ${renderSelectedProductBar(product, detailData, pdfInfo, summaryAvailable)}
     ${detailSection("제품 기본정보", `
       <div class="info-grid detail-info-grid">
         ${detailItem("제품명", detailData.productName, "tag", "is-highlight")}
@@ -2685,10 +2666,10 @@ function renderDetail(product) {
 
     ${shouldRenderExtractionStatusSection(override) ? detailSection("MSDS 요약 확인 상태", renderOverrideDetail(override)) : ""}
 
-    ${summaryReviewed ? detailSection("성분정보", `
+    ${summaryAvailable ? detailSection("성분정보", `
       <div class="component-table-wrap">
         <table class="component-table">
-          <caption>검토 완료된 구성성분 정보</caption>
+          <caption>자동 추출된 구성성분 참고정보</caption>
           <thead>
             <tr>
               <th scope="col">화학물질명</th>
@@ -2709,13 +2690,13 @@ function renderDetail(product) {
                 <td>${escapeHtml(component.workEnvironmentMeasurement || "미확인")}</td>
                 <td>${escapeHtml(component.specialHealthExam || "미확인")}</td>
               </tr>
-            `).join("") : `<tr><td colspan="6">검토 완료된 구성성분 정보가 없습니다. 원본 PDF를 확인하세요.</td></tr>`}
+            `).join("") : `<tr><td colspan="6">자동 추출된 구성성분 정보가 없습니다. 원본 PDF를 확인하세요.</td></tr>`}
           </tbody>
         </table>
       </div>
-    `, "detail-block-components") : detailSection("성분정보", renderUnreviewedSummaryNotice(pdfInfo), "detail-block-components")}
+    `, "detail-block-components") : detailSection("성분정보", renderPdfOnlySummaryNotice(pdfInfo), "detail-block-components")}
 
-    ${summaryReviewed ? detailSection("작업자 주의 포인트", `
+    ${summaryAvailable ? detailSection("작업자 주의 포인트", `
       ${renderWorkerCautionPoints(workerCautions)}
       ${!isFieldMode ? `
         ${detailData.signalWord ? `<p class="summary-note"><strong>신호어:</strong> ${escapeHtml(detailData.signalWord)}</p>` : ""}
@@ -2726,7 +2707,7 @@ function renderDetail(product) {
         ${renderPrecautions(detailData.precautionaryStatements)}
         ${detailData.ppeCandidates.length ? `<h4 class="detail-subheading">개인보호구(PPE)</h4>${renderDetailList(detailData.ppeCandidates)}` : ""}
       ` : ""}
-    `, "detail-block-worker-caution") : detailSection("작업자 주의 포인트", renderUnreviewedSummaryNotice(pdfInfo), "detail-block-worker-caution")}
+    `, "detail-block-worker-caution") : detailSection("작업자 주의 포인트", renderPdfOnlySummaryNotice(pdfInfo), "detail-block-worker-caution")}
 
     ${detailSection("MSDS 원본자료 필수 확인", `
       ${renderPdfPreview(pdfInfo)}
@@ -2734,12 +2715,12 @@ function renderDetail(product) {
   `;
 }
 
-function renderSelectedProductBar(product, detailData, pdfInfo, summaryReviewed) {
+function renderSelectedProductBar(product, detailData, pdfInfo, summaryAvailable) {
   const reviewMeta = getProductReviewMeta(product);
   const phone = String(product.emergencyContact || "").match(/(?:\+?82[-\s]?)?0\d{1,2}[-\s]\d{3,4}[-\s]\d{4}/)?.[0] || "";
   const telHref = phone ? phone.replace(/[^+\d]/g, "") : "";
   return `
-    <section class="selected-product-bar ${summaryReviewed ? "is-reviewed" : "is-review-needed"}" aria-label="선택 제품 핵심정보">
+    <section class="selected-product-bar ${summaryAvailable ? "is-reviewed" : "is-review-needed"}" aria-label="선택 제품 핵심정보">
       <div class="selected-product-bar-main">
         <span class="selection-review-badge ${reviewMeta.className}">${escapeHtml(reviewMeta.label)}</span>
         <strong>${escapeHtml(detailData.productName)}</strong>
@@ -2753,11 +2734,11 @@ function renderSelectedProductBar(product, detailData, pdfInfo, summaryReviewed)
   `;
 }
 
-function renderUnreviewedSummaryNotice(pdfInfo) {
+function renderPdfOnlySummaryNotice(pdfInfo) {
   return `
     <div class="unreviewed-summary-notice" role="note">
-      <strong>담당자 원문 검토 전입니다.</strong>
-      <p>자동 추출 후보는 오분류 가능성이 있어 현장 요약정보로 표시하지 않습니다.</p>
+      <strong>자동 추출 요약이 없습니다.</strong>
+      <p>이 제품의 안전정보는 MSDS PDF 원문을 기준으로 확인하세요.</p>
       <span>선택 제품 상단의 원본 PDF 열기를 이용하세요.</span>
     </div>
   `;
@@ -2925,7 +2906,7 @@ function renderWorkerCautionPoints(cautionData) {
         <span class="worker-caution-header-icon" aria-hidden="true">${workerCautionIconSvg("shield")}</span>
         <div>
           <h4>작업자 주의 포인트</h4>
-          <p>검토완료 MSDS 내용에서 확인된 키워드 기반 참고사항입니다.</p>
+          <p>MSDS에서 자동 추출한 키워드 기반 참고사항이며 PDF 원문이 우선입니다.</p>
         </div>
       </header>
       <div class="worker-caution-card-grid">
@@ -3053,14 +3034,12 @@ function renderOverrideDetail(override) {
     return `<p class="summary-note">MSDS 요약 정보가 아직 연결되지 않았습니다.</p>`;
   }
 
-  const approved = canUseOverride(override);
-  const reviewLabel = approved
-    ? "검토완료 · 표시 승인"
-    : (override.reviewStatus === "검토완료" ? "담당자 검토완료 · 자동검증 오류" : (override.reviewStatus || "검토필요"));
+  const summaryAvailable = canUseOverride(override);
+  const displayLabel = summaryAvailable ? "자동 추출 요약 표시" : "PDF 원문 확인";
   return `
-    <div class="override-status-box ${approved ? "is-reviewed" : "is-review-needed"}">
-      ${detailItem("자동 추출 상태", getExtractionStatusLabel(override.extractStatus, approved))}
-      ${detailItem("검토 상태", reviewLabel)}
+    <div class="override-status-box ${summaryAvailable ? "is-reviewed" : "is-review-needed"}">
+      ${detailItem("자동 추출 상태", getExtractionStatusLabel(override.extractStatus, summaryAvailable))}
+      ${detailItem("표시 상태", displayLabel)}
       ${detailItem("PDF 출처", override.sourcePdfPath || "")}
       ${detailItem("후보 항목", `GHS ${getOverrideGhsItems(override).length}건 / 유해문구 ${override.hazardStatements.length}건 / 구성성분 후보 ${override.ingredients.length}건`)}
     </div>
@@ -3145,12 +3124,12 @@ function renderOriginalPdfLinks(pdfInfo, variant = "default") {
 
 function getExtractionStatusLabel(status, approved = false) {
   const labels = {
-    candidate_extracted: "자동 추출 완료 · 담당자 검토 전",
+    candidate_extracted: "자동 추출 완료 · PDF 원문 우선",
     scanned_pdf_or_image_pdf: "스캔 PDF · 원문 직접 확인 필요",
     extracted: "자동 추출 완료",
     failed: "자동 추출 실패"
   };
-  return labels[String(status || "").trim()] || status || (approved ? "자동검증 통과" : "자동추출 후보 비공개");
+  return labels[String(status || "").trim()] || status || (approved ? "자동 추출 요약 사용" : "PDF 원문 확인");
 }
 
 function renderPdfPreview(pdfInfo) {

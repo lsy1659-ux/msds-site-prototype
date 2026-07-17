@@ -20,7 +20,7 @@ class PublicReleaseValidationTests(unittest.TestCase):
         (self.root / "js").mkdir()
         (self.root / "pdf").mkdir()
         (self.root / "js" / "app.js").write_text(
-            "const APP_CONFIG = { allowCandidateOverrideDisplay: false };\n",
+            "const APP_CONFIG = { allowCandidateOverrideDisplay: true };\n",
             encoding="utf-8",
         )
 
@@ -38,10 +38,10 @@ class PublicReleaseValidationTests(unittest.TestCase):
             "signalWord": "위험",
             "hazardStatements": ["H226"],
             "publication": {
-                "reviewStatus": "검토완료",
-                "approvedForDisplay": True,
-                "validationStatus": "passed",
-                "validationErrors": [],
+                "summaryMode": "automatic",
+                "summaryAvailable": True,
+                "validationStatus": "automatic",
+                "validationWarnings": [],
             },
         }
 
@@ -49,14 +49,13 @@ class PublicReleaseValidationTests(unittest.TestCase):
         return {
             "sourcePdfPath": pdf_path,
             "match": {"fileName": Path(pdf_path).name},
-            "reviewStatus": "검토완료",
             "revisionDateCandidate": "2024-02-01",
             "signalWordCandidate": "위험",
             "publication": {
-                "reviewStatus": "검토완료",
-                "approvedForDisplay": True,
-                "validationStatus": "passed",
-                "validationErrors": [],
+                "summaryMode": "automatic",
+                "summaryAvailable": True,
+                "validationStatus": "automatic",
+                "validationWarnings": [],
             },
         }
 
@@ -71,14 +70,14 @@ class PublicReleaseValidationTests(unittest.TestCase):
     def codes(self, result):
         return {issue.code for issue in result.issues}
 
-    def test_valid_reviewed_release_passes(self):
+    def test_valid_automatic_summary_release_passes(self):
         self.write_release()
 
         result = validate_public_release(self.root, expected_products=1)
 
         self.assertEqual(result.errors, [])
         self.assertEqual(result.stats["linkedProducts"], 1)
-        self.assertEqual(result.stats["approvedProducts"], 1)
+        self.assertEqual(result.stats["automaticSummaryProducts"], 1)
 
     def test_duplicate_id_and_pdf_are_blocked(self):
         products = [self.product(), self.product()]
@@ -89,7 +88,7 @@ class PublicReleaseValidationTests(unittest.TestCase):
         self.assertIn("DUPLICATE_PRODUCT_ID", self.codes(result))
         self.assertIn("DUPLICATE_PRODUCT_PDF", self.codes(result))
 
-    def test_unreviewed_candidate_and_summary_cannot_be_public(self):
+    def test_automatic_candidate_and_summary_can_be_public(self):
         product = {
             "id": "p-1",
             "productName": "시험 제품",
@@ -98,53 +97,21 @@ class PublicReleaseValidationTests(unittest.TestCase):
             "revisionDate": "2024-02-01",
             "hazardStatements": ["H226"],
             "publication": {
-                "reviewStatus": "검토필요",
-                "approvedForDisplay": False,
-                "validationStatus": "not_reviewed",
-                "validationErrors": [],
+                "summaryMode": "automatic",
+                "summaryAvailable": True,
+                "validationStatus": "automatic",
+                "validationWarnings": [],
             },
         }
         override = {
             "sourcePdfPath": "pdf/a.pdf",
             "match": {"fileName": "a.pdf"},
-            "reviewStatus": "검토필요",
             "revisionDateCandidate": "2024-02-01",
             "publication": {
-                "reviewStatus": "검토필요",
-                "approvedForDisplay": False,
-                "validationStatus": "not_reviewed",
-                "validationErrors": [],
-            },
-        }
-        self.write_release(products=[product], overrides=[override])
-
-        result = validate_public_release(self.root, expected_products=1)
-
-        self.assertIn("UNAPPROVED_PRODUCT_SUMMARY_EXPOSED", self.codes(result))
-        self.assertIn("UNREVIEWED_OVERRIDE_CANDIDATE_EXPOSED", self.codes(result))
-
-    def test_identity_only_unreviewed_record_is_safe(self):
-        product = {
-            "id": "p-1",
-            "productName": "시험 제품",
-            "fileName": "a.pdf",
-            "pdfPath": "pdf/a.pdf",
-            "publication": {
-                "reviewStatus": "검토필요",
-                "approvedForDisplay": False,
-                "validationStatus": "not_reviewed",
-                "validationErrors": [],
-            },
-        }
-        override = {
-            "sourcePdfPath": "pdf/a.pdf",
-            "match": {"fileName": "a.pdf"},
-            "reviewStatus": "검토필요",
-            "publication": {
-                "reviewStatus": "검토필요",
-                "approvedForDisplay": False,
-                "validationStatus": "not_reviewed",
-                "validationErrors": [],
+                "summaryMode": "automatic",
+                "summaryAvailable": True,
+                "validationStatus": "automatic",
+                "validationWarnings": [],
             },
         }
         self.write_release(products=[product], overrides=[override])
@@ -152,9 +119,39 @@ class PublicReleaseValidationTests(unittest.TestCase):
         result = validate_public_release(self.root, expected_products=1)
 
         self.assertEqual(result.errors, [])
-        self.assertEqual(result.stats["reviewRequiredProducts"], 1)
+        self.assertEqual(result.stats["automaticSummaryProducts"], 1)
 
-    def test_reviewed_date_conflict_and_invalid_signal_word_are_blocked(self):
+    def test_pdf_only_record_is_safe(self):
+        product = {
+            "id": "p-1",
+            "productName": "시험 제품",
+            "fileName": "a.pdf",
+            "pdfPath": "pdf/a.pdf",
+            "publication": {
+                "summaryMode": "automatic",
+                "summaryAvailable": False,
+                "validationStatus": "pdf_only",
+                "validationWarnings": [],
+            },
+        }
+        override = {
+            "sourcePdfPath": "pdf/a.pdf",
+            "match": {"fileName": "a.pdf"},
+            "publication": {
+                "summaryMode": "automatic",
+                "summaryAvailable": False,
+                "validationStatus": "pdf_only",
+                "validationWarnings": [],
+            },
+        }
+        self.write_release(products=[product], overrides=[override])
+
+        result = validate_public_release(self.root, expected_products=1)
+
+        self.assertEqual(result.errors, [])
+        self.assertEqual(result.stats["pdfOnlyProducts"], 1)
+
+    def test_conflicting_candidate_fields_must_be_removed(self):
         override = self.override()
         override["revisionDateCandidate"] = "2024-03-01"
         override["signalWordCandidate"] = "(GHS KR)"

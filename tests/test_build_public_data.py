@@ -48,52 +48,61 @@ class BuildPublicDataTests(unittest.TestCase):
     def tearDown(self):
         self.temp_dir.cleanup()
 
-    def test_unreviewed_record_exposes_identity_but_not_safety_candidates(self):
+    def test_automatic_summary_is_public_without_manual_review(self):
         self.override["reviewStatus"] = "검토필요"
         products, overrides, stats = build_public_records([self.product], [self.override], self.root)
 
         self.assertEqual(products[0]["productName"], "테스트 제품")
-        self.assertNotIn("hazardStatements", products[0])
+        self.assertEqual(products[0]["hazardStatements"], self.product["hazardStatements"])
         self.assertNotIn("privateMemo", products[0])
-        self.assertFalse(products[0]["publication"]["approvedForDisplay"])
-        self.assertEqual(products[0]["publication"]["validationStatus"], "not_reviewed")
-        self.assertNotIn("signalWordCandidate", overrides[0])
+        self.assertTrue(products[0]["publication"]["summaryAvailable"])
+        self.assertEqual(products[0]["publication"]["validationStatus"], "automatic")
+        self.assertEqual(overrides[0]["signalWordCandidate"], "경고")
+        self.assertNotIn("reviewStatus", overrides[0])
         self.assertNotIn("notes", overrides[0])
         self.assertNotIn("extractionMeta", overrides[0])
-        self.assertEqual(stats["notReviewed"], 1)
+        self.assertEqual(stats["automaticSummary"], 1)
 
-    def test_reviewed_valid_record_publishes_allowlisted_summary_only(self):
+    def test_public_data_keeps_only_allowlisted_summary_fields(self):
         products, overrides, stats = build_public_records([self.product], [self.override], self.root)
 
-        self.assertTrue(products[0]["publication"]["approvedForDisplay"])
+        self.assertTrue(products[0]["publication"]["summaryAvailable"])
         self.assertEqual(products[0]["hazardStatements"], self.product["hazardStatements"])
         self.assertEqual(overrides[0]["signalWordCandidate"], "경고")
         self.assertNotIn("reviewedBy", overrides[0])
         self.assertNotIn("notes", overrides[0])
         self.assertEqual(overrides[0]["match"], {"fileName": "approved.pdf"})
-        self.assertEqual(stats["approved"], 1)
+        self.assertEqual(stats["automaticSummary"], 1)
 
-    def test_revision_conflict_blocks_reviewed_values(self):
+    def test_revision_conflict_removes_only_candidate_date(self):
         self.override["revisionDateCandidate"] = "2024-12-31"
         products, overrides, stats = build_public_records([self.product], [self.override], self.root)
 
-        self.assertFalse(products[0]["publication"]["approvedForDisplay"])
-        self.assertIn("REVISION_DATE_CONFLICT", products[0]["publication"]["validationErrors"])
-        self.assertNotIn("hazardStatements", products[0])
+        self.assertTrue(products[0]["publication"]["summaryAvailable"])
+        self.assertIn("REVISION_DATE_CONFLICT", products[0]["publication"]["validationWarnings"])
+        self.assertEqual(products[0]["hazardStatements"], self.product["hazardStatements"])
         self.assertNotIn("revisionDateCandidate", overrides[0])
-        self.assertEqual(stats["blocked"], 1)
+        self.assertEqual(stats["automaticSummary"], 1)
 
-    def test_date_order_and_signal_word_are_hard_validation_gates(self):
+    def test_date_order_and_signal_word_are_field_warnings(self):
         self.product["issueDate"] = "2025-02-01"
         self.product["revisionDate"] = "2025-01-01"
         self.override["signalWordCandidate"] = "1/17"
-        approved, errors, status = validate_publication(self.product, self.override, self.root)
+        available, warnings, status = validate_publication(self.product, self.override, self.root)
 
-        self.assertFalse(approved)
-        self.assertEqual(status, "blocked")
-        self.assertIn("ISSUE_DATE_AFTER_REVISION_DATE", errors)
-        self.assertIn("SIGNAL_WORD_INVALID", errors)
+        self.assertTrue(available)
+        self.assertEqual(status, "automatic_with_warnings")
+        self.assertIn("ISSUE_DATE_AFTER_REVISION_DATE", warnings)
+        self.assertIn("SIGNAL_WORD_INVALID", warnings)
         self.assertIsNone(parse_iso_date("20250101"))
+
+    def test_invalid_signal_word_is_removed_without_hiding_summary(self):
+        self.override["signalWordCandidate"] = "(GHS KR)"
+        products, overrides, _ = build_public_records([self.product], [self.override], self.root)
+
+        self.assertTrue(products[0]["publication"]["summaryAvailable"])
+        self.assertNotIn("signalWordCandidate", overrides[0])
+        self.assertEqual(overrides[0]["hazardStatements"], self.override["hazardStatements"])
 
     def test_pdf_path_must_be_pdf_directory_file(self):
         self.assertIsNone(validate_pdf_path("pdf/approved.pdf", self.root))
