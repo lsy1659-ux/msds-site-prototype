@@ -111,6 +111,30 @@ function Get-LocalPathFromRequest {
     $requestPath = $Page
   }
 
+  $normalizedRequestPath = ($requestPath -replace "\\", "/").TrimStart("/")
+  $allowedFiles = @(
+    "index.html",
+    "review.html",
+    "pdf-queue.html",
+    "data/msds.public.json",
+    "data/msds-overrides.public.json",
+    "data/release-manifest.json",
+    "data/msds.local.json",
+    "data/msds-overrides.local.json",
+    "data/pdf-inventory.local.json",
+    "data/msds-sample.json",
+    "data/msds-overrides.sample.json",
+    "data/pdf-inventory.sample.json"
+  )
+  $allowedPrefixes = @("css/", "js/", "assets/", "pdf/")
+  $isAllowed = $allowedFiles -contains $normalizedRequestPath
+  if (-not $isAllowed) {
+    $isAllowed = $allowedPrefixes | Where-Object { $normalizedRequestPath.StartsWith($_, [System.StringComparison]::OrdinalIgnoreCase) } | Select-Object -First 1
+  }
+  if (-not $isAllowed) {
+    return $null
+  }
+
   $requestPath = $requestPath -replace "/", [System.IO.Path]::DirectorySeparatorChar
   $localPath = [System.IO.Path]::GetFullPath((Join-Path $root $requestPath))
   $rootPath = [System.IO.Path]::GetFullPath($root).TrimEnd([System.IO.Path]::DirectorySeparatorChar)

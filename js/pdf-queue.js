@@ -222,7 +222,7 @@ function renderQueueList() {
         <span class="review-status ${getDecisionClass(item.reviewDecision)}">${escapeHtml(item.reviewDecision)}</span>
         <strong class="text-break clamp-2">${escapeHtml(item.fileName || "파일명 없음")}</strong>
         <span class="text-muted-path clamp-3">${escapeHtml(item.relativePath || "상대경로 없음")}</span>
-        <small class="text-muted-path clamp-2">${escapeHtml(item.suggestedAction || "")}${item.duplicateCandidate ? " · 중복 후보" : ""}${item.note ? ` · ${truncateText(item.note, 40)}` : ""}</small>
+        <small class="text-muted-path clamp-2">${escapeHtml(item.suggestedAction || "")}${item.duplicateCandidate ? " · 중복 후보" : ""}${item.note ? ` · ${escapeHtml(truncateText(item.note, 40))}` : ""}</small>
       </button>
     `;
   }).join("");
