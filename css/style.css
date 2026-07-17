@@ -6944,64 +6944,73 @@ body {
 
 .scroll-quick-nav {
   top: 166px;
-  right: max(18px, calc((100vw - var(--page-max)) / 2 - 98px));
+  right: max(12px, calc((100vw - var(--page-max)) / 2 - 96px));
   bottom: auto;
   display: none;
-  gap: 0;
-  min-width: 74px;
-  padding: 12px 10px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 20px 42px rgba(8, 35, 29, 0.16);
+  gap: 8px;
+  width: 84px;
+  min-width: 84px;
+  padding: 12px 9px;
+  border: 1px solid rgba(11, 93, 77, 0.2);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 22px 48px rgba(8, 35, 29, 0.19);
 }
 
 .scroll-quick-nav button {
   position: relative;
   display: grid;
   justify-items: center;
-  gap: 6px;
+  align-content: center;
+  gap: 7px;
   min-height: 62px;
-  padding: 0 4px;
-  border: 0;
+  padding: 7px 4px;
+  border: 1px solid transparent;
   border-radius: 16px;
   background: transparent;
-  color: #647a74;
-  font-size: 0.72rem;
-  font-weight: 850;
+  color: #48635c;
+  font-size: 0.76rem;
+  font-weight: 900;
+  line-height: 1.15;
+  transition: background-color 150ms ease, border-color 150ms ease, transform 150ms ease;
 }
 
 .scroll-quick-nav button + button::before {
   content: "";
   position: absolute;
-  top: -14px;
+  top: -12px;
   left: 50%;
   width: 2px;
-  height: 20px;
+  height: 16px;
   border-radius: 999px;
-  background: #dbe9e5;
+  background: #cfe3dd;
   transform: translateX(-50%);
 }
 
 .scroll-quick-nav button span {
   display: grid;
-  width: 31px;
-  height: 31px;
+  width: 34px;
+  height: 34px;
   place-items: center;
   border-radius: 999px;
-  background: #edf8f4;
-  color: #006a58;
-  font-size: 0.78rem;
+  border: 1px solid rgba(11, 93, 77, 0.1);
+  background: #e8f6f1;
+  color: #075f50;
+  font-size: 0.82rem;
   font-weight: 1000;
 }
 
 .scroll-quick-nav button b {
   font: inherit;
-  line-height: 1.15;
+  color: #48635c;
+  line-height: 1.2;
   white-space: normal;
 }
 
 .scroll-quick-nav button:hover {
-  background: #f1faf7;
+  border-color: rgba(11, 93, 77, 0.13);
+  background: #eef9f5;
+  transform: translateY(-1px);
 }
 
 .scroll-quick-nav button:first-child span {
@@ -7012,7 +7021,7 @@ body {
 @media (min-width: 1520px) {
   .scroll-quick-nav {
     display: grid;
-    width: 78px;
+    width: 84px;
   }
 
   .scroll-quick-nav.is-hidden {
@@ -7020,7 +7029,7 @@ body {
   }
 
   .scroll-quick-nav button {
-    min-height: 54px;
+    min-height: 62px;
   }
 }
 
@@ -7303,13 +7312,16 @@ body {
 
 /* Scroll progress navigation only */
 .scroll-quick-nav button.is-active {
+  border-color: rgba(7, 84, 68, 0.16);
+  background: linear-gradient(180deg, #edf9f5, #e4f4ef);
   color: #063f36;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.75);
 }
 
 .scroll-quick-nav button.is-active span {
   background: linear-gradient(180deg, #0f7f67, #075444);
   color: #ffffff;
-  box-shadow: 0 0 0 5px rgba(11, 93, 77, 0.1);
+  box-shadow: 0 0 0 4px rgba(11, 93, 77, 0.11);
 }
 
 .scroll-quick-nav button.is-active b {
