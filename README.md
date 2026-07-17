@@ -2,7 +2,7 @@
 
 현장 작업자가 QR코드로 접속해 MSDS 핵심 안전정보를 빠르게 확인하는 조회용 프로토타입입니다.
 
-현재 상태는 GitHub Pages 실제 MSDS PDF 미리보기 공개 운영 완료입니다. 공개 URL은 <https://lsy1659-ux.github.io/msds-site-prototype/> 이며, 공개 화면은 `data/msds.public.json`, `data/msds-overrides.public.json`, `pdf/` 폴더의 PDF 239개를 사용해 실제 제품 검색, 상세정보 표시, 사이트 내부 전체 페이지 PDF 미리보기를 제공합니다. 로컬 실행 화면은 `data/msds.local.json`, `data/msds-overrides.local.json`이 있으면 그 파일을 우선 사용합니다.
+현재 상태는 GitHub Pages 실제 MSDS PDF 미리보기 공개 운영 완료입니다. 공개 URL은 <https://lsy1659-ux.github.io/msds-site-prototype/> 이며, 공개 화면은 `data/msds.public.json`, `data/msds-overrides.public.json`, `pdf/` 폴더의 대표 PDF 224개를 사용해 실제 제품 검색, 상세정보 표시, 사이트 내부 전체 페이지 PDF 미리보기를 제공합니다. 로컬 실행 화면은 `data/msds.local.json`, `data/msds-overrides.local.json`이 있으면 그 파일을 우선 사용합니다.
 
 공개 운영 확인 결과 `data/msds.public.json`과 `data/msds-overrides.public.json` 접근은 정상이고, `data/msds.local.json`, `data/msds-overrides.local.json`, `reports/*.local.*` 파일은 공개 URL에서 404로 비공개 상태를 유지합니다. 실제 엑셀, `data/raw/`, `data/original/`, `.env`도 계속 GitHub에 올리지 않습니다.
 
@@ -252,7 +252,7 @@ reports/pdf-inventory-report.local.csv
 - 엑셀 제품 하나에 여러 PDF 후보가 연결될 수 있는 경우: `multiple_pdf_candidates`
 - PDF는 있지만 엑셀 변환 데이터에 없는 경우: `excel_missing_pdf`
 
-중복 의심 PDF는 자동 삭제, 이동, 이름변경하지 않고 리포트에 확인 필요 대상으로만 남깁니다.
+내용 유사 후보는 자동 삭제, 이동, 이름변경하지 않고 리포트에 확인 필요 대상으로 남깁니다. SHA-256이 같은 완전 중복은 사용자 승인, 대표본 선정, 백업을 거친 경우에만 `deduplicate_pdf_library.py --apply`로 정리할 수 있습니다.
 
 PDF 미리보기는 앞으로 `fileName`뿐 아니라 `relativePath` 또는 `pdfPath`도 사용할 수 있습니다.
 
@@ -291,7 +291,7 @@ PDF와 엑셀 제품의 연결 후보는 단순히 CAS No.가 하나 겹치는�
 
 한 제품에 여러 PDF 후보가 있을 때도 `strong` 또는 `probable` 후보가 2개 이상일 때만 `multiple_pdf_candidates`로 집계합니다. 이미 파일명 정확 일치가 있는 제품은 약한 내용 기반 후보를 여러 후보 집계에서 제외합니다.
 
-중복 의심 PDF는 자동 삭제, 이동, 이름변경하지 않고 확인 필요 리포트로만 관리합니다.
+내용 유사 후보는 자동 삭제, 이동, 이름변경하지 않고 확인 필요 리포트로 관리합니다. 완전 중복만 별도 백업 후 대표본 하나로 정리할 수 있습니다.
 
 ## PDF 라이브러리 동기화
 
@@ -553,7 +553,7 @@ H-code statements are kept in the hazard statement area, P-code statements are k
 
 현장용 로컬 실행 방법은 [현장용 로컬 실행 가이드](docs/현장용_로컬_실행_가이드.md)를 확인하세요. 비개발자는 프로젝트 폴더의 `start_msds_site.bat` 파일을 더블클릭해 현장 검색용 화면을 실행하면 됩니다.
 
-GitHub Pages 인터넷 배포는 [GitHub Pages 인터넷 배포 가이드](docs/GitHub_Pages_인터넷_배포_가이드.md)를 기준으로 합니다. 공개 URL은 <https://lsy1659-ux.github.io/msds-site-prototype/> 입니다. GitHub Pages 실제 MSDS PDF 미리보기 공개 운영은 완료되었고, 공개 사이트는 `data/msds.public.json`, `data/msds-overrides.public.json`, `pdf/` 폴더의 PDF 239개를 사용합니다. 실제 엑셀, raw 데이터, original 데이터, `.env`, local JSON, reports local 파일은 GitHub에 올리지 않습니다. 실제 현장 사용은 여전히 `start_msds_site.bat` 로컬 실행을 기준으로 할 수 있습니다.
+GitHub Pages 인터넷 배포는 [GitHub Pages 인터넷 배포 가이드](docs/GitHub_Pages_인터넷_배포_가이드.md)를 기준으로 합니다. 공개 URL은 <https://lsy1659-ux.github.io/msds-site-prototype/> 입니다. GitHub Pages 실제 MSDS PDF 미리보기 공개 운영은 완료되었고, 공개 사이트는 `data/msds.public.json`, `data/msds-overrides.public.json`, `pdf/` 폴더의 대표 PDF 224개를 사용합니다. 실제 엑셀, raw 데이터, original 데이터, `.env`, local JSON, reports local 파일은 GitHub에 올리지 않습니다. 실제 현장 사용은 여전히 `start_msds_site.bat` 로컬 실행을 기준으로 할 수 있습니다.
 
 모바일 브라우저에서 PDF가 자동 다운로드되는 것을 막기 위해 PDF 원본은 페이지 로드나 제품 선택 직후 자동 삽입하지 않습니다. 사용자가 `PDF 미리보기` 버튼을 누른 경우에만 PDF.js로 사이트 안에 미리보기를 표시합니다. 현재 최소 수정안은 CDN PDF.js를 사용하므로 인터넷 연결이 필요합니다. 더 안정적인 운영이 필요하면 `vendor/pdfjs/` 또는 `lib/pdfjs/`에 PDF.js 정적 파일을 포함하고 `js/app.js`의 PDF.js 경로를 내부 경로로 바꿉니다.
 

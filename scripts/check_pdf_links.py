@@ -11,12 +11,17 @@ import argparse
 import csv
 import hashlib
 import json
+import logging
 import re
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
 from pdf_match_utils import is_strong_or_probable, score_pdf_candidate
+
+
+# 오래된 일부 PDF의 복구 가능한 구조 경고가 콘솔을 가득 채우지 않게 한다.
+logging.getLogger("pypdf").setLevel(logging.CRITICAL)
 
 
 CAS_RE = re.compile(r"\b\d{2,7}-\d{2}-\d\b")

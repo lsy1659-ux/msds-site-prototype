@@ -38,12 +38,17 @@ except Exception as exc:  # pragma: no cover - depends on local env
     PDF_IMPORT_ERROR = str(exc)
 
 CAS_RE = re.compile(r"\b\d{2,7}-\d{2}-\d\b")
-DATE_RE = re.compile(r"\b(?:19|20)\d{2}[.\-/년]\s?\d{1,2}[.\-/월]\s?\d{1,2}\s?일?\b")
+DATE_RE = re.compile(r"\b((?:19|20)\d{2})[.\-/년]\s?(\d{1,2})[.\-/월]\s?(\d{1,2})\s?일?\b")
 CONTENT_RE = re.compile(
-    r"\b\d{1,3}(?:\.\d+)?\s*(?:~|–|to)\s*\d{1,3}(?:\.\d+)?\s*%?"
+    r"\b\d{1,3}(?:\.\d+)?\s*(?:~|∼|～|–|—|to)\s*\d{1,3}(?:\.\d+)?\s*(?:미만)?\s*%?"
     r"|\b\d{1,3}(?:\.\d+)?\s+-\s+\d{1,3}(?:\.\d+)?\s*%?"
     r"|\b\d{1,3}(?:\.\d+)?\s*%"
 )
+REVISION_LABEL_PATTERNS = [
+    re.compile(r"최종\s*개정\s*(?:일자|일)"),
+    re.compile(r"개정\s*(?:일자|일)"),
+    re.compile(r"(?:revision\s*date|date\s*of\s*revision|last\s*revised)", re.IGNORECASE),
+]
 
 GHS_DEFINITIONS = {
     'GHS01': {"label": '폭발성', "legacy": 'explosive'},
@@ -166,6 +171,28 @@ def first_regex(lines: list[str], pattern: re.Pattern[str]) -> str:
     return ""
 
 
+def normalize_date_candidate(value: str) -> str:
+    match = DATE_RE.search(value or "")
+    if not match:
+        return ""
+    year, month, day = match.groups()
+    return f"{int(year):04d}-{int(month):02d}-{int(day):02d}"
+
+
+def extract_revision_date(lines: list[str]) -> str:
+    """Extract the actual revision date without confusing it with the issue date."""
+    for label_pattern in REVISION_LABEL_PATTERNS:
+        for index, line in enumerate(lines):
+            label_match = label_pattern.search(line)
+            if not label_match:
+                continue
+            candidate = " ".join([line[label_match.start():], *lines[index + 1:index + 3]])
+            normalized = normalize_date_candidate(candidate)
+            if normalized:
+                return normalized
+    return ""
+
+
 def has_no_ghs_label_element(text: str) -> bool:
     compact = re.sub(r"\s+", "", text).lower()
     no_label_markers = ['그림문자해당없음', '그림문자없음', '신호어해당없음', '신호어없음', '유해위험문구해당없음', '유해화학물질로분류되지않음', '분류되지않음', '해당없음', "notclassified", "noghslabelelement", "nosignalword", "notapplicable"]
@@ -215,18 +242,18 @@ def has_h_code(evidence_text: str, codes: set[str]) -> bool:
 
 
 PICTOGRAM_TEXT_MAP = [
-    ("GHS01", ["???", "??", "explosive", "explosion"]),
-    ("GHS02", ["???", "??", "flame", "flammable"]),
-    ("GHS03", ["???", "oxidizer", "oxidizing"]),
-    ("GHS04", ["????", "?????", "gas cylinder", "gases under pressure"]),
-    ("GHS05", ["???", "corrosion", "corrosive"]),
-    ("GHS06", ["????", "??", "skull", "skull and crossbones"]),
-    ("GHS07", ["??/???", "??????", "??", "???", "???", "exclamation", "irritant", "harmful"]),
-    ("GHS08", ["?????", "?? ???", "health hazard"]),
-    ("GHS09", ["?????", "?? ???", "environment"]),
+    ("GHS01", ["폭발성", "폭발", "explosive", "explosion"]),
+    ("GHS02", ["인화성", "불꽃", "flame", "flammable"]),
+    ("GHS03", ["산화성", "oxidizer", "oxidizing"]),
+    ("GHS04", ["고압가스", "가스 실린더", "gas cylinder", "gases under pressure"]),
+    ("GHS05", ["부식성", "corrosion", "corrosive"]),
+    ("GHS06", ["급성독성", "해골", "skull", "skull and crossbones"]),
+    ("GHS07", ["유해/자극성", "감탄부호", "느낌표", "자극성", "유해성", "exclamation", "irritant", "harmful"]),
+    ("GHS08", ["건강유해성", "건강 유해성", "health hazard"]),
+    ("GHS09", ["환경유해성", "환경 유해성", "environment"]),
 ]
-PICTOGRAM_START_WORDS = ["????", "?? ??", "pictogram", "pictograms", "symbol"]
-PICTOGRAM_STOP_WORDS = ["???", "??????", "?? ?? ??", "????", "Precautionary", "signal word", "hazard statement"]
+PICTOGRAM_START_WORDS = ["그림문자", "표지 요소", "pictogram", "pictograms", "symbol"]
+PICTOGRAM_STOP_WORDS = ["신호어", "유해·위험문구", "유해 위험 문구", "예방조치", "Precautionary", "signal word", "hazard statement"]
 
 
 def explicit_ghs_codes_from_pictogram_area(lines: list[str]) -> list[str] | None:
@@ -424,17 +451,24 @@ def extract_ingredients(section3: str) -> list[dict[str, str]]:
         cas_numbers = CAS_RE.findall(line)
         if not cas_numbers:
             continue
-        context = " ".join(lines[max(0, index - 1): min(len(lines), index + 2)])
-        content_match = CONTENT_RE.search(context)
+        same_line_content = CONTENT_RE.search(line)
+        forward_context = " ".join(lines[index: min(len(lines), index + 2)])
+        content_match = same_line_content or CONTENT_RE.search(forward_context)
         chemical = clean_line(CAS_RE.sub("", line))
         chemical = clean_line(CONTENT_RE.sub("", chemical))
         chemical = re.sub(r"(CAS|No\.?|함유량|성분|명칭)", "", chemical, flags=re.IGNORECASE)
         chemical = clean_line(chemical)
+        if not chemical and index > 0 and not CAS_RE.search(lines[index - 1]):
+            previous = clean_line(CONTENT_RE.sub("", lines[index - 1]))
+            if previous and not re.search(r"(CAS|No\.?|함유량|성분|명칭)", previous, flags=re.IGNORECASE):
+                chemical = previous
+        content = clean_line(content_match.group(0)) if content_match else ""
+        content = re.sub(r"\s*(?:∼|～|–|—)\s*", "~", content)
         ingredients.append(
             {
                 "chemicalName": chemical,
                 "casNo": cas_numbers[0],
-                "content": clean_line(content_match.group(0)) if content_match else "",
+                "content": content,
             }
         )
     return dedupe_ingredients(ingredients)
@@ -533,7 +567,7 @@ def build_override(target: PdfTarget, text: str, metadata: dict[str, Any]) -> di
         "productNameCandidate": first_label_value(section1_lines or lines, ["제품명", "제품의 명칭", "제품명칭"]),
         "supplierCandidate": first_label_value(section1_lines or lines, ["공급자", "공급업체", "제조자", "제조사", "회사명"]),
         "msdsNoCandidate": first_label_value(lines, ["MSDS번호", "MSDS No", "MSDS No."]),
-        "revisionDateCandidate": first_label_value(lines, ["개정일", "최종 개정일", "작성일"]) or first_regex(lines, DATE_RE),
+        "revisionDateCandidate": extract_revision_date(lines),
         "signalWordCandidate": first_label_value(section2_lines or lines, ["신호어"]),
         "ghsSource": ghs_source,
         "labelGhsCodes": [item["code"] for item in label_ghs_candidates],

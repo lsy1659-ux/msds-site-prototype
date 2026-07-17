@@ -11,7 +11,7 @@ GitHub Pages 배포는 MSDS 조회 사이트의 공개용 정적 화면을 인�
 - 실제 PDF 공개 운영 최종 확인일: 2026-06-03
 - 공개 URL: <https://lsy1659-ux.github.io/msds-site-prototype/>
 
-공개 사이트는 공개용 MSDS 데이터와 `pdf/` 폴더의 PDF 239개를 사용합니다. 로컬 실행은 `start_msds_site.bat`로 실행하며, local JSON이 있으면 local 데이터를 우선 사용합니다.
+공개 사이트는 공개용 MSDS 데이터와 `pdf/` 폴더의 대표 PDF 224개를 사용합니다. 로컬 실행은 `start_msds_site.bat`로 실행하며, local JSON이 있으면 local 데이터를 우선 사용합니다.
 
 ## 배포 후 확인 완료 항목
 
@@ -22,7 +22,7 @@ GitHub Pages 배포는 MSDS 조회 사이트의 공개용 정적 화면을 인�
 - `data/msds-overrides.public.json` 접근 정상
 - 공개 운영 안내 문구 표시 정상
 - 사이트 내부 전체 페이지 PDF 미리보기 정상
-- `pdf/` 폴더의 PDF 239개 공개 접근 가능
+- `pdf/` 폴더의 대표 PDF 224개 공개 접근 가능
 - `data/msds.local.json` 404/Not Found 정상
 - `data/msds-overrides.local.json` 404/Not Found 정상
 - `reports/*.local.*` 404/Not Found 정상

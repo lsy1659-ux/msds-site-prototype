@@ -287,10 +287,10 @@ const GHS_CODE_ALIASES = {
   "부식성": "GHS05",
   "급성독성": "GHS06",
   "유해자극성": "GHS07",
+  "느낌표": "GHS07",
+  "감탄부호": "GHS07",
   "건강유해성": "GHS08",
-  "환경유해성": "GHS09",
-  "??": "GHS07",
-  "???": "GHS07"
+  "환경유해성": "GHS09"
 };
 
 const HAZARD_CLASSIFICATION_GHS_RULES = [
@@ -3567,7 +3567,8 @@ function buildPpeDisplayItems(candidates = [], summary = "") {
   add("방독마스크", ["방독마스크", "호흡보호구", "마스크", "respir", "mask"]);
   add("보호복", ["보호복", "보호의", "앞치마", "apron", "protectiveclothing"]);
   add("안전화", ["안전화", "안전장화", "boots", "safetyshoes"]);
-  return [...new Set(values)].slice(0, 6);
+  // 서로 다른 원문 문장이 같은 보호구로 해석되면 카드에는 한 번만 표시한다.
+  return [...new Set(values.map((value) => getPpeLabel(value)))].slice(0, 6);
 }
 
 function renderPpeCards(items = []) {
