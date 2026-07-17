@@ -1,0 +1,61 @@
+name: Validate MSDS public release
+
+on:
+  pull_request:
+    paths:
+      - "data/msds.public.json"
+      - "data/msds-overrides.public.json"
+      - "data/release-manifest.json"
+      - "pdf/**"
+      - "index.html"
+      - "css/**"
+      - "assets/**"
+      - "js/**"
+      - "scripts/**"
+      - "tests/**"
+      - ".github/workflows/validate-msds-release.yml"
+  push:
+    branches: [main]
+    paths:
+      - "data/msds.public.json"
+      - "data/msds-overrides.public.json"
+      - "data/release-manifest.json"
+      - "pdf/**"
+      - "index.html"
+      - "css/**"
+      - "assets/**"
+      - "js/**"
+      - "scripts/**"
+      - "tests/**"
+      - ".github/workflows/validate-msds-release.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install validation dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -p "test_*.py"
+
+      - name: Validate public products, review gates, and release manifest
+        run: >-
+          python scripts/validate_public_release.py
+          --expected-products 223
+          --check-manifest data/release-manifest.json

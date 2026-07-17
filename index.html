@@ -3,10 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="제품별 물질안전보건자료와 현장 안전정보를 조회하고 원본 MSDS를 확인하는 사이트입니다.">
     <title>물질안전보건자료(MSDS) 안전정보 조회</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=20260717-safety1">
   </head>
   <body>
+    <a class="skip-link" href="#searchInput">MSDS 검색으로 바로가기</a>
     <header class="site-header">
       <div class="header-inner">
         <div class="hero-copy">
@@ -15,7 +17,17 @@
             <span class="mobile-title">MSDS 조회</span>
           </h1>
           <p class="header-note">제품명, 물질명, 용도, CAS No.로 검색하고 작업 전 안전정보와 원문자료를 확인하세요.</p>
-          <div id="currentSelection" class="current-selection">현재 선택 제품 확인 중</div>
+          <div id="currentSelection" class="current-selection" role="status" aria-live="polite">선택된 제품이 없습니다.</div>
+          <dl class="dataset-meta" aria-label="사이트 데이터 정보">
+            <div>
+              <dt>데이터 기준일</dt>
+              <dd id="datasetCutoffDate">확인 중</dd>
+            </div>
+            <div>
+              <dt>배포 버전</dt>
+              <dd id="siteVersion">확인 중</dd>
+            </div>
+          </dl>
         </div>
         <div class="hero-visual" aria-hidden="true">
           <div class="hero-visual-card hero-document">
@@ -32,13 +44,13 @@
     </header>
 
     <main class="app-shell">
-      <section id="search-section" class="search-panel" aria-label="MSDS 검색">
+      <section id="search-section" class="search-panel" aria-labelledby="searchTitle">
         <div class="search-title-row">
           <div class="search-heading">
             <span class="search-heading-icon" aria-hidden="true">⌕</span>
             <div>
-              <label class="search-label" for="searchInput">현장 안전정보 검색</label>
-              <p class="search-help">물질명, 제품명, 용도, CAS No.로 검색하세요.</p>
+              <label id="searchTitle" class="search-label" for="searchInput">현장 안전정보 검색</label>
+              <p id="searchHelp" class="search-help">물질명, 제품명, 용도, CAS No.로 검색하세요.</p>
             </div>
           </div>
           <div class="mode-badges">
@@ -49,22 +61,22 @@
 
         <div id="publicDeployNotice" class="public-deploy-notice is-hidden" role="status"></div>
 
-        <div class="search-box">
+        <div class="search-box" role="search" aria-labelledby="searchTitle">
           <input
             id="searchInput"
             class="search-input"
             type="search"
             placeholder="물질명, 제품명, 용도, CAS No. 입력"
             autocomplete="off"
-            autofocus
+            aria-describedby="searchHelp"
           >
           <button class="search-button" id="runSearch" type="button">검색</button>
           <button class="clear-button" id="clearSearch" type="button">검색 초기화</button>
         </div>
 
         <div class="search-control-bar" aria-label="검색 결과 제어">
-          <button class="filter-toggle-button" id="toggleSearchFilters" type="button" aria-expanded="true">
-            검색 조건 닫기
+          <button class="filter-toggle-button" id="toggleSearchFilters" type="button" aria-expanded="true" aria-controls="emptySearchGuide">
+            빠른 검색 닫기
           </button>
           <label class="sort-control">
             <span>정렬</span>
@@ -75,8 +87,8 @@
             </select>
           </label>
           <div class="view-toggle" role="group" aria-label="결과 보기 방식">
-            <button class="view-toggle-button is-active" type="button" data-view-mode="grid" aria-pressed="true" title="카드형 보기">▦</button>
-            <button class="view-toggle-button" type="button" data-view-mode="list" aria-pressed="false" title="리스트형 보기">☰</button>
+            <button class="view-toggle-button is-active" type="button" data-view-mode="grid" aria-pressed="true" aria-label="카드형으로 보기" title="카드형 보기">▦</button>
+            <button class="view-toggle-button" type="button" data-view-mode="list" aria-pressed="false" aria-label="목록형으로 보기" title="목록형 보기">☰</button>
           </div>
         </div>
 
@@ -95,9 +107,9 @@
           <div class="selection-heading">
             <div>
               <h2 id="selectionTitle">제품 선택</h2>
-              <p id="resultSubtitle">검색어를 입력하거나 대표 분류를 선택하세요.</p>
+              <p id="resultSubtitle" role="status" aria-live="polite">검색어를 입력하거나 대표 분류를 선택하세요.</p>
             </div>
-            <span id="resultCount" class="result-count">0건</span>
+            <span id="resultCount" class="result-count" aria-live="polite">0건</span>
           </div>
           <div id="selectionList" class="selection-list"></div>
         </div>
@@ -111,7 +123,15 @@
       <section class="board-layout" aria-label="MSDS 안전정보">
         <section id="safety-summary-section" class="poster-section" aria-labelledby="posterTitle">
           <h2 id="posterTitle" class="visually-hidden">현장 부착용 요약 안전정보</h2>
-          <div id="posterPanel" class="poster-board"></div>
+          <div id="posterPanel" class="poster-board">
+            <div class="selection-placeholder" role="status">
+              <span class="selection-placeholder-icon" aria-hidden="true">⌕</span>
+              <div>
+                <strong>제품을 먼저 검색하고 선택하세요.</strong>
+                <p>제품을 선택하기 전에는 안전정보를 표시하지 않습니다. 제품명·제품코드·CAS No.를 확인한 뒤 정확한 제품을 선택하세요.</p>
+              </div>
+            </div>
+          </div>
         </section>
 
         <aside id="detail-section" class="detail-section" aria-labelledby="detailTitle">
@@ -137,6 +157,6 @@
       </nav>
     </main>
 
-    <script src="js/app.js?v=20260717-1" defer></script>
+    <script src="js/app.js?v=20260717-safety1" defer></script>
   </body>
 </html>

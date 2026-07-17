@@ -9,14 +9,16 @@ const APP_CONFIG = {
   sampleOverridesUrl: "data/msds-overrides.sample.json",
   localInventoryUrl: "data/pdf-inventory.local.json",
   sampleInventoryUrl: "data/pdf-inventory.sample.json",
-  pdfJsModuleUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.mjs",
-  pdfJsWorkerUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.mjs",
+  releaseManifestUrl: "data/release-manifest.json",
   minSearchCharacters: 2,
   initialResultLimit: 8,
   fieldDisplayMode: true,
-  showReviewStatusOnFieldPoster: false,
-  showExtractionStatusInDetail: false,
-  allowCandidateOverrideDisplay: true
+  showReviewStatusOnFieldPoster: true,
+  showExtractionStatusInDetail: true,
+  allowCandidateOverrideDisplay: false,
+  runtimeMode: new URLSearchParams(window.location.search).get("dataMode") === "public"
+    ? "public"
+    : (["localhost", "127.0.0.1", ""].includes(window.location.hostname) ? "local" : "public")
 };
 
 const FALLBACK_PRODUCTS = [
@@ -394,6 +396,8 @@ const PRECAUTION_CODE_GROUPS = {
 
 const state = {
   products: [],
+  sourceProductCount: 0,
+  archivedVersionCount: 0,
   selectedId: null,
   query: "",
   resultLimit: APP_CONFIG.initialResultLimit,
@@ -408,6 +412,8 @@ const state = {
   selectionCollapsed: false,
   dataMode: "샘플 데이터 모드",
   publicNotice: "",
+  dataLoadError: "",
+  releaseMeta: {},
   pdfOverrides: [],
   pdfInventory: [],
   pdfOnlyProducts: [],
@@ -452,18 +458,33 @@ const state = {
 const elements = {};
 let pdfJsModulePromise = null;
 let scrollProgressFrame = null;
+let lastPdfFullViewTrigger = null;
 
 document.addEventListener("DOMContentLoaded", async () => {
   bindElements();
   bindEvents();
-  const data = await loadProducts();
-  state.pdfOverrides = data.overrides || [];
-  state.pdfInventory = data.inventory || [];
-  state.products = data.products;
-  state.pdfOnlyProducts = buildPdfOnlyProducts(state.products, state.pdfInventory, state.pdfOverrides);
-  state.dataMode = data.mode;
-  state.publicNotice = data.publicNotice || "";
-  state.selectedId = state.products[0]?.id || null;
+  try {
+    const [data, releaseMeta] = await Promise.all([loadProducts(), loadReleaseManifest()]);
+    state.pdfOverrides = data.overrides || [];
+    state.pdfInventory = data.inventory || [];
+    state.sourceProductCount = data.products.length;
+    state.products = consolidateProductVersions(data.products);
+    state.archivedVersionCount = Math.max(0, state.sourceProductCount - state.products.length);
+    state.pdfOnlyProducts = buildPdfOnlyProducts(state.products, state.pdfInventory, state.pdfOverrides);
+    state.dataMode = data.mode;
+    state.publicNotice = data.publicNotice || "";
+    state.releaseMeta = releaseMeta || {};
+    state.selectedId = getRequestedProductId(state.products);
+  } catch (error) {
+    state.products = [];
+    state.pdfOverrides = [];
+    state.pdfInventory = [];
+    state.pdfOnlyProducts = [];
+    state.selectedId = null;
+    state.dataMode = "자료 불러오기 실패";
+    state.dataLoadError = "공개 MSDS 자료를 불러오지 못했습니다. 이전 자료나 샘플 자료는 대신 표시하지 않습니다.";
+    state.publicNotice = state.dataLoadError;
+  }
   render();
 });
 
@@ -486,6 +507,8 @@ function bindElements() {
   elements.emptySearchGuide = document.querySelector("#emptySearchGuide");
   elements.dataMode = document.querySelector("#dataMode");
   elements.publicDeployNotice = document.querySelector("#publicDeployNotice");
+  elements.datasetCutoffDate = document.querySelector("#datasetCutoffDate");
+  elements.siteVersion = document.querySelector("#siteVersion");
 }
 
 function bindEvents() {
@@ -533,8 +556,9 @@ function bindEvents() {
     state.showFullList = false;
     resetFullListNavigation();
     resetResultWindow();
-    state.selectedId = state.products[0]?.id || null;
+    state.selectedId = null;
     state.selectionCollapsed = false;
+    updateProductUrl(null);
     elements.searchInput.focus();
     render();
   });
@@ -548,7 +572,8 @@ function bindEvents() {
       resetFullListNavigation();
       resetResultWindow();
       state.selectionCollapsed = false;
-      state.selectedId = state.selectedId || state.products[0]?.id || null;
+      state.selectedId = null;
+      updateProductUrl(null);
       render();
       return;
     }
@@ -598,6 +623,7 @@ function bindEvents() {
 
     const fullViewButton = event.target.closest("[data-pdf-full-view]");
     if (fullViewButton) {
+      lastPdfFullViewTrigger = fullViewButton;
       startPdfFullView(fullViewButton.dataset.pdfTitle, fullViewButton.dataset.pdfPath);
       return;
     }
@@ -608,6 +634,29 @@ function bindEvents() {
       return;
     }
 
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && state.pdfFullView.isOpen) {
+      event.preventDefault();
+      closePdfFullView();
+      return;
+    }
+    if (event.key === "Tab" && state.pdfFullView.isOpen) {
+      const dialog = document.querySelector(".pdf-full-view");
+      const focusable = [...(dialog?.querySelectorAll("button, a[href], [tabindex]:not([tabindex='-1'])") || [])]
+        .filter((item) => !item.disabled && item.getClientRects().length);
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
   });
 
   window.addEventListener("scroll", scheduleScrollProgressUpdate, { passive: true });
@@ -625,10 +674,65 @@ function resetFullListNavigation() {
   state.fullListReturnY = 0;
 }
 
+function getRequestedProductId(products = []) {
+  const requestedId = new URLSearchParams(window.location.search).get("product");
+  if (!requestedId) return null;
+  return products.some((product) => product.id === requestedId) ? requestedId : null;
+}
+
+function updateProductUrl(productId) {
+  const url = new URL(window.location.href);
+  if (productId) url.searchParams.set("product", productId);
+  else url.searchParams.delete("product");
+  window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+}
+
+function consolidateProductVersions(products = []) {
+  const grouped = new Map();
+  products.forEach((product) => {
+    const nameKey = normalizeSearchText(product.productName || product.fileName || product.id);
+    const supplierKey = normalizeSearchText(getDisplaySupplierName(product));
+    const key = nameKey ? `${nameKey}|${supplierKey}` : `id:${product.id}`;
+    if (!grouped.has(key)) grouped.set(key, []);
+    grouped.get(key).push(product);
+  });
+
+  return [...grouped.values()].map((versions) => {
+    const sorted = versions.slice().sort(compareProductVersions);
+    const current = sorted[0];
+    return {
+      ...current,
+      previousVersions: sorted.slice(1).map((item) => ({
+        id: item.id,
+        revisionDate: cleanPdfRevisionDate(item.revisionDate) || item.revisionDate || "미확인",
+        fileName: item.fileName || "",
+        pdfPath: item.pdfPath || item.relativePath || ""
+      }))
+    };
+  });
+}
+
+function compareProductVersions(a, b) {
+  const dateA = cleanPdfRevisionDate(a.revisionDate) || cleanPdfRevisionDate(a.issueDate) || "0000-00-00";
+  const dateB = cleanPdfRevisionDate(b.revisionDate) || cleanPdfRevisionDate(b.issueDate) || "0000-00-00";
+  if (dateA !== dateB) return dateB.localeCompare(dateA);
+  return getProductCompletenessScore(b) - getProductCompletenessScore(a);
+}
+
+function getProductCompletenessScore(product = {}) {
+  let score = String(product.id || "").startsWith("msds-pdf-") ? 0 : 20;
+  [product.msdsNo, product.erpName, product.supplier, product.revisionDate, product.emergencyContact].forEach((value) => {
+    if (String(value || "").trim()) score += 2;
+  });
+  score += Math.min(10, (product.components || []).length);
+  return score;
+}
+
 function selectFullListProduct(productId, shouldScrollToDetail = false) {
   if (!productId) return;
   if (state.selectedId !== productId) resetPdfPreviewState();
   state.selectedId = productId;
+  updateProductUrl(productId);
   state.selectionCollapsed = false;
   if (shouldScrollToDetail) {
     state.fullListReturnY = window.scrollY || 0;
@@ -718,24 +822,35 @@ function updateScrollProgressActive() {
 function updateSelectedProductForQuery() {
   const normalizedQuery = normalizeSearchText(state.query);
   if (!normalizedQuery) {
-    state.selectedId = state.products[0]?.id || null;
+    state.selectedId = null;
+    updateProductUrl(null);
     return;
   }
-  if (normalizedQuery.length < APP_CONFIG.minSearchCharacters) return;
-  state.selectedId = getFilteredProducts()[0]?.id || state.selectedId;
+  if (normalizedQuery.length < APP_CONFIG.minSearchCharacters) {
+    state.selectedId = null;
+    updateProductUrl(null);
+    return;
+  }
+  const selectedStillMatches = getFilteredProducts().some((product) => product.id === state.selectedId);
+  if (!selectedStillMatches) {
+    state.selectedId = null;
+    updateProductUrl(null);
+  }
 }
 
 async function loadProducts() {
   const pdfLookupData = await loadPdfLookupData();
 
-  const localData = await fetchProducts(APP_CONFIG.localDataUrl);
-  if (localData) {
-    return {
-      mode: "로컬 변환 데이터 모드",
-      publicNotice: "",
-      products: applyOverrides(localData.map(normalizeProduct), pdfLookupData.overrides),
-      ...pdfLookupData
-    };
+  if (APP_CONFIG.runtimeMode === "local") {
+    const localData = await fetchProducts(APP_CONFIG.localDataUrl);
+    if (localData) {
+      return {
+        mode: "로컬 검토 데이터 모드",
+        publicNotice: "로컬 검토자료입니다. 공개 전 담당자 승인 상태를 확인하세요.",
+        products: applyOverrides(localData.map(normalizeProduct), pdfLookupData.overrides),
+        ...pdfLookupData
+      };
+    }
   }
 
   const publicData = await fetchProducts(APP_CONFIG.publicDataUrl);
@@ -748,22 +863,30 @@ async function loadProducts() {
     };
   }
 
-  const sampleData = await fetchProducts(APP_CONFIG.sampleDataUrl);
-  if (sampleData) {
-    return {
-      mode: "샘플 데이터 모드",
-      publicNotice: "샘플 데이터 화면입니다. 실제 운영 데이터가 로드되지 않았습니다.",
-      products: applyOverrides(sampleData.map(normalizeProduct), pdfLookupData.overrides),
-      ...pdfLookupData
-    };
+  if (APP_CONFIG.runtimeMode === "local") {
+    const sampleData = await fetchProducts(APP_CONFIG.sampleDataUrl);
+    if (sampleData) {
+      return {
+        mode: "샘플 데이터 모드",
+        publicNotice: "샘플 데이터 화면입니다. 실제 운영자료로 사용하지 마세요.",
+        products: applyOverrides(sampleData.map(normalizeProduct), pdfLookupData.overrides),
+        ...pdfLookupData
+      };
+    }
   }
 
-  return {
-    mode: "샘플 데이터 모드",
-    publicNotice: "샘플 데이터 화면입니다. 실제 운영 데이터가 로드되지 않았습니다.",
-    products: applyOverrides(FALLBACK_PRODUCTS.map(normalizeProduct), pdfLookupData.overrides),
-    ...pdfLookupData
-  };
+  throw new Error("운영 MSDS 데이터를 불러오지 못했습니다.");
+}
+
+async function loadReleaseManifest() {
+  try {
+    const response = await fetch(APP_CONFIG.releaseManifestUrl, { cache: "no-cache" });
+    if (!response.ok) return {};
+    const data = await response.json();
+    return data && typeof data === "object" ? data : {};
+  } catch (error) {
+    return {};
+  }
 }
 
 async function loadPdfLookupData() {
@@ -788,19 +911,24 @@ async function fetchProducts(url) {
 }
 
 async function loadOverrides() {
-  const localOverrides = await fetchOverrides(APP_CONFIG.localOverridesUrl);
-  if (localOverrides) return localOverrides.map(normalizeOverride);
+  if (APP_CONFIG.runtimeMode === "local") {
+    const localOverrides = await fetchOverrides(APP_CONFIG.localOverridesUrl);
+    if (localOverrides) return localOverrides.map(normalizeOverride);
+  }
 
   const publicOverrides = await fetchOverrides(APP_CONFIG.publicOverridesUrl);
   if (publicOverrides) return publicOverrides.map(normalizeOverride);
 
-  const sampleOverrides = await fetchOverrides(APP_CONFIG.sampleOverridesUrl);
-  if (sampleOverrides) return sampleOverrides.map(normalizeOverride);
+  if (APP_CONFIG.runtimeMode === "local") {
+    const sampleOverrides = await fetchOverrides(APP_CONFIG.sampleOverridesUrl);
+    if (sampleOverrides) return sampleOverrides.map(normalizeOverride);
+  }
 
-  return [];
+  throw new Error("MSDS 검토 상태 데이터를 불러오지 못했습니다.");
 }
 
 async function loadInventory() {
+  if (APP_CONFIG.runtimeMode !== "local") return [];
   const localInventory = await fetchInventory(APP_CONFIG.localInventoryUrl);
   if (localInventory) return localInventory.map(normalizeInventoryItem);
 
@@ -1283,9 +1411,26 @@ function applyOverrides(products, overrides) {
     if (!override) return product;
     return {
       ...product,
-      pdfSummaryOverride: override
+      pdfSummaryOverride: {
+        ...override,
+        clientApprovedForDisplay: isOverrideSafeForProduct(product, override)
+      }
     };
   });
+}
+
+function isOverrideSafeForProduct(product = {}, override = {}) {
+  const publicationDecision = override.publication?.approvedForDisplay;
+  if (publicationDecision === false) return false;
+  if (publicationDecision !== true && override.reviewStatus !== "검토완료") return false;
+  const productRevision = cleanPdfRevisionDate(product.revisionDate);
+  const candidateRevision = cleanPdfRevisionDate(override.revisionDateCandidate);
+  if (productRevision && candidateRevision && productRevision !== candidateRevision) return false;
+  const rawSignalWord = String(override.signalWordCandidate || "").trim();
+  if (rawSignalWord && !cleanSignalWord(rawSignalWord)) return false;
+  const issueDate = cleanPdfRevisionDate(product.issueDate || product.preparationDate);
+  if (issueDate && productRevision && issueDate > productRevision) return false;
+  return true;
 }
 
 function findOverrideForProduct(product, overrides) {
@@ -1953,7 +2098,8 @@ function syncResultViewToggle() {
 }
 
 function getSelectedProduct(results) {
-  return results.find((product) => product.id === state.selectedId) || results[0] || null;
+  if (!state.selectedId) return null;
+  return results.find((product) => product.id === state.selectedId) || null;
 }
 
 function getAllSelectableProducts() {
@@ -1967,17 +2113,18 @@ function render() {
   const results = hasQuery ? getSortedSearchResults(getFilteredProducts()) : [];
   const selectedPool = canShowCandidates ? results : getAllSelectableProducts();
   const selected = getSelectedProduct(selectedPool);
-  if (selected) state.selectedId = selected.id;
 
   elements.emptySearchGuide.classList.toggle("is-hidden", !state.searchFiltersOpen);
   elements.toggleSearchFilters?.setAttribute("aria-expanded", String(state.searchFiltersOpen));
   if (elements.toggleSearchFilters) {
-    elements.toggleSearchFilters.textContent = state.searchFiltersOpen ? "검색 조건 닫기" : "검색 조건 열기";
+    elements.toggleSearchFilters.textContent = state.searchFiltersOpen ? "빠른 검색 닫기" : "빠른 검색 열기";
   }
   if (elements.resultSortMode) elements.resultSortMode.value = state.resultSortMode;
   syncResultViewToggle();
   elements.selectionPanel.classList.toggle("is-collapsed", !hasQuery && !state.showFullList);
   elements.resultCount.textContent = state.showFullList ? `전체 MSDS ${getAllSelectableProducts().length}건` : (hasQuery ? `검색 결과 ${results.length}건` : "검색 전");
+  elements.resultCount.setAttribute("role", "status");
+  elements.resultCount.setAttribute("aria-live", "polite");
   elements.dataMode.textContent = state.dataMode;
   elements.dataMode.classList.toggle("is-local", state.dataMode.includes("로컬"));
   if (elements.publicDeployNotice) {
@@ -1986,17 +2133,37 @@ function render() {
   }
   elements.currentSelection.textContent = selected
     ? `현재 선택 제품: ${selected.productName}`
-    : "현재 선택 제품: 없음";
+    : (state.dataLoadError ? "MSDS 자료를 사용할 수 없습니다." : "제품을 검색한 뒤 정확한 제품을 선택하세요.");
+  elements.currentSelection.classList.toggle("has-selection", Boolean(selected));
+  elements.currentSelection.setAttribute("role", "status");
+  elements.currentSelection.setAttribute("aria-live", "polite");
+  updateReleaseMetaDisplay();
   elements.resultSubtitle.textContent = getResultSubtitle(hasQuery, canShowCandidates, results.length);
 
   renderSelectionList(results, hasQuery, canShowCandidates);
   renderPoster(selected);
   renderDetail(selected);
-  const shouldShowQuickNav = Boolean(selected) || window.matchMedia("(max-width: 767px)").matches;
+  const shouldShowQuickNav = Boolean(selected);
   elements.scrollQuickNav?.classList.toggle("is-hidden", !shouldShowQuickNav);
   scheduleScrollProgressUpdate();
   document.body.classList.toggle("is-pdf-full-view-open", state.pdfFullView.isOpen);
-  hydrateRequestedPdfPreview();
+}
+
+function updateReleaseMetaDisplay() {
+  const meta = state.releaseMeta || {};
+  const latestProductDate = state.products
+    .map((product) => cleanPdfRevisionDate(product.revisionDate))
+    .filter(Boolean)
+    .sort()
+    .at(-1) || "";
+  const cutoff = meta.dataCutoffDate || meta.dataGeneratedAt || meta.generatedAt || latestProductDate || "확인 필요";
+  const commit = String(meta.commitSha || meta.commit || "").slice(0, 8);
+  const version = meta.version || commit || "검증 정보 없음";
+  if (elements.datasetCutoffDate) elements.datasetCutoffDate.textContent = String(cutoff).slice(0, 10);
+  if (elements.siteVersion) {
+    const archiveText = state.archivedVersionCount ? ` · 이전본 ${state.archivedVersionCount}건 정리` : "";
+    elements.siteVersion.textContent = `${version}${archiveText}`;
+  }
 }
 
 function getResultSubtitle(hasQuery, canShowCandidates, totalCount) {
@@ -2072,10 +2239,15 @@ function renderSelectionList(results, hasQuery, canShowCandidates) {
     </div>
     <div class="selection-scroll ${viewModeClass}">
       ${visibleResults.map((product) => `
-        <button class="selection-item ${product.id === state.selectedId ? "is-selected" : ""}" type="button" data-product-id="${escapeAttribute(product.id)}">
+        <button class="selection-item ${product.id === state.selectedId ? "is-selected" : ""}" type="button" data-product-id="${escapeAttribute(product.id)}" aria-pressed="${product.id === state.selectedId ? "true" : "false"}">
           ${product.id === state.selectedId ? `<span class="selection-check" aria-hidden="true">✓</span>` : ""}
           <span class="selection-name text-break clamp-2">${escapeHtml(product.productName)}</span>
           <span class="selection-meta text-muted-path clamp-2">${escapeHtml(metaTextFor(product))}</span>
+          <span class="selection-identity clamp-2">${escapeHtml(getProductIdentityLine(product))}</span>
+          <span class="selection-status-row">
+            <span class="selection-review-badge ${getProductReviewMeta(product).className}">${escapeHtml(getProductReviewMeta(product).label)}</span>
+            ${product.previousVersions?.length ? `<span class="selection-version-badge">이전본 ${product.previousVersions.length}건</span>` : ""}
+          </span>
           <span class="selection-card-footer">
             ${product.__searchReason ? `<span class="selection-match-reason">${escapeHtml(product.__searchReason)}</span>` : ""}
             <span class="selection-action-chip">MSDS 보기</span>
@@ -2099,7 +2271,8 @@ function renderSelectionList(results, hasQuery, canShowCandidates) {
     button.addEventListener("click", () => {
       if (state.selectedId !== button.dataset.productId) resetPdfPreviewState();
       state.selectedId = button.dataset.productId;
-      state.selectionCollapsed = true;
+      updateProductUrl(state.selectedId);
+      state.selectionCollapsed = window.matchMedia("(max-width: 767px)").matches;
       render();
     });
   });
@@ -2130,6 +2303,28 @@ function renderSelectionList(results, hasQuery, canShowCandidates) {
     resetResultWindow();
     render();
   });
+}
+
+function getProductIdentityLine(product = {}) {
+  const casNo = (product.components || []).map((component) => component.casNo).find(Boolean) || "";
+  const revisionDate = cleanPdfRevisionDate(product.revisionDate) || "개정일 미확인";
+  return [
+    product.msdsNo ? `MSDS ${product.msdsNo}` : "",
+    casNo ? `CAS ${casNo}` : "",
+    `최종 ${revisionDate}`
+  ].filter(Boolean).join(" · ");
+}
+
+function getProductReviewMeta(product = {}) {
+  const override = product.pdfSummaryOverride || {};
+  const publication = override.publication || product.publication || {};
+  const status = override.reviewStatus || publication.reviewStatus || product.reviewStatus || "";
+  if (isProductSummaryReviewed(product)) return { label: "요약 검토완료", className: "is-reviewed" };
+  if (publication.validationStatus === "blocked" || (status === "검토완료" && override.clientApprovedForDisplay === false)) {
+    return { label: "자료 오류 검토중", className: "is-review-needed" };
+  }
+  if (status) return { label: "원본 확인 필요", className: "is-review-needed" };
+  return { label: "검토상태 미확인", className: "is-unknown" };
 }
 
 function renderFullProductList() {
@@ -2170,11 +2365,6 @@ function renderFullProductList() {
   elements.selectionList.querySelectorAll("[data-product-id]").forEach((item) => {
     item.addEventListener("click", (event) => {
       if (event.target.closest("[data-view-detail]")) return;
-      selectFullListProduct(item.dataset.productId, false);
-    });
-    item.addEventListener("keydown", (event) => {
-      if (event.key !== "Enter" && event.key !== " ") return;
-      event.preventDefault();
       selectFullListProduct(item.dataset.productId, false);
     });
   });
@@ -2218,8 +2408,9 @@ function renderFullProductItem(product, index) {
     casText !== "CAS No. 미확인" ? casText : ""
   ].filter(Boolean).join(" · ") || (isPdfBased ? "MSDS 원본 기준" : "용도 미확인");
 
+  const reviewMeta = getProductReviewMeta(product);
   return `
-    <div class="full-product-item ${isPdfBased ? "is-pdf-based" : ""} ${product.id === state.selectedId ? "is-selected" : ""}" role="button" tabindex="0" data-product-id="${escapeAttribute(product.id)}">
+    <button class="full-product-item ${isPdfBased ? "is-pdf-based" : ""} ${product.id === state.selectedId ? "is-selected" : ""}" type="button" data-product-id="${escapeAttribute(product.id)}" aria-pressed="${product.id === state.selectedId ? "true" : "false"}">
       ${product.id === state.selectedId ? `<span class="full-product-check" aria-hidden="true">✓</span>` : ""}
       <span class="full-product-number">${index + 1}</span>
       <span class="full-product-main">
@@ -2229,20 +2420,30 @@ function renderFullProductItem(product, index) {
       <span class="full-product-tags">
         <span class="full-risk-badge">${escapeHtml(product.hazardBadge || "확인")}</span>
         <span class="full-pdf-badge ${pdfInfo.status === "connected" ? "is-connected" : ""}">${pdfLabel}</span>
+        <span class="selection-review-badge ${reviewMeta.className}">${escapeHtml(reviewMeta.label)}</span>
       </span>
-      <button class="full-detail-button" type="button" data-view-detail data-product-id="${escapeAttribute(product.id)}">MSDS 보기</button>
-    </div>
+      <span class="full-detail-button" data-view-detail data-product-id="${escapeAttribute(product.id)}">MSDS 보기</span>
+    </button>
   `;
 }
 
 function renderPoster(product) {
   if (!product) {
     elements.posterPanel.className = "poster-board";
-    elements.posterPanel.innerHTML = `<div class="poster-empty">선택된 제품이 없습니다.</div>`;
+    elements.posterPanel.innerHTML = `
+      <div class="selection-placeholder" role="status">
+        <span class="selection-placeholder-icon" aria-hidden="true">⌕</span>
+        <div>
+          <strong>${state.dataLoadError ? "MSDS 자료를 불러오지 못했습니다." : "제품을 먼저 검색하고 선택하세요."}</strong>
+          <p>${state.dataLoadError ? escapeHtml(state.dataLoadError) : "제품명·제품코드·CAS No.를 확인한 뒤 정확한 제품을 선택해야 안전정보가 표시됩니다."}</p>
+        </div>
+      </div>
+    `;
     return;
   }
 
   const posterData = getPosterData(product);
+  const pdfInfo = buildPdfInfo(product);
   elements.posterPanel.className = `poster-board ${posterData.statusClass}`;
   elements.posterPanel.innerHTML = `
     ${posterData.showReviewStrip ? `
@@ -2261,9 +2462,17 @@ function renderPoster(product) {
     <div class="poster-ghs-row">
       ${renderGhsListFromItems(posterData.ghsPictograms, "poster", hasLinkedPdf(product))}
     </div>
-    ${posterSection(posterData.hazardTitle, renderSafetyStatementList(posterData.hazardStatements, "H", posterData.isCandidate), "poster-hazard-statements")}
-    ${posterSection(posterData.precautionTitle, renderPrecautionCards(posterData.precautionaryStatements, posterData.isCandidate), "poster-precaution-statements")}
-    ${posterData.ppeCandidates.length ? posterSection(posterData.ppeTitle, renderPpeCards(posterData.ppeCandidates), "poster-ppe-candidates") : ""}
+    ${posterData.summaryBlocked ? `
+      <section class="poster-summary-blocked" role="alert">
+        <strong>요약 안전정보 검토 전</strong>
+        <p>자동 추출된 유해성·예방조치·성분정보는 담당자 원문 검토가 끝날 때까지 표시하지 않습니다.</p>
+        ${renderOriginalPdfLinks(pdfInfo, "poster")}
+      </section>
+    ` : `
+      ${posterSection(posterData.hazardTitle, renderSafetyStatementList(posterData.hazardStatements, "H", false), "poster-hazard-statements")}
+      ${posterSection(posterData.precautionTitle, renderPrecautionCards(posterData.precautionaryStatements, false), "poster-precaution-statements")}
+      ${posterData.ppeCandidates.length ? posterSection(posterData.ppeTitle, renderPpeCards(posterData.ppeCandidates), "poster-ppe-candidates") : ""}
+    `}
     <footer class="poster-footer">
       ${posterData.footerNotice.map((notice) => `<p>${escapeHtml(notice)}</p>`).join("")}
       <p>공급자 정보: ${escapeHtml(getDisplaySupplierName(product))}</p>
@@ -2274,6 +2483,30 @@ function renderPoster(product) {
 
 function getPosterData(product) {
   const override = product.pdfSummaryOverride;
+  if (!isProductSummaryReviewed(product)) {
+    return {
+      statusClass: "is-review-needed",
+      showReviewStrip: true,
+      reviewBadge: "검토필요",
+      reviewMessage: "담당자 원문 검토 전입니다. 아래 MSDS 원본을 확인하세요.",
+      hazardBadge: "원본 확인",
+      ghsPictograms: [],
+      hazardStatements: [],
+      precautionaryStatements: {},
+      ppeCandidates: [],
+      ppeTitle: "개인보호구(PPE)",
+      hazardTitle: "유해·위험 문구",
+      precautionTitle: "예방조치 문구",
+      footerNotice: [
+        "검토되지 않은 자동 추출 요약은 표시하지 않습니다.",
+        "작업 전 MSDS 원본 전체 내용을 반드시 확인하세요."
+      ],
+      sourcePdfPath: override?.sourcePdfPath || "",
+      showSourcePdfPath: false,
+      isCandidate: false,
+      summaryBlocked: true
+    };
+  }
   if (canUseOverride(override) && hasOverrideSummary(override)) {
     const isReviewed = override.reviewStatus === "검토완료";
     const showReviewStatus = shouldShowReviewStatusOnFieldPoster();
@@ -2285,12 +2518,12 @@ function getPosterData(product) {
       reviewMessage: isReviewed
         ? "검토 완료된 MSDS 요약정보입니다."
         : "MSDS 원본 기준으로 정리한 안전정보입니다.",
-      hazardBadge: override.signalWordCandidate || product.hazardBadge || "확인",
+      hazardBadge: cleanSignalWord(override.signalWordCandidate) || cleanSignalWord(product.hazardBadge) || "원본 확인",
       ghsPictograms,
       hazardStatements: override.hazardStatements || [],
       precautionaryStatements: override.precautionaryStatements || {},
       ppeCandidates: limitList(buildPpeDisplayItems(override.ppeCandidates, product.ppeSummary), 6),
-      ppeTitle: "PPE 및 보호구",
+      ppeTitle: "개인보호구(PPE)",
       hazardTitle: "유해 위험 문구",
       precautionTitle: "예방조치 문구",
       footerNotice: [
@@ -2299,7 +2532,8 @@ function getPosterData(product) {
       ],
       sourcePdfPath: override.sourcePdfPath || "",
       showSourcePdfPath: !APP_CONFIG.fieldDisplayMode,
-      isCandidate: !isReviewed && showReviewStatus
+      isCandidate: false,
+      summaryBlocked: false
     };
   }
 
@@ -2310,13 +2544,13 @@ function getPosterData(product) {
     showReviewStrip: !hasProductSummary && showUnregisteredStatus,
     reviewBadge: hasProductSummary ? "" : "MSDS 원본 기준",
     reviewMessage: hasProductSummary ? "" : "정식 MSDS PDF를 확인하세요.",
-    hazardBadge: product.hazardBadge || "확인",
+    hazardBadge: cleanSignalWord(product.hazardBadge) || "원본 확인",
     ghsCodes: normalizeGhsCodeList(product.ghsCodes || product.ghsPictograms || []),
     ghsPictograms: normalizeGhsList(product),
     hazardStatements: product.hazardStatements || [],
     precautionaryStatements: product.precautionaryStatements || {},
     ppeCandidates: buildPpeDisplayItems([], product.ppeSummary),
-    ppeTitle: "PPE 및 보호구",
+    ppeTitle: "개인보호구(PPE)",
     hazardTitle: "유해 위험 문구",
     precautionTitle: "예방조치 문구",
     footerNotice: [
@@ -2325,8 +2559,26 @@ function getPosterData(product) {
     ],
     sourcePdfPath: "",
     showSourcePdfPath: false,
-    isCandidate: false
+    isCandidate: false,
+    summaryBlocked: false
   };
+}
+
+function isProductSummaryReviewed(product = {}) {
+  const override = product.pdfSummaryOverride;
+  if (override) return canUseOverride(override);
+  if (product.publication && typeof product.publication.approvedForDisplay === "boolean") {
+    return product.publication.approvedForDisplay;
+  }
+  return product.reviewStatus === "검토완료";
+}
+
+function cleanSignalWord(value) {
+  const normalized = normalizeSearchText(value);
+  if (normalized === "위험" || normalized === "danger") return "위험";
+  if (normalized === "경고" || normalized === "warning") return "경고";
+  if (["해당없음", "신호어없음", "notapplicable", "none"].includes(normalized)) return "해당없음";
+  return "";
 }
 
 function shouldShowReviewStatusOnFieldPoster() {
@@ -2339,6 +2591,10 @@ function shouldShowExtractionStatusInDetail() {
 
 function canUseOverride(override) {
   if (!override) return false;
+  if (typeof override.clientApprovedForDisplay === "boolean") return override.clientApprovedForDisplay;
+  if (override.publication && typeof override.publication.approvedForDisplay === "boolean") {
+    return override.publication.approvedForDisplay;
+  }
   return override.reviewStatus === "검토완료" || APP_CONFIG.allowCandidateOverrideDisplay;
 }
 
@@ -2386,7 +2642,7 @@ function hasAnySummary(ghsPictograms = [], hazardStatements = [], precautions = 
 function renderDetail(product) {
   if (!product) {
     elements.detailPanel.className = "detail-panel empty-detail";
-    elements.detailPanel.innerHTML = `<p>선택할 제품이 없습니다.</p>`;
+    elements.detailPanel.innerHTML = `<p>${state.dataLoadError ? escapeHtml(state.dataLoadError) : "제품을 선택하면 검토 상태와 원본 MSDS를 확인할 수 있습니다."}</p>`;
     return;
   }
 
@@ -2394,11 +2650,13 @@ function renderDetail(product) {
   syncPdfPreviewForProduct(pdfInfo);
   const override = product.pdfSummaryOverride;
   const detailData = getDetailData(product);
-  const workerCautions = buildWorkerCautionPoints(product, detailData);
+  const summaryReviewed = isProductSummaryReviewed(product);
+  const workerCautions = summaryReviewed ? buildWorkerCautionPoints(product, detailData) : { emptyMessage: "", sections: [] };
   const isFieldMode = APP_CONFIG.fieldDisplayMode;
   elements.detailPanel.className = `detail-panel ${isFieldMode ? "is-field-mode" : "is-review-mode"}`;
   elements.detailPanel.innerHTML = `
     ${renderBackToFullListButton()}
+    ${renderSelectedProductBar(product, detailData, pdfInfo, summaryReviewed)}
     ${detailSection("제품 기본정보", `
       <div class="info-grid detail-info-grid">
         ${detailItem("제품명", detailData.productName, "tag", "is-highlight")}
@@ -2414,6 +2672,8 @@ function renderDetail(product) {
       </div>
     `, "detail-block-basic")}
 
+    ${product.previousVersions?.length ? detailSection("개정 이력 · 이전본", renderRevisionHistory(product.previousVersions), "detail-block-history") : ""}
+
     ${!isFieldMode ? detailSection("핵심 위험 요약", `
       <div class="risk-summary-grid">
         ${summaryItem("주요 유해성 분류", detailData.hazardSummary, "danger")}
@@ -2425,36 +2685,37 @@ function renderDetail(product) {
 
     ${shouldRenderExtractionStatusSection(override) ? detailSection("MSDS 요약 확인 상태", renderOverrideDetail(override)) : ""}
 
-    ${detailSection("성분정보", `
+    ${summaryReviewed ? detailSection("성분정보", `
       <div class="component-table-wrap">
         <table class="component-table">
+          <caption>검토 완료된 구성성분 정보</caption>
           <thead>
             <tr>
-              <th>화학물질명</th>
-              <th>CAS No.</th>
-              <th>함유량(%)</th>
-              <th>관리대상</th>
-              <th>작업환경측정</th>
-              <th>특수건강진단</th>
+              <th scope="col">화학물질명</th>
+              <th scope="col">CAS No.</th>
+              <th scope="col">함유량(%)</th>
+              <th scope="col">관리대상</th>
+              <th scope="col">작업환경측정</th>
+              <th scope="col">특수건강진단</th>
             </tr>
           </thead>
           <tbody>
-            ${(product.components || []).map((component) => `
+            ${(product.components || []).length ? (product.components || []).map((component) => `
               <tr>
-                <td>${escapeHtml(component.chemicalName)}</td>
-                <td>${escapeHtml(component.casNo)}</td>
-                <td>${escapeHtml(component.content)}</td>
-                <td>${escapeHtml(component.controlledSubstance)}</td>
-                <td>${escapeHtml(component.workEnvironmentMeasurement)}</td>
-                <td>${escapeHtml(component.specialHealthExam)}</td>
+                <td>${escapeHtml(component.chemicalName || "미확인")}</td>
+                <td>${escapeHtml(component.casNo || "미확인")}</td>
+                <td>${escapeHtml(component.content || "미확인")}</td>
+                <td>${escapeHtml(component.controlledSubstance || "미확인")}</td>
+                <td>${escapeHtml(component.workEnvironmentMeasurement || "미확인")}</td>
+                <td>${escapeHtml(component.specialHealthExam || "미확인")}</td>
               </tr>
-            `).join("")}
+            `).join("") : `<tr><td colspan="6">검토 완료된 구성성분 정보가 없습니다. 원본 PDF를 확인하세요.</td></tr>`}
           </tbody>
         </table>
       </div>
-    `, "detail-block-components")}
+    `, "detail-block-components") : detailSection("성분정보", renderUnreviewedSummaryNotice(pdfInfo), "detail-block-components")}
 
-    ${detailSection("작업자 주의 포인트", `
+    ${summaryReviewed ? detailSection("작업자 주의 포인트", `
       ${renderWorkerCautionPoints(workerCautions)}
       ${!isFieldMode ? `
         ${detailData.signalWord ? `<p class="summary-note"><strong>신호어:</strong> ${escapeHtml(detailData.signalWord)}</p>` : ""}
@@ -2463,13 +2724,42 @@ function renderDetail(product) {
         ${renderDetailList(detailData.hazardStatements)}
         <h4 class="detail-subheading">예방조치 문구</h4>
         ${renderPrecautions(detailData.precautionaryStatements)}
-        ${detailData.ppeCandidates.length ? `<h4 class="detail-subheading">PPE 및 보호구</h4>${renderDetailList(detailData.ppeCandidates)}` : ""}
+        ${detailData.ppeCandidates.length ? `<h4 class="detail-subheading">개인보호구(PPE)</h4>${renderDetailList(detailData.ppeCandidates)}` : ""}
       ` : ""}
-    `, "detail-block-worker-caution")}
+    `, "detail-block-worker-caution") : detailSection("작업자 주의 포인트", renderUnreviewedSummaryNotice(pdfInfo), "detail-block-worker-caution")}
 
     ${detailSection("MSDS 원본자료 필수 확인", `
       ${renderPdfPreview(pdfInfo)}
     `, "detail-block-pdf")}
+  `;
+}
+
+function renderSelectedProductBar(product, detailData, pdfInfo, summaryReviewed) {
+  const reviewMeta = getProductReviewMeta(product);
+  const phone = String(product.emergencyContact || "").match(/(?:\+?82[-\s]?)?0\d{1,2}[-\s]\d{3,4}[-\s]\d{4}/)?.[0] || "";
+  const telHref = phone ? phone.replace(/[^+\d]/g, "") : "";
+  return `
+    <section class="selected-product-bar ${summaryReviewed ? "is-reviewed" : "is-review-needed"}" aria-label="선택 제품 핵심정보">
+      <div class="selected-product-bar-main">
+        <span class="selection-review-badge ${reviewMeta.className}">${escapeHtml(reviewMeta.label)}</span>
+        <strong>${escapeHtml(detailData.productName)}</strong>
+        <span>${escapeHtml(getProductIdentityLine(product))}</span>
+      </div>
+      <div class="selected-product-bar-actions">
+        ${telHref ? `<a class="emergency-call-link" href="tel:${escapeAttribute(telHref)}">긴급전화</a>` : ""}
+        ${renderOriginalPdfLinks(pdfInfo, "compact")}
+      </div>
+    </section>
+  `;
+}
+
+function renderUnreviewedSummaryNotice(pdfInfo) {
+  return `
+    <div class="unreviewed-summary-notice" role="note">
+      <strong>담당자 원문 검토 전입니다.</strong>
+      <p>자동 추출 후보는 오분류 가능성이 있어 현장 요약정보로 표시하지 않습니다.</p>
+      <span>선택 제품 상단의 원본 PDF 열기를 이용하세요.</span>
+    </div>
   `;
 }
 
@@ -2479,6 +2769,24 @@ function renderBackToFullListButton() {
     <button class="detail-return-button" type="button" data-return-full-list>
       목록으로 돌아가기
     </button>
+  `;
+}
+
+function renderRevisionHistory(versions = []) {
+  return `
+    <div class="revision-history-notice">이전본은 이력 확인용입니다. 현장 작업에는 위에 표시된 최신본을 사용하세요.</div>
+    <ul class="revision-history-list">
+      ${versions.map((version) => {
+        const displayPath = normalizePdfDisplayPath(version.pdfPath || version.fileName);
+        const encodedPath = /^https?:\/\//i.test(displayPath) ? displayPath : encodePdfPath(displayPath);
+        return `
+          <li>
+            <span><strong>${escapeHtml(version.revisionDate || "개정일 미확인")}</strong> · ${escapeHtml(version.fileName || "이전 MSDS")}</span>
+            ${encodedPath ? `<a href="${escapeAttribute(encodedPath)}" target="_blank" rel="noopener">이전본 열기</a>` : ""}
+          </li>
+        `;
+      }).join("")}
+    </ul>
   `;
 }
 
@@ -2497,17 +2805,19 @@ function getDetailData(product) {
   const overrideRevisionDate = cleanPdfRevisionDate(override?.revisionDateCandidate);
   const detailSupplier = getDisplaySupplierName({
     ...product,
-    supplier: displayValue(overrideSupplier, product.supplier)
+    supplier: displayValue(product.supplier, overrideSupplier)
   });
+  const verifiedRevisionDate = cleanPdfRevisionDate(product.revisionDate);
+  const displayRevisionDate = verifiedRevisionDate || overrideRevisionDate;
 
   return {
     overrideApplied,
-    productName: displayValue(overrideProductName, product.productName),
+    productName: displayValue(product.productName, overrideProductName),
     supplier: detailSupplier,
-    msdsNo: displayValue(override?.msdsNoCandidate, product.msdsNo),
-    revisionDate: displayValue(overrideRevisionDate, product.revisionDate),
-    dateSummary: buildDateSummary(product.issueDate || product.preparationDate, displayValue(overrideRevisionDate, product.revisionDate)),
-    signalWord: override?.signalWordCandidate || "",
+    msdsNo: displayValue(product.msdsNo, override?.msdsNoCandidate),
+    revisionDate: displayRevisionDate || "정보 없음",
+    dateSummary: buildDateSummary(product.issueDate || product.preparationDate, displayRevisionDate),
+    signalWord: cleanSignalWord(override?.signalWordCandidate),
     hazardSummary: displayValue(summarizeItems(hazardStatements, 2, " / "), product.hazardSummary),
     ppeSummary: displayValue(summarizeItems(ppeCandidates, 3, ", "), product.ppeSummary),
     ghsPictograms: getDisplayGhsPictograms(product),
@@ -2604,15 +2914,18 @@ function renderWorkerCautionPoints(cautionData) {
   const sectionMap = new Map((cautionData.sections || []).map((section) => [section.key, section]));
   const cards = getWorkerCautionCards().map((card) => ({
     ...card,
-    items: (sectionMap.get(card.key)?.items || card.defaultItems).slice(0, 5)
-  }));
+    items: (sectionMap.get(card.key)?.items || []).slice(0, 5)
+  })).filter((card) => card.items.length);
+  if (!cards.length) {
+    return `<div class="unreviewed-summary-notice"><strong>자동 생성된 작업자 주의 포인트가 없습니다.</strong><p>${escapeHtml(cautionData.emptyMessage || "작업 전 원본 MSDS를 확인하세요.")}</p></div>`;
+  }
   return `
     <div class="worker-caution-premium">
       <header class="worker-caution-header">
         <span class="worker-caution-header-icon" aria-hidden="true">${workerCautionIconSvg("shield")}</span>
         <div>
           <h4>작업자 주의 포인트</h4>
-          <p>안전한 작업을 위한 필수 유의사항입니다.</p>
+          <p>검토완료 MSDS 내용에서 확인된 키워드 기반 참고사항입니다.</p>
         </div>
       </header>
       <div class="worker-caution-card-grid">
@@ -2633,7 +2946,7 @@ function renderWorkerCautionPoints(cautionData) {
         <span class="worker-caution-banner-icon" aria-hidden="true">${workerCautionIconSvg("info")}</span>
         <p>
           <strong>MSDS와 성분정보 기준의 현장 참고 안내입니다.</strong>
-          <span>자세한 사항은 MSDS 본문 및 관련 법규를 반드시 확인하세요.</span>
+          <span>제품별 공식 지시를 대체하지 않으므로 MSDS 원문과 관련 법규를 반드시 확인하세요.</span>
         </p>
         <span class="worker-caution-banner-art" aria-hidden="true">${workerCautionIconSvg("clipboard")}</span>
       </div>
@@ -2740,10 +3053,14 @@ function renderOverrideDetail(override) {
     return `<p class="summary-note">MSDS 요약 정보가 아직 연결되지 않았습니다.</p>`;
   }
 
+  const approved = canUseOverride(override);
+  const reviewLabel = approved
+    ? "검토완료 · 표시 승인"
+    : (override.reviewStatus === "검토완료" ? "담당자 검토완료 · 자동검증 오류" : (override.reviewStatus || "검토필요"));
   return `
-    <div class="override-status-box ${override.reviewStatus === "검토완료" ? "is-reviewed" : "is-review-needed"}">
-      ${detailItem("MSDS 요약 확인 상태", override.extractStatus || "미확인")}
-      ${detailItem("검토 상태", override.reviewStatus || "검토필요")}
+    <div class="override-status-box ${approved ? "is-reviewed" : "is-review-needed"}">
+      ${detailItem("자동 추출 상태", getExtractionStatusLabel(override.extractStatus, approved))}
+      ${detailItem("검토 상태", reviewLabel)}
       ${detailItem("PDF 출처", override.sourcePdfPath || "")}
       ${detailItem("후보 항목", `GHS ${getOverrideGhsItems(override).length}건 / 유해문구 ${override.hazardStatements.length}건 / 구성성분 후보 ${override.ingredients.length}건`)}
     </div>
@@ -2775,7 +3092,7 @@ function buildPdfInfo(product) {
   return {
     status: "connected",
     displayPath,
-    encodedPath: encodePdfPath(displayPath),
+    encodedPath: /^https?:\/\//i.test(displayPath) ? displayPath : encodePdfPath(displayPath),
     title: product.productName || fileName || displayPath
   };
 }
@@ -2816,6 +3133,26 @@ function pdfPanelIconSvg(type) {
   return icons[type] || icons.document;
 }
 
+function renderOriginalPdfLinks(pdfInfo, variant = "default") {
+  if (!pdfInfo || pdfInfo.status !== "connected" || !pdfInfo.encodedPath) return "";
+  return `
+    <span class="original-pdf-links is-${escapeAttribute(variant)}">
+      <a class="original-pdf-link" href="${escapeAttribute(pdfInfo.encodedPath)}" target="_blank" rel="noopener">원본 PDF 열기</a>
+      <a class="original-pdf-link is-download" href="${escapeAttribute(pdfInfo.encodedPath)}" download>PDF 다운로드</a>
+    </span>
+  `;
+}
+
+function getExtractionStatusLabel(status, approved = false) {
+  const labels = {
+    candidate_extracted: "자동 추출 완료 · 담당자 검토 전",
+    scanned_pdf_or_image_pdf: "스캔 PDF · 원문 직접 확인 필요",
+    extracted: "자동 추출 완료",
+    failed: "자동 추출 실패"
+  };
+  return labels[String(status || "").trim()] || status || (approved ? "자동검증 통과" : "자동추출 후보 비공개");
+}
+
 function renderPdfPreview(pdfInfo) {
   if (pdfInfo.status === "no-file-name") {
     return `
@@ -2834,7 +3171,7 @@ function renderPdfPreview(pdfInfo) {
         <span class="info-label">예상 경로</span>
         <span class="info-value">${escapeHtml(pdfInfo.displayPath)}</span>
       </div>
-      <div class="pdf-frame-placeholder">PDF 원본을 pdf 폴더에 추가하면 자동 연결됩니다.</div>
+      <div class="pdf-frame-placeholder">담당부서에 원본 PDF 등록을 요청하세요.</div>
     </div>
     `;
   }
@@ -2853,8 +3190,9 @@ function renderPdfPreview(pdfInfo) {
         ${renderPdfPreviewBody(pdfInfo)}
       </div>
       <div class="pdf-actions">
+        ${renderOriginalPdfLinks(pdfInfo)}
         <button class="pdf-preview-button" type="button" data-preview-pdf data-pdf-title="${escapeAttribute(pdfInfo.title)}" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}"><span class="pdf-button-icon">${pdfPanelIconSvg("eye")}</span>PDF 미리보기</button>
-        <button class="pdf-preview-button is-secondary" type="button" data-pdf-full-view data-pdf-title="${escapeAttribute(pdfInfo.title)}" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}"><span class="pdf-button-icon">${pdfPanelIconSvg("expand")}</span>원본자료 전체보기</button>
+        <button class="pdf-preview-button is-secondary" type="button" data-pdf-full-view data-pdf-title="${escapeAttribute(pdfInfo.title)}" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}"><span class="pdf-button-icon">${pdfPanelIconSvg("expand")}</span>전체화면 미리보기</button>
       </div>
       ${state.pdfFullView.isOpen && state.pdfFullView.path === pdfInfo.encodedPath ? renderPdfFullView(pdfInfo) : ""}
     </div>
@@ -2863,18 +3201,16 @@ function renderPdfPreview(pdfInfo) {
 
 function renderPdfFullView(pdfInfo) {
   return `
-    <div class="pdf-full-view" role="dialog" aria-modal="true" aria-label="MSDS 원본자료 전체보기">
+    <div class="pdf-full-view" role="dialog" aria-modal="true" aria-label="MSDS 전체화면 미리보기">
       <div class="pdf-full-view-panel">
         <div class="pdf-full-view-header">
           <div>
-            <strong>MSDS 원본자료 전체보기</strong>
+            <strong>MSDS 전체화면 미리보기</strong>
             <span>${escapeHtml(pdfInfo.title || "MSDS 원본자료")}</span>
           </div>
           <button class="pdf-full-view-close" type="button" data-close-pdf-full-view>닫기</button>
         </div>
-        <div class="pdf-js-preview is-full-view" data-pdfjs-preview-mount data-pdf-viewer-mode="full" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}" data-pdf-title="${escapeAttribute(pdfInfo.title)}">
-          <div class="pdf-frame-placeholder">PDF.js 미리보기를 준비하고 있습니다.</div>
-        </div>
+        <iframe class="pdf-native-frame is-full-view" src="${escapeAttribute(pdfInfo.encodedPath)}#view=FitH" title="${escapeAttribute(pdfInfo.title)} 전체화면 미리보기"></iframe>
       </div>
     </div>
   `;
@@ -2894,17 +3230,13 @@ function renderPdfPreviewBody(pdfInfo) {
   if (state.pdfPreview.status === "error") {
     return `
       <div class="pdf-frame-placeholder is-error">
-        <p>PDF 미리보기를 불러오지 못했습니다. 관리자에게 문의해주세요.</p>
+        <p>PDF 미리보기를 불러오지 못했습니다. 위의 원본 PDF 열기를 이용하세요.</p>
         ${state.pdfPreview.error ? `<p class="pdf-error-text">${escapeHtml(state.pdfPreview.error)}</p>` : ""}
       </div>
     `;
   }
 
-  return `
-    <div class="pdf-js-preview" data-pdfjs-preview-mount data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}" data-pdf-title="${escapeAttribute(pdfInfo.title)}">
-      <div class="pdf-frame-placeholder">PDF.js 미리보기를 준비하고 있습니다.</div>
-    </div>
-  `;
+  return `<iframe class="pdf-native-frame" src="${escapeAttribute(pdfInfo.encodedPath)}#view=FitH" title="${escapeAttribute(pdfInfo.title)} 미리보기"></iframe>`;
 }
 
 function syncPdfPreviewForProduct(pdfInfo) {
@@ -2937,10 +3269,7 @@ function startPdfPreview(title, path) {
 
 function startPdfFullView(title, path) {
   if (!path) return;
-  const previewMount = document.querySelector('.pdf-preview [data-pdfjs-preview-mount]:not([data-pdf-viewer-mode="full"])');
-  const position = state.pdfPreview.path === path
-    ? capturePdfScrollPosition(previewMount, state.pdfPreview)
-    : { page: 1, offsetRatio: 0 };
+  const position = { page: 1, offsetRatio: 0 };
   state.pdfFullView = createPdfViewerState({
     isOpen: true,
     path,
@@ -2950,12 +3279,15 @@ function startPdfFullView(title, path) {
     restoreOffsetRatio: position.offsetRatio || 0
   });
   render();
+  window.requestAnimationFrame(() => document.querySelector(".pdf-full-view-close")?.focus());
 }
 
 function closePdfFullView() {
   state.pdfFullView = createPdfViewerState();
   render();
-  document.querySelector(".pdf-preview.is-connected")?.scrollIntoView({ behavior: "auto", block: "start" });
+  if (lastPdfFullViewTrigger?.isConnected) lastPdfFullViewTrigger.focus();
+  else document.querySelector("[data-pdf-full-view]")?.focus();
+  lastPdfFullViewTrigger = null;
 }
 
 function resetPdfPreviewState() {
@@ -3133,8 +3465,8 @@ async function handlePdfViewerAction(action, mount = null) {
     if (action === "prev-page") nextPage = Math.max(1, position.page - 1);
     if (action === "next-page") nextPage = Math.min(preview.totalPages || 1, position.page + 1);
     if (action === "last-page") nextPage = preview.totalPages || 1;
-    scrollPdfPageIntoView(mount, nextPage, 0);
-    updatePdfViewerControls(mount);
+    preview.currentPage = nextPage;
+    await renderAllPdfPages(mount, { page: nextPage, offsetRatio: 0 });
     return;
   }
 
@@ -3174,23 +3506,21 @@ async function renderAllPdfPages(mount, restorePosition = null) {
   mount.classList.add("is-rendering");
   updatePdfViewerControls(mount);
   if (!hasRenderedContent) {
-    stage.innerHTML = `<div class="pdf-frame-placeholder">PDF 전체 미리보기를 불러오는 중입니다...</div>`;
+    stage.innerHTML = `<div class="pdf-frame-placeholder">PDF 현재 페이지를 불러오는 중입니다...</div>`;
   }
 
   try {
     const nextStage = document.createElement("div");
     nextStage.className = "pdf-js-page-stage";
-    for (let pageNumber = 1; pageNumber <= preview.totalPages; pageNumber += 1) {
-      if (renderToken !== preview.renderToken) return;
-      await renderPdfPageIntoStage(nextStage, pageNumber, renderToken, mount);
-      preview.renderedPages = pageNumber;
-      updatePdfViewerControls(mount);
-      if (!hasRenderedContent) await nextFrame();
-    }
+    const pageNumber = Math.min(preview.totalPages || 1, Math.max(1, Number(pendingRestore?.page || preview.currentPage || 1)));
+    await renderPdfPageIntoStage(nextStage, pageNumber, renderToken, mount);
+    if (renderToken !== preview.renderToken) return;
+    preview.renderedPages = 1;
+    preview.currentPage = pageNumber;
     stage.replaceChildren(...Array.from(nextStage.childNodes));
     preview.status = "rendered";
     if (pendingRestore) {
-      scrollPdfPageIntoView(mount, pendingRestore.page, pendingRestore.offsetRatio);
+      scrollPdfPageIntoView(mount, pageNumber, pendingRestore.offsetRatio);
       preview.restorePage = null;
       preview.restoreOffsetRatio = 0;
     }
@@ -3206,7 +3536,7 @@ async function renderAllPdfPages(mount, restorePosition = null) {
     stage.innerHTML = `
       <div class="pdf-frame-placeholder is-error">
         <p>PDF 미리보기를 불러오지 못했습니다.</p>
-        <p class="pdf-error-text">관리자에게 문의해주세요.</p>
+        <p class="pdf-error-text">원본 PDF 열기 버튼을 이용하거나 담당부서에 문의하세요.</p>
       </div>
     `;
     updatePdfViewerControls(mount);
@@ -3224,7 +3554,7 @@ async function renderPdfPageIntoStage(stage, pageNumber, renderToken, mountOverr
   const fitRatio = Number(preview.fitRatio || 1);
   const scale = preview.fitToWidth ? (availableWidth * fitRatio) / baseViewport.width : preview.scale;
   const viewport = page.getViewport({ scale });
-  const pixelRatio = window.devicePixelRatio || 1;
+  const pixelRatio = Math.min(2, window.devicePixelRatio || 1);
   const canvas = document.createElement("canvas");
   const pageWrap = document.createElement("section");
   const pageLabel = document.createElement("div");
