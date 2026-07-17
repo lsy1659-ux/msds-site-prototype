@@ -9,6 +9,8 @@ const APP_CONFIG = {
   sampleOverridesUrl: "data/msds-overrides.sample.json",
   localInventoryUrl: "data/pdf-inventory.local.json",
   sampleInventoryUrl: "data/pdf-inventory.sample.json",
+  pdfJsModuleUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.mjs",
+  pdfJsWorkerUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.mjs",
   releaseManifestUrl: "data/release-manifest.json",
   minSearchCharacters: 2,
   initialResultLimit: 8,
@@ -621,16 +623,9 @@ function bindEvents() {
       return;
     }
 
-    const fullViewButton = event.target.closest("[data-pdf-full-view]");
-    if (fullViewButton) {
-      lastPdfFullViewTrigger = fullViewButton;
-      startPdfFullView(fullViewButton.dataset.pdfTitle, fullViewButton.dataset.pdfPath);
-      return;
-    }
-
     const previewButton = event.target.closest("[data-preview-pdf]");
     if (previewButton) {
-      startPdfPreview(previewButton.dataset.pdfTitle, previewButton.dataset.pdfPath);
+      openPdfPreview(previewButton);
       return;
     }
 
@@ -2137,6 +2132,7 @@ function render() {
   elements.scrollQuickNav?.classList.toggle("is-hidden", !shouldShowQuickNav);
   scheduleScrollProgressUpdate();
   document.body.classList.toggle("is-pdf-full-view-open", state.pdfFullView.isOpen);
+  hydrateRequestedPdfPreview();
 }
 
 function updateReleaseMetaDisplay() {
@@ -2234,10 +2230,7 @@ function renderSelectionList(results, hasQuery, canShowCandidates) {
           <span class="selection-name text-break clamp-2">${escapeHtml(product.productName)}</span>
           <span class="selection-meta text-muted-path clamp-2">${escapeHtml(metaTextFor(product))}</span>
           <span class="selection-identity clamp-2">${escapeHtml(getProductIdentityLine(product))}</span>
-          <span class="selection-status-row">
-            <span class="selection-review-badge ${getProductReviewMeta(product).className}">${escapeHtml(getProductReviewMeta(product).label)}</span>
-            ${product.previousVersions?.length ? `<span class="selection-version-badge">이전본 ${product.previousVersions.length}건</span>` : ""}
-          </span>
+          ${renderProductStatusRow(product)}
           <span class="selection-card-footer">
             ${product.__searchReason ? `<span class="selection-match-reason">${escapeHtml(product.__searchReason)}</span>` : ""}
             <span class="selection-action-chip">MSDS 보기</span>
@@ -2308,6 +2301,21 @@ function getProductIdentityLine(product = {}) {
 function getProductReviewMeta(product = {}) {
   if (hasProductAutomaticSummary(product)) return { label: "자동 추출 요약", className: "is-reviewed" };
   return { label: "PDF 원문 확인", className: "is-review-needed" };
+}
+
+function renderProductReviewBadge(product = {}) {
+  const reviewMeta = getProductReviewMeta(product);
+  if (reviewMeta.className === "is-reviewed") return "";
+  return `<span class="selection-review-badge ${reviewMeta.className}">${escapeHtml(reviewMeta.label)}</span>`;
+}
+
+function renderProductStatusRow(product = {}) {
+  const reviewBadge = renderProductReviewBadge(product);
+  const versionBadge = product.previousVersions?.length
+    ? `<span class="selection-version-badge">이전본 ${product.previousVersions.length}건</span>`
+    : "";
+  if (!reviewBadge && !versionBadge) return "";
+  return `<span class="selection-status-row">${reviewBadge}${versionBadge}</span>`;
 }
 
 function renderFullProductList() {
@@ -2391,7 +2399,6 @@ function renderFullProductItem(product, index) {
     casText !== "CAS No. 미확인" ? casText : ""
   ].filter(Boolean).join(" · ") || (isPdfBased ? "MSDS 원본 기준" : "용도 미확인");
 
-  const reviewMeta = getProductReviewMeta(product);
   return `
     <button class="full-product-item ${isPdfBased ? "is-pdf-based" : ""} ${product.id === state.selectedId ? "is-selected" : ""}" type="button" data-product-id="${escapeAttribute(product.id)}" aria-pressed="${product.id === state.selectedId ? "true" : "false"}">
       ${product.id === state.selectedId ? `<span class="full-product-check" aria-hidden="true">✓</span>` : ""}
@@ -2403,7 +2410,7 @@ function renderFullProductItem(product, index) {
       <span class="full-product-tags">
         <span class="full-risk-badge">${escapeHtml(product.hazardBadge || "확인")}</span>
         <span class="full-pdf-badge ${pdfInfo.status === "connected" ? "is-connected" : ""}">${pdfLabel}</span>
-        <span class="selection-review-badge ${reviewMeta.className}">${escapeHtml(reviewMeta.label)}</span>
+        ${renderProductReviewBadge(product)}
       </span>
       <span class="full-detail-button" data-view-detail data-product-id="${escapeAttribute(product.id)}">MSDS 보기</span>
     </button>
@@ -2449,7 +2456,7 @@ function renderPoster(product) {
       <section class="poster-summary-blocked" role="alert">
         <strong>자동 추출 요약 없음</strong>
         <p>이 제품은 자동 추출 요약이 충분하지 않습니다. 작업 전 MSDS PDF 원문을 확인하세요.</p>
-        ${renderOriginalPdfLinks(pdfInfo, "poster")}
+        ${renderPdfPreviewButton(pdfInfo, "poster")}
       </section>
     ` : `
       ${posterSection(posterData.hazardTitle, renderSafetyStatementList(posterData.hazardStatements, "H", false), "poster-hazard-statements")}
@@ -2716,19 +2723,18 @@ function renderDetail(product) {
 }
 
 function renderSelectedProductBar(product, detailData, pdfInfo, summaryAvailable) {
-  const reviewMeta = getProductReviewMeta(product);
   const phone = String(product.emergencyContact || "").match(/(?:\+?82[-\s]?)?0\d{1,2}[-\s]\d{3,4}[-\s]\d{4}/)?.[0] || "";
   const telHref = phone ? phone.replace(/[^+\d]/g, "") : "";
   return `
     <section class="selected-product-bar ${summaryAvailable ? "is-reviewed" : "is-review-needed"}" aria-label="선택 제품 핵심정보">
       <div class="selected-product-bar-main">
-        <span class="selection-review-badge ${reviewMeta.className}">${escapeHtml(reviewMeta.label)}</span>
+        ${renderProductReviewBadge(product)}
         <strong>${escapeHtml(detailData.productName)}</strong>
         <span>${escapeHtml(getProductIdentityLine(product))}</span>
       </div>
       <div class="selected-product-bar-actions">
         ${telHref ? `<a class="emergency-call-link" href="tel:${escapeAttribute(telHref)}">긴급전화</a>` : ""}
-        ${renderOriginalPdfLinks(pdfInfo, "compact")}
+        ${renderPdfPreviewButton(pdfInfo, "compact")}
       </div>
     </section>
   `;
@@ -2739,7 +2745,7 @@ function renderPdfOnlySummaryNotice(pdfInfo) {
     <div class="unreviewed-summary-notice" role="note">
       <strong>자동 추출 요약이 없습니다.</strong>
       <p>이 제품의 안전정보는 MSDS PDF 원문을 기준으로 확인하세요.</p>
-      <span>선택 제품 상단의 원본 PDF 열기를 이용하세요.</span>
+      <span>선택 제품 상단의 MSDS 미리보기를 이용하세요.</span>
     </div>
   `;
 }
@@ -2759,11 +2765,10 @@ function renderRevisionHistory(versions = []) {
     <ul class="revision-history-list">
       ${versions.map((version) => {
         const displayPath = normalizePdfDisplayPath(version.pdfPath || version.fileName);
-        const encodedPath = /^https?:\/\//i.test(displayPath) ? displayPath : encodePdfPath(displayPath);
         return `
           <li>
             <span><strong>${escapeHtml(version.revisionDate || "개정일 미확인")}</strong> · ${escapeHtml(version.fileName || "이전 MSDS")}</span>
-            ${encodedPath ? `<a href="${escapeAttribute(encodedPath)}" target="_blank" rel="noopener">이전본 열기</a>` : ""}
+            ${displayPath ? `<span class="revision-history-reference">이전본 참고</span>` : ""}
           </li>
         `;
       }).join("")}
@@ -3112,14 +3117,9 @@ function pdfPanelIconSvg(type) {
   return icons[type] || icons.document;
 }
 
-function renderOriginalPdfLinks(pdfInfo, variant = "default") {
+function renderPdfPreviewButton(pdfInfo, variant = "default") {
   if (!pdfInfo || pdfInfo.status !== "connected" || !pdfInfo.encodedPath) return "";
-  return `
-    <span class="original-pdf-links is-${escapeAttribute(variant)}">
-      <a class="original-pdf-link" href="${escapeAttribute(pdfInfo.encodedPath)}" target="_blank" rel="noopener">원본 PDF 열기</a>
-      <a class="original-pdf-link is-download" href="${escapeAttribute(pdfInfo.encodedPath)}" download>PDF 다운로드</a>
-    </span>
-  `;
+  return `<button class="pdf-preview-button is-${escapeAttribute(variant)}" type="button" data-preview-pdf data-pdf-title="${escapeAttribute(pdfInfo.title)}" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}"><span class="pdf-button-icon">${pdfPanelIconSvg("eye")}</span>MSDS 미리보기</button>`;
 }
 
 function getExtractionStatusLabel(status, approved = false) {
@@ -3169,9 +3169,7 @@ function renderPdfPreview(pdfInfo) {
         ${renderPdfPreviewBody(pdfInfo)}
       </div>
       <div class="pdf-actions">
-        ${renderOriginalPdfLinks(pdfInfo)}
-        <button class="pdf-preview-button" type="button" data-preview-pdf data-pdf-title="${escapeAttribute(pdfInfo.title)}" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}"><span class="pdf-button-icon">${pdfPanelIconSvg("eye")}</span>PDF 미리보기</button>
-        <button class="pdf-preview-button is-secondary" type="button" data-pdf-full-view data-pdf-title="${escapeAttribute(pdfInfo.title)}" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}"><span class="pdf-button-icon">${pdfPanelIconSvg("expand")}</span>전체화면 미리보기</button>
+        ${renderPdfPreviewButton(pdfInfo)}
       </div>
       ${state.pdfFullView.isOpen && state.pdfFullView.path === pdfInfo.encodedPath ? renderPdfFullView(pdfInfo) : ""}
     </div>
@@ -3189,7 +3187,9 @@ function renderPdfFullView(pdfInfo) {
           </div>
           <button class="pdf-full-view-close" type="button" data-close-pdf-full-view>닫기</button>
         </div>
-        <iframe class="pdf-native-frame is-full-view" src="${escapeAttribute(pdfInfo.encodedPath)}#view=FitH" title="${escapeAttribute(pdfInfo.title)} 전체화면 미리보기"></iframe>
+        <div class="pdf-js-preview is-full-view" data-pdfjs-preview-mount data-pdf-viewer-mode="full" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}" data-pdf-title="${escapeAttribute(pdfInfo.title)}">
+          <div class="pdf-frame-placeholder">MSDS 미리보기를 불러오는 중입니다.</div>
+        </div>
       </div>
     </div>
   `;
@@ -3209,13 +3209,17 @@ function renderPdfPreviewBody(pdfInfo) {
   if (state.pdfPreview.status === "error") {
     return `
       <div class="pdf-frame-placeholder is-error">
-        <p>PDF 미리보기를 불러오지 못했습니다. 위의 원본 PDF 열기를 이용하세요.</p>
+        <p>MSDS 미리보기를 불러오지 못했습니다. 다시 시도하거나 담당부서에 문의하세요.</p>
         ${state.pdfPreview.error ? `<p class="pdf-error-text">${escapeHtml(state.pdfPreview.error)}</p>` : ""}
       </div>
     `;
   }
 
-  return `<iframe class="pdf-native-frame" src="${escapeAttribute(pdfInfo.encodedPath)}#view=FitH" title="${escapeAttribute(pdfInfo.title)} 미리보기"></iframe>`;
+  return `
+    <div class="pdf-js-preview" data-pdfjs-preview-mount data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}" data-pdf-title="${escapeAttribute(pdfInfo.title)}">
+      <div class="pdf-frame-placeholder">MSDS 미리보기를 불러오는 중입니다.</div>
+    </div>
+  `;
 }
 
 function syncPdfPreviewForProduct(pdfInfo) {
@@ -3246,9 +3250,27 @@ function startPdfPreview(title, path) {
   render();
 }
 
+function openPdfPreview(previewButton) {
+  const title = previewButton?.dataset?.pdfTitle || "MSDS 미리보기";
+  const path = previewButton?.dataset?.pdfPath || "";
+  if (!path) return;
+  if (window.matchMedia("(max-width: 767px)").matches) {
+    lastPdfFullViewTrigger = previewButton;
+    startPdfFullView(title, path);
+    return;
+  }
+  startPdfPreview(title, path);
+  window.requestAnimationFrame(() => {
+    document.querySelector(".detail-block-pdf .pdf-viewer-shell")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+}
+
 function startPdfFullView(title, path) {
   if (!path) return;
-  const position = { page: 1, offsetRatio: 0 };
+  const previewMount = document.querySelector('.pdf-preview [data-pdfjs-preview-mount]:not([data-pdf-viewer-mode="full"])');
+  const position = state.pdfPreview.path === path
+    ? capturePdfScrollPosition(previewMount, state.pdfPreview)
+    : { page: 1, offsetRatio: 0 };
   state.pdfFullView = createPdfViewerState({
     isOpen: true,
     path,
@@ -3265,7 +3287,7 @@ function closePdfFullView() {
   state.pdfFullView = createPdfViewerState();
   render();
   if (lastPdfFullViewTrigger?.isConnected) lastPdfFullViewTrigger.focus();
-  else document.querySelector("[data-pdf-full-view]")?.focus();
+  else document.querySelector("[data-preview-pdf]")?.focus();
   lastPdfFullViewTrigger = null;
 }
 
@@ -3327,7 +3349,7 @@ async function preparePdfJsPreview(mount, path, title) {
   const viewer = getPdfViewerStateForMount(mount);
   viewer.status = "rendering";
   mount.dataset.previewStarted = "true";
-  mount.innerHTML = `<div class="pdf-frame-placeholder">PDF.js 미리보기를 불러오는 중입니다.</div>`;
+  mount.innerHTML = `<div class="pdf-frame-placeholder">MSDS 미리보기를 불러오는 중입니다.</div>`;
 
   try {
     if (viewer.document && viewer.path === path) {
@@ -3348,11 +3370,11 @@ async function preparePdfJsPreview(mount, path, title) {
     await renderAllPdfPages(mount);
   } catch (error) {
     viewer.status = "error";
-    viewer.error = "PDF.js 미리보기 로딩에 실패했습니다.";
+    viewer.error = "MSDS 미리보기 로딩에 실패했습니다.";
     mount.innerHTML = `
       <div class="pdf-frame-placeholder is-error">
-        <p>PDF 미리보기를 불러오지 못했습니다. 관리자에게 문의해주세요.</p>
-        <p class="pdf-error-text">PDF.js 미리보기 로딩에 실패했습니다.</p>
+        <p>MSDS 미리보기를 불러오지 못했습니다. 다시 시도하거나 담당부서에 문의하세요.</p>
+        <p class="pdf-error-text">MSDS 미리보기 로딩에 실패했습니다.</p>
       </div>
     `;
   }
@@ -3514,8 +3536,8 @@ async function renderAllPdfPages(mount, restorePosition = null) {
     preview.error = "PDF 페이지 렌더링에 실패했습니다.";
     stage.innerHTML = `
       <div class="pdf-frame-placeholder is-error">
-        <p>PDF 미리보기를 불러오지 못했습니다.</p>
-        <p class="pdf-error-text">원본 PDF 열기 버튼을 이용하거나 담당부서에 문의하세요.</p>
+        <p>MSDS 미리보기를 불러오지 못했습니다.</p>
+        <p class="pdf-error-text">다시 시도하거나 담당부서에 문의하세요.</p>
       </div>
     `;
     updatePdfViewerControls(mount);

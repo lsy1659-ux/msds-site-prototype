@@ -7437,56 +7437,14 @@ body {
   line-height: 1.6;
 }
 
-.original-pdf-links {
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
-}
-
-.pdf-native-frame {
-  display: block;
-  width: 100%;
-  min-height: 68vh;
-  border: 0;
-  background: #eef3f1;
-}
-
-.pdf-native-frame.is-full-view {
-  min-width: 0;
-  min-height: 0;
-  height: 100%;
-}
-
-.original-pdf-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  padding: 10px 15px;
-  border: 2px solid #006c59;
-  border-radius: 12px;
-  background: #006c59;
-  color: #ffffff;
-  font-size: 0.88rem;
-  font-weight: 900;
-  line-height: 1.2;
-  text-decoration: none;
-}
-
-.original-pdf-link.is-download {
-  background: #ffffff;
-  color: #005947;
-}
-
-.original-pdf-link:hover {
-  filter: brightness(0.94);
-}
-
-.original-pdf-links.is-compact .original-pdf-link {
+.pdf-preview-button.is-compact {
   min-height: 40px;
   padding: 8px 12px;
   font-size: 0.8rem;
+}
+
+.pdf-preview-button.is-poster {
+  width: fit-content;
 }
 
 .selected-product-bar {
@@ -7597,20 +7555,25 @@ button.full-product-item {
   font-weight: 900;
 }
 
+.revision-history-reference {
+  flex: 0 0 auto;
+  color: #60736d;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
 @media (max-width: 767px) {
   .selected-product-bar {
     grid-template-columns: 1fr;
     padding: 14px;
   }
 
-  .selected-product-bar-actions,
-  .selected-product-bar-actions .original-pdf-links {
+  .selected-product-bar-actions {
     width: 100%;
     justify-content: stretch;
   }
 
-  .selected-product-bar-actions > *,
-  .selected-product-bar-actions .original-pdf-link {
+  .selected-product-bar-actions > * {
     flex: 1 1 120px;
   }
 
@@ -7619,13 +7582,8 @@ button.full-product-item {
     padding: 16px;
   }
 
-  .poster-summary-blocked .original-pdf-links,
-  .poster-summary-blocked .original-pdf-link {
+  .poster-summary-blocked .pdf-preview-button {
     width: 100%;
-  }
-
-  .pdf-native-frame {
-    min-height: 58vh;
   }
 
   .revision-history-list li {
