@@ -23,14 +23,13 @@ DEFAULT_PRODUCTS = Path("data/msds.public.json")
 DEFAULT_OVERRIDES = Path("data/msds-overrides.public.json")
 DEFAULT_APP = Path("js/app.js")
 
-REVIEW_COMPLETE = "검토완료"
 VALID_SIGNAL_WORDS = {"", "위험", "경고", "해당없음"}
 KNOWN_NON_PRODUCT_PDFS = {"pdf/0. 캠스 msds qr 코드.pdf"}
 
-# These values must not be present in an identity-only public record.  They are
-# safety summaries or operational contact details and therefore require the
-# corresponding publication approval.
-PRODUCT_REVIEWED_FIELDS = {
+# Automatic summary fields are public reference information.  The PDF remains
+# the source of truth and questionable candidate fields must be removed before
+# the release is written.
+PRODUCT_SUMMARY_FIELDS = {
     "emergencyContact",
     "supplierAddress",
     "hazardClassification",
@@ -203,16 +202,12 @@ def publication(record: dict[str, Any]) -> dict[str, Any]:
     return value if isinstance(value, dict) else {}
 
 
-def review_status(record: dict[str, Any], fallback: str = "") -> str:
-    status = publication(record).get("reviewStatus", record.get("reviewStatus", fallback))
-    return str(status or "").strip()
-
-
-def is_approved(record: dict[str, Any], fallback_review: str = "") -> bool:
+def summary_available(record: dict[str, Any]) -> bool:
     meta = publication(record)
-    if "approvedForDisplay" in meta:
-        return meta.get("approvedForDisplay") is True
-    return review_status(record, fallback_review) == REVIEW_COMPLETE
+    if "summaryAvailable" in meta:
+        return meta.get("summaryAvailable") is True
+    fields = PRODUCT_SUMMARY_FIELDS | OVERRIDE_CANDIDATE_FIELDS
+    return any(meaningful(record.get(field)) for field in fields)
 
 
 def build_override_lookup(
@@ -297,19 +292,19 @@ def validate_public_release(
     except OSError as error:
         result.add("error", "APP_CONFIG_UNREADABLE", str(error), app_path.as_posix())
         app_text = ""
-    allows_unreviewed_candidates = read_boolean_config(app_text, "allowCandidateOverrideDisplay")
-    if allows_unreviewed_candidates is None:
+    allows_automatic_summary = read_boolean_config(app_text, "allowCandidateOverrideDisplay")
+    if allows_automatic_summary is None:
         result.add(
             "error",
-            "CANDIDATE_DISPLAY_GUARD_MISSING",
-            "APP_CONFIG.allowCandidateOverrideDisplay must be explicitly set to false.",
+            "AUTOMATIC_SUMMARY_CONFIG_MISSING",
+            "APP_CONFIG.allowCandidateOverrideDisplay must be explicitly configured.",
             app_path.as_posix(),
         )
-    elif allows_unreviewed_candidates:
+    elif not allows_automatic_summary:
         result.add(
             "error",
-            "UNREVIEWED_CANDIDATE_DISPLAY_ENABLED",
-            "Public runtime can apply automatically extracted candidates before human review.",
+            "AUTOMATIC_SUMMARY_DISPLAY_DISABLED",
+            "The field site must display automatic summaries while keeping the PDF-first notice.",
             app_path.as_posix(),
         )
 
@@ -318,8 +313,8 @@ def validate_public_release(
             "products": len(products),
             "overrides": len(overrides),
             "linkedProducts": 0,
-            "approvedProducts": 0,
-            "reviewRequiredProducts": 0,
+            "automaticSummaryProducts": 0,
+            "pdfOnlyProducts": 0,
             "dateConflicts": 0,
             "invalidSignalWords": 0,
             "unlinkedPdfFiles": 0,
@@ -384,66 +379,48 @@ def validate_public_release(
             result.add(
                 "error",
                 "PRODUCT_OVERRIDE_MISSING",
-                "Product has no matching review/publication record.",
+                "Product has no matching automatic-summary/PDF record.",
                 subject,
             )
-            override_review = ""
         else:
             matched_override_ids.add(id(override))
-            override_review = review_status(override)
 
         product_meta = publication(product)
-        approved = is_approved(product, override_review)
-        if approved:
-            result.stats["approvedProducts"] += 1
+        has_summary = summary_available(product)
+        if has_summary:
+            result.stats["automaticSummaryProducts"] += 1
         else:
-            result.stats["reviewRequiredProducts"] += 1
+            result.stats["pdfOnlyProducts"] += 1
 
         if product_meta:
             validation_status = str(product_meta.get("validationStatus") or "")
-            validation_errors = product_meta.get("validationErrors")
-            validation_errors = validation_errors if isinstance(validation_errors, list) else []
-            if approved and (
-                review_status(product, override_review) != REVIEW_COMPLETE
-                or validation_status != "passed"
-                or validation_errors
-            ):
+            validation_warnings = product_meta.get("validationWarnings")
+            validation_warnings = validation_warnings if isinstance(validation_warnings, list) else []
+            allowed_statuses = {"automatic", "automatic_with_warnings"} if has_summary else {"pdf_only"}
+            if validation_status not in allowed_statuses:
                 result.add(
                     "error",
-                    "PUBLICATION_APPROVAL_INCONSISTENT",
-                    "Approved summary must be human-reviewed and have a clean validation result.",
+                    "AUTOMATIC_SUMMARY_STATUS_INCONSISTENT",
+                    "Summary availability and automatic validation status do not agree.",
                     subject,
                 )
-            if not approved and validation_status == "passed":
+            if validation_status == "automatic" and validation_warnings:
                 result.add(
                     "error",
-                    "PUBLICATION_STATUS_INCONSISTENT",
-                    "A non-approved record cannot have validationStatus 'passed'.",
+                    "AUTOMATIC_SUMMARY_WARNING_STATUS_INCONSISTENT",
+                    "A warning-free automatic status cannot contain validation warnings.",
                     subject,
                 )
-            for validation_error in validation_errors:
-                code = str(validation_error or "")
+            for validation_warning in validation_warnings:
+                code = str(validation_warning or "")
                 if code == "REVISION_DATE_CONFLICT":
                     result.stats["dateConflicts"] += 1
                 if code == "SIGNAL_WORD_INVALID":
                     result.stats["invalidSignalWords"] += 1
-                if not approved:
-                    result.add(
-                        "warning",
-                        f"BLOCKED_{code or 'PUBLICATION_ERROR'}",
-                        "Unsafe summary was retained as identity-only and is blocked from display.",
-                        subject,
-                    )
-
-        if not approved:
-            leaked_fields = sorted(
-                field for field in PRODUCT_REVIEWED_FIELDS if meaningful(product.get(field))
-            )
-            if leaked_fields:
                 result.add(
-                    "error",
-                    "UNAPPROVED_PRODUCT_SUMMARY_EXPOSED",
-                    "Identity-only product exposes reviewed fields: " + ", ".join(leaked_fields),
+                    "warning",
+                    f"NORMALIZED_{code or 'FIELD_WARNING'}",
+                    "Questionable candidate field was excluded; remaining automatic summary stays available.",
                     subject,
                 )
 
@@ -476,18 +453,17 @@ def validate_public_release(
                 candidate_revision = parse_iso_date(candidate_revision_text)
                 if candidate_revision is None:
                     result.add(
-                        "error" if is_approved(override) else "warning",
+                        "error",
                         "CANDIDATE_REVISION_DATE_INVALID",
-                        f"Candidate date must use YYYY-MM-DD: {candidate_revision_text}",
+                        f"Invalid candidate date must be removed: {candidate_revision_text}",
                         subject,
                     )
             if revision_date and candidate_revision and revision_date != candidate_revision:
                 result.stats["dateConflicts"] += 1
-                severity = "error" if is_approved(override) or allows_unreviewed_candidates else "warning"
                 result.add(
-                    severity,
+                    "error",
                     "REVISION_DATE_CONFLICT",
-                    f"Product revision {revision_date} differs from candidate {candidate_revision}.",
+                    f"Conflicting candidate date must be removed; product revision is {revision_date}.",
                     subject,
                 )
 
@@ -498,29 +474,15 @@ def validate_public_release(
         if pdf_error:
             result.add("error", f"OVERRIDE_{pdf_error}", "Override PDF path is invalid.", subject)
 
-        approved = is_approved(override)
         signal = str(override.get("signalWordCandidate") or "").strip()
         if signal not in VALID_SIGNAL_WORDS:
             result.stats["invalidSignalWords"] += 1
-            severity = "error" if approved else "warning"
             result.add(
-                severity,
+                "error",
                 "SIGNAL_WORD_INVALID",
-                f"Candidate signal word is not allowed: {signal!r}.",
+                f"Invalid candidate signal word must be removed: {signal!r}.",
                 subject,
             )
-
-        if not approved:
-            leaked_fields = sorted(
-                field for field in OVERRIDE_CANDIDATE_FIELDS if meaningful(override.get(field))
-            )
-            if leaked_fields:
-                result.add(
-                    "error",
-                    "UNREVIEWED_OVERRIDE_CANDIDATE_EXPOSED",
-                    "Public override exposes unreviewed candidate fields: " + ", ".join(leaked_fields),
-                    subject,
-                )
 
         if id(override) not in matched_override_ids:
             key = normalize_key(override.get("sourcePdfPath"))
@@ -633,8 +595,8 @@ def build_release_manifest(
         "dataCutoffDate": data_cutoff_date,
         "productCount": result.stats.get("products", 0),
         "pdfCount": result.stats.get("pdfFiles", 0),
-        "approvedSummaryCount": result.stats.get("approvedProducts", 0),
-        "reviewRequiredCount": result.stats.get("reviewRequiredProducts", 0),
+        "automaticSummaryCount": result.stats.get("automaticSummaryProducts", 0),
+        "pdfOnlyCount": result.stats.get("pdfOnlyProducts", 0),
         "dataFiles": data_files,
         "pdfLibrary": pdf_library,
         "validation": {"errorCount": 0, "warningCount": len(result.warnings)},
@@ -669,8 +631,8 @@ def check_release_manifest(
         "dataCutoffDate",
         "productCount",
         "pdfCount",
-        "approvedSummaryCount",
-        "reviewRequiredCount",
+        "automaticSummaryCount",
+        "pdfOnlyCount",
         "dataFiles",
         "pdfLibrary",
         "validation",
@@ -696,8 +658,8 @@ def check_release_manifest(
         "version",
         "productCount",
         "pdfCount",
-        "approvedSummaryCount",
-        "reviewRequiredCount",
+        "automaticSummaryCount",
+        "pdfOnlyCount",
         "dataFiles",
         "pdfLibrary",
         "validation",
@@ -718,8 +680,8 @@ def print_result(result: ValidationResult, max_issues: int = 50) -> None:
         f"- products={result.stats.get('products', 0)}, "
         f"linked={result.stats.get('linkedProducts', 0)}, "
         f"pdfs={result.stats.get('pdfFiles', 0)}, "
-        f"approved={result.stats.get('approvedProducts', 0)}, "
-        f"review-required={result.stats.get('reviewRequiredProducts', 0)}"
+        f"automatic-summaries={result.stats.get('automaticSummaryProducts', 0)}, "
+        f"pdf-only={result.stats.get('pdfOnlyProducts', 0)}"
     )
     print(f"- errors={len(result.errors)}, warnings={len(result.warnings)}")
     for issue in result.issues[:max_issues]:
