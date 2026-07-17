@@ -623,6 +623,13 @@ function bindEvents() {
       return;
     }
 
+    const fullViewButton = event.target.closest("[data-pdf-full-view]");
+    if (fullViewButton) {
+      lastPdfFullViewTrigger = fullViewButton;
+      startPdfFullView(fullViewButton.dataset.pdfTitle, fullViewButton.dataset.pdfPath);
+      return;
+    }
+
     const previewButton = event.target.closest("[data-preview-pdf]");
     if (previewButton) {
       openPdfPreview(previewButton);
@@ -2456,7 +2463,10 @@ function renderPoster(product) {
       <section class="poster-summary-blocked" role="alert">
         <strong>자동 추출 요약 없음</strong>
         <p>이 제품은 자동 추출 요약이 충분하지 않습니다. 작업 전 MSDS PDF 원문을 확인하세요.</p>
-        ${renderPdfPreviewButton(pdfInfo, "poster")}
+        <div class="poster-pdf-actions">
+          ${renderOriginalPdfButton(pdfInfo, "poster")}
+          ${renderPdfPreviewButton(pdfInfo, "poster")}
+        </div>
       </section>
     ` : `
       ${posterSection(posterData.hazardTitle, renderSafetyStatementList(posterData.hazardStatements, "H", false), "poster-hazard-statements")}
@@ -2734,6 +2744,7 @@ function renderSelectedProductBar(product, detailData, pdfInfo, summaryAvailable
       </div>
       <div class="selected-product-bar-actions">
         ${telHref ? `<a class="emergency-call-link" href="tel:${escapeAttribute(telHref)}">긴급전화</a>` : ""}
+        ${renderOriginalPdfButton(pdfInfo, "compact")}
         ${renderPdfPreviewButton(pdfInfo, "compact")}
       </div>
     </section>
@@ -3117,9 +3128,14 @@ function pdfPanelIconSvg(type) {
   return icons[type] || icons.document;
 }
 
+function renderOriginalPdfButton(pdfInfo, variant = "default") {
+  if (!pdfInfo || pdfInfo.status !== "connected" || !pdfInfo.encodedPath) return "";
+  return `<button class="original-pdf-link is-${escapeAttribute(variant)}" type="button" data-pdf-full-view data-pdf-title="${escapeAttribute(pdfInfo.title)}" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}">원본 PDF 열기</button>`;
+}
+
 function renderPdfPreviewButton(pdfInfo, variant = "default") {
   if (!pdfInfo || pdfInfo.status !== "connected" || !pdfInfo.encodedPath) return "";
-  return `<button class="pdf-preview-button is-${escapeAttribute(variant)}" type="button" data-preview-pdf data-pdf-title="${escapeAttribute(pdfInfo.title)}" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}"><span class="pdf-button-icon">${pdfPanelIconSvg("eye")}</span>MSDS 미리보기</button>`;
+  return `<button class="pdf-preview-button is-${escapeAttribute(variant)}" type="button" data-preview-pdf data-pdf-title="${escapeAttribute(pdfInfo.title)}" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}"><span class="pdf-button-icon">${pdfPanelIconSvg("eye")}</span>PDF 미리보기</button>`;
 }
 
 function getExtractionStatusLabel(status, approved = false) {
@@ -3169,7 +3185,9 @@ function renderPdfPreview(pdfInfo) {
         ${renderPdfPreviewBody(pdfInfo)}
       </div>
       <div class="pdf-actions">
+        ${renderOriginalPdfButton(pdfInfo)}
         ${renderPdfPreviewButton(pdfInfo)}
+        <button class="pdf-preview-button is-secondary" type="button" data-pdf-full-view data-pdf-title="${escapeAttribute(pdfInfo.title)}" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}"><span class="pdf-button-icon">${pdfPanelIconSvg("expand")}</span>전체화면 미리보기</button>
       </div>
       ${state.pdfFullView.isOpen && state.pdfFullView.path === pdfInfo.encodedPath ? renderPdfFullView(pdfInfo) : ""}
     </div>
@@ -3254,11 +3272,6 @@ function openPdfPreview(previewButton) {
   const title = previewButton?.dataset?.pdfTitle || "MSDS 미리보기";
   const path = previewButton?.dataset?.pdfPath || "";
   if (!path) return;
-  if (window.matchMedia("(max-width: 767px)").matches) {
-    lastPdfFullViewTrigger = previewButton;
-    startPdfFullView(title, path);
-    return;
-  }
   startPdfPreview(title, path);
   window.requestAnimationFrame(() => {
     document.querySelector(".detail-block-pdf .pdf-viewer-shell")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -3287,7 +3300,7 @@ function closePdfFullView() {
   state.pdfFullView = createPdfViewerState();
   render();
   if (lastPdfFullViewTrigger?.isConnected) lastPdfFullViewTrigger.focus();
-  else document.querySelector("[data-preview-pdf]")?.focus();
+  else document.querySelector("[data-pdf-full-view], [data-preview-pdf]")?.focus();
   lastPdfFullViewTrigger = null;
 }
 
