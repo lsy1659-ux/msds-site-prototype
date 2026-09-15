@@ -7943,3 +7943,45 @@ button.full-product-item {
   border-color: var(--color-accent);
   color: var(--color-accent);
 }
+
+
+/* ── 오프라인 안내 ─────────────────────────────────────── */
+
+.offline-notice {
+  position: fixed;
+  z-index: 90;
+  left: 50%;
+  bottom: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  max-width: calc(100vw - 32px);
+  padding: 10px 16px;
+  border: 1px solid var(--color-warning);
+  border-radius: 999px;
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+  font-size: 0.88rem;
+  box-shadow: 0 10px 28px rgba(9, 38, 32, 0.22);
+  transform: translateX(-50%);
+}
+
+.offline-notice[hidden] {
+  display: none;
+}
+
+.offline-notice strong {
+  font-weight: 800;
+}
+
+@media (max-width: 720px) {
+  .offline-notice {
+    left: 16px;
+    right: 16px;
+    bottom: 12px;
+    max-width: none;
+    border-radius: 12px;
+    transform: none;
+  }
+}

@@ -577,6 +577,8 @@ function bindEvents() {
 
   bindSearchAssistEvents();
   bindProductShortcuts();
+  setupOfflineNotice();
+  registerServiceWorker();
 
   elements.quickSearch.addEventListener("click", (event) => {
     const showAllButton = event.target.closest("button[data-action='show-all']");
@@ -4609,4 +4611,33 @@ function renderFavoriteToggle(product) {
   const on = isFavoriteProduct(product.id);
   const label = on ? "즐겨찾기에서 빼기" : "즐겨찾기에 추가";
   return `<button type="button" class="favorite-toggle${on ? " is-on" : ""}" data-favorite-id="${escapeAttribute(product.id)}" aria-pressed="${on}" title="${escapeAttribute(label)}" aria-label="${escapeAttribute(label)}">${on ? "★" : "☆"}</button>`;
+}
+
+
+/* ── 오프라인 지원 ─────────────────────────────────────── */
+
+function registerServiceWorker() {
+  if (!("serviceWorker" in navigator)) return;
+  // file:// 로 직접 열었을 때는 등록이 불가능하므로 건너뛴다.
+  if (!window.location.protocol.startsWith("http")) return;
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {
+      // 등록에 실패해도 온라인 조회는 그대로 동작한다.
+    });
+  });
+}
+
+function setupOfflineNotice() {
+  const notice = document.createElement("div");
+  notice.className = "offline-notice";
+  notice.setAttribute("role", "status");
+  notice.setAttribute("aria-live", "polite");
+  notice.hidden = true;
+  notice.innerHTML = '<strong>오프라인</strong><span>저장해 둔 자료를 보고 있습니다. 작업 전 최신본인지 확인하세요.</span>';
+  document.body.appendChild(notice);
+
+  const sync = () => { notice.hidden = navigator.onLine; };
+  window.addEventListener("online", sync);
+  window.addEventListener("offline", sync);
+  sync();
 }
