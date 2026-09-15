@@ -87,7 +87,8 @@ def read_json(path: Path) -> Any:
 
 def write_json(path: Path, data: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", encoding="utf-8") as file:
+    # The release manifest hashes these files, so never emit CRLF on Windows.
+    with path.open("w", encoding="utf-8", newline="\n") as file:
         json.dump(data, file, ensure_ascii=False, indent=2)
         file.write("\n")
 

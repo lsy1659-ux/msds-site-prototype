@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Release manifest hashes these files, so keep them byte-identical across platforms.
+*.json text eol=lf
