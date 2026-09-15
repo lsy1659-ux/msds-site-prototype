@@ -7920,3 +7920,26 @@ button.full-product-item {
     min-height: 42px;
   }
 }
+
+
+/* ── 하단 도구 링크 ────────────────────────────────────── */
+
+.site-footer {
+  margin: 20px 0 8px;
+  text-align: center;
+}
+
+.site-footer-link {
+  display: inline-block;
+  padding: 10px 16px;
+  border: 1px dashed var(--color-line);
+  border-radius: 999px;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.site-footer-link:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
