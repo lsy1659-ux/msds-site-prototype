@@ -1741,6 +1741,7 @@ function getSearchQueryInfo(rawQuery) {
     normalized,
     tokens,
     units,
+    isInitialQuery: hasStandaloneJamo(raw),
     isNumericOnly: /^[0-9]+$/.test(normalized),
     isHazardCodeQuery: /^[HP][0-9]{3}$/.test(normalizedRawCode),
     hazardCode: normalizedRawCode,
@@ -1911,6 +1912,7 @@ function getSearchReasonLabel(reason) {
     productExact: "제품명 정확 일치",
     productCodeExact: "제품코드 일치",
     productContains: "제품명 일치",
+    initialMatch: "초성 일치",
     fileMatch: "파일명 일치",
     erpMatch: "ERP 품명 일치",
     metaMatch: "분류/업체 일치",
@@ -1976,6 +1978,10 @@ function scoreProductForQuery(product, queryInfo) {
     }
     if (hasNormalizedMatch([...fields.productNames, ...fields.productCodes], unit.value, "contains")) {
       addScore(800, "productContains", unit, { direct: true, contains: true });
+    }
+    if (queryInfo.isInitialQuery
+      && hasInitialMatch([...fields.productNames, ...fields.erpNames, ...fields.componentNames], unit.value)) {
+      addScore(700, "initialMatch", unit, { direct: true, contains: true });
     }
     if (hasNormalizedMatch(fields.fileNames, unit.value, "contains")) {
       addScore(600, "fileMatch", unit, { direct: true, contains: true });
@@ -4248,7 +4254,7 @@ function buildSearchSuggestionPool() {
           if (type.weight < existing.type.weight) existing.type = type;
           return;
         }
-        seen.set(normalized, { text, normalized, type, count: 1 });
+        seen.set(normalized, { text, normalized, initials: getKoreanInitials(normalized), type, count: 1 });
       });
     });
   });
@@ -4260,10 +4266,12 @@ function buildSearchSuggestionPool() {
 function getSearchSuggestions(query) {
   const needle = normalizeSearchText(query);
   if (!needle) return [];
+  const byInitials = hasStandaloneJamo(query);
+  const initialNeedle = byInitials ? getKoreanInitials(needle) : "";
   const matches = [];
   buildSearchSuggestionPool().forEach((entry) => {
     if (entry.normalized === needle) return;
-    const at = entry.normalized.indexOf(needle);
+    const at = byInitials ? entry.initials.indexOf(initialNeedle) : entry.normalized.indexOf(needle);
     if (at < 0) return;
     matches.push({ text: entry.text, type: entry.type, count: entry.count, at });
   });
@@ -4428,4 +4436,49 @@ function bindSearchAssistEvents() {
     if (event.target.closest("#searchAssist") || event.target.closest("#searchInput")) return;
     closeSearchAssist();
   });
+}
+
+
+/* ── 한글 초성 검색 ────────────────────────────────────── */
+
+const HANGUL_INITIAL_LETTERS = [
+  "ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ",
+  "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"
+];
+const HANGUL_SYLLABLE_FIRST = 0xac00;
+const HANGUL_SYLLABLE_LAST = 0xd7a3;
+const HANGUL_JAMO_FIRST = 0x3131;
+const HANGUL_JAMO_LAST = 0x314e;
+
+// "프라이머" -> "ㅍㄹㅇㅁ". 한글이 아닌 글자는 소문자로 그대로 둔다.
+function getKoreanInitials(value) {
+  let result = "";
+  for (const character of String(value || "")) {
+    const code = character.charCodeAt(0);
+    if (code >= HANGUL_SYLLABLE_FIRST && code <= HANGUL_SYLLABLE_LAST) {
+      result += HANGUL_INITIAL_LETTERS[Math.floor((code - HANGUL_SYLLABLE_FIRST) / 588)];
+    } else if (code >= HANGUL_JAMO_FIRST && code <= HANGUL_JAMO_LAST) {
+      result += character;
+    } else {
+      result += character.toLowerCase();
+    }
+  }
+  return result;
+}
+
+// 낱자(ㅍ, ㄹ …)가 하나라도 있을 때만 초성 검색으로 본다.
+// "프라"처럼 완성된 글자만 친 경우까지 초성으로 풀면 결과가 너무 넓어진다.
+function hasStandaloneJamo(value) {
+  for (const character of String(value || "")) {
+    const code = character.charCodeAt(0);
+    if (code >= HANGUL_JAMO_FIRST && code <= HANGUL_JAMO_LAST) return true;
+  }
+  return false;
+}
+
+function hasInitialMatch(values, query) {
+  if (!query) return false;
+  const needle = getKoreanInitials(query);
+  if (!needle) return false;
+  return getNormalizedValues(values).some((value) => getKoreanInitials(value).includes(needle));
 }
