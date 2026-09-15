@@ -35889,5 +35889,264 @@
       "validationStatus": "automatic",
       "validationWarnings": []
     }
+  },
+  {
+    "id": "msds-177",
+    "productName": "UT5731-BB2(KIA)",
+    "erpName": "",
+    "msdsNo": "AA00017-0000000197",
+    "fileName": "KCC_MSDS_UT5731-BB2(KIA)_kor.pdf",
+    "pdfPath": "pdf/01_ 도장/KCC/KCC_MSDS_UT5731-BB2(KIA)_kor.pdf",
+    "category": "유성 페인트",
+    "recommendedUse": "유성 페인트 (자동차 범퍼용 상도)",
+    "supplier": "케이씨씨 울산공장",
+    "siteLabel": "",
+    "issueDate": "2021-04-01",
+    "revisionDate": "2021-10-05",
+    "emergencyContact": "전화번호 : 052-280-1717 / 긴급 전화번호 : 052-280-1717",
+    "supplierAddress": "울산광역시 동구 방어진순환도로 30(방어동)",
+    "hazardClassification": "- 인화성 액체 : 구분3 - 급성 독성(흡입: 증기) : 구분3 - 피부 부식성/피부 자극성 : 구분2 - 심한 눈 손상성/눈 자극성 : 구분2 - 생식세포 변이원성 : 구분1B - 발암성 : 구분1B - 생식독성 : 구분2 - 특정표적장기 독성(1회 노출) : 구분3(마취영향) - 특정표적장기 독성(1회 노출) : 구분3(호흡기 자극) - 특정표적장기 독성(반복 노출) : 구분1 - 특정표적장기 독성(반복 노출) : 구분2 - 흡인 유해성 : 구분1 - 만성 수생환경 유해성 : 구분3",
+    "dangerousGoods": "제4류 인화성액체, 제2석유류(비수용성액체) (지정수량 1,000리터)",
+    "ppeSummary": "방독마스크(유기화합물용), 보안경, 화학물질용 장갑, 보호복",
+    "ingredients": [
+      {
+        "chemicalName": "n-뷰틸 아세테이트",
+        "casNo": "123-86-4",
+        "content": "22~29",
+        "managementTarget": "○",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
+      },
+      {
+        "chemicalName": "자일렌",
+        "casNo": "1330-20-7",
+        "content": "13~20",
+        "managementTarget": "○",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
+      },
+      {
+        "chemicalName": "톨루엔",
+        "casNo": "108-88-3",
+        "content": "4~11",
+        "managementTarget": "○",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
+      },
+      {
+        "chemicalName": "셀룰로스 아세테이트 뷰틸레이트",
+        "casNo": "9004-36-8",
+        "content": "1~8",
+        "managementTarget": "",
+        "workplaceMonitoringTarget": "",
+        "specialHealthCheckTarget": ""
+      },
+      {
+        "chemicalName": "n-헵테인",
+        "casNo": "142-82-5",
+        "content": "1~6",
+        "managementTarget": "○",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
+      },
+      {
+        "chemicalName": "산화 알루미늄",
+        "casNo": "1344-28-1",
+        "content": "1~6",
+        "managementTarget": "",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
+      },
+      {
+        "chemicalName": "수소탈황된 중질 나프타 (석유)",
+        "casNo": "64742-82-1",
+        "content": "1~6",
+        "managementTarget": "○",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
+      },
+      {
+        "chemicalName": "2-뷰톡시에탄올, 아세테이트",
+        "casNo": "112-07-2",
+        "content": "1~6",
+        "managementTarget": "○",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
+      },
+      {
+        "chemicalName": "아세트산 에틸",
+        "casNo": "141-78-6",
+        "content": "1~6",
+        "managementTarget": "○",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
+      },
+      {
+        "chemicalName": "이산화 티타늄",
+        "casNo": "13463-67-7",
+        "content": "1~6",
+        "managementTarget": "",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
+      },
+      {
+        "chemicalName": "에틸벤젠",
+        "casNo": "100-41-4",
+        "content": "1~6",
+        "managementTarget": "○",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
+      },
+      {
+        "chemicalName": "프로필렌 글리콜 모노메틸 에테르 아세테이트",
+        "casNo": "108-65-6",
+        "content": "1~6",
+        "managementTarget": "○",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
+      },
+      {
+        "chemicalName": "4-메틸-2-펜탄온",
+        "casNo": "108-10-1",
+        "content": "0.1~1",
+        "managementTarget": "○",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
+      },
+      {
+        "chemicalName": "카본 블랙",
+        "casNo": "1333-86-4",
+        "content": "0.1~1",
+        "managementTarget": "",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
+      },
+      {
+        "chemicalName": "방향족 경질 나프타 용매(석유)",
+        "casNo": "64742-95-6",
+        "content": "0.1~1",
+        "managementTarget": "○",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
+      }
+    ],
+    "hazardBadge": "위험",
+    "ghsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS06",
+        "label": "급성독성"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
+      }
+    ],
+    "hazardStatements": [
+      "- H226 인화성 액체 및 증기",
+      "- H304 삼켜서 기도로 유입되면 치명적일 수 있음",
+      "- H315 피부에 자극을 일으킴",
+      "- H319 눈에 심한 자극을 일으킴",
+      "- H331 흡입하면 유독함",
+      "- H335 호흡기 자극을 일으킬 수 있음",
+      "- H336 졸음 또는 현기증을 일으킬 수 있음",
+      "- H340 유전적인 결함을 일으킬 수 있음",
+      "- H350 암을 일으킬 수 있음",
+      "- H361 태아 또는 생식능력에 손상을 일으킬 것으로 의심됨",
+      "- H372 장기간 또는 반복노출 되면 장기에 손상을 일으킴",
+      "- H373 장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음",
+      "- H412 장기적인 영향에 의해 수생생물에게 유해함"
+    ],
+    "precautionaryStatements": {
+      "prevention": [
+        "- P201 사용 전 취급 설명서를 확보하시오.",
+        "- P202 모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.",
+        "- P210 열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연",
+        "- P233 용기를 단단히 밀폐하시오.",
+        "- P240 용기와 수용설비를 접지하시오.",
+        "- P241 방폭형 (전기·환기·조명)설비를 사용하시오.",
+        "- P242 스파크가 발생하지 않는 도구를 사용하시오.",
+        "- P243 정전기 방지 조치를 취하시오.",
+        "- P260 가스/미스트/증기/스프레이를(을) 흡입하지 마시오.",
+        "- P261 가스/미스트/증기/스프레이의 흡입을 피하시오.",
+        "- P264 취급 후에는 취급부위를 철저히 씻으시오.",
+        "- P270 이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오.",
+        "- P271 옥외 또는 환기가 잘 되는 곳에서만 취급하시오.",
+        "- P273 환경으로 배출하지 마시오.",
+        "- P280 보호장갑·보호의·보안경·안면보호구를(을) 착용하시오."
+      ],
+      "response": [
+        "- P301+P310 삼켰다면: 즉시 의료기관/의사의 진찰을 받으시오.",
+        "- P302+P352 피부에 묻으면: 다량의 물로 씻으시오.",
+        "- P303+P361+P353 피부(또는 머리카락)에 묻으면: 오염된 모든 의류를 즉시 벗으시오. 피부를 물로 씻으시오/샤워하시",
+        "- P304+P340 흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.",
+        "- P305+P351+P338 눈에 묻으면: 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.",
+        "- P308+P313 노출되거나 노출이 우려되면: 의학적인 조치/조언을 받으시오.",
+        "- P311 의료기관/의사의 진찰을 받으시오.",
+        "- P312 불편함을 느끼면 의료기관/의사의 진찰을 받으시오.",
+        "- P314 불편함을 느끼면 의학적인 조치/조언을 받으시오.",
+        "- P321 응급처치(눈에 들어갔을 때는 다량의 흐르는 물로 세척, 피부에 접촉했을 때는 다량의 흐르는 물로 세척, 흡입했을",
+        "- P331 토하게 하지 마시오.",
+        "- P332+P313 피부 자극이 나타나면: 의학적인 조치/조언을 받으시오.",
+        "- P337+P313 눈에 자극이 지속되면: 의학적인 조치/조언을 받으시오.",
+        "- P362+P364 오염된 의류를 벗고 다시 사용 전 세척하시오.",
+        "- P370+P378 화재 시: 불을 끄기 위해 적절한 소화제를 사용하시오."
+      ],
+      "storage": [
+        "- P403+P233 환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오.",
+        "- P403+P235 환기가 잘 되는 곳에 보관하시오. 저온으로 유지하시오.",
+        "- P405 잠금장치를 하여 저장하시오."
+      ],
+      "disposal": [
+        "- P501 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오."
+      ]
+    },
+    "classificationGhsCodes": [
+      "GHS02",
+      "GHS06",
+      "GHS07",
+      "GHS08"
+    ],
+    "classificationGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS06",
+        "label": "급성독성"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
+      }
+    ],
+    "ghsCodes": [
+      "GHS02",
+      "GHS06",
+      "GHS07",
+      "GHS08"
+    ],
+    "ppeCandidates": [
+      "- P280 보호장갑·보호의·보안경·안면보호구를(을) 착용하시오."
+    ],
+    "ghsSource": "section2_classification_fallback",
+    "publication": {
+      "summaryMode": "automatic",
+      "summaryAvailable": true,
+      "validationStatus": "automatic",
+      "validationWarnings": []
+    }
   }
 ]

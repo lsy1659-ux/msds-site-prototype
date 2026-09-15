@@ -465,6 +465,59 @@ def build_payload(source: Any, key: str, items: list[dict[str, Any]]) -> Any:
     return payload
 
 
+def public_record_keys(record: dict[str, Any], path_fields: tuple[str, ...]) -> set[str]:
+    keys: set[str] = set()
+    for field in path_fields:
+        key = normalize_key(record.get(field))
+        if not key:
+            continue
+        keys.add(key)
+        keys.add(key[4:] if key.startswith("pdf/") else f"pdf/{key}")
+    return keys
+
+
+def carry_forward_public_only(
+    built: list[dict[str, Any]],
+    existing_path: Path,
+    key: str,
+    path_fields: tuple[str, ...],
+) -> tuple[list[dict[str, Any]], list[str]]:
+    """Keep published records that the local source does not know about.
+
+    The local JSON files stay on one PC, so a product registered straight into
+    the public dataset from another PC has no local counterpart.  Rebuilding
+    from local alone would silently drop it and break the PDF link check, so
+    those records are carried forward and reported instead.
+    """
+
+    try:
+        existing = coerce_list(read_json(existing_path), key)
+    except (OSError, json.JSONDecodeError, ValueError):
+        return built, []
+
+    built_keys: set[str] = set()
+    for record in built:
+        built_keys |= public_record_keys(record, path_fields)
+
+    carried: list[dict[str, Any]] = []
+    labels: list[str] = []
+    for record in existing:
+        record_keys = public_record_keys(record, path_fields)
+        if not record_keys or (record_keys & built_keys):
+            continue
+        carried.append(deepcopy(record))
+        labels.append(
+            str(
+                record.get("id")
+                or record.get("productName")
+                or record.get("sourcePdfPath")
+                or sorted(record_keys)[0]
+            )
+        )
+        built_keys |= record_keys
+    return built + carried, labels
+
+
 def main() -> int:
     products_source = read_json(LOCAL_PRODUCTS_PATH)
     overrides_source = read_json(LOCAL_OVERRIDES_PATH)
@@ -473,6 +526,12 @@ def main() -> int:
     overrides = coerce_list(overrides_source, "overrides")
 
     public_products, public_overrides, stats = build_public_records(products, overrides)
+    public_products, carried_products = carry_forward_public_only(
+        public_products, PUBLIC_PRODUCTS_PATH, "products", ("pdfPath", "fileName")
+    )
+    public_overrides, carried_overrides = carry_forward_public_only(
+        public_overrides, PUBLIC_OVERRIDES_PATH, "overrides", ("sourcePdfPath", "sourceRelativePath")
+    )
     products_payload = build_payload(products_source, "products", public_products)
     overrides_payload = build_payload(overrides_source, "overrides", public_overrides)
 
@@ -486,6 +545,12 @@ def main() -> int:
     print(f"- PDF-only products: {stats['pdfOnly']}")
     print(f"- Field-level warnings: {stats['warnings']}")
     print(f"- Unmatched overrides excluded: {stats['unmatchedOverridesExcluded']}")
+    print(f"- Public-only products kept: {len(carried_products)}")
+    for label in carried_products:
+        print(f"  - kept product without local source: {label}")
+    print(f"- Public-only overrides kept: {len(carried_overrides)}")
+    for label in carried_overrides:
+        print(f"  - kept override without local source: {label}")
     return 0
 
 
