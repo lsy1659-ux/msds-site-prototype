@@ -516,6 +516,7 @@ function bindElements() {
   elements.searchAssistList = document.querySelector("#searchAssistList");
   elements.searchAssistTitle = document.querySelector("#searchAssistTitle");
   elements.clearSearchHistory = document.querySelector("#clearSearchHistory");
+  elements.productShortcuts = document.querySelector("#productShortcuts");
 }
 
 function bindEvents() {
@@ -575,6 +576,7 @@ function bindEvents() {
   });
 
   bindSearchAssistEvents();
+  bindProductShortcuts();
 
   elements.quickSearch.addEventListener("click", (event) => {
     const showAllButton = event.target.closest("button[data-action='show-all']");
@@ -694,6 +696,7 @@ function getRequestedProductId(products = []) {
 }
 
 function updateProductUrl(productId) {
+  if (productId) rememberViewedProduct(productId);
   const url = new URL(window.location.href);
   if (productId) url.searchParams.set("product", productId);
   else url.searchParams.delete("product");
@@ -2130,6 +2133,7 @@ function render() {
   }
   if (elements.resultSortMode) elements.resultSortMode.value = state.resultSortMode;
   syncResultViewToggle();
+  renderProductShortcuts();
   elements.selectionPanel.classList.toggle("is-collapsed", !hasQuery && !state.showFullList);
   elements.resultCount.textContent = state.showFullList ? `전체 MSDS ${getAllSelectableProducts().length}건` : (hasQuery ? `검색 결과 ${results.length}건` : "검색 전");
   elements.resultCount.setAttribute("role", "status");
@@ -2472,6 +2476,7 @@ function renderPoster(product) {
         ${product.fileName ? `<p title="${escapeAttribute(product.fileName)}">${escapeHtml(product.fileName)}</p>` : ""}
       </div>
       <span class="hazard-badge">${escapeHtml(posterData.hazardBadge)}</span>
+      ${renderFavoriteToggle(product)}
     </div>
     <div class="poster-ghs-row">
       ${renderGhsListFromItems(posterData.ghsPictograms, "poster", hasLinkedPdf(product))}
@@ -4481,4 +4486,127 @@ function hasInitialMatch(values, query) {
   const needle = getKoreanInitials(query);
   if (!needle) return false;
   return getNormalizedValues(values).some((value) => getKoreanInitials(value).includes(needle));
+}
+
+
+/* ── 즐겨찾기 · 최근 본 제품 ────────────────────────────── */
+
+const RECENT_PRODUCTS_KEY = "msds.recentProducts.v1";
+const FAVORITE_PRODUCTS_KEY = "msds.favoriteProducts.v1";
+const RECENT_PRODUCTS_LIMIT = 8;
+const FAVORITE_PRODUCTS_LIMIT = 12;
+
+function readStoredIds(key, limit) {
+  try {
+    const parsed = JSON.parse(window.localStorage.getItem(key) || "[]");
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter((item) => typeof item === "string" && item.trim()).slice(0, limit);
+  } catch (error) {
+    return [];
+  }
+}
+
+function writeStoredIds(key, ids, limit) {
+  try {
+    window.localStorage.setItem(key, JSON.stringify(ids.slice(0, limit)));
+  } catch (error) {
+    // 저장소가 막힌 환경에서는 조회 기능만 그대로 쓴다.
+  }
+}
+
+function getRecentProductIds() {
+  return readStoredIds(RECENT_PRODUCTS_KEY, RECENT_PRODUCTS_LIMIT);
+}
+
+function getFavoriteProductIds() {
+  return readStoredIds(FAVORITE_PRODUCTS_KEY, FAVORITE_PRODUCTS_LIMIT);
+}
+
+function rememberViewedProduct(productId) {
+  const id = String(productId || "").trim();
+  if (!id) return;
+  const next = [id, ...getRecentProductIds().filter((item) => item !== id)];
+  writeStoredIds(RECENT_PRODUCTS_KEY, next, RECENT_PRODUCTS_LIMIT);
+}
+
+function isFavoriteProduct(productId) {
+  return getFavoriteProductIds().includes(String(productId || ""));
+}
+
+function toggleFavoriteProduct(productId) {
+  const id = String(productId || "").trim();
+  if (!id) return;
+  const current = getFavoriteProductIds();
+  const next = current.includes(id) ? current.filter((item) => item !== id) : [id, ...current];
+  writeStoredIds(FAVORITE_PRODUCTS_KEY, next, FAVORITE_PRODUCTS_LIMIT);
+}
+
+function findProductById(productId) {
+  return (state.products || []).find((product) => product.id === productId) || null;
+}
+
+function renderShortcutGroup(label, mark, products, clearKey) {
+  if (!products.length) return "";
+  const chips = products.map((product) => `
+        <button type="button" class="shortcut-chip" data-shortcut-id="${escapeAttribute(product.id)}" title="${escapeAttribute(product.productName)}">
+          <span class="shortcut-chip-mark" aria-hidden="true">${mark}</span>
+          <span class="shortcut-chip-name">${escapeHtml(product.productName)}</span>
+        </button>`).join("");
+  return `<div class="shortcut-group">
+      <span class="shortcut-label">${escapeHtml(label)}</span>
+      ${chips}
+      <button type="button" class="shortcut-clear" data-shortcut-clear="${escapeAttribute(clearKey)}">전체 지우기</button>
+    </div>`;
+}
+
+function renderProductShortcuts() {
+  const host = elements.productShortcuts;
+  if (!host) return;
+  const favorites = getFavoriteProductIds().map(findProductById).filter(Boolean);
+  const recents = getRecentProductIds().map(findProductById).filter(Boolean)
+    .filter((product) => !favorites.some((item) => item.id === product.id));
+  const html = [
+    renderShortcutGroup("즐겨찾기", "★", favorites, FAVORITE_PRODUCTS_KEY),
+    renderShortcutGroup("최근 본 제품", "⟲", recents, RECENT_PRODUCTS_KEY)
+  ].join("");
+  host.innerHTML = html;
+  host.hidden = !html;
+}
+
+function openShortcutProduct(productId) {
+  if (!findProductById(productId)) return;
+  if (state.selectedId !== productId) resetPdfPreviewState();
+  state.selectedId = productId;
+  updateProductUrl(productId);
+  state.selectionCollapsed = false;
+  render();
+  document.querySelector(".detail-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function bindProductShortcuts() {
+  elements.productShortcuts?.addEventListener("click", (event) => {
+    const clearButton = event.target.closest("[data-shortcut-clear]");
+    if (clearButton) {
+      writeStoredIds(clearButton.dataset.shortcutClear, [], 0);
+      renderProductShortcuts();
+      return;
+    }
+    const chip = event.target.closest("[data-shortcut-id]");
+    if (chip) openShortcutProduct(chip.dataset.shortcutId);
+  });
+
+  // 즐겨찾기 별표는 상세 화면이 다시 그려질 때마다 새로 만들어지므로 위임으로 받는다.
+  document.addEventListener("click", (event) => {
+    const star = event.target.closest("[data-favorite-id]");
+    if (!star) return;
+    toggleFavoriteProduct(star.dataset.favoriteId);
+    render();
+  });
+}
+
+function renderFavoriteToggle(product) {
+  if (!product?.id) return "";
+  const on = isFavoriteProduct(product.id);
+  const label = on ? "즐겨찾기에서 빼기" : "즐겨찾기에 추가";
+  return `<button type="button" class="favorite-toggle${on ? " is-on" : ""}" data-favorite-id="${escapeAttribute(product.id)}" aria-pressed="${on}" title="${escapeAttribute(label)}" aria-label="${escapeAttribute(label)}">${on ? "★" : "☆"}</button>`;
 }
