@@ -402,6 +402,7 @@ const state = {
   archivedVersionCount: 0,
   selectedId: null,
   query: "",
+  assist: { open: false, mode: "history", items: [], activeIndex: -1, query: "" },
   resultLimit: APP_CONFIG.initialResultLimit,
   resultOffset: 0,
   showAllResults: false,
@@ -511,6 +512,10 @@ function bindElements() {
   elements.publicDeployNotice = document.querySelector("#publicDeployNotice");
   elements.datasetCutoffDate = document.querySelector("#datasetCutoffDate");
   elements.siteVersion = document.querySelector("#siteVersion");
+  elements.searchAssist = document.querySelector("#searchAssist");
+  elements.searchAssistList = document.querySelector("#searchAssistList");
+  elements.searchAssistTitle = document.querySelector("#searchAssistTitle");
+  elements.clearSearchHistory = document.querySelector("#clearSearchHistory");
 }
 
 function bindEvents() {
@@ -522,9 +527,12 @@ function bindEvents() {
     state.selectionCollapsed = false;
     updateSelectedProductForQuery();
     render();
+    openSearchAssist();
   });
 
   elements.runSearch?.addEventListener("click", () => {
+    rememberSearchTerm(elements.searchInput.value);
+    closeSearchAssist();
     state.query = elements.searchInput.value;
     state.showFullList = false;
     resetFullListNavigation();
@@ -561,9 +569,12 @@ function bindEvents() {
     state.selectedId = null;
     state.selectionCollapsed = false;
     updateProductUrl(null);
+    closeSearchAssist();
     elements.searchInput.focus();
     render();
   });
+
+  bindSearchAssistEvents();
 
   elements.quickSearch.addEventListener("click", (event) => {
     const showAllButton = event.target.closest("button[data-action='show-all']");
@@ -4166,4 +4177,255 @@ function escapeHtml(value) {
 
 function escapeAttribute(value) {
   return escapeHtml(value).replace(/`/g, "&#096;");
+}
+
+
+/* ── 검색 추천 · 최근 검색어 ────────────────────────────── */
+
+const SEARCH_HISTORY_KEY = "msds.searchHistory.v1";
+const SEARCH_HISTORY_LIMIT = 8;
+const SEARCH_SUGGESTION_LIMIT = 8;
+const SEARCH_SUGGESTION_MAX_LENGTH = 60;
+
+const SUGGESTION_TYPES = [
+  { key: "productNames", label: "제품", icon: "▣", weight: 0 },
+  { key: "componentNames", label: "물질", icon: "⬡", weight: 1 },
+  { key: "metaFields", label: "용도·업체", icon: "◇", weight: 2 },
+  { key: "casNumbers", label: "CAS", icon: "#", weight: 3 }
+];
+
+let searchSuggestionPool = [];
+let searchSuggestionPoolSize = -1;
+
+function readSearchHistory() {
+  try {
+    const parsed = JSON.parse(window.localStorage.getItem(SEARCH_HISTORY_KEY) || "[]");
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter((item) => typeof item === "string" && item.trim()).slice(0, SEARCH_HISTORY_LIMIT);
+  } catch (error) {
+    return [];
+  }
+}
+
+function writeSearchHistory(list) {
+  try {
+    window.localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(list.slice(0, SEARCH_HISTORY_LIMIT)));
+  } catch (error) {
+    // 사생활 보호 모드처럼 저장소가 막힌 환경에서는 기록을 남기지 않고 넘어간다.
+  }
+}
+
+function rememberSearchTerm(term) {
+  const value = String(term || "").trim();
+  if (value.length < 2) return;
+  const key = normalizeSearchText(value);
+  if (!key) return;
+  writeSearchHistory([value, ...readSearchHistory().filter((item) => normalizeSearchText(item) !== key)]);
+}
+
+function forgetSearchTerm(term) {
+  const key = normalizeSearchText(term);
+  writeSearchHistory(readSearchHistory().filter((item) => normalizeSearchText(item) !== key));
+}
+
+function buildSearchSuggestionPool() {
+  const products = state.products || [];
+  if (searchSuggestionPoolSize === products.length && searchSuggestionPool.length) {
+    return searchSuggestionPool;
+  }
+  const seen = new Map();
+  products.forEach((product) => {
+    const fields = getProductSearchFields(product);
+    SUGGESTION_TYPES.forEach((type) => {
+      (fields[type.key] || []).forEach((value) => {
+        const text = String(value || "").trim();
+        if (!text || text.length > SEARCH_SUGGESTION_MAX_LENGTH) return;
+        const normalized = normalizeSearchText(text);
+        if (!normalized) return;
+        const existing = seen.get(normalized);
+        if (existing) {
+          existing.count += 1;
+          if (type.weight < existing.type.weight) existing.type = type;
+          return;
+        }
+        seen.set(normalized, { text, normalized, type, count: 1 });
+      });
+    });
+  });
+  searchSuggestionPool = [...seen.values()];
+  searchSuggestionPoolSize = products.length;
+  return searchSuggestionPool;
+}
+
+function getSearchSuggestions(query) {
+  const needle = normalizeSearchText(query);
+  if (!needle) return [];
+  const matches = [];
+  buildSearchSuggestionPool().forEach((entry) => {
+    if (entry.normalized === needle) return;
+    const at = entry.normalized.indexOf(needle);
+    if (at < 0) return;
+    matches.push({ text: entry.text, type: entry.type, count: entry.count, at });
+  });
+  matches.sort((a, b) => (
+    (a.at === 0 ? 0 : 1) - (b.at === 0 ? 0 : 1)
+    || a.type.weight - b.type.weight
+    || b.count - a.count
+    || a.text.length - b.text.length
+    || a.text.localeCompare(b.text, "ko")
+  ));
+  return matches.slice(0, SEARCH_SUGGESTION_LIMIT);
+}
+
+function highlightSuggestion(text, query) {
+  const raw = String(text || "");
+  const needle = String(query || "").trim().toLowerCase();
+  if (!needle) return escapeHtml(raw);
+  const at = raw.toLowerCase().indexOf(needle);
+  if (at < 0) return escapeHtml(raw);
+  return escapeHtml(raw.slice(0, at))
+    + "<mark>" + escapeHtml(raw.slice(at, at + needle.length)) + "</mark>"
+    + escapeHtml(raw.slice(at + needle.length));
+}
+
+function renderSearchAssist() {
+  const panel = elements.searchAssist;
+  const list = elements.searchAssistList;
+  if (!panel || !list) return;
+  const assist = state.assist;
+  if (!assist.open || !assist.items.length) {
+    panel.hidden = true;
+    elements.searchInput?.setAttribute("aria-expanded", "false");
+    return;
+  }
+  const isHistory = assist.mode === "history";
+  if (elements.searchAssistTitle) {
+    elements.searchAssistTitle.textContent = isHistory ? "최근 검색어" : "추천 검색어";
+  }
+  if (elements.clearSearchHistory) {
+    elements.clearSearchHistory.hidden = !isHistory;
+  }
+  list.innerHTML = assist.items.map((item, index) => {
+    const isActive = index === assist.activeIndex;
+    const trailing = isHistory
+      ? `<span class="search-assist-remove" role="button" tabindex="-1" data-remove-history="${escapeAttribute(item.text)}" aria-label="${escapeAttribute(item.text)} 기록 삭제" title="이 기록 삭제">×</span>`
+      : `<span class="search-assist-type">${escapeHtml(item.type.label)}</span>`;
+    const label = isHistory ? escapeHtml(item.text) : highlightSuggestion(item.text, assist.query);
+    const icon = isHistory ? "⟲" : escapeHtml(item.type.icon);
+    return `<li role="presentation">
+        <button type="button" class="search-assist-item${isActive ? " is-active" : ""}" role="option" aria-selected="${isActive}" data-assist-value="${escapeAttribute(item.text)}">
+          <span class="search-assist-icon" aria-hidden="true">${icon}</span>
+          <span class="search-assist-text">${label}</span>
+          ${trailing}
+        </button>
+      </li>`;
+  }).join("");
+  panel.hidden = false;
+  elements.searchInput?.setAttribute("aria-expanded", "true");
+}
+
+function openSearchAssist(forcedMode) {
+  if (!elements.searchInput) return;
+  const typed = elements.searchInput.value.trim();
+  const useHistory = forcedMode === "history" || !typed;
+  const items = useHistory
+    ? readSearchHistory().map((text) => ({ text, type: null, count: 0, at: 0 }))
+    : getSearchSuggestions(typed);
+  state.assist = {
+    open: items.length > 0,
+    mode: useHistory ? "history" : "suggest",
+    items,
+    activeIndex: -1,
+    query: typed
+  };
+  renderSearchAssist();
+}
+
+function closeSearchAssist() {
+  state.assist = { open: false, mode: state.assist.mode, items: [], activeIndex: -1, query: "" };
+  renderSearchAssist();
+}
+
+function moveSearchAssistActive(step) {
+  const assist = state.assist;
+  if (!assist.open || !assist.items.length) return;
+  const count = assist.items.length;
+  const next = assist.activeIndex + step;
+  assist.activeIndex = next < 0 ? count - 1 : next >= count ? 0 : next;
+  renderSearchAssist();
+  elements.searchAssistList?.querySelector(".search-assist-item.is-active")?.scrollIntoView({ block: "nearest" });
+}
+
+function commitSearch(term) {
+  if (!elements.searchInput) return;
+  const value = String(term ?? elements.searchInput.value ?? "");
+  elements.searchInput.value = value;
+  state.query = value;
+  state.showFullList = false;
+  resetFullListNavigation();
+  resetResultWindow();
+  state.selectionCollapsed = false;
+  updateSelectedProductForQuery();
+  rememberSearchTerm(value);
+  closeSearchAssist();
+  render();
+}
+
+function bindSearchAssistEvents() {
+  if (!elements.searchInput || !elements.searchAssist) return;
+
+  elements.searchInput.addEventListener("focus", () => openSearchAssist());
+
+  elements.searchInput.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+      if (!state.assist.open) {
+        openSearchAssist();
+        if (!state.assist.open) return;
+      }
+      event.preventDefault();
+      moveSearchAssistActive(event.key === "ArrowDown" ? 1 : -1);
+      return;
+    }
+    if (event.key === "Enter") {
+      event.preventDefault();
+      const picked = state.assist.open ? state.assist.items[state.assist.activeIndex] : null;
+      commitSearch(picked ? picked.text : elements.searchInput.value);
+      return;
+    }
+    if (event.key === "Escape" && state.assist.open) {
+      event.preventDefault();
+      closeSearchAssist();
+    }
+  });
+
+  // 목록을 누르는 순간 입력창이 blur 되면서 패널이 닫히는 것을 막는다.
+  elements.searchAssist.addEventListener("mousedown", (event) => event.preventDefault());
+
+  elements.searchAssist.addEventListener("click", (event) => {
+    const remove = event.target.closest("[data-remove-history]");
+    if (remove) {
+      event.stopPropagation();
+      forgetSearchTerm(remove.dataset.removeHistory);
+      openSearchAssist("history");
+      elements.searchInput.focus();
+      return;
+    }
+    const option = event.target.closest("[data-assist-value]");
+    if (!option) return;
+    commitSearch(option.dataset.assistValue);
+    elements.searchInput.focus();
+  });
+
+  elements.clearSearchHistory?.addEventListener("click", (event) => {
+    event.stopPropagation();
+    writeSearchHistory([]);
+    closeSearchAssist();
+    elements.searchInput.focus();
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!state.assist.open) return;
+    if (event.target.closest("#searchAssist") || event.target.closest("#searchInput")) return;
+    closeSearchAssist();
+  });
 }

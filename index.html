@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="제품별 물질안전보건자료와 현장 안전정보를 조회하고 원본 MSDS를 확인하는 사이트입니다.">
     <title>물질안전보건자료(MSDS) 안전정보 조회</title>
-    <link rel="stylesheet" href="css/style.css?v=20260717-preview2">
+    <link rel="stylesheet" href="css/style.css?v=20260916-search1">
   </head>
   <body>
     <a class="skip-link" href="#searchInput">MSDS 검색으로 바로가기</a>
@@ -61,17 +61,30 @@
 
         <div id="publicDeployNotice" class="public-deploy-notice is-hidden" role="status"></div>
 
-        <div class="search-box" role="search" aria-labelledby="searchTitle">
-          <input
-            id="searchInput"
-            class="search-input"
-            type="search"
-            placeholder="물질명, 제품명, 용도, CAS No. 입력"
-            autocomplete="off"
-            aria-describedby="searchHelp"
-          >
-          <button class="search-button" id="runSearch" type="button">검색</button>
-          <button class="clear-button" id="clearSearch" type="button">검색 초기화</button>
+        <div class="search-box-wrap">
+          <div class="search-box" role="search" aria-labelledby="searchTitle">
+            <input
+              id="searchInput"
+              class="search-input"
+              type="search"
+              placeholder="물질명, 제품명, 용도, CAS No. 입력"
+              autocomplete="off"
+              role="combobox"
+              aria-expanded="false"
+              aria-controls="searchAssistList"
+              aria-autocomplete="list"
+              aria-describedby="searchHelp"
+            >
+            <button class="search-button" id="runSearch" type="button">검색</button>
+            <button class="clear-button" id="clearSearch" type="button">검색 초기화</button>
+          </div>
+          <div id="searchAssist" class="search-assist" hidden>
+            <div class="search-assist-head">
+              <span id="searchAssistTitle" class="search-assist-title">최근 검색어</span>
+              <button type="button" id="clearSearchHistory" class="search-assist-clear">검색기록 삭제</button>
+            </div>
+            <ul id="searchAssistList" class="search-assist-list" role="listbox" aria-labelledby="searchAssistTitle"></ul>
+          </div>
         </div>
 
         <div class="search-control-bar" aria-label="검색 결과 제어">
@@ -157,6 +170,6 @@
       </nav>
     </main>
 
-    <script src="js/app.js?v=20260717-preview2" defer></script>
+    <script src="js/app.js?v=20260916-search1" defer></script>
   </body>
 </html>
