@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
     <title>MSDS 경고표지 만들기</title>
-    <link rel="stylesheet" href="css/label.css?v=20260916-label2">
+    <link rel="stylesheet" href="css/label.css?v=20260916-label3">
     <script>
       // 조회 화면에서 고른 화면 설정을 이 페이지에도 적용한다.
       try {
@@ -35,9 +35,9 @@
           <label class="label-field label-field-narrow">
             <span>표지 크기</span>
             <select id="labelSize">
-              <option value="mini">소형용기 100mL 이하 (간이표시)</option>
+              <option value="mini" selected>소형용기 100mL 이하 (간이표시)</option>
               <option value="small">소분용기 100mL 초과 (2단 압축)</option>
-              <option value="medium" selected>일반용기 (A5 정도)</option>
+              <option value="medium">일반용기 (A5 정도)</option>
               <option value="large">드럼통 (A4 정도)</option>
             </select>
           </label>
@@ -72,10 +72,10 @@
         </p>
       </section>
 
-      <section id="labelSheet" class="label-sheet label-size-medium" aria-label="경고표지 목록"></section>
+      <section id="labelSheet" class="label-sheet label-size-mini" aria-label="경고표지 목록"></section>
     </main>
 
-    <script src="vendor/qrcode.min.js?v=20260916-label2"></script>
-    <script src="js/label.js?v=20260916-label2" defer></script>
+    <script src="vendor/qrcode.min.js?v=20260916-label3"></script>
+    <script src="js/label.js?v=20260916-label3" defer></script>
   </body>
 </html>

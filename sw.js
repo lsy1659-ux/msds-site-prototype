@@ -9,7 +9,7 @@
  *  - PDF: 열어본 것만 캐시. 전체는 80MB가 넘어 미리 담지 않는다.
  */
 
-const CACHE_VERSION = "msds-2026-09-16-14";
+const CACHE_VERSION = "msds-2026-09-16-15";
 const SHELL_CACHE = `${CACHE_VERSION}-shell`;
 const DATA_CACHE = `${CACHE_VERSION}-data`;
 const PDF_CACHE = `${CACHE_VERSION}-pdf`;
@@ -119,17 +119,32 @@ async function networkFirst(request, cacheName) {
   }
 }
 
-// 화면 파일은 ?v= 가 붙어도 같은 파일로 본다.
+/* 화면 파일은 주소가 정확히 같을 때만 저장본을 쓴다.
+ *
+ * 전에는 ?v= 를 무시하고 맞췄는데, 그러면 새 판을 올려도 옛 파일이 계속 나갔다.
+ * 이제 ?v= 가 바뀌면 새로 받고, 끊겼을 때만 판이 다른 사본이라도 꺼내 쓴다.
+ */
 async function cacheFirst(request, cacheName, { limit = 0 } = {}) {
   const cache = await caches.open(cacheName);
-  const cached = await cache.match(request, { ignoreSearch: true });
-  if (cached) return cached;
-  const response = await fetch(request);
-  if (response && response.ok) {
-    await cache.put(request, response.clone());
-    if (limit) await trimCache(cacheName, limit);
+  const exact = await cache.match(request);
+  if (exact) return exact;
+
+  if (!isKnownOffline()) {
+    try {
+      const response = await fetchWithTimeout(request, NETWORK_TIMEOUT_MS);
+      if (response && response.ok) {
+        await cache.put(request, response.clone());
+        if (limit) await trimCache(cacheName, limit);
+      }
+      return response;
+    } catch (error) {
+      // 아래에서 저장본을 찾아본다.
+    }
   }
-  return response;
+
+  const loose = await cache.match(request, { ignoreSearch: true });
+  if (loose) return loose;
+  return fetch(request);
 }
 
 self.addEventListener("fetch", (event) => {

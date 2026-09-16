@@ -30,7 +30,7 @@ const GHS_PICTOGRAMS = {
   GHS09: { label: "환경유해성", icon: "assets/ghs/ghs09.svg" }
 };
 
-const labelState = { products: [], filtered: [], selected: new Set(), query: "", size: "medium",
+const labelState = { products: [], filtered: [], selected: new Set(), query: "", size: "mini",
   shorten: true, onlyPrintable: true };
 const labelElements = {};
 
