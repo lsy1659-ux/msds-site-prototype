@@ -476,27 +476,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-
-  // 조회 화면에서 제품을 보다가 넘어오면 그 제품을 골라 둔 채로 연다.
-  // 목록은 그대로 두므로 다른 제품을 더 고를 수도 있다.
-  const wanted = new URLSearchParams(window.location.search).get("product");
-  if (wanted && labelState.products.some((product) => product.id === wanted)) {
-    labelState.selected.add(wanted);
-  }
-
   applyLabelSize();
   applyLabelFilter();
   renderLabelSheet();
-  syncLabelSelection();
-  scrollToPickedCard();
 });
-
-// 골라 둔 표지가 목록 아래쪽에 있으면 못 보고 지나친다. 화면으로 데려온다.
-// 이미 보이는 자리에 있으면 건드리지 않는다. 괜히 움직이면 설정 칸이 가린다.
-function scrollToPickedCard() {
-  const first = document.querySelector(".label-card.is-selected");
-  if (!first) return;
-  const top = first.getBoundingClientRect().top;
-  if (top >= 0 && top < window.innerHeight) return;
-  window.requestAnimationFrame(() => first.scrollIntoView({ behavior: "smooth", block: "center" }));
-}

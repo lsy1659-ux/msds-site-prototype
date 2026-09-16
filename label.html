@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
     <title>MSDS 경고표지 만들기</title>
-    <link rel="stylesheet" href="css/label.css?v=20260916-menu1">
-    <link rel="stylesheet" href="css/topbar.css?v=20260916-menu1">
+    <link rel="stylesheet" href="css/label.css?v=20260916-label11">
     <script>
       // 조회 화면에서 고른 화면 설정을 이 페이지에도 적용한다.
       try {
@@ -18,25 +17,13 @@
     </script>
   </head>
   <body>
-    <nav class="top-bar no-print" aria-label="화면 이동">
-      <a class="top-bar-brand" href="index.html">MSDS 안전정보</a>
-      <div class="top-bar-tabs">
-        <a class="top-bar-tab" href="index.html">조회</a>
-        <a class="top-bar-tab" href="label.html" aria-current="page">경고표지</a>
-        <a class="top-bar-tab" href="qr.html">QR 코드</a>
+    <header class="label-header no-print">
+      <div class="label-header-inner">
+        <h1>경고표지 만들기</h1>
+        <p>용기에 붙일 경고표지를 만듭니다. 명칭·그림문자·신호어·유해위험문구·예방조치문구·공급자정보 6개 항목으로 구성합니다.</p>
+        <a class="label-back" href="index.html">← MSDS 조회로 돌아가기</a>
       </div>
-      <div class="top-bar-tools">
-        <button type="button" id="themeToggle" class="theme-toggle" aria-pressed="false">
-          <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
-          <span class="theme-toggle-label">어두운 화면</span>
-        </button>
-      </div>
-    </nav>
-
-    <div class="page-intro no-print">
-      <h1>경고표지 만들기</h1>
-      <p>용기에 붙일 경고표지를 만듭니다. 명칭·그림문자·신호어·유해위험문구·예방조치문구·공급자정보 6개 항목으로 구성합니다.</p>
-    </div>
+    </header>
 
     <main class="label-main">
       <section class="label-controls no-print" aria-label="경고표지 설정">
@@ -93,8 +80,7 @@
       <section id="labelSheet" class="label-sheet label-size-mini" aria-label="경고표지 목록"></section>
     </main>
 
-    <script src="vendor/qrcode.min.js?v=20260916-menu1"></script>
-    <script src="js/label.js?v=20260916-menu1" defer></script>
-    <script src="js/theme.js?v=20260916-menu1" defer></script>
+    <script src="vendor/qrcode.min.js?v=20260916-label11"></script>
+    <script src="js/label.js?v=20260916-label11" defer></script>
   </body>
 </html>

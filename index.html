@@ -5,57 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="제품별 물질안전보건자료와 현장 안전정보를 조회하고 원본 MSDS를 확인하는 사이트입니다.">
     <title>물질안전보건자료(MSDS) 안전정보 조회</title>
-    <link rel="manifest" href="manifest.webmanifest?v=20260916-menu1">
+    <link rel="manifest" href="manifest.webmanifest?v=20260916-label11">
     <meta name="theme-color" content="#0f5f4f">
     <link rel="icon" href="assets/icons/icon-192.png" sizes="192x192" type="image/png">
     <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="MSDS">
-    <link rel="stylesheet" href="css/style.css?v=20260916-menu1">
-    <link rel="stylesheet" href="css/topbar.css?v=20260916-menu1">
-    <script>
-      // 첫 화면이 번쩍이지 않게 저장된 화면 설정을 먼저 적용한다.
-      try {
-        var saved = localStorage.getItem("msds.theme.v1");
-        var dark = saved ? saved === "dark"
-          : window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-        document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
-      } catch (error) { /* 저장소가 막힌 환경 */ }
-    </script>
+    <link rel="stylesheet" href="css/style.css?v=20260916-label11">
   </head>
   <body>
     <a class="skip-link" href="#searchInput">MSDS 검색으로 바로가기</a>
-    <nav class="top-bar" aria-label="화면 이동">
-      <a class="top-bar-brand" href="index.html">MSDS 안전정보</a>
-      <div class="top-bar-tabs">
-        <a class="top-bar-tab" href="index.html" aria-current="page">조회</a>
-        <a class="top-bar-tab" href="label.html">경고표지</a>
-        <a class="top-bar-tab" href="qr.html">QR 코드</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="hero-copy">
+          <div class="header-title-row">
+            <h1>
+              <span class="desktop-title">물질안전보건자료(MSDS) 조회</span>
+              <span class="mobile-title">MSDS 조회</span>
+            </h1>
+            <button type="button" id="themeToggle" class="theme-toggle" aria-pressed="false">
+              <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+              <span class="theme-toggle-label">어두운 화면</span>
+            </button>
+          </div>
+          <p class="header-note">제품명, 물질명, 용도, CAS No.로 검색하고 작업 전 안전정보와 원문자료를 확인하세요.</p>
+          <div id="currentSelection" class="current-selection" role="status" aria-live="polite">선택된 제품이 없습니다.</div>
+          <dl class="dataset-meta" aria-label="사이트 데이터 정보">
+            <div>
+              <dt>데이터 기준일</dt>
+              <dd id="datasetCutoffDate">확인 중</dd>
+            </div>
+            <div>
+              <dt>배포 버전</dt>
+              <dd id="siteVersion">확인 중</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="hero-visual-card hero-document">
+            <span class="hero-doc-title">MSDS</span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="hero-shield">✓</div>
+          <div class="hero-magnifier"></div>
+          <div class="hero-flask"></div>
+        </div>
       </div>
-      <div class="top-bar-tools">
-        <button type="button" id="offlineToggle" class="top-bar-button" aria-expanded="false" aria-controls="offlineDrawer">
-          <span aria-hidden="true">⤓</span><span class="top-bar-button-label">오프라인 저장</span>
-        </button>
-        <button type="button" id="themeToggle" class="theme-toggle" aria-pressed="false">
-          <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
-          <span class="theme-toggle-label">어두운 화면</span>
-        </button>
-      </div>
-    </nav>
-
-    <div id="offlineDrawer" class="top-bar-panel" hidden>
-      <div class="top-bar-panel-inner">
-        <div id="offlinePanel" class="offline-panel"></div>
-      </div>
-    </div>
+    </header>
 
     <main class="app-shell">
-      <div class="page-intro">
-        <h1>물질안전보건자료(MSDS) 조회</h1>
-        <p>제품명, 물질명, 용도, CAS No.로 검색하고 작업 전 안전정보와 원문자료를 확인하세요.</p>
-        <div id="currentSelection" class="current-selection" role="status" aria-live="polite">선택된 제품이 없습니다.</div>
-      </div>
-
       <section id="search-section" class="search-panel" aria-labelledby="searchTitle">
         <div class="search-title-row">
           <div class="search-heading">
@@ -174,28 +174,21 @@
       </section>
 
       <nav id="scrollQuickNav" class="scroll-quick-nav is-hidden" aria-label="화면 진행 위치">
-        <button type="button" data-scroll-target="summary"><b>요약</b></button>
-        <button type="button" data-scroll-target="firstaid"><b>응급</b></button>
-        <button type="button" data-scroll-target="components"><b>성분</b></button>
-        <button type="button" data-scroll-target="caution"><b>주의</b></button>
-        <button type="button" data-scroll-target="pdf"><b>원본</b></button>
+        <button type="button" data-scroll-target="search"><span>01</span><b>검색</b></button>
+        <button type="button" data-scroll-target="summary"><span>02</span><b>요약</b></button>
+        <button type="button" data-scroll-target="detail"><span>03</span><b>상세</b></button>
+        <button type="button" data-scroll-target="components"><span>04</span><b>성분</b></button>
+        <button type="button" data-scroll-target="caution"><span>05</span><b>주의</b></button>
+        <button type="button" data-scroll-target="pdf"><span>06</span><b>원본</b></button>
       </nav>
 
       <footer class="site-footer">
-        <dl class="dataset-meta" aria-label="사이트 데이터 정보">
-          <div>
-            <dt>데이터 기준일</dt>
-            <dd id="datasetCutoffDate">확인 중</dd>
-          </div>
-          <div>
-            <dt>배포 버전</dt>
-            <dd id="siteVersion">확인 중</dd>
-          </div>
-        </dl>
+        <div id="offlinePanel" class="offline-panel"></div>
+        <a class="site-footer-link" href="label.html">용기 부착용 경고표지 만들기 →</a>
+        <a class="site-footer-link" href="qr.html">용기 부착용 제품별 QR 코드 만들기 →</a>
       </footer>
     </main>
 
-    <script src="js/theme.js?v=20260916-menu1" defer></script>
-    <script src="js/app.js?v=20260916-menu1" defer></script>
+    <script src="js/app.js?v=20260916-label11" defer></script>
   </body>
 </html>

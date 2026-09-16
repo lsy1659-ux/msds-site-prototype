@@ -203,20 +203,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-
-  // 조회 화면에서 제품을 보다가 넘어오면 그 제품을 골라 둔 채로 연다.
-  // 목록은 그대로 두므로 다른 제품을 더 고를 수도 있다.
-  const wanted = new URLSearchParams(window.location.search).get("product");
-  if (wanted && qrState.products.some((product) => product.id === wanted)) {
-    qrState.selected.add(wanted);
-  }
-
   applyQrFilter();
   renderQrSheet();
-  // 골라 둔 카드가 화면 밖에 있을 때만 데려온다.
-  const first = document.querySelector(".qr-card.is-selected");
-  const top = first ? first.getBoundingClientRect().top : 0;
-  if (first && (top < 0 || top >= window.innerHeight)) {
-    window.requestAnimationFrame(() => first.scrollIntoView({ behavior: "smooth", block: "center" }));
-  }
 });

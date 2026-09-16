@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
     <title>MSDS 제품별 QR 코드 만들기</title>
-    <link rel="stylesheet" href="css/qr.css?v=20260916-menu1">
-    <link rel="stylesheet" href="css/topbar.css?v=20260916-menu1">
+    <link rel="stylesheet" href="css/qr.css?v=20260916-label11">
     <script>
       // 조회 화면에서 고른 화면 설정을 이 페이지에도 적용한다.
       try {
@@ -18,25 +17,13 @@
     </script>
   </head>
   <body>
-    <nav class="top-bar no-print" aria-label="화면 이동">
-      <a class="top-bar-brand" href="index.html">MSDS 안전정보</a>
-      <div class="top-bar-tabs">
-        <a class="top-bar-tab" href="index.html">조회</a>
-        <a class="top-bar-tab" href="label.html">경고표지</a>
-        <a class="top-bar-tab" href="qr.html" aria-current="page">QR 코드</a>
+    <header class="qr-header no-print">
+      <div class="qr-header-inner">
+        <h1>제품별 QR 코드 만들기</h1>
+        <p>용기·드럼통에 붙일 QR을 만듭니다. 스캔하면 그 제품의 MSDS 화면이 바로 열립니다.</p>
+        <a class="qr-back" href="index.html">← MSDS 조회로 돌아가기</a>
       </div>
-      <div class="top-bar-tools">
-        <button type="button" id="themeToggle" class="theme-toggle" aria-pressed="false">
-          <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
-          <span class="theme-toggle-label">어두운 화면</span>
-        </button>
-      </div>
-    </nav>
-
-    <div class="page-intro no-print">
-      <h1>제품별 QR 코드 만들기</h1>
-      <p>용기·드럼통에 붙일 QR을 만듭니다. 스캔하면 그 제품의 MSDS 화면이 바로 열립니다.</p>
-    </div>
+    </header>
 
     <main class="qr-main">
       <section class="qr-controls no-print" aria-label="QR 만들기 설정">
@@ -71,8 +58,7 @@
       <section id="qrSheet" class="qr-sheet qr-size-medium" aria-label="QR 목록"></section>
     </main>
 
-    <script src="vendor/qrcode.min.js?v=20260916-menu1"></script>
-    <script src="js/qr.js?v=20260916-menu1" defer></script>
-    <script src="js/theme.js?v=20260916-menu1" defer></script>
+    <script src="vendor/qrcode.min.js?v=20260916-label11"></script>
+    <script src="js/qr.js?v=20260916-label11" defer></script>
   </body>
 </html>
