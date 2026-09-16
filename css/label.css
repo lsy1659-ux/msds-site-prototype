@@ -149,6 +149,8 @@ body {
   display: grid;
   gap: 14px;
   margin-top: 16px;
+  /* 표지마다 내용 길이가 달라 한 줄의 높이에 맞춰 늘어나면 안이 텅 비어 보인다. */
+  align-items: start;
 }
 
 .label-size-small { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
@@ -158,6 +160,7 @@ body {
 .label-card {
   display: grid;
   gap: 8px;
+  align-content: start;
   padding: 14px 16px;
   border: 3px solid #111111;
   border-radius: 4px;
