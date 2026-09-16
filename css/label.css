@@ -71,11 +71,15 @@ body {
   flex-wrap: wrap;
   align-items: flex-end;
   gap: 10px;
+  /* 칸 나누기 항목은 기본값이 min-width:auto 라 안쪽 입력칸의 최소 너비
+   * 밑으로 줄어들지 않는다. 좁은 화면에서 카드 밖으로 삐져나오던 원인. */
+  min-width: 0;
 }
 
 .label-field {
   display: grid;
   flex: 1 1 260px;
+  min-width: 0;
   gap: 4px;
   font-size: 0.86rem;
   font-weight: 700;
@@ -88,6 +92,8 @@ body {
 
 .label-field input,
 .label-field select {
+  width: 100%;
+  min-width: 0;
   min-height: 44px;
   padding: 0 12px;
   border: 1px solid var(--label-line);
@@ -1019,4 +1025,41 @@ select:focus-visible {
   .label-size-tall .label-supplier h3 { font-size: 6pt; }
   .label-size-tall .label-supplier p { font-size: 5.6pt; line-height: 1.22; }
   .label-size-tall .label-qr { width: 20mm; height: 20mm; }
+}
+
+/* ══════════════════════════════════════════════════════════
+ * 손가락으로 누르는 기기에서만 적용한다. 화면 폭이 아니라 입력
+ * 방식으로 가르므로 PC 화면은 전혀 바뀌지 않는다.
+ *
+ * 표지 카드의 "인쇄 선택" 체크상자가 브라우저 기본값 그대로 13px
+ * 이었다. 장갑 낀 손으로는 못 누른다.
+ * ══════════════════════════════════════════════════════════ */
+@media (pointer: coarse) {
+  .label-card-pick {
+    gap: 10px;
+    min-height: 40px;
+  }
+
+  .label-card-pick input[type="checkbox"],
+  .label-check input {
+    width: 22px;
+    height: 22px;
+    flex: 0 0 auto;
+  }
+
+  .label-check {
+    min-height: 40px;
+  }
+
+  .label-qty input {
+    width: 60px;
+    min-height: 40px;
+    font-size: 0.95rem;
+  }
+
+  .label-back {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+  }
 }
