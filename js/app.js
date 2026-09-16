@@ -521,13 +521,9 @@ function bindElements() {
   elements.clearSearchHistory = document.querySelector("#clearSearchHistory");
   elements.productShortcuts = document.querySelector("#productShortcuts");
   elements.offlinePanel = document.querySelector("#offlinePanel");
-  elements.themeToggle = document.querySelector("#themeToggle");
 }
 
 function bindEvents() {
-  // 화면 전환은 다른 기능이 어떻게 되든 먼저 살려 둔다.
-  setupThemeToggle();
-
   elements.searchInput.addEventListener("input", (event) => {
     state.query = event.target.value;
     state.showFullList = false;
@@ -791,6 +787,11 @@ function handleQuickScroll(target) {
     document.querySelector("#safety-summary-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
     return;
   }
+  if (target === "firstaid") {
+    const block = document.querySelector("#first-aid-section") || document.querySelector("#detail-section");
+    block?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
   if (target === "detail" || target === "selected") {
     document.querySelector("#detail-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
     return;
@@ -811,9 +812,8 @@ function handleQuickScroll(target) {
 
 function getScrollProgressSections() {
   return [
-    { key: "search", element: document.querySelector("#search-section") },
     { key: "summary", element: document.querySelector("#safety-summary-section") },
-    { key: "detail", element: document.querySelector("#detail-section") },
+    { key: "firstaid", element: document.querySelector("#first-aid-section") },
     { key: "components", element: document.querySelector("#ingredient-section") },
     { key: "caution", element: document.querySelector("#worker-note-section") },
     { key: "pdf", element: document.querySelector("#msds-original-section") }
@@ -2176,6 +2176,7 @@ function render() {
   elements.scrollQuickNav?.classList.toggle("is-hidden", !shouldShowQuickNav);
   scheduleScrollProgressUpdate();
   document.body.classList.toggle("is-pdf-full-view-open", state.pdfFullView.isOpen);
+  syncToolTabLinks(selected);
   liftPdfFullViewToBody();
   hydrateRequestedPdfPreview();
 }
@@ -2183,6 +2184,17 @@ function render() {
 // 전체화면 미리보기는 상세 안쪽에 그려진다. 그 위 구역에 화면 효과용
 // transform 이 걸려 있으면 position:fixed 가 화면이 아니라 그 구역을
 // 기준으로 잡혀 창 한쪽에만 뜬다. 그래서 그릴 때마다 body 로 옮긴다.
+// 제품을 보다가 경고표지나 QR 탭을 누르면 그 제품이 이미 골라진 채로
+// 열리게 한다. 목록은 그대로 두므로 다른 제품을 더 고를 수도 있다.
+function syncToolTabLinks(selected) {
+  const suffix = selected?.id ? `?product=${encodeURIComponent(selected.id)}` : "";
+  document.querySelectorAll(".top-bar-tab").forEach((tab) => {
+    const base = (tab.getAttribute("href") || "").split("?")[0];
+    if (base !== "label.html" && base !== "qr.html") return;
+    tab.setAttribute("href", base + suffix);
+  });
+}
+
 function liftPdfFullViewToBody() {
   document.querySelectorAll("body > .pdf-full-view").forEach((stale) => stale.remove());
   const fullView = document.querySelector(".pdf-full-view");
@@ -4109,6 +4121,7 @@ function summaryItem(label, value, tone) {
 
 function detailSection(title, content, extraClass = "") {
   const sectionIds = {
+    "detail-block-first-aid": "first-aid-section",
     "detail-block-components": "ingredient-section",
     "detail-block-worker-caution": "worker-note-section",
     "detail-block-pdf": "msds-original-section"
@@ -4815,7 +4828,23 @@ async function renderOfflinePanel(message = "") {
     <p class="offline-panel-hint">와이파이에서 한 번 저장해 두면, 신호가 없어도 저장한 제품의 MSDS 원본을 열 수 있습니다.</p>`;
 }
 
+// 오프라인 저장은 처음 한 번만 쓰는 기능이라 상단 줄에 버튼으로 두고
+// 누를 때만 아래로 펼친다. 늘 떠 있어서 화면을 어지럽히던 패널이었다.
+function bindOfflineDrawer() {
+  const button = document.querySelector("#offlineToggle");
+  const drawer = document.querySelector("#offlineDrawer");
+  if (!button || !drawer) return;
+
+  button.addEventListener("click", () => {
+    const open = drawer.hasAttribute("hidden");
+    drawer.toggleAttribute("hidden", !open);
+    button.setAttribute("aria-expanded", String(open));
+    if (open) renderOfflinePanel();
+  });
+}
+
 function bindOfflinePanel() {
+  bindOfflineDrawer();
   elements.offlinePanel?.addEventListener("click", (event) => {
     if (event.target.closest("[data-offline-cancel]")) {
       offlineSave.cancel = true;
@@ -4874,65 +4903,3 @@ function renderNotClassifiedNotice(product) {
 }
 
 
-/* ── 밝은 화면 / 어두운 화면 ────────────────────────────── */
-
-/* 창고나 야간 작업장에서 밝은 화면이 눈에 부담이 된다.
- * 고른 값은 이 기기에만 저장하고, 고른 적이 없으면 기기 설정을 따른다. */
-
-const THEME_KEY = "msds.theme.v1";
-
-function readStoredTheme() {
-  try {
-    const value = window.localStorage.getItem(THEME_KEY);
-    return value === "dark" || value === "light" ? value : "";
-  } catch (error) {
-    return "";
-  }
-}
-
-function storeTheme(value) {
-  try {
-    window.localStorage.setItem(THEME_KEY, value);
-  } catch (error) {
-    // 저장이 막힌 환경에서는 이번 방문에만 적용된다.
-  }
-}
-
-function prefersDark() {
-  return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-}
-
-function applyTheme(theme) {
-  const dark = theme === "dark";
-  document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
-  const button = document.querySelector(".theme-toggle") || elements.themeToggle;
-  if (!button) return;
-  button.setAttribute("aria-pressed", String(dark));
-  const icon = button.querySelector(".theme-toggle-icon");
-  const label = button.querySelector(".theme-toggle-label");
-  if (icon) icon.textContent = dark ? "☀" : "🌙";
-  if (label) label.textContent = dark ? "밝은 화면" : "어두운 화면";
-  button.title = dark ? "밝은 화면으로 바꾸기" : "어두운 화면으로 바꾸기";
-}
-
-function setupThemeToggle() {
-  applyTheme(readStoredTheme() || (prefersDark() ? "dark" : "light"));
-
-  // 버튼에 직접 걸지 않고 문서에서 받는다. 앞선 초기화가 하나라도 실패해도,
-  // 버튼이 다시 그려져도 화면 전환은 계속 눌린다. 휴대폰에서 이 버튼만
-  // 먹통이 되던 원인이 앞 단계 실패로 연결이 끊기는 것이었다.
-  document.addEventListener("click", (event) => {
-    const button = event.target instanceof Element ? event.target.closest(".theme-toggle") : null;
-    if (!button) return;
-    event.preventDefault();
-    const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    storeTheme(next);
-    applyTheme(next);
-  });
-
-  // 고른 적이 없을 때만 기기 설정 변화를 따라간다.
-  window.matchMedia?.("(prefers-color-scheme: dark)")?.addEventListener?.("change", (event) => {
-    if (readStoredTheme()) return;
-    applyTheme(event.matches ? "dark" : "light");
-  });
-}
