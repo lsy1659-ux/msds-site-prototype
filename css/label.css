@@ -1063,3 +1063,83 @@ select:focus-visible {
     min-height: 40px;
   }
 }
+
+/* ── 고른 제품 ─────────────────────────────────────────────
+ * 찾기 칸을 여러 번 바꿔 가며 하나씩 고르는 일이 잦다. 앞서 고른 것이
+ * 화면에서 사라지면 무엇을 골랐는지 알 수 없으므로 따로 보여 준다. */
+.label-picked {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--label-line);
+  border-radius: 12px;
+  background: rgba(11, 93, 77, 0.05);
+}
+
+.label-picked[hidden] {
+  display: none;
+}
+
+.label-picked-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.label-picked-head strong {
+  font-size: 0.92rem;
+}
+
+.label-picked-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.label-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--label-line);
+  border-radius: 999px;
+  background: var(--label-surface);
+  color: var(--label-ink);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.label-chip span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
+}
+
+.label-chip b {
+  color: var(--label-muted);
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.label-chip:hover {
+  border-color: #0b5d4d;
+}
+
+.label-chip:hover b {
+  color: #b3261e;
+}
+
+[data-theme="dark"] .label-picked {
+  background: rgba(111, 224, 191, 0.07);
+}
+
+@media (pointer: coarse) {
+  .label-chip {
+    min-height: 40px;
+    font-size: 0.86rem;
+  }
+}

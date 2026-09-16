@@ -30,7 +30,7 @@ const GHS_PICTOGRAMS = {
   GHS09: { label: "환경유해성", icon: "assets/ghs/ghs09.svg" }
 };
 
-const labelState = { products: [], filtered: [], selected: new Set(), query: "", size: "mini",
+const labelState = { products: [], filtered: [], selected: new Set(), query: "", size: "mini", onlySelected: false,
   shorten: true, onlyPrintable: true, quantity: new Map() };
 const labelElements = {};
 
@@ -233,6 +233,12 @@ function isPrintable(product) {
 }
 
 function applyLabelFilter() {
+  // 여러 번 찾아서 하나씩 고르는 일이 잦다. "고른 것만 보기"일 때는
+  // 찾기 칸과 상관없이 지금까지 고른 것을 전부 보여 준다.
+  if (labelState.onlySelected) {
+    labelState.filtered = labelState.products.filter((product) => labelState.selected.has(product.id));
+    return;
+  }
   const needle = labelNormalize(labelState.query);
   let list = !needle
     ? [...labelState.products]
@@ -374,12 +380,36 @@ function updateLabelStatus() {
   const notPrintable = labelState.products.filter((product) => !isPrintable(product)).length;
   const picked = labelState.selected.size;
   const parts = [`전체 ${labelState.products.length}건 중 ${labelState.filtered.length}건 표시`];
-  parts.push(picked ? `${picked}건 선택됨` : "선택 없음(보이는 전체가 인쇄됩니다)");
+  parts.push(picked ? `고른 제품 ${picked}건(찾기를 바꿔도 남습니다)` : "고른 제품 없음(보이는 전체가 인쇄됩니다)");
   if (notPrintable) parts.push(`원문 확인 필요 ${notPrintable}건은 제외됨`);
   labelElements.status.textContent = parts.join(" · ");
 }
 
+// 찾기 칸을 바꾸면 앞서 고른 제품은 화면에서 사라진다. 무엇을 골라
+// 뒀는지 눈으로 볼 수 있어야 여러 번 나눠 고를 수 있다.
+function renderPickedList() {
+  const box = labelElements.picked;
+  if (!box) return;
+  const picked = labelState.products.filter((product) => labelState.selected.has(product.id));
+  box.toggleAttribute("hidden", picked.length === 0);
+  if (labelElements.pickedCount) {
+    labelElements.pickedCount.textContent = `고른 제품 ${picked.length}건`;
+  }
+  if (labelElements.onlySelected) {
+    labelElements.onlySelected.setAttribute("aria-pressed", String(labelState.onlySelected));
+    labelElements.onlySelected.textContent = labelState.onlySelected ? "전체 목록으로" : "고른 것만 보기";
+  }
+  if (labelElements.pickedChips) {
+    labelElements.pickedChips.innerHTML = picked.map((product) => `
+      <button type="button" class="label-chip" data-label-drop="${labelEscape(product.id)}"
+        aria-label="${labelEscape(product.productName)} 고르기 취소">
+        <span>${labelEscape(product.productName)}</span><b aria-hidden="true">×</b>
+      </button>`).join("");
+  }
+}
+
 function syncLabelSelection() {
+  renderPickedList();
   labelElements.sheet?.classList.toggle("has-selection", labelState.selected.size > 0);
   labelElements.sheet?.querySelectorAll("[data-label-id]").forEach((card) => {
     card.classList.toggle("is-selected", labelState.selected.has(card.dataset.labelId));
@@ -390,8 +420,11 @@ function syncLabelSelection() {
 function bindLabelEvents() {
   labelElements.search?.addEventListener("input", (event) => {
     labelState.query = event.target.value;
+    // 다시 찾기 시작하면 전체 목록으로 돌아간다. 고른 것은 그대로 둔다.
+    if (labelState.query) labelState.onlySelected = false;
     applyLabelFilter();
     renderLabelSheet();
+    syncLabelSelection();
   });
 
   labelElements.size?.addEventListener("change", (event) => {
@@ -443,7 +476,39 @@ function bindLabelEvents() {
     syncLabelSelection();
   });
 
-  labelElements.print?.addEventListener("click", () => window.print());
+  labelElements.onlySelected?.addEventListener("click", () => {
+    labelState.onlySelected = !labelState.onlySelected;
+    applyLabelFilter();
+    renderLabelSheet();
+    syncLabelSelection();
+    labelElements.sheet?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  // 고른 제품 칩의 × 는 그 제품만 고르기에서 뺀다.
+  labelElements.pickedChips?.addEventListener("click", (event) => {
+    const chip = event.target.closest("[data-label-drop]");
+    if (!chip) return;
+    labelState.selected.delete(chip.dataset.labelDrop);
+    if (labelState.onlySelected) applyLabelFilter();
+    renderLabelSheet();
+    syncLabelSelection();
+  });
+
+  labelElements.print?.addEventListener("click", () => {
+    // 찾기 칸으로 걸러진 제품은 화면에 카드가 없다. 그대로 인쇄하면
+    // 골라 둔 제품인데도 빠진다. 빠지는 게 있으면 먼저 전부 불러온다.
+    const missing = labelState.selected.size
+      && [...labelState.selected].some((id) => !labelState.filtered.some((product) => product.id === id));
+    if (missing) {
+      labelState.onlySelected = true;
+      applyLabelFilter();
+      renderLabelSheet();
+      syncLabelSelection();
+      window.requestAnimationFrame(() => window.requestAnimationFrame(() => window.print()));
+      return;
+    }
+    window.print();
+  });
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -451,6 +516,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   labelElements.size = document.querySelector("#labelSize");
   labelElements.sheet = document.querySelector("#labelSheet");
   labelElements.status = document.querySelector("#labelStatus");
+  labelElements.picked = document.querySelector("#labelPicked");
+  labelElements.pickedCount = document.querySelector("#labelPickedCount");
+  labelElements.pickedChips = document.querySelector("#labelPickedChips");
+  labelElements.onlySelected = document.querySelector("#labelOnlySelected");
   labelElements.selectAll = document.querySelector("#labelSelectAll");
   labelElements.clear = document.querySelector("#labelClear");
   labelElements.print = document.querySelector("#labelPrint");

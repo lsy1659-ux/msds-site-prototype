@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
     <title>MSDS 경고표지 만들기</title>
-    <link rel="stylesheet" href="css/label.css?v=20260917-mobile3">
-    <link rel="stylesheet" href="css/topbar.css?v=20260917-mobile3">
+    <link rel="stylesheet" href="css/label.css?v=20260917-pick1">
+    <link rel="stylesheet" href="css/topbar.css?v=20260917-pick1">
     <script>
       // 조회 화면에서 고른 화면 설정을 이 페이지에도 적용한다.
       try {
@@ -65,6 +65,14 @@
           </label>
         </div>
 
+        <div id="labelPicked" class="label-picked" hidden>
+          <div class="label-picked-head">
+            <strong id="labelPickedCount">고른 제품 0건</strong>
+            <button type="button" id="labelOnlySelected" class="label-button label-button-quiet" aria-pressed="false">고른 것만 보기</button>
+          </div>
+          <div id="labelPickedChips" class="label-picked-chips"></div>
+        </div>
+
         <div class="label-control-row">
           <button type="button" id="labelSelectAll" class="label-button">보이는 제품 모두 선택</button>
           <button type="button" id="labelClear" class="label-button label-button-quiet">선택 해제</button>
@@ -74,6 +82,8 @@
 
         <p class="label-hint">
           선택한 제품만 인쇄됩니다. 아무것도 선택하지 않으면 화면에 보이는 제품 전체가 인쇄됩니다.
+          찾기 칸을 바꿔도 고른 것은 그대로 쌓입니다. 신너를 찾아 고르고, 다시 페인트를 찾아 골라도
+          앞서 고른 것은 남습니다. 다 골랐으면 "고른 것만 보기"로 확인한 뒤 인쇄하세요.
           100mL 이하 소형용기는 고시가 허용하는 간이표시(제품명·그림문자·신호어·공급자정보)로 만들고,
           그보다 큰 소분용기는 유해·위험문구를 모두 넣되 2단으로 압축합니다.
           2단 압축은 가로형과 세로형 두 가지입니다. 가로형은 A4 가로 한 장에 넉 장(136×84mm),
@@ -90,7 +100,7 @@
       <section id="labelSheet" class="label-sheet label-size-mini" aria-label="경고표지 목록"></section>
     </main>
 
-    <script src="vendor/qrcode.min.js?v=20260917-mobile3"></script>
-    <script src="js/label.js?v=20260917-mobile3" defer></script>
+    <script src="vendor/qrcode.min.js?v=20260917-pick1"></script>
+    <script src="js/label.js?v=20260917-pick1" defer></script>
   </body>
 </html>
