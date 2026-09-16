@@ -31,7 +31,7 @@ const GHS_PICTOGRAMS = {
 };
 
 const labelState = { products: [], filtered: [], selected: new Set(), query: "", size: "mini",
-  shorten: true, onlyPrintable: true };
+  shorten: true, onlyPrintable: true, quantity: new Map() };
 const labelElements = {};
 
 function labelNormalize(value) {
@@ -222,6 +222,11 @@ function renderSupplier(product) {
 
 /* 표지에 "확인 필요"가 찍히면 용기에 붙일 수 없다.
  * 붙일 수 있는 것과 원문을 더 봐야 하는 것을 나눠서, 기본은 붙일 수 있는 것만 보여준다. */
+function getQuantity(productId) {
+  const value = labelState.quantity.get(productId);
+  return Number.isFinite(value) && value >= 1 ? Math.min(60, Math.round(value)) : 1;
+}
+
 function isPrintable(product) {
   if (isNotClassified(product)) return true;
   return cleanStatements(product.hazardStatements).length > 0;
@@ -289,30 +294,48 @@ function renderLabelSheet() {
         ${renderSupplier(product)}`;
     }
 
-    return `<article class="label-card${checked ? " is-selected" : ""}" data-label-id="${labelEscape(product.id)}">
-        <label class="label-card-pick no-print">
+    const count = getQuantity(product.id);
+    const head = `<label class="label-card-pick no-print">
           <input type="checkbox" data-label-check="${labelEscape(product.id)}"${checked ? " checked" : ""}>
           <span>인쇄 선택</span>
-        </label>
-        <h2 class="label-name">${labelEscape(product.productName)}</h2>
+          <span class="label-qty">
+            <span>장수</span>
+            <input type="number" min="1" max="60" step="1" value="${count}" data-label-qty="${labelEscape(product.id)}" aria-label="${labelEscape(product.productName)} 인쇄 장수">
+          </span>
+        </label>`;
+    const face = `<h2 class="label-name">${labelEscape(product.productName)}</h2>
         ${renderPictograms(codes, product)}
         <p class="label-signal${signal === "위험" ? " is-danger" : ""}">${labelEscape(signal || "신호어 확인 필요")}</p>
-        ${body}
-      </article>`;
+        ${body}`;
+
+    // 같은 표지를 여러 장 붙일 일이 잦다. 화면에는 한 장만 두고
+    // 나머지는 숨겨 뒀다가 인쇄할 때만 꺼낸다.
+    const copies = [];
+    for (let index = 1; index < count; index += 1) {
+      copies.push(`<article class="label-card is-copy${checked ? " is-selected" : ""}" data-label-id="${labelEscape(product.id)}" aria-hidden="true">${face}</article>`);
+    }
+
+    return `<article class="label-card${checked ? " is-selected" : ""}" data-label-id="${labelEscape(product.id)}">
+        ${head}
+        ${face}
+      </article>${copies.join("")}`;
   }).join("");
 
   if (mini || compact) {
     labelState.filtered.forEach((product) => {
-      const slot = sheet.querySelector(`[data-label-qr="${CSS.escape(product.id)}"]`);
-      if (!slot || typeof qrcode !== "function") return;
+      if (typeof qrcode !== "function") return;
+      let svg = "";
       try {
         const code = qrcode(0, "M");
         code.addData(buildProductUrl(product.id));
         code.make();
-        slot.innerHTML = code.createSvgTag({ scalable: true, margin: 0 });
+        svg = code.createSvgTag({ scalable: true, margin: 0 });
       } catch (error) {
-        slot.innerHTML = "";
+        svg = "";
       }
+      // 사본까지 모두 채운다.
+      sheet.querySelectorAll(`[data-label-qr="${CSS.escape(product.id)}"]`)
+        .forEach((slot) => { slot.innerHTML = svg; });
     });
   }
 
@@ -352,6 +375,15 @@ function bindLabelEvents() {
   });
 
   labelElements.sheet?.addEventListener("change", (event) => {
+    const qty = event.target.closest("[data-label-qty]");
+    if (qty) {
+      const next = Math.max(1, Math.min(60, Math.round(Number(qty.value) || 1)));
+      qty.value = next;
+      labelState.quantity.set(qty.dataset.labelQty, next);
+      renderLabelSheet();
+      syncLabelSelection();
+      return;
+    }
     const box = event.target.closest("[data-label-check]");
     if (!box) return;
     if (box.checked) labelState.selected.add(box.dataset.labelCheck);

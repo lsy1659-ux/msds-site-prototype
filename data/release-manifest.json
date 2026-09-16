@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "version": "msds-20260916-a48d7d6c",
-  "generatedAt": "2026-09-16T04:24:21Z",
-  "dataGeneratedAt": "2026-09-16T04:24:21Z",
+  "version": "msds-20260916-f008cef8",
+  "generatedAt": "2026-09-16T05:45:13Z",
+  "dataGeneratedAt": "2026-09-16T05:45:13Z",
   "dataCutoffDate": "2026-09-16",
   "productCount": 224,
   "pdfCount": 225,
@@ -10,8 +10,8 @@
   "pdfOnlyCount": 0,
   "dataFiles": {
     "data/msds.public.json": {
-      "bytes": 1751162,
-      "sha256": "d75da1f2c9b7884f5da385970468edb3c791ce4751658fe55959c2d329139f3f"
+      "bytes": 1747637,
+      "sha256": "1cbb256b7e689f2c8360bf051aaaa16182c433551624a2ba3407dd802438b2c8"
     },
     "data/msds-overrides.public.json": {
       "bytes": 1116698,

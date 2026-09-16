@@ -585,93 +585,129 @@ select:focus-visible {
 }
 
 
-/* ── 인쇄 규격: A4 가로 한 장에 여섯 장 ──────────────────────
- * 용기에 붙이는 표지는 한 번에 여러 장을 뽑아 쓴다.
- * A4 가로(297x210mm)에 여백 6mm를 빼면 285x198mm가 남고,
- * 2열 3행으로 나누면 한 장이 약 141x62mm가 된다. 가로로 긴 형태라
- * 통 옆면에 붙이기 좋다.
+/* ── 인쇄 규격 ─────────────────────────────────────────────
+ * 용기 크기에 따라 한 장에 들어가는 수를 다르게 잡는다.
+ *
+ *  100mL 이하  A4 세로에 2열 3행, 여섯 장. 한 장이 약 92x89mm.
+ *              문구가 없으니 제품명과 그림문자를 크게 쓰고 QR도 키운다.
+ *  100mL 초과  A4 세로에 1열 4행, 네 장. 한 장이 약 190x65mm.
+ *              가로로 길어 유해·위험 문구를 두 단으로 담기 좋다.
  */
 
 @media print {
   @page {
-    size: A4 landscape;
-    margin: 6mm;
+    size: A4 portrait;
+    margin: 10mm;
   }
 
-  .label-sheet.label-size-mini,
-  .label-sheet.label-size-small {
+  .label-sheet.label-size-mini {
     grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 62mm;
-    gap: 3mm;
+    grid-auto-rows: 86mm;
+    gap: 5mm;
+  }
+
+  .label-sheet.label-size-small {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 64mm;
+    gap: 4mm;
   }
 
   .label-size-mini .label-card,
   .label-size-small .label-card {
-    height: 62mm;
-    padding: 3mm 4mm;
-    gap: 1.5mm;
     overflow: hidden;
-    border-width: 0.6mm;
+    border-width: 0.5mm;
   }
 
-  /* 62mm 안에 유해·위험 문구를 모두 담으려면 글자를 더 줄여야 한다. */
-  .label-size-small .label-name,
-  .label-size-mini .label-name {
-    font-size: 9pt;
+  /* 사본은 화면에서 감췄다가 인쇄할 때만 꺼낸다. */
+  .label-card.is-copy {
+    display: grid;
   }
 
-  .label-size-small .label-signal,
-  .label-size-mini .label-signal {
-    font-size: 9pt;
+  /* ── 100mL 이하: 크게 읽히게 ── */
+  .label-size-mini .label-card {
+    height: 86mm;
+    padding: 4mm 5mm;
+    gap: 2mm;
   }
 
-  .label-size-small .label-pictogram img,
-  .label-size-mini .label-pictogram img {
-    width: 9mm;
-    height: 9mm;
+  .label-size-mini .label-name { font-size: 11pt; }
+  .label-size-mini .label-signal { font-size: 13pt; }
+  .label-size-mini .label-pictogram img { width: 13mm; height: 13mm; }
+  .label-size-mini .label-pictogram figcaption { font-size: 5pt; }
+  .label-size-mini .label-qr { width: 22mm; height: 22mm; }
+  .label-size-mini .label-supplier h3 { font-size: 6pt; }
+  .label-size-mini .label-supplier p { font-size: 6pt; line-height: 1.3; }
+  .label-size-mini .label-compact-note { font-size: 5.4pt; }
+
+  /* ── 100mL 초과: 가로로 길게, 두 단 ── */
+  .label-size-small .label-card {
+    height: 64mm;
+    padding: 3mm 4mm;
+    gap: 1.2mm;
   }
 
-  .label-size-small .label-pictogram figcaption,
-  .label-size-mini .label-pictogram figcaption {
-    font-size: 4.2pt;
-  }
+  .label-size-small .label-name { font-size: 9.5pt; }
+  .label-size-small .label-signal { font-size: 9.5pt; }
+  .label-size-small .label-pictogram img { width: 9mm; height: 9mm; }
+  .label-size-small .label-pictogram figcaption { font-size: 4.2pt; }
+  .label-size-small .label-block h3 { font-size: 5.2pt; margin-bottom: 0.4mm; }
+  .label-size-small .label-block ul { padding-left: 3mm; font-size: 5pt; line-height: 1.2; }
+  .label-size-small .label-block-note { font-size: 4.4pt; }
+  .label-size-small .label-supplier h3 { font-size: 5pt; }
+  .label-size-small .label-supplier p { font-size: 4.8pt; line-height: 1.2; }
+  .label-size-small .label-qr { width: 13mm; height: 13mm; }
+  .label-size-small .label-two-col { gap: 4mm; }
+}
 
-  .label-size-small .label-block h3,
-  .label-size-mini .label-block h3 {
-    font-size: 5pt;
-    margin-bottom: 0.5mm;
-  }
 
-  .label-size-small .label-block ul {
-    padding-left: 3mm;
-    font-size: 5pt;
-    line-height: 1.25;
-  }
+/* ── 인쇄 장수 ─────────────────────────────────────────── */
 
-  .label-size-small .label-block-note,
-  .label-size-small .label-compact-note,
-  .label-size-mini .label-compact-note {
-    font-size: 4.4pt;
-  }
+.label-qty {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  font-size: 0.78rem;
+}
 
-  .label-size-small .label-supplier p,
-  .label-size-mini .label-supplier p {
-    font-size: 4.6pt;
-    line-height: 1.25;
-  }
+.label-qty input {
+  width: 52px;
+  min-height: 30px;
+  padding: 0 6px;
+  border: 1px solid var(--label-line);
+  border-radius: 8px;
+  background: var(--label-surface);
+  color: var(--label-ink);
+  font-size: 0.85rem;
+  text-align: center;
+}
 
-  .label-size-small .label-supplier h3,
-  .label-size-mini .label-supplier h3 {
-    font-size: 5pt;
-  }
+.label-card-pick {
+  justify-content: flex-start;
+}
 
-  .label-size-small .label-qr,
-  .label-size-mini .label-qr {
-    width: 14mm;
-    height: 14mm;
-  }
+/* 같은 표지를 여러 장 뽑을 때, 화면에는 한 장만 둔다. */
+.label-card.is-copy {
+  display: none;
+}
 
-  .label-size-small .label-two-col {
-    gap: 3mm;
-  }
+/* 화면에서 100mL 이하 표지의 QR을 키운다. 작으면 스캔이 안 된다. */
+.label-size-mini .label-qr {
+  width: 118px;
+  height: 118px;
+}
+
+.label-size-mini .label-mini-foot {
+  align-items: center;
+}
+
+
+/* QR은 줄어들면 스캔이 안 된다. 옆 글이 길어도 크기를 유지한다. */
+.label-qr {
+  flex: 0 0 auto;
+}
+
+.label-mini-foot .label-supplier,
+.label-compact-foot .label-supplier {
+  min-width: 0;
 }
