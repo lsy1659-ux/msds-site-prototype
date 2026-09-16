@@ -1,0 +1,100 @@
+/* ══════════════════════════════════════════════════════════
+ * 세 화면(조회 · 경고표지 · QR)을 오가는 탭 줄.
+ *
+ * 화면 구성은 건드리지 않는다. 기존 머리글 위에 얇은 줄 하나만 얹어서
+ * 지금 어느 화면인지 보이고 다른 화면으로 바로 갈 수 있게만 한다.
+ * ══════════════════════════════════════════════════════════ */
+
+.top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+  min-height: 46px;
+  padding: 0 18px;
+  background: linear-gradient(120deg, #052a21 0%, #084636 62%, #04231c 100%);
+  box-shadow: 0 4px 14px rgba(5, 34, 27, 0.22);
+}
+
+.top-bar-brand {
+  display: inline-flex;
+  align-items: center;
+  color: #f2fbf8;
+  font-size: 0.92rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.top-bar-brand:hover {
+  color: #ffffff;
+}
+
+.top-bar-tabs {
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.top-bar-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.top-bar-tab {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 13px;
+  border-bottom: 3px solid transparent;
+  color: rgba(226, 246, 240, 0.76);
+  font-size: 0.86rem;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 140ms ease, border-color 140ms ease, background-color 140ms ease;
+}
+
+.top-bar-tab:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.top-bar-tab[aria-current="page"] {
+  color: #ffffff;
+  border-bottom-color: #6fe0bf;
+}
+
+@media (max-width: 720px) {
+  .top-bar {
+    gap: 10px;
+    padding: 0 12px;
+    min-height: 42px;
+  }
+
+  .top-bar-brand {
+    font-size: 0.84rem;
+  }
+
+  .top-bar-tab {
+    padding: 0 10px;
+    font-size: 0.8rem;
+  }
+}
+
+/* 아주 좁은 화면에서는 이름을 접어 탭이 잘리지 않게 한다.
+ * 첫 탭(조회)이 첫 화면으로 가므로 돌아갈 길은 남는다. */
+@media (max-width: 430px) {
+  .top-bar-brand {
+    display: none;
+  }
+}
+
+[data-theme="dark"] .top-bar {
+  background: linear-gradient(120deg, #041a15 0%, #062e25 62%, #03110e 100%);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+}

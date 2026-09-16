@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
     <title>MSDS 경고표지 만들기</title>
-    <link rel="stylesheet" href="css/label.css?v=20260916-label11">
+    <link rel="stylesheet" href="css/label.css?v=20260916-menu3">
+    <link rel="stylesheet" href="css/topbar.css?v=20260916-menu3">
     <script>
       // 조회 화면에서 고른 화면 설정을 이 페이지에도 적용한다.
       try {
@@ -17,6 +18,14 @@
     </script>
   </head>
   <body>
+    <nav class="top-bar no-print" aria-label="화면 이동">
+      <a class="top-bar-brand" href="index.html">MSDS 안전정보</a>
+      <div class="top-bar-tabs">
+        <a class="top-bar-tab" href="index.html">조회</a>
+        <a class="top-bar-tab" href="label.html" aria-current="page">경고표지</a>
+      </div>
+    </nav>
+
     <header class="label-header no-print">
       <div class="label-header-inner">
         <h1>경고표지 만들기</h1>
@@ -80,7 +89,7 @@
       <section id="labelSheet" class="label-sheet label-size-mini" aria-label="경고표지 목록"></section>
     </main>
 
-    <script src="vendor/qrcode.min.js?v=20260916-label11"></script>
-    <script src="js/label.js?v=20260916-label11" defer></script>
+    <script src="vendor/qrcode.min.js?v=20260916-menu3"></script>
+    <script src="js/label.js?v=20260916-menu3" defer></script>
   </body>
 </html>
