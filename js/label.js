@@ -243,6 +243,15 @@ function applyLabelFilter() {
   labelState.filtered = list;
 }
 
+function applyLabelSize() {
+  if (labelElements.sheet) {
+    labelElements.sheet.className = `label-sheet label-size-${labelState.size}`;
+  }
+  // 100mL 초과 표지는 A4 를 가로로 쓴다. 용지 방향은 문서 전체에
+  // 걸어야 앞에 빈 세로 페이지가 끼지 않는다.
+  document.body.dataset.labelPage = labelState.size;
+}
+
 function renderLabelSheet() {
   const sheet = labelElements.sheet;
   if (!sheet) return;
@@ -267,7 +276,10 @@ function renderLabelSheet() {
     const precautionNote = shortenPrecautions
       ? `그 밖의 예방조치 문구는 물질안전보건자료(MSDS)를 참조하십시오.`
       : "";
-    const signal = String(product.hazardBadge || "").trim();
+    // 고시가 정한 신호어는 "위험"과 "경고" 둘뿐이다. 추출이 실패해서
+    // 붙은 임시 배지(MSDS)를 신호어 자리에 찍으면 잘못된 표시가 된다.
+    const badge = String(product.hazardBadge || "").trim();
+    const signal = badge === "위험" || badge === "경고" ? badge : "";
     const qr = `<div class="label-qr" data-label-qr="${labelEscape(product.id)}"></div>`;
 
     let body;
@@ -378,7 +390,7 @@ function bindLabelEvents() {
 
   labelElements.size?.addEventListener("change", (event) => {
     labelState.size = event.target.value;
-    labelElements.sheet.className = `label-sheet label-size-${labelState.size}`;
+    applyLabelSize();
     renderLabelSheet();
     syncLabelSelection();
   });
@@ -458,6 +470,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+  applyLabelSize();
   applyLabelFilter();
   renderLabelSheet();
 });
