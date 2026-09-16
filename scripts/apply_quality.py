@@ -41,6 +41,28 @@ def is_dirty(items: list) -> bool:
     return any(JUNK_LINE.search(str(item)) or len(str(item)) > 120 for item in items)
 
 
+# 원문에 "위험은 알려진 바 없음"처럼 적힌 것은 유해문구가 아니라 분류 대상이 아니라는 뜻이다.
+NO_HAZARD = re.compile(r"알려진\s*바\s*없음|위험(성)?(이|은)?\s*없음|유해(성)?(이|은)?\s*없음")
+
+
+def tidy_statement(text: str) -> str:
+    """추출 과정에서 앞에 붙은 구두점과 겹친 공백을 턴다."""
+    cleaned = re.sub(r"^[\s:：\-·•]+", "", str(text or ""))
+    cleaned = re.sub(r"\s{2,}", " ", cleaned).strip()
+    return cleaned
+
+
+def tidy_statements(items: list) -> list[str]:
+    result = []
+    for item in items:
+        text = tidy_statement(item)
+        if not text or len(text) < 4 or len(text) > 120:
+            continue
+        if text not in result:
+            result.append(text)
+    return result[:20]
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Apply re-extracted quality data.")
     parser.add_argument("--products", type=Path, default=DEFAULT_PRODUCTS)
@@ -90,6 +112,8 @@ def main() -> int:
     product_by_file = {p.get("fileName"): p.get("id") for p in products if p.get("fileName")}
 
     cleaned = 0
+    filled_statements = 0
+    no_hazard_ids: set[str] = set()
     for override in overrides:
         source = str(override.get("sourcePdfPath") or "")
         file_name = source.rsplit("/", 1)[-1]
@@ -99,10 +123,23 @@ def main() -> int:
         section2 = record.get("section2") or {}
         fresh = section2.get("hazardStatements") or []
 
+        tidy_fresh = tidy_statements(fresh)
         current = override.get("hazardStatements") or []
-        if current and is_dirty(current) and fresh:
-            override["hazardStatements"] = fresh
+        if current and is_dirty(current) and tidy_fresh:
+            override["hazardStatements"] = tidy_fresh
             cleaned += 1
+        elif not current and tidy_fresh:
+            # 화면에 유해문구가 하나도 안 뜨던 제품을 채운다.
+            # 전부 "위험 없음" 취지면 문구가 아니라 분류 대상 아님으로 본다.
+            if all(NO_HAZARD.search(item) for item in tidy_fresh):
+                no_hazard_ids.add(product_by_file.get(file_name, ""))
+            else:
+                override["hazardStatements"] = tidy_fresh
+                filled_statements += 1
+                if not str(override.get("signalWordCandidate") or "").strip():
+                    signal = (section2.get("signalWord") or "").strip()
+                    if signal:
+                        override["signalWordCandidate"] = signal
 
         ppe = override.get("ppeCandidates") or []
         if ppe and is_dirty(ppe):
@@ -110,8 +147,17 @@ def main() -> int:
             override["ppeCandidates"] = kept
             cleaned += 1
 
+    # 전부 "위험 없음" 취지였던 제품은 빈칸 대신 분류 대상 아님으로 표시한다.
+    marked = 0
+    for product in products:
+        if product.get("id") in no_hazard_ids and not product.get("hazardStatements"):
+            product["hazardNotClassified"] = True
+            marked += 1
+
     print(f"성분 법적 플래그 채움: {filled_flags}칸 (제품 {len(touched_products)}건)")
     print(f"오염된 문구 정리: {cleaned}건")
+    print(f"비어 있던 유해문구 채움: {filled_statements}건")
+    print(f"분류 대상 아님으로 표시 추가: {marked}건")
 
     if args.dry_run:
         print("dry-run 이라 파일을 쓰지 않았습니다.")

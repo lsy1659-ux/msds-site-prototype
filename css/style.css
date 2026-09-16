@@ -8335,3 +8335,151 @@ select:focus-visible {
     min-height: 44px;
   }
 }
+
+
+/* ── 어두운 화면 ───────────────────────────────────────────
+ * 창고나 야간 작업장에서 밝은 화면이 눈에 부담이 된다.
+ * 색만 바꾸고 배치와 글자 크기는 그대로 둔다. 위험을 알리는 빨강·주황은
+ * 어두운 바탕에서도 구분되도록 조금 밝게 잡는다.
+ */
+
+[data-theme="dark"] {
+  --color-bg: #0e1715;
+  --color-surface: #16211f;
+  --color-surface-soft: #1c2927;
+  --color-paper: #16211f;
+  --color-ink: #e7f0ed;
+  --color-muted: #9fb3ad;
+  --color-line: #2c3b38;
+  --color-strong-line: #e7f0ed;
+  --color-accent: #3fbfa3;
+  --color-accent-dark: #2ea88d;
+  --color-primary: #1f8a73;
+  --color-primary-strong: #16705d;
+  --color-primary-soft: #16302a;
+  --color-charcoal: #0b1412;
+  --color-danger: #ff6b5e;
+  --color-danger-dark: #ff8d82;
+  --color-danger-bg: #2a1614;
+  --color-warning: #f0b454;
+  --color-warning-bg: #2a2013;
+  --color-review: #e0a94a;
+  --color-review-bg: #2a2214;
+  --color-reviewed: #4fc7a4;
+  --color-reviewed-bg: #13291f;
+  --color-protect: #7fb0f5;
+  --color-protect-bg: #14202f;
+  --color-focus: #6ea8fe;
+  --shadow-card: 0 20px 48px rgba(0, 0, 0, 0.5);
+  --shadow-soft: 0 12px 28px rgba(0, 0, 0, 0.4);
+  --shadow-ui: 0 12px 28px rgba(0, 0, 0, 0.4);
+  color-scheme: dark;
+}
+
+[data-theme="dark"] body {
+  background:
+    linear-gradient(180deg, #0a1412 0, #0a1412 292px, transparent 292px),
+    linear-gradient(135deg, #101b19 0%, #0e1715 45%, #111d1a 100%);
+}
+
+/* 흰색으로 직접 칠해 둔 면들을 어두운 면으로 바꾼다. */
+[data-theme="dark"] .search-input,
+[data-theme="dark"] .clear-button,
+[data-theme="dark"] .selection-item,
+[data-theme="dark"] .full-product-item,
+[data-theme="dark"] .full-product-item.is-pdf-based,
+[data-theme="dark"] .poster-block,
+[data-theme="dark"] .notice,
+[data-theme="dark"] .no-ghs,
+[data-theme="dark"] .component-table,
+[data-theme="dark"] .component-table-wrap,
+[data-theme="dark"] .detail-block-components .component-table-wrap,
+[data-theme="dark"] .worker-caution-category,
+[data-theme="dark"] .pdf-viewer-button,
+[data-theme="dark"] .pdf-preview-button.is-secondary,
+[data-theme="dark"] .result-nav-button,
+[data-theme="dark"] .show-more-button,
+[data-theme="dark"] .search-assist,
+[data-theme="dark"] .shortcut-chip,
+[data-theme="dark"] .offline-panel,
+[data-theme="dark"] .first-aid-block,
+[data-theme="dark"] .favorite-toggle,
+[data-theme="dark"] .search-assist-clear {
+  background: var(--color-surface);
+  color: var(--color-ink);
+  border-color: var(--color-line);
+}
+
+[data-theme="dark"] .search-panel,
+[data-theme="dark"] .detail-block,
+[data-theme="dark"] .poster-board,
+[data-theme="dark"] .selection-panel {
+  background: var(--color-surface);
+  border-color: var(--color-line);
+}
+
+[data-theme="dark"] .component-table th {
+  background: var(--color-surface-soft);
+  color: var(--color-ink);
+}
+
+[data-theme="dark"] .component-table td,
+[data-theme="dark"] .component-table th {
+  border-color: var(--color-line);
+}
+
+/* GHS 그림문자는 흰 바탕에 그려져 있어 어두운 화면에서 테두리가 사라진다. */
+[data-theme="dark"] .ghs-item img,
+[data-theme="dark"] .ghs-icon img,
+[data-theme="dark"] .label-pictogram img {
+  background: #ffffff;
+  border-radius: 6px;
+}
+
+[data-theme="dark"] .scroll-quick-nav {
+  background: var(--color-charcoal);
+}
+
+/* 화면 전환 버튼 */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #eaf7f2;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.theme-toggle-icon {
+  font-size: 1rem;
+}
+
+@media (max-width: 720px) {
+  .theme-toggle {
+    min-height: 44px;
+  }
+}
+
+
+.header-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.header-title-row h1 {
+  margin: 0;
+}

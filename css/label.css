@@ -385,3 +385,41 @@ select:focus-visible {
     transform: none;
   }
 }
+
+
+/* ── 해당없음 · 축약 안내 · 옵션 ────────────────────────── */
+
+.label-none {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px solid var(--label-line);
+  border-radius: 6px;
+  background: #f3f7f5;
+  color: var(--label-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.label-block-note {
+  margin: 4px 0 0;
+  font-size: 0.74rem;
+  color: var(--label-muted);
+}
+
+.label-options {
+  gap: 16px;
+}
+
+.label-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  color: var(--label-ink);
+  cursor: pointer;
+}
+
+.label-check input {
+  width: 18px;
+  height: 18px;
+}

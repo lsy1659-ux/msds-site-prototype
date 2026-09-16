@@ -11128,7 +11128,7 @@
     "supplierCandidate": "㈜대하",
     "msdsNoCandidate": "",
     "revisionDateCandidate": "2026-01-05",
-    "signalWordCandidate": "",
+    "signalWordCandidate": "경고",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
@@ -11150,7 +11150,10 @@
         "label": "유해/자극성"
       }
     ],
-    "hazardStatements": [],
+    "hazardStatements": [
+      "H315 피부에 자극을 일으킴",
+      "H319 눈에 심한 자극을 일으킴"
+    ],
     "precautionaryStatements": {
       "prevention": [
         "소화수의 처분을 위해 도랑을 파서 가두고 물질이 흩어지지 않게 하시오",
@@ -12079,7 +12082,7 @@
     "supplierCandidate": "㈜극동산업",
     "msdsNoCandidate": "",
     "revisionDateCandidate": "2011-07-04",
-    "signalWordCandidate": "",
+    "signalWordCandidate": "위험",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
@@ -12087,7 +12090,11 @@
     "classificationGhsPictograms": [],
     "ghsCodes": [],
     "ghsPictograms": [],
-    "hazardStatements": [],
+    "hazardStatements": [
+      "H220 극인화성 가스",
+      "H222 극인화성 에어로졸",
+      "H373 장기간 또는 반복노출 되면 신체중에 손상을 일으킬 수 있음"
+    ],
     "precautionaryStatements": {
       "prevention": [
         "예방 P210 열.스파크.화염.고열로부터 멀리하시오 - 금연",
@@ -18090,7 +18097,13 @@
         "label": "유해/자극성"
       }
     ],
-    "hazardStatements": [],
+    "hazardStatements": [
+      "가연성 액체",
+      "금속을 부식시킬 수 있음",
+      "삼키면 유해함",
+      "피부와 접촉하면 유독함",
+      "피부에 심한 화상과 눈에 손상을 일으킴"
+    ],
     "precautionaryStatements": {
       "prevention": [
         "열·스파크·화염·고열로부터 멀리하시오 - 금연.",
@@ -21921,7 +21934,7 @@
     "supplierCandidate": "범위83-937-17",
     "msdsNoCandidate": "",
     "revisionDateCandidate": "2023-07-05",
-    "signalWordCandidate": "",
+    "signalWordCandidate": "경고",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
@@ -21953,7 +21966,11 @@
         "label": "유해/자극성"
       }
     ],
-    "hazardStatements": [],
+    "hazardStatements": [
+      "H290 : 금속을 부식시킬 수 있음",
+      "H305 : 삼켜서 기도로 유입되면 유해할 수 있음",
+      "H315 : 피부에 자극을 일으킴"
+    ],
     "precautionaryStatements": {
       "prevention": [
         "호흡이 힘들 경우 산소를 공급하시오라. 먹었을 때즉시 의료조치를 취하시오의식이 없는 사람에게 입으로 아무것도 먹이지 마시오",
@@ -22281,7 +22298,10 @@
         "label": "부식성"
       }
     ],
-    "hazardStatements": [],
+    "hazardStatements": [
+      "피부에 심한 화상과 눈에 손상을 일으킴",
+      "눈에 심한 손상을 일으킴"
+    ],
     "precautionaryStatements": {
       "prevention": [
         "예방: 분진/흄/가스/미스트/증기/스프레이를 흡입하지 마시오.",
@@ -22367,7 +22387,7 @@
     "productNameCandidate": "",
     "supplierCandidate": "㈜하이코리아",
     "msdsNoCandidate": "",
-    "signalWordCandidate": "",
+    "signalWordCandidate": "위험",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
@@ -22409,7 +22429,11 @@
         "label": "환경유해성"
       }
     ],
-    "hazardStatements": [],
+    "hazardStatements": [
+      "H318 눈에 심한 손상을 일으킴",
+      "H400 수생생물에 매우 유독함",
+      "H410 장기적인 영향에 의해 수생생물에게 매우 유독함"
+    ],
     "precautionaryStatements": {
       "prevention": [
         "나. 환경을 보호하기 위해 필요한 조치사항 환경으로 배출하지 마시오.",
@@ -22548,7 +22572,13 @@
         "label": "건강유해성"
       }
     ],
-    "hazardStatements": [],
+    "hazardStatements": [
+      "화재를 강렬하게 함: 산화제",
+      "흡입하면 유해함",
+      "피부에 심한 화상과 눈 손상을 일으킴",
+      "눈에 심한 손상을 일으킴",
+      "호흡기계 자극을 일으킬 수 있음"
+    ],
     "precautionaryStatements": {
       "prevention": [
         "○ 신호어: 위험○ 유해 · 위험 문구:화재를 강렬하게 함: 산화제흡입하면 유해함피부에 심한 화상과 눈 손상을 일으킴눈에 심한 손상을 일으킴호흡기계 자극을 일으킬 수 있음○ 예방조치문구예방:열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연의류 및 그 밖의 가연성 물질로부터 멀리하시오.가연성 물질 및 그 밖의 물질과 혼합되지 않도록 조치하시오. 보호장갑/보호의/보안경/안면보호구를 착용하시오.분진/흄/가스/미스트/증기/스프레이의 흡입을 피하시오.옥외 또는 환기가 잘 되는 곳에서만 취급하시오.취급 후에는 취급 부위를 철저히 씻으시오.대응:화재 시: 불을 끄기 위해 물을 사용하시오. 흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.불편함을 느끼면 의료기관/의사의 진찰을 받으시오.삼켰다면: 입을 씻어내시오. 토하게 하지 마시오.피부(또는 머리카락)에 묻으면: 오염된 모든 의류를 즉시 벗으시오.피부를 물로 씻으시오[또는 샤워하시오].다시 사용전 오염된 의복은 세척하시오.신속한 처치를 하시오.눈에 묻으면: 몇 분간 물로 조심해서 씻으시오.가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.즉시 의료기관/의사의 진찰을 받으시오.저장:잠금장치를 하여 저장하시오.환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오.",
@@ -22799,7 +22829,10 @@
         "label": "부식성"
       }
     ],
-    "hazardStatements": [],
+    "hazardStatements": [
+      "피부에 심한 화상과 눈 손상을 일으킴",
+      "눈에 심한 손상을 일으킴"
+    ],
     "precautionaryStatements": {
       "prevention": [
         "○ 신호어: 위험○ 유해 ∙ 위험 문구: 피부에 심한 화상과 눈 손상을 일으킴눈에 심한 손상을 일으킴○ 예방조치문구예방:분진/흄/가스/미스트/증기/스프레이를 흡입하지 마시오.취급 후에는 취급 부위를 철저히 씻으시오.보호장갑/보호의를 착용하시오.대응:삼켰다면: 입을 씻어내시오. 토하게 하지 마시오.피부(또는 머리카락)에 묻으면: 오염된 모든 의류를 즉시 벗으시오.피부를 물로 씻으시오[또는 샤워하시오].다시 사용 전 오염된 의류를 세척하시오.흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.즉시 의료기관/의사의 진찰을 받으시오.신속한 처치를 하시오.눈에 묻으면: 몇 분간 물로 조심해서 씻으시오.가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.저장:잠금장치를 하여 저장하시오.폐기:폐기물 관련 법령에 따라 내용물/용기를 폐기하시오다. 유해성∙위험성 분류기준에 포함되지 않는 기타 유해성∙위험성: 자료없음"
@@ -22969,7 +23002,10 @@
         "label": "유해/자극성"
       }
     ],
-    "hazardStatements": [],
+    "hazardStatements": [
+      "피부에 자극을 일으킴",
+      "눈에 심한 자극을 일으킴"
+    ],
     "precautionaryStatements": {
       "prevention": [
         "예방: 취급후에는 취급부위를 철저히 씻으시오.",
@@ -25596,7 +25632,7 @@
     "supplierCandidate": "캉가루",
     "msdsNoCandidate": "",
     "revisionDateCandidate": "2024-01-03",
-    "signalWordCandidate": "",
+    "signalWordCandidate": "위험",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
@@ -25618,7 +25654,12 @@
         "label": "건강유해성"
       }
     ],
-    "hazardStatements": [],
+    "hazardStatements": [
+      "H304삼켜서 기도로 유입되면 치명적일 수 있음",
+      "H315피부에 자극을 일으킴",
+      "H340유전적인 결함을 일으킬 수 있음(유전적인 결함을 일으키는 노출 경로를 기재한다. 단,",
+      "다른 노출경로에 의해 유전적인 결함을 일으키지 않는다는 결정적인 증거가 있는 경우에 한한"
+    ],
     "precautionaryStatements": {
       "prevention": [],
       "response": [],
@@ -26214,7 +26255,17 @@
         "label": "건강유해성"
       }
     ],
-    "hazardStatements": [],
+    "hazardStatements": [
+      "H226 - 인화성 액체 및 증기.",
+      "H315 - 피부에 자극을 일으킴.",
+      "H317 - 알레르기성 피부 반응을 일으킬 수 있음.",
+      "H319 - 눈에 심한 자극을 일으킴.",
+      "H336 - 졸음 또는 현기증을 일으킬 수 있음.",
+      "H351 - 암을 일으킬 것으로 의심됨.",
+      "H361 - 태아 또는 생식능력에 손상을 일으킬 것으로 의심됨.",
+      "H372 - 장기간 또는 반복노출 되면 장기에 손상을 일으킴.",
+      "H412 - 장기적인 영향에 의해 수생생물에게 유해함."
+    ],
     "precautionaryStatements": {
       "prevention": [
         "PP-303 GW(PU)2. 유해성·위험성유해·위험 문구:H226 - 인화성 액체 및 증기.H315 - 피부에 자극을 일으킴.H317 - 알레르기성 피부 반응을 일으킬 수 있음.H319 - 눈에 심한 자극을 일으킴.H336 - 졸음 또는 현기증을 일으킬 수 있음.H351 - 암을 일으킬 것으로 의심됨.H361 - 태아 또는 생식능력에 손상을 일으킬 것으로 의심됨.H372 - 장기간 또는 반복노출 되면 장기에 손상을 일으킴.H412 - 장기적인 영향에 의해 수생생물에게 유해함.예방조치 문구예방:P201 - 사용 전 취급 설명서를 확보하시오.P280 - (보호장갑, 보호의과 보안경또는안면보호구)를(을) 착용하시오.P210 - 열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연.P273 - 환경으로 배출하지 마시오.P260 - 증기를 흡입하지 마시오.P270 - 이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오.P264 - 취급 후에는 손을 철저히 씻으시오.대응:P308 + P313 - 노출되거나 노출이 우려되면: 의학적 조언 또는 치료를 받으십시오.P304 + P312 - 흡입하면: 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.P362 + P364 - 오염된 의류를 벗고 다시 사용 전 세척하시오.P302 + P352 - 피부에 묻으면: 다량의 물로 씻으시오.P333 + P313 - 피부 자극 또는 홍반이 나타나면: 의학적 조언이나 치료를 받으십시오.P305 + P351 + P338 - 눈에 묻으면: 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.P337 + P313 - 눈에 자극이 지속되면: 의학적인 조언을 구하시오.저장:P403 + P233 - 환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오.P403 + P235 - 저온으로 유지하시오.폐기:P501 - 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오.유해성·위험성 분류기준에포함되지 않는 기타 유해성·위험성:알려진 바 없음.다."
@@ -27716,7 +27767,7 @@
     "supplierCandidate": "파이씨스",
     "msdsNoCandidate": "",
     "revisionDateCandidate": "2022-12-12",
-    "signalWordCandidate": "",
+    "signalWordCandidate": "위험",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
@@ -27738,7 +27789,10 @@
         "label": "유해/자극성"
       }
     ],
-    "hazardStatements": [],
+    "hazardStatements": [
+      "H314 피부에 심한 화상과 눈에 손상을 일으킴.",
+      "H318 눈에 심한 손상을 일으킴."
+    ],
     "precautionaryStatements": {
       "prevention": [
         "P302+P361+P353 피부(또는 머리카락)에 묻으면: 오염된 모든 의류를 즉시 벗으시오. 피부를 물로 씻",
