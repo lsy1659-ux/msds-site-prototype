@@ -756,3 +756,48 @@ select:focus-visible {
   .label-size-small .label-supplier p { font-size: 4.8pt; line-height: 1.18; }
   .label-size-small .label-qr { width: 14mm; height: 14mm; }
 }
+
+@media print {
+  /* ── 100mL 초과 · 세로형 ──────────────────────────────────
+   * 가로형(small)과 본문은 같고 규격만 다르다. 세로 A4 를 넷으로
+   * 나눠 한 칸이 92.5 x 125mm. 폭이 좁으므로 문구는 한 단으로 펴고
+   * 대신 글자를 키운다. 세로형 규칙은 가로형 뒤에 와야 이긴다. */
+  body[data-label-page="tall"] {
+    page: auto;
+  }
+
+  .label-sheet.label-size-tall {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 125mm;
+    gap: 5mm;
+  }
+
+  .label-size-tall .label-card {
+    height: 125mm;
+    padding: 3mm 3.5mm;
+    gap: 1mm;
+    grid-template-rows: auto auto auto 1fr auto;
+  }
+
+  .label-size-tall .label-compact-foot {
+    padding-top: 2mm;
+  }
+
+  .label-size-tall .label-two-col {
+    grid-template-columns: 1fr;
+    gap: 2mm;
+  }
+
+  .label-size-tall .label-name { font-size: 11pt; }
+  .label-size-tall .label-name.is-long { font-size: 8pt; line-height: 1.2; }
+  .label-size-tall .label-name.is-verylong { font-size: 6.5pt; line-height: 1.15; }
+  .label-size-tall .label-signal { font-size: 12pt; }
+  .label-size-tall .label-pictogram img { width: 10mm; height: 10mm; }
+  .label-size-tall .label-pictogram figcaption { font-size: 4.6pt; }
+  .label-size-tall .label-block h3 { font-size: 6.4pt; margin-bottom: 0.7mm; }
+  .label-size-tall .label-block ul { padding-left: 2.8mm; font-size: 5.4pt; line-height: 1.16; }
+  .label-size-tall .label-block-note { font-size: 5.4pt; line-height: 1.2; }
+  .label-size-tall .label-supplier h3 { font-size: 6pt; }
+  .label-size-tall .label-supplier p { font-size: 5.6pt; line-height: 1.22; }
+  .label-size-tall .label-qr { width: 20mm; height: 20mm; }
+}

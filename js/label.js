@@ -245,7 +245,11 @@ function applyLabelFilter() {
 
 function applyLabelSize() {
   if (labelElements.sheet) {
-    labelElements.sheet.className = `label-sheet label-size-${labelState.size}`;
+    // 세로형은 가로형의 화면 배치를 그대로 쓰고 인쇄 규격만 덧입힌다.
+    const sizeClass = labelState.size === "tall"
+      ? "label-size-small label-size-tall"
+      : `label-size-${labelState.size}`;
+    labelElements.sheet.className = `label-sheet ${sizeClass}`;
   }
   // 100mL 초과 표지는 A4 를 가로로 쓴다. 용지 방향은 문서 전체에
   // 걸어야 앞에 빈 세로 페이지가 끼지 않는다.
@@ -264,7 +268,9 @@ function renderLabelSheet() {
 
   const size = labelState.size;
   const mini = size === "mini";      // 100mL 이하: 고시가 허용하는 간이표시
-  const compact = size === "small";  // 100mL 초과 소분용기: 2단으로 압축
+  // 100mL 초과 소분용기는 2단으로 압축한다. 가로형(small)과 세로형(tall)은
+  // 본문이 같고 인쇄 규격만 다르다.
+  const compact = size === "small" || size === "tall";
 
   sheet.innerHTML = labelState.filtered.map((product) => {
     const checked = labelState.selected.has(product.id);
