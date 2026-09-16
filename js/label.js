@@ -277,7 +277,7 @@ function renderLabelSheet() {
           ${renderSupplier(product)}
           ${qr}
         </div>
-        <p class="label-compact-note">유해·위험 문구와 예방조치 문구는 QR 또는 물질안전보건자료(MSDS)에서 확인하십시오.</p>`;
+        <p class="label-compact-note">상세 유해·위험성 및 예방조치 사항은 QR코드 또는 MSDS를 확인하십시오.</p>`;
     } else if (compact) {
       // 유해·위험 문구는 임의로 고르지 않고 모두 싣는다. 대신 두 단으로 좁혀 담는다.
       body = `<div class="label-two-col">
@@ -303,7 +303,12 @@ function renderLabelSheet() {
             <input type="number" min="1" max="60" step="1" value="${count}" data-label-qty="${labelEscape(product.id)}" aria-label="${labelEscape(product.productName)} 인쇄 장수">
           </span>
         </label>`;
-    const face = `<h2 class="label-name">${labelEscape(product.productName)}</h2>
+    // 100mL 이하는 H·P문구를 뺀 간이표시다. 왜 뺐는지 근거를 표지에 적어 두면
+    // 현장 점검에서 "누락"이 아니라 "고시가 허용한 축약"임을 바로 보여 줄 수 있다.
+    const legalNote = mini
+      ? `<p class="label-legal-note">※ 100mL 이하 소분용기<br>고용노동부 고시 제6조제2항에 따라 축약 표시</p>`
+      : "";
+    const face = `${legalNote}<h2 class="label-name">${labelEscape(product.productName)}</h2>
         ${renderPictograms(codes, product)}
         <p class="label-signal${signal === "위험" ? " is-danger" : ""}">${labelEscape(signal || "신호어 확인 필요")}</p>
         ${body}`;

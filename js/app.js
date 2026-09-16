@@ -525,6 +525,9 @@ function bindElements() {
 }
 
 function bindEvents() {
+  // 화면 전환은 다른 기능이 어떻게 되든 먼저 살려 둔다.
+  setupThemeToggle();
+
   elements.searchInput.addEventListener("input", (event) => {
     state.query = event.target.value;
     state.showFullList = false;
@@ -586,7 +589,6 @@ function bindEvents() {
   registerServiceWorker();
   bindOfflinePanel();
   renderOfflinePanel();
-  setupThemeToggle();
 
   elements.quickSearch.addEventListener("click", (event) => {
     const showAllButton = event.target.closest("button[data-action='show-all']");
@@ -4891,7 +4893,7 @@ function prefersDark() {
 function applyTheme(theme) {
   const dark = theme === "dark";
   document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
-  const button = elements.themeToggle;
+  const button = document.querySelector(".theme-toggle") || elements.themeToggle;
   if (!button) return;
   button.setAttribute("aria-pressed", String(dark));
   const icon = button.querySelector(".theme-toggle-icon");
@@ -4904,7 +4906,13 @@ function applyTheme(theme) {
 function setupThemeToggle() {
   applyTheme(readStoredTheme() || (prefersDark() ? "dark" : "light"));
 
-  elements.themeToggle?.addEventListener("click", () => {
+  // 버튼에 직접 걸지 않고 문서에서 받는다. 앞선 초기화가 하나라도 실패해도,
+  // 버튼이 다시 그려져도 화면 전환은 계속 눌린다. 휴대폰에서 이 버튼만
+  // 먹통이 되던 원인이 앞 단계 실패로 연결이 끊기는 것이었다.
+  document.addEventListener("click", (event) => {
+    const button = event.target instanceof Element ? event.target.closest(".theme-toggle") : null;
+    if (!button) return;
+    event.preventDefault();
     const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
     storeTheme(next);
     applyTheme(next);
