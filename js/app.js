@@ -9,8 +9,11 @@ const APP_CONFIG = {
   sampleOverridesUrl: "data/msds-overrides.sample.json",
   localInventoryUrl: "data/pdf-inventory.local.json",
   sampleInventoryUrl: "data/pdf-inventory.sample.json",
-  pdfJsModuleUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.mjs",
-  pdfJsWorkerUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.mjs",
+  // 오프라인에서도 PDF를 열 수 있도록 pdf.js를 저장소에 두고 쓴다.
+  // CDN에서 받으면 연결이 끊겼을 때 뷰어 자체가 뜨지 않는다.
+  // 동적 import는 app.js 위치를 기준으로 풀리므로 문서 기준 절대주소로 만든다.
+  pdfJsModuleUrl: new URL("vendor/pdf.mjs", document.baseURI).href,
+  pdfJsWorkerUrl: new URL("vendor/pdf.worker.mjs", document.baseURI).href,
   releaseManifestUrl: "data/release-manifest.json",
   minSearchCharacters: 2,
   initialResultLimit: 8,
