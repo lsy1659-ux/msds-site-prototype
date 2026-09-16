@@ -2729,14 +2729,16 @@ h1 {
   place-items: center;
   border: 3px solid #ffffff;
   border-radius: 50%;
-  background: radial-gradient(circle at 32% 22%, #2f9de5, #0b67a3 72%);
+  /* 지시표지는 단색 파랑 바탕이다. 현장 표지판과 같은 색으로 둔다. */
+  background: #0057a8;
   color: #ffffff;
-  box-shadow: 0 0 0 1px rgba(11, 103, 163, 0.18), 0 8px 18px rgba(11, 103, 163, 0.18);
+  box-shadow: 0 0 0 1px rgba(0, 87, 168, 0.2), 0 8px 18px rgba(0, 87, 168, 0.18);
 }
 
 .ppe-sign svg {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
+  fill: #ffffff;
 }
 
 .ppe-name {

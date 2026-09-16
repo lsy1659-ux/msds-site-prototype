@@ -3987,41 +3987,43 @@ function renderPpeCards(items = []) {
 
 function renderPpeSign(value = "") {
   const type = getPpeType(value);
+  // 산업안전보건법 시행규칙 별표 6 지시표지 형식을 따른다. 파란 바탕에
+  // 흰 그림이고, 그림 안의 구분선은 바탕색이 비쳐 보이게 뚫는다.
+  // (fill-rule="evenodd" 로 구멍을 낸다.)
   const icons = {
     goggles: `
-      <svg viewBox="0 0 64 64" role="img" aria-label="보안경">
-        <path d="M14 31c3-7 8-10 16-7 2 1 6 1 8 0 8-3 13 0 16 7" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-        <path d="M12 34c2 9 10 13 18 8 2-1 6-1 8 0 8 5 16 1 18-8" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-        <path d="M30 33h8" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+      <svg viewBox="0 0 64 64" role="img" aria-label="보안경 착용">
+        <path fill-rule="evenodd" d="M32 8c9 0 16 7 16 16 0 4-1 8-4 11l2 21H18l2-21c-3-3-4-7-4-11 0-9 7-16 16-16z
+          M18 24h28v8H18z"/>
+        <path d="M20 26h9a2 2 0 0 1 0 4h-9zM35 26h9v4h-9a2 2 0 0 1 0-4z"/>
       </svg>
     `,
     gloves: `
-      <svg viewBox="0 0 64 64" role="img" aria-label="보호장갑">
-        <path d="M19 33V14c0-3 5-3 5 0v16" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-        <path d="M26 30V11c0-3 5-3 5 0v19" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-        <path d="M33 30V13c0-3 5-3 5 0v18" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-        <path d="M40 33V18c0-3 5-3 5 0v22c0 9-6 15-15 15s-16-6-16-15v-7c0-3 5-3 5 0Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <svg viewBox="0 0 64 64" role="img" aria-label="보호장갑 착용">
+        <path fill-rule="evenodd" d="M14 30V14a3 3 0 0 1 6 0v13h2V10a3 3 0 0 1 6 0v17h2V12a3 3 0 0 1 6 0v15h2V18a3 3 0 0 1 6 0v20c0 12-7 19-16 19s-14-7-14-17z
+          M15 41h34v4H15z"/>
+        <path d="M15 45h34v11a2 2 0 0 1-2 2H17a2 2 0 0 1-2-2z"/>
       </svg>
     `,
     mask: `
-      <svg viewBox="0 0 64 64" role="img" aria-label="호흡보호구">
-        <path d="M21 27c0-8 18-8 18 0v8c0 5-4 9-9 9s-9-4-9-9Z" fill="none" stroke="currentColor" stroke-width="5"/>
-        <circle cx="18" cy="42" r="8" fill="none" stroke="currentColor" stroke-width="5"/>
-        <circle cx="44" cy="42" r="8" fill="none" stroke="currentColor" stroke-width="5"/>
-        <path d="M27 48h6" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+      <svg viewBox="0 0 64 64" role="img" aria-label="방독마스크 착용">
+        <path fill-rule="evenodd" d="M32 6c10 0 18 8 18 18 0 5-2 10-5 13l2 19H17l2-19c-3-3-5-8-5-13C14 14 22 6 32 6z
+          M22 26h20v12a10 10 0 0 1-20 0z"/>
+        <circle cx="32" cy="36" r="6"/>
+        <path d="M44 30h8a3 3 0 0 1 0 6h-8z"/>
       </svg>
     `,
     suit: `
-      <svg viewBox="0 0 64 64" role="img" aria-label="보호복">
-        <path d="M24 12h16l8 11-7 6v43H24V29l-7-6Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/>
-        <path d="M32 13v43" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-        <path d="M24 56h16" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+      <svg viewBox="0 0 64 64" role="img" aria-label="보호복 착용">
+        <path fill-rule="evenodd" d="M32 4c6 0 10 5 10 11v3h2c5 0 8 4 8 9v15h-7v16H19V42h-7V27c0-5 3-9 8-9h2v-3c0-6 4-11 10-11z
+          M26 14h12v5H26z
+          M30 27h4v29h-4z"/>
       </svg>
     `,
     boots: `
-      <svg viewBox="0 0 64 64" role="img" aria-label="안전화">
-        <path d="M19 13h19v22l8 7c3 2 5 5 5 9v3H14v-8c0-4 5-4 5-9Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/>
-        <path d="M14 53h37" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+      <svg viewBox="0 0 64 64" role="img" aria-label="안전화 착용">
+        <path d="M16 10h13v22l14 10c4 3 6 7 6 12v2H12V42c0-4 4-6 4-10z"/>
+        <path fill-rule="evenodd" d="M10 50h40v6H10z"/>
       </svg>
     `
   };
