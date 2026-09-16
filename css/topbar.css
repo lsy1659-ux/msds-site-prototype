@@ -98,3 +98,16 @@
   background: linear-gradient(120deg, #041a15 0%, #062e25 62%, #03110e 100%);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
 }
+
+/* 오프라인 저장은 신호가 있을 때 미리 받아 두는 것이라 화면 맨 위에 둔다.
+ * 푸터에 있을 때 쓰던 가운데 정렬·560px 폭을 아래 카드들과 맞춘다. */
+.app-shell > .offline-panel {
+  max-width: none;
+  margin: 0 0 16px;
+}
+
+/* 검색 카드는 머리글 아래로 파고들라고 음수 여백을 쓰고 있었다.
+ * 그 사이에 이 패널이 들어왔으니 겹치지 않게 푼다. */
+.app-shell > .offline-panel + .search-panel {
+  margin-top: 0;
+}
