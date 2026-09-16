@@ -112,12 +112,16 @@ function buildProductUrl(productId) {
   return base.toString();
 }
 
-function getPictogramCodes(product) {
+// 고시는 그림문자가 다섯 개 이상이면 네 개까지만 표시하는 것을 허용한다.
+const PICTOGRAM_LIMIT = 4;
+
+function getPictogramCodes(product, limit = 0) {
   const source = Array.isArray(product.ghsPictograms) && product.ghsPictograms.length
     ? product.ghsPictograms.map((item) => item && item.code)
     : (product.ghsCodes || []);
-  return [...new Set(source.map((code) => String(code || "").toUpperCase()))]
+  const codes = [...new Set(source.map((code) => String(code || "").toUpperCase()))]
     .filter((code) => GHS_PICTOGRAMS[code]);
+  return limit && codes.length >= 5 ? codes.slice(0, limit) : codes;
 }
 
 // 문구 앞에 붙은 "- " 를 떼고 비어 있으면 빈 배열로 돌려준다.
@@ -244,27 +248,46 @@ function renderLabelSheet() {
     return;
   }
 
-  const compact = labelState.size === "small";
+  const size = labelState.size;
+  const mini = size === "mini";      // 100mL 이하: 고시가 허용하는 간이표시
+  const compact = size === "small";  // 100mL 초과 소분용기: 2단으로 압축
 
   sheet.innerHTML = labelState.filtered.map((product) => {
     const checked = labelState.selected.has(product.id);
-    const codes = getPictogramCodes(product);
+    const codes = getPictogramCodes(product, PICTOGRAM_LIMIT);
     const hazards = cleanStatements(product.hazardStatements);
     const allPrecautions = getPrecautionList(product);
     const shortenPrecautions = labelState.shorten && allPrecautions.length > PRECAUTION_LIMIT;
     const precautions = shortenPrecautions ? getShortPrecautions(product) : allPrecautions;
     const precautionNote = shortenPrecautions
-      ? `그 밖의 예방조치 문구는 물질안전보건자료(MSDS)를 참조하십시오. (전체 ${allPrecautions.length}개 중 ${precautions.length}개 표시)`
+      ? `그 밖의 예방조치 문구는 물질안전보건자료(MSDS)를 참조하십시오.`
       : "";
     const signal = String(product.hazardBadge || "").trim();
+    const qr = `<div class="label-qr" data-label-qr="${labelEscape(product.id)}"></div>`;
 
-    const body = compact
-      ? `${renderStatementBlock("유해·위험 문구", hazards, "유해·위험 문구", product)}
-         <div class="label-qr" data-label-qr="${labelEscape(product.id)}"></div>
-         <p class="label-compact-note">QR을 스캔하면 예방조치문구와 전체 MSDS를 볼 수 있습니다.</p>`
-      : `${renderStatementBlock("유해·위험 문구", hazards, "유해·위험 문구", product)}
-         ${renderStatementBlock("예방조치 문구", precautions, "예방조치 문구", product, precautionNote)}
-         ${renderSupplier(product)}`;
+    let body;
+    if (mini) {
+      // 고시상 100mL 이하 용기는 제품명·그림문자·신호어·공급자정보만으로 족하다.
+      body = `<div class="label-mini-foot">
+          ${renderSupplier(product)}
+          ${qr}
+        </div>
+        <p class="label-compact-note">유해·위험 문구와 예방조치 문구는 QR 또는 물질안전보건자료(MSDS)에서 확인하십시오.</p>`;
+    } else if (compact) {
+      // 유해·위험 문구는 임의로 고르지 않고 모두 싣는다. 대신 두 단으로 좁혀 담는다.
+      body = `<div class="label-two-col">
+          ${renderStatementBlock("유해·위험 문구", hazards, "유해·위험 문구", product)}
+          ${renderStatementBlock("예방조치 문구", precautions, "예방조치 문구", product, precautionNote)}
+        </div>
+        <div class="label-compact-foot">
+          ${renderSupplier(product)}
+          ${qr}
+        </div>`;
+    } else {
+      body = `${renderStatementBlock("유해·위험 문구", hazards, "유해·위험 문구", product)}
+        ${renderStatementBlock("예방조치 문구", precautions, "예방조치 문구", product, precautionNote)}
+        ${renderSupplier(product)}`;
+    }
 
     return `<article class="label-card${checked ? " is-selected" : ""}" data-label-id="${labelEscape(product.id)}">
         <label class="label-card-pick no-print">
@@ -278,7 +301,7 @@ function renderLabelSheet() {
       </article>`;
   }).join("");
 
-  if (compact) {
+  if (mini || compact) {
     labelState.filtered.forEach((product) => {
       const slot = sheet.querySelector(`[data-label-qr="${CSS.escape(product.id)}"]`);
       if (!slot || typeof qrcode !== "function") return;

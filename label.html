@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
     <title>MSDS 경고표지 만들기</title>
-    <link rel="stylesheet" href="css/label.css?v=20260916-dark3">
+    <link rel="stylesheet" href="css/label.css?v=20260916-label2">
     <script>
       // 조회 화면에서 고른 화면 설정을 이 페이지에도 적용한다.
       try {
@@ -35,7 +35,8 @@
           <label class="label-field label-field-narrow">
             <span>표지 크기</span>
             <select id="labelSize">
-              <option value="small">소분용기 간이표시</option>
+              <option value="mini">소형용기 100mL 이하 (간이표시)</option>
+              <option value="small">소분용기 100mL 초과 (2단 압축)</option>
               <option value="medium" selected>일반용기 (A5 정도)</option>
               <option value="large">드럼통 (A4 정도)</option>
             </select>
@@ -62,7 +63,8 @@
 
         <p class="label-hint">
           선택한 제품만 인쇄됩니다. 아무것도 선택하지 않으면 화면에 보이는 제품 전체가 인쇄됩니다.
-          소분용기 간이표시에는 전체 내용을 볼 수 있는 QR을 넣습니다.
+          100mL 이하 소형용기는 고시가 허용하는 간이표시(제품명·그림문자·신호어·공급자정보)로 만들고,
+          그보다 큰 소분용기는 유해·위험문구를 모두 넣되 2단으로 압축합니다. 모든 표지에 전체 MSDS로 가는 QR을 넣습니다.
         </p>
         <p class="label-warning">
           유해·위험 문구가 없는 제품은 표지를 만들 수 없어 기본 목록에서 빠집니다. 체크를 풀면 어떤 제품이 남았는지 볼 수 있고,
@@ -73,7 +75,7 @@
       <section id="labelSheet" class="label-sheet label-size-medium" aria-label="경고표지 목록"></section>
     </main>
 
-    <script src="vendor/qrcode.min.js?v=20260916-dark3"></script>
-    <script src="js/label.js?v=20260916-dark3" defer></script>
+    <script src="vendor/qrcode.min.js?v=20260916-label2"></script>
+    <script src="js/label.js?v=20260916-label2" defer></script>
   </body>
 </html>

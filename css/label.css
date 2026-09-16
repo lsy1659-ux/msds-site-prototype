@@ -493,3 +493,93 @@ select:focus-visible {
 [data-theme="dark"] .label-card .label-card-pick {
   color: #5d6865;
 }
+
+
+/* ── 용기 크기별 배치 ───────────────────────────────────────
+ * 소분용기는 붙일 면이 좁은데 유해·위험 문구는 법에서 줄일 수 없다.
+ * 글자를 줄이고 두 단으로 나눠 담아 면적을 아낀다.
+ */
+
+.label-size-mini { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+.label-size-small { grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); }
+
+.label-size-mini .label-name { font-size: 0.98rem; }
+.label-size-mini .label-signal { font-size: 1.1rem; }
+.label-size-mini .label-pictogram img { width: 44px; height: 44px; }
+.label-size-mini .label-qr { width: 76px; height: 76px; }
+
+.label-mini-foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* 소분용기: 좌 유해·위험 문구 / 우 예방조치 문구 */
+.label-size-small .label-card {
+  padding: 10px 12px;
+  gap: 6px;
+}
+
+.label-size-small .label-name { font-size: 1rem; }
+.label-size-small .label-signal { font-size: 1.05rem; }
+.label-size-small .label-pictogram img { width: 42px; height: 42px; }
+.label-size-small .label-pictogram figcaption { font-size: 0.6rem; }
+
+.label-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-items: start;
+}
+
+.label-size-small .label-block h3 {
+  font-size: 0.72rem;
+}
+
+.label-size-small .label-block ul {
+  padding-left: 13px;
+  font-size: 0.68rem;
+  line-height: 1.35;
+}
+
+.label-size-small .label-block-note {
+  font-size: 0.62rem;
+}
+
+.label-compact-foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 4px;
+  border-top: 1px solid var(--label-line);
+}
+
+.label-size-small .label-supplier p {
+  font-size: 0.66rem;
+  line-height: 1.35;
+}
+
+.label-size-small .label-supplier h3 {
+  font-size: 0.68rem;
+}
+
+.label-size-small .label-qr {
+  width: 72px;
+  height: 72px;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 720px) {
+  .label-two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  .label-size-small .label-card,
+  .label-size-mini .label-card {
+    border-width: 2px;
+  }
+}
