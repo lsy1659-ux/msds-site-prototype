@@ -308,7 +308,11 @@ function renderLabelSheet() {
     const legalNote = mini
       ? `<p class="label-legal-note">※ 100mL 이하 소분용기<br>고용노동부 고시 제6조제2항에 따라 축약 표시</p>`
       : "";
-    const face = `${legalNote}<h2 class="label-name">${labelEscape(product.productName)}</h2>
+    // 적용차종 코드를 줄줄이 달아 100자가 넘는 제품명이 있다. 명칭은 법정
+    // 필수 항목이라 줄일 수 없으니, 긴 이름만 글자를 줄여 칸 안에 담는다.
+    const nameLength = String(product.productName || "").length;
+    const nameClass = nameLength > 70 ? " is-verylong" : nameLength > 36 ? " is-long" : "";
+    const face = `${legalNote}<h2 class="label-name${nameClass}">${labelEscape(product.productName)}</h2>
         ${renderPictograms(codes, product)}
         <p class="label-signal${signal === "위험" ? " is-danger" : ""}">${labelEscape(signal || "신호어 확인 필요")}</p>
         ${body}`;

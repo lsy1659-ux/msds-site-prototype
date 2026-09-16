@@ -604,11 +604,8 @@ select:focus-visible {
  * ══════════════════════════════════════════════════════════ */
 
 @media print {
-  @page {
-    margin: 8mm;
-  }
-
   body {
+    margin: 0;
     background: #ffffff;
   }
 
@@ -664,14 +661,19 @@ select:focus-visible {
 
   .label-sheet.label-size-mini {
     grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 86mm;
+    grid-auto-rows: 81mm;
     gap: 5mm;
   }
 
+  /* A4 를 넷으로 나눈다. 한 칸은 92.5 x 125mm.
+   *   1  2
+   *   3  4   순으로 채워진다.
+   * 세로를 277mm 가 아니라 255mm 로 잡은 것은 크롬 인쇄 기본값인
+   * 머리글/바닥글이 켜져 있어도 넉 장이 한 장에 들어가게 하기 위해서다. */
   .label-sheet.label-size-small {
-    grid-template-columns: 1fr;
-    grid-auto-rows: 66mm;
-    gap: 3mm;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 125mm;
+    gap: 5mm;
   }
 
   .label-size-mini .label-card,
@@ -687,14 +689,18 @@ select:focus-visible {
 
   /* ── 100mL 이하: 크게 읽히게 ── */
   .label-size-mini .label-card {
-    height: 86mm;
-    padding: 4mm 5mm;
-    gap: 2mm;
+    height: 81mm;
+    padding: 3.4mm 4mm;
+    gap: 1.6mm;
+    /* 공급자 정보와 QR 을 아래에 붙이고, 남는 세로는 그림문자 위쪽이 먹는다. */
+    grid-template-rows: auto auto auto auto 1fr auto;
   }
 
   .label-size-mini .label-name { font-size: 11pt; }
+  .label-size-mini .label-name.is-long { font-size: 8.5pt; line-height: 1.2; }
+  .label-size-mini .label-name.is-verylong { font-size: 6.5pt; line-height: 1.15; }
   .label-size-mini .label-signal { font-size: 13pt; }
-  .label-size-mini .label-pictogram img { width: 13mm; height: 13mm; }
+  .label-size-mini .label-pictogram img { width: 11mm; height: 11mm; }
   .label-size-mini .label-pictogram figcaption { font-size: 5pt; }
   .label-size-mini .label-qr { width: 22mm; height: 22mm; }
   .label-size-mini .label-supplier h3 { font-size: 6pt; }
@@ -705,20 +711,37 @@ select:focus-visible {
 
   /* ── 100mL 초과: 가로로 길게, 두 단 ── */
   .label-size-small .label-card {
-    height: 66mm;
-    padding: 2mm 3mm;
-    gap: 0.6mm;
+    height: 125mm;
+    padding: 3mm 3.5mm;
+    gap: 1mm;
+    /* 명칭·그림문자·신호어는 필요한 만큼만, 남는 세로는 문구 칸이 먹고,
+     * 공급자 정보와 QR 은 칸 맨 아래에 붙는다. */
+    grid-template-rows: auto auto auto 1fr auto;
   }
 
-  .label-size-small .label-name { font-size: 8.4pt; }
-  .label-size-small .label-signal { font-size: 8.4pt; }
-  .label-size-small .label-pictogram img { width: 7mm; height: 7mm; }
-  .label-size-small .label-pictogram figcaption { font-size: 3.6pt; }
-  .label-size-small .label-block h3 { font-size: 5pt; margin-bottom: 0.3mm; }
-  .label-size-small .label-block ul { padding-left: 2.4mm; font-size: 4.2pt; line-height: 1.08; }
-  .label-size-small .label-block-note { font-size: 4.2pt; line-height: 1.1; }
-  .label-size-small .label-supplier h3 { font-size: 5pt; }
-  .label-size-small .label-supplier p { font-size: 4.2pt; line-height: 1.12; }
-  .label-size-small .label-qr { width: 11mm; height: 11mm; }
-  .label-size-small .label-two-col { gap: 4mm; }
+  .label-size-small .label-compact-foot {
+    align-items: end;
+    padding-top: 2mm;
+    border-top: 0.3mm solid #999;
+  }
+
+  /* 칸 폭이 92.5mm 뿐이라 두 단으로 쪼개면 한 줄에 열 글자밖에 못 넣는다.
+   * 대신 세로가 넉넉하므로 한 단으로 펴고 글자를 키운다. */
+  .label-size-small .label-two-col {
+    grid-template-columns: 1fr;
+    gap: 2mm;
+  }
+
+  .label-size-small .label-name { font-size: 10pt; }
+  .label-size-small .label-name.is-long { font-size: 8pt; line-height: 1.2; }
+  .label-size-small .label-name.is-verylong { font-size: 6.5pt; line-height: 1.15; }
+  .label-size-small .label-signal { font-size: 11pt; }
+  .label-size-small .label-pictogram img { width: 9mm; height: 9mm; }
+  .label-size-small .label-pictogram figcaption { font-size: 4.6pt; }
+  .label-size-small .label-block h3 { font-size: 6pt; margin-bottom: 0.6mm; }
+  .label-size-small .label-block ul { padding-left: 2.8mm; font-size: 5.2pt; line-height: 1.15; }
+  .label-size-small .label-block-note { font-size: 5.2pt; line-height: 1.18; }
+  .label-size-small .label-supplier h3 { font-size: 6pt; }
+  .label-size-small .label-supplier p { font-size: 5.2pt; line-height: 1.2; }
+  .label-size-small .label-qr { width: 20mm; height: 20mm; }
 }
