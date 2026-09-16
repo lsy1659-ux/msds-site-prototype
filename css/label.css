@@ -423,3 +423,73 @@ select:focus-visible {
   width: 18px;
   height: 18px;
 }
+
+
+/* ── 어두운 화면 ───────────────────────────────────────────
+ * 인쇄물인 카드 자체는 흰 바탕을 유지한다. 종이에 나가는 것이라
+ * 화면 설정에 따라 색이 바뀌면 안 된다. 주변 조작부만 어둡게 한다.
+ */
+
+[data-theme="dark"] {
+  --label-bg: #0e1715;
+  --label-surface: #16211f;
+  --label-ink: #e7f0ed;
+  --label-muted: #9fb3ad;
+  --label-line: #2c3b38;
+  color-scheme: dark;
+}
+
+[data-theme="dark"] .label-controls,
+[data-theme="dark"] .label-field input,
+[data-theme="dark"] .label-field select,
+[data-theme="dark"] .label-button {
+  background: var(--label-surface);
+  color: var(--label-ink);
+  border-color: var(--label-line);
+}
+
+[data-theme="dark"] .label-button-primary {
+  background: #1f8a73;
+  border-color: #1f8a73;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .label-warning {
+  border-color: #6b4a1a;
+  background: #2a2013;
+  color: #f0b454;
+}
+
+[data-theme="dark"] .label-hint,
+[data-theme="dark"] .label-status,
+[data-theme="dark"] .label-empty,
+[data-theme="dark"] .label-check {
+  color: var(--label-muted);
+}
+
+
+/* 표지 카드는 종이에 나가는 인쇄물이라 흰 바탕을 유지한다.
+ * 바탕이 흰색이면 글자도 검정이어야 한다. 화면 색을 물려받으면 안 보인다. */
+[data-theme="dark"] .label-card,
+[data-theme="dark"] .label-card * {
+  color: #17211f;
+}
+
+[data-theme="dark"] .label-card .label-signal.is-danger {
+  color: #d71920;
+}
+
+[data-theme="dark"] .label-card .label-missing {
+  color: #d71920;
+  border-color: #d71920;
+}
+
+[data-theme="dark"] .label-card .label-none,
+[data-theme="dark"] .label-card .label-block h3,
+[data-theme="dark"] .label-card .label-supplier h3,
+[data-theme="dark"] .label-card .label-pictogram figcaption,
+[data-theme="dark"] .label-card .label-compact-note,
+[data-theme="dark"] .label-card .label-block-note,
+[data-theme="dark"] .label-card .label-card-pick {
+  color: #5d6865;
+}

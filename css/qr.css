@@ -307,3 +307,53 @@ select:focus-visible {
     transform: none;
   }
 }
+
+
+/* ── 어두운 화면 ───────────────────────────────────────────
+ * 인쇄물인 카드 자체는 흰 바탕을 유지한다. 종이에 나가는 것이라
+ * 화면 설정에 따라 색이 바뀌면 안 된다. 주변 조작부만 어둡게 한다.
+ */
+
+[data-theme="dark"] {
+  --qr-bg: #0e1715;
+  --qr-surface: #16211f;
+  --qr-ink: #e7f0ed;
+  --qr-muted: #9fb3ad;
+  --qr-line: #2c3b38;
+  color-scheme: dark;
+}
+
+[data-theme="dark"] .qr-controls,
+[data-theme="dark"] .qr-field input,
+[data-theme="dark"] .qr-field select,
+[data-theme="dark"] .qr-button {
+  background: var(--qr-surface);
+  color: var(--qr-ink);
+  border-color: var(--qr-line);
+}
+
+[data-theme="dark"] .qr-button-primary {
+  background: #1f8a73;
+  border-color: #1f8a73;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .qr-warning,
+[data-theme="dark"] .qr-hint,
+[data-theme="dark"] .qr-status,
+[data-theme="dark"] .qr-empty {
+  color: var(--qr-muted);
+}
+
+
+/* QR 카드도 인쇄물이라 흰 바탕을 유지한다. 글자색을 같이 고정한다. */
+[data-theme="dark"] .qr-card,
+[data-theme="dark"] .qr-card * {
+  color: #17211f;
+}
+
+[data-theme="dark"] .qr-card .qr-card-sub,
+[data-theme="dark"] .qr-card .qr-card-note,
+[data-theme="dark"] .qr-card .qr-card-pick {
+  color: #5d6865;
+}
