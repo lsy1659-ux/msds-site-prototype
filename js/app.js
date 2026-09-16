@@ -2176,7 +2176,19 @@ function render() {
   elements.scrollQuickNav?.classList.toggle("is-hidden", !shouldShowQuickNav);
   scheduleScrollProgressUpdate();
   document.body.classList.toggle("is-pdf-full-view-open", state.pdfFullView.isOpen);
+  liftPdfFullViewToBody();
   hydrateRequestedPdfPreview();
+}
+
+// 전체화면 미리보기는 상세 안쪽에 그려진다. 그 위 구역에 화면 효과용
+// transform 이 걸려 있으면 position:fixed 가 화면이 아니라 그 구역을
+// 기준으로 잡혀 창 한쪽에만 뜬다. 그래서 그릴 때마다 body 로 옮긴다.
+function liftPdfFullViewToBody() {
+  document.querySelectorAll("body > .pdf-full-view").forEach((stale) => stale.remove());
+  const fullView = document.querySelector(".pdf-full-view");
+  if (fullView && fullView.parentElement !== document.body) {
+    document.body.appendChild(fullView);
+  }
 }
 
 function updateReleaseMetaDisplay() {

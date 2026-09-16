@@ -598,6 +598,225 @@ select:focus-visible {
 }
 
 
+@media screen {
+  /* ── 화면 미리보기를 인쇄물과 같은 모양으로 ─────────────────
+   * 표지 크기를 고르면 화면에서도 그 규격 그대로 보여야 한다.
+   * 칸 크기는 mm, 글자는 pt 로 인쇄값을 그대로 쓰므로 줄바꿈까지
+   * 인쇄물과 같다. 그대로면 화면에서 너무 작으니 시트만 1.5배로
+   * 키운다. 확대는 안쪽 전부에 똑같이 걸리므로 모양은 변하지 않는다.
+   * "인쇄 선택" 줄은 종이에 찍히지 않으므로 칸 위에 얹고, 그만큼만
+   * 위 여백을 늘려 아래쪽 표지 면이 실제 규격과 같아지게 한다. */
+  .label-sheet.label-size-mini,
+  .label-sheet.label-size-small,
+  .label-sheet.label-size-tall {
+    zoom: 1.5;
+    grid-template-columns: repeat(auto-fill, var(--label-card-w));
+    justify-content: center;
+    gap: 6mm;
+  }
+
+  .label-size-mini { --label-card-w: 92.5mm; --label-card-h: 81mm; }
+  .label-size-small { --label-card-w: 136mm; --label-card-h: 84mm; }
+  .label-size-tall { --label-card-w: 92.5mm; --label-card-h: 125mm; }
+
+  .label-size-mini .label-card,
+  .label-size-small .label-card,
+  .label-size-tall .label-card {
+    position: relative;
+    width: var(--label-card-w);
+    overflow: hidden;
+    border-width: 0.5mm;
+    border-radius: 1.5mm;
+  }
+
+  .label-size-mini .label-card-pick,
+  .label-size-small .label-card-pick,
+  .label-size-tall .label-card-pick {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 9mm;
+    margin: 0;
+    padding: 0 2mm;
+    border-bottom: 0.3mm dashed var(--label-line, #c8d2cf);
+    font-size: 7pt;
+  }
+
+  .label-size-mini .label-card-pick input[type="number"],
+  .label-size-small .label-card-pick input[type="number"],
+  .label-size-tall .label-card-pick input[type="number"] {
+    width: 12mm;
+    font-size: 7pt;
+  }
+
+  /* ── 100mL 이하 · 간이표시 ── */
+  .label-size-mini .label-card {
+    height: calc(81mm + 9mm);
+    padding: calc(9mm + 3.4mm) 4mm 3.4mm;
+    gap: 1.6mm;
+    grid-template-rows: auto auto auto auto 1fr auto;
+  }
+
+  .label-size-mini .label-name { font-size: 11pt; }
+  .label-size-mini .label-name.is-long { font-size: 8.5pt; line-height: 1.2; }
+  .label-size-mini .label-name.is-verylong { font-size: 6.5pt; line-height: 1.15; }
+  .label-size-mini .label-signal { font-size: 13pt; }
+  .label-size-mini .label-pictogram img { width: 11mm; height: 11mm; }
+  .label-size-mini .label-pictogram figcaption { font-size: 5pt; }
+  .label-size-mini .label-qr { width: 22mm; height: 22mm; }
+  .label-size-mini .label-supplier h3 { font-size: 6pt; }
+  .label-size-mini .label-supplier p { font-size: 6pt; line-height: 1.3; }
+  .label-size-mini .label-compact-note { font-size: 5.4pt; }
+  .label-size-mini .label-legal-note { font-size: 5pt; line-height: 1.25; padding-bottom: 1mm; }
+
+  /* ── 100mL 초과 · 가로형 ── */
+  .label-size-small .label-card {
+    height: calc(84mm + 9mm);
+    padding: calc(9mm + 2.4mm) 3.4mm 2.4mm;
+    gap: 0.8mm;
+    grid-template-rows: auto auto auto 1fr auto;
+  }
+
+  .label-size-small .label-two-col { grid-template-columns: 1fr 1fr; gap: 4mm; }
+  .label-size-small .label-compact-foot { align-items: end; padding-top: 1mm; border-top: 0.3mm solid #999; }
+  .label-size-small .label-name { font-size: 9.5pt; }
+  .label-size-small .label-name.is-long { font-size: 8pt; line-height: 1.2; }
+  .label-size-small .label-name.is-verylong { font-size: 6.5pt; line-height: 1.15; }
+  .label-size-small .label-signal { font-size: 10.5pt; }
+  .label-size-small .label-pictogram img { width: 8mm; height: 8mm; }
+  .label-size-small .label-pictogram figcaption { font-size: 4.4pt; }
+  .label-size-small .label-block h3 { font-size: 5.8pt; margin-bottom: 0.5mm; }
+  .label-size-small .label-block ul { padding-left: 2.6mm; font-size: 4.7pt; line-height: 1.14; }
+  .label-size-small .label-block-note { font-size: 4.6pt; line-height: 1.15; }
+  .label-size-small .label-supplier h3 { font-size: 5.8pt; }
+  .label-size-small .label-supplier p { font-size: 4.8pt; line-height: 1.18; }
+  .label-size-small .label-qr { width: 14mm; height: 14mm; }
+
+  /* ── 100mL 초과 · 세로형 (가로형 뒤에 와야 이긴다) ── */
+  .label-size-tall .label-card {
+    height: calc(125mm + 9mm);
+    padding: calc(9mm + 3mm) 3.5mm 3mm;
+    gap: 1mm;
+    grid-template-rows: auto auto auto 1fr auto;
+  }
+
+  .label-size-tall .label-two-col { grid-template-columns: 1fr; gap: 2mm; }
+  .label-size-tall .label-compact-foot { padding-top: 2mm; }
+  .label-size-tall .label-name { font-size: 11pt; }
+  .label-size-tall .label-name.is-long { font-size: 8pt; line-height: 1.2; }
+  .label-size-tall .label-name.is-verylong { font-size: 6.5pt; line-height: 1.15; }
+  .label-size-tall .label-signal { font-size: 12pt; }
+  .label-size-tall .label-pictogram img { width: 10mm; height: 10mm; }
+  .label-size-tall .label-pictogram figcaption { font-size: 4.6pt; }
+  .label-size-tall .label-block h3 { font-size: 6.4pt; margin-bottom: 0.7mm; }
+  .label-size-tall .label-block ul { padding-left: 2.8mm; font-size: 5.4pt; line-height: 1.16; }
+  .label-size-tall .label-block-note { font-size: 5.4pt; line-height: 1.2; }
+  .label-size-tall .label-supplier h3 { font-size: 6pt; }
+  .label-size-tall .label-supplier p { font-size: 5.6pt; line-height: 1.22; }
+  .label-size-tall .label-qr { width: 20mm; height: 20mm; }
+}
+
+
+@media screen and (max-width: 900px) {
+  /* 좁은 화면에서는 실제 크기로 보여 줄 수가 없다. 136mm 짜리 가로형을
+   * 폰 폭에 맞추려면 글자가 3pt 가 되어 아무도 못 읽는다. 그래서
+   * 화면 폭에 맞춰 늘리고 높이는 내용에 맡긴다. 가로형과 세로형의
+   * 차이는 문구 단 수로 그대로 드러난다. */
+  .label-sheet.label-size-mini,
+  .label-sheet.label-size-small,
+  .label-sheet.label-size-tall {
+    zoom: 1;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .label-size-mini .label-card,
+  .label-size-small .label-card,
+  .label-size-tall .label-card {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    padding: 44px 14px 14px;
+    gap: 8px;
+    grid-template-rows: none;
+    border-width: 2px;
+    border-radius: 12px;
+  }
+
+  .label-size-mini .label-card-pick,
+  .label-size-small .label-card-pick,
+  .label-size-tall .label-card-pick {
+    height: 36px;
+    padding: 0 12px;
+    font-size: 0.82rem;
+  }
+
+  .label-size-mini .label-card-pick input[type="number"],
+  .label-size-small .label-card-pick input[type="number"],
+  .label-size-tall .label-card-pick input[type="number"] {
+    width: 54px;
+    font-size: 0.82rem;
+  }
+
+  .label-size-small .label-two-col,
+  .label-size-tall .label-two-col {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .label-size-mini .label-name,
+  .label-size-small .label-name,
+  .label-size-tall .label-name { font-size: 1rem; }
+
+  .label-size-mini .label-name.is-long,
+  .label-size-small .label-name.is-long,
+  .label-size-tall .label-name.is-long,
+  .label-size-mini .label-name.is-verylong,
+  .label-size-small .label-name.is-verylong,
+  .label-size-tall .label-name.is-verylong { font-size: 0.86rem; line-height: 1.25; }
+
+  .label-size-mini .label-signal,
+  .label-size-small .label-signal,
+  .label-size-tall .label-signal { font-size: 1.1rem; }
+
+  .label-size-mini .label-pictogram img,
+  .label-size-small .label-pictogram img,
+  .label-size-tall .label-pictogram img { width: 44px; height: 44px; }
+
+  .label-size-mini .label-pictogram figcaption,
+  .label-size-small .label-pictogram figcaption,
+  .label-size-tall .label-pictogram figcaption { font-size: 0.62rem; }
+
+  .label-size-mini .label-block h3,
+  .label-size-small .label-block h3,
+  .label-size-tall .label-block h3 { font-size: 0.74rem; margin-bottom: 4px; }
+
+  .label-size-mini .label-block ul,
+  .label-size-small .label-block ul,
+  .label-size-tall .label-block ul { padding-left: 16px; font-size: 0.76rem; line-height: 1.45; }
+
+  .label-size-mini .label-block-note,
+  .label-size-small .label-block-note,
+  .label-size-tall .label-block-note { font-size: 0.72rem; line-height: 1.4; }
+
+  .label-size-mini .label-supplier h3,
+  .label-size-small .label-supplier h3,
+  .label-size-tall .label-supplier h3 { font-size: 0.74rem; }
+
+  .label-size-mini .label-supplier p,
+  .label-size-small .label-supplier p,
+  .label-size-tall .label-supplier p { font-size: 0.76rem; line-height: 1.45; }
+
+  .label-size-mini .label-legal-note,
+  .label-size-mini .label-compact-note { font-size: 0.72rem; line-height: 1.4; }
+
+  .label-size-mini .label-qr,
+  .label-size-small .label-qr,
+  .label-size-tall .label-qr { width: 96px; height: 96px; }
+}
+
+
 /* ══════════════════════════════════════════════════════════
  * 인쇄 규칙은 반드시 이 아래에만 적는다.
  * 화면 규칙이 뒤에 오면 인쇄 때 화면 값이 이겨서 규격이 무너진다.
