@@ -9799,6 +9799,85 @@ select:focus-visible {
   color: #a9ecd8;
 }
 
+/* ── 면의 높낮이 ───────────────────────────────────────────
+ * 밝기만 뒤집으면 바탕과 카드가 같은 어둡기가 되어 카드가 카드로 보이지 않는다.
+ * 바닥 → 패널 → 카드 순서로 조금씩 밝게 해서 얹혀 있는 느낌을 준다.
+ * 글자는 면 위에서 또렷하도록 밝은 쪽으로 고정한다.
+ */
+
+[data-theme="dark"] {
+  --surface-0: #0e1715;   /* 페이지 바닥 */
+  --surface-1: #16211f;   /* 패널 */
+  --surface-2: #1e2b28;   /* 패널 위의 카드 */
+  --surface-3: #26332f;   /* 카드 위의 작은 면 */
+  --on-surface: #e8f1ee;
+  --on-surface-muted: #a3b7b1;
+}
+
+[data-theme="dark"] .search-panel,
+[data-theme="dark"] .selection-panel,
+[data-theme="dark"] .detail-block,
+[data-theme="dark"] .poster-board,
+[data-theme="dark"] .offline-panel,
+[data-theme="dark"] .search-assist {
+  background: var(--surface-1);
+  border-color: #2b3a36;
+  color: var(--on-surface);
+}
+
+[data-theme="dark"] .info-item,
+[data-theme="dark"] .info-item.is-highlight,
+[data-theme="dark"] .info-item.is-empty,
+[data-theme="dark"] .summary-item,
+[data-theme="dark"] .poster-block,
+[data-theme="dark"] .first-aid-block,
+[data-theme="dark"] .worker-caution-category,
+[data-theme="dark"] .selection-item,
+[data-theme="dark"] .full-product-item,
+[data-theme="dark"] .full-product-item.is-pdf-based,
+[data-theme="dark"] .component-table,
+[data-theme="dark"] .component-table-wrap,
+[data-theme="dark"] .shortcut-chip,
+[data-theme="dark"] .notice,
+[data-theme="dark"] .no-ghs {
+  background: var(--surface-2);
+  background-image: none;
+  border-color: #32423d;
+  color: var(--on-surface);
+}
+
+[data-theme="dark"] .info-item.is-highlight {
+  border-color: #3f7d68;
+}
+
+[data-theme="dark"] .info-icon,
+[data-theme="dark"] .search-heading-icon,
+[data-theme="dark"] .component-table th,
+[data-theme="dark"] .search-assist-head {
+  background: var(--surface-3);
+  color: var(--on-surface);
+}
+
+/* 라벨처럼 보조로 읽는 글자만 한 단계 낮춘다. */
+[data-theme="dark"] .info-label,
+[data-theme="dark"] .summary-label,
+[data-theme="dark"] .search-help,
+[data-theme="dark"] .poster-footer,
+[data-theme="dark"] .detail-note,
+[data-theme="dark"] .summary-note {
+  color: var(--on-surface-muted);
+}
+
+/* 값으로 읽는 글자는 또렷하게. */
+[data-theme="dark"] .info-text,
+[data-theme="dark"] .info-value,
+[data-theme="dark"] .summary-value,
+[data-theme="dark"] .component-table td,
+[data-theme="dark"] .detail-block li,
+[data-theme="dark"] .detail-block p {
+  color: var(--on-surface);
+}
+
 /* 그림자는 어두운 화면에서 더 깊게 */
 [data-theme="dark"] .search-panel,
 [data-theme="dark"] .detail-block,
