@@ -8147,3 +8147,191 @@ button.full-product-item {
   color: var(--color-reviewed);
   font-weight: 800;
 }
+
+
+/* ── 동작 효과 ─────────────────────────────────────────────
+ * 안전정보 화면이라 장식보다 이해를 돕는 쪽으로만 쓴다.
+ * 짧게(120~220ms), 감속으로 끝내고, 위험정보 자체는 움직이지 않는다.
+ * 기기 설정이 "동작 줄이기"면 맨 아래에서 전부 끈다.
+ */
+
+:root {
+  --motion-fast: 130ms;
+  --motion-base: 200ms;
+  --motion-ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+/* 누르는 순간 반응이 보이면 두 번 누르는 일이 줄어든다. */
+button,
+.site-footer-link,
+.shortcut-chip,
+.search-assist-item {
+  transition:
+    transform var(--motion-fast) var(--motion-ease),
+    box-shadow var(--motion-fast) var(--motion-ease),
+    background-color var(--motion-fast) var(--motion-ease),
+    border-color var(--motion-fast) var(--motion-ease),
+    color var(--motion-fast) var(--motion-ease);
+}
+
+button:active,
+.shortcut-chip:active,
+.site-footer-link:active {
+  transform: scale(0.97);
+}
+
+.search-button:hover,
+.offline-button.is-primary:hover,
+.pdf-preview-button:hover,
+.original-pdf-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(9, 38, 32, 0.22);
+}
+
+.search-button:active,
+.offline-button.is-primary:active,
+.pdf-preview-button:active,
+.original-pdf-link:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: none;
+}
+
+/* 키보드 사용자에게도 같은 단서를 준다. */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* 검색 결과가 바뀐 것을 알아채도록 카드가 차례로 올라온다.
+ * 여덟 번째까지만 늦추고 나머지는 바로 나온다. 목록이 길어도 기다리지 않게. */
+@keyframes resultRise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.selection-item,
+.full-product-item {
+  animation: resultRise var(--motion-base) var(--motion-ease) both;
+}
+
+.selection-list > *:nth-child(1) .selection-item,
+.selection-list > *:nth-child(1) .full-product-item { animation-delay: 0ms; }
+.selection-list > *:nth-child(2) .selection-item,
+.selection-list > *:nth-child(2) .full-product-item { animation-delay: 30ms; }
+.selection-list > *:nth-child(3) .selection-item,
+.selection-list > *:nth-child(3) .full-product-item { animation-delay: 60ms; }
+.selection-list > *:nth-child(4) .selection-item,
+.selection-list > *:nth-child(4) .full-product-item { animation-delay: 90ms; }
+.selection-list > *:nth-child(5) .selection-item,
+.selection-list > *:nth-child(5) .full-product-item { animation-delay: 120ms; }
+.selection-list > *:nth-child(6) .selection-item,
+.selection-list > *:nth-child(6) .full-product-item { animation-delay: 150ms; }
+.selection-list > *:nth-child(7) .selection-item,
+.selection-list > *:nth-child(7) .full-product-item { animation-delay: 180ms; }
+.selection-list > *:nth-child(8) .selection-item,
+.selection-list > *:nth-child(8) .full-product-item { animation-delay: 210ms; }
+
+.selection-item:hover,
+.full-product-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(9, 38, 32, 0.14);
+}
+
+.selection-item,
+.full-product-item {
+  transition:
+    transform var(--motion-fast) var(--motion-ease),
+    box-shadow var(--motion-fast) var(--motion-ease),
+    border-color var(--motion-fast) var(--motion-ease);
+}
+
+/* 제품을 고르면 요약판과 상세가 새 내용으로 바뀐다. 바뀌었다는 것만 알리고 끝낸다. */
+@keyframes panelFade {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.poster-board,
+.detail-block {
+  animation: panelFade var(--motion-base) var(--motion-ease) both;
+}
+
+.detail-block:nth-of-type(2) { animation-delay: 40ms; }
+.detail-block:nth-of-type(3) { animation-delay: 80ms; }
+.detail-block:nth-of-type(4) { animation-delay: 120ms; }
+
+/* 응급조치와 경고 배지는 등장만 하고 이후에는 움직이지 않는다.
+ * 안전정보가 계속 깜빡이면 오히려 신뢰도가 떨어진다. */
+.hazard-badge,
+.detail-block-first-aid {
+  animation: panelFade var(--motion-base) var(--motion-ease) both;
+}
+
+/* 스크롤 위치 표시가 자연스럽게 옮겨가도록 */
+.scroll-quick-nav button {
+  transition:
+    color var(--motion-fast) var(--motion-ease),
+    background-color var(--motion-fast) var(--motion-ease),
+    transform var(--motion-fast) var(--motion-ease);
+}
+
+.scroll-quick-nav button:hover {
+  transform: translateY(-1px);
+}
+
+/* GHS 그림문자는 크게 볼 일이 잦아 살짝 키워 준다. */
+.ghs-item img,
+.ghs-icon img {
+  transition: transform var(--motion-base) var(--motion-ease);
+}
+
+.ghs-item:hover img,
+.ghs-icon:hover img {
+  transform: scale(1.08);
+}
+
+/* 오프라인 저장 진행 막대가 끊기지 않고 이어지게 */
+.offline-progress span {
+  transition: width var(--motion-base) var(--motion-ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  button:active,
+  .shortcut-chip:active,
+  .selection-item:hover,
+  .full-product-item:hover,
+  .search-button:hover {
+    transform: none;
+  }
+}
+
+
+/* 보기 전환 버튼이 손가락으로 누르기에 낮았다(40x36). 권장 최소치로 올린다. */
+.view-toggle-button {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+
+/* 현장에서는 장갑을 끼고 누른다. 자주 쓰는 버튼의 높이를 권장 최소치까지 올린다. */
+@media (pointer: coarse), (max-width: 767px) {
+  .quick-search button,
+  .original-pdf-link,
+  .pdf-preview-button,
+  .shortcut-chip,
+  .offline-button {
+    min-height: 44px;
+  }
+}
