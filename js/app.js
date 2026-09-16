@@ -4815,7 +4815,30 @@ async function renderOfflinePanel(message = "") {
     <p class="offline-panel-hint">와이파이에서 한 번 저장해 두면, 신호가 없어도 저장한 제품의 MSDS 원본을 열 수 있습니다.</p>`;
 }
 
+// 오프라인 저장은 신호가 있을 때 한 번 받아 두는 일이라 늘 펼쳐 둘
+// 이유가 없다. 상단 탭에서 누를 때만 머리글 아래로 펼친다.
+function bindOfflineTab() {
+  const tab = document.querySelector("#offlineTab");
+  const panel = elements.offlinePanel;
+  if (!tab || !panel) return;
+
+  const setOpen = (open) => {
+    panel.toggleAttribute("hidden", !open);
+    tab.setAttribute("aria-expanded", String(open));
+    if (open) renderOfflinePanel();
+  };
+
+  tab.addEventListener("click", () => setOpen(panel.hasAttribute("hidden")));
+
+  // 경고표지 화면의 같은 탭에서 넘어오면 펼친 채로 연다.
+  if (new URLSearchParams(window.location.search).get("offline") === "1") {
+    setOpen(true);
+    window.requestAnimationFrame(() => panel.scrollIntoView({ block: "center" }));
+  }
+}
+
 function bindOfflinePanel() {
+  bindOfflineTab();
   elements.offlinePanel?.addEventListener("click", (event) => {
     if (event.target.closest("[data-offline-cancel]")) {
       offlineSave.cancel = true;

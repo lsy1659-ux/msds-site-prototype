@@ -111,3 +111,17 @@
 .app-shell > .offline-panel + .search-panel {
   margin-top: 0;
 }
+
+/* 탭 자리에 들어가는 단추. 링크와 같은 모양으로 맞춘다. */
+button.top-bar-tab {
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+button.top-bar-tab[aria-expanded="true"] {
+  color: #ffffff;
+  border-bottom-color: #6fe0bf;
+}

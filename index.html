@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="제품별 물질안전보건자료와 현장 안전정보를 조회하고 원본 MSDS를 확인하는 사이트입니다.">
     <title>물질안전보건자료(MSDS) 안전정보 조회</title>
-    <link rel="manifest" href="manifest.webmanifest?v=20260916-menu5">
+    <link rel="manifest" href="manifest.webmanifest?v=20260916-menu6">
     <meta name="theme-color" content="#0f5f4f">
     <link rel="icon" href="assets/icons/icon-192.png" sizes="192x192" type="image/png">
     <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="MSDS">
-    <link rel="stylesheet" href="css/style.css?v=20260916-menu5">
-    <link rel="stylesheet" href="css/topbar.css?v=20260916-menu5">
+    <link rel="stylesheet" href="css/style.css?v=20260916-menu6">
+    <link rel="stylesheet" href="css/topbar.css?v=20260916-menu6">
   </head>
   <body>
     <a class="skip-link" href="#searchInput">MSDS 검색으로 바로가기</a>
@@ -21,6 +21,7 @@
       <div class="top-bar-tabs">
         <a class="top-bar-tab" href="index.html" aria-current="page">조회</a>
         <a class="top-bar-tab" href="label.html">경고표지</a>
+        <button type="button" id="offlineTab" class="top-bar-tab" aria-expanded="false" aria-controls="offlinePanel">오프라인 저장</button>
       </div>
     </nav>
 
@@ -65,7 +66,7 @@
     </header>
 
     <main class="app-shell">
-      <div id="offlinePanel" class="offline-panel"></div>
+      <div id="offlinePanel" class="offline-panel" hidden></div>
 
       <section id="search-section" class="search-panel" aria-labelledby="searchTitle">
         <div class="search-title-row">
@@ -198,6 +199,6 @@
       </footer>
     </main>
 
-    <script src="js/app.js?v=20260916-menu5" defer></script>
+    <script src="js/app.js?v=20260916-menu6" defer></script>
   </body>
 </html>
