@@ -9,7 +9,7 @@
  *  - PDF: 열어본 것만 캐시. 전체는 80MB가 넘어 미리 담지 않는다.
  */
 
-const CACHE_VERSION = "msds-2026-09-16-4";
+const CACHE_VERSION = "msds-2026-09-16-5";
 const SHELL_CACHE = `${CACHE_VERSION}-shell`;
 const DATA_CACHE = `${CACHE_VERSION}-data`;
 const PDF_CACHE = `${CACHE_VERSION}-pdf`;
@@ -83,7 +83,7 @@ async function trimCache(cacheName, limit) {
   await Promise.all(keys.slice(0, keys.length - limit).map((key) => cache.delete(key)));
 }
 
-const DATA_NETWORK_TIMEOUT_MS = 4000;
+const NETWORK_TIMEOUT_MS = 2000;
 
 // 신호가 약한 현장에서는 응답 없이 오래 매달릴 수 있어 제한시간을 둔다.
 function fetchWithTimeout(request, timeout) {
@@ -93,11 +93,20 @@ function fetchWithTimeout(request, timeout) {
   ]);
 }
 
+// 끊긴 것이 확실하면 네트워크를 아예 시도하지 않는다. 기다리는 시간이 곧 대기시간이다.
+function isKnownOffline() {
+  return self.navigator && self.navigator.onLine === false;
+}
+
 // 제품 데이터는 최신이 우선이다. 끊겼거나 느리면 마지막 사본을 돌려준다.
 async function networkFirst(request, cacheName) {
   const cache = await caches.open(cacheName);
+  if (isKnownOffline()) {
+    const offlineCached = await cache.match(request, { ignoreSearch: true });
+    if (offlineCached) return offlineCached;
+  }
   try {
-    const response = await fetchWithTimeout(request, DATA_NETWORK_TIMEOUT_MS);
+    const response = await fetchWithTimeout(request, NETWORK_TIMEOUT_MS);
     if (response && response.ok) cache.put(request, response.clone());
     return response;
   } catch (error) {
@@ -137,16 +146,21 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // 주소창으로 들어온 화면 요청은 끊겼을 때 첫 화면을 돌려준다.
+  // 주소창이나 링크로 들어온 화면 요청.
+  // 끊긴 상태면 네트워크를 건너뛰고 바로 저장본을 띄워 대기시간을 없앤다.
   if (request.mode === "navigate") {
     event.respondWith((async () => {
+      const cache = await caches.open(SHELL_CACHE);
+      const cached = async () => (await cache.match(request, { ignoreSearch: true }))
+        || (await cache.match("index.html"));
+      if (isKnownOffline()) {
+        const hit = await cached();
+        if (hit) return hit;
+      }
       try {
-        return await fetch(request);
+        return await fetchWithTimeout(request, NETWORK_TIMEOUT_MS);
       } catch (error) {
-        const cache = await caches.open(SHELL_CACHE);
-        return (await cache.match(request, { ignoreSearch: true }))
-          || (await cache.match("index.html"))
-          || Response.error();
+        return (await cached()) || Response.error();
       }
     })());
     return;

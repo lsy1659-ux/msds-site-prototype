@@ -2,7 +2,6 @@
   {
     "id": "msds-001",
     "productName": "UT595(F)-CLEAR(G-25)",
-    "erpName": "CLEAR_MGG 무광클리어_AX1",
     "msdsNo": "AA00017-0000001782",
     "fileName": "KCC_MSDS_UT595(F)-CLEAR(G-25).pdf",
     "pdfPath": "pdf/01_ 도장/KCC/KCC_MSDS_UT595(F)-CLEAR(G-25).pdf",
@@ -205,7 +204,6 @@
   {
     "id": "msds-002",
     "productName": "UT5731-TGW(GGM)",
-    "erpName": "",
     "msdsNo": "AA00017-0000018538",
     "fileName": "KCC_MSDS_UT5731-TGW(GGM).pdf",
     "pdfPath": "pdf/01_ 도장/KCC/KCC_MSDS_UT5731-TGW(GGM).pdf",
@@ -431,7 +429,6 @@
   {
     "id": "msds-003",
     "productName": "UT5731-TKS(GGM)",
-    "erpName": "",
     "msdsNo": "AA00017-0000000199",
     "fileName": "KCC_MSDS_UT5731-TKS(GGM).pdf",
     "pdfPath": "pdf/01_ 도장/KCC/KCC_MSDS_UT5731-TKS(GGM).pdf",
@@ -694,7 +691,6 @@
   {
     "id": "msds-004",
     "productName": "UT5731-UMA(GGM)",
-    "erpName": "",
     "msdsNo": "AA00017-0000016329",
     "fileName": "KCC_MSDS_UT5731-UMA(GGM).pdf",
     "pdfPath": "pdf/01_ 도장/KCC/KCC_MSDS_UT5731-UMA(GGM).pdf",
@@ -943,7 +939,6 @@
   {
     "id": "msds-005",
     "productName": "UT5731-ZRM(GGM)",
-    "erpName": "",
     "msdsNo": "AA00017-0000014476",
     "fileName": "KCC_MSDS_UT5731-ZRM(GGM).pdf",
     "pdfPath": "pdf/01_ 도장/KCC/KCC_MSDS_UT5731-ZRM(GGM).pdf",
@@ -1226,7 +1221,6 @@
   {
     "id": "msds-006",
     "productName": "064(BP)",
-    "erpName": "",
     "msdsNo": "AA00017-0000001094",
     "fileName": "KCC_MSDS_064(BP).pdf",
     "pdfPath": "pdf/01_ 도장/KCC/KCC_MSDS_064(BP).pdf",
@@ -1389,7 +1383,6 @@
   {
     "id": "msds-007",
     "productName": "0278(HMC)",
-    "erpName": "",
     "msdsNo": "AA00017-0000001132",
     "fileName": "KCC_MSDS_0278(HMC).pdf",
     "pdfPath": "pdf/01_ 도장/KCC/KCC_MSDS_0278(HMC).pdf",
@@ -1584,7 +1577,6 @@
   {
     "id": "msds-008",
     "productName": "TH0261(AP)",
-    "erpName": "",
     "msdsNo": "AA00017-0000001258",
     "fileName": "KCC_MSDS_TH0261(AP).pdf",
     "pdfPath": "pdf/01_ 도장/KCC/KCC_MSDS_TH0261(AP).pdf",
@@ -1744,7 +1736,6 @@
   {
     "id": "msds-009",
     "productName": "TH0261(N)",
-    "erpName": "",
     "msdsNo": "AA00017-0000001019",
     "fileName": "KCC_MSDS_TH0261(N).pdf",
     "pdfPath": "pdf/01_ 도장/KCC/KCC_MSDS_TH0261(N).pdf",
@@ -1869,7 +1860,6 @@
   {
     "id": "msds-010",
     "productName": "UT5731-JUG(KIA)",
-    "erpName": "",
     "msdsNo": "AA00017-0000000196",
     "fileName": "KCC_MSDS_UT5731-JUG(KIA).pdf",
     "pdfPath": "pdf/01_ 도장/KCC/KCC_MSDS_UT5731-JUG(KIA).pdf",
@@ -2136,7 +2126,6 @@
   {
     "id": "msds-011",
     "productName": "UT5731-KLG(KIA)",
-    "erpName": "",
     "msdsNo": "AA00017-0000012853",
     "fileName": "KCC_MSDS_UT5731-KLG(KIA).pdf",
     "pdfPath": "pdf/01_ 도장/KCC/KCC_MSDS_UT5731-KLG(KIA).pdf",
@@ -2438,7 +2427,6 @@
   {
     "id": "msds-012",
     "productName": "UT5731-SRM(GGM)(FRT)",
-    "erpName": "COLOR 주제 (SRM)",
     "msdsNo": "AA00017-0000013675",
     "fileName": "KCC_MSDS_UT5731-SRM(GGM)(FRT).pdf",
     "pdfPath": "pdf/01_ 도장/KCC/KCC_MSDS_UT5731-SRM(GGM)(FRT).pdf",
@@ -2713,7 +2701,6 @@
   {
     "id": "msds-013",
     "productName": "R-255 경화제(캠스)",
-    "erpName": "",
     "msdsNo": "AA00875-9152795101",
     "fileName": "PUB795101 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/PUB795101 (KR).pdf",
@@ -2890,7 +2877,6 @@
   {
     "id": "msds-014",
     "productName": "DR-174 SWP M/BASE (SP2,SK3-CAR)",
-    "erpName": "",
     "msdsNo": "AA00875-4156004751",
     "fileName": "PUJ004751 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ004751 (KR).pdf",
@@ -3110,7 +3096,6 @@
   {
     "id": "msds-015",
     "productName": "DR-264 SAW (NE-CAR)",
-    "erpName": "",
     "msdsNo": "AA00875-4156005231",
     "fileName": "PUJ005231 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ005231 (KR).pdf",
@@ -3360,7 +3345,6 @@
   {
     "id": "msds-016",
     "productName": "DR-174 FSB (NQ5-CAR, 범퍼용)",
-    "erpName": "",
     "msdsNo": "AA00073-0000000124",
     "fileName": "PUJ005521 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ005521 (KR).pdf",
@@ -3602,7 +3586,6 @@
   {
     "id": "msds-017",
     "productName": "DR-174 FSB (SK3-PE, 범퍼용)",
-    "erpName": "",
     "msdsNo": "AA00073-0000000748",
     "fileName": "PUJ005731 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ005731 (KR).pdf",
@@ -3842,7 +3825,6 @@
   {
     "id": "msds-018",
     "productName": "DR-174 C7A(NQ5 PE-CAR)",
-    "erpName": "",
     "msdsNo": "AA00875-4156007641",
     "fileName": "PUJ007641 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ007641 (KR).pdf",
@@ -4099,7 +4081,6 @@
   {
     "id": "msds-019",
     "productName": "DR-164 HRB(NQ5 PE-CAR)",
-    "erpName": "",
     "msdsNo": "AA00875-4156007651",
     "fileName": "PUJ007651 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ007651 (KR).pdf",
@@ -4284,7 +4265,6 @@
   {
     "id": "msds-020",
     "productName": "DR-174 GBG (SP3-CAR)",
-    "erpName": "COLOR 주제 (테레인 브라운) GB",
     "msdsNo": "AA00875-4156008761",
     "fileName": "PUJ008761 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ008761 (KR).pdf",
@@ -4518,7 +4498,6 @@
   {
     "id": "msds-021",
     "productName": "DR-164 1D (SK3)",
-    "erpName": "",
     "msdsNo": "AA00875-4156030001",
     "fileName": "PUJ030001 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ030001 (KR).pdf",
@@ -4694,7 +4673,6 @@
   {
     "id": "msds-022",
     "productName": "DR-164 UD (QL-CAR)",
-    "erpName": "",
     "msdsNo": "AA00875-4156042701",
     "fileName": "PUJ042701 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ042701 (KR).pdf",
@@ -4888,7 +4866,6 @@
   {
     "id": "msds-023",
     "productName": "T-508 희석제(AIA)",
-    "erpName": "",
     "msdsNo": "AA00073-0000000379",
     "fileName": "SG0000021 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/SG0000021 (KR).pdf",
@@ -5048,7 +5025,6 @@
   {
     "id": "msds-024",
     "productName": "TA-619 PRIMER 희석제",
-    "erpName": "",
     "msdsNo": "AA00073-0000000156",
     "fileName": "SG3010101 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/SG3010101 (KR).pdf",
@@ -5202,7 +5178,6 @@
   {
     "id": "msds-025",
     "productName": "TA-618 PRIMER 희석제",
-    "erpName": "",
     "msdsNo": "AA00073-0000000155",
     "fileName": "SG3030401 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/SG3030401 (KR).pdf",
@@ -5373,7 +5348,6 @@
   {
     "id": "msds-026",
     "productName": "T-803 희석제",
-    "erpName": "",
     "msdsNo": "AA00073-0000000355",
     "fileName": "SG3030501 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/SG3030501 (KR).pdf",
@@ -5556,7 +5530,6 @@
   {
     "id": "msds-027",
     "productName": "T-730(P) 희석제",
-    "erpName": "",
     "msdsNo": "AA00073-0000000154",
     "fileName": "SG3031101 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/SG3031101 (KR).pdf",
@@ -5733,7 +5706,6 @@
   {
     "id": "msds-028",
     "productName": "T-801 희석제",
-    "erpName": "",
     "msdsNo": "AA00073-0000000342",
     "fileName": "SG3200001 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/SG3200001 (KR).pdf",
@@ -5909,7 +5881,6 @@
   {
     "id": "msds-029",
     "productName": "T-725 희석제",
-    "erpName": "",
     "msdsNo": "AA00073-0000000133",
     "fileName": "SG3240001 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/SG3240001 (KR).pdf",
@@ -6082,7 +6053,6 @@
   {
     "id": "msds-030",
     "productName": "T-507 희석제",
-    "erpName": "",
     "msdsNo": "AA00073-0000000148",
     "fileName": "SG9001902 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/SG9001902 (KR).pdf",
@@ -6267,7 +6237,6 @@
   {
     "id": "msds-031",
     "productName": "RB-194 L/GRAY 프라이머 (CAMS용 희석분)",
-    "erpName": "",
     "msdsNo": "AA00875-2144007902",
     "fileName": "PGE007902 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/PGE007902 (KR).pdf",
@@ -6477,7 +6446,6 @@
   {
     "id": "msds-032",
     "productName": "RB-194 D/GRAY 프라이머 (CAMS용 희석분)",
-    "erpName": "",
     "msdsNo": "AA00875-2144008002",
     "fileName": "PGE008002 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/PGE008002 (KR).pdf",
@@ -6694,7 +6662,6 @@
   {
     "id": "msds-033",
     "productName": "TC-317 세정제(CAMS용)",
-    "erpName": "",
     "msdsNo": "AA00073-0000000366",
     "fileName": "SG9007201 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/SG9007201 (KR).pdf",
@@ -6847,7 +6814,6 @@
   {
     "id": "msds-035",
     "productName": "R-266 CLEAR 개량 (캠스 희석분)",
-    "erpName": "CLEAR 주제(DBC)",
     "msdsNo": "AA00875-6155034691",
     "fileName": "PUG034691 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/PUG034691 (KR).pdf",
@@ -7066,7 +7032,6 @@
   {
     "id": "msds-036",
     "productName": "DR-165 YLC C/BASE(AX1 EV)",
-    "erpName": "",
     "msdsNo": "AA00875-4155107851",
     "fileName": "PUG107851 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/PUG107851 (KR).pdf",
@@ -7300,7 +7265,6 @@
   {
     "id": "msds-037",
     "productName": "DR-174 A2B(AX1 PE)",
-    "erpName": "",
     "msdsNo": "AA00875-4155107861",
     "fileName": "PUG107861 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/PUG107861 (KR).pdf",
@@ -7545,7 +7509,6 @@
   {
     "id": "msds-038",
     "productName": "DR-174 YLC M/BASE(AX1 EV)",
-    "erpName": "",
     "msdsNo": "AA00875-4155107871",
     "fileName": "PUG107871 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/PUG107871 (KR).pdf",
@@ -7784,7 +7747,6 @@
   {
     "id": "msds-039",
     "productName": "DR-174 BJG(SP3-CAR)",
-    "erpName": "COLOR 주제 (딥그린) BJ",
     "msdsNo": "AA00875-4155124221",
     "fileName": "PUG124221 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/PUG124221 (KR).pdf",
@@ -8033,7 +7995,6 @@
   {
     "id": "msds-040",
     "productName": "DR-174 SWP M/BASE(QL-CAR)",
-    "erpName": "",
     "msdsNo": "AA00875-4156001951",
     "fileName": "PUJ001951 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ001951 (KR).pdf",
@@ -8237,7 +8198,6 @@
   {
     "id": "msds-041",
     "productName": "DR-165 SWP C/BASE(QL-CAR 개량)",
-    "erpName": "",
     "msdsNo": "AA00875-4156003511",
     "fileName": "PUJ003511 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ003511 (KR).pdf",
@@ -8477,7 +8437,6 @@
   {
     "id": "msds-042",
     "productName": "DR-174 M3R (SK3-CAR)",
-    "erpName": "",
     "msdsNo": "AA00875-4156003631",
     "fileName": "PUJ003631 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ003631 (KR).pdf",
@@ -8741,7 +8700,6 @@
   {
     "id": "msds-043",
     "productName": "DR-165 SWP C/BASE (SK3)",
-    "erpName": "",
     "msdsNo": "AA00875-4156003891",
     "fileName": "PUJ003891 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ003891 (KR).pdf",
@@ -8974,7 +8932,6 @@
   {
     "id": "msds-044",
     "productName": "DR-174 KLG(SP2-CAR)",
-    "erpName": "",
     "msdsNo": "AA00875-4156004361",
     "fileName": "PUJ004361 (KR).pdf",
     "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ004361 (KR).pdf",
@@ -9226,7 +9183,6 @@
   {
     "id": "msds-045",
     "productName": "E 201 신나(T802-D0101T)",
-    "erpName": "",
     "msdsNo": "AA00586-0000000248",
     "fileName": "E 201 신나 (T802D0101T) .pdf",
     "pdfPath": "pdf/01_ 도장/KNK/E 201 신나 (T802D0101T) .pdf",
@@ -9419,7 +9375,6 @@
   {
     "id": "msds-046",
     "productName": "E 301 신나(T803-D0104T)",
-    "erpName": "TH_301 하절기용",
     "msdsNo": "AA00586-0000000247",
     "fileName": "E 301 신나 (T803D0104T).pdf",
     "pdfPath": "pdf/01_ 도장/KNK/E 301 신나 (T803D0104T).pdf",
@@ -9594,7 +9549,6 @@
   {
     "id": "msds-047",
     "productName": "E 301 신나 [동절용](T803-D0106)",
-    "erpName": "",
     "msdsNo": "AA00586-0000000377",
     "fileName": "E 301 신나 (동절용)_T803D0106.pdf",
     "pdfPath": "pdf/01_ 도장/KNK/E 301 신나 (동절용)_T803D0106.pdf",
@@ -9772,7 +9726,6 @@
   {
     "id": "msds-048",
     "productName": "E 412 신나(T804-D1203T)",
-    "erpName": "COLOR 신나 (412신나)",
     "msdsNo": "AA00586-0000000244",
     "fileName": "E 412 신나 (T804D1203T).pdf",
     "pdfPath": "pdf/01_ 도장/KNK/E 412 신나 (T804D1203T).pdf",
@@ -9965,7 +9918,6 @@
   {
     "id": "msds-049",
     "productName": "E 413 신나(T804-D1204T)",
-    "erpName": "COLOR 신나 (413신나)",
     "msdsNo": "AA00586-0000000243",
     "fileName": "E 413 신나 (T804D1204T).pdf",
     "pdfPath": "pdf/01_ 도장/KNK/E 413 신나 (T804D1204T).pdf",
@@ -10148,7 +10100,6 @@
   {
     "id": "msds-050",
     "productName": "KU 4150KNK (H600-H0554H)",
-    "erpName": "",
     "msdsNo": "AA00586-0000000274",
     "fileName": "KU 4150KNK.. (H600-H0554H).pdf",
     "pdfPath": "pdf/01_ 도장/KNK/KU 4150KNK.. (H600-H0554H).pdf",
@@ -10317,7 +10268,6 @@
   {
     "id": "msds-051",
     "productName": "듀프렉스 그래비티 그레이[MGG](A203-C7071)",
-    "erpName": "",
     "msdsNo": "AA00586-0000000029",
     "fileName": "듀프렉스 그래비티 그레이 (MGG) (A203C7071).pdf",
     "pdfPath": "pdf/01_ 도장/KNK/듀프렉스 그래비티 그레이 (MGG) (A203C7071).pdf",
@@ -10646,7 +10596,6 @@
   {
     "id": "msds-052",
     "productName": "듀프렉스 그래비티그레이 [KDG](A203-C7060)",
-    "erpName": "",
     "msdsNo": "AA00586-0000000117",
     "fileName": "듀프렉스 그래비티그레이 KDG (A203-C7060).pdf",
     "pdfPath": "pdf/01_ 도장/KNK/듀프렉스 그래비티그레이 KDG (A203-C7060).pdf",
@@ -10971,7 +10920,6 @@
   {
     "id": "msds-053",
     "productName": "듀프렉스 그래비티그레이 [KDT-GP2](A203-C7066)",
-    "erpName": "",
     "msdsNo": "AA00586-0000000119",
     "fileName": "듀프렉스 그래비티그레이 KDT-GP2 (A203-C7066).pdf",
     "pdfPath": "pdf/01_ 도장/KNK/듀프렉스 그래비티그레이 KDT-GP2 (A203-C7066).pdf",
@@ -11304,7 +11252,6 @@
   {
     "id": "msds-054",
     "productName": "듀프렉스 언블리치드 아이보리 [NES](A203-X7020)",
-    "erpName": "",
     "msdsNo": "AA00586-0000000670",
     "fileName": "듀프렉스 언블리치드 아이보리_NES_A203X7020_MSDS(260304).pdf",
     "pdfPath": "pdf/01_ 도장/KNK/듀프렉스 언블리치드 아이보리_NES_A203X7020_MSDS(260304).pdf",
@@ -11571,7 +11518,6 @@
   {
     "id": "msds-055",
     "productName": "듀프렉스 에어로실버 매트 [T4M](A203-C7086)",
-    "erpName": "COLOR 주제 (아이보리 실버 매트) SM",
     "msdsNo": "AA00586-0000000318",
     "fileName": "듀프렉스 에어로실버 (T4M) A203C7086.pdf",
     "pdfPath": "pdf/01_ 도장/KNK/듀프렉스 에어로실버 (T4M) A203C7086.pdf",
@@ -11841,7 +11787,6 @@
   {
     "id": "msds-056",
     "productName": "듀프렉스 인페르노레드 [AJR](A203-R7038)",
-    "erpName": "",
     "msdsNo": "AA00586-0000000121",
     "fileName": "듀프렉스 인페르노레드 AJR (A203-R7038).pdf",
     "pdfPath": "pdf/01_ 도장/KNK/듀프렉스 인페르노레드 AJR (A203-R7038).pdf",
@@ -12127,7 +12072,6 @@
   {
     "id": "msds-057",
     "productName": "듀프렉스 플루톤 블루[PLU](A203-K7077)",
-    "erpName": "",
     "msdsNo": "AA00586-0000000068",
     "fileName": "듀프렉스 플루톤 블루 (PLU) (A203-K7077)_MSDS.pdf",
     "pdfPath": "pdf/01_ 도장/KNK/듀프렉스 플루톤 블루 (PLU) (A203-K7077)_MSDS.pdf",
@@ -12485,7 +12429,6 @@
   {
     "id": "msds-058",
     "productName": "소프렉스#500 무광투명 [G-30](K806-A4005)",
-    "erpName": "",
     "msdsNo": "AA00586-0000000127",
     "fileName": "소프렉스#500 무광투명 G-30 (K806-A4005).pdf",
     "pdfPath": "pdf/01_ 도장/KNK/소프렉스#500 무광투명 G-30 (K806-A4005).pdf",
@@ -12718,7 +12661,6 @@
   {
     "id": "msds-059",
     "productName": "소프렉스#500 크리어 [DL](K806-A0070)",
-    "erpName": "",
     "msdsNo": "AA00586-0000000126",
     "fileName": "소프렉스#500 크리어 DL (K806-A0070).pdf",
     "pdfPath": "pdf/01_ 도장/KNK/소프렉스#500 크리어 DL (K806-A0070).pdf",
@@ -12943,7 +12885,6 @@
   {
     "id": "msds-060",
     "productName": "아크렉스 마그마 레드 [OVR](A203-R7054)",
-    "erpName": "COLOR 주제 (마그마 레드) VR",
     "msdsNo": "AA00586-0000000459",
     "fileName": "아크렉스 마그마 레드 (OVR) A203R7054.pdf",
     "pdfPath": "pdf/01_ 도장/KNK/아크렉스 마그마 레드 (OVR) A203R7054.pdf",
@@ -13218,7 +13159,6 @@
   {
     "id": "msds-061",
     "productName": "아크렉스 아이보리 실버 [ISG](A203-S7058)",
-    "erpName": "COLOR 주제 (아이보리 실버) SG",
     "msdsNo": "AA00586-0000000460",
     "fileName": "아크렉스 아이보리 실버 (ISG)A203S7058.pdf",
     "pdfPath": "pdf/01_ 도장/KNK/아크렉스 아이보리 실버 (ISG)A203S7058.pdf",
@@ -13493,7 +13433,6 @@
   {
     "id": "msds-062",
     "productName": "아크렉스 아이스버그 그린 [IEG](A203-G7033)",
-    "erpName": "COLOR 주제 (아이스 버그 그린) EG",
     "msdsNo": "AA00586-0000000461",
     "fileName": "아크렉스 아이스버그 그린 (IEG)A203G7033.pdf",
     "pdfPath": "pdf/01_ 도장/KNK/아크렉스 아이스버그 그린 (IEG)A203G7033.pdf",
@@ -13816,7 +13755,6 @@
   {
     "id": "msds-063",
     "productName": "아크렉스 프로스트 블루 [EBB](A203-K7079)",
-    "erpName": "COLOR 주제 (포레스트 블루) BB",
     "msdsNo": "AA00586-0000000462",
     "fileName": "아크렉스 프로스트 블루 (EBB)A203K7079.pdf",
     "pdfPath": "pdf/01_ 도장/KNK/아크렉스 프로스트 블루 (EBB)A203K7079.pdf",
@@ -14099,7 +14037,6 @@
   {
     "id": "msds-064",
     "productName": "R1252",
-    "erpName": "",
     "msdsNo": "AA08294-0000000025",
     "fileName": "R1252.pdf",
     "pdfPath": "pdf/00_ 사출/대하/R1252.pdf",
@@ -14174,7 +14111,6 @@
   {
     "id": "msds-065",
     "productName": "SW920S-COLOR",
-    "erpName": "",
     "msdsNo": "AA08294-0000000028",
     "fileName": "SW920S-COLOR.pdf",
     "pdfPath": "pdf/00_ 사출/대하/SW920S-COLOR.pdf",
@@ -14266,7 +14202,6 @@
   {
     "id": "msds-066",
     "productName": "HW160-COLOR",
-    "erpName": "",
     "msdsNo": "AA08294-0000000012",
     "fileName": "HW160-COLOR.pdf",
     "pdfPath": "pdf/00_ 사출/대하/HW160-COLOR.pdf",
@@ -14375,7 +14310,6 @@
   {
     "id": "msds-067",
     "productName": "M1352(A,C,G,JY,X,IJ,H,D,DH,T)-COLOR",
-    "erpName": "",
     "msdsNo": "AA08294-0000000024",
     "fileName": "M1352(A, C, G, JY, X, IJ, H, D, DH, T)-COLOR   .pdf",
     "pdfPath": "pdf/00_ 사출/대하/M1352(A, C, G, JY, X, IJ, H, D, DH, T)-COLOR   .pdf",
@@ -14451,7 +14385,6 @@
   {
     "id": "msds-068",
     "productName": "M7153(MF,CM,J,JL,M,JL-2,YFS,FS,TQ,VF,YI,VI,YV,V,V-2,Y,YL,L,BS,YG,YS,YM,YSK,YFS-W,K,FSJ,MD)",
-    "erpName": "",
     "msdsNo": "AA08294-0000000027",
     "fileName": "M7153(MF, CM, J, JL, M, JL-2, YFS, FS, TQ, VF, YI, VI, YV, V, V-2, Y, YL, L, BS, YG, YS, YM, YSK, YFS-W, K, FSJ, MD).pdf",
     "pdfPath": "pdf/00_ 사출/대하/M7153(MF, CM, J, JL, M, JL-2, YFS, FS, TQ, VF, YI, VI, YV, V, V-2, Y, YL, L, BS, YG, YS, YM, YSK, YFS-W, K, FSJ, MD).pdf",
@@ -14531,7 +14464,6 @@
   {
     "id": "msds-069",
     "productName": "M7392(T,TA,TH,TS,TKV,D,JA,F,MF,J,ET,ED,E,EDC,Q,QR,QF,CN,CNR,CNF,HCN,THC)",
-    "erpName": "",
     "msdsNo": "AA08294-0000000019",
     "fileName": "M7392(T, TA, TH, TS, TKV, D, JA, F, MF,  J, ET, ED, E, EDC,Q,QR,QF,CN,CNR,CNF, HCN, THC).pdf",
     "pdfPath": "pdf/00_ 사출/대하/M7392(T, TA, TH, TS, TKV, D, JA, F, MF,  J, ET, ED, E, EDC,Q,QR,QF,CN,CNR,CNF, HCN, THC).pdf",
@@ -14614,7 +14546,6 @@
   {
     "id": "msds-070",
     "productName": "M7392(U,UE,UQ,UE-AD,UM,UT,UTL,UTR,UTRF,UTRR,UX,UXC,USX,USX-2,UC,TU,AU,UP,USK,UY,ULP,ULX,ULPG,UQR,ULC)",
-    "erpName": "",
     "msdsNo": "AA08294-0000000016",
     "fileName": "M7392(U,UE,UQ,UE-AD, UM, UT, UTL, UTR, UTRF, UTRR, UX, UXC ,USX, USX-2, UC, TU, AU, UP,USK, ,UY,ULP, ULX,ULPG,UQR, ULC..pdf",
     "pdfPath": "pdf/00_ 사출/대하/M7392(U,UE,UQ,UE-AD, UM, UT, UTL, UTR, UTRF, UTRR, UX, UXC ,USX, USX-2, UC, TU, AU, UP,USK, ,UY,ULP, ULX,ULPG,UQR, ULC..pdf",
@@ -14694,7 +14625,6 @@
   {
     "id": "msds-071",
     "productName": "SUPOL HR580U, SUPOL HR580UIN, SUPOL HR580UX",
-    "erpName": "",
     "msdsNo": "AA06046-1100000145",
     "fileName": "(MSDS) SUPOL HR580U,SUPOL HR580UIN,SUPOL HR580UX.pdf",
     "pdfPath": "pdf/00_ 사출/현대ep/(MSDS) SUPOL HR580U,SUPOL HR580UIN,SUPOL HR580UX.pdf",
@@ -14789,7 +14719,6 @@
   {
     "id": "msds-072",
     "productName": "SUPOL N20HR580U",
-    "erpName": "",
     "msdsNo": "AA06046-1100000320",
     "fileName": "(MSDS) SUPOL N20HR580U.pdf",
     "pdfPath": "pdf/00_ 사출/현대ep/(MSDS) SUPOL N20HR580U.pdf",
@@ -14910,7 +14839,6 @@
   {
     "id": "msds-073",
     "productName": "SUPOL HR530, SUPOL HR530X",
-    "erpName": "",
     "msdsNo": "AA06046-1100000125",
     "fileName": "(MSDS) SUPOL HR530,SUPOL HR530X.pdf",
     "pdfPath": "pdf/00_ 사출/현대ep/(MSDS) SUPOL HR530,SUPOL HR530X.pdf",
@@ -14991,7 +14919,6 @@
   {
     "id": "msds-074",
     "productName": "SUPOL HR580,SUPOL HR580G,SUPOL HR580IN,SUPOL HR580TF,SUPOL",
-    "erpName": "SUPOL HR580, SUPOL HR580G, SUPOL HR580IN, SUPOL HR580TF, SUPOL HR580TR, SUPOL HR580X",
     "msdsNo": "AA06046-1100000140",
     "fileName": "(MSDS) SUPOL HR580,SUPOL HR580G,SUPOL HR580IN,SUPOL HR580TF,SUPOL HR580TR,SUPOL HR580X.pdf",
     "pdfPath": "pdf/00_ 사출/현대ep/(MSDS) SUPOL HR580,SUPOL HR580G,SUPOL HR580IN,SUPOL HR580TF,SUPOL HR580TR,SUPOL HR580X.pdf",
@@ -15071,7 +14998,6 @@
   {
     "id": "msds-075",
     "productName": "일신 뿌리는 그리스",
-    "erpName": "",
     "msdsNo": "AA01093-0000000087",
     "fileName": "MSDS(GHS)-뿌리는그리스(KOR).pdf",
     "pdfPath": "pdf/00_ 사출/일신케미칼/MSDS(GHS)-뿌리는그리스(KOR).pdf",
@@ -15203,7 +15129,6 @@
   {
     "id": "msds-076",
     "productName": "CRS 그리스 841",
-    "erpName": "",
     "msdsNo": "MSDS번호 미기재",
     "fileName": "CRS841 MSDS 2023_옥인유화.pdf",
     "pdfPath": "pdf/00_ 사출/니치모리(NICHIMOL)/CRS841 MSDS 2023_옥인유화.pdf",
@@ -15279,7 +15204,6 @@
   {
     "id": "msds-077",
     "productName": "2차이형제 (S6)",
-    "erpName": "",
     "msdsNo": "MSDS번호 미기재",
     "fileName": "2차이형제(S6) 2024.pdf",
     "pdfPath": "pdf/00_ 사출/극동산업(이형제)/2차이형제(S6) 2024.pdf",
@@ -15350,7 +15274,6 @@
   {
     "id": "msds-078",
     "productName": "그라코 TSL",
-    "erpName": "",
     "msdsNo": "307765ENJP",
     "fileName": "TSL.pdf",
     "pdfPath": "pdf/00_ 사출/그레이코(GRACO)/TSL.pdf",
@@ -15392,7 +15315,6 @@
   {
     "id": "msds-079",
     "productName": "Kixx Gear EP 220",
-    "erpName": "",
     "msdsNo": "제출대상아님 / LB3026",
     "fileName": "Kixx Gear EP 220 MSDS.pdf",
     "pdfPath": "pdf/00_ 사출/GS칼텍스/Kixx Gear EP 220 MSDS.pdf",
@@ -15460,7 +15382,6 @@
   {
     "id": "msds-080",
     "productName": "Kixx Grease EP 0",
-    "erpName": "",
     "msdsNo": "AA03534-0000004121 / LB2982",
     "fileName": "Kixx Grease EP 0 MSDS.pdf",
     "pdfPath": "pdf/00_ 사출/GS칼텍스/Kixx Grease EP 0 MSDS.pdf",
@@ -15634,7 +15555,6 @@
   {
     "id": "msds-081",
     "productName": "Kixx Grease EP 1",
-    "erpName": "",
     "msdsNo": "AA03534-0000004122 / LB3919",
     "fileName": "Kixx Grease EP 1.pdf",
     "pdfPath": "pdf/00_ 사출/GS칼텍스/Kixx Grease EP 1.pdf",
@@ -15813,7 +15733,6 @@
   {
     "id": "msds-082",
     "productName": "Kixx Grease EP 2",
-    "erpName": "",
     "msdsNo": "AA03534-0000004123 / LB2986",
     "fileName": "Kixx Grease EP 3.pdf",
     "pdfPath": "pdf/00_ 사출/GS칼텍스/Kixx Grease EP 3.pdf",
@@ -16002,7 +15921,6 @@
   {
     "id": "msds-083",
     "productName": "Kixx Grease EP 3",
-    "erpName": "",
     "msdsNo": "AA03534-0000004124 / LB2987",
     "fileName": "Kixx Grease EP 4.pdf",
     "pdfPath": "pdf/00_ 사출/GS칼텍스/Kixx Grease EP 4.pdf",
@@ -16191,7 +16109,6 @@
   {
     "id": "msds-084",
     "productName": "Kixx RD LZ 46(구 Rando HD LZ 46)",
-    "erpName": "",
     "msdsNo": "제출대상아님 / LB2647",
     "fileName": "Kixx RD LZ 46 MSDS.pdf",
     "pdfPath": "pdf/00_ 사출/GS칼텍스/Kixx RD LZ 46 MSDS.pdf",
@@ -16281,7 +16198,6 @@
   {
     "id": "msds-085",
     "productName": "MOBIL DTE 25",
-    "erpName": "",
     "msdsNo": "적용되지 않음",
     "fileName": "DTE25 MSDS 2021.03.18.pdf",
     "pdfPath": "pdf/00_ 사출/MOBIL코리아/DTE25 MSDS 2021.03.18.pdf",
@@ -16390,7 +16306,6 @@
   {
     "id": "msds-086",
     "productName": "MOBILUX EP 0",
-    "erpName": "",
     "msdsNo": "적용되지 않음",
     "fileName": "MOBILUX EP 0 MSDS 2021.03.30.pdf",
     "pdfPath": "pdf/00_ 사출/MOBIL코리아/MOBILUX EP 0 MSDS 2021.03.30.pdf",
@@ -16489,7 +16404,6 @@
   {
     "id": "msds-087",
     "productName": "SPARTAN EP 220",
-    "erpName": "",
     "msdsNo": "적용되지 않음",
     "fileName": "SPARTAN EP 220. MSDS 22.06.13.pdf",
     "pdfPath": "pdf/00_ 사출/MOBIL코리아/SPARTAN EP 220. MSDS 22.06.13.pdf",
@@ -16590,7 +16504,6 @@
   {
     "id": "msds-088",
     "productName": "MOBILGREASE XHP 222",
-    "erpName": "",
     "msdsNo": "적용되지 않음",
     "fileName": "XHP222 MSDS. 2021.09.27.pdf",
     "pdfPath": "pdf/00_ 사출/MOBIL코리아/XHP222 MSDS. 2021.09.27.pdf",
@@ -16698,7 +16611,6 @@
   {
     "id": "msds-089",
     "productName": "KC-28",
-    "erpName": "-",
     "msdsNo": "AA06900-0000000004",
     "fileName": "KC-28 2023.01.11.pdf",
     "pdfPath": "pdf/00_ 사출/고려용접봉/KC-28 2023.01.11.pdf",
@@ -16830,7 +16742,6 @@
   {
     "id": "msds-090",
     "productName": "KFN-50",
-    "erpName": "-",
     "msdsNo": "MSDS번호 미기재",
     "fileName": "KFN-50. 2021.12.29.pdf",
     "pdfPath": "pdf/00_ 사출/고려용접봉/KFN-50. 2021.12.29.pdf",
@@ -17035,7 +16946,6 @@
   {
     "id": "msds-091",
     "productName": "KH-500LF",
-    "erpName": "-",
     "msdsNo": "MSDS번호 미기재",
     "fileName": "KH-500LF. 2021.12.22.pdf",
     "pdfPath": "pdf/00_ 사출/고려용접봉/KH-500LF. 2021.12.22.pdf",
@@ -17200,7 +17110,6 @@
   {
     "id": "msds-092",
     "productName": "KR-3000",
-    "erpName": "-",
     "msdsNo": "AA06900-0000000014",
     "fileName": "KR-3000. 2021.10.14.pdf",
     "pdfPath": "pdf/00_ 사출/고려용접봉/KR-3000. 2021.10.14.pdf",
@@ -17378,7 +17287,6 @@
   {
     "id": "msds-093",
     "productName": "KSN-100",
-    "erpName": "-",
     "msdsNo": "MSDS번호 미기재",
     "fileName": "KSN-100.2021.12.19.pdf",
     "pdfPath": "pdf/00_ 사출/고려용접봉/KSN-100.2021.12.19.pdf",
@@ -17575,7 +17483,6 @@
   {
     "id": "msds-094",
     "productName": "KST-308",
-    "erpName": "-",
     "msdsNo": "AA06900-0000000020",
     "fileName": "KST-308. 2021.12.29.pdf",
     "pdfPath": "pdf/00_ 사출/고려용접봉/KST-308. 2021.12.29.pdf",
@@ -17771,7 +17678,6 @@
   {
     "id": "msds-095",
     "productName": "M-308",
-    "erpName": "-",
     "msdsNo": "MSDS번호 미기재",
     "fileName": "M-3081. 2021.12.16.pdf",
     "pdfPath": "pdf/00_ 사출/고려용접봉/M-3081. 2021.12.16.pdf",
@@ -17929,7 +17835,6 @@
   {
     "id": "msds-096",
     "productName": "T-50",
-    "erpName": "-",
     "msdsNo": "AA06900-0000000018",
     "fileName": "T-50.pdf",
     "pdfPath": "pdf/00_ 사출/고려용접봉/T-50.pdf",
@@ -18051,7 +17956,6 @@
   {
     "id": "msds-097",
     "productName": "T-308",
-    "erpName": "-",
     "msdsNo": "AA06900-0000000040",
     "fileName": "T-3083.2021.12.16.pdf",
     "pdfPath": "pdf/00_ 사출/고려용접봉/T-3083.2021.12.16.pdf",
@@ -18209,7 +18113,6 @@
   {
     "id": "msds-098",
     "productName": "BD-3 (비디-3)",
-    "erpName": "-",
     "msdsNo": "AA00190-0000000024",
     "fileName": "BD-3(나바켐)(24)+(GHS).pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/BD-3(나바켐)(24)+(GHS).pdf",
@@ -18416,7 +18319,6 @@
   {
     "id": "msds-099",
     "productName": "다목적 세정제 DC-3000",
-    "erpName": "-",
     "msdsNo": "AA00141-0000000157",
     "fileName": "DC-3000(32)+(GHS).pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/DC-3000(32)+(GHS).pdf",
@@ -18562,7 +18464,6 @@
   {
     "id": "msds-100",
     "productName": "K1(케이1)",
-    "erpName": "",
     "msdsNo": "AA00190-0000000116",
     "fileName": "K1(24)+(GHS).pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/K1(24)+(GHS).pdf",
@@ -18763,7 +18664,6 @@
   {
     "id": "msds-101",
     "productName": "LONG #2 스프레이",
-    "erpName": "",
     "msdsNo": "AA00141-0000000109",
     "fileName": "LONG#2+Spray(38)+(GHS).pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/LONG#2+Spray(38)+(GHS).pdf",
@@ -18993,7 +18893,6 @@
   {
     "id": "msds-102",
     "productName": "LONG #2H(롱#2에이치)",
-    "erpName": "",
     "msdsNo": "AA00141-0000000271",
     "fileName": "LONG+#2H(23)+(GHS).pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/LONG+#2H(23)+(GHS).pdf",
@@ -19231,7 +19130,6 @@
   {
     "id": "msds-103",
     "productName": "MEGA CHECK 처리제(TREATMENT)",
-    "erpName": "",
     "msdsNo": "AA00141-0000000054",
     "fileName": "Mega+check+처리제+(6)+(GHS).pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/Mega+check+처리제+(6)+(GHS).pdf",
@@ -19415,7 +19313,6 @@
   {
     "id": "msds-104",
     "productName": "MEGA CHECK 침투제(PENETRANT)",
-    "erpName": "",
     "msdsNo": "AA00141-0000000151",
     "fileName": "Mega+check+침투제(5)+(GHS).pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/Mega+check+침투제(5)+(GHS).pdf",
@@ -19592,7 +19489,6 @@
   {
     "id": "msds-105",
     "productName": "MEGA CHECK 침투제 W",
-    "erpName": "",
     "msdsNo": "AA00190-0000000226",
     "fileName": "Mega+check+침투제W+(5)+(GHS).pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/Mega+check+침투제W+(5)+(GHS).pdf",
@@ -19718,7 +19614,6 @@
   {
     "id": "msds-106",
     "productName": "MEGA CHECK 현상제(DEVELOPER)",
-    "erpName": "",
     "msdsNo": "AA00141-0000000105",
     "fileName": "Mega+check+현상제+(5)+(GHS).pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/Mega+check+현상제+(5)+(GHS).pdf",
@@ -19960,7 +19855,6 @@
   {
     "id": "msds-107",
     "productName": "다용도세제 NB-1(분무기)",
-    "erpName": "",
     "msdsNo": "AA00190-0000000077",
     "fileName": "NB-1(분무기)(2)+(나바켐)+(GHS).pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/NB-1(분무기)(2)+(나바켐)+(GHS).pdf",
@@ -20095,7 +19989,6 @@
   {
     "id": "msds-108",
     "productName": "PMC-3(피엠씨-3)",
-    "erpName": "",
     "msdsNo": "AA00141-0000000082",
     "fileName": "PMC-3(32)+(GHS).pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/PMC-3(32)+(GHS).pdf",
@@ -20311,7 +20204,6 @@
   {
     "id": "msds-109",
     "productName": "스티커 자국 제거제 SSR-220",
-    "erpName": "",
     "msdsNo": "AA00190-0000000165",
     "fileName": "SSR-220(나바켐)(24)+(GHS).pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/SSR-220(나바켐)(24)+(GHS).pdf",
@@ -20492,7 +20384,6 @@
   {
     "id": "msds-110",
     "productName": "스티커 자국 제거제 SSR-450",
-    "erpName": "",
     "msdsNo": "AA00190-0000000006",
     "fileName": "SSR-450(나바켐)(26)+(GHS).pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/SSR-450(나바켐)(26)+(GHS).pdf",
@@ -20671,7 +20562,6 @@
   {
     "id": "msds-111",
     "productName": "탭핑 콤파운드 TC#1",
-    "erpName": "",
     "msdsNo": "AA00141-0000000156",
     "fileName": "TC#1(36)+(GHS).pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/TC#1(36)+(GHS).pdf",
@@ -20800,7 +20690,6 @@
   {
     "id": "msds-112",
     "productName": "LCP-77 분홍색 N101",
-    "erpName": "",
     "msdsNo": "AA00190-0000000186",
     "fileName": "나바켐_LCP-77(분홍색).pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(분홍색).pdf",
@@ -21047,7 +20936,6 @@
   {
     "id": "msds-113",
     "productName": "나바켐 락카스프레이 - 아이보리색 [LCP-77](N502)",
-    "erpName": "",
     "msdsNo": "AA03636-0000000201",
     "fileName": "나바켐 - 아이보리색 MSDS.pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐 - 아이보리색 MSDS.pdf",
@@ -21357,7 +21245,6 @@
   {
     "id": "msds-114",
     "productName": "나바켐 락카스프레이 - 진청색 [LCP-77](N400)",
-    "erpName": "",
     "msdsNo": "AA03636-0000000205",
     "fileName": "나바켐 - 진청색 MSDS.pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐 - 진청색 MSDS.pdf",
@@ -21672,7 +21559,6 @@
   {
     "id": "msds-115",
     "productName": "LCP-77 기계색 N313",
-    "erpName": "",
     "msdsNo": "AA00190-0000000112",
     "fileName": "나바켐_LCP-77(기계색).pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(기계색).pdf",
@@ -21919,7 +21805,6 @@
   {
     "id": "msds-116",
     "productName": "LCP-77 은색 N900",
-    "erpName": "",
     "msdsNo": "AA00190-0000000114",
     "fileName": "나바켐_LCP-77(은색).pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(은색).pdf",
@@ -22136,7 +22021,6 @@
   {
     "id": "msds-117",
     "productName": "LCP-77 적색 N100",
-    "erpName": "",
     "msdsNo": "AA00190-0000000132",
     "fileName": "나바켐_LCP-77(적색).pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(적색).pdf",
@@ -22383,7 +22267,6 @@
   {
     "id": "msds-118",
     "productName": "LCP-77 중회색 N004",
-    "erpName": "",
     "msdsNo": "AA00190-0000000107",
     "fileName": "나바켐_LCP-77(중회색).pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(중회색).pdf",
@@ -22630,7 +22513,6 @@
   {
     "id": "msds-119",
     "productName": "LCP-77 황색 N200",
-    "erpName": "",
     "msdsNo": "AA00190-0000000110",
     "fileName": "나바켐_LCP-77(황색).pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(황색).pdf",
@@ -22909,7 +22791,6 @@
   {
     "id": "msds-120",
     "productName": "아이소발레르산(Isovaleric Acid)",
-    "erpName": "",
     "msdsNo": "M0182",
     "fileName": "TCI-GR(Isovaleric Acid)_TGI_세진씨아이.pdf",
     "pdfPath": "pdf/03_ 시험실(시약)/TCI-GR(Isovaleric Acid)_TGI_세진씨아이.pdf",
@@ -22997,7 +22878,6 @@
   {
     "id": "msds-121",
     "productName": "ZIC X7 5W-30",
-    "erpName": "",
     "msdsNo": "MSDS번호 미기재 / LP1027.6",
     "fileName": "MSDSkor_ZIC_X7_5W_30_KOR.pdf",
     "pdfPath": "pdf/SK ZIC/MSDSkor_ZIC_X7_5W_30_KOR.pdf",
@@ -23082,7 +22962,6 @@
   {
     "id": "msds-122",
     "productName": "무연 휘발유(UG)",
-    "erpName": "",
     "msdsNo": "AA01473-0000000028",
     "fileName": "가솔린.pdf",
     "pdfPath": "pdf/현대오일뱅크(주)/가솔린.pdf",
@@ -23247,7 +23126,6 @@
   {
     "id": "msds-123",
     "productName": "경유 (Diesel)",
-    "erpName": "",
     "msdsNo": "AA01473-0000000016",
     "fileName": "디젤.pdf",
     "pdfPath": "pdf/현대오일뱅크(주)/디젤.pdf",
@@ -23369,7 +23247,6 @@
   {
     "id": "msds-124",
     "productName": "불스원 물 없이 바로 쓰는 부동액",
-    "erpName": "",
     "msdsNo": "AA04335-0000000021",
     "fileName": "불스원 물 없이 바로 쓰는 부동액.pdf",
     "pdfPath": "pdf/03_ 시험실(시약)/불스원 물 없이 바로 쓰는 부동액.pdf",
@@ -23492,7 +23369,6 @@
   {
     "id": "msds-125",
     "productName": "카나우바 고광택왁스",
-    "erpName": "",
     "msdsNo": "MSDS번호 미기재",
     "fileName": "불스원 카나우바 고광택왁스.pdf",
     "pdfPath": "pdf/03_ 시험실(시약)/불스원 카나우바 고광택왁스.pdf",
@@ -23582,7 +23458,6 @@
   {
     "id": "msds-126",
     "productName": "3in1 장벽 유리 크리너",
-    "erpName": "",
     "msdsNo": "MSDS번호 미기재",
     "fileName": "블스원 3in1 장벽 유리 크리너.pdf",
     "pdfPath": "pdf/03_ 시험실(시약)/블스원 3in1 장벽 유리 크리너.pdf",
@@ -23699,7 +23574,6 @@
   {
     "id": "msds-127",
     "productName": "RainOK 에탄올 3in1 코팅워셔",
-    "erpName": "",
     "msdsNo": "AA04335-0000000010",
     "fileName": "블스원 RainOK 에탄올 3in1 코팅워셔.pdf",
     "pdfPath": "pdf/03_ 시험실(시약)/블스원 RainOK 에탄올 3in1 코팅워셔.pdf",
@@ -23793,7 +23667,6 @@
   {
     "id": "msds-128",
     "productName": "슈퍼 샤인 레자왁스",
-    "erpName": "",
     "msdsNo": "MSDS번호 미기재",
     "fileName": "블스원 슈퍼샤인 레자왁스.pdf",
     "pdfPath": "pdf/03_ 시험실(시약)/블스원 슈퍼샤인 레자왁스.pdf",
@@ -23875,7 +23748,6 @@
   {
     "id": "msds-129",
     "productName": "불스원 시그니처 엔진오일 5W30",
-    "erpName": "",
     "msdsNo": "AA04335-0000000075",
     "fileName": "블스원 시그니처 엔진오일 5w30.pdf",
     "pdfPath": "pdf/03_ 시험실(시약)/블스원 시그니처 엔진오일 5w30.pdf",
@@ -23959,7 +23831,6 @@
   {
     "id": "msds-130",
     "productName": "1N-수산화나트륨 (1M)[Sodium hydroxide]",
-    "erpName": "",
     "msdsNo": "MSDS번호 미기재",
     "fileName": "수산화나트륨(Sodium hydroxide, 1310-73-2)_DUSAN.pdf",
     "pdfPath": "pdf/03_ 시험실(시약)/수산화나트륨(Sodium hydroxide, 1310-73-2)_DUSAN.pdf",
@@ -24045,7 +23916,6 @@
   {
     "id": "msds-131",
     "productName": "아세톤(Acetone, 100080)",
-    "erpName": "",
     "msdsNo": "MSDS번호 미기재",
     "fileName": "아세톤(Acetone)_DC Chemicals.pdf",
     "pdfPath": "pdf/03_ 시험실(시약)/아세톤(Acetone)_DC Chemicals.pdf",
@@ -24120,7 +23990,6 @@
   {
     "id": "msds-132",
     "productName": "에틸 알코올 (Ethyl alcohol, 94.5%)",
-    "erpName": "",
     "msdsNo": "AA00130-0000000110",
     "fileName": "에탄올 94.5%(에틸 알코올Ethanol)_삼천순약공업(주).pdf",
     "pdfPath": "pdf/03_ 시험실(시약)/에탄올 94.5%(에틸 알코올Ethanol)_삼천순약공업(주).pdf",
@@ -24249,7 +24118,6 @@
   {
     "id": "msds-133",
     "productName": "에틸알코올 (ethanol)",
-    "erpName": "",
     "msdsNo": "MSDS번호 미기재",
     "fileName": "에탄올(에틸 알코올Ethanol)_DC Chemicals.pdf",
     "pdfPath": "pdf/03_ 시험실(시약)/에탄올(에틸 알코올Ethanol)_DC Chemicals.pdf",
@@ -24371,7 +24239,6 @@
   {
     "id": "msds-134",
     "productName": "에틸렌(Ethylene)",
-    "erpName": "",
     "msdsNo": "AA12481-0000000010",
     "fileName": "에틸렌(Ethylene).pdf",
     "pdfPath": "pdf/03_ 시험실(시약)/에틸렌(Ethylene).pdf",
@@ -24459,7 +24326,6 @@
   {
     "id": "msds-135",
     "productName": "1N-염산[Hydrochloric acid]",
-    "erpName": "",
     "msdsNo": "MSDS번호 미기재",
     "fileName": "염산(Hydrochloric acid, 7647-01-0)_DUSAN.pdf",
     "pdfPath": "pdf/03_ 시험실(시약)/염산(Hydrochloric acid, 7647-01-0)_DUSAN.pdf",
@@ -24540,7 +24406,6 @@
   {
     "id": "msds-136",
     "productName": "염화 나트륨 (sodium chloride)",
-    "erpName": "",
     "msdsNo": "AA00725-0000098084",
     "fileName": "염화 나트륨(sodium chloride_ 7647-14-5)_OCI.pdf",
     "pdfPath": "pdf/OCI주식회사/염화 나트륨(sodium chloride_ 7647-14-5)_OCI.pdf",
@@ -24635,7 +24500,6 @@
   {
     "id": "msds-137",
     "productName": "염화 제이구리 2수화물 (Copper(II) chloride dihydrate)",
-    "erpName": "",
     "msdsNo": "MSDS번호 미기재",
     "fileName": "염화 제이구리 2수화물.pdf",
     "pdfPath": "pdf/03_ 시험실(시약)/염화 제이구리 2수화물.pdf",
@@ -24784,7 +24648,6 @@
   {
     "id": "msds-138",
     "productName": "인산(Phosphoric acid)",
-    "erpName": "",
     "msdsNo": "84045jis_J_E1-4",
     "fileName": "인산_junsel.pdf",
     "pdfPath": "pdf/03_ 시험실(시약)/인산_junsel.pdf",
@@ -24890,7 +24753,6 @@
   {
     "id": "msds-139",
     "productName": "1N-황산 용액(0.5M)[Sulfuric Acid]",
-    "erpName": "",
     "msdsNo": "MSDS번호 미기재",
     "fileName": "황산(Sulfuric Acid, 7664-93-9)_DUSAN.pdf",
     "pdfPath": "pdf/03_ 시험실(시약)/황산(Sulfuric Acid, 7664-93-9)_DUSAN.pdf",
@@ -25007,7 +24869,6 @@
   {
     "id": "msds-140",
     "productName": "3M™ 피네스잇™ 폴리시 - 마무리 연마재(13084, 28792, 81235, 83058)",
-    "erpName": "",
     "msdsNo": "AA00437-0000030001",
     "fileName": "Finesse-it_13084.pdf",
     "pdfPath": "pdf/3M/Finesse-it_13084.pdf",
@@ -25099,7 +24960,6 @@
   {
     "id": "msds-141",
     "productName": "3M™ 피네스잇™ 폴리시 - 최종 마감재(28796, 84224, 82877, 82878, 88753)",
-    "erpName": "",
     "msdsNo": "AA00437-0000030000",
     "fileName": "Finesse-it_82878.pdf",
     "pdfPath": "pdf/3M/Finesse-it_82878.pdf",
@@ -25207,7 +25067,6 @@
   {
     "id": "msds-142",
     "productName": "3M PN3021 임페리얼 미세 마감 컴파운드",
-    "erpName": "",
     "msdsNo": "문서그룹 42-2264-2",
     "fileName": "PN3021.pdf",
     "pdfPath": "pdf/3M/PN3021.pdf",
@@ -25314,7 +25173,6 @@
   {
     "id": "msds-143",
     "productName": "PN3084 피네스잇 마무리 연마재(FINESSE-IT FINISHING MATERIAL)",
-    "erpName": "",
     "msdsNo": "문서그룹 36-9836-2",
     "fileName": "PN3084. 2021.01.11.pdf",
     "pdfPath": "pdf/3M/PN3084. 2021.01.11.pdf",
@@ -25452,7 +25310,6 @@
   {
     "id": "msds-144",
     "productName": "스테인리스강 코팅제(Stainless Steel Coat)",
-    "erpName": "",
     "msdsNo": "문서그룹 22-4370-7",
     "fileName": "Stainless Steel Coat.pdf",
     "pdfPath": "pdf/3M/Stainless Steel Coat.pdf",
@@ -25669,7 +25526,6 @@
   {
     "id": "msds-145",
     "productName": "프로슈터",
-    "erpName": "",
     "msdsNo": "문서그룹 36-5933-1",
     "fileName": "프로슈터. 2020.12.11.pdf",
     "pdfPath": "pdf/3M/프로슈터. 2020.12.11.pdf",
@@ -25788,7 +25644,6 @@
   {
     "id": "msds-146",
     "productName": "탄산나트륨 (Sodium Carbonate)",
-    "erpName": "",
     "msdsNo": "MSDS번호 미기재",
     "fileName": "소다회 MSDS.2019.06.01.pdf",
     "pdfPath": "pdf/OCI주식회사/소다회 MSDS.2019.06.01.pdf",
@@ -25887,7 +25742,6 @@
   {
     "id": "msds-148",
     "productName": "대륙 부탄 CRV",
-    "erpName": "",
     "msdsNo": "제품명기준-대륙 부탄 CRV",
     "fileName": "대륙 부탄 CRV_2023.pdf",
     "pdfPath": "pdf/대륙제관(부탄)/대륙 부탄 CRV_2023.pdf",
@@ -26031,7 +25885,6 @@
   {
     "id": "msds-149",
     "productName": "맥스 CRV",
-    "erpName": "",
     "msdsNo": "제품명기준-맥스 CRV",
     "fileName": "맥스 부탄 CRV_2023.pdf",
     "pdfPath": "pdf/대륙제관(부탄)/맥스 부탄 CRV_2023.pdf",
@@ -26175,7 +26028,6 @@
   {
     "id": "msds-150",
     "productName": "세이프 부탄 CRV",
-    "erpName": "",
     "msdsNo": "제품명기준-세이프 부탄 CRV",
     "fileName": "세이프 부탄 CRV_2023.pdf",
     "pdfPath": "pdf/대륙제관(부탄)/세이프 부탄 CRV_2023.pdf",
@@ -26319,7 +26171,6 @@
   {
     "id": "msds-151",
     "productName": "썬플라워 부탄 CRV",
-    "erpName": "",
     "msdsNo": "제품명기준-썬플라워 부탄 CRV",
     "fileName": "썬플라워 CRV_2023.pdf",
     "pdfPath": "pdf/대륙제관(부탄)/썬플라워 CRV_2023.pdf",
@@ -26463,7 +26314,6 @@
   {
     "id": "msds-152",
     "productName": "썬히트 부탄 CRV",
-    "erpName": "",
     "msdsNo": "제품명기준-썬히트 부탄 CRV",
     "fileName": "썬히트 CRV_2023.pdf",
     "pdfPath": "pdf/대륙제관(부탄)/썬히트 CRV_2023.pdf",
@@ -26607,7 +26457,6 @@
   {
     "id": "msds-153",
     "productName": "퍼펙트 부탄 CRV",
-    "erpName": "",
     "msdsNo": "제품명기준-퍼펙트 부탄 CRV",
     "fileName": "퍼펙트 부탄 CRV_2023.pdf",
     "pdfPath": "pdf/대륙제관(부탄)/퍼펙트 부탄 CRV_2023.pdf",
@@ -26751,7 +26600,6 @@
   {
     "id": "msds-154",
     "productName": "백양락스",
-    "erpName": "",
     "msdsNo": "MSDS번호 미기재",
     "fileName": "백양락스 MSDS(GHS).pdf",
     "pdfPath": "pdf/덕진(락스, 세제)/백양락스 MSDS(GHS).pdf",
@@ -26852,7 +26700,6 @@
   {
     "id": "msds-155",
     "productName": "백양퐁",
-    "erpName": "",
     "msdsNo": "MSDS번호 미기재",
     "fileName": "백양퐁 MSDS( GHS).pdf",
     "pdfPath": "pdf/덕진(락스, 세제)/백양퐁 MSDS( GHS).pdf",
@@ -26944,7 +26791,6 @@
   {
     "id": "msds-156",
     "productName": "LOCTITE SF CPG CA PRIMER GOLD 230ML",
-    "erpName": "",
     "msdsNo": "153559",
     "fileName": "록타이트 순간접착제용 경화촉진제.pdf",
     "pdfPath": "pdf/록타이트(LOCTITE)/록타이트 순간접착제용 경화촉진제.pdf",
@@ -27051,7 +26897,6 @@
   {
     "id": "msds-157",
     "productName": "더블유디-40(WD-40)",
-    "erpName": "",
     "msdsNo": "AA00459-0000000004",
     "fileName": "WD-40.pdf",
     "pdfPath": "pdf/백스인터코퍼레이션(WD-40)/WD-40.pdf",
@@ -27216,7 +27061,6 @@
   {
     "id": "msds-158",
     "productName": "산도깨비 곰팡이제거제",
-    "erpName": "",
     "msdsNo": "제품명기준-산도깨비 곰팡이제거제",
     "fileName": "곰팡이제거제 MSDS [2024].pdf",
     "pdfPath": "pdf/산도깨비(곰팡이제거제)/곰팡이제거제 MSDS [2024].pdf",
@@ -27354,7 +27198,6 @@
   {
     "id": "msds-159",
     "productName": "KF-3 (응집부상제)",
-    "erpName": "",
     "msdsNo": "제품명기준-KF-3",
     "fileName": "[삼풍트라이텍]KF-3_GHS_MSDS_2011.11.24 6회.pdf",
     "pdfPath": "pdf/삼풍트라이텍/[삼풍트라이텍]KF-3_GHS_MSDS_2011.11.24 6회.pdf",
@@ -27435,7 +27278,6 @@
   {
     "id": "msds-160",
     "productName": "PK-3830(페인트 점성제거제) AA05008-0000000006",
-    "erpName": "",
     "msdsNo": "AA05008-0000000006",
     "fileName": "[삼풍트라이텍]PK-3830_GHS_MSDS.pdf",
     "pdfPath": "pdf/삼풍트라이텍/[삼풍트라이텍]PK-3830_GHS_MSDS.pdf",
@@ -27601,7 +27443,6 @@
   {
     "id": "msds-161",
     "productName": "AF-1(난실리콘 소포제)",
-    "erpName": "",
     "msdsNo": "제품명기준-AF-1",
     "fileName": "[삼풍트라이텍]AF-1(난실리콘소포제)_GHS_MSDS.pdf",
     "pdfPath": "pdf/삼풍트라이텍/[삼풍트라이텍]AF-1(난실리콘소포제)_GHS_MSDS.pdf",
@@ -27696,7 +27537,6 @@
   {
     "id": "msds-162",
     "productName": "배터리전해액(Electrolyte)",
-    "erpName": "",
     "msdsNo": "AA2158-0000000008",
     "fileName": "배터리전해액.pdf",
     "pdfPath": "pdf/세방전지/배터리전해액.pdf",
@@ -27806,7 +27646,6 @@
   {
     "id": "msds-163",
     "productName": "231-S250",
-    "erpName": "",
     "msdsNo": "제품명기준-231-S250",
     "fileName": "231-S250 MSDS Kor Ver.pdf",
     "pdfPath": "pdf/수도씨에이씨(SUDO CAC ltd)/231-S250 MSDS Kor Ver.pdf",
@@ -27899,7 +27738,6 @@
   {
     "id": "msds-164",
     "productName": "퍼크린 오븐제로엠",
-    "erpName": "",
     "msdsNo": "제품명기준-퍼크린 오븐제로엠",
     "fileName": "7_퍼크린 오븐제로엠 GHS MSDS.pdf",
     "pdfPath": "pdf/식당/7_퍼크린 오븐제로엠 GHS MSDS.pdf",
@@ -28052,7 +27890,6 @@
   {
     "id": "msds-165",
     "productName": "하이락스",
-    "erpName": "",
     "msdsNo": "제품명기준-하이락스",
     "fileName": "600074 하이락스 (1).pdf",
     "pdfPath": "pdf/식당/600074 하이락스 (1).pdf",
@@ -28154,7 +27991,6 @@
   {
     "id": "msds-166",
     "productName": "그린플러스",
-    "erpName": "",
     "msdsNo": "제품명기준-그린플러스",
     "fileName": "0_그린플러스 GHS MSDS.pdf",
     "pdfPath": "pdf/식당/0_그린플러스 GHS MSDS.pdf",
@@ -28318,7 +28154,6 @@
   {
     "id": "msds-167",
     "productName": "멀티크로 / 차아염소산나트륨",
-    "erpName": "",
     "msdsNo": "제품명기준-멀티크로",
     "fileName": "0_멀티크로MSDS.pdf",
     "pdfPath": "pdf/식당/0_멀티크로MSDS.pdf",
@@ -28410,7 +28245,6 @@
   {
     "id": "msds-168",
     "productName": "샤보BCG",
-    "erpName": "",
     "msdsNo": "제품명기준-샤보BCG",
     "fileName": "1_샤보BCG MSDS.pdf",
     "pdfPath": "pdf/식당/1_샤보BCG MSDS.pdf",
@@ -28457,7 +28291,6 @@
   {
     "id": "msds-169",
     "productName": "더폼 핸드솝",
-    "erpName": "",
     "msdsNo": "제품명기준-더폼 핸드솝",
     "fileName": "2_더폼 MSDS.pdf",
     "pdfPath": "pdf/식당/2_더폼 MSDS.pdf",
@@ -28612,7 +28445,6 @@
   {
     "id": "msds-170",
     "productName": "퍼크린 202",
-    "erpName": "",
     "msdsNo": "제품명기준-퍼크린 202",
     "fileName": "2_퍼크린 202 GHS MSDS.pdf",
     "pdfPath": "pdf/식당/2_퍼크린 202 GHS MSDS.pdf",
@@ -28713,7 +28545,6 @@
   {
     "id": "msds-171",
     "productName": "be chef. clean 주방세제 알뜰형",
-    "erpName": "",
     "msdsNo": "제품명기준-be chef. clean 주방세제 알뜰형",
     "fileName": "3_be chef. clean 주방세제 알뜰형_MSDS (1).pdf",
     "pdfPath": "pdf/식당/3_be chef. clean 주방세제 알뜰형_MSDS (1).pdf",
@@ -28938,7 +28769,6 @@
   {
     "id": "msds-172",
     "productName": "퍼크린 린스",
-    "erpName": "",
     "msdsNo": "제품명기준-퍼크린 린스",
     "fileName": "4_퍼크린 린스 GHS MSDS.pdf",
     "pdfPath": "pdf/식당/4_퍼크린 린스 GHS MSDS.pdf",
@@ -29066,7 +28896,6 @@
   {
     "id": "msds-173",
     "productName": "스마트상S-1(알펫ES)",
-    "erpName": "",
     "msdsNo": "제품명기준-알펫ES",
     "fileName": "5_알펫ES MSDS.pdf",
     "pdfPath": "pdf/식당/5_알펫ES MSDS.pdf",
@@ -29162,7 +28991,6 @@
   {
     "id": "msds-174",
     "productName": "알곤, 아르곤(ARGON)",
-    "erpName": "",
     "msdsNo": "제품명기준-아르곤-태경ECO",
     "fileName": "아르곤(알곤)_태경ECO(주).pdf",
     "pdfPath": "pdf/아르곤(알곤,Ar)/아르곤(알곤)_태경ECO(주).pdf",
@@ -29247,7 +29075,6 @@
   {
     "id": "msds-175",
     "productName": "아르곤(ARGON, COMPRESSED)",
-    "erpName": "",
     "msdsNo": "AA12481-0000000005",
     "fileName": "아르곤(알곤)_태경가스기술(주).pdf",
     "pdfPath": "pdf/아르곤(알곤,Ar)/아르곤(알곤)_태경가스기술(주).pdf",
@@ -29323,7 +29150,6 @@
   {
     "id": "msds-176",
     "productName": "아르곤(100%)",
-    "erpName": "",
     "msdsNo": "AA02129-0000000003",
     "fileName": "아르곤(알곤)_대덕가스(주).pdf",
     "pdfPath": "pdf/아르곤(알곤,Ar)/아르곤(알곤)_대덕가스(주).pdf",
@@ -29405,7 +29231,6 @@
   {
     "id": "msds-pdf-e58b143d91e7a0a2",
     "productName": "CARBAFLO 2372",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "Fuchs Lubritech GmbH_CARBAFLO 2372_000000000601082955_10-16-2018_English.pdf",
     "pdfPath": "pdf/00_ 사출/FUCHS/Fuchs Lubritech GmbH_CARBAFLO 2372_000000000601082955_10-16-2018_English.pdf",
@@ -29454,7 +29279,6 @@
   {
     "id": "msds-pdf-a13a665c2e940b35",
     "productName": "Kixx Grease EP 0",
-    "erpName": "",
     "msdsNo": "목록번호 최초 작성일자 최종 개정일자",
     "fileName": "Kixx Grease EP 0.pdf",
     "pdfPath": "pdf/00_ 사출/GS칼텍스/Kixx Grease EP 0.pdf",
@@ -29621,7 +29445,6 @@
   {
     "id": "msds-pdf-a54a4e462898861a",
     "productName": "KC-28",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "KC-28. 2021.12.14.pdf",
     "pdfPath": "pdf/00_ 사출/고려용접봉/KC-28. 2021.12.14.pdf",
@@ -29764,7 +29587,6 @@
   {
     "id": "msds-pdf-306f4ca012db5ce6",
     "productName": "나바켐 적색",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "나바켐 - 적색 MSDS.pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐 - 적색 MSDS.pdf",
@@ -30056,7 +29878,6 @@
   {
     "id": "msds-pdf-007b2f977ffa1b20",
     "productName": "나바켐 황색",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "나바켐 - 황색 MSDS.pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐 - 황색 MSDS.pdf",
@@ -30314,7 +30135,6 @@
   {
     "id": "msds-pdf-c384c78d2b394114",
     "productName": "IPO #1000컴파운드(PN7001,PN7002)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "[IPO] 1000방 컴파운드(PN7001.7002).pdf",
     "pdfPath": "pdf/GGM 상주원/[IPO] 1000방 컴파운드(PN7001.7002).pdf",
@@ -30474,7 +30294,6 @@
   {
     "id": "msds-pdf-d1ef2fcc672a6120",
     "productName": "인텍 스프레이(INTEC - SPRAY)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "ISP-WK(RP)_KOR_16.0 (1).pdf",
     "pdfPath": "pdf/아이에스피케미칼(ISP케미칼)/ISP-WK(RP)_KOR_16.0 (1).pdf",
@@ -30613,7 +30432,6 @@
   {
     "id": "msds-pdf-6cbf2ae6e822558d",
     "productName": "UT5800-A-SILVER(XAA)(개선)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "[KCC] SILVER(XAA).pdf",
     "pdfPath": "pdf/GGM 상주원/[KCC] SILVER(XAA).pdf",
@@ -30867,7 +30685,6 @@
   {
     "id": "msds-pdf-99c0868aa28d0e46",
     "productName": "UT5731-SRM(GGM)(FRT)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "[KCC] SRM.pdf",
     "pdfPath": "pdf/GGM 상주원/[KCC] SRM.pdf",
@@ -31139,7 +30956,6 @@
   {
     "id": "msds-pdf-c30a4a45b677d34e",
     "productName": "UT5731-TKS(GGM)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "[KCC] TKS.pdf",
     "pdfPath": "pdf/GGM 상주원/[KCC] TKS.pdf",
@@ -31410,7 +31226,6 @@
   {
     "id": "msds-pdf-9c13bfc18fd404a8",
     "productName": "UT5700-YFB(1K)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "[KCC] YFB.pdf",
     "pdfPath": "pdf/GGM 상주원/[KCC] YFB.pdf",
@@ -31647,7 +31462,6 @@
   {
     "id": "msds-pdf-def9c52b21a05593",
     "productName": "듀프렉스 뉴에크루 [NES](A203-X7020)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "[KNK] NES(듀프렉스 뉴에크루).pdf",
     "pdfPath": "pdf/GGM 상주원/[KNK] NES(듀프렉스 뉴에크루).pdf",
@@ -31920,7 +31734,6 @@
   {
     "id": "msds-pdf-c198e71df3ae97f3",
     "productName": "이소프로필 알코올 벌크(ISOPROPYL ALCOHOL BULK)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "[LG화학] 이소프로필알코올(220518).pdf",
     "pdfPath": "pdf/GGM 상주원/[LG화학] 이소프로필알코올(220518).pdf",
@@ -32047,7 +31860,6 @@
   {
     "id": "msds-pdf-43261801e597af65",
     "productName": "카렉스 3분세차 고광택왁스",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "[카렉스] 3분세차 고광택왁스 MSDS.pdf",
     "pdfPath": "pdf/GGM 상주원/[카렉스] 3분세차 고광택왁스 MSDS.pdf",
@@ -32103,7 +31915,6 @@
   {
     "id": "msds-pdf-838acfd9993bcf72",
     "productName": "캉가루 구두약 (가정용)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "캉가루구두약_가정용_MSDS-ver04.pdf",
     "pdfPath": "pdf/캉가루(구두약)/캉가루구두약_가정용_MSDS-ver04.pdf",
@@ -32252,7 +32063,6 @@
   {
     "id": "msds-pdf-7570ffa55f692a8b",
     "productName": "부탄(Butane)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "부탄.pdf",
     "pdfPath": "pdf/부탄.pdf",
@@ -32370,7 +32180,6 @@
   {
     "id": "msds-pdf-0aeeb73308c96e86",
     "productName": "산소(OXYGEN, COMPRESSED)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "산소.pdf",
     "pdfPath": "pdf/산소.pdf",
@@ -32465,7 +32274,6 @@
   {
     "id": "msds-pdf-f6b8f7761d44bb84",
     "productName": "아세틸렌(ACETYLENE,dissolved)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "아세틸렌.pdf",
     "pdfPath": "pdf/아세틸렌/아세틸렌.pdf",
@@ -32590,7 +32398,6 @@
   {
     "id": "msds-pdf-f566b59f33deed0f",
     "productName": "아세틸렌",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "태경에코_아세틸렌_msds(221123).pdf",
     "pdfPath": "pdf/아세틸렌/태경에코_아세틸렌_msds(221123).pdf",
@@ -32750,7 +32557,6 @@
   {
     "id": "msds-pdf-37736004f8e3d7b1",
     "productName": "PP-303 GW(PU)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "[MSDS] PP-303 GW(PU)_20250904.pdf",
     "pdfPath": "pdf/악조노벨(AzoNobel)/[MSDS] PP-303 GW(PU)_20250904.pdf",
@@ -32838,7 +32644,6 @@
   {
     "id": "msds-pdf-3f2506c20209fd62",
     "productName": "용접재료 (알루미늄 와이어)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "TIG 5356 알루미늄 티그봉.pdf",
     "pdfPath": "pdf/알코텍(AL-TECH)/TIG 5356 알루미늄 티그봉.pdf",
@@ -32981,7 +32786,6 @@
   {
     "id": "msds-pdf-f6a7a80e940a8ea3",
     "productName": "LPG(C3)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "LPG(C3).pdf",
     "pdfPath": "pdf/액화석유가스(LPG)/LPG(C3).pdf",
@@ -33078,7 +32882,6 @@
   {
     "id": "msds-pdf-d8b98810abb35e60",
     "productName": "LPG(C4)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "LPG(C4).pdf",
     "pdfPath": "pdf/액화석유가스(LPG)/LPG(C4).pdf",
@@ -33184,7 +32987,6 @@
   {
     "id": "msds-pdf-7aeec8c87fe01629",
     "productName": "LPG(혼합) 태경ECO(주)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "LPG(혼합)_태경ECO(주).pdf",
     "pdfPath": "pdf/액화석유가스(LPG)/LPG(혼합)_태경ECO(주).pdf",
@@ -33252,7 +33054,6 @@
   {
     "id": "msds-pdf-25117e7770dfe7d6",
     "productName": "SERIOLA+KS+2120+(KR)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "SERIOLA+KS+2120+(KR)_2021.10.28.pdf",
     "pdfPath": "pdf/에쓰-오일토탈윤활유/SERIOLA+KS+2120+(KR)_2021.10.28.pdf",
@@ -33297,7 +33098,6 @@
   {
     "id": "msds-pdf-edd5512c31860584",
     "productName": "TST-K-001K(SERIOLA+KS+2120)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "TST-K-001K(SERIOLA+KS+2120).pdf",
     "pdfPath": "pdf/에쓰-오일토탈윤활유/TST-K-001K(SERIOLA+KS+2120).pdf",
@@ -33331,7 +33131,6 @@
   {
     "id": "msds-pdf-b43e1258cdd26a33",
     "productName": "SMOKING 911(스모킹911)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "연기 감지기 MSDS.pdf",
     "pdfPath": "pdf/연기 감지기 MSDS.pdf",
@@ -33476,7 +33275,6 @@
   {
     "id": "msds-pdf-00bd0830f6de7555",
     "productName": "락카 스프레이(각색)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "락카 스프레이(각색).pdf",
     "pdfPath": "pdf/오공본드(OKONG)/락카 스프레이(각색).pdf",
@@ -33594,7 +33392,6 @@
   {
     "id": "msds-pdf-c04f0260b76f1ff7",
     "productName": "CASMOLY EP-OHQ(2)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "EP-OHQ(2) GHS MSDS (rev.1).pdf",
     "pdfPath": "pdf/장암칼스(CALS)/EP-OHQ(2) GHS MSDS (rev.1).pdf",
@@ -33671,7 +33468,6 @@
   {
     "id": "msds-pdf-f1d5241c30dc8b13",
     "productName": "용접재료(연강용 피복아크 용접봉)",
-    "erpName": "",
     "msdsNo": "AA05999-0000001000",
     "fileName": "CSW-0001_MSDS_용접재료(연강용 피복아크 용접봉)_(국문)v4_2021.09.30.pdf",
     "pdfPath": "pdf/조선선재(주)/CSW-0001_MSDS_용접재료(연강용 피복아크 용접봉)_(국문)v4_2021.09.30.pdf",
@@ -33943,7 +33739,6 @@
   {
     "id": "msds-pdf-e807f4edcc3681dc",
     "productName": "증류수(물)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "증류수(물).pdf",
     "pdfPath": "pdf/증류수(물).pdf",
@@ -33996,7 +33791,6 @@
   {
     "id": "msds-pdf-deca16082851d0c0",
     "productName": "질소(N2) 대덕가스(주)",
-    "erpName": "",
     "msdsNo": "AA02129-0000000001",
     "fileName": "질소(N2)_대덕가스(주).pdf",
     "pdfPath": "pdf/질소/질소(N2)_대덕가스(주).pdf",
@@ -34082,7 +33876,6 @@
   {
     "id": "msds-pdf-df5ff1a99215c913",
     "productName": "질소(NITROGEN)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "질소(N2)_태경ECO(주).pdf",
     "pdfPath": "pdf/질소/질소(N2)_태경ECO(주).pdf",
@@ -34168,7 +33961,6 @@
   {
     "id": "msds-pdf-aff62f45049f6877",
     "productName": "CTS-50 스틸 티그봉",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "CTS-50 스틸 티그봉.pdf",
     "pdfPath": "pdf/크레토스(cretos)/CTS-50 스틸 티그봉.pdf",
@@ -34366,7 +34158,6 @@
   {
     "id": "msds-pdf-a26053814f066ef9",
     "productName": "썬 라이타 가스",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "썬 라이타 가스 MSDS.pdf",
     "pdfPath": "pdf/태양(SUN)/썬 라이타 가스 MSDS.pdf",
@@ -34483,7 +34274,6 @@
   {
     "id": "msds-pdf-52d86cde38911013",
     "productName": "피비원(PB-1)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "피비원(PB-1)_MSDS.pdf",
     "pdfPath": "pdf/파이씨스(파워피엔비)/피비원(PB-1)_MSDS.pdf",
@@ -34602,7 +34392,6 @@
   {
     "id": "msds-pdf-79c7cd1ffffaab96",
     "productName": "프로판(Propane)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "프로판.pdf",
     "pdfPath": "pdf/프로판.pdf",
@@ -34725,7 +34514,6 @@
   {
     "id": "msds-pdf-d53b862679ad3157",
     "productName": "GHP CCG 2 (월)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "GHP CCG 2 - 2022.9.05(월) 5차개정.pdf",
     "pdfPath": "pdf/한일루켐(그리스)/GHP CCG 2 - 2022.9.05(월) 5차개정.pdf",
@@ -34766,7 +34554,6 @@
   {
     "id": "msds-pdf-d353876f24b4839c",
     "productName": "GHP HTG 2 (월)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "GHP HTG 2 - 2022.9.05(월) 5차개정.pdf",
     "pdfPath": "pdf/한일루켐(그리스)/GHP HTG 2 - 2022.9.05(월) 5차개정.pdf",
@@ -34856,7 +34643,6 @@
   {
     "id": "msds-pdf-d462ab4576452226",
     "productName": "GHP PCG EP 0(그리스)",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "GHP PCG EP 0(그리스).pdf",
     "pdfPath": "pdf/한일루켐(그리스)/GHP PCG EP 0(그리스).pdf",
@@ -34952,7 +34738,6 @@
   {
     "id": "msds-pdf-f60438c81a0521d8",
     "productName": "GHP PCG 0",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "한일루켐_GHP PCG 0 MSDS.pdf",
     "pdfPath": "pdf/한일루켐(그리스)/한일루켐_GHP PCG 0 MSDS.pdf",
@@ -35042,7 +34827,6 @@
   {
     "id": "msds-pdf-2ebaad2a63202319",
     "productName": "HR580 현대ep 수지",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "(GHS-MSDS) HR580 현대ep 수지.pdf",
     "pdfPath": "pdf/현대ep/(GHS-MSDS) HR580 현대ep 수지.pdf",
@@ -35084,7 +34868,6 @@
   {
     "id": "msds-pdf-ad0d9920d007a881",
     "productName": "SUPOL HR530",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "HR530_MSDS(GHS)_2021.12.20(4차).pdf",
     "pdfPath": "pdf/현대ep/HR530_MSDS(GHS)_2021.12.20(4차).pdf",
@@ -35133,7 +34916,6 @@
   {
     "id": "msds-pdf-3b92d1fa1c9a3177",
     "productName": "SUPOL HR530U",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "HR530U MSDS(GHS)__2023.10.10(최초).pdf",
     "pdfPath": "pdf/현대ep/HR530U MSDS(GHS)__2023.10.10(최초).pdf",
@@ -35221,7 +35003,6 @@
   {
     "id": "msds-pdf-1191eaa28df73490",
     "productName": "SUPOL HR580",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "HR580_MSDS(GHS)_2023.07.27(6차).pdf",
     "pdfPath": "pdf/현대ep/HR580_MSDS(GHS)_2023.07.27(6차).pdf",
@@ -35270,7 +35051,6 @@
   {
     "id": "msds-pdf-29946d446656ed55",
     "productName": "SUPOL HR580U",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "HR580U_MSDS(GHS)__2023.06.09(6차).pdf",
     "pdfPath": "pdf/현대ep/HR580U_MSDS(GHS)__2023.06.09(6차).pdf",
@@ -35319,7 +35099,6 @@
   {
     "id": "msds-pdf-48f0afe382fbccab",
     "productName": "MK XTeer Therm 46S",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "MK_XTeer Therm 46S_MSDS.pdf",
     "pdfPath": "pdf/현대오일뱅크(주)/MK_XTeer Therm 46S_MSDS.pdf",
@@ -35664,7 +35443,6 @@
   {
     "id": "msds-pdf-f1d24c79470dc24f",
     "productName": "S-308.16N",
-    "erpName": "",
     "msdsNo": "AA01352-0000000224",
     "fileName": "S-308.16N - 21.08.10.pdf",
     "pdfPath": "pdf/현대종합금속/S-308.16N - 21.08.10.pdf",
@@ -35744,7 +35522,6 @@
   {
     "id": "msds-pdf-65ea6911134f71e5",
     "productName": "해피홈에어로솔수성(무향) Rav",
-    "erpName": "",
     "msdsNo": "",
     "fileName": "해피홈에어로솔수성(무향)_MSDS_Rav.pdf",
     "pdfPath": "pdf/홈키파/해피홈에어로솔수성(무향)_MSDS_Rav.pdf",
@@ -35893,7 +35670,6 @@
   {
     "id": "msds-177",
     "productName": "UT5731-BB2(KIA)",
-    "erpName": "",
     "msdsNo": "AA00017-0000000197",
     "fileName": "KCC_MSDS_UT5731-BB2(KIA)_kor.pdf",
     "pdfPath": "pdf/01_ 도장/KCC/KCC_MSDS_UT5731-BB2(KIA)_kor.pdf",

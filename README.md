@@ -12,7 +12,7 @@
 
 작업자 주의 포인트는 브라우저 안의 로컬 규칙으로만 정리합니다. 사이트 사용 중 OpenAI 또는 외부 AI API를 호출하지 않으며, 별도 API 토큰도 사용하지 않습니다.
 
-작업 기준은 먼저 `docs/10_현재_작업상태.md`, `docs/11_운영원칙.md`, `docs/12_다음작업.md` 문서를 확인합니다. 새 Codex 대화에서는 이 문서들을 읽고 이어서 작업합니다.
+운영 문서는 공개 저장소에 두지 않고 회사 OneDrive의 `00_바탕 화면\10_ 안전·보건·소방\02_보건\01_ MSDS\MSDS 사이트 운영문서` 폴더에서 관리합니다. 작업 기준은 먼저 그 폴더의 `10_현재_작업상태.md`, `11_운영원칙.md`, `12_다음작업.md`를 확인합니다. 새 Codex 대화에서도 이 문서들을 읽고 이어서 작업합니다.
 
 ## 실행 방법
 
@@ -549,11 +549,11 @@ H-code statements are kept in the hazard statement area, P-code statements are k
 
 # MSDS 로컬 운영 안내
 
-로컬 운영 방식과 회사 노트북에서 새 PDF를 추가하는 절차는 [로컬 운영 및 PDF 추가 가이드](docs/로컬_운영_및_PDF_추가_가이드.md)를 기준으로 합니다.
+로컬 운영 방식과 회사 노트북에서 새 PDF를 추가하는 절차는 OneDrive 운영문서 폴더의 `로컬 운영 및 PDF 추가 가이드`를 기준으로 합니다.
 
-현장용 로컬 실행 방법은 [현장용 로컬 실행 가이드](docs/현장용_로컬_실행_가이드.md)를 확인하세요. 비개발자는 프로젝트 폴더의 `start_msds_site.bat` 파일을 더블클릭해 현장 검색용 화면을 실행하면 됩니다.
+현장용 로컬 실행 방법은 OneDrive 운영문서 폴더의 `현장용 로컬 실행 가이드`를 확인하세요. 비개발자는 프로젝트 폴더의 `start_msds_site.bat` 파일을 더블클릭해 현장 검색용 화면을 실행하면 됩니다.
 
-GitHub Pages 인터넷 배포는 [GitHub Pages 인터넷 배포 가이드](docs/GitHub_Pages_인터넷_배포_가이드.md)를 기준으로 합니다. 공개 URL은 <https://lsy1659-ux.github.io/msds-site-prototype/> 입니다. GitHub Pages 실제 MSDS PDF 미리보기 공개 운영은 완료되었고, 공개 사이트는 `data/msds.public.json`, `data/msds-overrides.public.json`, `pdf/` 폴더의 대표 PDF 224개를 사용합니다. 실제 엑셀, raw 데이터, original 데이터, `.env`, local JSON, reports local 파일은 GitHub에 올리지 않습니다. 실제 현장 사용은 여전히 `start_msds_site.bat` 로컬 실행을 기준으로 할 수 있습니다.
+GitHub Pages 인터넷 배포는 OneDrive 운영문서 폴더의 `GitHub Pages 인터넷 배포 가이드`를 기준으로 합니다. 공개 URL은 <https://lsy1659-ux.github.io/msds-site-prototype/> 입니다. GitHub Pages 실제 MSDS PDF 미리보기 공개 운영은 완료되었고, 공개 사이트는 `data/msds.public.json`, `data/msds-overrides.public.json`, `pdf/` 폴더의 대표 PDF 224개를 사용합니다. 실제 엑셀, raw 데이터, original 데이터, `.env`, local JSON, reports local 파일은 GitHub에 올리지 않습니다. 실제 현장 사용은 여전히 `start_msds_site.bat` 로컬 실행을 기준으로 할 수 있습니다.
 
 모바일 브라우저에서 PDF가 자동 다운로드되는 것을 막기 위해 PDF 원본은 페이지 로드나 제품 선택 직후 자동 삽입하지 않습니다. 사용자가 `PDF 미리보기` 버튼을 누른 경우에만 PDF.js로 사이트 안에 미리보기를 표시합니다. 현재 최소 수정안은 CDN PDF.js를 사용하므로 인터넷 연결이 필요합니다. 더 안정적인 운영이 필요하면 `vendor/pdfjs/` 또는 `lib/pdfjs/`에 PDF.js 정적 파일을 포함하고 `js/app.js`의 PDF.js 경로를 내부 경로로 바꿉니다.
 

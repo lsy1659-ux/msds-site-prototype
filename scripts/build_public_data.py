@@ -25,7 +25,7 @@ VALID_SIGNAL_WORDS = {"", "위험", "경고", "해당없음"}
 PUBLIC_PRODUCT_IDENTITY_FIELDS = (
     "id",
     "productName",
-    "erpName",
+    # 캠스 내부 ERP 품명은 공개 데이터에 싣지 않는다.
     "msdsNo",
     "fileName",
     "pdfPath",
