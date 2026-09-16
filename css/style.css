@@ -7985,3 +7985,90 @@ button.full-product-item {
     transform: none;
   }
 }
+
+
+/* ── 현장용 오프라인 저장 ──────────────────────────────── */
+
+.offline-panel {
+  max-width: 560px;
+  margin: 0 auto 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--color-line);
+  border-radius: 14px;
+  background: var(--color-surface);
+  text-align: left;
+}
+
+.offline-panel-title {
+  margin: 0 0 4px;
+  font-size: 0.96rem;
+  font-weight: 800;
+}
+
+.offline-panel-status {
+  margin: 0 0 8px;
+  font-size: 0.88rem;
+  color: var(--color-muted);
+}
+
+.offline-panel-note {
+  margin: 0 0 8px;
+  font-size: 0.86rem;
+  color: var(--color-accent);
+}
+
+.offline-panel-hint {
+  margin: 8px 0 0;
+  font-size: 0.82rem;
+  color: var(--color-muted);
+}
+
+.offline-panel-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.offline-button {
+  flex: 1 1 auto;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.offline-button:hover:not(:disabled) {
+  border-color: var(--color-accent);
+}
+
+.offline-button.is-primary {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.offline-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.offline-progress {
+  height: 10px;
+  margin: 6px 0 10px;
+  border-radius: 999px;
+  background: var(--color-surface-soft);
+  overflow: hidden;
+}
+
+.offline-progress span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--color-accent);
+  transition: width 160ms ease;
+}

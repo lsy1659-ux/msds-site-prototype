@@ -520,6 +520,7 @@ function bindElements() {
   elements.searchAssistTitle = document.querySelector("#searchAssistTitle");
   elements.clearSearchHistory = document.querySelector("#clearSearchHistory");
   elements.productShortcuts = document.querySelector("#productShortcuts");
+  elements.offlinePanel = document.querySelector("#offlinePanel");
 }
 
 function bindEvents() {
@@ -582,6 +583,8 @@ function bindEvents() {
   bindProductShortcuts();
   setupOfflineNotice();
   registerServiceWorker();
+  bindOfflinePanel();
+  renderOfflinePanel();
 
   elements.quickSearch.addEventListener("click", (event) => {
     const showAllButton = event.target.closest("button[data-action='show-all']");
@@ -2139,6 +2142,10 @@ function render() {
   if (elements.resultSortMode) elements.resultSortMode.value = state.resultSortMode;
   syncResultViewToggle();
   renderProductShortcuts();
+  if (!offlineSave.running && offlineSave.renderedFor !== (state.products || []).length) {
+    offlineSave.renderedFor = (state.products || []).length;
+    renderOfflinePanel();
+  }
   elements.selectionPanel.classList.toggle("is-collapsed", !hasQuery && !state.showFullList);
   elements.resultCount.textContent = state.showFullList ? `전체 MSDS ${getAllSelectableProducts().length}건` : (hasQuery ? `검색 결과 ${results.length}건` : "검색 전");
   elements.resultCount.setAttribute("role", "status");
@@ -4643,4 +4650,146 @@ function setupOfflineNotice() {
   window.addEventListener("online", sync);
   window.addEventListener("offline", sync);
   sync();
+}
+
+
+/* ── 현장용 오프라인 저장 ──────────────────────────────── */
+
+/* 서비스워커는 "열어본 PDF"만 캐시한다. 현장에서는 미리 눌러둘 수 없으니
+ * 여기서 PDF를 한꺼번에 받아 둔다. 받는 것은 그냥 fetch 하면 되고,
+ * 서비스워커가 지나가는 응답을 캐시에 담는다.
+ */
+
+const OFFLINE_SAVE_CONCURRENCY = 3;
+const OFFLINE_SAVE_STATE_KEY = "msds.offlineSavedAt.v1";
+
+const offlineSave = { running: false, cancel: false, done: 0, total: 0, failed: 0, renderedFor: -1 };
+
+async function findPdfCacheName() {
+  try {
+    const names = await caches.keys();
+    return names.find((name) => name.endsWith("-pdf")) || "";
+  } catch (error) {
+    return "";
+  }
+}
+
+function getProductPdfPaths(scope) {
+  const products = state.products || [];
+  const wanted = scope === "favorites"
+    ? products.filter((product) => getFavoriteProductIds().includes(product.id))
+    : products;
+  // 개정 이력에서 열 수 있는 이전본 PDF도 같이 받아 둔다.
+  const paths = wanted.flatMap((product) => [
+    product.pdfPath,
+    ...(product.previousVersions || []).map((version) => version.pdfPath)
+  ]);
+  return [...new Set(paths.filter(Boolean))];
+}
+
+// 캐시 키는 인코딩된 주소라서 경로를 같은 방식으로 맞춰 비교한다.
+function toPdfRequestUrl(pdfPath) {
+  return new URL(String(pdfPath).split("/").map(encodeURIComponent).join("/"), document.baseURI).href;
+}
+
+async function getOfflinePdfStatus() {
+  const all = getProductPdfPaths("all");
+  const favorites = getProductPdfPaths("favorites");
+  const cacheName = await findPdfCacheName();
+  if (!cacheName) return { total: all.length, favorites: favorites.length, cached: 0, savedAt: "" };
+  const cache = await caches.open(cacheName);
+  const keys = new Set((await cache.keys()).map((request) => request.url));
+  const cached = all.filter((path) => keys.has(toPdfRequestUrl(path))).length;
+  let savedAt = "";
+  try { savedAt = window.localStorage.getItem(OFFLINE_SAVE_STATE_KEY) || ""; } catch (error) { savedAt = ""; }
+  return { total: all.length, favorites: favorites.length, cached, savedAt };
+}
+
+async function runOfflineSave(scope) {
+  if (offlineSave.running) return;
+  const paths = getProductPdfPaths(scope);
+  if (!paths.length) {
+    renderOfflinePanel("저장할 제품이 없습니다. 즐겨찾기를 먼저 지정하세요.");
+    return;
+  }
+
+  const cacheName = await findPdfCacheName();
+  const cached = cacheName
+    ? new Set((await (await caches.open(cacheName)).keys()).map((request) => request.url))
+    : new Set();
+  const todo = paths.filter((path) => !cached.has(toPdfRequestUrl(path)));
+
+  Object.assign(offlineSave, { running: true, cancel: false, done: 0, failed: 0, total: todo.length });
+  renderOfflinePanel();
+
+  if (!todo.length) {
+    offlineSave.running = false;
+    renderOfflinePanel("이미 모두 저장되어 있습니다.");
+    return;
+  }
+
+  const queue = [...todo];
+  const workers = Array.from({ length: Math.min(OFFLINE_SAVE_CONCURRENCY, queue.length) }, async () => {
+    while (queue.length && !offlineSave.cancel) {
+      const path = queue.shift();
+      try {
+        const response = await fetch(toPdfRequestUrl(path));
+        if (!response.ok) offlineSave.failed += 1;
+      } catch (error) {
+        offlineSave.failed += 1;
+      }
+      offlineSave.done += 1;
+      renderOfflinePanel();
+    }
+  });
+  await Promise.all(workers);
+
+  offlineSave.running = false;
+  if (!offlineSave.cancel) {
+    try { window.localStorage.setItem(OFFLINE_SAVE_STATE_KEY, new Date().toISOString().slice(0, 10)); } catch (error) { /* 저장소 차단 환경 */ }
+  }
+  renderOfflinePanel(offlineSave.cancel ? "저장을 중단했습니다." : "");
+}
+
+function formatSavedAt(value) {
+  return value ? ` · 마지막 저장 ${escapeHtml(value)}` : "";
+}
+
+async function renderOfflinePanel(message = "") {
+  const host = elements.offlinePanel;
+  if (!host) return;
+
+  if (offlineSave.running) {
+    const percent = offlineSave.total ? Math.round((offlineSave.done / offlineSave.total) * 100) : 0;
+    host.innerHTML = `
+      <p class="offline-panel-title">오프라인 저장 중 ${offlineSave.done} / ${offlineSave.total}</p>
+      <div class="offline-progress"><span style="width:${percent}%"></span></div>
+      <div class="offline-panel-actions">
+        <button type="button" class="offline-button" data-offline-cancel>중단</button>
+      </div>`;
+    return;
+  }
+
+  const status = await getOfflinePdfStatus();
+  const note = message ? `<p class="offline-panel-note">${escapeHtml(message)}</p>` : "";
+  host.innerHTML = `
+    <p class="offline-panel-title">현장용 오프라인 저장</p>
+    <p class="offline-panel-status">MSDS 원본 ${status.cached} / ${status.total}건 저장됨${formatSavedAt(status.savedAt)}</p>
+    ${note}
+    <div class="offline-panel-actions">
+      <button type="button" class="offline-button" data-offline-save="favorites"${status.favorites ? "" : " disabled"}>즐겨찾기만 저장 (${status.favorites}건)</button>
+      <button type="button" class="offline-button is-primary" data-offline-save="all">전체 저장 (${status.total}건, 약 84MB)</button>
+    </div>
+    <p class="offline-panel-hint">와이파이에서 한 번 저장해 두면, 신호가 없어도 저장한 제품의 MSDS 원본을 열 수 있습니다.</p>`;
+}
+
+function bindOfflinePanel() {
+  elements.offlinePanel?.addEventListener("click", (event) => {
+    if (event.target.closest("[data-offline-cancel]")) {
+      offlineSave.cancel = true;
+      return;
+    }
+    const save = event.target.closest("[data-offline-save]");
+    if (save) runOfflineSave(save.dataset.offlineSave);
+  });
 }

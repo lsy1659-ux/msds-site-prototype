@@ -9,11 +9,11 @@
  *  - PDF: 열어본 것만 캐시. 전체는 80MB가 넘어 미리 담지 않는다.
  */
 
-const CACHE_VERSION = "msds-2026-09-16-3";
+const CACHE_VERSION = "msds-2026-09-16-4";
 const SHELL_CACHE = `${CACHE_VERSION}-shell`;
 const DATA_CACHE = `${CACHE_VERSION}-data`;
 const PDF_CACHE = `${CACHE_VERSION}-pdf`;
-const PDF_CACHE_LIMIT = 40;
+const PDF_CACHE_LIMIT = 300;
 
 const SHELL_ASSETS = [
   "./",
@@ -83,11 +83,21 @@ async function trimCache(cacheName, limit) {
   await Promise.all(keys.slice(0, keys.length - limit).map((key) => cache.delete(key)));
 }
 
-// 제품 데이터는 최신이 우선이다. 끊겼을 때만 마지막 사본을 돌려준다.
+const DATA_NETWORK_TIMEOUT_MS = 4000;
+
+// 신호가 약한 현장에서는 응답 없이 오래 매달릴 수 있어 제한시간을 둔다.
+function fetchWithTimeout(request, timeout) {
+  return Promise.race([
+    fetch(request),
+    new Promise((_, reject) => setTimeout(() => reject(new Error("network timeout")), timeout))
+  ]);
+}
+
+// 제품 데이터는 최신이 우선이다. 끊겼거나 느리면 마지막 사본을 돌려준다.
 async function networkFirst(request, cacheName) {
   const cache = await caches.open(cacheName);
   try {
-    const response = await fetch(request);
+    const response = await fetchWithTimeout(request, DATA_NETWORK_TIMEOUT_MS);
     if (response && response.ok) cache.put(request, response.clone());
     return response;
   } catch (error) {
