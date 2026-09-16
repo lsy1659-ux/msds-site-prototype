@@ -42,6 +42,8 @@ PUBLIC_PRODUCT_SUMMARY_FIELDS = (
     "hazardClassification",
     "dangerousGoods",
     "ppeSummary",
+    "firstAid",
+    "hazardNotClassified",
     "ingredients",
     "hazardBadge",
     "signalWord",

@@ -2704,6 +2704,10 @@ function renderDetail(product) {
       </div>
     `, "detail-block-basic")}
 
+    ${renderNotClassifiedNotice(product)}
+
+    ${renderFirstAidSection(product)}
+
     ${product.previousVersions?.length ? detailSection("개정 이력 · 이전본", renderRevisionHistory(product.previousVersions), "detail-block-history") : ""}
 
     ${!isFieldMode ? detailSection("핵심 위험 요약", `
@@ -4804,4 +4808,51 @@ function bindOfflinePanel() {
     const save = event.target.closest("[data-offline-save]");
     if (save) runOfflineSave(save.dataset.offlineSave);
   });
+}
+
+
+/* ── 응급조치 요령 ─────────────────────────────────────── */
+
+const FIRST_AID_SECTIONS = [
+  { key: "eye", label: "눈에 들어갔을 때", icon: "👁" },
+  { key: "skin", label: "피부에 닿았을 때", icon: "✋" },
+  { key: "inhalation", label: "들이마셨을 때", icon: "🫁" },
+  { key: "ingestion", label: "삼켰을 때", icon: "⚠" },
+  { key: "note", label: "의료진에게 알릴 것", icon: "＋" }
+];
+
+// 사고 순간에 26쪽 PDF에서 4항을 찾게 하지 않으려고 화면 위쪽에 따로 둔다.
+function renderFirstAidSection(product) {
+  const firstAid = product?.firstAid;
+  if (!firstAid || typeof firstAid !== "object") return "";
+  const blocks = FIRST_AID_SECTIONS
+    .map((section) => {
+      const items = Array.isArray(firstAid[section.key]) ? firstAid[section.key] : [];
+      if (!items.length) return "";
+      return `<article class="first-aid-block">
+          <h4><span aria-hidden="true">${section.icon}</span>${escapeHtml(section.label)}</h4>
+          <ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </article>`;
+    })
+    .filter(Boolean)
+    .join("");
+  if (!blocks) return "";
+  return detailSection("응급조치 요령", `
+    <p class="first-aid-note">사고 시 아래 조치를 먼저 하고, 이어서 MSDS 원문과 의료진 안내를 확인하세요.</p>
+    <div class="first-aid-grid">${blocks}</div>
+  `, "detail-block-first-aid");
+}
+
+
+// 빈칸과 "해당없음"은 다르다. 원문이 분류 대상이 아니라고 적은 제품은
+// 비워 두지 말고 그렇게 확인됐다고 알린다.
+function renderNotClassifiedNotice(product) {
+  if (!product?.hazardNotClassified) return "";
+  return detailSection("유해·위험성 분류", `
+    <p class="not-classified-notice">
+      <strong>분류 대상 아님</strong>
+      MSDS 원문에 유해·위험성 분류와 유해·위험 문구가 "해당없음"으로 적혀 있습니다.
+      자료가 빠진 것이 아니라 확인된 내용입니다.
+    </p>
+  `, "detail-block-not-classified");
 }

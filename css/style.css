@@ -8072,3 +8072,78 @@ button.full-product-item {
   background: var(--color-accent);
   transition: width 160ms ease;
 }
+
+
+/* ── 응급조치 요령 ─────────────────────────────────────── */
+
+.detail-block-first-aid {
+  border-color: var(--color-danger);
+  background: var(--color-danger-bg);
+}
+
+.first-aid-note {
+  margin: 0 0 10px;
+  font-size: 0.88rem;
+  color: var(--color-danger-dark);
+  font-weight: 700;
+}
+
+.first-aid-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.first-aid-block {
+  padding: 10px 12px;
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+  background: var(--color-surface);
+}
+
+.first-aid-block h4 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 6px;
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--color-danger-dark);
+}
+
+.first-aid-block ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.first-aid-block li + li {
+  margin-top: 4px;
+}
+
+@media (max-width: 720px) {
+  .first-aid-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ── 유해·위험성 분류 해당없음 ─────────────────────────── */
+
+.not-classified-notice {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--color-reviewed);
+  border-radius: 10px;
+  background: var(--color-reviewed-bg);
+  color: var(--color-ink);
+  font-size: 0.92rem;
+}
+
+.not-classified-notice strong {
+  color: var(--color-reviewed);
+  font-weight: 800;
+}
