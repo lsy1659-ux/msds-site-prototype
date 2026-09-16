@@ -1,0 +1,325 @@
+/* MSDS 경고표지 인쇄 화면.
+ * 용기에 붙는 인쇄물이라 화면 장식보다 인쇄 결과를 우선한다.
+ */
+
+:root {
+  --label-ink: #17211f;
+  --label-muted: #5d6865;
+  --label-line: #cfd9d6;
+  --label-primary: #0f5f4f;
+  --label-primary-soft: #dff3ed;
+  --label-danger: #d71920;
+  --label-bg: #edf4f1;
+  --label-surface: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--label-bg);
+  color: var(--label-ink);
+  font-family: "Malgun Gothic", "맑은 고딕", system-ui, -apple-system, sans-serif;
+  line-height: 1.45;
+}
+
+.label-header {
+  padding: 24px 16px;
+  background: linear-gradient(135deg, #0b3f37, #0f5f4f);
+  color: #ffffff;
+}
+
+.label-header-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.label-header h1 {
+  margin: 0 0 6px;
+  font-size: 1.5rem;
+}
+
+.label-header p {
+  margin: 0 0 10px;
+  opacity: 0.92;
+}
+
+.label-back {
+  color: #d9f2ea;
+  font-size: 0.92rem;
+}
+
+.label-main {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.label-controls {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--label-line);
+  border-radius: 14px;
+  background: var(--label-surface);
+}
+
+.label-control-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.label-field {
+  display: grid;
+  flex: 1 1 260px;
+  gap: 4px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--label-muted);
+}
+
+.label-field-narrow {
+  flex: 0 1 220px;
+}
+
+.label-field input,
+.label-field select {
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--label-line);
+  border-radius: 10px;
+  background: var(--label-surface);
+  color: var(--label-ink);
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.label-button {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--label-line);
+  border-radius: 10px;
+  background: var(--label-surface);
+  color: var(--label-ink);
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.label-button:hover {
+  border-color: var(--label-primary);
+}
+
+.label-button-primary {
+  border-color: var(--label-primary);
+  background: var(--label-primary);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.label-button-quiet {
+  color: var(--label-muted);
+}
+
+.label-status {
+  align-self: center;
+  font-size: 0.9rem;
+  color: var(--label-muted);
+}
+
+.label-hint,
+.label-warning {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--label-muted);
+}
+
+.label-warning {
+  padding: 8px 12px;
+  border: 1px solid #f0c9a0;
+  border-radius: 10px;
+  background: #fff5e8;
+  color: #875d00;
+}
+
+.label-sheet {
+  display: grid;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.label-size-small { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.label-size-medium { grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); }
+.label-size-large { grid-template-columns: minmax(0, 1fr); }
+
+.label-card {
+  display: grid;
+  gap: 8px;
+  padding: 14px 16px;
+  border: 3px solid #111111;
+  border-radius: 4px;
+  background: #ffffff;
+}
+
+.label-card.is-selected {
+  box-shadow: 0 0 0 3px var(--label-primary-soft);
+}
+
+.label-card-pick {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: var(--label-muted);
+  cursor: pointer;
+}
+
+.label-name {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.label-size-large .label-name { font-size: 1.7rem; }
+.label-size-small .label-name { font-size: 1.05rem; }
+
+.label-pictograms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.label-pictogram {
+  margin: 0;
+  text-align: center;
+}
+
+.label-pictogram img {
+  display: block;
+  width: 62px;
+  height: 62px;
+}
+
+.label-size-large .label-pictogram img { width: 88px; height: 88px; }
+.label-size-small .label-pictogram img { width: 48px; height: 48px; }
+
+.label-pictogram figcaption {
+  font-size: 0.68rem;
+  color: var(--label-muted);
+}
+
+.label-signal {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.label-signal.is-danger {
+  color: var(--label-danger);
+}
+
+.label-size-large .label-signal { font-size: 1.6rem; }
+
+.label-block h3,
+.label-supplier h3 {
+  margin: 0 0 3px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--label-muted);
+}
+
+.label-block ul {
+  margin: 0;
+  padding-left: 16px;
+  font-size: 0.86rem;
+}
+
+.label-size-large .label-block ul { font-size: 0.95rem; }
+.label-size-small .label-block ul { font-size: 0.78rem; }
+
+.label-block li {
+  overflow-wrap: anywhere;
+}
+
+.label-supplier p {
+  margin: 0;
+  font-size: 0.82rem;
+  overflow-wrap: anywhere;
+}
+
+.label-missing {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px dashed var(--label-danger);
+  border-radius: 6px;
+  color: var(--label-danger);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.label-qr {
+  width: 96px;
+  height: 96px;
+}
+
+.label-qr svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.label-compact-note {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--label-muted);
+}
+
+.label-empty {
+  padding: 32px;
+  color: var(--label-muted);
+  text-align: center;
+}
+
+@media print {
+  @page {
+    margin: 8mm;
+  }
+
+  body {
+    background: #ffffff;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .label-main {
+    padding: 0;
+    max-width: none;
+  }
+
+  .label-sheet {
+    gap: 5mm;
+    margin-top: 0;
+  }
+
+  .label-card {
+    border-radius: 0;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .label-card.is-selected {
+    box-shadow: none;
+  }
+
+  /* 선택한 제품이 있으면 그것만 인쇄한다. */
+  .label-sheet.has-selection .label-card:not(.is-selected) {
+    display: none;
+  }
+}

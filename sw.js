@@ -9,7 +9,7 @@
  *  - PDF: 열어본 것만 캐시. 전체는 80MB가 넘어 미리 담지 않는다.
  */
 
-const CACHE_VERSION = "msds-2026-09-16-5";
+const CACHE_VERSION = "msds-2026-09-16-6";
 const SHELL_CACHE = `${CACHE_VERSION}-shell`;
 const DATA_CACHE = `${CACHE_VERSION}-data`;
 const PDF_CACHE = `${CACHE_VERSION}-pdf`;
@@ -19,10 +19,13 @@ const SHELL_ASSETS = [
   "./",
   "index.html",
   "qr.html",
+  "label.html",
   "css/style.css",
   "css/qr.css",
+  "css/label.css",
   "js/app.js",
   "js/qr.js",
+  "js/label.js",
   "vendor/qrcode.min.js",
   "vendor/pdf.mjs",
   "vendor/pdf.worker.mjs",

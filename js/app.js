@@ -4150,8 +4150,20 @@ function buildDateSummary(issueDate, revisionDate) {
   const revision = cleanPdfRevisionDate(revisionDate);
   const parts = [];
   if (issue && issue !== "-" && issue !== "정보 없음") parts.push(`최초 작성일: ${issue}`);
-  if (revision && revision !== "-" && revision !== "정보 없음") parts.push(`최종 개정일: ${revision}`);
+  if (revision && revision !== "-" && revision !== "정보 없음") {
+    parts.push(`최종 개정일: ${revision}${describeRevisionAge(revision)}`);
+  }
   return parts.join(" / ");
+}
+
+// 개정 후 얼마나 지났는지 보여 준다. 오래된 자료인지 판단할 근거가 화면에 없으면
+// 공급업체에 최신본을 요청해야 할 제품을 가려낼 수 없다.
+function describeRevisionAge(revision) {
+  const parsed = Date.parse(`${revision}T00:00:00`);
+  if (Number.isNaN(parsed)) return "";
+  const years = Math.floor((Date.now() - parsed) / (365.25 * 24 * 60 * 60 * 1000));
+  if (years < 1) return "";
+  return years >= 5 ? ` (${years}년 경과 · 최신본 확인 권장)` : ` (${years}년 경과)`;
 }
 
 function renderGhsList(product, size) {
