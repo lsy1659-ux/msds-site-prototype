@@ -32,15 +32,20 @@ DEFAULT_REPORT = ROOT / "reports" / "quality-reextract.local.json"
 CORRUPTION_MARKERS = "싞늒맊홖젂핚짂갂숚렦맋핛젗벖첛얶옦젘"
 CORRUPTION_RATIO = 0.005
 
-SEC2 = re.compile(r"^\s*2\s*[.．]\s*유해성")
-SEC3 = re.compile(r"^\s*3\s*[.．]\s*구성성분")
-SEC15 = re.compile(r"^\s*15\s*[.．]\s*법적")
+# 제목 표기가 제조사마다 다르다. "2. 유해성·위험성" 도 있고 "2.·유해위험성정보" 처럼
+# 가운뎃점이 앞에 붙고 띄어쓰기가 아예 없는 것도 있어 번호와 머리글자만 본다.
+SEC2 = re.compile(r"^\s*2\s*[.．]\s*[·ㆍ∙\s]*유해")
+SEC3 = re.compile(r"^\s*3\s*[.．]\s*[·ㆍ∙\s]*구성")
+SEC15 = re.compile(r"^\s*15\s*[.．]\s*[·ㆍ∙\s]*법적")
 SEC16 = re.compile(r"^\s*16\s*[.．]")
 
 SIGNAL_LABEL = re.compile(r"신\s*호\s*어")
 HAZARD_LABEL = re.compile(r"유해\s*[·ㆍ∙]?\s*위험\s*문구")
 BLOCK_LABEL = re.compile(r"^[○●◎]\s*(.+)")
 VALID_SIGNALS = ("위험", "경고")
+
+# 유해·위험 문구 다음에 오는 구획들. 여기까지 읽고 멈춰야 예방조치가 딸려오지 않는다.
+STOP_LABEL = re.compile(r"예방\s*조치|그림\s*문자|응급\s*조치|분류\s*기준|기타\s*유해|GHS")
 
 NOT_CLASSIFIED = re.compile(r"해당\s*없음|해당사항\s*없음|해당되는\s*분류정보가\s*없음|분류되지\s*않음")
 NO_DATA = re.compile(r"자료\s*없음|자료가\s*없음|정보\s*없음|정보가\s*없음")
@@ -116,18 +121,23 @@ def parse_section2(lines: list[str]) -> dict:
         label, value = split_label_value(cleaned)
 
         if HAZARD_LABEL.search(label):
+            # 값이 라벨과 같은 줄에서 시작해 다음 줄로 이어지는 형식이 있다.
+            # 값을 담고도 구획을 닫지 않아야 이어지는 줄까지 받는다.
             current = "hazard"
             if value:
                 if NOT_CLASSIFIED.search(value):
                     not_classified = True
+                    current = ""
                 elif not NO_DATA.search(value) and not JUNK_LINE.search(value):
                     hazards.append(value)
-                current = ""
             continue
         if SIGNAL_LABEL.search(label):
             if value and not signal:
                 signal = next((s for s in VALID_SIGNALS if s in value), "")
             current = "signal"
+            continue
+        if STOP_LABEL.search(label):
+            current = ""
             continue
         if BLOCK_LABEL.match(raw.strip()) or re.match(r"^[가-하]\s*[.．]", label) or re.match(r"^\d{1,2}\s*[.．]", label):
             current = ""

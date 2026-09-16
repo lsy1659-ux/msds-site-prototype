@@ -53,7 +53,7 @@
         "chemicalName": "이산화 규소",
         "casNo": "112926-00-8",
         "content": "4~11",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -77,9 +77,9 @@
         "chemicalName": "펜테인이산 다이메틸",
         "casNo": "1119-40-0",
         "content": "1~6",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "에틸벤젠",
@@ -93,9 +93,9 @@
         "chemicalName": "비스(1,2,2,6,6,-펜타메틸-4-피페리딜)데탄디온 산",
         "casNo": "41556-26-7",
         "content": "0.1~1미만",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       }
     ],
     "hazardBadge": "위험",
@@ -257,7 +257,7 @@
         "chemicalName": "이산화 티타늄",
         "casNo": "13463-67-7",
         "content": "19~26",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -305,17 +305,17 @@
         "chemicalName": "셀룰로스 아세테이트 뷰틸레이트",
         "casNo": "9004-36-8",
         "content": "1~6",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "Hexane, 1,6-diisocyanato-, homopolymer, di-Et malonate- and Et acetoacetate- blocked",
         "casNo": "103818-85-5",
         "content": "1~6",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "에틸벤젠",
@@ -548,7 +548,7 @@
         "chemicalName": "이산화 티타늄",
         "casNo": "13463-67-7",
         "content": "1~8",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -556,9 +556,9 @@
         "chemicalName": "셀룰로스 아세테이트 뷰틸레이트",
         "casNo": "9004-36-8",
         "content": "1~8",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "프로필렌 글리콜 모노메틸 에테르 아세테이트",
@@ -580,9 +580,9 @@
         "chemicalName": "Hexane, 1,6-diisocyanato-, homopolymer, di-Et malonate- and Et acetoacetate- blocked",
         "casNo": "103818-85-5",
         "content": "1~6",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "아세트산 에틸",
@@ -596,7 +596,7 @@
         "chemicalName": "수산화 산화 철 옐로우",
         "casNo": "51274-00-1",
         "content": "1~6",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -652,7 +652,7 @@
         "chemicalName": "카본 블랙",
         "casNo": "1333-86-4",
         "content": "0.1~1미만",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       }
@@ -866,15 +866,15 @@
         "chemicalName": "셀룰로스 아세테이트 뷰틸레이트",
         "casNo": "9004-36-8",
         "content": "1~6",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "이산화 티타늄",
         "casNo": "13463-67-7",
         "content": "1~6",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -898,7 +898,7 @@
         "chemicalName": "카본 블랙",
         "casNo": "1333-86-4",
         "content": "1~6",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -930,7 +930,7 @@
         "chemicalName": "알루미늄",
         "casNo": "7429-90-5",
         "content": "0.1~1미만",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       }
@@ -1124,9 +1124,9 @@
         "chemicalName": "셀룰로스 아세테이트 뷰틸레이트",
         "casNo": "9004-36-8",
         "content": "1~8",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "프로필렌 글리콜 모노메틸 에테르 아세테이트",
@@ -1188,7 +1188,7 @@
         "chemicalName": "이산화 규소",
         "casNo": "7631-86-9",
         "content": "1~6",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -1212,7 +1212,7 @@
         "chemicalName": "카본 블랙",
         "casNo": "1333-86-4",
         "content": "0.1~1미만",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -1220,7 +1220,7 @@
         "chemicalName": "금홍석(이산화 티타늄)",
         "casNo": "1317-80-2",
         "content": "0.1~1미만",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -1228,17 +1228,17 @@
         "chemicalName": "멜라민",
         "casNo": "108-78-1",
         "content": "0.1~1미만",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "니켈, 5,5'-아조비스-2,4,6(1H,3H,5H)-피리미 딘트라이온 착물",
         "casNo": "68511-62-6",
         "content": "0.1~1미만",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "4-메틸-2-펜탄온",
@@ -1652,25 +1652,25 @@
         "chemicalName": "펜테인이산 다이메틸",
         "casNo": "1119-40-0",
         "content": "1~8",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "숙신산 다이메틸",
         "casNo": "106-65-0",
         "content": "1~6",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "다이메틸 지방질",
         "casNo": "627-93-0",
         "content": "1~6",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       }
     ],
     "hazardBadge": "위험",
@@ -2179,7 +2179,7 @@
         "chemicalName": "황산 바륨",
         "casNo": "7727-43-7",
         "content": "1~8",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -2187,9 +2187,9 @@
         "chemicalName": "셀룰로스 아세테이트 뷰틸레이트",
         "casNo": "9004-36-8",
         "content": "1~6",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "Styrene, 2-hydroxyethyl methacrylate, methyl methacrylate, methacrylic acid, n- butyl acrylate, diethylaminoethyl methacrylate, n-butyl methacrylate, fumaric acid copolymer with glycidyl neodecanoate",
@@ -2219,15 +2219,15 @@
         "chemicalName": "Hexane, 1,6-diisocyanato-, homopolymer, di-Et malonate- and Et acetoacetate- blocked",
         "casNo": "103818-85-5",
         "content": "1~6",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "알루미늄",
         "casNo": "7429-90-5",
         "content": "1~6",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -2243,7 +2243,7 @@
         "chemicalName": "이산화 티타늄",
         "casNo": "13463-67-7",
         "content": "1~6",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -2283,7 +2283,7 @@
         "chemicalName": "카본 블랙",
         "casNo": "1333-86-4",
         "content": "0.1~1미만",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       }
@@ -2479,7 +2479,7 @@
         "chemicalName": "알루미늄",
         "casNo": "7429-90-5",
         "content": "1~8",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -2487,9 +2487,9 @@
         "chemicalName": "셀룰로스 아세테이트 뷰틸레이트",
         "casNo": "9004-36-8",
         "content": "1~8",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "방향족 중질 나프타 용매(석유)",
@@ -2535,9 +2535,9 @@
         "chemicalName": "Hexane, 1,6-diisocyanato-, homopolymer, di-Et malonate- and Et acetoacetate- blocked",
         "casNo": "103818-85-5",
         "content": "1~6",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "프로필렌 글리콜 모노메틸 에테르 아세테이트",
@@ -2607,7 +2607,7 @@
         "chemicalName": "카본 블랙",
         "casNo": "1333-86-4",
         "content": "0.1~1미만",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       }
@@ -2814,9 +2814,9 @@
         "chemicalName": "셀룰로스 아세테이트 뷰틸레이트",
         "casNo": "9004-36-8",
         "content": "1~8",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "Styrene, 2-hydroxyethyl methacrylate, methyl methacrylate, methacrylic acid, n- butyl acrylate, diethylaminoethyl methacrylate, n-butyl methacrylate, fumaric acid copolymer with glycidyl neodecanoate",
@@ -2838,7 +2838,7 @@
         "chemicalName": "삼산화 이철",
         "casNo": "1309-37-1",
         "content": "1~6",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -2846,9 +2846,9 @@
         "chemicalName": "C.I. 염료 황색 110",
         "casNo": "106276-80-6",
         "content": "1~6",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "에틸벤젠",
@@ -2886,7 +2886,7 @@
         "chemicalName": "알루미늄",
         "casNo": "7429-90-5",
         "content": "1~6",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -3379,9 +3379,9 @@
         "chemicalName": "셀룰로스 아세테이트 뷰틸레이 트",
         "casNo": "9004-36-8",
         "content": "1~10",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "2-(2-뷰톡시에톡시)에탄올 아세테이트",
@@ -3548,7 +3548,7 @@
         "chemicalName": "이산화 티타늄",
         "casNo": "13463-67-7",
         "content": "23~33",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -3604,9 +3604,9 @@
         "chemicalName": "폴리테트라메틸렌 에테르 글리 콜",
         "casNo": "25190-06-1",
         "content": "1~10",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "n-뷰틸 아세테이트",
@@ -3628,7 +3628,7 @@
         "chemicalName": "활석(석면 불포함)",
         "casNo": "14807-96-6",
         "content": "1~10",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -3644,7 +3644,7 @@
         "chemicalName": "수산화 알루미늄",
         "casNo": "21645-51-2",
         "content": "1~10",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -3652,7 +3652,7 @@
         "chemicalName": "이산화 규소",
         "casNo": "7631-86-9",
         "content": "1~10",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -3923,7 +3923,7 @@
         "chemicalName": "카본 블랙",
         "casNo": "1333-86-4",
         "content": "1~10",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -4188,7 +4188,7 @@
         "chemicalName": "카본 블랙",
         "casNo": "1333-86-4",
         "content": "1~10",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -4395,7 +4395,7 @@
         "chemicalName": "이산화 티타늄",
         "casNo": "13463-67-7",
         "content": "8~18",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -4491,7 +4491,7 @@
         "chemicalName": "카본 블랙",
         "casNo": "1333-86-4",
         "content": "0.1~4",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       }
@@ -4690,7 +4690,10 @@
         "content": "1~10",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "에틸벤젠 Ethylbenzene",
@@ -4706,7 +4709,10 @@
         "content": "08-10",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
       },
       {
         "chemicalName": "카본 블랙 Carbon black",
@@ -4961,7 +4967,10 @@
         "content": "0.1~4",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
       },
       {
         "chemicalName": "히드로탈황화 케로신",
@@ -4969,7 +4978,10 @@
         "content": "0.1~4",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       }
     ],
     "hazardBadge": "위험",
@@ -5169,7 +5181,10 @@
         "content": "1645-51",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
       },
       {
         "chemicalName": "이산화 규소 Silicon dioxide",
@@ -5366,7 +5381,10 @@
         "content": "1~10",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "n-뷰틸 아세테이트 n-Butyl acetate",
@@ -5390,7 +5408,10 @@
         "content": "1~10",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
       },
       {
         "chemicalName": "이산화 규소 Silicon dioxide",
@@ -6817,7 +6838,10 @@
         "content": "4742-95",
         "controlledSubstance": "○",
         "workEnvironmentMeasurement": "○",
-        "specialHealthExam": "○"
+        "specialHealthExam": "○",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "n-뷰틸 아세테이트 n-Butyl acetate",
@@ -7001,7 +7025,10 @@
         "content": "4742-95",
         "controlledSubstance": "○",
         "workEnvironmentMeasurement": "○",
-        "specialHealthExam": "○"
+        "specialHealthExam": "○",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "4-메틸-2-펜탄온 4-Methyl-2-pentanone",
@@ -7243,7 +7270,7 @@
         "chemicalName": "이산화 티타늄",
         "casNo": "13463-67-7",
         "content": "6~16",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -7259,9 +7286,9 @@
         "chemicalName": "2,5-푸란디온, 폴리프로필렌 및 염소 화 물질과의 반응물",
         "casNo": "68609-36-9",
         "content": "1~10",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "에틸벤젠",
@@ -7291,7 +7318,7 @@
         "chemicalName": "활석(석면 불포함)",
         "casNo": "14807-96-6",
         "content": "1~10",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       }
@@ -7498,15 +7525,15 @@
         "chemicalName": "2,5-푸란디온, 폴리프로필렌 및 염소화 물질과의 반응물",
         "casNo": "68609-36-9",
         "content": "1~10",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "이산화 티타늄",
         "casNo": "13463-67-7",
         "content": "1~10",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -7530,7 +7557,7 @@
         "chemicalName": "활석(석면 불포함)",
         "casNo": "14807-96-6",
         "content": "1~10",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -7546,7 +7573,7 @@
         "chemicalName": "카본 블랙",
         "casNo": "1333-86-4",
         "content": "0.1~4",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -8146,7 +8173,7 @@
         "chemicalName": "이산화 티타늄",
         "casNo": "13463-67-7",
         "content": "20~30",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -8218,9 +8245,9 @@
         "chemicalName": "Blocked isocyanate",
         "casNo": "CAS 미기재",
         "content": "1~10",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "아이소뷰탄올",
@@ -8242,7 +8269,7 @@
         "chemicalName": "이산화 규소",
         "casNo": "7631-86-9",
         "content": "1~10",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -8250,7 +8277,7 @@
         "chemicalName": "수산화 알루미늄",
         "casNo": "21645-51-2",
         "content": "1~10",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       }
@@ -8496,7 +8523,7 @@
         "chemicalName": "카본 블랙",
         "casNo": "1333-86-4",
         "content": "1~10",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -8520,7 +8547,7 @@
         "chemicalName": "이산화 티타늄",
         "casNo": "13463-67-7",
         "content": "0.1~4",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       }
@@ -8771,9 +8798,9 @@
         "chemicalName": "폴리테트라메틸렌 에테르 글리콜",
         "casNo": "25190-06-1",
         "content": "1~10",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "프로필렌 글라이콜 모노메틸 에 테르 아세트산",
@@ -8787,7 +8814,7 @@
         "chemicalName": "이산화 티타늄",
         "casNo": "13463-67-7",
         "content": "0.1~4",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       }
@@ -9048,7 +9075,7 @@
         "chemicalName": "금홍석(이산화 티타늄)",
         "casNo": "1317-80-2",
         "content": "0.1~4",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -9056,7 +9083,7 @@
         "chemicalName": "카본 블랙",
         "casNo": "1333-86-4",
         "content": "0.1~4",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -9464,7 +9491,7 @@
         "chemicalName": "이산화 티타늄",
         "casNo": "13463-67-7",
         "content": "20~30",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -9544,9 +9571,9 @@
         "chemicalName": "Blocked isocyanate",
         "casNo": "CAS 미기재",
         "content": "1~10",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "에틸벤젠",
@@ -9560,7 +9587,7 @@
         "chemicalName": "이산화 규소",
         "casNo": "7631-86-9",
         "content": "1~10",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -9568,7 +9595,7 @@
         "chemicalName": "수산화 알루미늄",
         "casNo": "21645-51-2",
         "content": "1~10",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       }
@@ -9765,9 +9792,9 @@
         "chemicalName": "Acrylate copolymer with basic pigment affinic groups",
         "casNo": "CAS 미기재",
         "content": "1~10",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "n-뷰틸 아세테이트",
@@ -9821,7 +9848,7 @@
         "chemicalName": "알루미늄",
         "casNo": "7429-90-5",
         "content": "1~10",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -9861,7 +9888,7 @@
         "chemicalName": "카본 블랙",
         "casNo": "1333-86-4",
         "content": "0.1~4",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       }
@@ -10027,7 +10054,7 @@
         "chemicalName": "이산화 티타늄",
         "casNo": "13463-67-7",
         "content": "21~31",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -10099,9 +10126,9 @@
         "chemicalName": "Blocked isocyanate",
         "casNo": "CAS 미기재",
         "content": "1~10",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "에틸벤젠",
@@ -10115,7 +10142,7 @@
         "chemicalName": "수산화 알루미늄",
         "casNo": "21645-51-2",
         "content": "1~10",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -10123,7 +10150,7 @@
         "chemicalName": "이산화 규소",
         "casNo": "7631-86-9",
         "content": "1~10",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -10331,7 +10358,7 @@
         "chemicalName": "알루미늄",
         "casNo": "7429-90-5",
         "content": "1~10",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -10395,7 +10422,7 @@
         "chemicalName": "카본 블랙",
         "casNo": "1333-86-4",
         "content": "0.1~4",
-        "managementTarget": "",
+        "managementTarget": "해당없음",
         "workplaceMonitoringTarget": "○",
         "specialHealthCheckTarget": "○"
       },
@@ -26131,9 +26158,9 @@
         "chemicalName": "디젤 연료",
         "casNo": "68334-30-5",
         "content": "100",
-        "managementTarget": "",
-        "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       }
     ],
     "hazardBadge": "위험",
@@ -34550,7 +34577,10 @@
         "content": "25 ~ 32",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
       },
       {
         "chemicalName": "타시드 ; 톨루올 ; 1-메틸벤젠 / KE-33936",
@@ -34566,7 +34596,10 @@
         "content": "10 ~ 17",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "자일렌 자일롤 ; 메틸톨루엔 ; 다이메틸벤젠 / KE-35427",
@@ -34590,7 +34623,10 @@
         "content": "1 ~ 8",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
       },
       {
         "chemicalName": "/ KE-13217",
@@ -34606,7 +34642,10 @@
         "content": "1 ~ 6",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "나이트로셀룰로스 셀룰로스 나이트레이트 ; 콜로디온 ; / KE-25980",
@@ -34837,7 +34876,10 @@
         "content": "22 ~ 29",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "자일렌 자일롤 ; 메틸톨루엔 ; 다이메틸벤젠 / KE-35427",
@@ -34861,7 +34903,10 @@
         "content": "1 ~ 8",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "자료없음 / KE-32296",
@@ -34909,7 +34954,8 @@
         "content": "1 ~ 6",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음"
       },
       {
         "chemicalName": "아세트산 에틸",
@@ -34917,7 +34963,10 @@
         "content": "1 ~ 6",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "알루미늄",
@@ -34925,7 +34974,10 @@
         "content": "1 ~ 6",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
       },
       {
         "chemicalName": "드 ; / KE-18271",
@@ -34949,7 +35001,10 @@
         "content": "1 ~ 6",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
       },
       {
         "chemicalName": "/ KE-24725 미만",
@@ -35142,7 +35197,10 @@
         "content": "25 ~ 32",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "타시드 ; 톨루올 ; 1-메틸벤젠 / KE-33936",
@@ -35174,7 +35232,10 @@
         "content": "1 ~ 8",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "톡시프로판-2-일 아세트산 / KE-23315",
@@ -35206,7 +35267,10 @@
         "content": "1 ~ 6",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "수산화 산화 철 옐로우",
@@ -35214,7 +35278,10 @@
         "content": "1 ~ 6",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
       },
       {
         "chemicalName": "2-뷰톡시에탄올, 아세테이트",
@@ -35222,7 +35289,10 @@
         "content": "1 ~ 6",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
       },
       {
         "chemicalName": "수소탈황된 중질 나프타 (석유)",
@@ -35230,7 +35300,9 @@
         "content": "1 ~ 6",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음"
       },
       {
         "chemicalName": "드 ; / KE-18271",
@@ -35446,7 +35518,10 @@
         "content": "34 ~ 41",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
       },
       {
         "chemicalName": "타시드 ; 톨루올 ; 1-메틸벤젠 / KE-33936",
@@ -35462,7 +35537,10 @@
         "content": "7 ~ 14",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "자일렌 자일롤 ; 메틸톨루엔 ; 다이메틸벤젠 / KE-35427",
@@ -35510,7 +35588,10 @@
         "content": "1 ~ 6",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "자료없음 / KE-32296",
@@ -35526,7 +35607,10 @@
         "content": "1 ~ 6",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "managementTarget": "해당없음",
+        "workplaceMonitoringTarget": "해당없음",
+        "specialHealthCheckTarget": "해당없음"
       },
       {
         "chemicalName": "페닐에테인 / KE-13532 미만",

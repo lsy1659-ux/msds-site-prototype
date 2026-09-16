@@ -72,10 +72,15 @@ def main() -> int:
             if not match:
                 continue
             for field in FLAG_FIELDS:
-                if field in match and not str(ingredient.get(field) or "").strip() and match[field]:
-                    ingredient[field] = match[field]
-                    filled_flags += 1
-                    touched_products.add(product["id"])
+                if field not in match:
+                    continue
+                if str(ingredient.get(field) or "").strip():
+                    continue
+                # 빈칸은 화면에 "미확인"으로 뜬다. 원문이 해당없음이라고 적었으면
+                # 그렇게 확인됐다고 써 줘야 작업자가 자료 누락과 구분할 수 있다.
+                ingredient[field] = match[field] if match[field] else "해당없음"
+                filled_flags += 1
+                touched_products.add(product["id"])
 
     # 오염된 유해문구를 깨끗한 재추출본으로 교체
     by_path = {}
