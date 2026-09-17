@@ -36,42 +36,44 @@ const GUIDE_GHS = {
   GHS09: { label: "환경유해성", icon: "assets/ghs/ghs09.svg" }
 };
 
-/* 항목별 개수 기준.
- *
- * 벽보는 멀리서 읽으므로 글자가 많으면 아무도 읽지 않는다. 다만 법이
- * 요구하는 최소치는 지켜야 하므로 "몇 개 이상"과 "몇 개까지"를 함께 둔다.
- *   H문구  최소 2개(하나뿐이면 하나), 최대 6개. 중대한 위험을 먼저 싣는다.
- *   P문구  최소 4개, 최대 6개. 예방·대응·저장·폐기를 하나씩 먼저 채운다.
- *   응급   최소 4개. 흡입·피부·눈·누출·화재·섭취 순으로 싣는다.
- *   그림문자는 생략하지 않는다.
- */
+/* 항목별 개수 기준. 시행규칙 제168조가 요구하는 다섯 영역을 모든 제품에
+ * 같은 규칙으로 뽑는다. 제품별 예외는 두지 않는다.
+ *   H문구  최소 2개, 최대 5개. 중대한 위험을 먼저 싣는다.
+ *   P문구  최소 4개, 최대 6개. 예방·대응·저장이 고루 들어가게 한다.
+ *   취급·저장  최소 2개, 최대 4개.
+ *   응급   최소 4개, 최대 6개.
+ * 원문에 없는 내용은 만들지 않는다. 모자라면 있는 것만 싣는다. */
 const HAZARD_MIN = 2;
-const HAZARD_MAX = 6;
+const HAZARD_MAX = 5;
 const PRECAUTION_MIN = 4;
 const PRECAUTION_MAX = 6;
 const HANDLING_MIN = 2;
-const HANDLING_MAX = 3;
-const FIRST_AID_MIN = 4;
+const HANDLING_MAX = 4;
+const EMERGENCY_MIN = 4;
+const EMERGENCY_MAX = 6;
 const FIRST_AID_LIMIT = 1;
 
-// 중대한 위험부터 싣는다. 앞에 있을수록 먼저 고른다.
+/* 중대한 유해·위험성부터 싣는다. 앞에 있을수록 먼저 고른다.
+ * 폭발 → 인화 → 고압가스 → 급성독성 → 부식 → 발암·생식 → 호흡기과민
+ * → 표적장기 → 흡인유해 → 환경유해 순이다. */
 const SEVERE_HAZARD_CODES = [
-  "H200", "H201", "H202", "H203", "H204", "H205",       // 폭발성
-  "H220", "H221", "H222", "H223", "H224", "H225", "H226", // 인화성
-  "H240", "H241", "H242",                                  // 자기반응성
-  "H250", "H251", "H252", "H260", "H261",                  // 자연발화·물반응성
-  "H270", "H271", "H272",                                  // 산화성
-  "H280", "H281",                                          // 고압가스
-  "H300", "H301", "H310", "H311", "H330", "H331",          // 급성독성
-  "H340", "H341", "H350", "H351", "H360", "H361",          // 발암·변이원·생식독성
-  "H334", "H335",                                          // 호흡기 과민성·자극
-  "H370", "H371", "H372", "H373",                          // 장기 독성
-  "H314", "H318"                                           // 부식·심한 눈손상
+  "H200", "H201", "H202", "H203", "H204", "H205",
+  "H220", "H221", "H222", "H223", "H224", "H225", "H226", "H228",
+  "H240", "H241", "H242", "H250", "H251", "H252", "H260", "H261",
+  "H270", "H271", "H272",
+  "H280", "H281",
+  "H300", "H301", "H302", "H310", "H311", "H312", "H330", "H331", "H332",
+  "H314", "H318",
+  "H340", "H341", "H350", "H351", "H360", "H361", "H362",
+  "H334",
+  "H370", "H371", "H372", "H373",
+  "H304", "H305",
+  "H400", "H410", "H411", "H412", "H413"
 ];
 
 const guideState = {
   products: [], filtered: [], selected: new Set(),
-  query: "", paper: "a4", process: "", showProcess: false, onlySelected: false, onlyPostable: true
+  query: "", paper: "a4", onlySelected: false, onlyPostable: true
 };
 const guideElements = {};
 
@@ -188,7 +190,7 @@ function cleanList(items, limit) {
  * 것처럼 보인다. 조용히 줄만 남기고, 만들 수 없는 제품은 아예 목록에서
  * 빼는 쪽으로 거른다. */
 function blankMark() {
-  return '<span class="guide-blank">—</span>';
+  return '<span class="guide-blank">-</span>';
 }
 
 /* 게시물로 쓸 수 있는 제품인지 본다. 명칭 말고 알맹이가 하나도 없으면
@@ -242,33 +244,86 @@ function getPictogramCodes(product) {
     .filter((code) => GUIDE_GHS[code]);
 }
 
-// 중대한 위험을 앞에 싣는다. 순서표에 없는 문구는 원래 차례대로 뒤에 붙는다.
-function getHazardStatements(product) {
-  const all = cleanList(product.hazardStatements, 0);
-  const rank = (text) => {
-    const code = (String(text).match(/H\d{3}/) || [])[0];
-    const at = code ? SEVERE_HAZARD_CODES.indexOf(code) : -1;
-    return at === -1 ? SEVERE_HAZARD_CODES.length : at;
-  };
-  const sorted = all
-    .map((text, index) => ({ text, index, rank: rank(text) }))
-    .sort((a, b) => (a.rank - b.rank) || (a.index - b.index))
-    .map((item) => item.text);
-  return sorted.slice(0, HAZARD_MAX);
-}
-
+// 신호어는 고시가 정한 "위험"과 "경고" 둘뿐이다. 추출이 실패해 붙은
+// 임시 배지를 신호어 자리에 찍으면 잘못된 게시물이 된다.
 function getSignalWord(product) {
   const badge = String(product.hazardBadge || product.signalWord || "").trim();
   return badge === "위험" || badge === "경고" ? badge : "";
 }
 
-// ④ 보호구는 원문 문장에서 무엇을 쓰라고 했는지만 골라낸다.
+// 같은 문구가 여러 영역에 반복되면 게시물이 길어지고 읽히지 않는다.
+// 한 장 안에서 한 번만 쓰도록 쓴 문구를 기억해 둔다.
+function dedupeKey(text) {
+  return String(text).replace(/\s+/g, "").replace(/[.,·/]/g, "");
+}
+
+// 중대한 위험을 앞에 싣는다. 순서표에 없는 문구는 원래 차례대로 뒤에 붙는다.
+function getHazardStatements(product) {
+  const all = cleanList(product.hazardStatements, 0);
+  const rank = (text) => {
+    const code = (String(text).match(/\bH\d{3}\b/) || [])[0];
+    const at = code ? SEVERE_HAZARD_CODES.indexOf(code) : -1;
+    return at === -1 ? SEVERE_HAZARD_CODES.length : at;
+  };
+  return all
+    .map((text, index) => ({ text, index, rank: rank(text) }))
+    .sort((a, b) => (a.rank - b.rank) || (a.index - b.index))
+    .map((item) => item.text)
+    .slice(0, HAZARD_MAX);
+}
+
+/* 예방조치문구는 한 갈래만 실으면 반쪽이 된다. 예방·대응·저장을 하나씩
+ * 먼저 채우고, 남는 자리를 순서대로 메운다. 폐기는 그다음이다. */
+const PRECAUTION_GROUPS = ["prevention", "response", "storage", "disposal"];
+const PRECAUTION_FIRST = ["prevention", "response", "storage"];
+
+function getPrecautionStatements(product, used) {
+  const groups = product.precautionaryStatements || {};
+  const picked = [];
+  const add = (text) => {
+    if (!text || picked.length >= PRECAUTION_MAX) return;
+    const key = dedupeKey(text);
+    if (used.has(key)) return;
+    used.add(key);
+    picked.push(text);
+  };
+  PRECAUTION_FIRST.forEach((name) => add(cleanList(groups[name], 1)[0]));
+  PRECAUTION_GROUPS.forEach((name) => cleanList(groups[name], 0).forEach(add));
+  return picked;
+}
+
+/* 취급·저장 주의사항의 원문은 MSDS 7항이지만 공개 데이터에는 그 항이
+ * 없다. 저장·취급에 해당하는 문구로 대신 채운다. 위에서 이미 쓴 문구는
+ * 빼서 같은 말이 두 번 나오지 않게 한다. */
+const HANDLING_WORDS = [
+  "보관", "저장", "환기", "밀폐", "정전기", "접지", "화기", "점화",
+  "열", "고온", "직사광선", "습기", "용기", "혼합", "온도"
+];
+
+function getHandlingItems(product, used) {
+  const groups = product.precautionaryStatements || {};
+  const pool = [
+    ...cleanList(groups.storage, 0),
+    ...cleanList(groups.prevention, 0).filter((text) => HANDLING_WORDS.some((word) => text.includes(word)))
+  ];
+  const out = [];
+  pool.forEach((text) => {
+    if (out.length >= HANDLING_MAX) return;
+    const key = dedupeKey(text);
+    if (used.has(key)) return;
+    used.add(key);
+    out.push(text);
+  });
+  return out;
+}
+
+/* 보호구는 네 가지로만 나눈다. MSDS 8항이 요구한 것만 싣고, 없는 것을
+ * 채워 넣지 않는다. 한 유형에 여러 표현이 있어도 한 번만 보여 준다. */
 const PPE_RULES = [
-  { key: "goggles", label: "보안경", words: ["보안경", "고글", "안면보호", "눈 보호", "밀폐형"] },
+  { key: "goggles", label: "보안경 / 안면보호구", words: ["보안경", "고글", "안면보호", "눈 보호", "밀폐형 보안경"] },
   { key: "gloves", label: "보호장갑", words: ["장갑"] },
   { key: "mask", label: "호흡보호구", words: ["마스크", "호흡", "방독", "방진", "송기", "공기호흡기"] },
-  { key: "suit", label: "보호복", words: ["보호복", "보호의", "앞치마", "보호의복"] },
-  { key: "boots", label: "안전화", words: ["안전화", "장화"] }
+  { key: "suit", label: "보호복 / 신체보호구", words: ["보호복", "보호의", "앞치마", "보호의복", "신체", "안전화", "장화"] }
 ];
 
 function getPpeItems(product) {
@@ -280,60 +335,36 @@ function getPpeItems(product) {
   return PPE_RULES.filter((rule) => rule.words.some((word) => text.includes(word)));
 }
 
-/* 실제로 크게 다치는 순서대로 싣는다. 흡입과 피부 접촉이 가장 흔하고,
- * 누출·화재는 사람이 여럿 다치는 사고다. 섭취는 마지막에 둔다. */
-function getEmergencyItems(product) {
+/* 응급조치는 실제로 크게 다치는 순서로 싣는다. 흡입과 섭취는 전혀 다른
+ * 사고이므로 이름을 섞지 않는다. 누출과 화재는 P문구에서 가려낸다. */
+const SPILL_WORDS = ["누출", "유출", "엎질러", "흘린"];
+const FIRE_WORDS = ["화재", "불", "소화", "연소"];
+
+function getEmergencyItems(product, used) {
   const aid = product.firstAid || {};
-  const groups = product.precautionaryStatements || {};
-  const spill = cleanList(groups.response, 1)[0] || "";
+  const response = cleanList((product.precautionaryStatements || {}).response, 0);
+  const pick = (words) => response.find((text) => words.some((word) => text.includes(word))) || "";
+
   const order = [
-    { label: "마셨을 때(흡입)", text: cleanList(aid.inhalation, FIRST_AID_LIMIT)[0] },
+    { label: "흡입했을 때", text: cleanList(aid.inhalation, FIRST_AID_LIMIT)[0] },
     { label: "피부에 닿았을 때", text: cleanList(aid.skin, FIRST_AID_LIMIT)[0] },
     { label: "눈에 들어갔을 때", text: cleanList(aid.eye, FIRST_AID_LIMIT)[0] },
-    { label: "누출 · 화재", text: spill },
-    { label: "삼켰을 때", text: cleanList(aid.ingestion, FIRST_AID_LIMIT)[0] }
+    { label: "삼켰을 때", text: cleanList(aid.ingestion, FIRST_AID_LIMIT)[0] },
+    { label: "누출 시", text: pick(SPILL_WORDS) },
+    { label: "화재 시", text: pick(FIRE_WORDS) }
   ];
-  return order.filter((group) => group.text);
-}
 
-/* 예방조치문구는 한 갈래만 실으면 반쪽이 된다. 고시도 일곱 개가 넘을 때
- * 예방·대응·저장·폐기를 하나씩 포함해 여섯 개로 줄이는 것을 허용한다.
- * 그 방식대로 각 갈래에서 하나씩 먼저 뽑고 남는 자리를 순서대로 채운다. */
-const PRECAUTION_GROUPS = ["prevention", "response", "storage", "disposal"];
-
-function getPrecautionStatements(product) {
-  const groups = product.precautionaryStatements || {};
-  const picked = [];
-  const seen = new Set();
-  const add = (text) => {
-    if (!text || seen.has(text) || picked.length >= PRECAUTION_MAX) return;
-    seen.add(text);
-    picked.push(text);
-  };
-  PRECAUTION_GROUPS.forEach((key) => add(cleanList(groups[key], 1)[0]));
-  PRECAUTION_GROUPS.forEach((key) => cleanList(groups[key], 0).forEach(add));
-  return picked;
-}
-
-/* 취급·저장 주의사항은 MSDS 7항이 원문이지만 공개 데이터에는 그 항이
- * 없다. 저장·취급에 해당하는 예방조치문구로 대신 채우고, 그마저 없으면
- * 비었다고 드러낸다. 없는 값을 지어내지 않는다. */
-const HANDLING_WORDS = ["보관", "저장", "환기", "밀폐", "정전기", "접지", "화기", "열", "직사광선", "용기"];
-
-function getHandlingItems(product) {
-  const groups = product.precautionaryStatements || {};
-  const storage = cleanList(groups.storage, 0);
-  const related = cleanList(groups.prevention, 0)
-    .filter((text) => HANDLING_WORDS.some((word) => text.includes(word)));
-  const seen = new Set();
   const out = [];
-  [...storage, ...related].forEach((text) => {
-    if (seen.has(text) || out.length >= HANDLING_MAX) return;
-    seen.add(text);
-    out.push(text);
+  order.forEach((group) => {
+    if (!group.text || out.length >= EMERGENCY_MAX) return;
+    const key = dedupeKey(group.text);
+    if (used.has(key)) return;
+    used.add(key);
+    out.push(group);
   });
   return out;
 }
+
 
 function renderList(items) {
   if (!items.length) return `<p class="guide-blank-line">${blankMark()}</p>`;
@@ -343,11 +374,13 @@ function renderList(items) {
 function renderSheetCard(product) {
   const codes = getPictogramCodes(product);
   const signal = getSignalWord(product);
+  // 한 장 안에서 같은 문구가 여러 영역에 반복되지 않게 쓴 것을 기억한다.
+  const used = new Set();
   const hazards = getHazardStatements(product);
-  const prevention = getPrecautionStatements(product);
-  const handling = getHandlingItems(product);
+  const prevention = getPrecautionStatements(product, used);
+  const handling = getHandlingItems(product, used);
   const ppe = getPpeItems(product);
-  const aid = getEmergencyItems(product);
+  const aid = getEmergencyItems(product, used);
   const contacts = splitContacts(product.emergencyContact);
 
   const pictograms = codes.length
@@ -358,10 +391,6 @@ function renderSheetCard(product) {
         </figure>`).join("")
     : `<p class="guide-blank-line">${blankMark()}</p>`;
 
-  const processRow = guideState.showProcess
-    ? `<tr><th>작업공정</th><td>${guideEscape(guideState.process) || blankMark()}</td></tr>`
-    : "";
-
   return `
     <article class="guide-card" data-guide-id="${guideEscape(product.id)}">
       <label class="guide-card-pick no-print">
@@ -371,7 +400,7 @@ function renderSheetCard(product) {
 
       <header class="guide-card-head">
         <h2>화학제품 작업공정별 관리요령</h2>
-        <p>물질안전보건자료(MSDS) 관리요령 · 산업안전보건법 시행규칙 제167조</p>
+        <p>물질안전보건자료(MSDS) 관리요령 · 산업안전보건법 시행규칙 제168조</p>
       </header>
 
       <section class="guide-block guide-block-name">
@@ -379,13 +408,12 @@ function renderSheetCard(product) {
         <table class="guide-table">
           <tbody>
             <tr><th>제품명</th><td class="is-strong">${guideEscape(product.productName)}</td></tr>
-            ${processRow}
           </tbody>
         </table>
       </section>
 
       <section class="guide-block guide-block-hazard">
-        <h3><b>②</b> 유해성 · 위험성</h3>
+        <h3><b>②</b> 건강 및 환경에 대한 유해성, 물리적 위험성</h3>
         <div class="guide-hazard-top">
           <div class="guide-pictograms">${pictograms}</div>
           <p class="guide-signal${signal === "위험" ? " is-danger" : ""}">${guideEscape(signal) || blankMark()}</p>
@@ -547,19 +575,6 @@ function bindGuideEvents() {
     syncGuideSelection();
   });
 
-  guideElements.processOn?.addEventListener("change", (event) => {
-    guideState.showProcess = event.target.checked;
-    guideElements.processField?.toggleAttribute("hidden", !event.target.checked);
-    renderGuideSheet();
-    syncGuideSelection();
-  });
-
-  guideElements.process?.addEventListener("input", (event) => {
-    guideState.process = event.target.value;
-    renderGuideSheet();
-    syncGuideSelection();
-  });
-
   guideElements.sheet?.addEventListener("change", (event) => {
     const box = event.target.closest("[data-guide-check]");
     if (!box) return;
@@ -616,9 +631,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   guideElements.search = document.querySelector("#guideSearch");
   guideElements.paper = document.querySelector("#guidePaper");
   guideElements.onlyPostable = document.querySelector("#guideOnlyPostable");
-  guideElements.processOn = document.querySelector("#guideProcessOn");
-  guideElements.processField = document.querySelector("#guideProcessField");
-  guideElements.process = document.querySelector("#guideProcess");
   guideElements.sheet = document.querySelector("#guideSheet");
   guideElements.status = document.querySelector("#guideStatus");
   guideElements.picked = document.querySelector("#guidePicked");
