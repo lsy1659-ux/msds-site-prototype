@@ -40866,5 +40866,120 @@
       "validationStatus": "automatic",
       "validationWarnings": []
     }
+  },
+  {
+    "id": "msds-pdf-e3aa33ca136c6558",
+    "productName": "천연가스(LNG, Natural Gas with Odorant)",
+    "msdsNo": "AA06600-0000000001",
+    "fileName": "2023.천연가스 GHS-MSDS.pdf",
+    "pdfPath": "pdf/천연가스(LNG)/2023.천연가스 GHS-MSDS.pdf",
+    "recommendedUse": "천연가스, 연료가스",
+    "supplier": "한국가스공사",
+    "issueDate": "2010-06-15",
+    "revisionDate": "2022-01-06",
+    "emergencyContact": "긴급전화번호 053-670-0430",
+    "supplierAddress": "대구광역시 동구 첨단로 120길",
+    "dangerousGoods": "",
+    "ppeSummary": "",
+    "ingredients": [
+      {
+        "chemicalName": "NATURAL GAS",
+        "casNo": "8006-14-2",
+        "content": "99.9994~99.9997",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "Tetrahydrothiophene",
+        "casNo": "110-01-0",
+        "content": "0.0002~",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      }
+    ],
+    "hazardBadge": "위험",
+    "signalWord": "위험",
+    "ghsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      }
+    ],
+    "hazardStatements": [
+      "H220 극인화성 가스",
+      "H280 고압가스: 가열하면 폭발할 수 있음"
+    ],
+    "precautionaryStatements": {
+      "prevention": [
+        "P210 열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연"
+      ],
+      "response": [
+        "P377 가스 누출 화재; 누출을 안전하게 막을 수 없다면, 불을 끄려하지 마시오",
+        "P381 누출 시 모든 점화원을 제거하시오"
+      ],
+      "storage": [
+        "P403 환기가 잘 되는 곳에 보관하시오"
+      ],
+      "disposal": []
+    },
+    "classificationGhsCodes": [
+      "GHS02",
+      "GHS04"
+    ],
+    "classificationGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      }
+    ],
+    "ghsCodes": [
+      "GHS02",
+      "GHS04"
+    ],
+    "ppeCandidates": [
+      "격리식 전면형 방독 마스크(유기화합물용) 또는 전동식 방독마스크를 착용하시오",
+      "산소가 부족한 경우(19.5% 미만) 송기마스크 혹은 자급식공기호흡기를 착용하시오",
+      "밀폐형 보안경을 착용하시오",
+      "적절한 재질의 보호장갑을 착용하시오",
+      "적절한 재질의 보호의복을 착용하시오"
+    ],
+    "ghsSource": "section2_classification",
+    "publication": {
+      "summaryMode": "automatic",
+      "summaryAvailable": true,
+      "validationStatus": "automatic",
+      "validationWarnings": []
+    },
+    "firstAid": {
+      "eye": [
+        "긴급 의료조치를 받으시오",
+        "물질과 접촉 시 즉시 20분 이상 흐르는 물에 피부와 눈을 씻어내시오"
+      ],
+      "skin": [
+        "긴급 의료조치를 받으시오",
+        "피부에 얼어붙은 옷은 제거하기 전 해동하시오",
+        "액화가스에 접촉한 경우 미지근한 물로 해당 부위를 녹이시오",
+        "손상된 부위를 문지르지 마시오"
+      ],
+      "inhalation": [
+        "신선한 공기가 있는 곳으로 옮기시오",
+        "호흡하지 않는 경우 인공호흡을 실시하시오",
+        "호흡이 힘들 경우 산소를 공급하시오",
+        "즉시 의학적인 조치와 조언을 받으시오"
+      ],
+      "ingestion": [
+        "구강대구강법으로 인공호흡을 하지 말고 적절한 호흡의료 장비를 이용하시오"
+      ]
+    }
   }
 ]
