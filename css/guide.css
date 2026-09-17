@@ -481,25 +481,33 @@ body {
   content: " :";
 }
 
+/* 이름표와 값이 줄마다 어긋나면 읽기 어렵다. 이름표 칸을 한 줄로
+ * 맞추고 값은 남는 자리를 쓰게 한다. 주소는 길어서 한 줄을 다 쓴다. */
 .guide-supplier-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.2mm 4mm;
+  grid-template-columns: max-content minmax(0, 1fr) max-content minmax(0, 1fr);
+  gap: 1.2mm 3mm;
+  margin: 0;
   font-size: 9pt;
+  align-items: baseline;
 }
 
-.guide-supplier-grid .is-wide {
-  grid-column: 1 / -1;
-}
-
-.guide-supplier-grid span {
-  display: inline-block;
-  min-width: 22mm;
+.guide-supplier-grid dt {
   font-weight: 800;
+  white-space: nowrap;
 }
 
-.guide-supplier-grid span::after {
+.guide-supplier-grid dt::after {
   content: " :";
+}
+
+.guide-supplier-grid dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.guide-supplier-grid dd.is-wide {
+  grid-column: 2 / -1;
 }
 
 .guide-block-qr {
@@ -545,12 +553,13 @@ body {
   content: "■ ";
 }
 
-.guide-empty,
-.guide-missing {
+/* 값이 없으면 그냥 없는 것이다. 붉게 알리면 자료가 잘못된 것처럼
+ * 보인다. 자리만 지키는 줄표를 흐리게 둔다. */
+.guide-blank,
+.guide-blank-line {
   margin: 0;
-  color: #b3261e;
-  font-size: 9.5pt;
-  font-weight: 800;
+  color: #8a9691;
+  font-size: 9pt;
 }
 
 /* ── 좁은 화면 ───────────────────────────────────────────── */

@@ -709,10 +709,34 @@ function resetFullListNavigation() {
   state.fullListReturnY = 0;
 }
 
+/* 벽에 붙은 게시물의 QR 은 몇 년을 살아 있다. 그 사이 자료가 바뀌어
+ * 제품 번호가 달라지거나 제품이 빠지면 번호로는 못 찾는다. 그래서
+ * 관리요령 QR 은 번호와 함께 제품명(q)도 싣는다. 번호로 못 찾으면
+ * 이름으로 찾아 주고, 그것도 안 되면 왜 안 되는지 알린다. */
 function getRequestedProductId(products = []) {
-  const requestedId = new URLSearchParams(window.location.search).get("product");
-  if (!requestedId) return null;
-  return products.some((product) => product.id === requestedId) ? requestedId : null;
+  const params = new URLSearchParams(window.location.search);
+  const requestedId = params.get("product");
+  const wantedName = String(params.get("q") || "").trim();
+
+  if (requestedId && products.some((product) => product.id === requestedId)) return requestedId;
+  if (!requestedId && !wantedName) return null;
+
+  if (wantedName) {
+    const needle = normalizeSearchText(wantedName);
+    const exact = products.find((product) => normalizeSearchText(product.productName) === needle);
+    const loose = exact || products.find((product) => normalizeSearchText(product.productName).includes(needle));
+    if (loose) {
+      state.publicNotice = `인쇄물의 QR이 가리키던 번호가 바뀌어, 제품명 "${wantedName}"으로 찾았습니다.`;
+      return loose.id;
+    }
+    state.publicNotice = `인쇄물의 QR이 가리키는 제품("${wantedName}")을 찾지 못했습니다. 이름으로 다시 찾아보세요.`;
+    state.query = wantedName;
+    if (elements.searchInput) elements.searchInput.value = wantedName;
+    return null;
+  }
+
+  state.publicNotice = "인쇄물의 QR이 가리키는 제품을 찾지 못했습니다. 제품명으로 다시 찾아보세요.";
+  return null;
 }
 
 function updateProductUrl(productId) {

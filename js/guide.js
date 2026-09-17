@@ -36,16 +36,42 @@ const GUIDE_GHS = {
   GHS09: { label: "환경유해성", icon: "assets/ghs/ghs09.svg" }
 };
 
-// 벽보는 멀리서 읽는다. 항목마다 이만큼만 싣는다.
-const HAZARD_LIMIT = 5;
-const PRECAUTION_LIMIT = 5;
-const STORAGE_LIMIT = 2;
+/* 항목별 개수 기준.
+ *
+ * 벽보는 멀리서 읽으므로 글자가 많으면 아무도 읽지 않는다. 다만 법이
+ * 요구하는 최소치는 지켜야 하므로 "몇 개 이상"과 "몇 개까지"를 함께 둔다.
+ *   H문구  최소 2개(하나뿐이면 하나), 최대 6개. 중대한 위험을 먼저 싣는다.
+ *   P문구  최소 4개, 최대 6개. 예방·대응·저장·폐기를 하나씩 먼저 채운다.
+ *   응급   최소 4개. 흡입·피부·눈·누출·화재·섭취 순으로 싣는다.
+ *   그림문자는 생략하지 않는다.
+ */
+const HAZARD_MIN = 2;
+const HAZARD_MAX = 6;
+const PRECAUTION_MIN = 4;
+const PRECAUTION_MAX = 6;
+const HANDLING_MIN = 2;
+const HANDLING_MAX = 3;
+const FIRST_AID_MIN = 4;
 const FIRST_AID_LIMIT = 1;
-const PICTOGRAM_LIMIT = 4;
+
+// 중대한 위험부터 싣는다. 앞에 있을수록 먼저 고른다.
+const SEVERE_HAZARD_CODES = [
+  "H200", "H201", "H202", "H203", "H204", "H205",       // 폭발성
+  "H220", "H221", "H222", "H223", "H224", "H225", "H226", // 인화성
+  "H240", "H241", "H242",                                  // 자기반응성
+  "H250", "H251", "H252", "H260", "H261",                  // 자연발화·물반응성
+  "H270", "H271", "H272",                                  // 산화성
+  "H280", "H281",                                          // 고압가스
+  "H300", "H301", "H310", "H311", "H330", "H331",          // 급성독성
+  "H340", "H341", "H350", "H351", "H360", "H361",          // 발암·변이원·생식독성
+  "H334", "H335",                                          // 호흡기 과민성·자극
+  "H370", "H371", "H372", "H373",                          // 장기 독성
+  "H314", "H318"                                           // 부식·심한 눈손상
+];
 
 const guideState = {
   products: [], filtered: [], selected: new Set(),
-  query: "", paper: "a4", process: "", showProcess: false, onlySelected: false
+  query: "", paper: "a4", process: "", showProcess: false, onlySelected: false, onlyPostable: true
 };
 const guideElements = {};
 
@@ -110,36 +136,125 @@ function guideMergeOverride(product, override) {
   return merged;
 }
 
-function guideProductUrl(productId) {
+/* 종이에 찍힌 QR 은 몇 년을 벽에 붙어 있는다. 그 사이 자료가 바뀌어
+ * 제품 번호가 달라지거나 제품이 빠지면 QR 이 죽는다. 그래서 번호와
+ * 함께 제품명도 실어 둔다. 번호로 못 찾으면 이름으로 찾아 준다. */
+function guideProductUrl(product) {
   const base = new URL(".", window.location.href);
-  base.searchParams.set("product", productId);
+  base.searchParams.set("product", product.id);
+  base.searchParams.set("q", product.productName);
   return base.toString();
+}
+
+/* 원문 추출이 실패해 한 칸에 수백 자가 통째로 들어간 제품이 있다.
+ * 그대로 실으면 게시물이 글씨 벽이 된다. 문장 끝에서 쪼개고, 그래도
+ * 긴 것은 잘라 낸다. 지어내지 않고 자르기만 한다. */
+const ITEM_MAX_LENGTH = 90;
+
+// 문장이 끝나는 자리에서 자른다. 마침표가 없는 원문도 있어 어미로 가른다.
+const SENTENCE_SPLIT = /(?<=(?:시오|하십시오|합니다|됩니다|있음|없음|금연)\.?)(?=\S)|(?<=\.)\s+/;
+
+// 목차나 다른 절 제목이 섞여 들어온 조각은 지시문이 아니다.
+const NOT_INSTRUCTION = /신호어|그림\s*문자|유해\s*[·ㆍ]?\s*위험\s*문구|예방조치\s*문구|구성성분|^\s*[○●◎]|^\s*\d{1,2}\s*[.．]/;
+const INSTRUCTION_END = /(시오|마시오|하십시오|주십시오|금연|없음|있음)\.?$/;
+
+function splitLongText(raw) {
+  if (raw.length <= ITEM_MAX_LENGTH) return [raw];
+  // 한 칸에 절 전체가 들어온 경우다. 쪼갠 뒤 지시문만 남긴다.
+  return raw
+    .split(SENTENCE_SPLIT)
+    .map((part) => part.replace(/^[-•○\s]+/, "").trim())
+    .filter((part) => part && !NOT_INSTRUCTION.test(part) && INSTRUCTION_END.test(part));
 }
 
 function cleanList(items, limit) {
   const seen = new Set();
   const out = [];
   for (const item of Array.isArray(items) ? items : []) {
-    const text = String(item || "").replace(/^[-•\s]+/, "").trim();
-    if (!text || seen.has(text)) continue;
-    seen.add(text);
-    out.push(text);
-    if (limit && out.length >= limit) break;
+    const raw = String(item || "").replace(/^[-•○\s]+/, "").trim();
+    if (!raw) continue;
+    for (let text of splitLongText(raw)) {
+      if (text.length > ITEM_MAX_LENGTH) text = text.slice(0, ITEM_MAX_LENGTH).trim() + "…";
+      if (!text || seen.has(text)) continue;
+      seen.add(text);
+      out.push(text);
+      if (limit && out.length >= limit) return out;
+    }
   }
   return out;
 }
 
-function missing(text) {
-  return `<span class="guide-missing">${guideEscape(text)}</span>`;
+/* 값이 없으면 그냥 없는 것이다. 붉은 글씨로 크게 알리면 자료가 잘못된
+ * 것처럼 보인다. 조용히 줄만 남기고, 만들 수 없는 제품은 아예 목록에서
+ * 빼는 쪽으로 거른다. */
+function blankMark() {
+  return '<span class="guide-blank">—</span>';
 }
 
+/* 게시물로 쓸 수 있는 제품인지 본다. 명칭 말고 알맹이가 하나도 없으면
+ * 종이만 버리게 되므로 기본 목록에서 뺀다. */
+function isPostable(product) {
+  const groups = product.precautionaryStatements || {};
+  return Boolean(
+    getPictogramCodes(product).length
+    || cleanList(product.hazardStatements, 1).length
+    || PRECAUTION_GROUPS.some((key) => cleanList(groups[key], 1).length)
+  );
+}
+
+/* 긴급전화 칸에 "전화번호 : 02-1234-5678 / 긴급 전화번호 : 02-1234-5679"
+ * 처럼 두 번호가 이름표와 함께 한 줄로 들어와 있다. 갈라서 제자리에 넣는다. */
+const PHONE_LIKE = /(?:\+?\d[\d\s().-]{6,}\d)/;
+
+function splitContacts(raw) {
+  const text = String(raw || "").replace(/\s+/g, " ").trim();
+  if (!text) return { phone: "", emergency: "" };
+
+  const parts = text.split(/\s*[/|·]\s*/).filter(Boolean);
+  let phone = "";
+  let emergency = "";
+
+  for (const part of parts) {
+    const value = part.replace(/^[^:：]{0,26}[:：]\s*/, "").trim();
+    if (!value) continue;
+    if (/긴급|젂급|응급|emergency/i.test(part)) {
+      if (!emergency) emergency = value;
+    } else if (!phone) {
+      phone = value;
+    }
+  }
+
+  // 이름표가 없이 번호만 들어온 경우.
+  if (!phone && !emergency) {
+    const found = text.match(PHONE_LIKE);
+    if (found) emergency = text.replace(/^[^:：]{0,26}[:：]\s*/, "").trim();
+  }
+  if (!emergency && phone) { emergency = phone; phone = ""; }
+  return { phone, emergency };
+}
+
+// 그림문자는 임의로 빼지 않는다. MSDS 에 있는 것을 그대로 싣는다.
 function getPictogramCodes(product) {
   const source = (product.ghsCodes || []).length
     ? product.ghsCodes
     : (product.ghsPictograms || []).map((item) => item.code);
-  const codes = [...new Set(source.map((code) => String(code || "").toUpperCase()))]
+  return [...new Set(source.map((code) => String(code || "").toUpperCase()))]
     .filter((code) => GUIDE_GHS[code]);
-  return codes.slice(0, PICTOGRAM_LIMIT);
+}
+
+// 중대한 위험을 앞에 싣는다. 순서표에 없는 문구는 원래 차례대로 뒤에 붙는다.
+function getHazardStatements(product) {
+  const all = cleanList(product.hazardStatements, 0);
+  const rank = (text) => {
+    const code = (String(text).match(/H\d{3}/) || [])[0];
+    const at = code ? SEVERE_HAZARD_CODES.indexOf(code) : -1;
+    return at === -1 ? SEVERE_HAZARD_CODES.length : at;
+  };
+  const sorted = all
+    .map((text, index) => ({ text, index, rank: rank(text) }))
+    .sort((a, b) => (a.rank - b.rank) || (a.index - b.index))
+    .map((item) => item.text);
+  return sorted.slice(0, HAZARD_MAX);
 }
 
 function getSignalWord(product) {
@@ -165,36 +280,75 @@ function getPpeItems(product) {
   return PPE_RULES.filter((rule) => rule.words.some((word) => text.includes(word)));
 }
 
-function getFirstAid(product) {
+/* 실제로 크게 다치는 순서대로 싣는다. 흡입과 피부 접촉이 가장 흔하고,
+ * 누출·화재는 사람이 여럿 다치는 사고다. 섭취는 마지막에 둔다. */
+function getEmergencyItems(product) {
   const aid = product.firstAid || {};
-  return [
-    { label: "눈에 들어갔을 때", items: cleanList(aid.eye, FIRST_AID_LIMIT) },
-    { label: "피부에 닿았을 때", items: cleanList(aid.skin, FIRST_AID_LIMIT) },
-    { label: "마셨을 때(흡입)", items: cleanList(aid.inhalation, FIRST_AID_LIMIT) },
-    { label: "삼켰을 때", items: cleanList(aid.ingestion, FIRST_AID_LIMIT) }
-  ].filter((group) => group.items.length);
-}
-
-function getResponseItems(product) {
   const groups = product.precautionaryStatements || {};
-  return cleanList([...(groups.response || []), ...(groups.disposal || [])], 2);
+  const spill = cleanList(groups.response, 1)[0] || "";
+  const order = [
+    { label: "마셨을 때(흡입)", text: cleanList(aid.inhalation, FIRST_AID_LIMIT)[0] },
+    { label: "피부에 닿았을 때", text: cleanList(aid.skin, FIRST_AID_LIMIT)[0] },
+    { label: "눈에 들어갔을 때", text: cleanList(aid.eye, FIRST_AID_LIMIT)[0] },
+    { label: "누출 · 화재", text: spill },
+    { label: "삼켰을 때", text: cleanList(aid.ingestion, FIRST_AID_LIMIT)[0] }
+  ];
+  return order.filter((group) => group.text);
 }
 
-function renderList(items, emptyText) {
-  if (!items.length) return `<p class="guide-empty">${missing(emptyText)}</p>`;
+/* 예방조치문구는 한 갈래만 실으면 반쪽이 된다. 고시도 일곱 개가 넘을 때
+ * 예방·대응·저장·폐기를 하나씩 포함해 여섯 개로 줄이는 것을 허용한다.
+ * 그 방식대로 각 갈래에서 하나씩 먼저 뽑고 남는 자리를 순서대로 채운다. */
+const PRECAUTION_GROUPS = ["prevention", "response", "storage", "disposal"];
+
+function getPrecautionStatements(product) {
+  const groups = product.precautionaryStatements || {};
+  const picked = [];
+  const seen = new Set();
+  const add = (text) => {
+    if (!text || seen.has(text) || picked.length >= PRECAUTION_MAX) return;
+    seen.add(text);
+    picked.push(text);
+  };
+  PRECAUTION_GROUPS.forEach((key) => add(cleanList(groups[key], 1)[0]));
+  PRECAUTION_GROUPS.forEach((key) => cleanList(groups[key], 0).forEach(add));
+  return picked;
+}
+
+/* 취급·저장 주의사항은 MSDS 7항이 원문이지만 공개 데이터에는 그 항이
+ * 없다. 저장·취급에 해당하는 예방조치문구로 대신 채우고, 그마저 없으면
+ * 비었다고 드러낸다. 없는 값을 지어내지 않는다. */
+const HANDLING_WORDS = ["보관", "저장", "환기", "밀폐", "정전기", "접지", "화기", "열", "직사광선", "용기"];
+
+function getHandlingItems(product) {
+  const groups = product.precautionaryStatements || {};
+  const storage = cleanList(groups.storage, 0);
+  const related = cleanList(groups.prevention, 0)
+    .filter((text) => HANDLING_WORDS.some((word) => text.includes(word)));
+  const seen = new Set();
+  const out = [];
+  [...storage, ...related].forEach((text) => {
+    if (seen.has(text) || out.length >= HANDLING_MAX) return;
+    seen.add(text);
+    out.push(text);
+  });
+  return out;
+}
+
+function renderList(items) {
+  if (!items.length) return `<p class="guide-blank-line">${blankMark()}</p>`;
   return `<ul>${items.map((item) => `<li>${guideEscape(item)}</li>`).join("")}</ul>`;
 }
 
 function renderSheetCard(product) {
   const codes = getPictogramCodes(product);
   const signal = getSignalWord(product);
-  const groups = product.precautionaryStatements || {};
-  const hazards = cleanList(product.hazardStatements, HAZARD_LIMIT);
-  const prevention = cleanList([...(groups.prevention || [])], PRECAUTION_LIMIT);
-  const storage = cleanList(groups.storage, STORAGE_LIMIT);
+  const hazards = getHazardStatements(product);
+  const prevention = getPrecautionStatements(product);
+  const handling = getHandlingItems(product);
   const ppe = getPpeItems(product);
-  const firstAid = getFirstAid(product);
-  const response = getResponseItems(product);
+  const aid = getEmergencyItems(product);
+  const contacts = splitContacts(product.emergencyContact);
 
   const pictograms = codes.length
     ? codes.map((code) => `
@@ -202,10 +356,10 @@ function renderSheetCard(product) {
           <img src="${GUIDE_GHS[code].icon}" alt="${guideEscape(GUIDE_GHS[code].label)}">
           <figcaption>${guideEscape(GUIDE_GHS[code].label)}</figcaption>
         </figure>`).join("")
-    : `<p class="guide-empty">${missing("그림문자 확인 필요")}</p>`;
+    : `<p class="guide-blank-line">${blankMark()}</p>`;
 
   const processRow = guideState.showProcess
-    ? `<tr><th>작업공정</th><td>${guideEscape(guideState.process) || missing("공정명을 적으세요")}</td></tr>`
+    ? `<tr><th>작업공정</th><td>${guideEscape(guideState.process) || blankMark()}</td></tr>`
     : "";
 
   return `
@@ -234,18 +388,18 @@ function renderSheetCard(product) {
         <h3><b>②</b> 유해성 · 위험성</h3>
         <div class="guide-hazard-top">
           <div class="guide-pictograms">${pictograms}</div>
-          <p class="guide-signal${signal === "위험" ? " is-danger" : ""}">${guideEscape(signal || "신호어 확인 필요")}</p>
+          <p class="guide-signal${signal === "위험" ? " is-danger" : ""}">${guideEscape(signal) || blankMark()}</p>
         </div>
         <h4>유해 · 위험문구</h4>
-        ${renderList(hazards, "유해·위험문구 확인 필요")}
+        ${renderList(hazards)}
       </section>
 
       <section class="guide-block guide-block-handling">
         <h3><b>③</b> 안전 및 보건상의 취급주의사항</h3>
         <h4>예방조치문구</h4>
-        ${renderList(prevention, "예방조치문구 확인 필요")}
+        ${renderList(prevention)}
         <h4>취급 · 저장 시 주의사항</h4>
-        ${renderList(storage, "저장 주의사항 확인 필요")}
+        ${renderList(handling)}
       </section>
 
       <div class="guide-two-col">
@@ -258,17 +412,14 @@ function renderSheetCard(product) {
                   <img src="assets/ppe/${item.key}.svg" alt="">
                   <span>${guideEscape(item.label)}</span>
                 </div>`).join("")}
-            </div>` : `<p class="guide-empty">${missing("보호구 확인 필요")}</p>`}
+            </div>` : `<p class="guide-blank-line">${blankMark()}</p>`}
         </section>
 
         <section class="guide-block">
           <h3><b>⑤</b> 응급조치 및 사고 대응</h3>
-          ${firstAid.length ? `<ul class="guide-aid-list">${firstAid.map((group) => `
-            <li><b>${guideEscape(group.label)}</b> ${guideEscape(group.items.join(" / "))}</li>`).join("")}
-          </ul>` : `<p class="guide-empty">${missing("응급조치 확인 필요")}</p>`}
-          ${response.length ? `<ul class="guide-aid-list">${response.map((item) => `
-            <li><b>누출·화재</b> ${guideEscape(item)}</li>`).join("")}
-          </ul>` : ""}
+          ${aid.length ? `<ul class="guide-aid-list">${aid.map((group) => `
+            <li><b>${guideEscape(group.label)}</b> ${guideEscape(group.text)}</li>`).join("")}
+          </ul>` : `<p class="guide-blank-line">${blankMark()}</p>`}
         </section>
       </div>
 
@@ -283,12 +434,13 @@ function renderSheetCard(product) {
 
       <section class="guide-block guide-block-supplier">
         <h3>공급자 정보</h3>
-        <div class="guide-supplier-grid">
-          <div><span>공급업체명</span><b>${guideEscape(product.supplier) || missing("확인 필요")}</b></div>
-          <div><span>긴급전화</span><b>${guideEscape(product.emergencyContact) || missing("확인 필요")}</b></div>
-          <div class="is-wide"><span>주소</span><b>${guideEscape(product.supplierAddress) || missing("확인 필요")}</b></div>
-          <div><span>MSDS 개정일</span><b>${guideEscape(product.revisionDate) || missing("확인 필요")}</b></div>
-        </div>
+        <dl class="guide-supplier-grid">
+          <dt>공급업체명</dt><dd>${guideEscape(product.supplier) || blankMark()}</dd>
+          <dt>전화번호</dt><dd>${guideEscape(contacts.phone) || blankMark()}</dd>
+          <dt>주소</dt><dd class="is-wide">${guideEscape(product.supplierAddress) || blankMark()}</dd>
+          <dt>긴급전화번호</dt><dd>${guideEscape(contacts.emergency) || blankMark()}</dd>
+          <dt>MSDS 개정일</dt><dd>${guideEscape(product.revisionDate) || blankMark()}</dd>
+        </dl>
       </section>
     </article>`;
 }
@@ -299,11 +451,13 @@ function applyGuideFilter() {
     return;
   }
   const needle = guideNormalize(guideState.query);
-  guideState.filtered = !needle
+  let list = !needle
     ? [...guideState.products]
     : guideState.products.filter((product) => guideNormalize([
         product.productName, product.supplier, product.category, product.useCategory, product.msdsNo
       ].join(" ")).includes(needle));
+  if (guideState.onlyPostable) list = list.filter(isPostable);
+  guideState.filtered = list;
 }
 
 function renderGuideSheet() {
@@ -321,7 +475,7 @@ function renderGuideSheet() {
     let svg = "";
     try {
       const code = qrcode(0, "M");
-      code.addData(guideProductUrl(product.id));
+      code.addData(guideProductUrl(product));
       code.make();
       svg = code.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
     } catch (error) {
@@ -338,6 +492,8 @@ function updateGuideStatus() {
   const picked = guideState.selected.size;
   const parts = [`전체 ${guideState.products.length}건 중 ${guideState.filtered.length}건 표시`];
   parts.push(picked ? `고른 제품 ${picked}건(찾기를 바꿔도 남습니다)` : "고른 제품 없음(보이는 전체가 인쇄됩니다)");
+  const hidden = guideState.products.filter((product) => !isPostable(product)).length;
+  if (guideState.onlyPostable && hidden) parts.push(`원문에서 내용이 안 나온 ${hidden}건은 제외됨`);
   guideElements.status.textContent = parts.join(" · ");
 }
 
@@ -380,6 +536,13 @@ function bindGuideEvents() {
 
   guideElements.paper?.addEventListener("change", (event) => {
     guideState.paper = event.target.value;
+    renderGuideSheet();
+    syncGuideSelection();
+  });
+
+  guideElements.onlyPostable?.addEventListener("change", (event) => {
+    guideState.onlyPostable = event.target.checked;
+    applyGuideFilter();
     renderGuideSheet();
     syncGuideSelection();
   });
@@ -452,6 +615,7 @@ function bindGuideEvents() {
 document.addEventListener("DOMContentLoaded", async () => {
   guideElements.search = document.querySelector("#guideSearch");
   guideElements.paper = document.querySelector("#guidePaper");
+  guideElements.onlyPostable = document.querySelector("#guideOnlyPostable");
   guideElements.processOn = document.querySelector("#guideProcessOn");
   guideElements.processField = document.querySelector("#guideProcessField");
   guideElements.process = document.querySelector("#guideProcess");
