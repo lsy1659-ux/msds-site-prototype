@@ -30,7 +30,7 @@ const GHS_PICTOGRAMS = {
   GHS09: { label: "환경유해성", icon: "assets/ghs/ghs09.svg" }
 };
 
-const labelState = { products: [], filtered: [], selected: new Set(), query: "", size: "mini", onlySelected: false,
+const labelState = { products: [], filtered: [], selected: new Set(), query: "", size: "mini", onlySelected: false, renderCount: 12,
   shorten: true, onlyPrintable: true, quantity: new Map() };
 const labelElements = {};
 
@@ -272,13 +272,14 @@ function renderLabelSheet() {
     return;
   }
 
+  const drawList = visibleLabelProducts();
   const size = labelState.size;
   const mini = size === "mini";      // 100mL 이하: 고시가 허용하는 간이표시
   // 100mL 초과 소분용기는 2단으로 압축한다. 가로형(small)과 세로형(tall)은
   // 본문이 같고 인쇄 규격만 다르다.
   const compact = size === "small" || size === "tall";
 
-  sheet.innerHTML = labelState.filtered.map((product) => {
+  sheet.innerHTML = drawList.map((product) => {
     const checked = labelState.selected.has(product.id);
     const codes = getPictogramCodes(product, PICTOGRAM_LIMIT);
     const hazards = cleanStatements(product.hazardStatements);
@@ -354,25 +355,62 @@ function renderLabelSheet() {
       </article>${copies.join("")}`;
   }).join("");
 
-  if (mini || compact) {
-    labelState.filtered.forEach((product) => {
-      if (typeof qrcode !== "function") return;
-      let svg = "";
-      try {
-        const code = qrcode(0, "M");
-        code.addData(buildProductUrl(product.id));
-        code.make();
-        svg = code.createSvgTag({ scalable: true, margin: 0 });
-      } catch (error) {
-        svg = "";
-      }
-      // 사본까지 모두 채운다.
-      sheet.querySelectorAll(`[data-label-qr="${CSS.escape(product.id)}"]`)
-        .forEach((slot) => { slot.innerHTML = svg; });
-    });
+  const rest = labelState.filtered.length - drawList.length;
+  if (rest > 0) {
+    sheet.insertAdjacentHTML("beforeend",
+      `<button type="button" class="label-more no-print" id="labelMore">${rest}건 더 보기</button>`);
   }
 
+  if (mini || compact) watchLabelQr(sheet);
+
   updateLabelStatus();
+}
+
+/* 표지 한 장은 종이 크기 그대로 그린다. 227건을 한꺼번에 그리면 노드가
+ * 수만 개가 되어 화면이 멈춘다. 앞쪽 몇 장만 그리고 나머지는 눌렀을 때
+ * 이어 그린다. 고른 것은 뒤에 있어도 인쇄에 들어가야 하므로 같이 그린다. */
+const LABEL_RENDER_STEP = 12;
+
+function visibleLabelProducts() {
+  const shown = labelState.filtered.slice(0, labelState.renderCount);
+  const extra = labelState.filtered
+    .slice(labelState.renderCount)
+    .filter((product) => labelState.selected.has(product.id));
+  return [...shown, ...extra];
+}
+
+let labelQrWatcher = null;
+
+function drawLabelQr(slot) {
+  if (!slot || slot.dataset.drawn === "1" || typeof qrcode !== "function") return;
+  const id = slot.dataset.labelQr;
+  try {
+    const code = qrcode(0, "M");
+    code.addData(buildProductUrl(id));
+    code.make();
+    const svg = code.createSvgTag({ scalable: true, margin: 0 });
+    // 사본까지 같은 QR 을 채운다.
+    labelElements.sheet?.querySelectorAll(`[data-label-qr="${CSS.escape(id)}"]`)
+      .forEach((box) => { box.innerHTML = svg; box.dataset.drawn = "1"; });
+  } catch (error) {
+    slot.dataset.drawn = "1";
+  }
+}
+
+function watchLabelQr(sheet) {
+  labelQrWatcher?.disconnect();
+  if (!("IntersectionObserver" in window)) {
+    sheet.querySelectorAll("[data-label-qr]").forEach(drawLabelQr);
+    return;
+  }
+  labelQrWatcher = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      drawLabelQr(entry.target);
+      labelQrWatcher.unobserve(entry.target);
+    });
+  }, { rootMargin: "400px" });
+  sheet.querySelectorAll("[data-label-qr]").forEach((slot) => labelQrWatcher.observe(slot));
 }
 
 function updateLabelStatus() {
@@ -464,6 +502,7 @@ function bindLabelEvents() {
     labelState.query = event.target.value;
     // 다시 찾기 시작하면 전체 목록으로 돌아간다. 고른 것은 그대로 둔다.
     if (labelState.query) labelState.onlySelected = false;
+    labelState.renderCount = LABEL_RENDER_STEP;
     applyLabelFilter();
     renderLabelSheet();
     syncLabelSelection();
@@ -472,6 +511,13 @@ function bindLabelEvents() {
   labelElements.size?.addEventListener("change", (event) => {
     labelState.size = event.target.value;
     applyLabelSize();
+    renderLabelSheet();
+    syncLabelSelection();
+  });
+
+  labelElements.sheet?.addEventListener("click", (event) => {
+    if (!event.target.closest("#labelMore")) return;
+    labelState.renderCount += LABEL_RENDER_STEP * 2;
     renderLabelSheet();
     syncLabelSelection();
   });
@@ -513,6 +559,7 @@ function bindLabelEvents() {
 
   labelElements.onlyPrintable?.addEventListener("change", (event) => {
     labelState.onlyPrintable = event.target.checked;
+    labelState.renderCount = LABEL_RENDER_STEP;
     applyLabelFilter();
     renderLabelSheet();
     syncLabelSelection();
@@ -520,6 +567,7 @@ function bindLabelEvents() {
 
   labelElements.onlySelected?.addEventListener("click", () => {
     labelState.onlySelected = !labelState.onlySelected;
+    labelState.renderCount = LABEL_RENDER_STEP;
     applyLabelFilter();
     renderLabelSheet();
     syncLabelSelection();
@@ -551,16 +599,24 @@ function bindLabelEvents() {
   labelElements.print?.addEventListener("click", () => {
     // 찾기 칸으로 걸러진 제품은 화면에 카드가 없다. 그대로 인쇄하면
     // 골라 둔 제품인데도 빠진다. 빠지는 게 있으면 먼저 전부 불러온다.
-    const missing = labelState.selected.size
+    const picked = labelState.selected.size;
+    const missing = picked
       && [...labelState.selected].some((id) => !labelState.filtered.some((product) => product.id === id));
-    if (missing) {
-      labelState.onlySelected = true;
+    // 화면에는 앞쪽 몇 장만 그려 둔다. 인쇄 전에 나갈 것을 모두 그린다.
+    const needsAll = missing || labelState.filtered.length > visibleLabelProducts().length;
+    if (needsAll) {
+      if (missing) labelState.onlySelected = true;
       applyLabelFilter();
+      labelState.renderCount = picked ? LABEL_RENDER_STEP : labelState.filtered.length;
       renderLabelSheet();
       syncLabelSelection();
-      window.requestAnimationFrame(() => window.requestAnimationFrame(() => window.print()));
+      labelElements.sheet?.querySelectorAll("[data-label-qr]").forEach(drawLabelQr);
+      // 화면 그리기에 기대지 않는다. 창이 뒤에 있거나 그리기가 멈춘
+      // 기기에서는 requestAnimationFrame 이 오지 않아 인쇄가 안 된다.
+      window.setTimeout(() => window.print(), 60);
       return;
     }
+    labelElements.sheet?.querySelectorAll("[data-label-qr]").forEach(drawLabelQr);
     window.print();
   });
 }
@@ -605,6 +661,20 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (wanted && labelState.products.some((product) => product.id === wanted)) {
     labelState.selected.add(wanted);
   }
+
+  window.attachPickAssist?.({
+    input: labelElements.search,
+    getProducts: () => labelState.products,
+    onPick: (product) => {
+      labelState.query = product.productName;
+      labelState.onlySelected = false;
+      labelState.renderCount = LABEL_RENDER_STEP;
+      labelState.selected.add(product.id);
+      applyLabelFilter();
+      renderLabelSheet();
+      syncLabelSelection();
+    }
+  });
 
   applyLabelSize();
   applyLabelFilter();

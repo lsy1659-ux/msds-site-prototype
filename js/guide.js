@@ -73,7 +73,7 @@ const SEVERE_HAZARD_CODES = [
 
 const guideState = {
   products: [], filtered: [], selected: new Set(),
-  query: "", paper: "a4", onlySelected: false, onlyPostable: true
+  query: "", paper: "a4", onlySelected: false, onlyPostable: true, renderCount: 12
 };
 const guideElements = {};
 
@@ -416,7 +416,7 @@ function renderSheetCard(product) {
         <h3><b>②</b> 건강 및 환경에 대한 유해성, 물리적 위험성</h3>
         <div class="guide-hazard-top">
           <div class="guide-pictograms">${pictograms}</div>
-          <p class="guide-signal${signal === "위험" ? " is-danger" : ""}">${guideEscape(signal) || blankMark()}</p>
+          ${signal ? `<p class="guide-signal${signal === "위험" ? " is-danger" : ""}">${guideEscape(signal)}</p>` : ""}
         </div>
         <h4>유해 · 위험문구</h4>
         ${renderList(hazards)}
@@ -488,6 +488,54 @@ function applyGuideFilter() {
   guideState.filtered = list;
 }
 
+/* 게시물 한 장은 A4 한 면을 통째로 그린다. 227건을 한꺼번에 그리면
+ * 노드가 2만 개가 넘고 화면이 0.7초 넘게 멈춘다. 눈에 보이는 만큼만
+ * 그리고 나머지는 눌렀을 때 이어 그린다. */
+const RENDER_STEP = 12;
+
+function visibleGuideProducts() {
+  const shown = guideState.filtered.slice(0, guideState.renderCount);
+  // 고른 제품은 아래쪽에 있어도 인쇄에 들어가야 하므로 함께 그린다.
+  const extra = guideState.filtered
+    .slice(guideState.renderCount)
+    .filter((product) => guideState.selected.has(product.id));
+  return [...shown, ...extra];
+}
+
+// QR 은 화면에 들어올 때 만든다. 199개를 한 번에 만들면 그때 멈춘다.
+let guideQrWatcher = null;
+
+function drawGuideQr(slot) {
+  if (!slot || slot.dataset.drawn === "1" || typeof qrcode !== "function") return;
+  const product = guideState.products.find((item) => item.id === slot.dataset.guideQr);
+  if (!product) return;
+  try {
+    const code = qrcode(0, "M");
+    code.addData(guideProductUrl(product));
+    code.make();
+    slot.innerHTML = code.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
+    slot.dataset.drawn = "1";
+  } catch (error) {
+    slot.dataset.drawn = "1";
+  }
+}
+
+function watchGuideQr(sheet) {
+  guideQrWatcher?.disconnect();
+  if (!("IntersectionObserver" in window)) {
+    sheet.querySelectorAll("[data-guide-qr]").forEach(drawGuideQr);
+    return;
+  }
+  guideQrWatcher = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      drawGuideQr(entry.target);
+      guideQrWatcher.unobserve(entry.target);
+    });
+  }, { rootMargin: "400px" });
+  sheet.querySelectorAll("[data-guide-qr]").forEach((slot) => guideQrWatcher.observe(slot));
+}
+
 function renderGuideSheet() {
   const sheet = guideElements.sheet;
   if (!sheet) return;
@@ -496,23 +544,15 @@ function renderGuideSheet() {
     sheet.innerHTML = '<p class="guide-empty-list">조건에 맞는 제품이 없습니다.</p>';
     return;
   }
-  sheet.innerHTML = guideState.filtered.map(renderSheetCard).join("");
 
-  guideState.filtered.forEach((product) => {
-    if (typeof qrcode !== "function") return;
-    let svg = "";
-    try {
-      const code = qrcode(0, "M");
-      code.addData(guideProductUrl(product));
-      code.make();
-      svg = code.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
-    } catch (error) {
-      svg = "";
-    }
-    sheet.querySelectorAll(`[data-guide-qr="${CSS.escape(product.id)}"]`).forEach((slot) => {
-      slot.innerHTML = svg;
-    });
-  });
+  const shown = visibleGuideProducts();
+  const rest = guideState.filtered.length - shown.length;
+  sheet.innerHTML = shown.map(renderSheetCard).join("")
+    + (rest > 0
+      ? `<button type="button" class="guide-more no-print" id="guideMore">${rest}건 더 보기</button>`
+      : "");
+
+  watchGuideQr(sheet);
 }
 
 function updateGuideStatus() {
@@ -557,6 +597,7 @@ function bindGuideEvents() {
   guideElements.search?.addEventListener("input", (event) => {
     guideState.query = event.target.value;
     if (guideState.query) guideState.onlySelected = false;
+    guideState.renderCount = RENDER_STEP;
     applyGuideFilter();
     renderGuideSheet();
     syncGuideSelection();
@@ -570,7 +611,15 @@ function bindGuideEvents() {
 
   guideElements.onlyPostable?.addEventListener("change", (event) => {
     guideState.onlyPostable = event.target.checked;
+    guideState.renderCount = RENDER_STEP;
     applyGuideFilter();
+    renderGuideSheet();
+    syncGuideSelection();
+  });
+
+  guideElements.sheet?.addEventListener("click", (event) => {
+    if (!event.target.closest("#guideMore")) return;
+    guideState.renderCount += RENDER_STEP * 2;
     renderGuideSheet();
     syncGuideSelection();
   });
@@ -585,6 +634,7 @@ function bindGuideEvents() {
 
   guideElements.onlySelected?.addEventListener("click", () => {
     guideState.onlySelected = !guideState.onlySelected;
+    guideState.renderCount = RENDER_STEP;
     applyGuideFilter();
     renderGuideSheet();
     syncGuideSelection();
@@ -612,17 +662,25 @@ function bindGuideEvents() {
   });
 
   guideElements.print?.addEventListener("click", () => {
-    // 찾기로 걸러진 제품은 화면에 없다. 그대로 인쇄하면 골라 둔 것이 빠진다.
-    const missingPicked = guideState.selected.size
+    // 화면에는 앞쪽 몇 장만 그려 둔다. 인쇄 전에 나갈 것을 모두 그린다.
+    const picked = guideState.selected.size;
+    const missingPicked = picked
       && [...guideState.selected].some((id) => !guideState.filtered.some((product) => product.id === id));
-    if (missingPicked) {
-      guideState.onlySelected = true;
+    const needsAll = missingPicked || guideState.filtered.length > visibleGuideProducts().length;
+    if (needsAll) {
+      if (missingPicked) guideState.onlySelected = true;
       applyGuideFilter();
+      // 고른 것이 없으면 보이는 전체가 나가므로 전부 그려야 한다.
+      guideState.renderCount = picked ? RENDER_STEP : guideState.filtered.length;
       renderGuideSheet();
       syncGuideSelection();
-      window.requestAnimationFrame(() => window.requestAnimationFrame(() => window.print()));
+      guideElements.sheet?.querySelectorAll("[data-guide-qr]").forEach(drawGuideQr);
+      // 화면 그리기에 기대지 않는다. 창이 뒤에 있거나 그리기가 멈춘
+      // 기기에서는 requestAnimationFrame 이 오지 않아 인쇄가 안 된다.
+      window.setTimeout(() => window.print(), 60);
       return;
     }
+    guideElements.sheet?.querySelectorAll("[data-guide-qr]").forEach(drawGuideQr);
     window.print();
   });
 }
@@ -670,6 +728,20 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (wanted && guideState.products.some((product) => product.id === wanted)) {
     guideState.selected.add(wanted);
   }
+
+  window.attachPickAssist?.({
+    input: guideElements.search,
+    getProducts: () => guideState.products,
+    onPick: (product) => {
+      guideState.query = product.productName;
+      guideState.onlySelected = false;
+      guideState.renderCount = RENDER_STEP;
+      guideState.selected.add(product.id);
+      applyGuideFilter();
+      renderGuideSheet();
+      syncGuideSelection();
+    }
+  });
 
   applyGuideFilter();
   renderGuideSheet();
