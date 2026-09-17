@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
     <title>MSDS 경고표지 만들기</title>
-    <link rel="stylesheet" href="css/label.css?v=20260917-motion6">
-    <link rel="stylesheet" href="css/topbar.css?v=20260917-motion6">
+    <link rel="stylesheet" href="css/label.css?v=20260917-qr1">
+    <link rel="stylesheet" href="css/topbar.css?v=20260917-qr1">
     <script>
       // 조회 화면에서 고른 화면 설정을 이 페이지에도 적용한다.
       try {
@@ -25,7 +25,29 @@
         <a class="top-bar-tab" href="label.html" aria-current="page">경고표지</a>
         <a class="top-bar-tab" href="index.html?offline=1">오프라인 저장</a>
       </div>
+      <div class="top-bar-tools">
+        <button type="button" id="siteQrButton" class="top-bar-icon" aria-expanded="false" aria-controls="siteQrPanel" title="이 화면을 QR로 보여 주기">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4z" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M6.5 6.5h1v1h-1zM16.5 6.5h1v1h-1zM6.5 16.5h1v1h-1z" fill="currentColor" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M14 14h2v2h-2zM18 14h2v2h-2zM16 16h2v2h-2zM14 18h2v2h-2zM18 18h2v2h-2z" fill="currentColor"/>
+          </svg>
+          <span class="top-bar-icon-label">QR</span>
+        </button>
+      </div>
     </nav>
+
+    <div id="siteQrPanel" class="top-bar-panel no-print" hidden>
+      <div class="site-qr">
+        <div id="siteQrCode" class="site-qr-code" aria-hidden="true"></div>
+        <div class="site-qr-info">
+          <strong>이 화면을 QR로 보여 주기</strong>
+          <p id="siteQrNote" class="site-qr-note">옆 사람이 폰 카메라로 찍으면 지금 보는 화면이 그대로 열립니다.</p>
+          <code id="siteQrUrl" class="site-qr-url"></code>
+          <button type="button" id="siteQrCopy" class="site-qr-copy">주소 복사</button>
+        </div>
+      </div>
+    </div>
 
     <header class="label-header no-print">
       <div class="label-header-inner">
@@ -102,8 +124,9 @@
       <section id="labelSheet" class="label-sheet label-size-mini" aria-label="경고표지 목록"></section>
     </main>
 
-    <script src="vendor/qrcode.min.js?v=20260917-motion6"></script>
-    <script src="js/page-transition.js?v=20260917-motion6" defer></script>
-    <script src="js/label.js?v=20260917-motion6" defer></script>
+    <script src="vendor/qrcode.min.js?v=20260917-qr1"></script>
+    <script src="js/page-transition.js?v=20260917-qr1" defer></script>
+    <script src="js/label.js?v=20260917-qr1" defer></script>
+    <script src="js/site-qr.js?v=20260917-qr1" defer></script>
   </body>
 </html>

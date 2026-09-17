@@ -223,3 +223,179 @@ html.theme-switching .top-bar {
     transition: none;
   }
 }
+
+/* ── 이 화면 QR ───────────────────────────────────────────
+ * 옆 사람에게 주소를 불러 주기가 번거롭다. 찍어서 열게 한다.
+ * 화면 이동(탭)과 성격이 다르므로 줄 오른쪽 끝 도구 자리에 둔다. */
+.top-bar-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  flex: 0 0 auto;
+}
+
+.top-bar-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 0 11px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #eaf7f2;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background-color 140ms ease, border-color 140ms ease;
+}
+
+.top-bar-icon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.top-bar-icon:hover {
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.top-bar-icon[aria-expanded="true"] {
+  border-color: #6fe0bf;
+  background: rgba(111, 224, 191, 0.24);
+  color: #ffffff;
+}
+
+/* 누를 때만 줄 아래로 펼친다. */
+.top-bar-panel {
+  padding: 16px;
+  border-bottom: 1px solid rgba(11, 93, 77, 0.16);
+  background: #eef7f4;
+}
+
+.top-bar-panel[hidden] {
+  display: none;
+}
+
+.site-qr {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 18px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.site-qr-code {
+  flex: 0 0 auto;
+  width: 148px;
+  height: 148px;
+  padding: 8px;
+  border: 1px solid rgba(11, 93, 77, 0.2);
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.site-qr-code svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.site-qr-info {
+  display: grid;
+  gap: 7px;
+  align-content: start;
+  min-width: 0;
+  flex: 1 1 240px;
+}
+
+.site-qr-info strong {
+  font-size: 0.98rem;
+}
+
+.site-qr-note {
+  margin: 0;
+  color: var(--on-surface-muted, #55655f);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.site-qr-note.is-warning {
+  color: #9a4b00;
+  font-weight: 700;
+}
+
+.site-qr-url {
+  overflow-wrap: anywhere;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: rgba(11, 93, 77, 0.08);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.78rem;
+}
+
+.site-qr-copy {
+  justify-self: start;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid rgba(11, 93, 77, 0.32);
+  border-radius: 10px;
+  background: #ffffff;
+  color: #0b5d4d;
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.site-qr-copy:hover {
+  background: #e4f4ef;
+}
+
+.site-qr-fail {
+  margin: 0;
+  padding: 10px;
+  color: #9a4b00;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 520px) {
+  .top-bar-icon-label {
+    display: none;
+  }
+
+  .top-bar-icon {
+    padding: 0 9px;
+  }
+
+  .site-qr-code {
+    width: 132px;
+    height: 132px;
+  }
+}
+
+[data-theme="dark"] .top-bar-panel {
+  border-bottom-color: rgba(120, 170, 158, 0.22);
+  background: var(--surface-1, #16211f);
+}
+
+[data-theme="dark"] .site-qr-code {
+  border-color: rgba(120, 170, 158, 0.3);
+}
+
+[data-theme="dark"] .site-qr-url {
+  background: rgba(111, 224, 191, 0.12);
+}
+
+[data-theme="dark"] .site-qr-copy {
+  border-color: rgba(111, 224, 191, 0.42);
+  background: var(--surface-2, #1e2b28);
+  color: #9beed4;
+}
+
+[data-theme="dark"] .site-qr-note.is-warning {
+  color: #f0b27a;
+}
