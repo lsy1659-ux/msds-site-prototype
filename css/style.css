@@ -8215,7 +8215,7 @@ select:focus-visible {
 
 .selection-item,
 .full-product-item {
-  animation: resultRise var(--motion-base) var(--motion-ease) both;
+  animation: resultRise var(--motion-base) var(--motion-ease) backwards;
 }
 
 .selection-list > *:nth-child(1) .selection-item,
@@ -8250,6 +8250,11 @@ select:focus-visible {
 }
 
 /* 제품을 고르면 요약판과 상세가 새 내용으로 바뀐다. 바뀌었다는 것만 알리고 끝낸다. */
+/* 채움 방식을 both 가 아니라 backwards 로 둔다. both 로 두면 끝난 뒤에도
+ * transform 이 요소에 남고, transform 이 걸린 요소는 그 안쪽
+ * position:fixed 의 기준이 되어 버린다. 전체화면 미리보기가 화면 한쪽에만
+ * 뜨던 원인이 이것이었다. backwards 는 시작 전에만 첫 모습을 씌우고,
+ * 끝나면 제 모습으로 돌아간다. 보이는 움직임은 똑같다. */
 @keyframes panelFade {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -8257,7 +8262,7 @@ select:focus-visible {
 
 .poster-board,
 .detail-block {
-  animation: panelFade var(--motion-base) var(--motion-ease) both;
+  animation: panelFade var(--motion-base) var(--motion-ease) backwards;
 }
 
 .detail-block:nth-of-type(2) { animation-delay: 40ms; }
@@ -8268,7 +8273,7 @@ select:focus-visible {
  * 안전정보가 계속 깜빡이면 오히려 신뢰도가 떨어진다. */
 .hazard-badge,
 .detail-block-first-aid {
-  animation: panelFade var(--motion-base) var(--motion-ease) both;
+  animation: panelFade var(--motion-base) var(--motion-ease) backwards;
 }
 
 /* 스크롤 위치 표시가 자연스럽게 옮겨가도록 */
