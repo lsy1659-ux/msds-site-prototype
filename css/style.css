@@ -2722,23 +2722,20 @@ h1 {
   text-align: center;
 }
 
+/* ISO 7010 원본 그림에 파란 원이 이미 들어 있다. 화면에서 원을 덧그리지
+ * 않고 그림 그대로 보여 준다. */
 .ppe-sign {
-  display: inline-grid;
+  display: block;
   width: 64px;
   height: 64px;
-  place-items: center;
-  border: 3px solid #ffffff;
   border-radius: 50%;
-  /* 지시표지는 단색 파랑 바탕이다. 현장 표지판과 같은 색으로 둔다. */
-  background: #0057a8;
-  color: #ffffff;
-  box-shadow: 0 0 0 1px rgba(0, 87, 168, 0.2), 0 8px 18px rgba(0, 87, 168, 0.18);
+  box-shadow: 0 8px 18px rgba(0, 83, 135, 0.2);
 }
 
-.ppe-sign svg {
-  width: 44px;
-  height: 44px;
-  fill: #ffffff;
+.ppe-sign img {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .ppe-name {
@@ -4025,12 +4022,6 @@ body.is-pdf-full-view-open {
   .ppe-sign {
     width: 52px;
     height: 52px;
-    border-radius: 14px;
-  }
-
-  .ppe-sign svg {
-    width: 34px;
-    height: 34px;
   }
 
   .ppe-name {
@@ -8970,8 +8961,7 @@ select:focus-visible {
 }
 
 [data-theme="dark"] .ppe-sign {
-  background: radial-gradient(circle at 32% 22%, #2386c7, #64b6ec 72%);
-  color: #1a1a1a;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.18), 0 8px 18px rgba(0, 0, 0, 0.4);
 }
 
 [data-theme="dark"] .ppe-name {
