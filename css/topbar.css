@@ -169,3 +169,57 @@ button.top-bar-tab[aria-expanded="true"] {
     animation: none;
   }
 }
+
+/* 문서끼리 겹쳐 넘기는 기능이 없는 기기에서 js/page-transition.js 가
+ * 쓰는 대체 동작. 나갈 때 잠깐 흐려지고 새 화면이 밝아진다. */
+html.page-fade-out body {
+  opacity: 0;
+  transition: opacity 150ms ease-out;
+}
+
+html.page-fade-in body {
+  animation: pageFadeIn 240ms ease-out;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.page-fade-out body,
+  html.page-fade-in body {
+    opacity: 1;
+    animation: none;
+    transition: none;
+  }
+}
+
+/* 화면 전환 기능이 없는 기기에서 어두운 화면으로 바꿀 때 색이 툭 바뀌지
+ * 않게 한다. 요소 전부가 아니라 넓은 바탕만 부드럽게 넘긴다. */
+html.theme-switching body,
+html.theme-switching .app-shell,
+html.theme-switching .search-panel,
+html.theme-switching .detail-block,
+html.theme-switching .poster-board,
+html.theme-switching .offline-panel,
+html.theme-switching .label-controls,
+html.theme-switching .label-picked,
+html.theme-switching .site-header,
+html.theme-switching .top-bar {
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-switching body,
+  html.theme-switching .app-shell,
+  html.theme-switching .search-panel,
+  html.theme-switching .detail-block,
+  html.theme-switching .poster-board,
+  html.theme-switching .offline-panel,
+  html.theme-switching .label-controls,
+  html.theme-switching .label-picked,
+  html.theme-switching .site-header,
+  html.theme-switching .top-bar {
+    transition: none;
+  }
+}

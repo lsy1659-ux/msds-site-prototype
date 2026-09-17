@@ -5005,10 +5005,16 @@ function setupThemeToggle() {
     storeTheme(next);
     // 색을 요소마다 하나씩 바꾸면 상세 화면처럼 요소가 많은 곳에서 끊긴다.
     // 화면 전체를 한 장으로 겹쳐 넘기면 한 번에 끝난다.
-    if (typeof document.startViewTransition === "function"
-        && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (typeof document.startViewTransition === "function" && !reduce) {
       document.startViewTransition(() => applyTheme(next));
       return;
+    }
+    // 화면 전환 기능이 없는 기기에서는 넓은 바탕만 잠깐 부드럽게 넘긴다.
+    if (!reduce) {
+      const root = document.documentElement;
+      root.classList.add("theme-switching");
+      window.setTimeout(() => root.classList.remove("theme-switching"), 260);
     }
     applyTheme(next);
   });
