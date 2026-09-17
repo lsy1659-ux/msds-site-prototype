@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>MSDS 작업공정별 관리요령 만들기</title>
+    <link rel="stylesheet" href="css/guide.css?v=20260917-guide10">
+    <link rel="stylesheet" href="css/topbar.css?v=20260917-guide10">
+    <script>
+      // 조회 화면에서 고른 화면 설정을 이 페이지에도 적용한다.
+      try {
+        var saved = localStorage.getItem("msds.theme.v1");
+        var dark = saved ? saved === "dark"
+          : window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+      } catch (error) { /* 저장소가 막힌 환경 */ }
+    </script>
+  </head>
+  <body>
+    <nav class="top-bar no-print" aria-label="화면 이동">
+      <a class="top-bar-brand" href="index.html">MSDS 안전정보</a>
+      <div class="top-bar-tabs">
+        <a class="top-bar-tab" href="index.html">조회</a>
+        <a class="top-bar-tab" href="label.html">경고표지</a>
+        <a class="top-bar-tab" href="guide.html" aria-current="page">관리요령</a>
+        <a class="top-bar-tab" href="index.html?offline=1">오프라인 저장</a>
+      </div>
+      <div class="top-bar-tools">
+        <button type="button" id="siteQrButton" class="top-bar-icon" aria-expanded="false" aria-controls="siteQrPanel" title="이 화면을 QR로 보여 주기">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4z" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M6.5 6.5h1v1h-1zM16.5 6.5h1v1h-1zM6.5 16.5h1v1h-1z" fill="currentColor" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M14 14h2v2h-2zM18 14h2v2h-2zM16 16h2v2h-2zM14 18h2v2h-2zM18 18h2v2h-2z" fill="currentColor"/>
+          </svg>
+          <span class="top-bar-icon-label">QR</span>
+        </button>
+      </div>
+    </nav>
+
+    <div id="siteQrPanel" class="top-bar-panel no-print" hidden>
+      <div class="site-qr">
+        <div id="siteQrCode" class="site-qr-code" aria-hidden="true"></div>
+        <div class="site-qr-info">
+          <strong>이 화면을 QR로 보여 주기</strong>
+          <p id="siteQrNote" class="site-qr-note">옆 사람이 폰 카메라로 찍으면 지금 보는 화면이 그대로 열립니다.</p>
+          <code id="siteQrUrl" class="site-qr-url"></code>
+          <button type="button" id="siteQrCopy" class="site-qr-copy">주소 복사</button>
+        </div>
+      </div>
+    </div>
+
+    <header class="guide-header no-print">
+      <div class="guide-header-inner">
+        <h1>작업공정별 관리요령 만들기</h1>
+        <p>
+          산업안전보건법 시행규칙 제167조에 따라 작업공정별로 게시하는 관리요령을 만듭니다.
+          제품명·유해위험성·취급주의사항·보호구·응급조치 다섯 항목을 한 장에 담습니다.
+        </p>
+        <a class="guide-back" href="index.html">← MSDS 조회로 돌아가기</a>
+      </div>
+    </header>
+
+    <main class="guide-main">
+      <section class="guide-controls no-print" aria-label="관리요령 설정">
+        <div class="guide-control-row">
+          <label class="guide-field">
+            <span>제품 찾기</span>
+            <input id="guideSearch" type="search" placeholder="제품명, 업체, 용도로 좁히기" autocomplete="off">
+          </label>
+          <label class="guide-field guide-field-narrow">
+            <span>용지 크기</span>
+            <select id="guidePaper">
+              <option value="a4" selected>A4 세로 (한 장에 한 제품)</option>
+              <option value="a3">A3 세로 (글자가 더 큼)</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="guide-control-row guide-options">
+          <label class="guide-check">
+            <input type="checkbox" id="guideProcessOn">
+            <span>작업공정 칸 넣기</span>
+          </label>
+          <label class="guide-field guide-field-process" id="guideProcessField" hidden>
+            <span>작업공정 이름</span>
+            <input id="guideProcess" type="text" placeholder="예: 도장 1라인, 세척실" autocomplete="off">
+          </label>
+        </div>
+
+        <div id="guidePicked" class="guide-picked" hidden>
+          <div class="guide-picked-head">
+            <strong id="guidePickedCount">고른 제품 0건</strong>
+            <button type="button" id="guideOnlySelected" class="guide-button guide-button-quiet" aria-pressed="false">고른 것만 보기</button>
+          </div>
+          <div id="guidePickedChips" class="guide-picked-chips"></div>
+        </div>
+
+        <div class="guide-control-row">
+          <button type="button" id="guideSelectAll" class="guide-button">보이는 제품 모두 선택</button>
+          <button type="button" id="guideClear" class="guide-button guide-button-quiet">선택 해제</button>
+          <button type="button" id="guidePrint" class="guide-button guide-button-primary">선택한 관리요령 인쇄</button>
+          <span id="guideStatus" class="guide-status" role="status" aria-live="polite">데이터를 불러오는 중입니다.</span>
+        </div>
+
+        <p class="guide-hint">
+          한 제품이 한 장입니다. 고른 제품만 인쇄되고, 아무것도 고르지 않으면 화면에 보이는 제품 전체가 인쇄됩니다.
+          찾기 칸을 바꿔도 고른 것은 그대로 쌓입니다.
+          게시물은 글자가 많으면 읽히지 않으므로 유해·위험문구와 예방조치문구는 앞에서 다섯 개까지만 싣고,
+          나머지는 QR과 MSDS 원문으로 넘깁니다.
+        </p>
+      </section>
+
+      <div id="guideSheet" class="guide-sheet paper-a4"></div>
+    </main>
+
+    <script src="vendor/qrcode.min.js?v=20260917-guide10"></script>
+    <script src="js/page-transition.js?v=20260917-guide10" defer></script>
+    <script src="js/site-qr.js?v=20260917-guide10" defer></script>
+    <script src="js/guide.js?v=20260917-guide10" defer></script>
+  </body>
+</html>
