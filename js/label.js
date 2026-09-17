@@ -385,6 +385,47 @@ function updateLabelStatus() {
   labelElements.status.textContent = parts.join(" · ");
 }
 
+// 조회 화면에서 보던 제품을 표지로 뽑는 일이 대부분이다. 같은 저장소를
+// 읽어 즐겨찾기와 최근 본 제품을 여기에도 띄운다. 누르면 바로 고른다.
+const LABEL_FAVORITE_KEY = "msds.favoriteProducts.v1";
+const LABEL_RECENT_KEY = "msds.recentProducts.v1";
+
+function readLabelShortcutIds(key, limit) {
+  try {
+    const parsed = JSON.parse(window.localStorage.getItem(key) || "[]");
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter((item) => typeof item === "string" && item.trim()).slice(0, limit);
+  } catch (error) {
+    return [];
+  }
+}
+
+function renderLabelShortcuts() {
+  const host = labelElements.shortcuts;
+  if (!host) return;
+  const byId = new Map(labelState.products.map((product) => [product.id, product]));
+  const groups = [
+    { title: "즐겨찾기", mark: "★", ids: readLabelShortcutIds(LABEL_FAVORITE_KEY, 12) },
+    { title: "최근 본 제품", mark: "⟲", ids: readLabelShortcutIds(LABEL_RECENT_KEY, 8) }
+  ].map((group) => ({ ...group, items: group.ids.map((id) => byId.get(id)).filter(Boolean) }))
+   .filter((group) => group.items.length);
+
+  host.toggleAttribute("hidden", groups.length === 0);
+  host.innerHTML = groups.map((group) => `
+    <div class="label-shortcut-row">
+      <span class="label-shortcut-title"><b aria-hidden="true">${group.mark}</b>${labelEscape(group.title)}</span>
+      <div class="label-shortcut-chips">
+        ${group.items.map((product) => {
+          const picked = labelState.selected.has(product.id);
+          return `<button type="button" class="label-chip${picked ? " is-picked" : ""}"
+            data-label-shortcut="${labelEscape(product.id)}" aria-pressed="${picked}">
+            <span>${labelEscape(product.productName)}</span>
+          </button>`;
+        }).join("")}
+      </div>
+    </div>`).join("");
+}
+
 // 찾기 칸을 바꾸면 앞서 고른 제품은 화면에서 사라진다. 무엇을 골라
 // 뒀는지 눈으로 볼 수 있어야 여러 번 나눠 고를 수 있다.
 function renderPickedList() {
@@ -410,6 +451,7 @@ function renderPickedList() {
 
 function syncLabelSelection() {
   renderPickedList();
+  renderLabelShortcuts();
   labelElements.sheet?.classList.toggle("has-selection", labelState.selected.size > 0);
   labelElements.sheet?.querySelectorAll("[data-label-id]").forEach((card) => {
     card.classList.toggle("is-selected", labelState.selected.has(card.dataset.labelId));
@@ -484,6 +526,18 @@ function bindLabelEvents() {
     labelElements.sheet?.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
+  // 바로가기를 누르면 고르기에 넣거나 뺀다.
+  labelElements.shortcuts?.addEventListener("click", (event) => {
+    const chip = event.target.closest("[data-label-shortcut]");
+    if (!chip) return;
+    const id = chip.dataset.labelShortcut;
+    if (labelState.selected.has(id)) labelState.selected.delete(id);
+    else labelState.selected.add(id);
+    if (labelState.onlySelected) applyLabelFilter();
+    renderLabelSheet();
+    syncLabelSelection();
+  });
+
   // 고른 제품 칩의 × 는 그 제품만 고르기에서 뺀다.
   labelElements.pickedChips?.addEventListener("click", (event) => {
     const chip = event.target.closest("[data-label-drop]");
@@ -516,6 +570,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   labelElements.size = document.querySelector("#labelSize");
   labelElements.sheet = document.querySelector("#labelSheet");
   labelElements.status = document.querySelector("#labelStatus");
+  labelElements.shortcuts = document.querySelector("#labelShortcuts");
   labelElements.picked = document.querySelector("#labelPicked");
   labelElements.pickedCount = document.querySelector("#labelPickedCount");
   labelElements.pickedChips = document.querySelector("#labelPickedChips");
@@ -545,7 +600,26 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+  // 조회 화면에서 제품을 보다가 넘어오면 그 제품을 골라 둔 채로 연다.
+  const wanted = new URLSearchParams(window.location.search).get("product");
+  if (wanted && labelState.products.some((product) => product.id === wanted)) {
+    labelState.selected.add(wanted);
+  }
+
   applyLabelSize();
   applyLabelFilter();
   renderLabelSheet();
+  // 고른 제품 칸과 바로가기는 첫 화면에서도 보여야 한다.
+  syncLabelSelection();
+  scrollToPickedCard();
 });
+
+// 골라 둔 표지가 목록 아래쪽에 있으면 못 보고 지나친다. 화면 밖에 있을
+// 때만 그리로 데려간다. 보이는 자리에 있으면 건드리지 않는다.
+function scrollToPickedCard() {
+  const first = document.querySelector(".label-card.is-selected");
+  if (!first) return;
+  const top = first.getBoundingClientRect().top;
+  if (top >= 0 && top < window.innerHeight) return;
+  window.requestAnimationFrame(() => first.scrollIntoView({ behavior: "smooth", block: "center" }));
+}

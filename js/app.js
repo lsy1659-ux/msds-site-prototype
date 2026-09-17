@@ -630,6 +630,14 @@ function bindEvents() {
       return;
     }
 
+    // PC 에서는 tel: 링크를 눌러도 아무 일이 없다. 번호를 복사해 유선
+    // 전화로 거는 일이 많으므로 긁지 않고 한 번에 복사되게 한다.
+    const copyTel = event.target.closest("[data-copy-tel]");
+    if (copyTel) {
+      copyTextToClipboard(copyTel.dataset.copyTel, copyTel);
+      return;
+    }
+
     const detailButton = event.target.closest("[data-view-detail]");
     if (detailButton) {
       selectFullListProduct(detailButton.dataset.productId, true);
@@ -2176,6 +2184,7 @@ function render() {
   elements.scrollQuickNav?.classList.toggle("is-hidden", !shouldShowQuickNav);
   scheduleScrollProgressUpdate();
   document.body.classList.toggle("is-pdf-full-view-open", state.pdfFullView.isOpen);
+  syncLabelTabLink(selected);
   liftPdfFullViewToBody();
   hydrateRequestedPdfPreview();
 }
@@ -2798,6 +2807,7 @@ function renderSelectedProductBar(product, detailData, pdfInfo, summaryAvailable
       </div>
       <div class="selected-product-bar-actions">
         ${telHref ? `<a class="emergency-call-link" href="tel:${escapeAttribute(telHref)}">긴급전화</a>` : ""}
+        ${telHref ? `<button type="button" class="emergency-copy-button" data-copy-tel="${escapeAttribute(telHref)}">번호 복사</button>` : ""}
         ${renderOriginalPdfButton(pdfInfo, "compact")}
         ${renderPdfPreviewButton(pdfInfo, "compact")}
       </div>
@@ -3248,6 +3258,77 @@ function renderPdfPreview(pdfInfo) {
   `;
 }
 
+// 현장 통신에서는 PDF 한 건에 몇 초씩 걸린다. 글자만 띄워 두면 받는
+// 중인지 멈춘 건지 알 수 없어서, 종이 모양 뼈대를 어른거리게 둔다.
+// 복사가 막힌 환경(보안 설정, 구형 브라우저)도 있으므로 실패하면
+// 예전 방식으로 한 번 더 시도하고, 그것도 안 되면 그렇게 알린다.
+// 제품을 보다가 경고표지 탭을 누르면 그 제품이 이미 골라진 채로 열리게
+// 한다. 목록은 그대로 두므로 다른 제품을 더 고를 수도 있다.
+function syncLabelTabLink(selected) {
+  const suffix = selected?.id ? `?product=${encodeURIComponent(selected.id)}` : "";
+  document.querySelectorAll('.top-bar-tab[href^="label.html"]').forEach((tab) => {
+    tab.setAttribute("href", "label.html" + suffix);
+  });
+}
+
+async function copyTextToClipboard(text, button) {
+  const value = String(text || "").trim();
+  if (!value) return;
+  const show = (message, ok) => {
+    if (!button) return;
+    const original = button.dataset.originalLabel || button.textContent;
+    button.dataset.originalLabel = original;
+    button.textContent = message;
+    button.classList.toggle("is-copied", ok);
+    window.clearTimeout(button._copyTimer);
+    button._copyTimer = window.setTimeout(() => {
+      button.textContent = original;
+      button.classList.remove("is-copied");
+    }, 1600);
+  };
+  try {
+    await navigator.clipboard.writeText(value);
+    show("복사됨", true);
+    return;
+  } catch (error) {
+    // 아래 예전 방식으로 넘어간다.
+  }
+  try {
+    const area = document.createElement("textarea");
+    area.value = value;
+    area.setAttribute("readonly", "");
+    area.style.cssText = "position:fixed;top:-1000px;opacity:0;";
+    document.body.appendChild(area);
+    area.select();
+    const done = document.execCommand("copy");
+    area.remove();
+    if (done) {
+      show("복사됨", true);
+      return;
+    }
+  } catch (error) {
+    // 마지막 수단으로 넘어간다.
+  }
+  // 복사가 막힌 기기에서도 번호는 볼 수 있어야 한다. 골라서 긁을 수
+  // 있는 칸에 담아 띄운다.
+  show("직접 복사", false);
+  window.prompt("이 번호를 복사하세요", value);
+}
+
+function pdfLoadingPlaceholder(message) {
+  return `<div class="pdf-frame-placeholder">
+      <div class="pdf-skeleton" aria-hidden="true">
+        <span class="pdf-skeleton-line is-title"></span>
+        <span class="pdf-skeleton-line"></span>
+        <span class="pdf-skeleton-line"></span>
+        <span class="pdf-skeleton-line is-short"></span>
+        <span class="pdf-skeleton-line"></span>
+        <span class="pdf-skeleton-line is-short"></span>
+      </div>
+      <p class="pdf-frame-placeholder-text">${escapeHtml(message)}</p>
+    </div>`;
+}
+
 function renderPdfFullView(pdfInfo) {
   return `
     <div class="pdf-full-view" role="dialog" aria-modal="true" aria-label="MSDS 전체화면 미리보기">
@@ -3260,7 +3341,7 @@ function renderPdfFullView(pdfInfo) {
           <button class="pdf-full-view-close" type="button" data-close-pdf-full-view>닫기</button>
         </div>
         <div class="pdf-js-preview is-full-view" data-pdfjs-preview-mount data-pdf-viewer-mode="full" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}" data-pdf-title="${escapeAttribute(pdfInfo.title)}">
-          <div class="pdf-frame-placeholder">MSDS 미리보기를 불러오는 중입니다.</div>
+          ${pdfLoadingPlaceholder("MSDS 미리보기를 불러오는 중입니다.")}
         </div>
       </div>
     </div>
@@ -3289,7 +3370,7 @@ function renderPdfPreviewBody(pdfInfo) {
 
   return `
     <div class="pdf-js-preview" data-pdfjs-preview-mount data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}" data-pdf-title="${escapeAttribute(pdfInfo.title)}">
-      <div class="pdf-frame-placeholder">MSDS 미리보기를 불러오는 중입니다.</div>
+      ${pdfLoadingPlaceholder("MSDS 미리보기를 불러오는 중입니다.")}
     </div>
   `;
 }
@@ -3416,7 +3497,7 @@ async function preparePdfJsPreview(mount, path, title) {
   const viewer = getPdfViewerStateForMount(mount);
   viewer.status = "rendering";
   mount.dataset.previewStarted = "true";
-  mount.innerHTML = `<div class="pdf-frame-placeholder">MSDS 미리보기를 불러오는 중입니다.</div>`;
+  mount.innerHTML = pdfLoadingPlaceholder("MSDS 미리보기를 불러오는 중입니다.");
 
   try {
     if (viewer.document && viewer.path === path) {
@@ -3480,7 +3561,7 @@ function renderPdfViewerShell(mount) {
       </div>
     </div>
     <div class="pdf-js-page-stage" data-pdf-page-stage>
-      <div class="pdf-frame-placeholder">PDF 페이지를 불러오는 중입니다.</div>
+      ${pdfLoadingPlaceholder("PDF 페이지를 불러오는 중입니다.")}
     </div>
   `;
   if (!mount.dataset.viewerScrollBound) {
@@ -3574,7 +3655,7 @@ async function renderAllPdfPages(mount, restorePosition = null) {
   mount.classList.add("is-rendering");
   updatePdfViewerControls(mount);
   if (!hasRenderedContent) {
-    stage.innerHTML = `<div class="pdf-frame-placeholder">PDF 현재 페이지를 불러오는 중입니다...</div>`;
+    stage.innerHTML = pdfLoadingPlaceholder("PDF 현재 페이지를 불러오는 중입니다.");
   }
 
   try {
@@ -4922,6 +5003,13 @@ function setupThemeToggle() {
     event.preventDefault();
     const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
     storeTheme(next);
+    // 색을 요소마다 하나씩 바꾸면 상세 화면처럼 요소가 많은 곳에서 끊긴다.
+    // 화면 전체를 한 장으로 겹쳐 넘기면 한 번에 끝난다.
+    if (typeof document.startViewTransition === "function"
+        && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.startViewTransition(() => applyTheme(next));
+      return;
+    }
     applyTheme(next);
   });
 

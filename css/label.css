@@ -1143,3 +1143,57 @@ select:focus-visible {
     font-size: 0.86rem;
   }
 }
+
+/* ── 즐겨찾기 · 최근 본 제품 ───────────────────────────────
+ * 조회 화면에서 보던 제품을 그대로 표지로 뽑는 일이 대부분이다. */
+.label-shortcuts {
+  display: grid;
+  gap: 8px;
+}
+
+.label-shortcuts[hidden] {
+  display: none;
+}
+
+.label-shortcut-row {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.label-shortcut-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 32px;
+  color: var(--label-muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.label-shortcut-title b {
+  color: #0b5d4d;
+}
+
+.label-shortcut-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.label-chip.is-picked {
+  border-color: #0b5d4d;
+  background: rgba(11, 93, 77, 0.12);
+  font-weight: 800;
+}
+
+[data-theme="dark"] .label-shortcut-title b {
+  color: #6fe0bf;
+}
+
+[data-theme="dark"] .label-chip.is-picked {
+  border-color: #3fc39d;
+  background: rgba(111, 224, 191, 0.16);
+}

@@ -139,3 +139,33 @@ button.top-bar-tab[aria-expanded="true"] {
 .header-home-link:focus-visible {
   border-bottom-color: rgba(255, 255, 255, 0.55);
 }
+
+/* ── 화면끼리 넘어갈 때 ────────────────────────────────────
+ * 조회와 경고표지는 서로 다른 문서라 눌렀을 때 흰 화면이 한 번
+ * 번쩍였다. 두 화면을 겹쳐 넘기면 끊기지 않는다. */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: 160ms ease-out both fadeOutPage;
+}
+
+::view-transition-new(root) {
+  animation: 200ms ease-out both fadeInPage;
+}
+
+@keyframes fadeOutPage {
+  to { opacity: 0; }
+}
+
+@keyframes fadeInPage {
+  from { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
