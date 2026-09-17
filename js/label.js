@@ -106,9 +106,15 @@ function mergeOverride(product, override) {
   return merged;
 }
 
+/* 용기에 붙은 표지는 몇 년을 그 자리에 있는다. 그 사이 자료가 바뀌어
+ * 제품 번호가 달라지거나 제품이 빠지면 번호만으로는 아무 데도 닿지
+ * 않는다. 그래서 번호와 함께 제품명도 실어 둔다. 조회 화면이 번호로
+ * 못 찾으면 이름으로 찾아 준다. */
 function buildProductUrl(productId) {
   const base = new URL(".", window.location.href);
   base.searchParams.set("product", productId);
+  const product = labelState.products.find((item) => item.id === productId);
+  if (product?.productName) base.searchParams.set("q", product.productName);
   return base.toString();
 }
 
