@@ -40981,5 +40981,288 @@
         "구강대구강법으로 인공호흡을 하지 말고 적절한 호흡의료 장비를 이용하시오"
       ]
     }
+  },
+  {
+    "id": "msds-pdf-5e875f5e2847e4d0",
+    "productName": "부탄(Butane) 석유화학 및 산업용",
+    "msdsNo": "AA00370-0000000002",
+    "fileName": "E1_부탄(Butane)+석유화학+및+산업용+MSDS_240422.pdf",
+    "pdfPath": "pdf/액화석유가스(LPG)/E1_부탄(Butane)+석유화학+및+산업용+MSDS_240422.pdf",
+    "recommendedUse": "산업용, 석유화학공업원료, 용제, 냉매 등",
+    "supplier": "주식회사 E1",
+    "issueDate": "2014-12-31",
+    "revisionDate": "2024-04-22",
+    "emergencyContact": "긴급전화번호 02-3441-4381",
+    "supplierAddress": "서울특별시 용산구 한강대로 92 LS용산타워 20/21층",
+    "dangerousGoods": "",
+    "ppeSummary": "",
+    "ingredients": [
+      {
+        "chemicalName": "부탄 혼합물(이소부탄·노말부탄)",
+        "casNo": "75-28-5, 106-97-8",
+        "content": "",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "프로판(Propane)",
+        "casNo": "74-98-6",
+        "content": "",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "이소펜탄(Iso-Pentane)",
+        "casNo": "78-78-4",
+        "content": "",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      }
+    ],
+    "hazardBadge": "위험",
+    "signalWord": "위험",
+    "ghsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
+      }
+    ],
+    "hazardStatements": [
+      "H220 극인화성 가스",
+      "H280 고압가스 포함 ; 가열하면 폭발할 수 있음",
+      "H336 졸음 또는 현기증을 일으킬 수 있음"
+    ],
+    "precautionaryStatements": {
+      "prevention": [
+        "P210 열·스파크·화염·고열로부터 멀리하시오 - 금연",
+        "P261 (분진·흄·가스·미스트·증기·스프레이)의 흡입을 피하시오",
+        "P271 옥외 또는 환기가 잘 되는 곳에서만 취급하시오"
+      ],
+      "response": [
+        "P304+P340 흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오",
+        "P312 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오",
+        "P377 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오",
+        "P381 안전하게 처리하는 것이 가능하면 모든 점화원을 제거하시오"
+      ],
+      "storage": [
+        "P403 환기가 잘 되는 곳에 보관하시오",
+        "P403+P233 용기는 환기가 잘 되는 곳에 단단히 밀폐하여 저장하시오",
+        "P410+P403 직사광선을 피하고 환기가 잘 되는 곳에 보관하시오"
+      ],
+      "disposal": []
+    },
+    "classificationGhsCodes": [
+      "GHS02",
+      "GHS04",
+      "GHS07",
+      "GHS08"
+    ],
+    "classificationGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
+      }
+    ],
+    "ghsCodes": [
+      "GHS02",
+      "GHS04",
+      "GHS07",
+      "GHS08"
+    ],
+    "ppeCandidates": [
+      "(보호장갑·보호의·보안경·안면보호구)를 착용하시오",
+      "환기가 잘 되는 곳에서만 취급하시오",
+      "산소가 부족한 곳에서는 송기마스크 또는 자급식 공기호흡기를 착용하시오"
+    ],
+    "ghsSource": "section2_classification",
+    "publication": {
+      "summaryMode": "automatic",
+      "summaryAvailable": true,
+      "validationStatus": "automatic",
+      "validationWarnings": []
+    },
+    "firstAid": {
+      "eye": [
+        "긴급 의료조치를 받으시오",
+        "물질과 접촉시 즉시 20분 이상 흐르는 물에 피부와 눈을 씻어내시오"
+      ],
+      "skin": [
+        "오염된 모든 의복은 벗고 피부를 물로 씻으시오",
+        "피부 자극이 생기면 의학적인 조치·조언을 구하시오",
+        "화상의 경우 즉시 찬물로 가능한 오래 해당부위를 식히고, 피부에 들러붙은 옷은 제거하지 마시오"
+      ],
+      "inhalation": [
+        "신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오",
+        "불편함을 느끼면 의료기관(의사)의 진찰을 받으시오"
+      ],
+      "ingestion": [
+        "구토를 유발하지 마시오",
+        "즉시 의학적인 조치·조언을 받으시오"
+      ]
+    }
+  },
+  {
+    "id": "msds-pdf-53b098ac5f0be241",
+    "productName": "프로판(Propane) 석유화학 및 산업용",
+    "msdsNo": "AA00370-0000000001",
+    "fileName": "E1_프로판(Propane)_석유화학+및+산업용+MSDS_250516.pdf",
+    "pdfPath": "pdf/액화석유가스(LPG)/E1_프로판(Propane)_석유화학+및+산업용+MSDS_250516.pdf",
+    "recommendedUse": "산업용, 석유화학공업원료, 용제, 냉매 등",
+    "supplier": "주식회사 E1",
+    "issueDate": "2014-12-31",
+    "revisionDate": "2025-05-16",
+    "emergencyContact": "긴급전화번호 02-3441-4381",
+    "supplierAddress": "서울특별시 용산구 한강대로 92 LS용산타워 20/21층",
+    "dangerousGoods": "",
+    "ppeSummary": "",
+    "ingredients": [
+      {
+        "chemicalName": "프로판(Propane)",
+        "casNo": "74-98-6",
+        "content": "",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "에탄(Ethane)",
+        "casNo": "74-84-0",
+        "content": "",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "부탄 혼합물(이소부탄·노말부탄)",
+        "casNo": "75-28-5, 106-97-8",
+        "content": "",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      }
+    ],
+    "hazardBadge": "위험",
+    "signalWord": "위험",
+    "ghsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      }
+    ],
+    "hazardStatements": [
+      "H220 극인화성 가스",
+      "H280 고압가스 포함 ; 가열하면 폭발할 수 있음",
+      "H315 피부에 자극을 일으킴"
+    ],
+    "precautionaryStatements": {
+      "prevention": [
+        "P210 열·스파크·화염·고열로부터 멀리하시오 - 금연",
+        "P264 취급 후에는 취급 부위를 철저히 씻으시오",
+        "P280 (보호장갑·보호의·보안경·안면보호구)를 착용하시오"
+      ],
+      "response": [
+        "P302+P352 피부에 묻으면 다량의 물/비누로 씻으시오",
+        "P321 필요시 적절한 처치를 하시오",
+        "P332+P313 피부 자극이 생기면 의학적인 조치·조언을 구하시오",
+        "P362+P364 오염된 의복은 벗고 다시 사용 전 세척하시오",
+        "P377 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오",
+        "P381 안전하게 처리하는 것이 가능하면 모든 점화원을 제거하시오"
+      ],
+      "storage": [
+        "P403 환기가 잘 되는 곳에 보관하시오",
+        "P410+P403 직사광선을 피하고 환기가 잘 되는 곳에 보관하시오"
+      ],
+      "disposal": []
+    },
+    "classificationGhsCodes": [
+      "GHS02",
+      "GHS04",
+      "GHS07"
+    ],
+    "classificationGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      }
+    ],
+    "ghsCodes": [
+      "GHS02",
+      "GHS04",
+      "GHS07"
+    ],
+    "ppeCandidates": [
+      "(보호장갑·보호의·보안경·안면보호구)를 착용하시오",
+      "환기가 잘 되는 곳에서만 취급하시오",
+      "산소가 부족한 곳에서는 송기마스크 또는 자급식 공기호흡기를 착용하시오"
+    ],
+    "ghsSource": "section2_classification",
+    "publication": {
+      "summaryMode": "automatic",
+      "summaryAvailable": true,
+      "validationStatus": "automatic",
+      "validationWarnings": []
+    },
+    "firstAid": {
+      "eye": [
+        "긴급 의료조치를 받으시오",
+        "물질과 접촉시 즉시 20분 이상 흐르는 물에 피부와 눈을 씻어내시오"
+      ],
+      "skin": [
+        "피부에 얼어붙은 옷은 제거하기 전 해동하시오",
+        "액화가스에 접촉한 경우 미지근한 물로 해당 부위를 녹이시오",
+        "화상의 경우 즉시 찬물로 가능한 오래 해당부위를 식히고, 피부에 들러붙은 옷은 제거하지 마시오"
+      ],
+      "inhalation": [
+        "신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오",
+        "불편함을 느끼면 의료기관(의사)의 진찰을 받으시오"
+      ],
+      "ingestion": [
+        "구토를 유발하지 마시오",
+        "즉시 의학적인 조치·조언을 받으시오"
+      ]
+    }
   }
 ]

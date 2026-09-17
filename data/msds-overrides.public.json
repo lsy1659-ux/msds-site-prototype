@@ -28984,5 +28984,269 @@
       "validationStatus": "automatic",
       "validationWarnings": []
     }
+  },
+  {
+    "sourcePdfPath": "pdf/액화석유가스(LPG)/E1_부탄(Butane)+석유화학+및+산업용+MSDS_240422.pdf",
+    "sourceRelativePath": "액화석유가스(LPG)/E1_부탄(Butane)+석유화학+및+산업용+MSDS_240422.pdf",
+    "pdfRegistrationType": "pdf_only",
+    "productNameCandidate": "부탄(Butane) 석유화학 및 산업용",
+    "supplierCandidate": "주식회사 E1",
+    "msdsNoCandidate": "AA00370-0000000002",
+    "revisionDateCandidate": "2024-04-22",
+    "signalWordCandidate": "위험",
+    "ghsSource": "section2_classification",
+    "labelGhsCodes": [
+      "GHS02",
+      "GHS04",
+      "GHS07",
+      "GHS08"
+    ],
+    "labelGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
+      }
+    ],
+    "classificationGhsCodes": [
+      "GHS02",
+      "GHS04",
+      "GHS07",
+      "GHS08"
+    ],
+    "classificationGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
+      }
+    ],
+    "ghsCodes": [
+      "GHS02",
+      "GHS04",
+      "GHS07",
+      "GHS08"
+    ],
+    "ghsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
+      }
+    ],
+    "hazardStatements": [
+      "H220 극인화성 가스",
+      "H280 고압가스 포함 ; 가열하면 폭발할 수 있음",
+      "H336 졸음 또는 현기증을 일으킬 수 있음"
+    ],
+    "precautionaryStatements": {
+      "prevention": [
+        "P210 열·스파크·화염·고열로부터 멀리하시오 - 금연",
+        "P261 (분진·흄·가스·미스트·증기·스프레이)의 흡입을 피하시오",
+        "P271 옥외 또는 환기가 잘 되는 곳에서만 취급하시오"
+      ],
+      "response": [
+        "P304+P340 흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오",
+        "P312 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오",
+        "P377 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오",
+        "P381 안전하게 처리하는 것이 가능하면 모든 점화원을 제거하시오"
+      ],
+      "storage": [
+        "P403 환기가 잘 되는 곳에 보관하시오",
+        "P403+P233 용기는 환기가 잘 되는 곳에 단단히 밀폐하여 저장하시오",
+        "P410+P403 직사광선을 피하고 환기가 잘 되는 곳에 보관하시오"
+      ],
+      "disposal": []
+    },
+    "ingredients": [
+      {
+        "chemicalName": "부탄 혼합물(이소부탄·노말부탄)",
+        "casNo": "75-28-5, 106-97-8",
+        "content": ""
+      },
+      {
+        "chemicalName": "프로판(Propane)",
+        "casNo": "74-98-6",
+        "content": ""
+      },
+      {
+        "chemicalName": "이소펜탄(Iso-Pentane)",
+        "casNo": "78-78-4",
+        "content": ""
+      }
+    ],
+    "ppeCandidates": [
+      "(보호장갑·보호의·보안경·안면보호구)를 착용하시오",
+      "환기가 잘 되는 곳에서만 취급하시오",
+      "산소가 부족한 곳에서는 송기마스크 또는 자급식 공기호흡기를 착용하시오"
+    ],
+    "match": {
+      "fileName": "E1_부탄(Butane)+석유화학+및+산업용+MSDS_240422.pdf",
+      "relativePath": "액화석유가스(LPG)/E1_부탄(Butane)+석유화학+및+산업용+MSDS_240422.pdf"
+    },
+    "publication": {
+      "summaryMode": "automatic",
+      "summaryAvailable": true,
+      "validationStatus": "automatic",
+      "validationWarnings": []
+    }
+  },
+  {
+    "sourcePdfPath": "pdf/액화석유가스(LPG)/E1_프로판(Propane)_석유화학+및+산업용+MSDS_250516.pdf",
+    "sourceRelativePath": "액화석유가스(LPG)/E1_프로판(Propane)_석유화학+및+산업용+MSDS_250516.pdf",
+    "pdfRegistrationType": "pdf_only",
+    "productNameCandidate": "프로판(Propane) 석유화학 및 산업용",
+    "supplierCandidate": "주식회사 E1",
+    "msdsNoCandidate": "AA00370-0000000001",
+    "revisionDateCandidate": "2025-05-16",
+    "signalWordCandidate": "위험",
+    "ghsSource": "section2_classification",
+    "labelGhsCodes": [
+      "GHS02",
+      "GHS04",
+      "GHS07"
+    ],
+    "labelGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      }
+    ],
+    "classificationGhsCodes": [
+      "GHS02",
+      "GHS04",
+      "GHS07"
+    ],
+    "classificationGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      }
+    ],
+    "ghsCodes": [
+      "GHS02",
+      "GHS04",
+      "GHS07"
+    ],
+    "ghsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      }
+    ],
+    "hazardStatements": [
+      "H220 극인화성 가스",
+      "H280 고압가스 포함 ; 가열하면 폭발할 수 있음",
+      "H315 피부에 자극을 일으킴"
+    ],
+    "precautionaryStatements": {
+      "prevention": [
+        "P210 열·스파크·화염·고열로부터 멀리하시오 - 금연",
+        "P264 취급 후에는 취급 부위를 철저히 씻으시오",
+        "P280 (보호장갑·보호의·보안경·안면보호구)를 착용하시오"
+      ],
+      "response": [
+        "P302+P352 피부에 묻으면 다량의 물/비누로 씻으시오",
+        "P321 필요시 적절한 처치를 하시오",
+        "P332+P313 피부 자극이 생기면 의학적인 조치·조언을 구하시오",
+        "P362+P364 오염된 의복은 벗고 다시 사용 전 세척하시오",
+        "P377 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오",
+        "P381 안전하게 처리하는 것이 가능하면 모든 점화원을 제거하시오"
+      ],
+      "storage": [
+        "P403 환기가 잘 되는 곳에 보관하시오",
+        "P410+P403 직사광선을 피하고 환기가 잘 되는 곳에 보관하시오"
+      ],
+      "disposal": []
+    },
+    "ingredients": [
+      {
+        "chemicalName": "프로판(Propane)",
+        "casNo": "74-98-6",
+        "content": ""
+      },
+      {
+        "chemicalName": "에탄(Ethane)",
+        "casNo": "74-84-0",
+        "content": ""
+      },
+      {
+        "chemicalName": "부탄 혼합물(이소부탄·노말부탄)",
+        "casNo": "75-28-5, 106-97-8",
+        "content": ""
+      }
+    ],
+    "ppeCandidates": [
+      "(보호장갑·보호의·보안경·안면보호구)를 착용하시오",
+      "환기가 잘 되는 곳에서만 취급하시오",
+      "산소가 부족한 곳에서는 송기마스크 또는 자급식 공기호흡기를 착용하시오"
+    ],
+    "match": {
+      "fileName": "E1_프로판(Propane)_석유화학+및+산업용+MSDS_250516.pdf",
+      "relativePath": "액화석유가스(LPG)/E1_프로판(Propane)_석유화학+및+산업용+MSDS_250516.pdf"
+    },
+    "publication": {
+      "summaryMode": "automatic",
+      "summaryAvailable": true,
+      "validationStatus": "automatic",
+      "validationWarnings": []
+    }
   }
 ]
