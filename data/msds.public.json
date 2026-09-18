@@ -20665,7 +20665,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "(petroleum), hydrotreated heavy paraffinic)",
+        "chemicalName": "부탄(Butane)",
         "casNo": "106-97-8",
         "content": "",
         "controlledSubstance": "",
@@ -21037,7 +21037,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "설폰산석유(Petroleum sulfonates)",
+        "chemicalName": "프로판(Propane)",
         "casNo": "74-98-6",
         "content": "",
         "controlledSubstance": "",
@@ -21045,7 +21045,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "프로판(Propane)",
+        "chemicalName": "부탄(Butane)",
         "casNo": "106-97-8",
         "content": "",
         "controlledSubstance": "",
@@ -21289,7 +21289,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "수소처리된 경질 나프타 (석유)",
+        "chemicalName": "프로판(Propane)",
         "casNo": "74-98-6",
         "content": "",
         "controlledSubstance": "",
@@ -21297,7 +21297,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "(NAPHTHA (PETROLEUM), HYDRO",
+        "chemicalName": "부탄(Butane)",
         "casNo": "106-97-8",
         "content": "",
         "controlledSubstance": "",
@@ -21525,7 +21525,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "(Distillates(petroleum), hydrotreated light)",
+        "chemicalName": "수소처리된 경질 정제유 (석유)",
         "casNo": "64742-47-8",
         "content": "",
         "controlledSubstance": "",
@@ -21541,7 +21541,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "(NAPHTHA (PETROLEUM), HYDRO",
+        "chemicalName": "프로판 (Propane)",
         "casNo": "74-98-6",
         "content": "",
         "controlledSubstance": "",
@@ -21729,7 +21729,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "(메가 체크 처리제 (트리트먼트)) ( 3 / 12 )",
+        "chemicalName": "수소처리된 경질 나프타 (석유)",
         "casNo": "64742-49-0",
         "content": "30~40",
         "controlledSubstance": "",
@@ -21737,7 +21737,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "수소처리된 경질 나프타 (석유)",
+        "chemicalName": "프로판(Propane)",
         "casNo": "74-98-6",
         "content": "0.1%",
         "controlledSubstance": "",
@@ -21745,7 +21745,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "(NAPHTHA (PETROLEUM), HYDRO",
+        "chemicalName": "부탄(Butane)",
         "casNo": "106-97-8",
         "content": "",
         "controlledSubstance": "",
@@ -22130,7 +22130,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "암모늄 벤조산(Ammonium benzoate)",
+        "chemicalName": "다이에틸렌 글리콜 모노뷰틸 에테르",
         "casNo": "112-34-5",
         "content": "0.01~0.1",
         "controlledSubstance": "",
@@ -22267,7 +22267,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "메틸사이클로펜탄(Methylcyclopentane)",
+        "chemicalName": "이소프로필알콜(Isopropyl alcohol)",
         "casNo": "67-63-0",
         "content": "0.1~1.5",
         "controlledSubstance": "○",
@@ -22283,7 +22283,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "수소처리된 경질 나프타 (석유)",
+        "chemicalName": "2-메틸펜탄(2-Methylpentane)",
         "casNo": "107-83-5",
         "content": "10~20",
         "controlledSubstance": "",
@@ -22307,7 +22307,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "프로판(Propane)",
+        "chemicalName": "수소처리된 경질 나프타 (석유)",
         "casNo": "64742-49-0",
         "content": "0.1%",
         "controlledSubstance": "",
@@ -22315,7 +22315,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "부탄(Butane)",
+        "chemicalName": "프로판(Propane)",
         "casNo": "74-98-6",
         "content": "",
         "controlledSubstance": "",
@@ -22323,7 +22323,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "2-프로판올",
+        "chemicalName": "부탄(Butane)",
         "casNo": "106-97-8",
         "content": "",
         "controlledSubstance": "",
@@ -22538,7 +22538,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "트리에탄올아민(Triethanol Amine)",
+        "chemicalName": "다이에틸렌 글리콜 모노뷰틸 에테르",
         "casNo": "112-34-5",
         "content": "0.1~0.5",
         "controlledSubstance": "",
@@ -22711,7 +22711,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "1,2-디클로로에틸렌(트랜스)",
+        "chemicalName": "수소처리된 경질 나프타 (석유)",
         "casNo": "64742-49-0",
         "content": "0.1%",
         "controlledSubstance": "",
@@ -22924,7 +22924,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "(Propylene glycol monomethyl ether)",
+        "chemicalName": "프로필렌 글리콜 모노메틸 에테르",
         "casNo": "107-98-2",
         "content": "30~40",
         "controlledSubstance": "",
@@ -23119,7 +23119,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "(Propylene glycol monomethyl ether)",
+        "chemicalName": "프로필렌 글리콜 모노메틸 에테르",
         "casNo": "107-98-2",
         "content": "30~40",
         "controlledSubstance": "",
@@ -23471,7 +23471,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "이산화 티타늄(Titanium dioxide)",
+        "chemicalName": "뷰틸 셀로솔브(Butyl cellosolve)",
         "casNo": "111-76-2",
         "content": "1~4",
         "controlledSubstance": "○",
@@ -23479,7 +23479,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "메틸아이소뷰틸케톤(Methyl isobutyl ketone)",
+        "chemicalName": "이산화 티타늄(Titanium dioxide)",
         "casNo": "13463-67-7",
         "content": "1~5",
         "controlledSubstance": "",
@@ -23487,7 +23487,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "프로필렌 글리콜 모노메틸 에테르 아세트산",
+        "chemicalName": "메틸아이소뷰틸케톤(Methyl isobutyl ketone)",
         "casNo": "108-10-1",
         "content": "1~5",
         "controlledSubstance": "○",
@@ -24446,7 +24446,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "이산화 티타늄(Titanium dioxide)",
+        "chemicalName": "뷰틸 셀로솔브(Butyl cellosolve)",
         "casNo": "111-76-2",
         "content": "1~5",
         "controlledSubstance": "○",
@@ -24454,7 +24454,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "메틸아이소뷰틸케톤(Methyl isobutyl ketone)",
+        "chemicalName": "이산화 티타늄(Titanium dioxide)",
         "casNo": "13463-67-7",
         "content": "1~5",
         "controlledSubstance": "",
@@ -24462,7 +24462,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "프로필렌 글리콜 모노메틸 에테르 아세트산",
+        "chemicalName": "메틸아이소뷰틸케톤(Methyl isobutyl ketone)",
         "casNo": "108-10-1",
         "content": "1~5",
         "controlledSubstance": "○",
@@ -24964,7 +24964,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "프로필렌 글리콜 모노메틸 에테르 아세트산",
+        "chemicalName": "메틸아이소뷰틸케톤(Methyl isobutyl ketone)",
         "casNo": "108-10-1",
         "content": "1~5",
         "controlledSubstance": "○",
@@ -25215,7 +25215,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "이산화 티타늄(Titanium dioxide)",
+        "chemicalName": "뷰틸 셀로솔브(Butyl cellosolve)",
         "casNo": "111-76-2",
         "content": "1~5",
         "controlledSubstance": "○",
@@ -25223,7 +25223,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "메틸아이소뷰틸케톤(Methyl isobutyl ketone)",
+        "chemicalName": "이산화 티타늄(Titanium dioxide)",
         "casNo": "13463-67-7",
         "content": "1~5",
         "controlledSubstance": "",
@@ -25231,7 +25231,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "프로필렌 글리콜 모노메틸 에테르 아세트산",
+        "chemicalName": "메틸아이소뷰틸케톤(Methyl isobutyl ketone)",
         "casNo": "108-10-1",
         "content": "1~5",
         "controlledSubstance": "○",
@@ -25482,7 +25482,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "메틸에틸케톤(Methylethylketone)",
+        "chemicalName": "크실렌(Xylene)",
         "casNo": "1330-20-7",
         "content": "1~3",
         "controlledSubstance": "○",
@@ -25498,7 +25498,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "1,3-디(2,4,6-트리옥소헥사히드로-5-",
+        "chemicalName": "뷰틸 셀로솔브(Butyl cellosolve)",
         "casNo": "111-76-2",
         "content": "1~3",
         "controlledSubstance": "○",
@@ -25562,7 +25562,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "니트로셀룰로오스(Nitrocellulose)",
+        "chemicalName": "프로판(Propane)",
         "casNo": "74-98-6",
         "content": "",
         "controlledSubstance": "",
@@ -25570,7 +25570,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "프로판(Propane)",
+        "chemicalName": "디메틸에테르(Dimethyl ether)",
         "casNo": "115-10-6",
         "content": "",
         "controlledSubstance": "",
@@ -33468,7 +33468,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "번호:",
+        "chemicalName": "망간(Manganese) Manganese, elemental / Manganese",
         "casNo": "7439-96-5",
         "content": "",
         "controlledSubstance": "",
@@ -33476,7 +33476,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "번호:",
+        "chemicalName": "실리콘 금속(Silicon Metal) Silicon powder / Silicon powder,",
         "casNo": "7440-21-3",
         "content": "",
         "controlledSubstance": "",
@@ -33484,7 +33484,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "번호:",
+        "chemicalName": "구리(Copper) C.I. 77400 / C.I. Pigment Metal 2 /",
         "casNo": "7440-50-8",
         "content": "",
         "controlledSubstance": "",
@@ -33623,7 +33623,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "",
+        "chemicalName": "메틸 이소부틸 케톤",
         "casNo": "108-10-1",
         "content": "0.1~1",
         "controlledSubstance": "",
@@ -33631,7 +33631,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "",
+        "chemicalName": "톨루엔",
         "casNo": "108-88-3",
         "content": "0.1~1",
         "controlledSubstance": "",
@@ -33639,7 +33639,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "",
+        "chemicalName": "2-부톡시에탄올",
         "casNo": "111-76-2",
         "content": "11~15",
         "controlledSubstance": "",
@@ -33647,7 +33647,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "",
+        "chemicalName": "초산 부틸",
         "casNo": "123-86-4",
         "content": "0.1~1",
         "controlledSubstance": "",
@@ -33655,7 +33655,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "",
+        "chemicalName": "크실렌",
         "casNo": "1330-20-7",
         "content": "0.1~1",
         "controlledSubstance": "",
@@ -33663,7 +33663,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "",
+        "chemicalName": "초산 메틸",
         "casNo": "79-20-9",
         "content": "8~10",
         "controlledSubstance": "",
@@ -33671,7 +33671,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "",
+        "chemicalName": "시클로헥사논",
         "casNo": "108-94-1",
         "content": "0.1~1",
         "controlledSubstance": "",
@@ -33913,7 +33913,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "",
+        "chemicalName": "아세톤",
         "casNo": "67-64-1",
         "content": "9~10",
         "controlledSubstance": "",
@@ -33921,7 +33921,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "",
+        "chemicalName": "초산 메틸",
         "casNo": "79-20-9",
         "content": "8~10",
         "controlledSubstance": "",
@@ -33929,7 +33929,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "",
+        "chemicalName": "시클로헥사논",
         "casNo": "108-94-1",
         "content": "0.1~1",
         "controlledSubstance": "",
@@ -33993,7 +33993,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "",
+        "chemicalName": "에틸벤젠",
         "casNo": "100-41-4",
         "content": "6~9",
         "controlledSubstance": "",
@@ -34556,7 +34556,7 @@
         "specialHealthCheckTarget": "○"
       },
       {
-        "chemicalName": "/ KE-13217",
+        "chemicalName": "에탄올",
         "casNo": "64-17-5",
         "content": "1 ~ 8",
         "controlledSubstance": "",
@@ -34933,7 +34933,7 @@
         "specialHealthCheckTarget": "○"
       },
       {
-        "chemicalName": "/ KE-24725 미만",
+        "chemicalName": "4-메틸-2-펜탄온",
         "casNo": "108-10-1",
         "content": "0.1~1",
         "controlledSubstance": "",
@@ -35254,7 +35254,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "/ KE-24725 미만",
+        "chemicalName": "4-메틸-2-펜탄온",
         "casNo": "108-10-1",
         "content": "0.1~1",
         "controlledSubstance": "",
@@ -35483,7 +35483,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "/ KE-13217",
+        "chemicalName": "에탄올",
         "casNo": "64-17-5",
         "content": "1 ~ 6",
         "controlledSubstance": "",
@@ -35545,7 +35545,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "/ KE-04134 미만",
+        "chemicalName": "2-뷰톡시에탄올",
         "casNo": "111-76-2",
         "content": "0.1~1",
         "controlledSubstance": "",
@@ -36277,7 +36277,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "질 )",
+        "chemicalName": "피마자 기름, 수소화된(CASTOR OIL,HYDROGENATED)",
         "casNo": "8001-78-3",
         "content": "",
         "controlledSubstance": "",
@@ -38661,7 +38661,7 @@
     "ppeSummary": "",
     "ingredients": [
       {
-        "chemicalName": "번호:",
+        "chemicalName": "Chromium Chromium metal / Chromium,",
         "casNo": "7440-47-3",
         "content": "",
         "controlledSubstance": "",
@@ -38669,7 +38669,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "번호:",
+        "chemicalName": "Copper",
         "casNo": "7440-50-8",
         "content": "",
         "controlledSubstance": "",
@@ -38677,7 +38677,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "번호:",
+        "chemicalName": "Silicon Silicon powder / Silicon powder,",
         "casNo": "7440-21-3",
         "content": "",
         "controlledSubstance": "",
@@ -38693,7 +38693,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "번호:",
+        "chemicalName": "Nickel",
         "casNo": "7440-02-0",
         "content": "",
         "controlledSubstance": "",
@@ -38701,7 +38701,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "번호:",
+        "chemicalName": "Molybdenum Molybdenum metal / Molybdenum,",
         "casNo": "7439-98-7",
         "content": "",
         "controlledSubstance": "",
@@ -38709,7 +38709,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "번호:",
+        "chemicalName": "Manganese Manganese, elemental / Manganese",
         "casNo": "7439-96-5",
         "content": "",
         "controlledSubstance": "",
@@ -39015,7 +39015,7 @@
     "ppeSummary": "",
     "ingredients": [
       {
-        "chemicalName": "",
+        "chemicalName": "Sodium hydroxide",
         "casNo": "1310-73-2",
         "content": "",
         "controlledSubstance": "",
@@ -39023,7 +39023,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "",
+        "chemicalName": "Sodium metasilicate pentahydrate",
         "casNo": "10213-79-3",
         "content": "",
         "controlledSubstance": "",
@@ -39031,7 +39031,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "",
+        "chemicalName": "Water",
         "casNo": "7732-18-5",
         "content": "",
         "controlledSubstance": "",
@@ -39039,7 +39039,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "",
+        "chemicalName": "Octoxinol",
         "casNo": "9002-93-1",
         "content": "",
         "controlledSubstance": "",
@@ -39047,7 +39047,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "",
+        "chemicalName": "Diethylene Glycol Monobutyl Ether",
         "casNo": "112-34-5",
         "content": "",
         "controlledSubstance": "",
