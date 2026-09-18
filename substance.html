@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>MSDS 물질 찾기</title>
+    <link rel="stylesheet" href="css/substance.css?v=20260918-substance1">
+    <link rel="stylesheet" href="css/topbar.css?v=20260918-substance1">
+    <script>
+      // 조회 화면에서 고른 화면 설정을 이 페이지에도 적용한다.
+      try {
+        var saved = localStorage.getItem("msds.theme.v1");
+        var dark = saved ? saved === "dark"
+          : window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+      } catch (error) { /* 저장소가 막힌 환경 */ }
+    </script>
+  </head>
+  <body>
+    <nav class="top-bar no-print" aria-label="화면 이동">
+      <a class="top-bar-brand" href="index.html">MSDS 안전정보</a>
+      <div class="top-bar-tabs">
+        <a class="top-bar-tab" href="index.html">조회</a>
+        <a class="top-bar-tab" href="label.html">경고표지</a>
+        <a class="top-bar-tab" href="guide.html">관리요령</a>
+        <a class="top-bar-tab" href="substance.html" aria-current="page">물질</a>
+        <a class="top-bar-tab" href="index.html?offline=1">오프라인 저장</a>
+      </div>
+      <div class="top-bar-tools">
+        <button type="button" id="siteQrButton" class="top-bar-icon" aria-expanded="false" aria-controls="siteQrPanel" title="이 화면을 QR로 보여 주기">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4z" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M6.5 6.5h1v1h-1zM16.5 6.5h1v1h-1zM6.5 16.5h1v1h-1z" fill="currentColor" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M14 14h2v2h-2zM18 14h2v2h-2zM16 16h2v2h-2zM14 18h2v2h-2zM18 18h2v2h-2z" fill="currentColor"/>
+          </svg>
+          <span class="top-bar-icon-label">QR</span>
+        </button>
+      </div>
+    </nav>
+
+    <div id="siteQrPanel" class="top-bar-panel no-print" hidden>
+      <div class="site-qr">
+        <div id="siteQrCode" class="site-qr-code" aria-hidden="true"></div>
+        <div class="site-qr-info">
+          <strong>이 화면을 QR로 보여 주기</strong>
+          <p id="siteQrNote" class="site-qr-note">옆 사람이 폰 카메라로 찍으면 지금 보는 화면이 그대로 열립니다.</p>
+          <code id="siteQrUrl" class="site-qr-url"></code>
+          <button type="button" id="siteQrCopy" class="site-qr-copy">주소 복사</button>
+        </div>
+      </div>
+    </div>
+
+    <header class="substance-header">
+      <div class="substance-header-inner">
+        <h1>물질 찾기</h1>
+        <p>
+          제품이 아니라 성분에서 시작합니다. 어느 물질이 어느 제품에 들어 있는지 CAS 번호로 묶어 보여 줍니다.
+          작업환경측정 계획을 세우거나 특수건강진단 대상을 추릴 때 씁니다.
+        </p>
+        <a class="substance-back" href="index.html">← MSDS 조회로 돌아가기</a>
+      </div>
+    </header>
+
+    <main class="substance-main">
+      <section class="substance-controls" aria-label="물질 찾기 설정">
+        <label class="substance-field">
+          <span>물질 찾기</span>
+          <input id="substanceSearch" type="search" placeholder="물질명이나 CAS 번호" autocomplete="off">
+        </label>
+
+        <div class="substance-filters" role="group" aria-label="법정분류로 좁히기">
+          <label class="substance-check">
+            <input type="checkbox" data-substance-filter="workplaceMonitoringTarget">
+            <span>작업환경측정 유해인자</span>
+          </label>
+          <label class="substance-check">
+            <input type="checkbox" data-substance-filter="specialHealthCheckTarget">
+            <span>특수건강진단 유해인자</span>
+          </label>
+          <label class="substance-check">
+            <input type="checkbox" data-substance-filter="managementTarget">
+            <span>관리대상 유해물질</span>
+          </label>
+        </div>
+
+        <div class="substance-actions">
+          <span id="substanceStatus" class="substance-status" role="status" aria-live="polite">물질 목록을 만드는 중입니다.</span>
+          <button type="button" id="substanceExport" class="substance-button">현재 목록 CSV</button>
+        </div>
+
+        <p class="substance-notice">
+          <strong>법정분류 표시는 원본 MSDS 에 적힌 내용을 그대로 옮긴 것입니다.</strong>
+          이 사이트가 판정한 것이 아니며, 해당 유해인자인지 여부만 나타냅니다.
+          실제로 작업환경측정이나 특수건강진단을 해야 하는지는 취급 공정, 노출 여부,
+          허용소비량·임시작업 같은 법령상 예외를 따로 따져야 합니다.
+          원본이 안 적은 칸은 &ldquo;해당없음&rdquo;이 아니라 &ldquo;표기 없음&rdquo;으로 둡니다.
+        </p>
+
+        <label class="substance-check substance-check-quiet">
+          <input type="checkbox" id="substanceShowOrphans">
+          <span>CAS 번호가 없어 묶지 못한 성분도 보기</span>
+        </label>
+      </section>
+
+      <div id="substanceList" class="substance-list"></div>
+    </main>
+
+    <script src="vendor/qrcode.min.js?v=20260918-substance1"></script>
+    <script src="js/page-transition.js?v=20260918-substance1" defer></script>
+    <script src="js/site-qr.js?v=20260918-substance1" defer></script>
+    <script src="js/pick-assist.js?v=20260918-substance1" defer></script>
+    <script src="js/csv-export.js?v=20260918-substance1" defer></script>
+    <script src="js/substance.js?v=20260918-substance1" defer></script>
+  </body>
+</html>

@@ -1,0 +1,442 @@
+/* 물질 찾기 화면.
+ *
+ * 관리요령과 달리 인쇄물이 아니라 보는 화면이다. 한 줄에 물질 하나가
+ * 오고, 눌러야 그 물질이 든 제품이 펼쳐진다. 272 종을 한꺼번에 펼치면
+ * 아무것도 안 보이기 때문이다.
+ *
+ * 색과 글꼴은 관리요령 화면을 그대로 따른다. 탭을 오갈 때 화면이
+ * 달라 보이면 같은 사이트라는 느낌이 깨진다.
+ */
+
+:root {
+  --substance-ink: #13211e;
+  --substance-muted: #55655f;
+  --substance-line: #c8d2cf;
+  --substance-surface: #ffffff;
+  --substance-accent: #0b5d4d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #eef4f2;
+  color: var(--substance-ink);
+  font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+}
+
+.substance-header {
+  background: linear-gradient(120deg, #06382b 0%, #0a5842 58%, #063027 100%);
+  color: #f2fbf8;
+}
+
+.substance-header-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 20px 16px 22px;
+}
+
+.substance-header h1 {
+  margin: 0 0 6px;
+  font-size: 1.45rem;
+  font-weight: 900;
+}
+
+.substance-header p {
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: rgba(238, 250, 246, 0.9);
+}
+
+.substance-back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  color: #bff0de;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.substance-main {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* ── 설정 칸 ─────────────────────────────────────────────── */
+.substance-controls {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--substance-line);
+  border-radius: 14px;
+  background: var(--substance-surface);
+}
+
+.substance-field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--substance-muted);
+}
+
+.substance-field input {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--substance-line);
+  border-radius: 10px;
+  background: #ffffff;
+  color: inherit;
+  font: inherit;
+  font-weight: 500;
+}
+
+.substance-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.substance-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--substance-muted);
+  cursor: pointer;
+}
+
+.substance-check-quiet {
+  font-weight: 500;
+  font-size: 0.82rem;
+}
+
+.substance-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.substance-status {
+  flex: 1 1 200px;
+  min-width: 0;
+  font-size: 0.84rem;
+  color: var(--substance-muted);
+}
+
+.substance-button {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--substance-accent);
+  border-radius: 10px;
+  background: var(--substance-accent);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.substance-button:hover {
+  filter: brightness(1.08);
+}
+
+/* 사이트가 법정 의무를 판정해 준 것으로 읽히면 안 된다. 눈에 들어오되
+ * 목록을 가리지 않게 얕은 바탕만 깐다. */
+.substance-notice {
+  margin: 0;
+  padding: 11px 13px;
+  border-left: 3px solid #c99a2e;
+  border-radius: 0 8px 8px 0;
+  background: rgba(201, 154, 46, 0.09);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--substance-muted);
+}
+
+.substance-notice strong {
+  color: var(--substance-ink);
+}
+
+/* ── 물질 한 줄 ──────────────────────────────────────────── */
+.substance-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.substance-card {
+  border: 1px solid var(--substance-line);
+  border-radius: 12px;
+  background: var(--substance-surface);
+  overflow: hidden;
+}
+
+.substance-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  padding: 12px 14px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.substance-head::-webkit-details-marker {
+  display: none;
+}
+
+.substance-head:hover {
+  background: rgba(11, 93, 77, 0.04);
+}
+
+.substance-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+.substance-title strong {
+  font-size: 0.98rem;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.substance-title code {
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: 0.78rem;
+  color: var(--substance-muted);
+}
+
+.substance-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.substance-badge {
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(11, 93, 77, 0.1);
+  color: var(--substance-accent);
+  font-size: 0.72rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.substance-badge.is-quiet {
+  background: rgba(85, 101, 95, 0.1);
+  color: var(--substance-muted);
+  font-weight: 600;
+}
+
+.substance-count {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--substance-muted);
+  white-space: nowrap;
+}
+
+.substance-count::after {
+  content: " ▾";
+  font-weight: 400;
+}
+
+.substance-card[open] .substance-count::after {
+  content: " ▴";
+}
+
+.substance-body {
+  padding: 0 14px 12px;
+  border-top: 1px solid var(--substance-line);
+}
+
+.substance-spellings {
+  margin: 10px 0;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--substance-muted);
+  overflow-wrap: anywhere;
+}
+
+.substance-spellings span {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 2px 7px;
+  border-radius: 5px;
+  background: rgba(85, 101, 95, 0.1);
+  font-weight: 800;
+}
+
+.substance-uses {
+  display: grid;
+  gap: 2px;
+}
+
+.substance-use {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.7fr) 72px;
+  gap: 10px;
+  align-items: center;
+  min-height: 40px;
+  padding: 6px 8px;
+  border-radius: 7px;
+  color: inherit;
+  font-size: 0.84rem;
+  text-decoration: none;
+}
+
+.substance-use:hover {
+  background: rgba(11, 93, 77, 0.06);
+}
+
+.substance-use-name {
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.substance-use-supplier,
+.substance-use-content {
+  color: var(--substance-muted);
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+
+.substance-use-content {
+  text-align: right;
+}
+
+.substance-more {
+  min-height: 46px;
+  border: 1px dashed var(--substance-line);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--substance-accent);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.substance-empty {
+  padding: 28px 14px;
+  border: 1px dashed var(--substance-line);
+  border-radius: 12px;
+  background: var(--substance-surface);
+  color: var(--substance-muted);
+  text-align: center;
+}
+
+.substance-orphans {
+  margin-top: 8px;
+  padding: 14px;
+  border: 1px solid var(--substance-line);
+  border-radius: 12px;
+  background: var(--substance-surface);
+}
+
+.substance-orphans h2 {
+  margin: 0 0 6px;
+  font-size: 0.94rem;
+  font-weight: 800;
+}
+
+.substance-orphans p {
+  margin: 0 0 10px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--substance-muted);
+}
+
+/* 좁은 화면에서는 공급업체 칸을 접어 제품명이 잘리지 않게 한다. */
+@media (max-width: 560px) {
+  .substance-use {
+    grid-template-columns: minmax(0, 1fr) 64px;
+  }
+
+  .substance-use-supplier {
+    display: none;
+  }
+}
+
+/* 손가락으로 누르는 화면에서는 체크칸을 키운다. 마우스 화면은 그대로 둔다. */
+@media (pointer: coarse) {
+  .substance-check input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* ── 어두운 화면 ─────────────────────────────────────────── */
+[data-theme="dark"] body {
+  background: #101b19;
+  color: #e8f1ee;
+}
+
+[data-theme="dark"] .substance-controls,
+[data-theme="dark"] .substance-card,
+[data-theme="dark"] .substance-orphans,
+[data-theme="dark"] .substance-empty,
+[data-theme="dark"] .substance-field input {
+  border-color: rgba(120, 170, 158, 0.28);
+  background: #16211f;
+  color: #e8f1ee;
+}
+
+[data-theme="dark"] .substance-body {
+  border-top-color: rgba(120, 170, 158, 0.24);
+}
+
+[data-theme="dark"] .substance-status,
+[data-theme="dark"] .substance-field,
+[data-theme="dark"] .substance-check,
+[data-theme="dark"] .substance-notice,
+[data-theme="dark"] .substance-spellings,
+[data-theme="dark"] .substance-use-supplier,
+[data-theme="dark"] .substance-use-content,
+[data-theme="dark"] .substance-count,
+[data-theme="dark"] .substance-orphans p,
+[data-theme="dark"] .substance-title code {
+  color: #a3b7b1;
+}
+
+[data-theme="dark"] .substance-notice strong {
+  color: #e8f1ee;
+}
+
+[data-theme="dark"] .substance-badge {
+  background: rgba(111, 224, 191, 0.14);
+  color: #8fe6c8;
+}
+
+[data-theme="dark"] .substance-badge.is-quiet {
+  background: rgba(163, 183, 177, 0.14);
+  color: #a3b7b1;
+}
+
+[data-theme="dark"] .substance-button {
+  background: #157a63;
+  border-color: #157a63;
+}
+
+[data-theme="dark"] .substance-head:hover,
+[data-theme="dark"] .substance-use:hover {
+  background: rgba(111, 224, 191, 0.08);
+}
+
+[data-theme="dark"] .substance-more {
+  border-color: rgba(120, 170, 158, 0.34);
+  color: #8fe6c8;
+}

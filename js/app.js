@@ -502,6 +502,7 @@ function bindElements() {
   elements.resultSortMode = document.querySelector("#resultSortMode");
   elements.viewToggle = document.querySelector(".view-toggle");
   elements.resultCount = document.querySelector("#resultCount");
+  elements.exportProductCsv = document.querySelector("#exportProductCsv");
   elements.resultSubtitle = document.querySelector("#resultSubtitle");
   elements.selectionList = document.querySelector("#selectionList");
   elements.selectionPanel = document.querySelector(".selection-panel");
@@ -555,6 +556,8 @@ function bindEvents() {
     state.searchFiltersOpen = !state.searchFiltersOpen;
     render();
   });
+
+  elements.exportProductCsv?.addEventListener("click", exportProductListCsv);
 
   elements.resultSortMode?.addEventListener("change", (event) => {
     state.resultSortMode = event.target.value;
@@ -2160,6 +2163,36 @@ function getSelectedProduct(results) {
 
 function getAllSelectableProducts() {
   return [...state.products, ...state.pdfOnlyProducts];
+}
+
+/* 지금 화면에 걸러져 있는 제품을 그대로 엑셀로 뺀다.
+ *
+ * 점검 나와서 "보유 화학물질 목록 주세요" 하면 바로 줄 수 있어야 한다.
+ * 검색어를 넣은 상태면 그 결과만, 안 넣었으면 전체가 나간다. 화면에서
+ * 본 것과 파일이 다르면 안 되니 목록을 새로 만들지 않고 같은 함수를 쓴다.
+ */
+function exportProductListCsv() {
+  const hasQuery = Boolean(normalizeSearchText(state.query));
+  const products = hasQuery ? getSortedSearchResults(getFilteredProducts()) : getAllSelectableProducts();
+  const header = [
+    "제품명", "공급업체", "용도", "분류", "신호어", "유해위험성 분류",
+    "위험물 구분", "MSDS 번호", "발행일", "개정일", "성분 수", "MSDS 원본"
+  ];
+  const rows = products.map((product) => [
+    product.productName || "",
+    getDisplaySupplierName(product),
+    product.recommendedUse || "",
+    product.category || "",
+    product.signalWord || product.hazardBadge || "",
+    product.hazardClassification || "",
+    product.dangerousGoods || "",
+    product.msdsNo || "",
+    product.issueDate || "",
+    product.revisionDate || "",
+    (product.ingredients || []).length,
+    product.pdfPath || ""
+  ]);
+  window.downloadCsv(`제품목록_${window.csvStamp()}.csv`, header, rows);
 }
 
 function render() {

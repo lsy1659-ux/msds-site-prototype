@@ -10,11 +10,17 @@ MSDS 제3항 구성성분 표를 PDF 에서 긁을 때 두 가지가 어긋난�
 이 표가 작업환경측정과 특수건강진단 판단의 근거라 어긋난 채로 두면
 결론이 틀린다.
 
-고칠 때는 원본 PDF 에서 그 CAS 가 적힌 줄을 찾아 같은 줄의 이름을
-쓴다. 다수결로 덮어쓰지 않는다. 업체마다 같은 물질을 다르게 적는
-일이 흔해서, 다수결을 정답으로 삼으면 멀쩡한 동의어를 지운다.
+옳고 그름을 아는 곳은 원본뿐이다. 그래서 제품마다 PDF 의 구성성분
+표를 통째로 읽어 CAS 와 이름의 짝을 만들어 두고, 저장된 값을 그
+짝과 맞춰 본다. 제품끼리 견주는 방법도 써 봤지만 표의 두 줄이 통째로
+맞바뀐 경우는 양쪽 다 틀려서 걸러지지 않았다.
 
-원본에서 확인되지 않거나 줄을 깔끔히 못 읽은 행은 손대지 않고
+고치는 것은 저장된 이름이 같은 표의 "다른 CAS" 이름일 때뿐이다.
+행이 밀렸다는 뜻이기 때문이다. 톨루엔과 Toluene 처럼 같은 물질을
+달리 적은 것은 건드리지 않는다. 건드리면 멀쩡한 한글 이름이 영문으로
+바뀐다. 업체마다 표기가 다른 것은 잘못이 아니다.
+
+원본에서 확인되지 않거나 줄을 깔끔히 못 읽은 행도 손대지 않고
 사람이 볼 수 있게 남긴다.
 
     py scripts/repair_ingredient_rows.py            살펴보기만
@@ -33,12 +39,19 @@ from datetime import date
 from pathlib import Path
 
 warnings.filterwarnings("ignore")
+
+# 업체가 만든 PDF 가 제각각이라 pypdf 가 글꼴·참조 경고를 쏟아 낸다.
+# 읽는 데는 지장이 없고, 정작 봐야 할 결과가 묻힌다.
+import logging
+logging.getLogger("pypdf").setLevel(logging.CRITICAL)
+
 from pypdf import PdfReader
 
 DATA = Path("data/msds.public.json")
 REPORT_DIR = Path("reports")
 
 CAS_RE = re.compile(r"^\d{2,7}-\d{2}-\d$")
+CAS_IN_LINE = re.compile(r"\b\d{2,7}-\d{2}-\d\b")
 NOT_A_CAS = ("미기재", "영업비밀", "비공개", "해당없음", "없음", "mixture", "혼합물")
 
 # 물질 이름으로 볼 수 없는 값. 표 머리글과 쪽 번호가 대부분이다.
@@ -90,6 +103,23 @@ def name_core(raw: str) -> str:
 
 def groupable_cas(cas: str) -> bool:
     return bool(CAS_RE.match(cas)) and not any(w in cas.lower() for w in NOT_A_CAS)
+
+
+def same_substance(source: str, current: str) -> bool:
+    """원본 줄의 이름과 저장된 이름이 같은 물질을 가리키는가.
+
+    글자가 똑같아야 같은 것은 아니다. 띄어쓰기, 괄호 안 영문, 사내
+    코드가 붙고 떨어지는 것은 늘 있는 일이다. 알맹이가 한쪽에 들어
+    있으면 같은 것으로 보고 손대지 않는다. 자일렌 자리에 아세트산
+    뷰틸이 앉은 것처럼 알맹이가 아예 다를 때만 고친다.
+    """
+    here, there = name_core(current), name_core(source)
+    if not here or not there:
+        return False
+    if here == there:
+        return True
+    shorter, longer = sorted((here, there), key=len)
+    return len(shorter) >= 3 and shorter in longer
 
 
 def read_pages(path: str) -> list[str]:
@@ -148,6 +178,24 @@ def unusable_source(source: str, current: str) -> str | None:
     return None
 
 
+def read_cas_table(pages: list[str]) -> dict[str, tuple[int, str]]:
+    """PDF 의 구성성분 표를 CAS 번호 -> (쪽, 이름) 으로 읽어 둔다.
+
+    한 행만 보면 우리 값이 틀렸는지 알 수 없다. 같은 표에 어떤 짝들이
+    있는지 함께 봐야 행이 밀렸는지 가릴 수 있다.
+    """
+    table: dict[str, tuple[int, str]] = {}
+    for number, text in enumerate(pages, 1):
+        for line in text.splitlines():
+            for cas in set(CAS_IN_LINE.findall(line)):
+                if cas in table:
+                    continue
+                name = tidy(name_from_line(line, cas))
+                if name:
+                    table[cas] = (number, name)
+    return table
+
+
 def find_targets(products: list[dict]) -> list[dict]:
     rows = []
     for product in products:
@@ -168,24 +216,16 @@ def find_targets(products: list[dict]) -> list[dict]:
         if reason:
             targets[(row["productId"], row["index"])] = {**row, "kind": reason}
 
-    # 나. 이름이 다른 CAS 의 통상 이름인 행 (표가 밀린 자취)
-    usable = [r for r in rows if groupable_cas(r["cas"]) and r["name"]]
-    by_cas: dict[str, collections.Counter] = collections.defaultdict(collections.Counter)
-    for row in usable:
-        by_cas[row["cas"]][name_core(row["name"])] += 1
-    consensus = {cas: names.most_common(1)[0][0] for cas, names in by_cas.items()}
-    owner: dict[str, set[str]] = collections.defaultdict(set)
-    for cas, core in consensus.items():
-        owner[core].add(cas)
-
-    for row in usable:
-        core = name_core(row["name"])
-        if core == consensus[row["cas"]]:
+    # 나. CAS 가 있는 모든 행. 원본과 맞는지는 뒤에서 PDF 를 보고 가린다.
+    #
+    # 처음에는 제품끼리 견주어 수상한 행만 골랐다. 그런데 표의 두 줄이
+    # 통째로 맞바뀐 경우는 그렇게 안 걸린다. 양쪽 다 틀려서 견줄 기준이
+    # 없기 때문이다. 결국 옳고 그름을 아는 곳은 원본뿐이라, CAS 가 있는
+    # 행은 모두 원본과 맞춰 본다.
+    for row in rows:
+        if not groupable_cas(row["cas"]):
             continue
-        if not (owner.get(core, set()) - {row["cas"]}):
-            continue
-        key = (row["productId"], row["index"])
-        targets.setdefault(key, {**row, "kind": "다른 물질 이름"})
+        targets.setdefault((row["productId"], row["index"]), {**row, "kind": "원본과 대조"})
 
     return sorted(targets.values(), key=lambda r: (r["productId"], r["index"]))
 
@@ -199,6 +239,7 @@ def main() -> int:
     targets = find_targets(products)
 
     cache: dict[str, list[str]] = {}
+    table_cache: dict[str, dict[str, tuple[int, str]]] = {}
     today = date.today().isoformat()
     findings = []
 
@@ -211,16 +252,10 @@ def main() -> int:
                 cache[pdf] = []
                 print(f"!! PDF 읽기 실패 {pdf}: {error}")
 
-        page_no, source_name = None, ""
-        if groupable_cas(cas):
-            for number, text in enumerate(cache[pdf], 1):
-                hit = next((line for line in text.splitlines() if cas in line), None)
-                if hit:
-                    page_no, source_name = number, name_from_line(hit, cas)
-                    break
-
-        source_name = tidy(source_name)
-        squashed = lambda text: re.sub(r"\s", "", text).lower()
+        if pdf not in table_cache:
+            table_cache[pdf] = read_cas_table(cache[pdf])
+        table = table_cache[pdf]
+        page_no, source_name = table.get(cas, (None, ""))
 
         if not groupable_cas(cas):
             action = "손대지 않음 (CAS 없음)"
@@ -228,10 +263,20 @@ def main() -> int:
             action = f"손대지 않음 ({problem})"
         elif is_junk_name(source_name):
             action = "손대지 않음 (원본 줄도 깨끗하지 않음)"
-        elif squashed(source_name) == squashed(target["name"]):
+        elif same_substance(source_name, target["name"]):
             action = "손대지 않음 (원본이 그렇게 적음)"
-        else:
+        elif is_junk_name(target["name"]):
+            # 이름 자리에 표 머리글이나 쪽 번호가 들어온 행. 원본으로 채운다.
             action = "이름 교체"
+        elif any(other != cas and same_substance(name, target["name"])
+                 for other, (_, name) in table.items()):
+            # 지금 이름이 같은 표의 다른 CAS 이름이다. 행이 밀렸다는 뜻이라
+            # 원본의 짝으로 되돌린다. 이 조건이 아니면 손대지 않는다.
+            # 톨루엔과 Toluene 처럼 같은 물질을 달리 적은 것까지 건드리면
+            # 멀쩡한 한글 이름이 영문으로 바뀐다.
+            action = "이름 교체"
+        else:
+            action = "손대지 않음 (원본과 표기만 다름)"
 
         findings.append({
             **target,

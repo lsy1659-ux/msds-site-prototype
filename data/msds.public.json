@@ -20657,7 +20657,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "수소처리된 중질 파라핀 정제유(Distillates",
+        "chemicalName": "프로판(Propane)",
         "casNo": "74-98-6",
         "content": "",
         "controlledSubstance": "",
@@ -21249,7 +21249,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "폴리부텐(Polybutene)",
+        "chemicalName": "페트롤레이텀(석유), 산화된 칼슘염",
         "casNo": "68425-34-3",
         "content": "14~24",
         "controlledSubstance": "",
@@ -21257,7 +21257,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "칼슘 석유 설폰산",
+        "chemicalName": "폴리부텐(Polybutene)",
         "casNo": "9003-29-6",
         "content": "12~22",
         "controlledSubstance": "",
@@ -21501,7 +21501,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "수소처리된 중질 파라핀 정제유(Distillates",
+        "chemicalName": "페트롤레이텀(석유), 산화된 칼슘염",
         "casNo": "68425-34-3",
         "content": "5~15",
         "controlledSubstance": "",
@@ -22138,7 +22138,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "물(Water)",
+        "chemicalName": "알파-도데실-오메가-하이드록시-폴리옥시에틸렌",
         "casNo": "9002-92-0",
         "content": "35~45",
         "controlledSubstance": "",
@@ -22275,7 +22275,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "탈크파우더(Talc powder)(비석면형)",
+        "chemicalName": "노말헥산(n-hexane)",
         "casNo": "110-54-3",
         "content": "1~10",
         "controlledSubstance": "○",
@@ -22530,7 +22530,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "다이에틸렌 글리콜 모노뷰틸 에테르",
+        "chemicalName": "3-메틸-3-메톡시 부탄올",
         "casNo": "56539-66-3",
         "content": "0.1~0.3",
         "controlledSubstance": "",
@@ -22546,7 +22546,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "폴리옥시 에틸렌 알킬에테르",
+        "chemicalName": "트리에탄올아민(Triethanol Amine)",
         "casNo": "102-71-6",
         "content": "85~95",
         "controlledSubstance": "",
@@ -22554,7 +22554,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "물(Water)",
+        "chemicalName": "폴리옥시 에틸렌 알킬에테르",
         "casNo": "9002-92-0",
         "content": "",
         "controlledSubstance": "",
@@ -22562,7 +22562,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "유리인산칼륨, 무수",
+        "chemicalName": "물(Water)",
         "casNo": "7732-18-5",
         "content": "",
         "controlledSubstance": "",
@@ -22908,7 +22908,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "Orange, sweet, ext.",
+        "chemicalName": "수소처리된 경질 정제유(석유)",
         "casNo": "64742-47-8",
         "content": "5~15",
         "controlledSubstance": "",
@@ -22916,7 +22916,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "프로필렌 글리콜 모노메틸 에테르",
+        "chemicalName": "Orange, sweet, ext",
         "casNo": "8028-48-6",
         "content": "5~15",
         "controlledSubstance": "",
@@ -23103,7 +23103,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "Orange, sweet, ext.",
+        "chemicalName": "수소처리된 경질 정제유(석유)",
         "casNo": "64742-47-8",
         "content": "5~15",
         "controlledSubstance": "",
@@ -23111,7 +23111,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "프로필렌 글리콜 모노메틸 에테르",
+        "chemicalName": "Orange, sweet, ext",
         "casNo": "8028-48-6",
         "content": "5~15",
         "controlledSubstance": "",
@@ -23291,7 +23291,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "1,2-디클로로에틸렌(트랜스)",
+        "chemicalName": "피마자유(Castor oil)",
         "casNo": "8001-79-4",
         "content": "85~95",
         "controlledSubstance": "",
@@ -23439,7 +23439,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "아세톤(Acetone)",
+        "chemicalName": "톨루엔(Toluene)",
         "casNo": "108-88-3",
         "content": "1~5",
         "controlledSubstance": "○",
@@ -23447,7 +23447,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "크실렌(Xylene)",
+        "chemicalName": "아세톤(Acetone)",
         "casNo": "67-64-1",
         "content": "1~10",
         "controlledSubstance": "○",
@@ -23455,7 +23455,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "아세트산 뷰틸(Butyl acetates)",
+        "chemicalName": "크실렌(Xylene)",
         "casNo": "1330-20-7",
         "content": "1~5",
         "controlledSubstance": "○",
@@ -23463,7 +23463,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "뷰틸 셀로솔브(Butyl cellosolve)",
+        "chemicalName": "아세트산 뷰틸(Butyl acetates)",
         "casNo": "123-86-4",
         "content": "1~5",
         "controlledSubstance": "○",
@@ -23519,7 +23519,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "phthalic anhydride and soya fatty acids",
+        "chemicalName": "프로판(Propane)",
         "casNo": "74-98-6",
         "content": "50~60",
         "controlledSubstance": "",
@@ -23527,7 +23527,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "니트로셀룰로오스(Nitrocellulose)",
+        "chemicalName": "디메틸에테르(Dimethyl ether)",
         "casNo": "115-10-6",
         "content": "",
         "controlledSubstance": "",
@@ -24414,7 +24414,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "아세톤(Acetone)",
+        "chemicalName": "톨루엔(Toluene)",
         "casNo": "108-88-3",
         "content": "1~5",
         "controlledSubstance": "○",
@@ -24422,7 +24422,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "크실렌(Xylene)",
+        "chemicalName": "아세톤(Acetone)",
         "casNo": "67-64-1",
         "content": "5~15",
         "controlledSubstance": "○",
@@ -24430,7 +24430,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "아세트산 뷰틸(Butyl acetates)",
+        "chemicalName": "크실렌(Xylene)",
         "casNo": "1330-20-7",
         "content": "1~5",
         "controlledSubstance": "○",
@@ -24438,7 +24438,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "뷰틸 셀로솔브(Butyl cellosolve)",
+        "chemicalName": "아세트산 뷰틸(Butyl acetates)",
         "casNo": "123-86-4",
         "content": "1~5",
         "controlledSubstance": "○",
@@ -24494,7 +24494,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "phthalic anhydride and soya fatty acids",
+        "chemicalName": "프로판(Propane)",
         "casNo": "74-98-6",
         "content": "50~60",
         "controlledSubstance": "",
@@ -24502,7 +24502,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "니트로셀룰로오스(Nitrocellulose)",
+        "chemicalName": "디메틸에테르(Dimethyl ether)",
         "casNo": "115-10-6",
         "content": "",
         "controlledSubstance": "",
@@ -24916,7 +24916,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "아세톤(Acetone)",
+        "chemicalName": "톨루엔(Toluene)",
         "casNo": "108-88-3",
         "content": "1~5",
         "controlledSubstance": "○",
@@ -24924,7 +24924,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "크실렌(Xylene)",
+        "chemicalName": "아세톤(Acetone)",
         "casNo": "67-64-1",
         "content": "5~15",
         "controlledSubstance": "○",
@@ -24932,7 +24932,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "아세트산 뷰틸(Butyl acetates)",
+        "chemicalName": "크실렌(Xylene)",
         "casNo": "1330-20-7",
         "content": "1~5",
         "controlledSubstance": "○",
@@ -24940,7 +24940,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "뷰틸 셀로솔브(Butyl cellosolve)",
+        "chemicalName": "아세트산 뷰틸(Butyl acetates)",
         "casNo": "123-86-4",
         "content": "1~5",
         "controlledSubstance": "○",
@@ -24948,7 +24948,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "적색 색소(C.I. pigment red 48:4)",
+        "chemicalName": "뷰틸 셀로솔브(Butyl cellosolve)",
         "casNo": "111-76-2",
         "content": "1~4",
         "controlledSubstance": "○",
@@ -24956,7 +24956,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "메틸아이소뷰틸케톤(Methyl isobutyl ketone)",
+        "chemicalName": "적색 색소(C.I. pigment red 48:4)",
         "casNo": "5280-66-0",
         "content": "1~5",
         "controlledSubstance": "",
@@ -24996,7 +24996,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "phthalic anhydride and soya fatty acids",
+        "chemicalName": "프로판(Propane)",
         "casNo": "74-98-6",
         "content": "50~60",
         "controlledSubstance": "",
@@ -25004,7 +25004,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "니트로셀룰로오스(Nitrocellulose)",
+        "chemicalName": "디메틸에테르(Dimethyl ether)",
         "casNo": "115-10-6",
         "content": "",
         "controlledSubstance": "",
@@ -25183,7 +25183,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "아세톤(Acetone)",
+        "chemicalName": "톨루엔(Toluene)",
         "casNo": "108-88-3",
         "content": "1~5",
         "controlledSubstance": "○",
@@ -25191,7 +25191,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "크실렌(Xylene)",
+        "chemicalName": "아세톤(Acetone)",
         "casNo": "67-64-1",
         "content": "1~10",
         "controlledSubstance": "○",
@@ -25199,7 +25199,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "아세트산 뷰틸(Butyl acetates)",
+        "chemicalName": "크실렌(Xylene)",
         "casNo": "1330-20-7",
         "content": "1~5",
         "controlledSubstance": "○",
@@ -25207,7 +25207,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "뷰틸 셀로솔브(Butyl cellosolve)",
+        "chemicalName": "아세트산 뷰틸(Butyl acetates)",
         "casNo": "123-86-4",
         "content": "1~5",
         "controlledSubstance": "○",
@@ -25263,7 +25263,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "phthalic anhydride and soya fatty acids",
+        "chemicalName": "프로판(Propane)",
         "casNo": "74-98-6",
         "content": "50~60",
         "controlledSubstance": "",
@@ -25271,7 +25271,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "니트로셀룰로오스(Nitrocellulose)",
+        "chemicalName": "디메틸에테르(Dimethyl ether)",
         "casNo": "115-10-6",
         "content": "",
         "controlledSubstance": "",
@@ -25466,7 +25466,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "아세트산 뷰틸(Butyl acetates)",
+        "chemicalName": "톨루엔(Toluene)",
         "casNo": "108-88-3",
         "content": "1~5",
         "controlledSubstance": "○",
@@ -25474,7 +25474,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "뷰틸 셀로솔브(Butyl cellosolve)",
+        "chemicalName": "아세톤(Acetone)",
         "casNo": "67-64-1",
         "content": "1~5",
         "controlledSubstance": "○",
@@ -25490,7 +25490,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "색소 호스타페름 황색 H4G",
+        "chemicalName": "아세트산 뷰틸(Butyl acetates)",
         "casNo": "123-86-4",
         "content": "1~4",
         "controlledSubstance": "○",
@@ -25514,7 +25514,7 @@
         "specialHealthExam": "○"
       },
       {
-        "chemicalName": "메틸아이소뷰틸케톤(Methyl isobutyl ketone)",
+        "chemicalName": "색소 호스타페름 황색 H4G",
         "casNo": "31837-42-0",
         "content": "1~5",
         "controlledSubstance": "",
@@ -33687,7 +33687,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "에탄올, 2-페녹시-(ETHAL, 2-PHEXY-);",
+        "chemicalName": "에틸렌 글리콜 페닐 에테르",
         "casNo": "122-99-6",
         "content": "34~37",
         "controlledSubstance": "",
@@ -33945,7 +33945,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "에탄올, 2-페녹시-(ETHAL, 2-PHEXY-);",
+        "chemicalName": "에틸렌 글리콜 페닐 에테르",
         "casNo": "122-99-6",
         "content": "34~37",
         "controlledSubstance": "",
@@ -35179,7 +35179,7 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "자료없음 /",
+        "chemicalName": "Hexane, 1,6-diisocyanato-, homopolymer, 자료없음",
         "casNo": "103818-85-5",
         "content": "1 ~ 6",
         "controlledSubstance": "",
