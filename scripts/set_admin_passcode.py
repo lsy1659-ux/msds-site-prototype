@@ -21,7 +21,9 @@ import re
 import sys
 from pathlib import Path
 
-GATE = Path("js/admin-gate.js")
+# 어느 폴더에서 부르든 되게 한다. 현재 폴더를 기준으로 삼으면 저장소
+# 뿌리로 먼저 옮겨 가야 하는데, 그 한 걸음 때문에 안 바꾸고 넘어간다.
+GATE = Path(__file__).resolve().parents[1] / "js" / "admin-gate.js"
 LINE = re.compile(r'(const PASS_HASH = ")[0-9a-f]{64}(";)')
 
 
@@ -44,13 +46,14 @@ def main(argv: list[str]) -> int:
     GATE.write_text(LINE.sub(rf"\g<1>{digest}\g<2>", source), encoding="utf-8")
 
     # 암호는 찍지 않는다. 화면을 누가 보고 있을지 모른다.
+    root = GATE.parent.parent
     print(f"{GATE} 의 암호를 바꿨다.")
     print(f"  해시 {digest[:16]}…")
     print()
-    print("이제 올리면 새 암호로 열린다.")
-    print("  git add js/admin-gate.js")
-    print('  git commit -m "관리자 암호 변경"')
-    print("  git push")
+    print("이제 아래를 붙여 넣으면 사이트에 반영된다.")
+    print(f'  git -C "{root}" add js/admin-gate.js')
+    print(f'  git -C "{root}" commit -m "관리자 암호 변경"')
+    print(f'  git -C "{root}" push')
     print()
     print("이미 열어 둔 브라우저는 그대로 열려 있다. 잠그려면 관리자 패널에서")
     print("[관리자 모드 끄기] 를 누른다.")
