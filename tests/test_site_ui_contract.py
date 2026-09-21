@@ -27,8 +27,32 @@ class SiteUiContractTests(unittest.TestCase):
     def test_pages_mark_their_own_tab_as_current(self):
         for page in TAB_PAGES:
             source = (ROOT / page).read_text(encoding="utf-8")
-            self.assertIn(f'href="{page}" aria-current="page"', source,
+            self.assertIn(f'href="{page}"', source)
+            self.assertIn('aria-current="page"', source,
                           f"{page} 가 자기 탭을 지금 보는 화면으로 표시하지 않는다")
+
+    def test_substance_tab_stays_behind_the_admin_gate(self):
+        for page in TAB_PAGES:
+            source = (ROOT / page).read_text(encoding="utf-8")
+            tab = re.search(r'<a class="top-bar-tab" href="substance\.html"[^>]*>', source)
+            self.assertIsNotNone(tab, f"{page} 에 물질 탭이 없다")
+            self.assertIn("data-admin-only", tab.group(0),
+                          f"{page} 의 물질 탭이 관리자 모드 밖에서도 보인다")
+            # 자바스크립트가 켜기 전에 이미 감춰져 있어야 탭이 번쩍이지 않는다.
+            self.assertIn("msds.admin.v1", source,
+                          f"{page} 가 첫 그림 전에 관리자 상태를 정하지 않는다")
+
+    def test_substance_page_hides_its_body_until_unlocked(self):
+        source = (ROOT / "substance.html").read_text(encoding="utf-8")
+        self.assertIn('class="admin-locked-screen" data-admin-locked', source)
+        self.assertIn('<main class="substance-main" data-admin-only>', source)
+        self.assertIn('id="adminGate"', source)
+
+    def test_admin_gate_is_documented_as_a_curtain_not_a_lock(self):
+        # 정적 사이트라 암호 확인이 브라우저에서 일어난다. 이 파일을 나중에
+        # 고치는 사람이 진짜 잠금으로 오해하면 민감한 것을 뒤에 둘 수 있다.
+        source = (ROOT / "js" / "admin-gate.js").read_text(encoding="utf-8")
+        self.assertIn("잠금이 아니라 가림막", source)
 
     def test_pdf_actions_keep_view_controls_without_download(self):
         self.assertIn("function renderOriginalPdfButton", self.app_source)

@@ -375,7 +375,11 @@ html.theme-switching .top-bar {
   }
 
   .top-bar-icon {
-    padding: 0 9px;
+    padding: 0 8px;
+  }
+
+  .top-bar-tools {
+    gap: 6px;
   }
 
   .site-qr-code {
@@ -488,4 +492,202 @@ html.theme-switching .top-bar {
 [data-theme="dark"] .pick-assist-item:hover,
 [data-theme="dark"] .pick-assist-item.is-active {
   background: rgba(111, 224, 191, 0.16);
+}
+
+/* ── 관리자 가림막 ──────────────────────────────────────────
+ *
+ * 잠금이 아니라 가림막이다. 까닭은 js/admin-gate.js 에 적었다.
+ * 관리자 모드가 아닐 때만 감춘다. 켜져 있을 때는 각자의 display 를
+ * 그대로 쓰게 두어야 탭이 inline-flex 로, 패널이 grid 로 돌아온다.
+ */
+html:not([data-admin="on"]) [data-admin-only] {
+  display: none !important;
+}
+
+html[data-admin="on"] [data-admin-locked] {
+  display: none !important;
+}
+
+.admin-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content;
+  align-items: end;
+  gap: 8px 10px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.admin-code-label {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--on-surface, #13211e);
+}
+
+.admin-form input {
+  min-width: 0;
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid #c8d2cf;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #13211e;
+  font: inherit;
+}
+
+.admin-form button {
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid #0b5d4d;
+  border-radius: 10px;
+  background: #0b5d4d;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.admin-note {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--on-surface-muted, #55655f);
+}
+
+.admin-open {
+  display: grid;
+  gap: 8px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.admin-open-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--on-surface, #13211e);
+}
+
+.admin-link {
+  display: grid;
+  gap: 2px;
+  padding: 10px 12px;
+  border: 1px solid #c8d2cf;
+  border-radius: 10px;
+  background: #ffffff;
+  color: inherit;
+  text-decoration: none;
+}
+
+.admin-link:hover {
+  border-color: #0b5d4d;
+  background: rgba(11, 93, 77, 0.05);
+}
+
+.admin-link strong {
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.admin-link span {
+  font-size: 0.8rem;
+  color: var(--on-surface-muted, #55655f);
+}
+
+.admin-logout {
+  justify-self: start;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid #c8d2cf;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--on-surface-muted, #55655f);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* 관리자 화면을 주소로 바로 열었을 때 내용 대신 보여 주는 안내. */
+.admin-locked-screen {
+  max-width: 620px;
+  margin: 48px auto;
+  padding: 24px 20px;
+  border: 1px solid #c8d2cf;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.admin-locked-screen h1 {
+  margin: 0 0 8px;
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
+.admin-locked-screen > p {
+  margin: 0 0 16px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #55655f;
+}
+
+.admin-locked-back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  margin-top: 12px;
+  color: #0b5d4d;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+@media (max-width: 560px) {
+  .admin-form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* 도구 단추가 둘이 되면서 좁은 화면에서 탭 자리를 먹는다.
+ * 그림만 남기고 글자를 접는다. 자물쇠와 QR 은 그림만으로 읽힌다. */
+@media (max-width: 560px) {
+  .top-bar-icon-label {
+    display: none;
+  }
+
+  .top-bar-icon {
+    padding: 0 9px;
+  }
+}
+
+[data-theme="dark"] .admin-code-label,
+[data-theme="dark"] .admin-open-title,
+[data-theme="dark"] .admin-link strong,
+[data-theme="dark"] .admin-locked-screen h1 {
+  color: #e8f1ee;
+}
+
+[data-theme="dark"] .admin-form input,
+[data-theme="dark"] .admin-link,
+[data-theme="dark"] .admin-locked-screen {
+  border-color: rgba(120, 170, 158, 0.28);
+  background: #16211f;
+  color: #e8f1ee;
+}
+
+[data-theme="dark"] .admin-note,
+[data-theme="dark"] .admin-link span,
+[data-theme="dark"] .admin-logout,
+[data-theme="dark"] .admin-locked-screen > p {
+  color: #a3b7b1;
+}
+
+[data-theme="dark"] .admin-form button {
+  border-color: #157a63;
+  background: #157a63;
+}
+
+[data-theme="dark"] .admin-logout,
+[data-theme="dark"] .admin-link:hover {
+  border-color: rgba(120, 170, 158, 0.34);
 }

@@ -5,14 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="제품별 물질안전보건자료와 현장 안전정보를 조회하고 원본 MSDS를 확인하는 사이트입니다.">
     <title>물질안전보건자료(MSDS) 안전정보 조회</title>
-    <link rel="manifest" href="manifest.webmanifest?v=20260918-substance1">
+    <link rel="manifest" href="manifest.webmanifest?v=20260921-admin1">
     <meta name="theme-color" content="#0f5f4f">
     <link rel="icon" href="assets/icons/icon-192.png" sizes="192x192" type="image/png">
     <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="MSDS">
-    <link rel="stylesheet" href="css/style.css?v=20260918-substance1">
-    <link rel="stylesheet" href="css/topbar.css?v=20260918-substance1">
+    <link rel="stylesheet" href="css/style.css?v=20260921-admin1">
+    <link rel="stylesheet" href="css/topbar.css?v=20260921-admin1">
+    <script>
+      // 관리자 화면은 감춰 둔 채로 그린다. 나중에 자바스크립트가 켜면
+      // 탭이 툭 나타나 보이므로, 첫 그림부터 상태를 정해 둔다.
+      try {
+        document.documentElement.setAttribute(
+          "data-admin",
+          localStorage.getItem("msds.admin.v1") === "on" ? "on" : "off");
+      } catch (error) { document.documentElement.setAttribute("data-admin", "off"); }
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#searchInput">MSDS 검색으로 바로가기</a>
@@ -22,7 +31,7 @@
         <a class="top-bar-tab" href="index.html" aria-current="page">조회</a>
         <a class="top-bar-tab" href="label.html">경고표지</a>
         <a class="top-bar-tab" href="guide.html">관리요령</a>
-        <a class="top-bar-tab" href="substance.html">물질</a>
+        <a class="top-bar-tab" href="substance.html" data-admin-only>물질</a>
         <button type="button" id="offlineTab" class="top-bar-tab" aria-expanded="false" aria-controls="offlinePanel">오프라인 저장</button>
       </div>
       <div class="top-bar-tools">
@@ -33,6 +42,14 @@
             <path d="M14 14h2v2h-2zM18 14h2v2h-2zM16 16h2v2h-2zM14 18h2v2h-2zM18 18h2v2h-2z" fill="currentColor"/>
           </svg>
           <span class="top-bar-icon-label">QR</span>
+        </button>
+        <button type="button" id="adminButton" class="top-bar-icon" aria-expanded="false" aria-controls="adminPanel" title="관리자 화면 열기">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <rect x="4.5" y="10.5" width="15" height="9.5" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M8 10.5V7.4a4 4 0 0 1 8 0v3.1" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="12" cy="15" r="1.5" fill="currentColor"/>
+          </svg>
+          <span class="top-bar-icon-label">관리자</span>
         </button>
       </div>
     </nav>
@@ -48,6 +65,8 @@
         </div>
       </div>
     </div>
+
+    <div id="adminPanel" class="top-bar-panel no-print" hidden></div>
 
     <header class="site-header">
       <div class="header-inner">
@@ -228,10 +247,11 @@
       </footer>
     </main>
 
-    <script src="js/page-transition.js?v=20260918-substance1" defer></script>
-    <script src="js/csv-export.js?v=20260918-substance1" defer></script>
-    <script src="js/app.js?v=20260918-substance1" defer></script>
-    <script src="vendor/qrcode.min.js?v=20260918-substance1"></script>
-    <script src="js/site-qr.js?v=20260918-substance1" defer></script>
+    <script src="js/page-transition.js?v=20260921-admin1" defer></script>
+    <script src="js/csv-export.js?v=20260921-admin1" defer></script>
+    <script src="js/app.js?v=20260921-admin1" defer></script>
+    <script src="vendor/qrcode.min.js?v=20260921-admin1"></script>
+    <script src="js/site-qr.js?v=20260921-admin1" defer></script>
+    <script src="js/admin-gate.js?v=20260921-admin1" defer></script>
   </body>
 </html>

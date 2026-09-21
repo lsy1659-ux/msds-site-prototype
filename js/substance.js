@@ -349,10 +349,23 @@ async function initSubstancePage() {
   applyFilter();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+/* 이 화면은 관리자 모드에서만 연다. 감춰 둔 채로 227개 제품을 읽고
+ * 274종을 묶는 것은 헛일이라, 열렸을 때만 시작한다. 감춘 화면에서
+ * 암호를 풀면 그때 시작한다. */
+let substanceStarted = false;
+
+function startSubstancePage() {
+  if (substanceStarted) return;
+  if (document.documentElement.getAttribute("data-admin") !== "on") return;
+  substanceStarted = true;
   initSubstancePage().catch((error) => {
     console.error(error);
     const status = document.querySelector("#substanceStatus");
     if (status) status.textContent = "물질 목록을 만들지 못했습니다.";
   });
+}
+
+document.addEventListener("DOMContentLoaded", startSubstancePage);
+document.addEventListener("msds:admin-changed", (event) => {
+  if (event.detail?.on) startSubstancePage();
 });

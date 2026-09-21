@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
     <title>MSDS 경고표지 만들기</title>
-    <link rel="stylesheet" href="css/label.css?v=20260918-substance1">
-    <link rel="stylesheet" href="css/topbar.css?v=20260918-substance1">
+    <link rel="stylesheet" href="css/label.css?v=20260921-admin1">
+    <link rel="stylesheet" href="css/topbar.css?v=20260921-admin1">
     <script>
       // 조회 화면에서 고른 화면 설정을 이 페이지에도 적용한다.
       try {
@@ -16,6 +16,15 @@
         document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
       } catch (error) { /* 저장소가 막힌 환경 */ }
     </script>
+    <script>
+      // 관리자 화면은 감춰 둔 채로 그린다. 나중에 자바스크립트가 켜면
+      // 탭이 툭 나타나 보이므로, 첫 그림부터 상태를 정해 둔다.
+      try {
+        document.documentElement.setAttribute(
+          "data-admin",
+          localStorage.getItem("msds.admin.v1") === "on" ? "on" : "off");
+      } catch (error) { document.documentElement.setAttribute("data-admin", "off"); }
+    </script>
   </head>
   <body>
     <nav class="top-bar no-print" aria-label="화면 이동">
@@ -24,7 +33,7 @@
         <a class="top-bar-tab" href="index.html">조회</a>
         <a class="top-bar-tab" href="label.html" aria-current="page">경고표지</a>
         <a class="top-bar-tab" href="guide.html">관리요령</a>
-        <a class="top-bar-tab" href="substance.html">물질</a>
+        <a class="top-bar-tab" href="substance.html" data-admin-only>물질</a>
         <a class="top-bar-tab" href="index.html?offline=1">오프라인 저장</a>
       </div>
       <div class="top-bar-tools">
@@ -35,6 +44,14 @@
             <path d="M14 14h2v2h-2zM18 14h2v2h-2zM16 16h2v2h-2zM14 18h2v2h-2zM18 18h2v2h-2z" fill="currentColor"/>
           </svg>
           <span class="top-bar-icon-label">QR</span>
+        </button>
+        <button type="button" id="adminButton" class="top-bar-icon" aria-expanded="false" aria-controls="adminPanel" title="관리자 화면 열기">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <rect x="4.5" y="10.5" width="15" height="9.5" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M8 10.5V7.4a4 4 0 0 1 8 0v3.1" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="12" cy="15" r="1.5" fill="currentColor"/>
+          </svg>
+          <span class="top-bar-icon-label">관리자</span>
         </button>
       </div>
     </nav>
@@ -50,6 +67,8 @@
         </div>
       </div>
     </div>
+
+    <div id="adminPanel" class="top-bar-panel no-print" hidden></div>
 
     <header class="label-header no-print">
       <div class="label-header-inner">
@@ -126,10 +145,11 @@
       <section id="labelSheet" class="label-sheet label-size-mini" aria-label="경고표지 목록"></section>
     </main>
 
-    <script src="vendor/qrcode.min.js?v=20260918-substance1"></script>
-    <script src="js/page-transition.js?v=20260918-substance1" defer></script>
-    <script src="js/pick-assist.js?v=20260918-substance1" defer></script>
-    <script src="js/label.js?v=20260918-substance1" defer></script>
-    <script src="js/site-qr.js?v=20260918-substance1" defer></script>
+    <script src="vendor/qrcode.min.js?v=20260921-admin1"></script>
+    <script src="js/page-transition.js?v=20260921-admin1" defer></script>
+    <script src="js/pick-assist.js?v=20260921-admin1" defer></script>
+    <script src="js/label.js?v=20260921-admin1" defer></script>
+    <script src="js/site-qr.js?v=20260921-admin1" defer></script>
+    <script src="js/admin-gate.js?v=20260921-admin1" defer></script>
   </body>
 </html>
