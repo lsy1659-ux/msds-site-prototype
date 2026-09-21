@@ -22,10 +22,11 @@
 
   const FLAG = "msds.admin.v1";
 
-  /* 암호의 SHA-256 값. 지금 암호는 cams-msds-2026 이다.
+  /* 암호의 SHA-256 값. 암호 자체는 여기에 적지 않는다. 저장소가 공개라
+   * 평문으로 적으면 가림막 구실조차 못 한다.
    *
-   * 바꾸려면 새 암호의 해시를 구해 아래 값만 갈아 끼우면 된다.
-   *   py -c "import hashlib;print(hashlib.sha256('새암호'.encode()).hexdigest())"
+   * 바꾸려면 아래 한 줄을 돌린다. PASS_HASH 만 갈아 끼워 준다.
+   *   py scripts/set_admin_passcode.py "새암호"
    */
   const PASS_HASH = "8c420cf6567aba1df07da50e0955c1e2132769b5b8c1cf51abc3754f7f8236c8";
 

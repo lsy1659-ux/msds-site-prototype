@@ -1,3 +1,4 @@
+import hashlib
 import re
 import unittest
 from pathlib import Path
@@ -47,6 +48,22 @@ class SiteUiContractTests(unittest.TestCase):
         self.assertIn('class="admin-locked-screen" data-admin-locked', source)
         self.assertIn('<main class="substance-main" data-admin-only>', source)
         self.assertIn('id="adminGate"', source)
+
+    def test_admin_gate_never_spells_the_passcode_out(self):
+        """암호를 주석이나 문자열로 적어 두면 가림막 구실조차 못 한다.
+
+        저장소가 공개라 적는 순간 누구나 읽는다. 실제로 한 번 저질렀던
+        실수라서, 파일 안의 낱말을 모두 해시해 보고 PASS_HASH 와 같은
+        것이 있으면 잡는다.
+        """
+        source = (ROOT / "js" / "admin-gate.js").read_text(encoding="utf-8")
+        stored = re.search(r'const PASS_HASH = "([0-9a-f]{64})"', source)
+        self.assertIsNotNone(stored, "PASS_HASH 줄이 없다")
+
+        for token in set(re.findall(r"[^\s\"'`()\[\]{},;]+", source)):
+            digest = hashlib.sha256(token.encode("utf-8")).hexdigest()
+            self.assertNotEqual(digest, stored.group(1),
+                                f"암호가 파일에 그대로 적혀 있다: {token!r}")
 
     def test_admin_gate_is_documented_as_a_curtain_not_a_lock(self):
         # 정적 사이트라 암호 확인이 브라우저에서 일어난다. 이 파일을 나중에

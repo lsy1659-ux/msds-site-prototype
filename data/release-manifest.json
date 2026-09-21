@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "version": "msds-20260921-d98b010c",
-  "generatedAt": "2026-09-21T01:03:32Z",
-  "dataGeneratedAt": "2026-09-21T01:03:32Z",
+  "generatedAt": "2026-09-21T01:09:10Z",
+  "dataGeneratedAt": "2026-09-21T01:09:10Z",
   "dataCutoffDate": "2026-09-21",
   "productCount": 227,
   "pdfCount": 228,
@@ -27,5 +27,5 @@
     "errorCount": 0,
     "warningCount": 85
   },
-  "commitSha": "5662c9ed7e7c63609d4db9dc3b034548f33fa0c0"
+  "commitSha": "610b1110f17326625075838115c5891732e37355"
 }
