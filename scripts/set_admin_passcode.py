@@ -21,6 +21,9 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import bump_asset_version
+
 # 어느 폴더에서 부르든 되게 한다. 현재 폴더를 기준으로 삼으면 저장소
 # 뿌리로 먼저 옮겨 가야 하는데, 그 한 걸음 때문에 안 바꾸고 넘어간다.
 GATE = Path(__file__).resolve().parents[1] / "js" / "admin-gate.js"
@@ -45,13 +48,18 @@ def main(argv: list[str]) -> int:
     digest = hashlib.sha256(passcode.encode("utf-8")).hexdigest()
     GATE.write_text(LINE.sub(rf"\g<1>{digest}\g<2>", source), encoding="utf-8")
 
+    # 판 번호를 같이 올린다. 안 올리면 오프라인 저장이 옛 파일을 계속
+    # 돌려주어, 이미 한 번 들어온 브라우저에서는 암호가 안 바뀐다.
+    version = bump_asset_version.bump()
+
     # 암호는 찍지 않는다. 화면을 누가 보고 있을지 모른다.
     root = GATE.parent.parent
     print(f"{GATE} 의 암호를 바꿨다.")
     print(f"  해시 {digest[:16]}…")
+    print(f"  판 번호도 {version} 로 올렸다. 저장해 둔 브라우저까지 새 암호가 간다.")
     print()
     print("이제 아래를 붙여 넣으면 사이트에 반영된다.")
-    print(f'  git -C "{root}" add js/admin-gate.js')
+    print(f'  git -C "{root}" add -A')
     print(f'  git -C "{root}" commit -m "관리자 암호 변경"')
     print(f'  git -C "{root}" push')
     print()
