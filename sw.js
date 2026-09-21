@@ -3,13 +3,15 @@
  * 현장과 창고는 신호가 약한 곳이 많은데 MSDS는 작업 전에 바로 볼 수 있어야 한다.
  * 그래서 화면과 제품 데이터를 캐시해 두고, 연결이 끊겨도 조회가 되게 한다.
  *
- * 규칙은 세 가지다.
+ * 규칙은 네 가지다.
  *  - 화면 파일: 캐시 우선. 버전을 올리면 새로 받는다.
  *  - 제품 데이터: 네트워크 우선. 새 제품이 등록되면 바로 반영되고, 끊기면 마지막 사본을 쓴다.
+ *  - 관리자 암호 파일: 네트워크 우선. 암호를 바꾸는 것은 버전과 상관없는 일이라
+ *    캐시 우선으로 두면 한 번 들어온 브라우저에 옛 암호가 남는다.
  *  - PDF: 열어본 것만 캐시. 전체는 80MB가 넘어 미리 담지 않는다.
  */
 
-const CACHE_VERSION = "msds-20260921-1";
+const CACHE_VERSION = "msds-20260921-2";
 const SHELL_CACHE = `${CACHE_VERSION}-shell`;
 const DATA_CACHE = `${CACHE_VERSION}-data`;
 const PDF_CACHE = `${CACHE_VERSION}-pdf`;
@@ -195,6 +197,19 @@ self.addEventListener("fetch", (event) => {
         return (await cached()) || Response.error();
       }
     })());
+    return;
+  }
+
+  // 관리자 암호가 든 파일만 최신을 먼저 본다.
+  //
+  // 화면 파일은 판 번호가 바뀔 때만 새로 받는다. 그런데 암호를 바꾸는
+  // 것은 판 번호와 상관없는 일이라, 한 번 들어온 브라우저에는 옛 암호가
+  // 계속 남았다. 암호를 바꿔도 안 바뀌는 것처럼 보였다.
+  //
+  // 이 파일 하나는 매번 물어보게 한다. 작아서 부담이 없고, 끊겼을 때는
+  // 여느 화면 파일과 똑같이 저장본을 쓴다.
+  if (url.pathname.endsWith("/js/admin-gate.js")) {
+    event.respondWith(networkFirst(request, SHELL_CACHE));
     return;
   }
 

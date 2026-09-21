@@ -691,3 +691,131 @@ html[data-admin="on"] [data-admin-locked] {
 [data-theme="dark"] .admin-link:hover {
   border-color: rgba(120, 170, 158, 0.34);
 }
+
+/* 암호 바꾸기. 서버가 없어 단추가 파일을 고치지는 못하고, 넣을 줄을
+ * 만들어 주고 그 파일 편집 화면까지 열어 주는 데까지 한다. */
+.admin-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-change {
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid #0b5d4d;
+  border-radius: 10px;
+  background: transparent;
+  color: #0b5d4d;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.admin-change-box {
+  display: grid;
+  gap: 10px;
+  margin-top: 4px;
+  padding: 13px;
+  border: 1px dashed #c8d2cf;
+  border-radius: 10px;
+}
+
+.admin-change-box[hidden] {
+  display: none;
+}
+
+.admin-change-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content;
+  align-items: end;
+  gap: 8px 10px;
+}
+
+.admin-change-form button {
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid #0b5d4d;
+  border-radius: 10px;
+  background: #0b5d4d;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.admin-result {
+  display: grid;
+  gap: 8px;
+}
+
+.admin-result[hidden] {
+  display: none;
+}
+
+/* 붙여 넣을 줄이라 줄바꿈 없이 그대로 보여야 한다. */
+.admin-line {
+  display: block;
+  overflow-x: auto;
+  padding: 9px 11px;
+  border: 1px solid #c8d2cf;
+  border-radius: 8px;
+  background: #f3f8f6;
+  color: #13211e;
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: 0.78rem;
+  white-space: pre;
+}
+
+.admin-result button,
+.admin-edit-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid #c8d2cf;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #0b5d4d;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.admin-result button:hover,
+.admin-edit-link:hover {
+  border-color: #0b5d4d;
+}
+
+@media (max-width: 560px) {
+  .admin-change-form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+[data-theme="dark"] .admin-change,
+[data-theme="dark"] .admin-result button,
+[data-theme="dark"] .admin-edit-link {
+  border-color: rgba(120, 170, 158, 0.34);
+  background: transparent;
+  color: #8fe6c8;
+}
+
+[data-theme="dark"] .admin-change-box {
+  border-color: rgba(120, 170, 158, 0.34);
+}
+
+[data-theme="dark"] .admin-line {
+  border-color: rgba(120, 170, 158, 0.28);
+  background: #101b19;
+  color: #e8f1ee;
+}
+
+[data-theme="dark"] .admin-change-form button {
+  border-color: #157a63;
+  background: #157a63;
+  color: #ffffff;
+}

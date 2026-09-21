@@ -30,6 +30,9 @@
    */
   const PASS_HASH = "87bfeb70978b771de19d46f2d208cb7700a4e274d9accacd41710637ac097a4e";
 
+  // 이 파일을 GitHub 에서 바로 여는 주소. 암호를 바꿀 때 열어 준다.
+  const EDIT_URL = "https://github.com/lsy1659-ux/msds-site-prototype/edit/main/js/admin-gate.js";
+
   // 관리자만 쓰는 화면들. 여기 적으면 관리자 패널에 줄이 하나 생긴다.
   const ADMIN_PAGES = [
     { href: "substance.html", name: "물질 찾기", note: "CAS 로 묶어 어느 물질이 어느 제품에 들었는지 봅니다" },
@@ -61,11 +64,8 @@
 
   async function matches(code) {
     const text = String(code || "").trim();
-    if (!text) return false;
-    if (!window.crypto?.subtle) return false;
-    const bytes = await window.crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
-    const hex = [...new Uint8Array(bytes)].map((n) => n.toString(16).padStart(2, "0")).join("");
-    return hex === PASS_HASH;
+    if (!text || !window.crypto?.subtle) return false;
+    return (await sha256(text)) === PASS_HASH;
   }
 
   function panelMarkup() {
@@ -91,8 +91,110 @@
       <div class="admin-open" data-admin-only>
         <strong class="admin-open-title">관리자 화면</strong>
         ${links}
-        <button type="button" class="admin-logout" data-admin-logout>관리자 모드 끄기</button>
+        <div class="admin-buttons">
+          <button type="button" class="admin-change" data-admin-change>암호 바꾸기</button>
+          <button type="button" class="admin-logout" data-admin-logout>관리자 모드 끄기</button>
+        </div>
+        ${changeMarkup()}
       </div>`;
+  }
+
+  /* 암호 바꾸기.
+   *
+   * 서버가 없어서 이 단추가 사이트 파일을 고치지는 못한다. 브라우저가
+   * 남의 서버에 있는 파일을 쓸 수는 없다. 그래서 손으로 하던 일 가운데
+   * 기계가 할 수 있는 것만 맡는다. 해시를 만들고, 넣을 줄을 통째로
+   * 보여 주고, 그 파일의 편집 화면까지 열어 준다. 남는 일은 붙여 넣고
+   * 저장하는 것뿐이다.
+   *
+   * 새 암호는 아무 데도 저장하지 않는다. 해시를 만드는 그 순간에만 쓴다.
+   */
+  function changeMarkup() {
+    return `
+      <div class="admin-change-box" data-admin-change-box hidden>
+        <form class="admin-change-form">
+          <label class="admin-code-label">
+            <span>새 암호 (여섯 글자 이상)</span>
+            <input class="admin-new-code" type="password" autocomplete="new-password" placeholder="새 암호">
+          </label>
+          <button type="submit">넣을 줄 만들기</button>
+        </form>
+        <p class="admin-note">
+          이 단추는 사이트 파일을 직접 고치지 못합니다. 서버가 없는 사이트라
+          그렇습니다. 아래 줄을 파일에 넣어야 바뀝니다. 새 암호는 아무 데도
+          저장하지 않고 해시를 만드는 데만 씁니다.
+        </p>
+        <div class="admin-result" data-admin-result hidden>
+          <code class="admin-line" data-admin-line></code>
+          <div class="admin-buttons">
+            <button type="button" data-admin-copy>줄 복사</button>
+            <a class="admin-edit-link" data-admin-edit target="_blank" rel="noopener noreferrer">GitHub 에서 이 파일 열기</a>
+          </div>
+          <p class="admin-note">
+            연 화면에서 <strong>31번째 줄</strong>을 지우고 복사한 줄을 붙여 넣은 뒤
+            <strong>Commit changes</strong> 를 누르면 끝입니다. 1~2분 뒤 새 암호로 열립니다.
+          </p>
+          <p class="admin-note">
+            터미널이 편하시면 이 한 줄이 더 빠릅니다. 판 번호까지 같이 올려 줍니다.
+            <code class="admin-line">py scripts/set_admin_passcode.py "새암호"</code>
+          </p>
+        </div>
+      </div>`;
+  }
+
+  async function sha256(text) {
+    const bytes = await window.crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+    return [...new Uint8Array(bytes)].map((n) => n.toString(16).padStart(2, "0")).join("");
+  }
+
+  function wireChange(root) {
+    const box = root.querySelector("[data-admin-change-box]");
+    const toggle = root.querySelector("[data-admin-change]");
+    if (!box || !toggle) return;
+
+    toggle.addEventListener("click", () => {
+      const open = box.hasAttribute("hidden");
+      box.toggleAttribute("hidden", !open);
+      if (open) box.querySelector(".admin-new-code")?.focus();
+    });
+
+    const result = box.querySelector("[data-admin-result]");
+    const line = box.querySelector("[data-admin-line]");
+    const copy = box.querySelector("[data-admin-copy]");
+    const edit = box.querySelector("[data-admin-edit]");
+
+    box.querySelector(".admin-change-form")?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const field = box.querySelector(".admin-new-code");
+      const code = field.value;
+      if (code.trim().length < 6) {
+        window.alert("암호가 너무 짧습니다. 여섯 글자 이상으로 하세요.");
+        field.select();
+        return;
+      }
+      if (!window.crypto?.subtle) {
+        window.alert("이 브라우저에서는 해시를 만들 수 없습니다. 주소가 https 인지 확인하세요.");
+        return;
+      }
+      line.textContent = `  const PASS_HASH = "${await sha256(code)}";`;
+      edit.href = EDIT_URL;
+      result.hidden = false;
+      field.value = "";   // 화면에 남겨 둘 까닭이 없다.
+    });
+
+    copy?.addEventListener("click", async () => {
+      const show = (text) => {
+        copy.textContent = text;
+        window.setTimeout(() => { copy.textContent = "줄 복사"; }, 1600);
+      };
+      try {
+        await navigator.clipboard.writeText(line.textContent);
+        show("복사됨");
+      } catch (error) {
+        show("직접 복사");
+        window.prompt("이 줄을 복사하세요", line.textContent);
+      }
+    });
   }
 
   function wire(root) {
@@ -116,6 +218,8 @@
       }
       input.select();
     });
+
+    wireChange(root);
 
     root.querySelector("[data-admin-logout]")?.addEventListener("click", () => {
       setAdmin(false);
