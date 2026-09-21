@@ -28,7 +28,7 @@
    * 바꾸려면 아래 한 줄을 돌린다. PASS_HASH 만 갈아 끼워 준다.
    *   py scripts/set_admin_passcode.py "새암호"
    */
-  const PASS_HASH = "8c420cf6567aba1df07da50e0955c1e2132769b5b8c1cf51abc3754f7f8236c8";
+  const PASS_HASH = "87bfeb70978b771de19d46f2d208cb7700a4e274d9accacd41710637ac097a4e";
 
   // 관리자만 쓰는 화면들. 여기 적으면 관리자 패널에 줄이 하나 생긴다.
   const ADMIN_PAGES = [
