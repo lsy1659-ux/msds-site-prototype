@@ -29248,5 +29248,122 @@
       "validationStatus": "automatic",
       "validationWarnings": []
     }
+  },
+  {
+    "sourcePdfPath": "pdf/태경비케이/bk_msds_수산화칼슘.pdf",
+    "sourceRelativePath": "태경비케이/bk_msds_수산화칼슘.pdf",
+    "pdfRegistrationType": "pdf_only",
+    "productNameCandidate": "소석회(수산화칼슘)",
+    "supplierCandidate": "(주)태경비케이 단양1공장",
+    "msdsNoCandidate": "AA02836-0000000004",
+    "revisionDateCandidate": "2022-02-04",
+    "signalWordCandidate": "위험",
+    "ghsSource": "section2_classification",
+    "labelGhsCodes": [
+      "GHS05",
+      "GHS07"
+    ],
+    "labelGhsPictograms": [
+      {
+        "code": "GHS05",
+        "label": "부식성"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      }
+    ],
+    "classificationGhsCodes": [
+      "GHS05",
+      "GHS07"
+    ],
+    "classificationGhsPictograms": [
+      {
+        "code": "GHS05",
+        "label": "부식성"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      }
+    ],
+    "ghsCodes": [
+      "GHS05",
+      "GHS07"
+    ],
+    "ghsPictograms": [
+      {
+        "code": "GHS05",
+        "label": "부식성"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      }
+    ],
+    "hazardStatements": [
+      "H314 피부에 심한 화상과 눈에 손상을 일으킴",
+      "H318 눈에 심한 손상을 일으킴",
+      "H335 호흡기계 자극을 일으킬 수 있음"
+    ],
+    "precautionaryStatements": {
+      "prevention": [
+        "P260 분진/흄/가스/미스트/증기/스프레이를(을) 흡입하지 마시오.",
+        "P261 분진/흄/가스/미스트/증기/스프레이의 흡입을 피하시오.",
+        "P264 취급 후에는 취급부위를 철저히 씻으시오.",
+        "P271 옥외 또는 환기가 잘 되는 곳에서만 취급하시오.",
+        "P280 보호장갑/보호의/보안경/안면보호구를(을) 착용하시오."
+      ],
+      "response": [
+        "P301+P330+P331 삼켰다면: 입을 씻어내시오. 토하게 하지 마시오.",
+        "P303+P361+P353 피부(또는 머리카락)에 묻으면: 오염된 모든 의류를 즉시 벗으시오. 피부를 물로 씻으시오[또는 샤워하시오].",
+        "P304+P340 흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.",
+        "P305+P351+P338 눈에 묻으면: 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.",
+        "P310 즉시 의료기관(의사)의 진찰을 받으시오.",
+        "P312 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.",
+        "P321 필요한 처치를 하시오.",
+        "P363 다시 사용 전 오염된 의류를 세척하시오."
+      ],
+      "storage": [
+        "P403+P233 환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오.",
+        "P405 잠금장치를 하여 저장하시오."
+      ],
+      "disposal": [
+        "P501 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오"
+      ]
+    },
+    "ingredients": [
+      {
+        "chemicalName": "Calcium hydroxide",
+        "casNo": "1305-62-0",
+        "content": "93-95"
+      },
+      {
+        "chemicalName": "Magnesium oxide",
+        "casNo": "1309-48-4",
+        "content": "1-2"
+      },
+      {
+        "chemicalName": "Silicon dioxide",
+        "casNo": "7631-86-9",
+        "content": "1-2"
+      }
+    ],
+    "ppeCandidates": [
+      "노출되는 물질의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오",
+      "화학물질 방어용 안경과 보안면을 사용하시오",
+      "화학물질의 물리적 및 화학적 특성을 고려하여 적절한 재질의 보호장갑을 착용하시오",
+      "화학물질의 물리적 및 화학적 특성을 고려하여 피부가 노출되지 않는 의복을 착용하시오"
+    ],
+    "match": {
+      "fileName": "bk_msds_수산화칼슘.pdf",
+      "relativePath": "태경비케이/bk_msds_수산화칼슘.pdf"
+    },
+    "publication": {
+      "summaryMode": "automatic",
+      "summaryAvailable": true,
+      "validationStatus": "automatic",
+      "validationWarnings": []
+    }
   }
 ]

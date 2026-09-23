@@ -41264,5 +41264,148 @@
         "즉시 의학적인 조치·조언을 받으시오"
       ]
     }
+  },
+  {
+    "id": "msds-pdf-0bf7ca74da0367b2",
+    "productName": "소석회(수산화칼슘)",
+    "msdsNo": "AA02836-0000000004",
+    "fileName": "bk_msds_수산화칼슘.pdf",
+    "pdfPath": "pdf/태경비케이/bk_msds_수산화칼슘.pdf",
+    "recommendedUse": "유발, 석고, 백색 도료의 제조, 건축 및 포장자재, 윤활제, 천공유, 농약, 종이 펄프 제조, 동물 가죽의 탈모제, 정수제",
+    "supplier": "(주)태경비케이 단양1공장",
+    "issueDate": "2010-04-20",
+    "revisionDate": "2022-02-04",
+    "emergencyContact": "긴급전화번호 043-422-4321",
+    "supplierAddress": "충청북도 단양군 단양로 1295-14 (주)태경비케이 단양1공장",
+    "dangerousGoods": "해당없음",
+    "hazardClassification": "- 피부 부식성/피부 자극성 : 구분 1 - 심한 눈 손상성/눈 자극성 : 구분 1 - 특정표적장기 독성(1회 노출) : 구분 3(호흡기 자극)",
+    "ppeSummary": "",
+    "ingredients": [
+      {
+        "chemicalName": "Calcium hydroxide",
+        "casNo": "1305-62-0",
+        "content": "93-95",
+        "managementTarget": "",
+        "workplaceMonitoringTarget": "",
+        "specialHealthCheckTarget": ""
+      },
+      {
+        "chemicalName": "Magnesium oxide",
+        "casNo": "1309-48-4",
+        "content": "1-2",
+        "managementTarget": "○",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": ""
+      },
+      {
+        "chemicalName": "Silicon dioxide",
+        "casNo": "7631-86-9",
+        "content": "1-2",
+        "managementTarget": "",
+        "workplaceMonitoringTarget": "○",
+        "specialHealthCheckTarget": "○"
+      }
+    ],
+    "hazardBadge": "위험",
+    "signalWord": "위험",
+    "ghsPictograms": [
+      {
+        "code": "GHS05",
+        "label": "부식성"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      }
+    ],
+    "hazardStatements": [
+      "H314 피부에 심한 화상과 눈에 손상을 일으킴",
+      "H318 눈에 심한 손상을 일으킴",
+      "H335 호흡기계 자극을 일으킬 수 있음"
+    ],
+    "precautionaryStatements": {
+      "prevention": [
+        "P260 분진/흄/가스/미스트/증기/스프레이를(을) 흡입하지 마시오.",
+        "P261 분진/흄/가스/미스트/증기/스프레이의 흡입을 피하시오.",
+        "P264 취급 후에는 취급부위를 철저히 씻으시오.",
+        "P271 옥외 또는 환기가 잘 되는 곳에서만 취급하시오.",
+        "P280 보호장갑/보호의/보안경/안면보호구를(을) 착용하시오."
+      ],
+      "response": [
+        "P301+P330+P331 삼켰다면: 입을 씻어내시오. 토하게 하지 마시오.",
+        "P303+P361+P353 피부(또는 머리카락)에 묻으면: 오염된 모든 의류를 즉시 벗으시오. 피부를 물로 씻으시오[또는 샤워하시오].",
+        "P304+P340 흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.",
+        "P305+P351+P338 눈에 묻으면: 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.",
+        "P310 즉시 의료기관(의사)의 진찰을 받으시오.",
+        "P312 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.",
+        "P321 필요한 처치를 하시오.",
+        "P363 다시 사용 전 오염된 의류를 세척하시오."
+      ],
+      "storage": [
+        "P403+P233 환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오.",
+        "P405 잠금장치를 하여 저장하시오."
+      ],
+      "disposal": [
+        "P501 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오"
+      ]
+    },
+    "classificationGhsCodes": [
+      "GHS05",
+      "GHS07"
+    ],
+    "classificationGhsPictograms": [
+      {
+        "code": "GHS05",
+        "label": "부식성"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      }
+    ],
+    "ghsCodes": [
+      "GHS05",
+      "GHS07"
+    ],
+    "ppeCandidates": [
+      "노출되는 물질의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오",
+      "화학물질 방어용 안경과 보안면을 사용하시오",
+      "화학물질의 물리적 및 화학적 특성을 고려하여 적절한 재질의 보호장갑을 착용하시오",
+      "화학물질의 물리적 및 화학적 특성을 고려하여 피부가 노출되지 않는 의복을 착용하시오"
+    ],
+    "ghsSource": "section2_classification",
+    "publication": {
+      "summaryMode": "automatic",
+      "summaryAvailable": true,
+      "validationStatus": "automatic",
+      "validationWarnings": []
+    },
+    "firstAid": {
+      "eye": [
+        "긴급 의료조치를 받으시오",
+        "눈에 묻으면 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오."
+      ],
+      "skin": [
+        "피부(또는 머리카락)에 묻으면 오염된 모든 의복은 벗으시오.",
+        "불편함을 느끼면 의료기관(의사)의 진찰을 받으시오",
+        "다시 사용전 오염된 의복은 세척하시오.",
+        "뜨거운 물질인 경우, 열을 없애기 위해 영향을 받은 부위를 다량의 차가운 물에 담그거나 씻어 내시오",
+        "긴급 의료조치를 받으시오",
+        "오염된 옷과 신발을 제거하고 오염지역을 격리하시오",
+        "경미한 피부 접촉 시 오염부위 확산을 방지하시오"
+      ],
+      "inhalation": [
+        "즉시 의료기관(의사)의 진찰을 받으시오.",
+        "과량의 먼지 또는 흄에 노출된 경우 깨끗한 공기로 제거하고 기침이나 다른 증상이 있을 경우 의료 조치를 취하시오.",
+        "호흡이 힘들 경우 산소를 공급하시오",
+        "호흡하지 않는 경우 인공호흡을 실시하시오"
+      ],
+      "ingestion": [
+        "긴급 의료조치를 받으시오"
+      ],
+      "note": [
+        "의료인력이 해당물질에 대해 인지하고 보호조치를 취하도록 하시"
+      ]
+    }
   }
 ]

@@ -11,7 +11,7 @@
  *  - PDF: 열어본 것만 캐시. 전체는 80MB가 넘어 미리 담지 않는다.
  */
 
-const CACHE_VERSION = "msds-20260921-2";
+const CACHE_VERSION = "msds-20260923-1";
 const SHELL_CACHE = `${CACHE_VERSION}-shell`;
 const DATA_CACHE = `${CACHE_VERSION}-data`;
 const PDF_CACHE = `${CACHE_VERSION}-pdf`;
