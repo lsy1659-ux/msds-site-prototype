@@ -12,6 +12,7 @@
   유해문구   원문 2항에서 읽은 H코드가 사이트 H코드를 모두 품고 더 많을 때만(사이트가
              일부를 빠뜨린 것) 원문 목록으로 바꾼다. 그림문자·신호어는 건드리지 않는다.
   머리글     응급조치 칸에 섞인 쪽 머리글·꼬리글(그 PDF 에서 쪽마다 되풀이되고 문장이 아닌 줄)을 뺀다.
+  끊긴 조치  응급조치 한 문단이 여러 줄로 끊겼거나 끝이 잘렸으면, 이은 글이 원문 4항에 있을 때만 잇는다.
   잘린 문구  사이트 문구가 중간에서 끝났고 원문 같은 코드 문구가 그 글로 시작해 문장으로 끝나면 채운다.
   긴급전화   사이트 번호가 MSDS 번호의 조각이면(옆 칸 값이 딸려 온 것) 원문 1항에서 다시 읽는다.
   날짜       원문 최종 개정일(개정 이력이 줄줄이 적혔으면 가장 늦은 날)과 최초 작성일을
@@ -130,13 +131,31 @@ def examine(product: dict, today: str) -> dict:
 
     # 응급조치에 섞인 쪽 머리글·꼬리글("물질안전보건자료(MSDS)", "KC-28", "2023-01-11 (최종 개정일자) …").
     # 그 PDF 에서 쪽마다 되풀이되는 줄이고 문장이 아닐 때만 뺀다.
+    # 4항의 다른 소항목 제목("마. 급성 및 지연성의 가장 중요한 증상/영향")과 "물질안전보건자료" 가 든
+    # 머리글 줄도 조치가 아니다. 역시 문장이 아닐 때만 뺀다.
     remove = {}
     for key, items in (product.get("firstAid") or {}).items():
-        bad = [item for item in items if T.key(item) in junk and not T.SENTENCE.search(item)]
+        bad = [item for item in items if not T.SENTENCE.search(item) and (
+            T.key(item) in junk or re.match(r"^\s*[가-하]\s*[.．]\s*\S", item) or "물질안전보건자료" in item)]
         if bad:
             remove[key] = bad
     if remove:
         found["firstAidRemove"] = remove
+
+    # 응급조치의 잘린 줄. 예전 추출이 한 문단을 50자 남짓씩 끊어 여러 줄로 넣은 것과, 문장 끝이
+    # 잘린 것이 있다. 끊긴 줄은 이어 붙인 글이 원문 4항에 그대로 있을 때만 잇고(띄어쓰기도 원문대로),
+    # 끝이 잘린 줄은 원문 4항의 조치가 그 글로 시작해 문장으로 끝나면 그 조치로 바꾼다.
+    after_remove = {key: [item for item in items if item not in remove.get(key, [])]
+                    for key, items in (product.get("firstAid") or {}).items()}
+    source4 = "\n".join(section4)
+    pool = [item for items in parsed.values() for item in items]
+    text_fix = {}
+    for key, items in after_remove.items():
+        fixed = _complete_first_aid(items, source4, pool, parsed.get(key), key)
+        if fixed != items:
+            text_fix[key] = {"before": items, "after": fixed}
+    if text_fix:
+        found["firstAidText"] = text_fix
 
     # 중간에서 잘린 문구: 사이트 문구가 문장으로 끝나지 않고, 원문 2항의 같은 코드 문구가 그 글로
     # 시작해 더 길고 문장으로 끝나면 원문 문구로 바꾼다. 늘어난 부분에 쪽 머리글이 섞이면 두지 않는다.
@@ -190,6 +209,49 @@ def examine(product: dict, today: str) -> dict:
     if "revisionDate" in found or "issueDate" in found or found.get("revisionConfirmed"):
         found["sha256"] = sha256(path)
     return found
+
+
+def _nospace(text: str) -> str:
+    return re.sub(r"\s", "", text)
+
+
+def _join_as_source(first: str, second: str, source: str) -> str:
+    """두 줄을 원문에 적힌 띄어쓰기대로 잇는다. 원문에 이어진 글이 없으면 빈 문자열."""
+    if _nospace(first + second) not in _nospace(source):
+        return ""
+    tail, head = first.split()[-1], second.split()[0]
+    if re.search(re.escape(tail) + r"\s+" + re.escape(head), source):
+        return f"{first} {second}"
+    if (tail + head) in source:
+        return first + second
+    return f"{first} {second}"
+
+
+def _complete_first_aid(items: list[str], source: str, pool: list[str], same_key: list[str] | None = None,
+                        key: str = "") -> list[str]:
+    # 예전 추출은 항목 이름이 적힌 첫 줄("나. 피부에 접촉했을 때 : 피부(또는 머리카락)에 …")을
+    # 버려서 문단 앞(때로 끝도)이 잘린 채 들어갔다. 사이트 글이 원문 같은 항목 글 안에 그대로
+    # 들어 있고 원문 쪽이 더 길면 원문 글로 바꾼다. 원문이 사이트 글을 모두 품으므로 잃는 글이 없다.
+    if same_key:
+        full = T.usable_first_aid(key, same_key) if key else list(same_key)
+        site, whole = _nospace("".join(items)), _nospace("".join(full))
+        if site and whole != site and site in whole:
+            return full
+    out = list(items)
+    index = 0
+    while index < len(out):
+        item = out[index]
+        if len(_nospace(item)) >= 8 and not T.ends_sentence(item):
+            joined = _join_as_source(item, out[index + 1], source) if index + 1 < len(out) else ""
+            if joined:
+                out[index:index + 2] = [joined]
+                continue   # 이은 줄이 아직 안 끝났으면 한 번 더 잇는다
+            longer = next((x for x in pool if _nospace(x).startswith(_nospace(item))
+                           and len(_nospace(x)) > len(_nospace(item)) and T.ends_sentence(x)), "")
+            if longer:
+                out[index] = longer
+        index += 1
+    return out
 
 
 def _merge_lists(old: dict | None, new: dict) -> dict:
@@ -246,6 +308,9 @@ def main() -> int:
 
     removes = [r for r in results if "firstAidRemove" in r]
     texts = [r for r in results if "statementText" in r]
+    aid_texts = [r for r in results if "firstAidText" in r]
+    print(f"응급조치 끊긴 줄을 원문대로 이음         {len(aid_texts)}건 "
+          f"({sum(len(v['before']) - len(v['after']) for r in aid_texts for v in r['firstAidText'].values())}줄 줄어듦)")
     print(f"응급조치에 섞인 쪽 머리글·꼬리글       {len(removes)}건 ({sum(len(v) for r in removes for v in r['firstAidRemove'].values())}줄)")
     print(f"중간에서 잘린 문구를 원문으로 채움     {len(texts)}건 ({sum(len(r['statementText']) for r in texts)}줄)")
     contacts = [r for r in results if "emergencyContact" in r]
@@ -275,6 +340,8 @@ def main() -> int:
             "emergencyContact": {**(old.get("emergencyContact") or {}), **{r["id"]: r["emergencyContact"] for r in contacts}},
             "firstAidRemove": _merge_lists(old.get("firstAidRemove"), {r["id"]: r["firstAidRemove"] for r in removes}),
             "statementText": _merge_pairs(old.get("statementText"), {r["id"]: r["statementText"] for r in texts}),
+            # 줄 목록을 통째로 바꾸므로 제품·칸마다 가장 최근 것 하나만 둔다.
+            "firstAidText": {**(old.get("firstAidText") or {}), **{r["id"]: r["firstAidText"] for r in aid_texts}},
         }
         with REPAIRS_PATH.open("w", encoding="utf-8", newline="\n") as file:
             file.write(json.dumps(repairs, ensure_ascii=False, indent=2) + "\n")

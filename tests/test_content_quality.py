@@ -60,6 +60,24 @@ class PublicContentTests(unittest.TestCase):
                     self.assertNotRegex(body.group(1), r"구분\s*[:：]?\s*\d",
                                         f"{record.get('productName') or record.get('productNameCandidate')}: {line[:40]}")
 
+    def test_statements_are_not_letter_spaced_or_split_before_particles(self):
+        """"사 용 전 취 급 …" 처럼 한 글자씩 벌어진 문구, "스프레이 의 흡입을" 같은 조사 앞 빈칸이 없어야 한다."""
+        for product in self.products:
+            lines = list(product.get("hazardStatements") or [])
+            lines += [x for items in (product.get("precautionaryStatements") or {}).values() for x in items]
+            for line in lines:
+                self.assertFalse(N._letter_spaced(line), f"{product['productName']}: {line[:40]}")
+                self.assertIsNone(N.PARTICLE_GAP.search(line), f"{product['productName']}: {line[:40]}")
+
+    def test_first_aid_has_no_subsection_titles(self):
+        for product in self.products:
+            for key, items in (product.get("firstAid") or {}).items():
+                for item in items:
+                    if T.SENTENCE.search(item):
+                        continue
+                    self.assertIsNone(re.match(r"^\s*[가-하]\s*[.．]\s*\S", item), f"{product['productName']} {key}: {item[:40]}")
+                    self.assertNotIn("물질안전보건자료", item, f"{product['productName']} {key}")
+
     def test_normalizing_again_changes_nothing(self):
         products, overrides, report = N.normalize_content(self.products, self.overrides)
         self.assertEqual(products, self.products, "문구 꼴을 다시 고치면 또 바뀐다 — build 가 반영하지 않은 상태")
@@ -91,13 +109,20 @@ class PublicContentTests(unittest.TestCase):
             for key, items in fix.items():
                 for item in items:
                     self.assertNotIn(item, first_aid.get(key) or [], f"{self.by_id[pid]['productName']} 응급조치에 머리글이 남음")
+        for pid, fix in self.repairs.get("firstAidText", {}).items():
+            first_aid = self.by_id[pid].get("firstAid") or {}
+            for key, change in fix.items():
+                self.assertEqual([re.sub(r"\s", "", x) for x in first_aid.get(key) or []],
+                                 [re.sub(r"\s", "", x) for x in change["after"]],
+                                 f"{self.by_id[pid]['productName']} 응급조치 {key} 를 원문대로 잇지 않았다")
         for pid, pairs in self.repairs.get("statementText", {}).items():
             product = self.by_id[pid]
             lines = list(product.get("hazardStatements") or [])
             lines += [x for items in (product.get("precautionaryStatements") or {}).values() for x in items]
+            flat = [re.sub(r"\s", "", x) for x in lines]   # 띄어쓰기는 뒤 단계에서 고쳐지므로 빼고 본다
             for pair in pairs:
-                self.assertNotIn(pair["before"], lines, f"{product['productName']}: 잘린 문구가 남음")
-                self.assertIn(pair["after"], lines, f"{product['productName']}: 채운 문구가 없음")
+                self.assertNotIn(re.sub(r"\s", "", pair["before"]), flat, f"{product['productName']}: 잘린 문구가 남음")
+                self.assertIn(re.sub(r"\s", "", pair["after"]), flat, f"{product['productName']}: 채운 문구가 없음")
 
     def test_emergency_number_is_not_a_piece_of_the_msds_number(self):
         """표지에 찍히는 긴급전화번호 칸에 MSDS 번호 조각이 들어간 적이 있다(오공본드 락카 스프레이)."""
@@ -172,6 +197,24 @@ class NormalizeRuleTests(unittest.TestCase):
         self.assertEqual(record["precautionaryStatements"]["prevention"], ["P282 방한장갑을 착용하시오"])
         self.assertEqual(record["precautionaryStatements"]["response"],
                          ["P315 즉시 의학적인 조치·조언을 받으시오.", "P336 미지근한 물로 언 부분을 녹이시오"])
+
+    def test_spacing_is_borrowed_only_when_the_letters_match(self):
+        corpus = N._statement_corpus([{"precautionaryStatements": {"prevention": ["P201 사용 전 취급 설명서를 확보하시오."]}}])
+        self.assertEqual(N._fix_spacing("P201 사 용 전 취 급 설 명 서 를 확 보 하 시 오 .", corpus), "P201 사용 전 취급 설명서를 확보하시오.")
+        # 빌려 올 문구가 없으면 한 글자 토막만 붙인다. 글자는 그대로.
+        self.assertEqual(N._fix_spacing("P405 밀 봉 하 여 저 장 하 시 오 .", {}), "P405 밀봉하여저장하시오.")
+        self.assertEqual(N._fix_spacing("P261 분진/흄/가스/미스트/증기/스프레이 의 흡입을 피하시오.", {}),
+                         "P261 분진/흄/가스/미스트/증기/스프레이의 흡입을 피하시오.")
+        # 보통 글의 "할 수", "및 그" 는 건드리지 않는다.
+        self.assertEqual(N._fix_spacing("H280 가열하면 폭발할 수 있음 및 그 밖의", {}), "H280 가열하면 폭발할 수 있음 및 그 밖의")
+
+    def test_code_after_text_moves_to_the_front(self):
+        record = {"hazardStatements": ["유해·위험문구 · 극인화성 가스 H220"],
+                  "precautionaryStatements": {"storage": ["직사광선을 피하고 환기가 잘 되는 곳에 보관하시오P410+P403 ."]}}
+        N.normalize_statements(record)
+        self.assertTrue(record["hazardStatements"][0].startswith("H220 "), record["hazardStatements"])
+        self.assertIn("극인화성 가스", record["hazardStatements"][0])
+        self.assertEqual(record["precautionaryStatements"]["storage"], ["P410+P403 직사광선을 피하고 환기가 잘 되는 곳에 보관하시오"])
 
     def test_ellipsis_after_code_is_kept(self):
         record = {"precautionaryStatements": {"response": ["P321 ... 처치를 하시오."]}}

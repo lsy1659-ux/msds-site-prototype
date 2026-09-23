@@ -49,6 +49,107 @@ LABEL_WORDS = ("유해위험문구", "예방조치문구", "예방", "대응", "
 CATEGORY = re.compile(r"구분\s*[:：]?\s*\d|Category|;\s*$", re.I)
 SENTENCE_TAIL = re.compile(r"^[가-힣\s·,()]{1,20}(?:시오|것|음|함|됨|다)\s*\.?$")
 PAGE_MARK = re.compile(r"\d+\s*/\s*\d+\s*$")
+# 글자 사이가 벌어진 항목 이름("유 해 위 험 문 구·", "대 응").
+SPACED_LABEL = re.compile(r"^(?:유\s*해\s*[·ㆍᆞ·,]?\s*위\s*험\s*문\s*구|예\s*방\s*조\s*치\s*문\s*구|예\s*방|대\s*응|저\s*장|폐\s*기)"
+                          r"\s*[·ㆍᆞ·:：]?\s*")
+# 조사 앞에 끼어든 빈칸("스프레이 의 흡입을", "물 로 씻으시오"). 조사는 앞말에 붙여 쓴다.
+PARTICLE_GAP = re.compile(r"(?<=[가-힣)]) (을|를|의|로|으로|에|에서|에게)(?=[\s.,)·/]|$)")
+
+
+def _single(token: str) -> bool:
+    return len(re.sub(r"[^가-힣]", "", token)) == 1
+
+
+def _letter_spaced(text: str) -> bool:
+    """"사 용 전 취 급 설 명 서 를" 처럼 한 글자마다 띄운 글."""
+    tokens = [t for t in text.split() if re.search(r"[가-힣]", t)]
+    return len(tokens) >= 5 and sum(_single(t) for t in tokens) / len(tokens) >= 0.5
+
+
+def _oddly_spaced(text: str) -> bool:
+    """한 글자 낱말이 셋 이상 잇달아 나오는 글("조 언 ·주 의 를"). 일부만 벌어진 것도 잡는다.
+
+    둘까지는 "할 수 있음", "및 그 밖의" 처럼 보통 글에도 흔해 넣지 않는다.
+    """
+    run = 0
+    for token in text.split():
+        run = run + 1 if _single(token) else 0
+        if run >= 3:
+            return True
+    return False
+
+
+def _close_letter_gaps(text: str) -> str:
+    """한 글자씩 띄운 글에서 한 글자 낱말이 잇달아 나오는 토막을 한 낱말로 붙인다.
+
+    다른 문구에서 띄어쓰기를 빌려 올 수 없을 때만 쓴다. 어디서 띄울지는 알 수 없어
+    토막 안은 붙여 쓴다("흡 입 을 피 하 시 오" → "흡입을피하시오"). 글자는 그대로다.
+    """
+    out: list[str] = []
+    joining = False
+    for token in text.split():
+        glue = out and (token.startswith(("·", ".", ",", ")")) or out[-1].endswith(("·", "(")))
+        if out and ((joining and _single(token)) or glue):
+            out[-1] += token
+        else:
+            out.append(token)
+        joining = _single(token) or (joining and glue)
+    return " ".join(out)
+
+
+def _corpus_key(body: str) -> str:
+    return re.sub(r"\s", "", body).rstrip(".")
+
+
+def _fix_spacing(line: str, corpus: dict[str, dict[str, str]]) -> str:
+    """띄어쓰기만 고친다. 글자는 바꾸지 않는다.
+
+    벌어진 문구는 다른 제품의 같은 코드 문구 가운데 빈칸을 뺀 글자가 똑같은 것의 띄어쓰기를
+    쓴다. 그런 문구가 없고 글 전체가 한 글자씩 벌어졌으면 한 글자끼리의 빈칸만 붙인다.
+    그다음 조사 앞 빈칸을 뗀다.
+    """
+    match = CODE.match(line)
+    body = line[match.end():].strip() if match else line
+    if match and (_letter_spaced(body) or _oddly_spaced(body)):
+        same = corpus.get(re.sub(r"\s", "", match.group(0)), {}).get(_corpus_key(body))
+        if same:
+            if body.rstrip().endswith(".") and not same.endswith("."):
+                same += "."   # 원래 글의 마침표는 둔다
+            return f"{re.sub(r'\s', '', match.group(0))} {same}"
+    if _letter_spaced(body):
+        body = _close_letter_gaps(body)
+        line = f"{re.sub(r'\s', '', match.group(0))} {body}" if match else body
+    return PARTICLE_GAP.sub(r"\1", line)
+
+
+def _statement_corpus(records: list[dict[str, Any]]) -> dict[str, dict[str, str]]:
+    corpus: dict[str, dict[str, str]] = {}
+    for record in records:
+        lines = list(record.get("hazardStatements") or [])
+        lines += [x for items in (record.get("precautionaryStatements") or {}).values() for x in items]
+        for line in lines:
+            match = CODE.match(line)
+            body = line[match.end():].strip() if match else ""
+            if match and body and not _letter_spaced(body) and not _oddly_spaced(body):
+                body = PARTICLE_GAP.sub(r"\1", body)
+                corpus.setdefault(re.sub(r"\s", "", match.group(0)), {}).setdefault(_corpus_key(body), body)
+    return corpus
+
+
+def fix_spacing(products: list[dict[str, Any]], overrides: list[dict[str, Any]], report: dict[str, Any]) -> None:
+    corpus = _statement_corpus(products + overrides)
+    product_ids = {id(p) for p in products}
+    for record in products + overrides:
+        is_product = id(record) in product_ids
+        lists = [record.get("hazardStatements") or []] + list((record.get("precautionaryStatements") or {}).values())
+        if is_product:
+            lists += list((record.get("firstAid") or {}).values())
+        for items in lists:
+            for index, line in enumerate(items):
+                fixed = _fix_spacing(line, corpus)
+                if fixed != line:
+                    items[index] = fixed
+                    report["spacingFixed"] += is_product
 
 
 def _is_label(head: str) -> bool:
@@ -96,6 +197,10 @@ def _normalize_list(items: list[str]) -> tuple[list[tuple[str, str]], list[tuple
                 if not body:
                     class_only.append((code, re.sub(r"\s+", " ", str(raw)).strip()))
                     continue
+            elif not re.search(r"[가-힣A-Za-z]", body) and len(re.findall(r"[가-힣]", head)) >= 2:
+                # 문구 뒤에 코드를 단 꼴("졸음 또는 현기증을 일으킬 수 있음H336"). 코드를 앞으로.
+                out.append((code, f"{code} {SPACED_LABEL.sub('', head).strip()}"))
+                continue
             elif SENTENCE_TAIL.match(head) and out:
                 prev_code, prev = out[-1]
                 out[-1] = (prev_code, f"{prev} {head}".strip())
@@ -147,6 +252,11 @@ def normalize_statements(record: dict[str, Any]) -> bool:
     return before != after
 
 
+def _flat(text: Any) -> str:
+    """빈칸을 뺀 글. 띄어쓰기를 고친 뒤에도 같은 줄로 알아보려고 쓴다."""
+    return re.sub(r"\s", "", str(text or ""))
+
+
 def _codes(lines: list[str]) -> list[str]:
     return sorted({re.sub(r"\s", "", m.group(0)) for line in lines or [] for m in [CODE.search(line)] if m})
 
@@ -183,12 +293,23 @@ def apply_repairs(products: list[dict[str, Any]], overrides: list[dict[str, Any]
             continue
         for key, items in fix.items():
             if key in first_aid:
-                kept = [item for item in first_aid[key] if item not in items]
+                drop = {_flat(item) for item in items}
+                kept = [item for item in first_aid[key] if _flat(item) not in drop]
                 report["firstAidRemoved"] += len(first_aid[key]) - len(kept)
                 if kept:
                     first_aid[key] = kept
                 else:
                     del first_aid[key]
+
+    # 끊기거나 잘린 응급조치 줄. 머리글을 뺀 뒤의 줄 목록이 적어 둔 것과 똑같을 때만 바꾼다.
+    for pid, fix in (repairs.get("firstAidText") or {}).items():
+        first_aid = (by_id.get(pid) or {}).get("firstAid")
+        if not isinstance(first_aid, dict):
+            continue
+        for key, change in fix.items():
+            if [_flat(x) for x in first_aid.get(key) or []] == [_flat(x) for x in change.get("before") or []]:
+                first_aid[key] = list(change.get("after") or [])
+                report["firstAidJoined"] += 1
 
     for pid, fix in (repairs.get("emergencyContact") or {}).items():
         product = by_id.get(pid)
@@ -226,14 +347,14 @@ def complete_statements(products: list[dict[str, Any]], overrides: list[dict[str
         product = by_id.get(pid)
         if not product:
             continue
-        swap = {pair["before"]: pair["after"] for pair in pairs if pair.get("before") and pair.get("after")}
+        swap = {_flat(pair["before"]): pair["after"] for pair in pairs if pair.get("before") and pair.get("after")}
         for record in [product] + _matching_overrides(overrides, product):
             lists = [record.get("hazardStatements") or []]
             lists += list((record.get("precautionaryStatements") or {}).values())
             for items in lists:
                 for index, line in enumerate(items):
-                    if line in swap:
-                        items[index] = swap[line]
+                    if _flat(line) in swap:
+                        items[index] = swap[_flat(line)]
                         if record is product:
                             report["statementsCompleted"] += 1
 
@@ -250,7 +371,8 @@ def normalize_content(
     overrides = deepcopy(overrides)
     report: dict[str, Any] = {"statementsProducts": 0, "statementsOverrides": 0, "firstAidFilled": [],
                               "ingredientNames": 0, "hazardStatementsFilled": [], "hazardBadgeRemoved": 0,
-                              "emergencyContact": 0, "firstAidRemoved": 0, "statementsCompleted": 0}
+                              "emergencyContact": 0, "firstAidRemoved": 0, "statementsCompleted": 0,
+                              "firstAidJoined": 0, "spacingFixed": 0}
 
     apply_repairs(products, overrides, repairs, report)
     for product in products:
@@ -261,6 +383,7 @@ def normalize_content(
     for override in overrides:
         report["statementsOverrides"] += normalize_statements(override)
     complete_statements(products, overrides, repairs, report)
+    fix_spacing(products, overrides, report)
     return products, overrides, report
 
 
@@ -284,6 +407,8 @@ def main() -> int:
     print(f"긴급전화번호 바로잡음 {report['emergencyContact']}")
     print(f"응급조치 머리글 뺌    {report['firstAidRemoved']}")
     print(f"잘린 문구 채움        {report['statementsCompleted']}")
+    print(f"응급조치 끊긴 줄 이음 {report['firstAidJoined']}")
+    print(f"띄어쓰기 고침         {report['spacingFixed']}")
     print(f"hazardBadge 뺌       {report['hazardBadgeRemoved']}")
     if args.write:
         write_json(PRODUCTS_PATH, products)
