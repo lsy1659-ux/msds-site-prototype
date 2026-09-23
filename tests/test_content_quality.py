@@ -86,6 +86,18 @@ class PublicContentTests(unittest.TestCase):
             self.assertEqual(row["chemicalName"], fix["after"], self.by_id[fix["productId"]]["productName"])
         for pid, fix in self.repairs.get("emergencyContact", {}).items():
             self.assertEqual(self.by_id[pid].get("emergencyContact"), fix["after"], self.by_id[pid]["productName"])
+        for pid, fix in self.repairs.get("firstAidRemove", {}).items():
+            first_aid = self.by_id[pid].get("firstAid") or {}
+            for key, items in fix.items():
+                for item in items:
+                    self.assertNotIn(item, first_aid.get(key) or [], f"{self.by_id[pid]['productName']} 응급조치에 머리글이 남음")
+        for pid, pairs in self.repairs.get("statementText", {}).items():
+            product = self.by_id[pid]
+            lines = list(product.get("hazardStatements") or [])
+            lines += [x for items in (product.get("precautionaryStatements") or {}).values() for x in items]
+            for pair in pairs:
+                self.assertNotIn(pair["before"], lines, f"{product['productName']}: 잘린 문구가 남음")
+                self.assertIn(pair["after"], lines, f"{product['productName']}: 채운 문구가 없음")
 
     def test_emergency_number_is_not_a_piece_of_the_msds_number(self):
         """표지에 찍히는 긴급전화번호 칸에 MSDS 번호 조각이 들어간 적이 있다(오공본드 락카 스프레이)."""

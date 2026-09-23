@@ -11,6 +11,8 @@
   성분 이름  "번호", "황화수소 0.05" 처럼 깨진 이름만 원문 3항의 같은 CAS 줄 이름으로 바꾼다.
   유해문구   원문 2항에서 읽은 H코드가 사이트 H코드를 모두 품고 더 많을 때만(사이트가
              일부를 빠뜨린 것) 원문 목록으로 바꾼다. 그림문자·신호어는 건드리지 않는다.
+  머리글     응급조치 칸에 섞인 쪽 머리글·꼬리글(그 PDF 에서 쪽마다 되풀이되고 문장이 아닌 줄)을 뺀다.
+  잘린 문구  사이트 문구가 중간에서 끝났고 원문 같은 코드 문구가 그 글로 시작해 문장으로 끝나면 채운다.
   긴급전화   사이트 번호가 MSDS 번호의 조각이면(옆 칸 값이 딸려 온 것) 원문 1항에서 다시 읽는다.
   날짜       원문 최종 개정일(개정 이력이 줄줄이 적혔으면 가장 늦은 날)과 최초 작성일을
              사이트 값과 대 본다. 관리대장에 적을 때는 그 PDF 의 SHA-256 을 같이 적어,
@@ -126,6 +128,43 @@ def examine(product: dict, today: str) -> dict:
             found["codesDiffer"] = {"siteOnly": sorted(set(site_codes) - set(pdf_codes)),
                                     "pdfOnly": sorted(set(pdf_codes) - set(site_codes))}
 
+    # 응급조치에 섞인 쪽 머리글·꼬리글("물질안전보건자료(MSDS)", "KC-28", "2023-01-11 (최종 개정일자) …").
+    # 그 PDF 에서 쪽마다 되풀이되는 줄이고 문장이 아닐 때만 뺀다.
+    remove = {}
+    for key, items in (product.get("firstAid") or {}).items():
+        bad = [item for item in items if T.key(item) in junk and not T.SENTENCE.search(item)]
+        if bad:
+            remove[key] = bad
+    if remove:
+        found["firstAidRemove"] = remove
+
+    # 중간에서 잘린 문구: 사이트 문구가 문장으로 끝나지 않고, 원문 2항의 같은 코드 문구가 그 글로
+    # 시작해 더 길고 문장으로 끝나면 원문 문구로 바꾼다. 늘어난 부분에 쪽 머리글이 섞이면 두지 않는다.
+    section2 = T.section(lines, 2)
+    pdf_h, pdf_p = T.parse_statements(section2, junk) if section2 else ([], {})
+    by_code = {}
+    for line in pdf_h + [x for items in pdf_p.values() for x in items]:
+        by_code.setdefault(re.sub(r"\s", "", N.CODE.match(line).group(0)), line)
+    junk_flat = [re.sub(r"\s", "", j) for j in junk if len(j) > 4]
+    completed = []
+    site_lines = list(product.get("hazardStatements") or [])
+    site_lines += [x for items in (product.get("precautionaryStatements") or {}).values() for x in items]
+    for line in site_lines:
+        match = N.CODE.match(line)
+        if not match:
+            continue
+        code = re.sub(r"\s", "", match.group(0))
+        body = line[match.end():].strip()
+        source = by_code.get(code, "")
+        if not body or T.ends_sentence(body) or not source or not T.ends_sentence(source[len(match.group(0)):]):
+            continue
+        short, long = re.sub(r"\s", "", line), re.sub(r"\s", "", source)
+        added = re.sub(r"\d+", "#", long[len(short):])
+        if long.startswith(short) and len(long) > len(short) and not any(j in added for j in junk_flat):
+            completed.append({"before": line, "after": source})
+    if completed:
+        found["statementText"] = completed
+
     # 긴급전화번호: 사이트 번호가 MSDS 번호의 조각일 때만(옆 칸 값이 딸려 온 것) 원문에서 다시 읽는다.
     contact = str(product.get("emergencyContact") or "")
     msds_digits = re.sub(r"\D", "", str(product.get("msdsNo") or ""))
@@ -151,6 +190,26 @@ def examine(product: dict, today: str) -> dict:
     if "revisionDate" in found or "issueDate" in found or found.get("revisionConfirmed"):
         found["sha256"] = sha256(path)
     return found
+
+
+def _merge_lists(old: dict | None, new: dict) -> dict:
+    """{제품: {칸: [줄]}} 둘을 합친다. 이미 반영돼 지금 데이터에서 안 보이는 것도 남긴다."""
+    merged = {pid: {key: list(items) for key, items in value.items()} for pid, value in (old or {}).items()}
+    for pid, value in new.items():
+        for key, items in value.items():
+            bucket = merged.setdefault(pid, {}).setdefault(key, [])
+            bucket.extend(item for item in items if item not in bucket)
+    return merged
+
+
+def _merge_pairs(old: dict | None, new: dict) -> dict:
+    """{제품: [{before, after}]} 둘을 합친다. 같은 before 는 새것으로."""
+    merged = {pid: list(pairs) for pid, pairs in (old or {}).items()}
+    for pid, pairs in new.items():
+        by_before = {pair["before"]: pair for pair in merged.get(pid, [])}
+        by_before.update({pair["before"]: pair for pair in pairs})
+        merged[pid] = list(by_before.values())
+    return merged
 
 
 def main() -> int:
@@ -185,6 +244,10 @@ def main() -> int:
             print(f"    사이트 개정일이 원문보다 늦어 두었음: {r['name'][:30]} 사이트 {r['revisionLater']['site']} 원문 {r['revisionLater']['pdf']}")
     print(f"PDF 를 못 읽음                        {sum(1 for r in results if 'error' in r)}건")
 
+    removes = [r for r in results if "firstAidRemove" in r]
+    texts = [r for r in results if "statementText" in r]
+    print(f"응급조치에 섞인 쪽 머리글·꼬리글       {len(removes)}건 ({sum(len(v) for r in removes for v in r['firstAidRemove'].values())}줄)")
+    print(f"중간에서 잘린 문구를 원문으로 채움     {len(texts)}건 ({sum(len(r['statementText']) for r in texts)}줄)")
     contacts = [r for r in results if "emergencyContact" in r]
     print(f"긴급전화번호가 MSDS 번호 조각으로 들어감  {len(contacts)}건")
     for r in contacts:
@@ -210,6 +273,8 @@ def main() -> int:
             "ingredientNames": ingredient_names,
             "hazardStatements": {**(old.get("hazardStatements") or {}), **{r["id"]: r["hazardStatements"] for r in hazards}},
             "emergencyContact": {**(old.get("emergencyContact") or {}), **{r["id"]: r["emergencyContact"] for r in contacts}},
+            "firstAidRemove": _merge_lists(old.get("firstAidRemove"), {r["id"]: r["firstAidRemove"] for r in removes}),
+            "statementText": _merge_pairs(old.get("statementText"), {r["id"]: r["statementText"] for r in texts}),
         }
         with REPAIRS_PATH.open("w", encoding="utf-8", newline="\n") as file:
             file.write(json.dumps(repairs, ensure_ascii=False, indent=2) + "\n")
