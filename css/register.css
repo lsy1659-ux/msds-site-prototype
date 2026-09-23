@@ -193,6 +193,13 @@
   cursor: pointer;
 }
 
+.register-issue {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.78rem;
+  color: #b45309;
+}
+[data-theme="dark"] .register-issue { color: #fbbf24; }
 .register-todo-kinds { font-size: 0.76rem; color: var(--substance-muted); }
 .register-todo-item ul { margin: 0; padding: 0 14px 6px 30px; font-size: 0.84rem; }
 .register-todo-need { margin: 0; padding: 0 14px 10px; font-size: 0.8rem; line-height: 1.55; }

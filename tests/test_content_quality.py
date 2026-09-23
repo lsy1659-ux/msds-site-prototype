@@ -124,6 +124,27 @@ class PublicContentTests(unittest.TestCase):
                 self.assertNotIn(re.sub(r"\s", "", pair["before"]), flat, f"{product['productName']}: 잘린 문구가 남음")
                 self.assertIn(re.sub(r"\s", "", pair["after"]), flat, f"{product['productName']}: 채운 문구가 없음")
 
+    def test_label_fields_repaired_from_the_source(self):
+        """그림문자(원문 그림 확인), 빠진 예방조치문구, 빈 주소·긴급전화가 데이터에 들어 있어야 한다."""
+        for pid, fix in self.repairs.get("ghsCodes", {}).items():
+            product = self.by_id[pid]
+            self.assertEqual(sorted(product.get("ghsCodes") or []), sorted(fix["after"]), product["productName"])
+            self.assertEqual(sorted(p["code"] for p in product.get("ghsPictograms") or []), sorted(fix["after"]))
+            self.assertIn("verifiedBy", fix, "그림문자는 원문 그림을 보고 확인한 것만 적는다")
+        for pid, fix in self.repairs.get("precautionaryStatements", {}).items():
+            lines = [x for items in (self.by_id[pid].get("precautionaryStatements") or {}).values() for x in items]
+            self.assertTrue(set(fix["added"]) <= set(N._codes(lines)), self.by_id[pid]["productName"])
+        for pid, fix in self.repairs.get("supplierAddress", {}).items():
+            self.assertEqual(self.by_id[pid].get("supplierAddress"), fix["after"], self.by_id[pid]["productName"])
+
+    def test_candidate_precautions_carry_no_other_section_text(self):
+        """추출 후보 예방조치 칸에 6~8항 소항목("나. 환경을 보호하기 위해 …")이 섞이지 않는다."""
+        pattern = re.compile(r"^\s*[가-하]\s*[.．]\s*(?:인체를\s*보호|환경을\s*보호|정화\s*또는\s*제거|안전\s*취급|안전한\s*저장)")
+        for override in self.overrides:
+            for items in (override.get("precautionaryStatements") or {}).values():
+                for line in items:
+                    self.assertIsNone(pattern.match(line), line[:40])
+
     def test_emergency_number_is_not_a_piece_of_the_msds_number(self):
         """표지에 찍히는 긴급전화번호 칸에 MSDS 번호 조각이 들어간 적이 있다(오공본드 락카 스프레이)."""
         for product in self.products:
@@ -181,6 +202,23 @@ class PdfTextRuleTests(unittest.TestCase):
             "글루콘산 나트륨 527-07-1 0.1 ~ 5",
         ]), ["신선한 공기가 있는 곳으로 옮기시오."])
 
+    def test_english_first_aid_and_corrupted_text(self):
+        lines = ["Section 4. First-aid measures", "IF INHALED", "Remove person to fresh air and keep comfortable for breathing.",
+                 "IF IN EYES", "Rinse cautiously with water for several minutes.", "4.2 Most important symptoms", "No data available."]
+        parsed = T.parse_first_aid(lines, set())
+        self.assertEqual(parsed["inhalation"], ["Remove person to fresh air and keep comfortable for breathing."])
+        self.assertEqual(parsed["eye"], ["Rinse cautiously with water for several minutes."])
+        # 글꼴이 깨진 줄이 섞인 칸은 통째로 두지 않는다
+        self.assertEqual(T.usable_first_aid("skin", ["오염된 의복 및 싞발을 벖고 씻으시오.", "즉시 의사의 치료를 받으시오."]), [])
+        self.assertEqual(T.usable_first_aid("eye", ["Solvent naphtha (petroleum)", "light arom."]), [])
+
+    def test_address_and_phone_from_section_one(self):
+        self.assertEqual(T.supplier_address(["주소 : 서울특별시 마포구 마포대로 4다길 41(마포동) 헨켈타워"]),
+                         "서울특별시 마포구 마포대로 4다길 41(마포동) 헨켈타워")
+        self.assertEqual(T.supplier_address(["㈜ 에이원케미칼 충남 예산군 봉산면 예덕로 341-10 041-337-6358"]),
+                         "충남 예산군 봉산면 예덕로 341-10")
+        self.assertEqual(T.emergency_phone(["긴급전화번호 031) 494 - 5096"]), "031-494-5096")
+
     def test_section_heading_found_out_of_order(self):
         lines = ["4. 응급조치요령", "가. 눈에 들어갔을 때 물로 씻으시오", "2. 유해성·위험성", "분류 없음"]
         self.assertEqual(T.section(lines, 4), lines[:2])
@@ -205,8 +243,16 @@ class NormalizeRuleTests(unittest.TestCase):
         self.assertEqual(N._fix_spacing("P405 밀 봉 하 여 저 장 하 시 오 .", {}), "P405 밀봉하여저장하시오.")
         self.assertEqual(N._fix_spacing("P261 분진/흄/가스/미스트/증기/스프레이 의 흡입을 피하시오.", {}),
                          "P261 분진/흄/가스/미스트/증기/스프레이의 흡입을 피하시오.")
-        # 보통 글의 "할 수", "및 그" 는 건드리지 않는다.
+        # 보통 글의 "할 수", "및 그", "방지 할 것" 의 한 글자 낱말은 한 글자씩 벌어진 글로 보지 않는다.
         self.assertEqual(N._fix_spacing("H280 가열하면 폭발할 수 있음 및 그 밖의", {}), "H280 가열하면 폭발할 수 있음 및 그 밖의")
+        # 동작 명사와 "하다" 사이 빈칸은 떼고, 조사·어미 뒤의 빈칸은 둔다.
+        self.assertEqual(N._fix_spacing("폐 흡입을 방지 할 것.", {}), "폐 흡입을 방지할 것.")
+        self.assertEqual(N._fix_spacing("인공호흡을 실시 하시오.", {}), "인공호흡을 실시하시오.")
+        self.assertEqual(N._fix_spacing("보호조치를 취하도록 하시오", {}), "보호조치를 취하도록 하시오")
+        self.assertEqual(N._fix_spacing("적절한 처치를 하시오.", {}), "적절한 처치를 하시오.")
+        # 띄어쓰기가 거의 없는 글은 글자가 같은 다른 제품 문구가 있으면 그 띄어쓰기를 빌린다.
+        corpus = N._statement_corpus([{"hazardStatements": ["H220 극인화성 가스"]}])
+        self.assertEqual(N._fix_spacing("H220 극인화성가스", corpus), "H220 극인화성 가스")
 
     def test_code_after_text_moves_to_the_front(self):
         record = {"hazardStatements": ["유해·위험문구 · 극인화성 가스 H220"],

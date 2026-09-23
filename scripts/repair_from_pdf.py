@@ -14,7 +14,8 @@
   머리글     응급조치 칸에 섞인 쪽 머리글·꼬리글(그 PDF 에서 쪽마다 되풀이되고 문장이 아닌 줄)을 뺀다.
   끊긴 조치  응급조치 한 문단이 여러 줄로 끊겼거나 끝이 잘렸으면, 이은 글이 원문 4항에 있을 때만 잇는다.
   잘린 문구  사이트 문구가 중간에서 끝났고 원문 같은 코드 문구가 그 글로 시작해 문장으로 끝나면 채운다.
-  긴급전화   사이트 번호가 MSDS 번호의 조각이면(옆 칸 값이 딸려 온 것) 원문 1항에서 다시 읽는다.
+  긴급전화   비었거나 MSDS 번호의 조각이면(옆 칸 값이 딸려 온 것) 원문 1항에서 다시 읽는다.
+  주소       공급자 주소가 비었으면 원문 1항에서 읽는다(라벨 옆 값, 없으면 도로명 주소가 하나뿐일 때).
   날짜       원문 최종 개정일(개정 이력이 줄줄이 적혔으면 가장 늦은 날)과 최초 작성일을
              사이트 값과 대 본다. 관리대장에 적을 때는 그 PDF 의 SHA-256 을 같이 적어,
              나중에 같은 자리에 새 PDF 가 들어오면 옛 날짜를 덮어쓰지 않게 한다.
@@ -70,6 +71,12 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _prec_codes(groups: dict | None) -> list[str]:
+    probe = {"precautionaryStatements": {k: list(v or []) for k, v in (groups or {}).items()}}
+    N.normalize_statements(probe)
+    return N._codes([x for items in probe["precautionaryStatements"].values() for x in items])
+
+
 def statement_codes(lines: list[str]) -> list[str]:
     probe = {"hazardStatements": list(lines or [])}
     N.normalize_statements(probe)
@@ -89,10 +96,17 @@ def examine(product: dict, today: str) -> dict:
     section4 = T.section(lines, 4)
     parsed = T.parse_first_aid(section4, junk) if section4 else {}
     fill = {}
+    # 빈 칸을 pypdf 로 못 읽었으면 두 번째 글자 읽기로 다시 본다(두 칸 표 PDF).
+    alt_parsed = {}
+    if any(not current.get(key) and key not in parsed for key in AID_KEYS):
+        alt = T.page_texts_alt(path)
+        if alt:
+            alt_section4 = T.section("\n".join(alt).splitlines(), 4)
+            alt_parsed = T.parse_first_aid(alt_section4, T.boilerplate(alt)) if alt_section4 else {}
     for key in AID_KEYS:
-        if current.get(key) or key not in parsed:
+        if current.get(key):
             continue
-        items = T.usable_first_aid(key, parsed[key])
+        items = T.usable_first_aid(key, parsed.get(key) or alt_parsed.get(key) or [])
         if items:
             fill[key] = items
     if fill:
@@ -118,16 +132,29 @@ def examine(product: dict, today: str) -> dict:
 
     # 유해·위험문구: 사이트가 일부를 빠뜨렸을 때만
     if not product.get("hazardNotClassified"):
-        section2 = T.section(lines, 2)
-        pdf_lines, _ = T.parse_statements(section2, junk) if section2 else ([], {})
-        pdf_codes = N._codes(pdf_lines)
+        pdf_lines, pdf_prec = T.statements_from(pages)
         site_codes = statement_codes(product.get("hazardStatements") or [])
+        # 두 칸 표 PDF 는 pypdf 가 글 순서를 뒤섞어 문구를 못 읽는다. 사이트보다 적게 읽혔으면
+        # 두 번째 글자 읽기로 다시 읽는다(나바켐 락카스프레이 적색·황색, 태경에코 LPG 혼합).
+        if not set(site_codes) < set(N._codes(pdf_lines)):
+            alt = T.page_texts_alt(path)
+            if alt:
+                alt_lines, alt_prec = T.statements_from(alt)
+                if set(site_codes) < set(N._codes(alt_lines)):
+                    pdf_lines, pdf_prec = alt_lines, alt_prec
+        pdf_codes = N._codes(pdf_lines)
         if site_codes and set(site_codes) < set(pdf_codes):
             found["hazardStatements"] = {"beforeCodes": site_codes, "after": pdf_lines, "pdf": product["pdfPath"],
                                          "added": sorted(set(pdf_codes) - set(site_codes)), "checkedOn": today}
         elif pdf_codes and site_codes and set(pdf_codes) != set(site_codes):
             found["codesDiffer"] = {"siteOnly": sorted(set(site_codes) - set(pdf_codes)),
                                     "pdfOnly": sorted(set(pdf_codes) - set(site_codes))}
+        # 예방조치문구도 같은 규칙: 사이트 P코드를 원문이 모두 품고 더 많을 때만 원문 목록으로.
+        site_p = _prec_codes(product.get("precautionaryStatements"))
+        pdf_p = _prec_codes(pdf_prec)
+        if site_codes and "hazardStatements" in found and set(site_p) < set(pdf_p):
+            found["precautionaryStatements"] = {"beforeCodes": site_p, "after": pdf_prec, "pdf": product["pdfPath"],
+                                                "added": sorted(set(pdf_p) - set(site_p)), "checkedOn": today}
 
     # 응급조치에 섞인 쪽 머리글·꼬리글("물질안전보건자료(MSDS)", "KC-28", "2023-01-11 (최종 개정일자) …").
     # 그 PDF 에서 쪽마다 되풀이되는 줄이고 문장이 아닐 때만 뺀다.
@@ -188,10 +215,18 @@ def examine(product: dict, today: str) -> dict:
     contact = str(product.get("emergencyContact") or "")
     msds_digits = re.sub(r"\D", "", str(product.get("msdsNo") or ""))
     groups = [re.sub(r"\D", "", g) for g in re.findall(r"\d[\d\s-]{4,}\d", contact)]
-    if msds_digits and groups and all(g in msds_digits for g in groups):
+    # 비어 있어도 원문 1항에서 읽는다. 표지의 공급자 정보 칸에 찍히는 값이다.
+    if not contact.strip() or (msds_digits and groups and all(g in msds_digits for g in groups)):
         phone = T.emergency_phone(pages)
         if phone:
             found["emergencyContact"] = {"before": contact, "after": phone, "pdf": product["pdfPath"], "checkedOn": today}
+
+    # 공급자 주소: 비어 있을 때만 원문 1항에서 읽는다.
+    if not str(product.get("supplierAddress") or "").strip():
+        address = T.supplier_address(T.section(lines, 1) or pages[0].splitlines())
+        if address:
+            found["supplierAddress"] = {"before": product.get("supplierAddress", "") or "", "after": address,
+                                        "pdf": product["pdfPath"], "checkedOn": today}
 
     # 날짜
     revision = T.revision_date(text)
@@ -292,6 +327,7 @@ def main() -> int:
     aid = [r for r in results if "firstAid" in r]
     names = [n for r in results for n in r.get("ingredientNames", [])]
     hazards = [r for r in results if "hazardStatements" in r]
+    precs = [r for r in results if "precautionaryStatements" in r]
     revisions = [r for r in results if "revisionDate" in r]
     issues = [r for r in results if "issueDate" in r]
     print(f"응급조치 빈 칸을 원문에서 채울 수 있음  {len(aid)}건 ({sum(len(r['firstAid']['fill']) for r in aid)}칸)")
@@ -299,6 +335,7 @@ def main() -> int:
     print(f"유해·위험문구가 원문보다 적음          {len(hazards)}건")
     for r in hazards:
         print(f"    {r['name'][:30]}: {', '.join(r['hazardStatements']['added'])} 빠짐")
+    print(f"예방조치문구가 원문보다 적음          {len(precs)}건")
     print(f"H코드가 원문과 달라 손으로 볼 것      {sum(1 for r in results if 'codesDiffer' in r)}건")
     print(f"개정일이 원문과 다름                  {len(revisions)}건 / 최초 작성일이 원문과 다름 {len(issues)}건")
     for r in results:
@@ -314,7 +351,11 @@ def main() -> int:
     print(f"응급조치에 섞인 쪽 머리글·꼬리글       {len(removes)}건 ({sum(len(v) for r in removes for v in r['firstAidRemove'].values())}줄)")
     print(f"중간에서 잘린 문구를 원문으로 채움     {len(texts)}건 ({sum(len(r['statementText']) for r in texts)}줄)")
     contacts = [r for r in results if "emergencyContact" in r]
-    print(f"긴급전화번호가 MSDS 번호 조각으로 들어감  {len(contacts)}건")
+    addresses = [r for r in results if "supplierAddress" in r]
+    print(f"공급자 주소를 원문에서 채움              {len(addresses)}건")
+    for r in addresses:
+        print(f"    {r['name'][:30]}: {r['supplierAddress']['after'][:50]}")
+    print(f"긴급전화번호 비었거나 MSDS 번호 조각     {len(contacts)}건")
     for r in contacts:
         print(f"    {r['name'][:30]}: {r['emergencyContact']['before']} → {r['emergencyContact']['after']}")
 
@@ -337,7 +378,12 @@ def main() -> int:
             "firstAid": first_aid,
             "ingredientNames": ingredient_names,
             "hazardStatements": {**(old.get("hazardStatements") or {}), **{r["id"]: r["hazardStatements"] for r in hazards}},
+            "precautionaryStatements": {**(old.get("precautionaryStatements") or {}),
+                                        **{r["id"]: r["precautionaryStatements"] for r in precs}},
+            # 그림문자는 PDF 안의 그림이라 글자로 읽을 수 없다. 원문 제2항을 눈으로 보고 적은 것만 있다.
+            "ghsCodes": old.get("ghsCodes") or {},
             "emergencyContact": {**(old.get("emergencyContact") or {}), **{r["id"]: r["emergencyContact"] for r in contacts}},
+            "supplierAddress": {**(old.get("supplierAddress") or {}), **{r["id"]: r["supplierAddress"] for r in addresses}},
             "firstAidRemove": _merge_lists(old.get("firstAidRemove"), {r["id"]: r["firstAidRemove"] for r in removes}),
             "statementText": _merge_pairs(old.get("statementText"), {r["id"]: r["statementText"] for r in texts}),
             # 줄 목록을 통째로 바꾸므로 제품·칸마다 가장 최근 것 하나만 둔다.

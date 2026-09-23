@@ -80,6 +80,8 @@ function buildRows(register, products) {
       certainty: entry.certainty || "",
       checkedOn: entry.checkedOn || "",
       signalWord: entry.signalWord || "",
+      sourceIssue: entry.sourceIssue || "",
+      sourceIssueAsk: entry.sourceIssueAsk || "",
       replacement,
       pdf: product?.pdfPath || "",
       haystack: rNormalize([entry.productName, entry.supplier, entry.msdsNo, entry.supplierDocNo, entry.kind].join(" "))
@@ -158,23 +160,85 @@ function renderTable() {
 function renderTodo() {
   const groups = new Map();
   registerState.rows
-    .filter((row) => row.status === "required" || row.status === "pending")
+    .filter((row) => row.status === "required" || row.status === "pending" || row.sourceIssue)
     .forEach((row) => {
       const key = row.supplier || "공급사 불명";
       if (!groups.has(key)) groups.set(key, []);
       groups.get(key).push(row);
     });
   const ordered = [...groups.entries()].sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0], "ko"));
-  registerElements.todo.innerHTML = ordered.map(([supplier, rows]) => {
+  registerState.todo = ordered;
+  registerElements.todo.innerHTML = ordered.map(([supplier, rows], index) => {
     const needs = [...new Set(rows.map((row) => row.need).filter(Boolean))];
     return `
       <details class="register-todo-item">
         <summary><strong>${rEscape(supplier)}</strong><span>${rows.length}건</span>
-          <span class="register-todo-kinds">${[...new Set(rows.map((r) => r.statusLabel))].map(rEscape).join(" · ")}</span></summary>
-        <ul>${rows.map((row) => `<li>${rEscape(row.name)} <span class="register-sub">${rEscape(row.kind || row.statusLabel)}</span></li>`).join("")}</ul>
+          <span class="register-todo-kinds">${[...new Set(rows.map((r) => r.sourceIssue && !["required", "pending"].includes(r.status) ? "원문 확인" : r.statusLabel))].map(rEscape).join(" · ")}</span></summary>
+        <ul>${rows.map((row) => `<li>${rEscape(row.name)} <span class="register-sub">${rEscape(row.kind || row.statusLabel)}</span>
+          ${row.sourceIssue ? `<span class="register-issue">원문 확인: ${rEscape(row.sourceIssue)}</span>` : ""}</li>`).join("")}</ul>
         ${needs.length ? `<p class="register-todo-need"><b>받을 것</b> ${needs.map(rEscape).join(" / ")}</p>` : ""}
+        ${rows.some(askable) ? `<p class="register-todo-need"><button type="button" class="substance-button" data-request-copy="${index}">요청 문안 복사</button>
+          <span class="register-sub">메일·메신저에 붙여 쓰는 문안입니다. 여기서 보내지는 않습니다.</span></p>`
+          : `<p class="register-todo-need register-sub">우리 쪽에서 확인할 일입니다(라벨·용도 확인).</p>`}
       </details>`;
   }).join("") || '<p class="register-empty">남은 할 일이 없습니다.</p>';
+}
+
+/* 공급사에 물을 것인지. 번호 확보가 필요하거나, 추가 확인 가운데 공급사에 요청할 일이거나,
+ * 원문 오류를 물어야 할 때. "구매한 제품의 라벨 사진" 처럼 우리 쪽에서 할 확인은 넣지 않는다. */
+function askable(row) {
+  if (row.sourceIssueAsk || row.status === "required") return true;
+  return row.status === "pending" && /공급사|수입자|요청|문의/.test(`${row.need} ${row.action}`);
+}
+
+/* 받을 것 가운데 공급사에 물을 부분만. "구매한 제품의 라벨 사진", "구매처" 는 우리 쪽 확인이라 뺀다. */
+function supplierPart(need) {
+  return String(need || "").split(/\s*;\s*/)
+    .filter((part) => part && !/라벨\s*사진|구매처|구매한/.test(part))
+    .map((part) => part.replace(/\s*문의$/, " 확인 부탁드립니다"))
+    .join("; ");
+}
+
+/* 공급사에 보낼 요청 문안. 제품마다 받을 것과 원문에서 확인할 것을 적는다. 보내는 일은 사람이 한다. */
+function requestText(supplier, rows) {
+  // 공급사에 보내는 글이라 우리 쪽 메모(사이트에 어떻게 두었는지)는 넣지 않는다. sourceIssueAsk 만 쓴다.
+  const lines = rows.filter(askable).map((row, i) => {
+    const asks = [row.sourceIssueAsk ? "" : supplierPart(row.need), row.sourceIssueAsk].filter(Boolean).join(" / ");
+    return `${i + 1}. ${row.name}${asks ? ` — ${asks}` : ""}`;
+  });
+  const wantsNumber = rows.some((row) => row.status === "required");
+  return [
+    `[주식회사 캠스] 물질안전보건자료(MSDS) 관련 요청드립니다.`,
+    "",
+    `${supplier} 담당자님, 안녕하세요. 주식회사 캠스 안전보건 담당입니다.`,
+    "귀사에서 공급받고 있는 아래 제품의 물질안전보건자료(MSDS)와 관련해 요청드립니다.",
+    "",
+    ...lines,
+    "",
+    ...(wantsNumber
+      ? ["산업안전보건법 시행규칙 제160조에 따라 MSDS 에는 한국산업안전보건공단이 부여한 MSDS 번호를 반영하도록 되어 있어,",
+         "번호가 기재된 최신본을 보내 주시면 감사하겠습니다."]
+      : ["확인하신 뒤 필요한 자료나 수정본을 보내 주시면 감사하겠습니다."]),
+    "",
+    "감사합니다."
+  ].join("\n");
+}
+
+async function copyRequest(button) {
+  const [supplier, rows] = registerState.todo[Number(button.dataset.requestCopy)] || [];
+  if (!supplier) return;
+  const text = requestText(supplier, rows);
+  const done = (label) => {
+    const before = button.textContent;
+    button.textContent = label;
+    window.setTimeout(() => { button.textContent = before; }, 1600);
+  };
+  try {
+    await navigator.clipboard.writeText(text);
+    done("복사됨");
+  } catch (error) {
+    window.prompt("이 문안을 복사하세요", text);
+  }
 }
 
 /* 교체·확인 이력. 관리대장의 history 를 새것부터 보여 준다.
@@ -294,6 +358,10 @@ async function initRegisterPage() {
   });
   document.querySelector("#registerExport").addEventListener("click", exportRegisterCsv);
   document.querySelector("#registerHistoryExport").addEventListener("click", exportHistoryCsv);
+  registerElements.todo.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-request-copy]");
+    if (button) copyRequest(button);
+  });
 
   render();
   renderTodo();

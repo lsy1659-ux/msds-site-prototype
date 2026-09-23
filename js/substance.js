@@ -98,6 +98,12 @@ async function loadFirstAvailable(sources, pick) {
   return [];
 }
 
+// 대표 이름으로 세우기 어려운 표기. 이명을 ; 로 줄줄이 적었거나 KE 번호·CAS 가 섞인 것, 너무 긴 것.
+function isClumsyName(name) {
+  const text = String(name || "");
+  return /;|KE-\d|\d{2,7}-\d{2}-\d/.test(text) || text.length > 40;
+}
+
 function cleanCas(raw) {
   const text = String(raw || "").trim().replace(/^CAS\s*(No\.?|번호)?\s*[:.]?\s*/i, "");
   if (!CAS_SHAPE.test(text)) return "";
@@ -148,7 +154,9 @@ function buildSubstances(products) {
 
   const substances = [...byCas.values()].map((entry) => {
     // 가장 많이 쓰인 표기를 대표 이름으로 삼는다. 나머지는 동의어로 남긴다.
-    const spellings = [...entry.names.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "ko"));
+    // 다만 이명 목록·KE 번호가 붙은 표기("자일렌 자일롤 ; 메틸톨루엔 … / KE-35427")는 대표로 세우지 않는다.
+    const spellings = [...entry.names.entries()].sort((a, b) =>
+      Number(isClumsyName(a[0])) - Number(isClumsyName(b[0])) || b[1] - a[1] || a[0].localeCompare(b[0], "ko"));
     // 한 제품이 같은 CAS 를 두 줄에 걸쳐 적는 일이 있다. 목록에는 한 번만 싣는다.
     const seen = new Set();
     const uses = entry.uses

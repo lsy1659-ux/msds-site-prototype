@@ -39,7 +39,7 @@ SECTION_TITLES = {
     16: r"그\s*밖의|기타\s*참고|other\s*information",
 }
 HEADINGS = {
-    n: re.compile(rf"^\s*(?:제\s*)?(?:section\s*)?(?<!\d){n}(?!\d)\s*(?:[.．:]|항)?\s*[.．:]?\s*(?:{title})", re.I)
+    n: re.compile(rf"^\s*(?:제\s*)?(?:section\s*)?(?<!\d){n}(?!\d)\s*(?:[.．:\-–]|항)?\s*[.．:\-–]?\s*(?:{title})", re.I)
     for n, title in SECTION_TITLES.items()
 }
 
@@ -68,6 +68,27 @@ def repair_line(line):
 def page_texts(path):
     pages = [(p.extract_text() or "") for p in PdfReader(str(path)).pages]
     return ["\n".join(repair_line(l) for l in text.splitlines()) for text in pages]
+
+
+def page_texts_alt(path):
+    """두 번째 글자 읽기(PyMuPDF, 위치 순). 두 칸 표 PDF 에서 pypdf 가 순서를 뒤섞을 때 쓴다.
+
+    설치돼 있지 않으면 None. 없어도 다른 기능은 그대로 돈다.
+    """
+    try:
+        import pymupdf
+    except ImportError:
+        return None
+    with pymupdf.open(str(path)) as doc:
+        pages = [page.get_text("text", sort=True) or "" for page in doc]
+    return ["\n".join(repair_line(l) for l in text.splitlines()) for text in pages]
+
+
+def statements_from(pages):
+    """쪽 글에서 2항 문구를 읽는다. (유해문구, 예방조치 칸)"""
+    lines = "\n".join(pages).splitlines()
+    section2 = section(lines, 2)
+    return parse_statements(section2, boilerplate(pages)) if section2 else ([], {})
 
 
 def flat(text):
@@ -111,7 +132,7 @@ def tidy_text(text):
     # 글자층에서 떨어져 나온 문장부호 찌꺼기("( ) .", " , ,")는 뺀다.
     text = re.sub(r"\(\s*\)", " ", flat(text))
     text = re.sub(r"(?:\s+[,.]+)+\s*$", "", text)
-    return flat(text).strip(" ;:：-·ㆍ∙,")
+    return flat(text).strip(" ;:：-·ㆍ∙,○●◦•▪")
 
 
 def ends_sentence(text):
@@ -268,11 +289,18 @@ def parse_ingredients(lines, junk):
 
 AID_ENUM = r"^[\s　]*(?:[가-하]|[a-eA-E]|[1-5](?:\.\d)?)?\s*[.．)]?\s*"
 AID = [
-    ("eye", re.compile(AID_ENUM + r"(눈에\s*(?:들어갔을|접촉했을|묻었을)\s*때|눈에\s*들어간\s*경우|눈\s*[:：]|eye\s*contact\s*[:：]?)", re.I)),
-    ("skin", re.compile(AID_ENUM + r"(피부(?:에|와)\s*(?:접촉했을|묻었을|닿았을)\s*때|피부에\s*묻은\s*경우|피부\s*[:：]|skin\s*contact\s*[:：]?)", re.I)),
-    ("inhalation", re.compile(AID_ENUM + r"((?:흡입|들이마셨)(?:했을|을)?\s*때|흡입한\s*경우|흡입\s*[:：]|inhalation\s*[:：])", re.I)),
-    ("ingestion", re.compile(AID_ENUM + r"((?:먹었|삼켰|섭취했)을\s*때|삼킨\s*경우|섭취\s*[:：]|ingestion\s*[:：]|swallowing\s*[:：])", re.I)),
-    ("note", re.compile(AID_ENUM + r"((?:기타\s*)?의사의\s*주의\s*사항|기타\s*주의\s*사항|notes?\s*to\s*(?:the\s*)?physician\s*[:：]?)", re.I)),
+    # 영문 SDS 는 "IF IN EYES", "When inhaled :", "B. Skin contact" 처럼 적는다. 영문 항목 이름은 줄 끝이거나
+    # 쌍점이 붙을 때만 항목으로 본다(문장 속 "skin contact" 에 걸리지 않게).
+    ("eye", re.compile(AID_ENUM + r"(눈에\s*(?:들어갔을|접촉했을|묻었을)\s*때|눈에\s*들어간\s*경우|눈\s*[:：]"
+                       r"|(?:eye\s*contact|if\s+in\s+eyes|when\s+you\s+get\s+into\s+your\s+eyes)\s*(?:[:：]|$))", re.I)),
+    ("skin", re.compile(AID_ENUM + r"(피부(?:에|와)\s*(?:접촉했을|묻었을|닿았을)\s*때|피부에\s*묻은\s*경우|피부\s*[:：]"
+                        r"|(?:skin\s*contact|contact\s+with\s+skin|if\s+on\s+skin(?:\s*\(or\s+hair\）?\)?)?)\s*(?:[:：]|$))", re.I)),
+    ("inhalation", re.compile(AID_ENUM + r"((?:흡입|들이마셨)(?:했을|을)?\s*때|흡입한\s*경우|흡입\s*[:：]"
+                              r"|(?:inhalation|if\s+inhaled|when\s+inhaled)\s*(?:[:：]|$))", re.I)),
+    ("ingestion", re.compile(AID_ENUM + r"((?:먹었|삼켰|섭취했)을\s*때|삼킨\s*경우|섭취\s*[:：]"
+                             r"|(?:ingestion|swallowing|if\s+swallowed|when\s+you\s+eat)\s*(?:[:：]|$))", re.I)),
+    ("note", re.compile(AID_ENUM + r"((?:기타\s*)?의사의\s*주의\s*사항|기타\s*주의\s*사항"
+                        r"|notes?\s*to\s*(?:the\s*)?physician\s*[:：]?|first\s+aid\s+and\s+doctor'?s\s+notes?\s*[:：]?)", re.I)),
 ]
 
 
@@ -293,14 +321,20 @@ def parse_first_aid(lines, junk):
             current = hit[0]
             result.setdefault(current, [])
             rest = tidy_text(line[hit[1].end():])
-            if rest and HANGUL.search(rest) and not re.fullmatch(r"자료\s*없음\.?", rest):
+            if rest and re.search(r"[가-힣A-Za-z]", rest) and not re.fullmatch(r"자료\s*없음\.?", rest):
                 result[current].append(rest)
             prev_raw = raw
             continue
         # 다른 절 제목이나, 응급조치 항목이 아닌 가./나. 항목이 나오면 4항이 끝난 것이다.
-        if current is not None and (re.match(r"^\d+\s*[.．]\s*\S", line) or re.match(r"^[가-하]\s*[.．]\s*\S", line)):
+        # "4.1 Description …" 같은 소번호는 절 머리가 아니다. 숫자 뒤 점 다음에 글자가 올 때만 멈춘다.
+        if current is not None and (re.match(r"^\d+\s*[.．]\s*[^\d\s.]", line) or re.match(r"^[가-하]\s*[.．]\s*\S", line)):
             break
-        if current is None or not HANGUL.search(line) or re.match(r"^\d+(?:\.\d+)+\s", line):
+        if re.match(r"^\d+(?:\.\d+)+\s", line):
+            # "4.2 Most important symptoms" 같은 소항목 머리. 다음 항목 이름이 나올 때까지 모으지 않는다.
+            if current is not None and not any(pattern.match(line) for _, pattern in AID):
+                current = None
+            continue
+        if current is None or not re.search(r"[가-힣A-Za-z]", line):
             continue
         items = result[current]
         # 앞 줄이 짧으면 접힌 줄이 아니라 제목·값을 줄을 나눠 적은 것이다. 잇지 않는다.
@@ -394,6 +428,12 @@ ROUTE_WORDS = {
     "ingestion": r"입|삼키|삼켰|먹|구토|토하|섭취|마시|mouth|swallow|vomit|ingest",
 }
 NOT_FIRST_AID = re.compile(r"\b\d{2,7}-\d{2}-\d\b|KE-\d|\bTWA\b|STEL|ppm|mg/m", re.I)
+# 글꼴 연결이 깨진 PDF 에서 제 글자 대신 튀어나오는 음절("싞발을 벖고", "조얶을"). 보통 글에는 거의 안 나온다.
+CORRUPTED = re.compile("[싞늒맊홖젂핚짂갂숚렦맋핛젗벖첛얶옦젘앆젃]")
+# 마침표 없이 끝나는 영문 조치는 시키는 말로 시작할 때만 조치로 본다("Move person to fresh air").
+ENGLISH_ACTION = re.compile(
+    r"^(?:Rinse|Remove|Wash|Flush|Seek|Call|Get|Move|Give|Do|If|In\s+case|Take|Keep|Immediately|Supply|Promptly|"
+    r"Continue|Clean|Administer|Consult|Never|Obtain|Loosen|Wipe|Transfer|Place|Show|Avoid|Treat|Apply|Use|Allow)\b")
 SENTENCE = re.compile(r"(?:시오|것|다|음|함|됨|요|라|세요)\s*[.)]?\s*$|[.!]\s*$")
 EMPTY_VALUE = re.compile(r"^(?:자료\s*없음|해당\s*없음|없음|정보\s*없음)\.?$")
 
@@ -405,9 +445,20 @@ def usable_first_aid(key, items):
     - 눈·피부·흡입·섭취 칸은 그 경로를 가리키는 말이 한 줄도 없고 다른 경로의 말만
       있으면 통째로 버린다. 칸 이름이 어긋나 읽힌 것이다.
     """
+    # 글꼴이 깨진 줄이 하나라도 있으면 그 칸은 통째로 두지 않는다. 깨진 줄만 빼면 핵심 조치가
+    # 빠진 채 "의사의 치료를 받으시오" 만 남아 오히려 틀린 안내가 된다.
+    if any(CORRUPTED.search(item) for item in items):
+        return []
     kept = []
     for item in items:
-        if NOT_FIRST_AID.search(item) or not SENTENCE.search(item) or EMPTY_VALUE.match(item.strip()) or item in kept:
+        # 영문 SDS 의 조치는 마침표 없이 끝나기도 한다("Move person to fresh air"). 대문자로 시작하는
+        # 세 낱말 이상의 영문 줄은 문장으로 본다.
+        english = (re.match(r"^[A-Z][a-z]", item) and len(item.split()) >= 3
+                   and (re.search(r"[.!]\s*$", item) or ENGLISH_ACTION.match(item)))
+        if not re.search(r"[가-힣]", item) and not english:
+            continue   # 한글이 없는 줄은 영문 문장일 때만("light arom.", "Solvent naphtha" 같은 성분표 조각은 뺀다)
+        if (NOT_FIRST_AID.search(item) or CORRUPTED.search(item) or not (SENTENCE.search(item) or english)
+                or EMPTY_VALUE.match(item.strip()) or item in kept):
             continue
         if key in ROUTE_WORDS:
             own = re.search(ROUTE_WORDS[key], item, re.I)
@@ -448,3 +499,25 @@ def emergency_phone(pages):
             return _phone_text(found.group(0))
     first_page = {_phone_text(p) for p in PHONE.findall(pages[0] if pages else "")}
     return first_page.pop() if len(first_page) == 1 else ""
+
+
+# 공급자 주소. 라벨과 같은 줄의 값을 먼저 보고, 없으면 1항에 도로명 주소가 하나뿐일 때만 그것을 쓴다.
+# 제조자·수입자 주소가 둘 다 적혀 있으면 어느 것이 공급자인지 알 수 없어 비워 둔다.
+ADDRESS_LABEL = re.compile(r"^\s*[-·•]?\s*(?:[가-하]\.\s*)?(?:주\s*소|address)\s*[:：]?\s*(?P<value>.*)$", re.I)
+ROAD_ADDRESS = re.compile(
+    r"(?:서울|부산|대구|인천|광주|대전|울산|세종|경기|강원|충청|충북|충남|전라|전북|전남|경상|경북|경남|제주)"
+    r"[가-힣]*\s*(?:[가-힣]+(?:시|군|구)\s*){1,3}(?:[가-힣0-9]+(?:읍|면)\s*)?"
+    # 도로명: "마포대로", "본산1로" 다음에 가지 길("4다길", "56번길")이 올 수 있다.
+    r"[가-힣0-9·]+(?:로|길)(?:\s*\d+[가-힣]?(?:번)?길)?\s*\d+(?:-\d+)?"
+    r"(?:\s*\([^)]{1,20}\))?")
+
+
+def supplier_address(lines):
+    """1항에서 공급자 주소를 읽는다. 못 정하면 빈 문자열."""
+    body = [flat(l) for l in lines]
+    for line in body:
+        m = ADDRESS_LABEL.match(line)
+        if m and len(m.group("value")) >= 8 and not re.search(r"e-?mail|@", m.group("value"), re.I):
+            return tidy_text(m.group("value"))
+    found = {tidy_text(m.group(0)) for line in body for m in ROAD_ADDRESS.finditer(line)}
+    return found.pop() if len(found) == 1 else ""
