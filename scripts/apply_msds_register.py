@@ -61,7 +61,10 @@ def read_json(path: Path) -> Any:
 
 
 def write_json(path: Path, data: Any) -> None:
-    path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    # 배포 목록(release-manifest)이 이 파일들의 해시를 적는다. 윈도에서 CRLF 로
+    # 쓰면 CI(리눅스)에서 잰 해시와 달라지므로 LF 로 고정한다.
+    with path.open("w", encoding="utf-8", newline="\n") as file:
+        file.write(json.dumps(data, ensure_ascii=False, indent=2) + "\n")
 
 
 def load_register(path: Path = REGISTER_PATH) -> dict[str, Any]:
