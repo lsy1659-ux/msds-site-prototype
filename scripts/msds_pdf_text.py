@@ -146,7 +146,9 @@ def parse_statements(lines, junk):
             continue
         found = list(CODE.finditer(line))
         if not found:
-            if last and not STOP_LINE.search(line) and HANGUL.search(line) and len(line) <= 120:
+            # "인화성 액체 : 구분2" 같은 분류 줄은 이어지는 문장이 아니다. 두 칸 표에서 문구 뒤에
+            # 분류 칸 값이 몰려 나오는 PDF 가 있어(오공본드 락카 스프레이) 여기서 멈춘다.
+            if last and not STOP_LINE.search(line) and not CATEGORY.search(line) and HANGUL.search(line) and len(line) <= 120:
                 items[last] = join_wrapped(items[last], prev_raw, raw)
             else:
                 last = None

@@ -49,6 +49,17 @@ class PublicContentTests(unittest.TestCase):
             for line in lines:
                 self.assertIsNone(LABEL_HEAD.match(line), f"{product['productName']}: 앞머리가 남음 {line[:30]}")
 
+    def test_statement_text_carries_no_classification(self):
+        """"H315 피부에 자극을 일으킴 인화성 액체 : 구분2 …" 처럼 분류 칸 글이 문구에 붙으면 표지에 그대로 찍힌다."""
+        for record in self.products + self.overrides:
+            lines = list(record.get("hazardStatements") or [])
+            lines += [x for items in (record.get("precautionaryStatements") or {}).values() for x in items]
+            for line in lines:
+                body = re.match(r"^[HP]\d{3}\S*\s(.*)$", line)
+                if body:
+                    self.assertNotRegex(body.group(1), r"구분\s*[:：]?\s*\d",
+                                        f"{record.get('productName') or record.get('productNameCandidate')}: {line[:40]}")
+
     def test_normalizing_again_changes_nothing(self):
         products, overrides, report = N.normalize_content(self.products, self.overrides)
         self.assertEqual(products, self.products, "문구 꼴을 다시 고치면 또 바뀐다 — build 가 반영하지 않은 상태")
