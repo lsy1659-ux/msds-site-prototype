@@ -1,4 +1,5 @@
 import hashlib
+import json
 import re
 import unittest
 from pathlib import Path
@@ -64,6 +65,37 @@ class SiteUiContractTests(unittest.TestCase):
             digest = hashlib.sha256(token.encode("utf-8")).hexdigest()
             self.assertNotEqual(digest, stored.group(1),
                                 f"암호가 파일에 그대로 적혀 있다: {token!r}")
+
+    def test_guide_emergency_slots_only_take_matching_sentences(self):
+        """관리요령의 누출 시·화재 시 칸에 엉뚱한 문장이 들어가지 않는다.
+
+        낱말 하나로 대응 문구를 고르는데, 한 글자 낱말은 다른 말 속에
+        숨어 걸린다. "불" 이 "불편함을 느끼면" 에 걸려 50장의 화재 시 칸에
+        의사 진찰 문구가 들어간 적이 있다. guide.js 의 낱말 목록을 그대로
+        읽어 실제 데이터에 대 보고, 걸린 문장이 그 사고와 관련 있는지 본다.
+        """
+        guide = (ROOT / "js" / "guide.js").read_text(encoding="utf-8")
+        products = json.loads((ROOT / "data" / "msds.public.json").read_text(encoding="utf-8"))
+
+        def words(name):
+            found = re.search(rf"const {name} = \[(.*?)\];", guide, re.S)
+            self.assertIsNotNone(found, f"guide.js 에 {name} 가 없다")
+            return re.findall(r'"([^"]+)"', found.group(1))
+
+        # 걸려서는 안 되는 말. 겉보기에 낱말을 품고 있지만 그 사고와는 무관하다.
+        not_this = {"FIRE_WORDS": ["불편"], "SPILL_WORDS": []}
+
+        for name, bad in not_this.items():
+            keys = words(name)
+            for word in keys:
+                self.assertGreaterEqual(len(word), 2, f"{name} 의 '{word}' 는 너무 짧아 다른 말에 걸린다")
+            for product in products:
+                response = (product.get("precautionaryStatements") or {}).get("response") or []
+                hit = next((text for text in response if any(word in text for word in keys)), None)
+                if hit:
+                    for wrong in bad:
+                        self.assertNotIn(wrong, hit,
+                                         f"{product['productName']} 의 {name} 칸에 무관한 문장: {hit[:40]}")
 
     def test_admin_gate_is_documented_as_a_curtain_not_a_lock(self):
         # 정적 사이트라 암호 확인이 브라우저에서 일어난다. 이 파일을 나중에

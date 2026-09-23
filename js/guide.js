@@ -338,7 +338,12 @@ function getPpeItems(product) {
 /* 응급조치는 실제로 크게 다치는 순서로 싣는다. 흡입과 섭취는 전혀 다른
  * 사고이므로 이름을 섞지 않는다. 누출과 화재는 P문구에서 가려낸다. */
 const SPILL_WORDS = ["누출", "유출", "엎질러", "흘린"];
-const FIRE_WORDS = ["화재", "불", "소화", "연소"];
+
+/* "불" 은 넣지 않는다. 한 글자라 "불편함을 느끼면"(P312·P314) 에 걸려,
+ * 관리요령 67장 가운데 50장의 화재 시 칸에 의사 진찰 문구가 들어갔다.
+ * 앞에서부터 찾으므로 P312 가 진짜 화재 문구(P370 등)보다 먼저 잡혔다.
+ * 불을 끄라는 문구는 모두 화재·소화 를 함께 적고 있어 빼도 놓치는 것이 없다. */
+const FIRE_WORDS = ["화재", "소화", "연소"];
 
 function getEmergencyItems(product, used) {
   const aid = product.firstAid || {};
