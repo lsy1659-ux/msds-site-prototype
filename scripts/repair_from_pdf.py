@@ -11,6 +11,7 @@
   성분 이름  "번호", "황화수소 0.05" 처럼 깨진 이름만 원문 3항의 같은 CAS 줄 이름으로 바꾼다.
   유해문구   원문 2항에서 읽은 H코드가 사이트 H코드를 모두 품고 더 많을 때만(사이트가
              일부를 빠뜨린 것) 원문 목록으로 바꾼다. 그림문자·신호어는 건드리지 않는다.
+  긴급전화   사이트 번호가 MSDS 번호의 조각이면(옆 칸 값이 딸려 온 것) 원문 1항에서 다시 읽는다.
   날짜       원문 최종 개정일(개정 이력이 줄줄이 적혔으면 가장 늦은 날)과 최초 작성일을
              사이트 값과 대 본다. 관리대장에 적을 때는 그 PDF 의 SHA-256 을 같이 적어,
              나중에 같은 자리에 새 PDF 가 들어오면 옛 날짜를 덮어쓰지 않게 한다.
@@ -125,6 +126,15 @@ def examine(product: dict, today: str) -> dict:
             found["codesDiffer"] = {"siteOnly": sorted(set(site_codes) - set(pdf_codes)),
                                     "pdfOnly": sorted(set(pdf_codes) - set(site_codes))}
 
+    # 긴급전화번호: 사이트 번호가 MSDS 번호의 조각일 때만(옆 칸 값이 딸려 온 것) 원문에서 다시 읽는다.
+    contact = str(product.get("emergencyContact") or "")
+    msds_digits = re.sub(r"\D", "", str(product.get("msdsNo") or ""))
+    groups = [re.sub(r"\D", "", g) for g in re.findall(r"\d[\d\s-]{4,}\d", contact)]
+    if msds_digits and groups and all(g in msds_digits for g in groups):
+        phone = T.emergency_phone(pages)
+        if phone:
+            found["emergencyContact"] = {"before": contact, "after": phone, "pdf": product["pdfPath"], "checkedOn": today}
+
     # 날짜
     revision = T.revision_date(text)
     issue = T.issue_date(text)
@@ -175,14 +185,31 @@ def main() -> int:
             print(f"    사이트 개정일이 원문보다 늦어 두었음: {r['name'][:30]} 사이트 {r['revisionLater']['site']} 원문 {r['revisionLater']['pdf']}")
     print(f"PDF 를 못 읽음                        {sum(1 for r in results if 'error' in r)}건")
 
+    contacts = [r for r in results if "emergencyContact" in r]
+    print(f"긴급전화번호가 MSDS 번호 조각으로 들어감  {len(contacts)}건")
+    for r in contacts:
+        print(f"    {r['name'][:30]}: {r['emergencyContact']['before']} → {r['emergencyContact']['after']}")
+
     if args.write:
+        # 이미 반영된 보완은 지금 데이터에서 다시 찾아지지 않는다(빈 칸이 이미 채워졌으므로).
+        # 집 PC 가 로컬 데이터로 다시 만들 때도 반영돼야 하니 지우지 않고 합친다.
+        old = json.loads(REPAIRS_PATH.read_text(encoding="utf-8")) if REPAIRS_PATH.exists() else {}
+        first_aid = dict(old.get("firstAid") or {})
+        for r in aid:
+            kept = first_aid.get(r["id"], {"fill": {}})
+            kept["fill"] = {**r["firstAid"]["fill"], **kept.get("fill", {})}
+            first_aid[r["id"]] = {**r["firstAid"], "fill": kept["fill"]}
+        seen = {(n["productId"], n["index"], n["cas"], n["before"]) for n in old.get("ingredientNames") or []}
+        ingredient_names = list(old.get("ingredientNames") or []) + [
+            n for n in names if n["after"] and (n["productId"], n["index"], n["cas"], n["before"]) not in seen]
         repairs = {
             "about": "원본 PDF 를 다시 읽어 확인한 보완. scripts/repair_from_pdf.py 가 만들고 "
                      "scripts/normalize_public_content.py 가 사이트 데이터를 만들 때마다 반영한다.",
             "generatedOn": today,
-            "firstAid": {r["id"]: r["firstAid"] for r in aid},
-            "ingredientNames": [n for n in names if n["after"]],
-            "hazardStatements": {r["id"]: r["hazardStatements"] for r in hazards},
+            "firstAid": first_aid,
+            "ingredientNames": ingredient_names,
+            "hazardStatements": {**(old.get("hazardStatements") or {}), **{r["id"]: r["hazardStatements"] for r in hazards}},
+            "emergencyContact": {**(old.get("emergencyContact") or {}), **{r["id"]: r["emergencyContact"] for r in contacts}},
         }
         with REPAIRS_PATH.open("w", encoding="utf-8", newline="\n") as file:
             file.write(json.dumps(repairs, ensure_ascii=False, indent=2) + "\n")

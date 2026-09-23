@@ -37465,7 +37465,7 @@
     "supplier": "오공본드(OKONG)",
     "issueDate": "2024-04-01",
     "revisionDate": "2024-04-01",
-    "emergencyContact": "전화번호: 01995-0000",
+    "emergencyContact": "032-822-5050",
     "supplierAddress": "인천광역시 남동구 함박뫼로 341 (남촌동)",
     "dangerousGoods": "",
     "ppeSummary": "",
@@ -37613,7 +37613,7 @@
     "signalWord": "위험",
     "labelReprint": {
       "date": "2026-09-23",
-      "reason": "빠져 있던 유해·위험문구 H225, H280, H304, H315, H319, H336, H361, H373 를 채움"
+      "reason": "빠져 있던 유해·위험문구 H225, H280, H304, H315, H319, H336, H361, H373 를 채움, 긴급전화번호를 032-822-5050 로 바로잡음"
     }
   },
   {

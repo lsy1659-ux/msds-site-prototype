@@ -73,6 +73,16 @@ class PublicContentTests(unittest.TestCase):
         for fix in self.repairs.get("ingredientNames", []):
             row = self.by_id[fix["productId"]]["ingredients"][fix["index"]]
             self.assertEqual(row["chemicalName"], fix["after"], self.by_id[fix["productId"]]["productName"])
+        for pid, fix in self.repairs.get("emergencyContact", {}).items():
+            self.assertEqual(self.by_id[pid].get("emergencyContact"), fix["after"], self.by_id[pid]["productName"])
+
+    def test_emergency_number_is_not_a_piece_of_the_msds_number(self):
+        """표지에 찍히는 긴급전화번호 칸에 MSDS 번호 조각이 들어간 적이 있다(오공본드 락카 스프레이)."""
+        for product in self.products:
+            digits = re.sub(r"\D", "", str(product.get("msdsNo") or ""))
+            groups = [re.sub(r"\D", "", g) for g in re.findall(r"\d[\d\s-]{4,}\d", str(product.get("emergencyContact") or ""))]
+            if digits and groups:
+                self.assertFalse(all(g in digits for g in groups), f"{product['productName']}: {product.get('emergencyContact')}")
 
     def test_register_dates_are_published_for_the_checked_pdf(self):
         """관리대장에 적은 날짜는 확인한 그 PDF 일 때 사이트에 나간다."""

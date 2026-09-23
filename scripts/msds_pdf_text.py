@@ -419,3 +419,30 @@ def usable_first_aid(key, items):
         if other and not own:
             return []   # 다른 경로의 말만 있고 이 경로의 말은 없다. 칸 이름이 어긋나 읽힌 것
     return kept
+
+
+# 긴급전화번호. 라벨 바로 뒤(40자 안)의 번호를 먼저 본다. 두 칸 표로 라벨만 먼저
+# 나오고 값이 뒤로 몰리는 PDF 가 있어, 라벨 뒤에 번호가 없으면 첫 쪽의 국내 전화번호가
+# 하나뿐일 때만 그것을 쓴다. 여럿이면 어느 것인지 알 수 없어 비워 둔다.
+PHONE = re.compile(r"(?<![\d-])0\d{1,2}[\s)\-.]{1,3}\d{3,4}[\s\-.]{1,3}\d{4}(?![\d-])")
+EMERGENCY_LABEL = re.compile(r"긴급\s*(?:전화\s*번호|연락\s*처|연락\s*전화)|emergency\s*(?:tele)?phone", re.I)
+
+
+def _phone_text(raw):
+    digits = re.sub(r"\D", "", raw)
+    if len(digits) == 9 and digits.startswith("02"):
+        return f"{digits[:2]}-{digits[2:5]}-{digits[5:]}"
+    if digits.startswith("02"):
+        return f"{digits[:2]}-{digits[2:-4]}-{digits[-4:]}"
+    return f"{digits[:3]}-{digits[3:-4]}-{digits[-4:]}"
+
+
+def emergency_phone(pages):
+    """원문의 긴급전화번호. 못 정하면 빈 문자열."""
+    text = "\n".join(pages)
+    for m in EMERGENCY_LABEL.finditer(text):
+        found = PHONE.search(text[m.end():m.end() + 40])
+        if found:
+            return _phone_text(found.group(0))
+    first_page = {_phone_text(p) for p in PHONE.findall(pages[0] if pages else "")}
+    return first_page.pop() if len(first_page) == 1 else ""

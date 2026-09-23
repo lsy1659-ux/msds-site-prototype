@@ -19,7 +19,7 @@
             코드가 없는 줄은 원래 칸에 둔다.
   보완      data/msds-content-repairs.json 에 적힌, 원본 PDF 에서 다시 읽어 확인한 것.
             응급조치의 빠진 칸 채우기, 깨진 성분 이름 바로잡기, 빠진 유해·위험문구
-            채우기. 지금 값이 적어 둔 '고치기 전' 값과 같을 때만 바꿔, 다른 곳에서
+            채우기, MSDS 번호 조각이 들어간 긴급전화번호 바로잡기. 지금 값이 적어 둔 '고치기 전' 값과 같을 때만 바꿔, 다른 곳에서
             이미 고쳤으면 건드리지 않는다.
   hazardBadge 칸을 뺀다. 신호어가 아닌데 228건 중 180건에 일괄로 "위험"이 들어 있어
             신호어로 오해받았다. 신호어는 signalWord 하나만 쓴다.
@@ -175,6 +175,12 @@ def apply_repairs(products: list[dict[str, Any]], overrides: list[dict[str, Any]
             product["firstAid"] = {**current, **added}
             report["firstAidFilled"].append(pid)
 
+    for pid, fix in (repairs.get("emergencyContact") or {}).items():
+        product = by_id.get(pid)
+        if product and product.get("emergencyContact") == fix.get("before"):
+            product["emergencyContact"] = fix.get("after", "")
+            report["emergencyContact"] += 1
+
     for fix in repairs.get("ingredientNames") or []:
         rows = (by_id.get(fix.get("productId")) or {}).get("ingredients") or []
         index = fix.get("index")
@@ -208,7 +214,8 @@ def normalize_content(
     products = deepcopy(products)
     overrides = deepcopy(overrides)
     report: dict[str, Any] = {"statementsProducts": 0, "statementsOverrides": 0, "firstAidFilled": [],
-                              "ingredientNames": 0, "hazardStatementsFilled": [], "hazardBadgeRemoved": 0}
+                              "ingredientNames": 0, "hazardStatementsFilled": [], "hazardBadgeRemoved": 0,
+                              "emergencyContact": 0}
 
     apply_repairs(products, overrides, repairs, report)
     for product in products:
@@ -238,6 +245,7 @@ def main() -> int:
     print(f"응급조치 빈 칸 채움   {len(report['firstAidFilled'])}")
     print(f"성분 이름 바로잡음    {report['ingredientNames']}")
     print(f"유해·위험문구 채움    {len(report['hazardStatementsFilled'])}")
+    print(f"긴급전화번호 바로잡음 {report['emergencyContact']}")
     print(f"hazardBadge 뺌       {report['hazardBadgeRemoved']}")
     if args.write:
         write_json(PRODUCTS_PATH, products)
