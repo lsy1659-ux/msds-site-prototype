@@ -186,6 +186,24 @@ body {
   cursor: pointer;
 }
 
+/* 표지 다시 뽑기 알림. 표지 면과 같이 테마와 상관없이 밝은 색으로 둔다. */
+.label-reprint {
+  margin: 0;
+  padding: 7px 10px;
+  border: 1px solid #f0b35a;
+  border-left-width: 4px;
+  border-radius: 8px;
+  background: #fff6e6;
+  color: #7a4300;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.label-reprint strong {
+  margin-right: 4px;
+  font-weight: 800;
+}
+
 .label-name {
   margin: 0;
   font-size: 1.25rem;

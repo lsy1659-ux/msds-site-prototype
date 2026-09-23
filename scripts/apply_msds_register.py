@@ -21,7 +21,10 @@
            경고표지에 인쇄되던 것을 막는다. overrides 쪽도 같이 비운다. 관리요령이
            제품 쪽이 비면 overrides 에서 채워 넣기 때문이다.
   날짜     revisionDate·issueDate 를 적어 두면 그 값으로 바꾼다. 원문과 다르게
-           들어간 개정일을 바로잡을 때 쓴다.
+           들어간 개정일을 바로잡을 때 쓴다. datesCheckedSha256 이 있으면 그 PDF 일
+           때만 바꾼다. 같은 자리에 새 판이 들어오면 옛 날짜로 덮지 않는다.
+  재인쇄   history 에 labelReprint 로 적힌 제품에 labelReprint 를 붙인다. 경고표지
+           화면이 "표지 다시 뽑기" 를 띄운다.
   구판     retired 로 적힌 제품은 목록에서 뺀다. 대신 새 판에 formerIds 로 옛 id 를
            남겨, 옛 QR 을 찍어도 새 판이 열리게 한다.
 
@@ -34,6 +37,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 from copy import deepcopy
@@ -85,6 +89,45 @@ def _override_matches(override: dict[str, Any], product: dict[str, Any]) -> bool
     return bool(names & keys)
 
 
+_SHA_CACHE: dict[str, str] = {}
+
+
+def _clear_settled_warnings(product: dict[str, Any], entry: dict[str, Any], dates_ok: bool) -> None:
+    """집 PC 빌드가 남긴 경고 가운데 관리대장으로 풀린 것을 지운다.
+
+    SIGNAL_WORD_INVALID  추출 후보 신호어가 이상하다는 뜻. 신호어는 관리대장이 원문에서
+                         뽑은 값으로 정하므로 지금 신호어가 올바르면 풀린 것이다.
+    REVISION_DATE_CONFLICT  제품 개정일과 추출 후보가 달랐다는 뜻. 관리대장이 그 PDF 로
+                         날짜를 확인했으면(datesCheckedSha256) 풀린 것이다.
+    """
+    meta = product.get("publication")
+    if not isinstance(meta, dict) or not isinstance(meta.get("validationWarnings"), list):
+        return
+    settled = set()
+    if str(product.get("signalWord") or "") in SIGNALS:
+        settled.add("SIGNAL_WORD_INVALID")
+    if entry.get("datesCheckedSha256") and dates_ok:
+        settled.add("REVISION_DATE_CONFLICT")
+    left = [w for w in meta["validationWarnings"] if w not in settled]
+    if left != meta["validationWarnings"]:
+        meta["validationWarnings"] = left
+        if not left and meta.get("validationStatus") == "automatic_with_warnings":
+            meta["validationStatus"] = "automatic"
+
+
+def _pdf_unchanged(product: dict[str, Any], expected: Any) -> bool:
+    """관리대장에 적은 PDF 해시가 지금 PDF 와 같은가. 해시를 안 적었거나 파일이 없으면 참."""
+    if not expected:
+        return True
+    path = ROOT / str(product.get("pdfPath") or "")
+    if not path.is_file():
+        return True
+    key = str(path)
+    if key not in _SHA_CACHE:
+        _SHA_CACHE[key] = hashlib.sha256(path.read_bytes()).hexdigest()
+    return _SHA_CACHE[key] == expected
+
+
 def _legal_text(keys: list[str], legal: dict[str, str]) -> str:
     return "; ".join(legal.get(key, key) for key in keys or [])
 
@@ -102,7 +145,8 @@ def apply_register(
     products = deepcopy(products)
     overrides = deepcopy(overrides)
     report: dict[str, Any] = {"retired": [], "numbersSet": [], "notClassified": [], "signalChanged": [],
-                              "ingredientsRestored": 0, "missingEntry": [], "datesFixed": []}
+                              "ingredientsRestored": 0, "missingEntry": [], "datesFixed": [], "datesStale": [],
+                              "labelReprint": []}
 
     # 1. 구판·중복을 뺀다. 새 판에 옛 id 를 남긴다.
     retired = {pid for pid, e in entries.items() if e.get("status") == "retired" or e.get("retired")}
@@ -148,9 +192,14 @@ def apply_register(
         product["msdsNoCheckedOn"] = entry.get("checkedOn", "")
 
         # 원문과 다르게 들어간 날짜를 바로잡는다. 원문에서 확인한 날짜만 관리대장에 적는다.
+        # 확인한 PDF 의 해시를 같이 적어 두었으니, 그 자리에 다른 PDF 가 들어왔으면
+        # 옛 날짜로 덮어쓰지 않는다.
+        dates_ok = _pdf_unchanged(product, entry.get("datesCheckedSha256"))
+        if not dates_ok:
+            report["datesStale"].append(product.get("id"))
         for field in ("revisionDate", "issueDate"):
             value = str(entry.get(field) or "").strip()
-            if value and product.get(field) != value:
+            if dates_ok and value and product.get(field) != value:
                 product[field] = value
                 report["datesFixed"].append(f"{product.get('id')} {field}")
                 if field == "revisionDate":
@@ -168,6 +217,8 @@ def apply_register(
         elif str(product.get("signalWord") or "").strip() not in SIGNALS:
             product["signalWord"] = ""
 
+        _clear_settled_warnings(product, entry, dates_ok)
+
         if entry.get("notClassified"):
             product["hazardNotClassified"] = True
             for field in HAZARD_LIST_FIELDS:
@@ -183,7 +234,17 @@ def apply_register(
                     override["signalWordCandidate"] = "해당없음"
             report["notClassified"].append(product.get("id"))
 
-    # 3. 원본 PDF 와 대조해 고친 성분표를 다시 반영한다.
+    # 3. 표지를 다시 뽑아야 하는 제품. 이력에 labelReprint 로 적힌 가장 최근 것.
+    by_id = {p.get("id"): p for p in products}
+    for product in products:
+        product.pop("labelReprint", None)
+    for item in sorted(register.get("history") or [], key=lambda h: str(h.get("date") or "")):
+        product = by_id.get(item.get("newId"))
+        if product is not None and item.get("labelReprint"):
+            product["labelReprint"] = {"date": item.get("date", ""), "reason": item.get("labelReprintReason", "")}
+    report["labelReprint"] = [p.get("id") for p in products if p.get("labelReprint")]
+
+    # 4. 원본 PDF 와 대조해 고친 성분표를 다시 반영한다.
     if ingredient_log is None and INGREDIENT_LOG_PATH.exists():
         ingredient_log = read_json(INGREDIENT_LOG_PATH)
     by_id = {p.get("id"): p for p in products}
@@ -230,6 +291,8 @@ def main() -> int:
     print(f"  분류기준 비해당 정리 {len(report['notClassified'])}")
     print(f"  신호어 바뀜         {len(report['signalChanged'])}")
     print(f"  날짜 바로잡음       {len(report['datesFixed'])}")
+    print(f"  날짜 확인 뒤 PDF 바뀜 {len(report['datesStale'])} {report['datesStale'][:5]}")
+    print(f"  표지 다시 뽑기 표시 {len(report['labelReprint'])}")
     print(f"  성분표 되살림       {report['ingredientsRestored']}")
     print(f"  관리대장에 없는 제품 {len(report['missingEntry'])} {report['missingEntry'][:5]}")
     if args.write:

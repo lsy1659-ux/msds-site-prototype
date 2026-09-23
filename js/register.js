@@ -209,16 +209,33 @@ function renderHistory() {
       <td class="register-number">${change(item.oldMsdsNo, item.newMsdsNo)}</td>
       <td class="register-date">${change(item.oldRevision, item.newRevision)}</td>
       <td class="register-long">${change(fileName(item.oldFile), fileName(item.newFile))}</td>
-      <td class="register-long">${rEscape(item.note)}${item.source ? `<span class="register-sub">출처 ${rEscape(item.source)}</span>` : ""}</td>
+      <td class="register-long">${rEscape(item.note)}${item.labelReprint ? `<span class="register-reprint-flag">표지 다시 뽑기</span>` : ""}${item.source ? `<span class="register-sub">출처 ${rEscape(item.source)}</span>` : ""}</td>
     </tr>`).join("") || '<tr><td colspan="7" class="register-empty">아직 이력이 없습니다.</td></tr>';
+}
+
+/* 표지를 다시 뽑을 제품. 제품마다 가장 최근의 재인쇄 이력 하나만. */
+function renderReprint() {
+  const latest = new Map();
+  historyRows().forEach((item) => {
+    if (item.labelReprint && item.newId && !latest.has(item.newId)) latest.set(item.newId, item);
+  });
+  const rows = [...latest.values()];
+  registerElements.reprint.innerHTML = rows.length ? `
+    <ul class="register-reprint">${rows.map((item) => `
+      <li>
+        <a href="label.html?product=${encodeURIComponent(item.newId)}">${rEscape(item.productName)}</a>
+        <span class="register-sub">${rEscape(item.date)} · ${rEscape(item.labelReprintReason || item.action)}</span>
+      </li>`).join("")}
+    </ul>` : '<p class="register-empty">다시 뽑을 표지가 없습니다.</p>';
 }
 
 function exportHistoryCsv() {
   const header = ["날짜", "한 일", "제품명", "공급사", "이전 MSDS 번호", "새 MSDS 번호", "이전 개정일", "새 개정일",
-    "이전 파일", "새 파일", "비고", "출처", "SHA-256", "이전 id", "새 id"];
+    "이전 파일", "새 파일", "비고", "표지 다시 뽑기", "출처", "SHA-256", "이전 id", "새 id"];
   const rows = historyRows().map((item) => [
     item.date, item.action, item.productName, item.supplier, item.oldMsdsNo, item.newMsdsNo,
-    item.oldRevision, item.newRevision, item.oldFile, item.newFile, item.note, item.source, item.sha256,
+    item.oldRevision, item.newRevision, item.oldFile, item.newFile, item.note,
+    item.labelReprint ? (item.labelReprintReason || "필요") : "", item.source, item.sha256,
     item.oldId, item.newId
   ]);
   window.downloadCsv(`MSDS교체이력_${window.csvStamp()}.csv`, header, rows);
@@ -256,6 +273,7 @@ async function initRegisterPage() {
   registerElements.legal = document.querySelector("#registerLegal");
   registerElements.checked = document.querySelector("#registerChecked");
   registerElements.history = document.querySelector("#registerHistory");
+  registerElements.reprint = document.querySelector("#registerReprint");
 
   const [register, products] = await Promise.all([rFetch(REGISTER_SOURCE), rFetch(REGISTER_PRODUCTS)]);
   registerState.data = register;
@@ -279,6 +297,7 @@ async function initRegisterPage() {
 
   render();
   renderTodo();
+  renderReprint();
   renderHistory();
   renderLegal();
 }

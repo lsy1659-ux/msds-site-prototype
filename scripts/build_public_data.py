@@ -9,10 +9,14 @@ from typing import Any
 
 # 사람이 확인한 번호·신호어·비해당·구판 정리는 관리대장에 있다. 로컬 데이터로
 # 다시 만들 때마다 그것을 덮어써야 고친 것이 되돌아가지 않는다.
+# 문구 꼴 고르기와 원본 PDF 대조 보완(응급조치 빈 칸, 깨진 성분 이름, 빠진 유해문구)도
+# 같은 까닭으로 만들 때마다 다시 반영한다.
 try:
     from scripts.apply_msds_register import apply_register
+    from scripts.normalize_public_content import normalize_content
 except ImportError:  # py scripts/build_public_data.py 로 부를 때
     from apply_msds_register import apply_register
+    from normalize_public_content import normalize_content
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -52,7 +56,6 @@ PUBLIC_PRODUCT_SUMMARY_FIELDS = (
     "firstAid",
     "hazardNotClassified",
     "ingredients",
-    "hazardBadge",
     "signalWord",
     "ghsPictograms",
     "hazardStatements",
@@ -280,7 +283,6 @@ def has_product_summary(product: dict[str, Any]) -> bool:
         "dangerousGoods",
         "ppeSummary",
         "ingredients",
-        "hazardBadge",
         "signalWord",
         "ghsPictograms",
         "hazardStatements",
@@ -543,6 +545,7 @@ def main() -> int:
         public_overrides, PUBLIC_OVERRIDES_PATH, "overrides", ("sourcePdfPath", "sourceRelativePath")
     )
     public_products, public_overrides, register_report = apply_register(public_products, public_overrides)
+    public_products, public_overrides, content_report = normalize_content(public_products, public_overrides)
     products_payload = build_payload(products_source, "products", public_products)
     overrides_payload = build_payload(overrides_source, "overrides", public_overrides)
 
@@ -565,6 +568,10 @@ def main() -> int:
           f"missing entry {len(register_report['missingEntry'])}")
     for label in register_report["missingEntry"]:
         print(f"  - not in data/msds-register.json yet: {label}")
+    print(f"- Content: statements reshaped {content_report['statementsProducts']}, "
+          f"first aid filled {len(content_report['firstAidFilled'])}, "
+          f"ingredient names {content_report['ingredientNames']}, "
+          f"hazard statements filled {len(content_report['hazardStatementsFilled'])}")
     print(f"- Public-only overrides kept: {len(carried_overrides)}")
     for label in carried_overrides:
         print(f"  - kept override without local source: {label}")

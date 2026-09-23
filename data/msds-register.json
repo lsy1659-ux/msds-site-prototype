@@ -41,7 +41,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "0c0f2177174a761026f161c581c54b0a2502f64b39aded4696d96c48ba10038c"
     },
     "msds-002": {
       "productName": "UT5731-TGW(GGM)",
@@ -67,7 +68,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "9b5c3f9eced5db2a02aae622c15be376fed78406c77aafaf3e6d2fdf72928e09"
     },
     "msds-004": {
       "productName": "UT5731-UMA(GGM)",
@@ -106,7 +108,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "4c4084ad436dc999caf189fe065563396949cc7cc9dd0b6f2e9cb6eefed898b1"
     },
     "msds-007": {
       "productName": "0278(HMC)",
@@ -119,7 +122,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2025-12-15",
+      "datesCheckedSha256": "280e00d177db2d62532bdcd9667a22ee86d1daf66d761e54d37e0e5663a63fa1"
     },
     "msds-008": {
       "productName": "TH0261(AP)",
@@ -132,7 +137,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "89e762c93d56b9bbab2b90a9129522dfd68753c61ae31dff84fc75c8d5b5a12d"
     },
     "msds-009": {
       "productName": "TH0261(N)",
@@ -145,7 +151,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "c78d6e848dc5f01fafef8aafb21e5f2bad8ce0cdf6fee51d0ac8a6441bde79f2"
     },
     "msds-010": {
       "productName": "UT5731-JUG(KIA)",
@@ -158,7 +165,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "47c7a464b1340deb46a81b01687b49c08fe2fc9b76ac27e074145ad7124a6f44"
     },
     "msds-011": {
       "productName": "UT5731-KLG(KIA)",
@@ -171,7 +179,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "018a48e025fd63a41076c158e1c1cc9c94e9ef7cc5da78f250d2a278c18b37df"
     },
     "msds-012": {
       "productName": "UT5731-SRM(GGM)(FRT)",
@@ -197,7 +206,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "bdbdf6a55fb157e423bc238e5d13359594f2f5fb4270682b1047d50eb35673d4"
     },
     "msds-014": {
       "productName": "DR-174 SWP M/BASE (SP2,SK3-CAR)",
@@ -210,7 +220,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2019-09-24",
+      "datesCheckedSha256": "82e2e66d668cbefa54b973648813e5dab79d2e263adf375eb78d10498931f0f3"
     },
     "msds-015": {
       "productName": "DR-264 SAW (NE-CAR)",
@@ -223,7 +235,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2020-10-29",
+      "datesCheckedSha256": "190209dce1d25ccfc282cfad01dbabdacc7f2da571df5f9655fdbbc575d3146b"
     },
     "msds-016": {
       "productName": "DR-174 FSB (NQ5-CAR, 범퍼용)",
@@ -236,7 +250,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2021-03-26",
+      "datesCheckedSha256": "6a8b02bb495d0af0805906f2ebf592d4d58b7f37ebbb4a5d93cbedb1a952996a"
     },
     "msds-017": {
       "productName": "DR-174 FSB (SK3-PE, 범퍼용)",
@@ -249,7 +265,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2022-02-16",
+      "datesCheckedSha256": "cc93e0629f7f16af2ac47ed943d1a0d7aa36f1df9a28a6da906f66ea711b8527"
     },
     "msds-018": {
       "productName": "DR-174 C7A(NQ5 PE-CAR)",
@@ -262,7 +280,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2024-07-10",
+      "datesCheckedSha256": "137d7241acd0d0a221558fe7d6ef0499b978ec6de3a651b8f6af897d9883cb07"
     },
     "msds-019": {
       "productName": "DR-164 HRB(NQ5 PE-CAR)",
@@ -288,7 +308,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2025-11-24",
+      "datesCheckedSha256": "874bb9bb026d217a3e543ee78f3f58315b12715799e4ab62537bf53a228df78b"
     },
     "msds-021": {
       "productName": "DR-164 1D (SK3)",
@@ -301,7 +323,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2005-10-11",
+      "datesCheckedSha256": "57c8a99e1defd169ea725788ec04b698d676200be27bacb541c28f499b6b2dba"
     },
     "msds-022": {
       "productName": "DR-164 UD (QL-CAR)",
@@ -314,7 +338,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2010-05-17",
+      "datesCheckedSha256": "eccbdc388734b0b5ebcd28ae2925bf36e8d33bda025a0e795b0a6053bdaf78dd"
     },
     "msds-023": {
       "productName": "T-508 희석제(AIA)",
@@ -327,7 +353,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "dea8b9a3c61b00162f8aa0c1d04d08f1d24a339734ed8b801566d2a40d1a6e70"
     },
     "msds-024": {
       "productName": "TA-619 PRIMER 희석제",
@@ -340,7 +367,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "87dc73693edd852cda8d7b5314e5f03bc4ee948f10050e67e6d71de0e4985cf1"
     },
     "msds-025": {
       "productName": "TA-618 PRIMER 희석제",
@@ -353,7 +381,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "1974ba1d9aae6cb7696e6f9c9dada6e7340613d645f069adde8a87b8c0b5003d"
     },
     "msds-026": {
       "productName": "T-803 희석제",
@@ -366,7 +395,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "c86993f40e883fe3ff985b68ceded795c0b5f879a5eae1dbaae837bb36b6b3b9"
     },
     "msds-027": {
       "productName": "T-730(P) 희석제",
@@ -379,7 +409,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "7ac49e963361270ad38b63d449b17950121e1b4a7de190d0586ef43dd0369a6a"
     },
     "msds-028": {
       "productName": "T-801 희석제",
@@ -392,7 +423,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "b6978c1a66e09821e3a90af341da274519dcf28ba8df40eead46681d4e33803b"
     },
     "msds-029": {
       "productName": "T-725 희석제",
@@ -405,7 +437,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "1997-06-10",
+      "datesCheckedSha256": "ba2c25409985aa211f825843237722f0032bb0794d606d3ed615f166a98af85f"
     },
     "msds-030": {
       "productName": "T-507 희석제",
@@ -418,7 +452,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2002-05-16",
+      "datesCheckedSha256": "8a53aadc60c2a97794f5f7205b0a59fe5aa2eec90f6f50f6c825ab10b0818b8e"
     },
     "msds-031": {
       "productName": "RB-194 L/GRAY 프라이머 (CAMS용 희석분)",
@@ -431,7 +467,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2006-06-28",
+      "datesCheckedSha256": "39db1e86dc6a7e1b7b3aa5697d4831e33176d61154cc5c5782b7ad59693c2f14"
     },
     "msds-032": {
       "productName": "RB-194 D/GRAY 프라이머 (CAMS용 희석분)",
@@ -444,7 +482,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "830ba85381a525cf6b28d72d37e3b6e61c12302ffb3b6d20f89e459e3aee2568"
     },
     "msds-033": {
       "productName": "TC-317 세정제(CAMS용)",
@@ -457,7 +496,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2006-03-31",
+      "datesCheckedSha256": "ed3930cff9d8d66341a321fcc520b9df6d2b4f0258bd35c76c4dbbdcd01f6452"
     },
     "msds-035": {
       "productName": "R-266 CLEAR 개량 (캠스 희석분)",
@@ -470,7 +511,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "87cc947363e395d270ffe39a5d721ffce5a3d08602e9c3ee0dfc1046cce104b6"
     },
     "msds-036": {
       "productName": "DR-165 YLC C/BASE(AX1 EV)",
@@ -522,7 +564,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2025-11-26",
+      "datesCheckedSha256": "0f4e36ac3ca32fdb3de1252bcc8d7a25e3bd86dceee076729b6ed2b02d3f94b1"
     },
     "msds-040": {
       "productName": "DR-174 SWP M/BASE(QL-CAR)",
@@ -535,7 +579,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2015-07-23",
+      "datesCheckedSha256": "6690bc8c096e9223ef96c44ab7d41a57a3496ae6e0f3d6dabc806df488b891ba"
     },
     "msds-041": {
       "productName": "DR-165 SWP C/BASE(QL-CAR 개량)",
@@ -548,7 +594,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2017-12-05",
+      "datesCheckedSha256": "2c14fbcab83bcf9c4691085780a6bd4feec65926ec9eff7ea02f4a2fb3d1cab5"
     },
     "msds-042": {
       "productName": "DR-174 M3R (SK3-CAR)",
@@ -561,7 +609,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2018-01-26",
+      "datesCheckedSha256": "713cf97d109afeea7c7bca8a721f7a0109b78e6fcfed2b7e562c469143b50342"
     },
     "msds-043": {
       "productName": "DR-165 SWP C/BASE (SK3)",
@@ -574,7 +624,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2018-09-17",
+      "datesCheckedSha256": "7b295ef4391681a251ec88d806d70cb194515001ef9c25dec72d138c8964988c"
     },
     "msds-044": {
       "productName": "DR-174 KLG(SP2-CAR)",
@@ -587,7 +639,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2019-03-22",
+      "datesCheckedSha256": "627947a4756789e8997cbeb90ed2ddd1c1bd2e3a8cfc3b5d1291497f1808f853"
     },
     "msds-045": {
       "productName": "E 201 신나(T802-D0101T)",
@@ -600,7 +654,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "cb65fabb9087c645b8dd96604cf3d67fbfbf6c23b1a2a1a6790db86e81005112"
     },
     "msds-046": {
       "productName": "E 301 신나(T803-D0104T)",
@@ -613,7 +668,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "1925467a016d50220b3e7d753849ec7a0a8d390383362776b1cc86587a8970d1"
     },
     "msds-047": {
       "productName": "E 301 신나 [동절용](T803-D0106)",
@@ -626,7 +682,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "9493209a557251ed721147da9abe04f532f9934cc74ce870b8467edf1babde78"
     },
     "msds-048": {
       "productName": "E 412 신나(T804-D1203T)",
@@ -639,7 +696,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "6735d37236dd501ed6812c1b27531632b8dcfbbbfa9ea6608c436c8472436fb2"
     },
     "msds-049": {
       "productName": "E 413 신나(T804-D1204T)",
@@ -652,7 +710,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "98128c6335319fb4d82b83d53e06aa162f40dad708c83b29b3751ed2f1ce7640"
     },
     "msds-050": {
       "productName": "KU 4150KNK (H600-H0554H)",
@@ -665,7 +724,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "d202c7f42a0b788f637510b7b9af7c101e9951758101f2329466d8417f19a9a6"
     },
     "msds-051": {
       "productName": "듀프렉스 그래비티 그레이[MGG](A203-C7071)",
@@ -678,7 +738,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "17fcd66feba1a3a30b1f761dad38f22526cadb4f2e012ca157b94c0032c5ea8a"
     },
     "msds-052": {
       "productName": "듀프렉스 그래비티그레이 [KDG](A203-C7060)",
@@ -691,7 +752,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "ba17241504b0a7d9263ee7e3eff9f49a5148045be83c4967de1cf7e2a4a6f990"
     },
     "msds-053": {
       "productName": "듀프렉스 그래비티그레이 [KDT-GP2](A203-C7066)",
@@ -704,7 +766,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "c4a10c7318a3a91b421113277f439ca273898d82b74b4b0f7f9f168075aabdc1"
     },
     "msds-054": {
       "productName": "듀프렉스 언블리치드 아이보리 [NES](A203-X7020)",
@@ -717,7 +780,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "13820dc912bae958924a456f970a2cce9eab28c6dad2e8d9834e3f15abcdd543"
     },
     "msds-055": {
       "productName": "듀프렉스 에어로실버 매트 [T4M](A203-C7086)",
@@ -730,7 +794,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "15319597bb55af91fd8a0fcfacbe9b143634b195d26aeb2cdbf2d0fe0ab51024"
     },
     "msds-056": {
       "productName": "듀프렉스 인페르노레드 [AJR](A203-R7038)",
@@ -743,7 +808,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "905b6b40a93cc4398729fe80ea42f523551217b3411cb6dd88f0aebc62d9d810"
     },
     "msds-057": {
       "productName": "듀프렉스 플루톤 블루[PLU](A203-K7077)",
@@ -756,7 +822,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "b2ba4b0f021d1d899bc4305bc3d0e15e0e3dea9e8a5c30fa227c4dd97db016c2"
     },
     "msds-058": {
       "productName": "소프렉스#500 무광투명 [G-30](K806-A4005)",
@@ -769,7 +836,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "b30df47a3a767e489ecbeaf0c1f8871f04000e9265f1c51ce80471f50d2989a4"
     },
     "msds-059": {
       "productName": "소프렉스#500 크리어 [DL](K806-A0070)",
@@ -782,7 +850,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "3422678a01ddd910ec6d08a34ecf4cfd5827b73df8e435653f7c153b37d353b1"
     },
     "msds-060": {
       "productName": "아크렉스 마그마 레드 [OVR](A203-R7054)",
@@ -795,7 +864,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "dbb779e2cab5cbb9211e5c19e15699eea470f4074ac5546beb5f228ac7ad27f6"
     },
     "msds-061": {
       "productName": "아크렉스 아이보리 실버 [ISG](A203-S7058)",
@@ -808,7 +878,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "72ebbc266e93440d341a9558c67b53d3c3b599e951be5a750fb12b71a56db938"
     },
     "msds-062": {
       "productName": "아크렉스 아이스버그 그린 [IEG](A203-G7033)",
@@ -821,7 +892,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "12022903ac8d1563f666b978a827b8a25f9eb9f533d7fb51f4f4aada388ea878"
     },
     "msds-063": {
       "productName": "아크렉스 프로스트 블루 [EBB](A203-K7079)",
@@ -834,7 +906,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "8054b0065723a02625a6c342ba95157254f6b9132462fee305ce358a8fd0ede3"
     },
     "msds-064": {
       "productName": "R1252",
@@ -899,7 +972,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "해당없음",
-      "signalSource": "pdf3"
+      "signalSource": "pdf3",
+      "revisionDate": "2026-01-14",
+      "datesCheckedSha256": "637978533b925b48900eaf7c37800cb0790ecd528fb542ca0bea602b11cfc434"
     },
     "msds-069": {
       "productName": "M7392(T,TA,TH,TS,TKV,D,JA,F,MF,J,ET,ED,E,EDC,Q,QR,QF,CN,CNR,CNF,HCN,THC)",
@@ -912,7 +987,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "해당없음",
-      "signalSource": "pdf3"
+      "signalSource": "pdf3",
+      "datesCheckedSha256": "bdbba9ca9990c880798fee2336efe2ed61d4803c8cdc1def26d18cbf4f9da443"
     },
     "msds-070": {
       "productName": "M7392(U,UE,UQ,UE-AD,UM,UT,UTL,UTR,UTRF,UTRR,UX,UXC,USX,USX-2,UC,TU,AU,UP,USK,UY,ULP,ULX,ULPG,UQR,ULC)",
@@ -925,7 +1001,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "해당없음",
-      "signalSource": "pdf3"
+      "signalSource": "pdf3",
+      "revisionDate": "2026-01-07",
+      "datesCheckedSha256": "8cd5936d8cbbf666224dd6e76bf1375faecdeb3193e89bf4b4580823496a1839"
     },
     "msds-071": {
       "productName": "SUPOL HR580U, SUPOL HR580UIN, SUPOL HR580UX",
@@ -951,7 +1029,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "",
-      "signalSource": "none"
+      "signalSource": "none",
+      "datesCheckedSha256": "7432875ed6fa20b24257c517c784d3063b0d04b86fc699990430105664af7abe"
     },
     "msds-073": {
       "productName": "SUPOL HR530, SUPOL HR530X",
@@ -1007,7 +1086,8 @@
       "action": "공급사 문의",
       "checkedOn": "2026-09-23",
       "signalWord": "해당없음",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "320628fc09406fd2ea68f03671b6d358755fe825e5dd449fe2f345859de9e08a"
     },
     "msds-077": {
       "productName": "2차이형제 (S6)",
@@ -1026,7 +1106,8 @@
       "action": "공급사에 최신 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf3"
+      "signalSource": "pdf3",
+      "datesCheckedSha256": "a963284196382cc34c2ecdf5a4d402ef0f592efd9c7db4023801ffee1687466b"
     },
     "msds-078": {
       "productName": "그라코 TSL",
@@ -1045,7 +1126,9 @@
       "action": "공급사에 국문 MSDS 또는 비해당 통보서 요청. 비해당 확인되면 '필요 없음'",
       "checkedOn": "2026-09-23",
       "signalWord": "",
-      "signalSource": "none"
+      "signalSource": "none",
+      "issueDate": "2013-08-19",
+      "datesCheckedSha256": "0721c4c3eb9b43c8498487f813550eb4a9e39ab2eed3abb6140ff33c54f487f8"
     },
     "msds-079": {
       "productName": "Kixx Gear EP 220",
@@ -1064,7 +1147,8 @@
       "checkedOn": "2026-09-23",
       "notClassified": true,
       "signalWord": "",
-      "signalSource": "none"
+      "signalSource": "none",
+      "datesCheckedSha256": "ef22960bf03acbf0d3f95288054efd2c582bb5cd37f48e8144618ea869eb88f3"
     },
     "msds-080": {
       "productName": "Kixx Grease EP 0",
@@ -1079,7 +1163,8 @@
       "action": "정리 권장",
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "2122d6edc3b9805b1491e916fa532d0f6d9a83977ee6fe7592ff34dafe59e8d4"
     },
     "msds-081": {
       "productName": "Kixx Grease EP 1",
@@ -1094,7 +1179,8 @@
       "action": "정리 권장",
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "e001fde6db317437f6c959a5c7bb571dc0c88529d6c3ce4fe8f318db118f4c54"
     },
     "msds-082": {
       "productName": "Kixx Grease EP 2",
@@ -1109,7 +1195,8 @@
       "action": "정리 권장",
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "7e61fd5a6d6e4998aa87e75fe7291fad9582621c076b29267048de1553328254"
     },
     "msds-083": {
       "productName": "Kixx Grease EP 3",
@@ -1124,7 +1211,8 @@
       "action": "정리 권장",
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "bf5c2edc07d599bc0233a739974dedb02afa50262d01a2e185452267fa230fc0"
     },
     "msds-084": {
       "productName": "Kixx RD LZ 46(구 Rando HD LZ 46)",
@@ -1143,7 +1231,8 @@
       "checkedOn": "2026-09-23",
       "notClassified": true,
       "signalWord": "",
-      "signalSource": "none"
+      "signalSource": "none",
+      "datesCheckedSha256": "fcea0503edec330cdf7e9fd62e0e9e8151d69969d7c18aad14c8973a26d28710"
     },
     "msds-085": {
       "productName": "MOBIL DTE 25",
@@ -1161,7 +1250,8 @@
       "checkedOn": "2026-09-23",
       "notClassified": true,
       "signalWord": "해당없음",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "9bbe400e5a0ad778788753b4eda0af61522c5e59a0b7c0491426641946cf1fe9"
     },
     "msds-086": {
       "productName": "MOBILUX EP 0",
@@ -1179,7 +1269,8 @@
       "checkedOn": "2026-09-23",
       "notClassified": true,
       "signalWord": "해당없음",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "c7476935ee46db595ecbbbb982171b7c287dfe7e2f60fc105ead03742659cbb4"
     },
     "msds-087": {
       "productName": "SPARTAN EP 220",
@@ -1197,7 +1288,8 @@
       "checkedOn": "2026-09-23",
       "notClassified": true,
       "signalWord": "해당없음",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "7e9d4c333aa68e2402be70c371f946eb2d13052b1acdf9a0cbbb2408002a9717"
     },
     "msds-088": {
       "productName": "MOBILGREASE XHP 222",
@@ -1215,7 +1307,8 @@
       "checkedOn": "2026-09-23",
       "notClassified": true,
       "signalWord": "해당없음",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "69ca51ec1165764724b7b0f4eec027b2f388e3aa5151e854aedac8dcb5fffd3c"
     },
     "msds-089": {
       "productName": "KC-28",
@@ -1228,7 +1321,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf2"
+      "signalSource": "pdf2",
+      "issueDate": "1996-06-28",
+      "datesCheckedSha256": "eb51a3c6222b3ac8e3868dc284e9a90465a79c0b15e1a442100d0cf3ca5a19c8"
     },
     "msds-090": {
       "productName": "KFN-50",
@@ -1269,7 +1364,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf2"
+      "signalSource": "pdf2",
+      "issueDate": "2020-11-03",
+      "datesCheckedSha256": "1239e3da9f27f58c328c084c25fb212d2a355b4de8f738aac24b096ee1c692c0"
     },
     "msds-093": {
       "productName": "KSN-100",
@@ -1296,7 +1393,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf2"
+      "signalSource": "pdf2",
+      "issueDate": "2020-11-03",
+      "datesCheckedSha256": "25a014652cf269e546b8cf81f8b002dbf46225fbb045a0a128cf29d65e2c4005"
     },
     "msds-095": {
       "productName": "M-308",
@@ -1323,7 +1422,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf2"
+      "signalSource": "pdf2",
+      "issueDate": "1996-06-28",
+      "datesCheckedSha256": "55f2e793a85b64912dd3ef7ffaa569342bc36351b55748a5a58d76f260bc4d54"
     },
     "msds-097": {
       "productName": "T-308",
@@ -1336,7 +1437,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf2"
+      "signalSource": "pdf2",
+      "issueDate": "2020-11-03",
+      "datesCheckedSha256": "8c28f368d5a9a2f3b584db428cf3a8a6cb74a094c6ea9fa9b7834b64ddf66ef2"
     },
     "msds-098": {
       "productName": "BD-3 (비디-3)",
@@ -1349,7 +1452,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2024-10-15",
+      "datesCheckedSha256": "0eec81f22f7495b3516618027ea5e3141f4389408371e1b823792a7871e99661"
     },
     "msds-099": {
       "productName": "다목적 세정제 DC-3000",
@@ -1362,7 +1467,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2024-09-26",
+      "datesCheckedSha256": "d192bf13df15d07a17dd2b224096215257f387d8ef7963a0eb32452333820f4d"
     },
     "msds-100": {
       "productName": "K1(케이1)",
@@ -1388,7 +1495,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2024-05-10",
+      "datesCheckedSha256": "730e25047269adedddbe5fe8e1e842d354b5b519aec1344cf72e2f4a7529e080"
     },
     "msds-102": {
       "productName": "LONG #2H(롱#2에이치)",
@@ -1401,7 +1510,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2025-03-20",
+      "datesCheckedSha256": "9965ded76a3ececce4b2351498a75d08a4408c1e5825912ff134740161a63c26"
     },
     "msds-103": {
       "productName": "MEGA CHECK 처리제(TREATMENT)",
@@ -1414,7 +1525,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2024-09-25",
+      "datesCheckedSha256": "f33e77404b68ea83578e2bc72bfba1736a48dd95a58fd56a373ba3032f9934c5"
     },
     "msds-104": {
       "productName": "MEGA CHECK 침투제(PENETRANT)",
@@ -1427,7 +1540,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "faa1ca51c51c8094f3fab37a692b524007de7b6ff715289021970c369adebf8e"
     },
     "msds-105": {
       "productName": "MEGA CHECK 침투제 W",
@@ -1440,7 +1554,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2025-03-06",
+      "datesCheckedSha256": "cef52033cb412922e92d51483e6f2b29585c2da4fe13319a435a13692f5c20e9"
     },
     "msds-106": {
       "productName": "MEGA CHECK 현상제(DEVELOPER)",
@@ -1453,7 +1569,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2024-04-11",
+      "datesCheckedSha256": "dcde445fec508eacf5f8349f86aba89f35dbde2a7b4b391c8a4f307253888f17"
     },
     "msds-107": {
       "productName": "다용도세제 NB-1(분무기)",
@@ -1466,7 +1584,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2024-04-01",
+      "datesCheckedSha256": "8fff4564d3acbebf2591d30eb541981e2651d282fe45a0736eff37b041629d57"
     },
     "msds-108": {
       "productName": "PMC-3(피엠씨-3)",
@@ -1479,7 +1599,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2025-06-26",
+      "datesCheckedSha256": "d2fbe21dc25edd960feb875eb47e3a600c649f2fd3aab5ec7484227066bfe7e8"
     },
     "msds-109": {
       "productName": "스티커 자국 제거제 SSR-220",
@@ -1492,7 +1614,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2025-05-15",
+      "datesCheckedSha256": "899f7fdf9ab162c0b1cca27b544b1c909b32022fb71971aba369d516dbb90f33"
     },
     "msds-110": {
       "productName": "스티커 자국 제거제 SSR-450",
@@ -1505,7 +1629,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2025-05-15",
+      "datesCheckedSha256": "20281d4cfa1498b8368c68127f9e773dd344239f9735173218be878194f38576"
     },
     "msds-111": {
       "productName": "탭핑 콤파운드 TC#1",
@@ -1518,7 +1644,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2024-11-27",
+      "datesCheckedSha256": "995f130feb87a963f384fdaccf538a5d6b33cc77bc4b0c77f943026635c7a718"
     },
     "msds-112": {
       "productName": "LCP-77 분홍색 N101",
@@ -1531,7 +1659,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2023-02-16",
+      "datesCheckedSha256": "147d79f30fc91ed5f15f05c3855fb25ba0925b6028488f4098052475e6780cc0"
     },
     "msds-113": {
       "productName": "나바켐 락카스프레이 - 아이보리색 [LCP-77](N502)",
@@ -1544,7 +1674,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf3"
+      "signalSource": "pdf3",
+      "datesCheckedSha256": "5c96d83c189705fbe63ff9178c26cf2c233ae528c7f28a6c80a995cb0633b6c7"
     },
     "msds-114": {
       "productName": "나바켐 락카스프레이 - 진청색 [LCP-77](N400)",
@@ -1557,7 +1688,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf3"
+      "signalSource": "pdf3",
+      "datesCheckedSha256": "2cb62113cf42d83bd7bd19f78b19b2da51c77fdb0c9ba173276dbdf8e635f735"
     },
     "msds-115": {
       "productName": "LCP-77 기계색 N313",
@@ -1570,7 +1702,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2022-03-28",
+      "datesCheckedSha256": "c07999f8e57ae854d054697aa1c6057e6c1dc56a2a29fb4dab4e5f1888eb043c"
     },
     "msds-116": {
       "productName": "LCP-77 은색 N900",
@@ -1583,7 +1717,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2023-06-19",
+      "datesCheckedSha256": "3e50c26c03718649cbd9179f20dfe856ffe34c7219026c2a2b88d2b6aa6daa95"
     },
     "msds-117": {
       "productName": "LCP-77 적색 N100",
@@ -1596,7 +1732,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2022-05-27",
+      "datesCheckedSha256": "3b53fa38ee7381346a01fc22a234fdadd9a0274fc74b8463aab5b7a3fda4e363"
     },
     "msds-118": {
       "productName": "LCP-77 중회색 N004",
@@ -1609,7 +1747,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2022-03-28",
+      "datesCheckedSha256": "96e7b11d71e02c869dff459f792fd675704d9a6bd88e8fadb254366ab1fbc0e7"
     },
     "msds-119": {
       "productName": "LCP-77 황색 N200",
@@ -1622,7 +1762,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2022-03-28",
+      "datesCheckedSha256": "7778fd9d6cdfb1c1ef46198194308b3d1e0590f446e1819efb67b88eddf91cab"
     },
     "msds-120": {
       "productName": "아이소발레르산(Isovaleric Acid)",
@@ -1642,7 +1784,8 @@
       "certainty": "중간",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "0e74961554ece8750cda08ef9002499ac881c44c78ff14b00c6175ab9c6f1444"
     },
     "msds-121": {
       "productName": "ZIC X7 5W-30",
@@ -1661,7 +1804,8 @@
       "checkedOn": "2026-09-23",
       "notClassified": true,
       "signalWord": "해당없음",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "4a1c86e031b30e22f07da706718790e67e5da78adbc580962143ba9628f68446"
     },
     "msds-122": {
       "productName": "무연 휘발유(UG)",
@@ -1674,7 +1818,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf2"
+      "signalSource": "pdf2",
+      "issueDate": "2016-04-12",
+      "datesCheckedSha256": "b49eea0f60b2551700ffc7df8b01f97e8cc59f1b6ce5aaff0e4e91446ffe1e85"
     },
     "msds-123": {
       "productName": "경유 (Diesel)",
@@ -1687,7 +1833,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2018-02-05",
+      "datesCheckedSha256": "b9542f89c2df16a18d2593017f88207105141240fee67c8bf5738a8a61451f01"
     },
     "msds-124": {
       "productName": "불스원 물 없이 바로 쓰는 부동액",
@@ -1700,7 +1848,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "c40160ed5596a4f956aa8af631639202de8901d49df4baeaab71ce5a8e11dc4b"
     },
     "msds-125": {
       "productName": "카나우바 고광택왁스",
@@ -1740,7 +1889,8 @@
       "action": "라벨 확인 후 판정",
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "3647ba8ba394c6212839f2784a7c55d2527c0d4c07cab2c0fff4a9f1cade5b92"
     },
     "msds-127": {
       "productName": "RainOK 에탄올 3in1 코팅워셔",
@@ -1753,7 +1903,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "107bbb56a108f26ed0201ce70754b3214093801a7cd8e3f06534b88f0c04a483"
     },
     "msds-128": {
       "productName": "슈퍼 샤인 레자왁스",
@@ -1835,7 +1986,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "0998978cb3ebd3ee82ead988ff1bec3d4b166f36945358300097375a40d97115"
     },
     "msds-133": {
       "productName": "에틸알코올 (ethanol)",
@@ -1855,7 +2007,8 @@
       "action": "시약으로 확인되면 '제출 면제(시약)', 공업용이면 번호 기재된 최신 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "ef84e776ef45392bd3980c086554afc8e2b69165719ac90eb6b352c074f72f49"
     },
     "msds-134": {
       "productName": "에틸렌(Ethylene)",
@@ -1869,7 +2022,8 @@
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
       "signalSource": "pdf1",
-      "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000010 에틸렌(Ethylene).pdf"
+      "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000010 에틸렌(Ethylene).pdf",
+      "datesCheckedSha256": "36072197834f35ce6a155725a731f35cfef45edb303efdb1690bc0893b249833"
     },
     "msds-135": {
       "productName": "1N-염산[Hydrochloric acid]",
@@ -1901,7 +2055,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "7fb37f828925207a31435d972c67366ce1c7e9c8333b6efd4c903dec8578c457"
     },
     "msds-137": {
       "productName": "염화 제이구리 2수화물 (Copper(II) chloride dihydrate)",
@@ -1920,7 +2075,8 @@
       "certainty": "중간",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "6b664eed970c536005f2eb597e0d8bc266caa3e04baa34d6822cc6a2e625e39f"
     },
     "msds-138": {
       "productName": "인산(Phosphoric acid)",
@@ -1940,7 +2096,10 @@
       "certainty": "중간",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2023-03-07",
+      "issueDate": "2013-12-20",
+      "datesCheckedSha256": "2e87b452ae7c5fe51c58f0686416fd55ee47c7eb287bf45f09aa22dd2d35cb15"
     },
     "msds-139": {
       "productName": "1N-황산 용액(0.5M)[Sulfuric Acid]",
@@ -1972,7 +2131,10 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "해당없음",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2023-02-15",
+      "issueDate": "2015-10-28",
+      "datesCheckedSha256": "01bbccc7c4364b702d094f910ca3b5f592d8476043742509fa4ad5663670e1c7"
     },
     "msds-141": {
       "productName": "3M™ 피네스잇™ 폴리시 - 최종 마감재(28796, 84224, 82877, 82878, 88753)",
@@ -1985,7 +2147,10 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "해당없음",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2021-07-15",
+      "issueDate": "2015-10-28",
+      "datesCheckedSha256": "112b8f05f42b859d5f15749c362437c33f24236e06d2c5d108871b68e64ed29e"
     },
     "msds-142": {
       "productName": "3M PN3021 임페리얼 미세 마감 컴파운드",
@@ -2060,7 +2225,8 @@
       "action": "OCI 에 최신 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "e2c4b54eb3c951aabbb18f79db0f17123d5ba5e030e45437422fa5fb30aa7c7e"
     },
     "msds-148": {
       "productName": "대륙 부탄 CRV",
@@ -2200,7 +2366,8 @@
       "action": "식품첨가물 표기 확인되면 '필요 없음', 아니면 번호 기재 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "1fd025b968e2e4efcd4fc49e38fb7fc313a9f375e210e610fdb970c16cbc848d"
     },
     "msds-155": {
       "productName": "백양퐁",
@@ -2217,7 +2384,8 @@
       "certainty": "중간",
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "8278fea2e7ee0c808824773b70300fdd21068648a95a4219aa0a9949fef863c0"
     },
     "msds-156": {
       "productName": "LOCTITE SF CPG CA PRIMER GOLD 230ML",
@@ -2250,7 +2418,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "4459192aa6e15bcdbcb9782a2de9d1c82e1f0f75b0434b593e99ff79bc066b41"
     },
     "msds-158": {
       "productName": "산도깨비 곰팡이제거제",
@@ -2290,7 +2459,9 @@
       "checkedOn": "2026-09-23",
       "notClassified": true,
       "signalWord": "해당없음",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2002-11-15",
+      "datesCheckedSha256": "87166e8702cc5fc5195151634ebedfee46d8326405c4c0b31441b95a7c960441"
     },
     "msds-160": {
       "productName": "PK-3830(페인트 점성제거제) AA05008-0000000006",
@@ -2303,7 +2474,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2002-11-15",
+      "datesCheckedSha256": "d8b0ca7233f84725a4f018e5dbe4bfdbf4ca47d1904642210f630ad2b1f5e59b"
     },
     "msds-161": {
       "productName": "AF-1(난실리콘 소포제)",
@@ -2339,7 +2512,8 @@
       "checkedOn": "2026-09-23",
       "msdsNoAsWritten": "AA2158-0000000008",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "b05a993ac4d4cd62b8c9a82357f9414ee8c2de0838d76e139d67ce8fa035bacd"
     },
     "msds-163": {
       "productName": "231-S250",
@@ -2358,7 +2532,8 @@
       "action": "공급사에 최신 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "4997173558901b419785c498057dfaa63e73f89ac966ed9432d448332f4b3cda"
     },
     "msds-164": {
       "productName": "퍼크린 오븐제로엠",
@@ -2379,7 +2554,9 @@
       "action": "라벨 확인 후 '필요 없음' 또는 번호 기재 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2021-03-10",
+      "datesCheckedSha256": "1d7c20d1a52d823a9db5d744c3aee97d9f979be908b8a5baf791f6f36864cb51"
     },
     "msds-165": {
       "productName": "하이락스",
@@ -2400,7 +2577,8 @@
       "action": "라벨 확인 후 '필요 없음' 또는 번호 기재 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf3"
+      "signalSource": "pdf3",
+      "datesCheckedSha256": "9ea174eeee4f503e6c92532f72a5855e6abc2a2b9f4fa7cea0f73a22c5cfe42b"
     },
     "msds-166": {
       "productName": "그린플러스",
@@ -2421,7 +2599,9 @@
       "action": "라벨 확인 후 '필요 없음' 또는 번호 기재 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2000-12-16",
+      "datesCheckedSha256": "72ca8b8801742e8d63459a21c835bac3c16946062b15c3783153119dbeae42c2"
     },
     "msds-167": {
       "productName": "멀티크로 / 차아염소산나트륨",
@@ -2493,7 +2673,9 @@
       "action": "라벨 확인 후 '필요 없음' 또는 번호 기재 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2013-12-12",
+      "datesCheckedSha256": "d0eb94bd6fe3e461bbee899840b8116ff9a44731e5df1a5ff8ca7a49eda7b7b9"
     },
     "msds-171": {
       "productName": "be chef. clean 주방세제 알뜰형",
@@ -2514,7 +2696,8 @@
       "action": "라벨 확인 후 '필요 없음' 또는 번호 기재 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf3"
+      "signalSource": "pdf3",
+      "datesCheckedSha256": "487f12c34983daf7709f5a8066c388a813483bc9b085dee00f100df396899b8c"
     },
     "msds-172": {
       "productName": "퍼크린 린스",
@@ -2535,7 +2718,9 @@
       "action": "라벨 확인 후 '필요 없음' 또는 번호 기재 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2021-04-09",
+      "datesCheckedSha256": "4cb9b59677ed6ee71ada83d12480efbbc0c3b03230b650a51b0ecbbd54021214"
     },
     "msds-173": {
       "productName": "스마트상S-1(알펫ES)",
@@ -2580,7 +2765,8 @@
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
       "signalSource": "pdf1",
-      "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000005 아르곤(ARGON_ COMPRESSED).pdf"
+      "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000005 아르곤(ARGON_ COMPRESSED).pdf",
+      "datesCheckedSha256": "30984c300b5a41ad71a3ce45a4ea0338264efb9229c06f2c49a47b262adde42d"
     },
     "msds-176": {
       "productName": "아르곤(100%)",
@@ -2667,7 +2853,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf3"
+      "signalSource": "pdf3",
+      "revisionDate": "2024-01-02",
+      "datesCheckedSha256": "007b2f977ffa1b208deaa1475e4bc140508b9b27458c55bbbd5b5e8c8fce578b"
     },
     "msds-pdf-c384c78d2b394114": {
       "productName": "IPO #1000컴파운드(PN7001,PN7002)",
@@ -2712,7 +2900,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2025-02-04",
+      "datesCheckedSha256": "6cbf2ae6e822558d734bd7686254e39550daa8ff4c4790eb0411dffb06df702c"
     },
     "msds-pdf-99c0868aa28d0e46": {
       "productName": "UT5731-SRM(GGM)(FRT)",
@@ -2755,7 +2945,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "9c13bfc18fd404a89220a0d4a0349652ef6ea2e9268d21ab93b60974a6809833"
     },
     "msds-pdf-def9c52b21a05593": {
       "productName": "듀프렉스 뉴에크루 [NES](A203-X7020)",
@@ -2783,7 +2974,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "c198e71df3ae97f3e8d685f3e6c8a362cb2ead131f8b0d34b90ba06f79b58f9e"
     },
     "msds-pdf-43261801e597af65": {
       "productName": "카렉스 3분세차 고광택왁스",
@@ -2833,7 +3025,8 @@
       "signalWord": "위험",
       "signalSource": "pdf1",
       "revisionDate": "2024-03-28",
-      "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000012 부탄(Butane).pdf"
+      "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000012 부탄(Butane).pdf",
+      "datesCheckedSha256": "7570ffa55f692a8b9e3c5895749893589676c6c334d8e9c3f934109702cffe1d"
     },
     "msds-pdf-0aeeb73308c96e86": {
       "productName": "산소(OXYGEN, COMPRESSED)",
@@ -2848,7 +3041,8 @@
       "signalWord": "위험",
       "signalSource": "pdf1",
       "revisionDate": "2024-03-27",
-      "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000001 산소(OXYGEN_ COMPRESSED).pdf"
+      "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000001 산소(OXYGEN_ COMPRESSED).pdf",
+      "datesCheckedSha256": "0aeeb73308c96e86f5d482c14418888d9828cede0eccd674d715925dcec1888d"
     },
     "msds-pdf-f6b8f7761d44bb84": {
       "productName": "아세틸렌(ACETYLENE,dissolved)",
@@ -2863,7 +3057,8 @@
       "signalWord": "위험",
       "signalSource": "pdf1",
       "revisionDate": "2024-03-28",
-      "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000008 아세틸렌(ACETYLENE_dissolved).pdf"
+      "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000008 아세틸렌(ACETYLENE_dissolved).pdf",
+      "datesCheckedSha256": "f6b8f7761d44bb84d5f04e0a936081ab0af2a5c192bf0f9ba69b7060d24edf8a"
     },
     "msds-pdf-f566b59f33deed0f": {
       "productName": "아세틸렌",
@@ -2903,7 +3098,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "3f2506c20209fd622fdb3160bec7c7d6392fee23edd42edb6951e8bb4b5b36f4"
     },
     "msds-pdf-f6a7a80e940a8ea3": {
       "productName": "LPG(C3)",
@@ -2922,7 +3118,9 @@
       "action": "LPG 공급사 확인 후 최신 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2022-04-01",
+      "datesCheckedSha256": "f6a7a80e940a8ea3e803d1eba99343ed5de9178207f84f13e99fba055f25f15f"
     },
     "msds-pdf-d8b98810abb35e60": {
       "productName": "LPG(C4)",
@@ -2941,7 +3139,9 @@
       "action": "LPG 공급사 확인 후 최신 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2022-04-01",
+      "datesCheckedSha256": "d8b98810abb35e60f13be284cf0e9360b6a5b6af0120dae8c428b9d54795e0ec"
     },
     "msds-pdf-7aeec8c87fe01629": {
       "productName": "LPG(혼합) 태경ECO(주)",
@@ -2960,7 +3160,8 @@
       "action": "태경에코에 최신 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "7aeec8c87fe0162932dc3ad06f1a9250c89bc8a2eb7d86bdac52abc74b9a8eea"
     },
     "msds-pdf-25117e7770dfe7d6": {
       "productName": "SERIOLA+KS+2120+(KR)",
@@ -2978,7 +3179,8 @@
       "checkedOn": "2026-09-23",
       "notClassified": true,
       "signalWord": "해당없음",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "25117e7770dfe7d6643b39b72bda1fa6f6da0ef2b9a5acb2833aea60741c1a23"
     },
     "msds-pdf-edd5512c31860584": {
       "productName": "TST-K-001K(SERIOLA+KS+2120)",
@@ -3012,7 +3214,9 @@
       "action": "공급사에 최신 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2020-06-12",
+      "datesCheckedSha256": "b43e1258cdd26a3321a76f43039642875e51a0c689ac09afd83dac46b89f60c4"
     },
     "msds-pdf-00bd0830f6de7555": {
       "productName": "락카 스프레이(각색)",
@@ -3025,7 +3229,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf3"
+      "signalSource": "pdf3",
+      "revisionDate": "2024-04-01",
+      "datesCheckedSha256": "00bd0830f6de755535f8eb7bb2086f28749684c3e3436984cc9465b79f07be1a"
     },
     "msds-pdf-c04f0260b76f1ff7": {
       "productName": "CASMOLY EP-OHQ(2)",
@@ -3038,7 +3244,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "2021-01-14",
+      "datesCheckedSha256": "c04f0260b76f1ff7956c447839280e36863bc862c2a0a6a4768030d3bf66fc3a"
     },
     "msds-pdf-f1d5241c30dc8b13": {
       "productName": "용접재료(연강용 피복아크 용접봉)",
@@ -3051,7 +3259,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "f1d5241c30dc8b13bd229b2b1ee890270cfedef8a2ec84db04bdf82627873232"
     },
     "msds-pdf-e807f4edcc3681dc": {
       "productName": "증류수(물)",
@@ -3069,7 +3278,8 @@
       "checkedOn": "2026-09-23",
       "notClassified": true,
       "signalWord": "해당없음",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "e807f4edcc3681dc65de66ba4805e807b9418cf8c5fccd0562e298f74c108d16"
     },
     "msds-pdf-deca16082851d0c0": {
       "productName": "질소(N2) 대덕가스(주)",
@@ -3129,7 +3339,8 @@
       "action": "소비자용 확인 시 '필요 없음', 산업용이면 번호 기재 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf3"
+      "signalSource": "pdf3",
+      "datesCheckedSha256": "a26053814f066ef9a0d91e27680b74ee0dc547730618df0a3b361fbcad830c38"
     },
     "msds-pdf-52d86cde38911013": {
       "productName": "피비원(PB-1)",
@@ -3182,7 +3393,8 @@
       "action": "최신 MSDS 요청. 분류 있으면 번호 확보, 비해당이면 '필요 없음'",
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "d53b862679ad3157e1bd6b38a206612dce531db153ce984e54295af673b61e9d"
     },
     "msds-pdf-d353876f24b4839c": {
       "productName": "GHP HTG 2 (월)",
@@ -3202,7 +3414,8 @@
       "action": "최신 MSDS 요청. 분류 있으면 번호 확보, 비해당이면 '필요 없음'",
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "d353876f24b4839c20a62c546c27040eb074dbdbf903c72e702703bd31c4d4cc"
     },
     "msds-pdf-d462ab4576452226": {
       "productName": "GHP PCG EP 0(그리스)",
@@ -3222,7 +3435,8 @@
       "action": "최신 MSDS 요청. 분류 있으면 번호 확보, 비해당이면 '필요 없음'",
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "d462ab4576452226813c9b1749731929228a4f1453163cbe662a7aa1e338e9f0"
     },
     "msds-pdf-f60438c81a0521d8": {
       "productName": "GHP PCG 0",
@@ -3242,7 +3456,8 @@
       "action": "최신 MSDS 요청. 분류 있으면 번호 확보, 비해당이면 '필요 없음'",
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "f60438c81a0521d879237320e904b099bb26dc26f5c5d9ab1481a954521a303b"
     },
     "msds-pdf-2ebaad2a63202319": {
       "productName": "HR580 현대ep 수지",
@@ -3338,7 +3553,8 @@
       "checkedOn": "2026-09-23",
       "notClassified": true,
       "signalWord": "해당없음",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "48f0afe382fbccab1bc8210d51cb2cab6cbd0534dcf2d021aa7b00b958e3d350"
     },
     "msds-pdf-f1d24c79470dc24f": {
       "productName": "S-308.16N",
@@ -3351,7 +3567,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "issueDate": "1997-02-14",
+      "datesCheckedSha256": "f1d24c79470dc24f9f11027cc7809547feb3c5d2ac8c111dc3a0f5e197581af7"
     },
     "msds-pdf-65ea6911134f71e5": {
       "productName": "해피홈에어로솔수성(무향) Rav",
@@ -3386,7 +3604,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "4d74083377739ddcc8c44d9f827ac4e807f08e8c14359a67f333bb64c91b7059"
     },
     "msds-pdf-e3aa33ca136c6558": {
       "productName": "천연가스(LNG, Natural Gas with Odorant)",
@@ -3399,7 +3618,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "5287a2d387a522545aa05c091ffa0df55f09bd742126796608a2ecf508ba5f0f"
     },
     "msds-pdf-5e875f5e2847e4d0": {
       "productName": "부탄(Butane) 석유화학 및 산업용",
@@ -3425,7 +3645,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf3"
+      "signalSource": "pdf3",
+      "datesCheckedSha256": "2192a19e1be21fbde0be292428b2ef0bdb76ccb95b1b1f276bae18ac98fce8d2"
     },
     "msds-pdf-0bf7ca74da0367b2": {
       "productName": "소석회(수산화칼슘)",
@@ -3438,7 +3659,8 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "datesCheckedSha256": "2b089f7d4094873d2f967518e095d20098727bbe5b444bf12bf4dc445abdce65"
     },
     "msds-pdf-56cf7bad5d00bb20": {
       "productName": "KFN-50",
@@ -3453,7 +3675,8 @@
       "signalWord": "위험",
       "signalSource": "pdf-new",
       "source": "https://www.kiswel.com/_lib/fileDownload.asp?idx=329&filetb=m",
-      "replaces": "msds-090"
+      "replaces": "msds-090",
+      "datesCheckedSha256": "11c22d7c8857961783f5a9143796331875a617558f17bef1eea7d29489b385d8"
     },
     "msds-pdf-84fc357fa53fe6e3": {
       "productName": "KH-500LF",
@@ -3468,7 +3691,8 @@
       "signalWord": "위험",
       "signalSource": "pdf-new",
       "source": "https://www.kiswel.com/_lib/fileDownload.asp?idx=250&filetb=m",
-      "replaces": "msds-091"
+      "replaces": "msds-091",
+      "datesCheckedSha256": "fdde875c1f666638d957e57672136947ff77d4ec106e03cebb29501034812ec0"
     },
     "msds-pdf-089d6c3cb442ffc1": {
       "productName": "KSN-100",
@@ -3483,7 +3707,8 @@
       "signalWord": "위험",
       "signalSource": "pdf-new",
       "source": "https://www.kiswel.com/_lib/fileDownload.asp?idx=328&filetb=m",
-      "replaces": "msds-093"
+      "replaces": "msds-093",
+      "datesCheckedSha256": "ba09056725252bb52c72fa511f5a13b112f294470e81460163150862dd42e50b"
     },
     "msds-pdf-2d82a68c0697a3a2": {
       "productName": "M-308",
@@ -3498,7 +3723,8 @@
       "signalWord": "위험",
       "signalSource": "pdf-new",
       "source": "https://www.kiswel.com/_lib/fileDownload.asp?idx=3697&filetb=m",
-      "replaces": "msds-095"
+      "replaces": "msds-095",
+      "datesCheckedSha256": "f5392a5049a9e4dca0123bc7072d60f788912541099311902df23b693f18d9ec"
     },
     "msds-pdf-f4c4b93fdc7911df": {
       "productName": "3M PN3021 임페리얼 미세 마감 컴파운드",
@@ -3513,7 +3739,8 @@
       "signalWord": "경고",
       "signalSource": "pdf-new",
       "source": "https://cdmsweb.3m.com/ingredientcommunication/file/Media/rJvhe-rqkbQ",
-      "replaces": "msds-142"
+      "replaces": "msds-142",
+      "datesCheckedSha256": "c4e623e455a2408bff1ee1c94d5ceeb13c5f6c74b97802395dfca7828960217a"
     },
     "msds-pdf-f6d25ab4aeeced6d": {
       "productName": "PN3084 피네스잇 마무리 연마재(FINESSE-IT FINISHING MATERIAL)",
@@ -3533,7 +3760,8 @@
       "signalWord": "해당없음",
       "signalSource": "pdf-new",
       "source": "https://cdmsweb.3m.com/ingredientcommunication/file/Media/oJIsIEjzcsk",
-      "replaces": "msds-143"
+      "replaces": "msds-143",
+      "datesCheckedSha256": "a3104a8f5df8862f00f2aefa142fd262b31effc3ebd8212b9aca49be1fa635db"
     },
     "msds-pdf-879e67e226aa209b": {
       "productName": "스테인리스강 코팅제(Stainless Steel Coat)",
@@ -3554,7 +3782,8 @@
       "signalWord": "위험",
       "signalSource": "pdf-new",
       "source": "https://multimedia.3m.com/mws/mediawebserver?mwsId=tttttvV5A9vZm05XnyH_OZOtpXWlMEW9iXvaq9hV5tttttt--",
-      "replaces": "msds-144"
+      "replaces": "msds-144",
+      "datesCheckedSha256": "85e8398bea9a733975360650517233f2dde6a37d94defffbc95ffe19cb43f7f4"
     },
     "msds-pdf-4d3893d05b41b64e": {
       "productName": "프로슈터",
@@ -3569,7 +3798,8 @@
       "signalWord": "위험",
       "signalSource": "pdf-new",
       "source": "https://cdmsweb.3m.com/ingredientcommunication/file/Media/K2dxB7g-tY4",
-      "replaces": "msds-145"
+      "replaces": "msds-145",
+      "datesCheckedSha256": "ee32b6fba91703fc7e445c54b8934864d0347a51257b116dded05aac176a6ee3"
     },
     "msds-pdf-2ad6c5c7848d75bf": {
       "productName": "알곤, 아르곤(ARGON)",
@@ -3584,7 +3814,8 @@
       "signalWord": "경고",
       "signalSource": "pdf-new",
       "source": "http://www.taekyungeco.co.kr/resources/common/msds_file/business_file/태경에코05_알곤(3).pdf",
-      "replaces": "msds-174"
+      "replaces": "msds-174",
+      "datesCheckedSha256": "622fff52885ce864e2cfd155b8f8d6a270ebdcc5e92c15d095dd9800f1cd048b"
     },
     "msds-pdf-3bc5be36daf11812": {
       "productName": "질소(NITROGEN)",
@@ -3599,7 +3830,8 @@
       "signalWord": "경고",
       "signalSource": "pdf-new",
       "source": "http://www.taekyungeco.co.kr/resources/common/msds_file/business_file/태경에코03_질소(3).pdf",
-      "replaces": "msds-pdf-df5ff1a99215c913"
+      "replaces": "msds-pdf-df5ff1a99215c913",
+      "datesCheckedSha256": "31dbd1e2aac0e7dbb5ebad61ef1573f6ef0960a1224c90a034f76f835e0ceb5b"
     },
     "msds-pdf-32c2b2126324e13b": {
       "productName": "아세틸렌",
@@ -3614,7 +3846,8 @@
       "signalWord": "위험",
       "signalSource": "pdf-new",
       "source": "http://www.taekyungeco.co.kr/resources/common/msds_file/business_file/아세틸렌.pdf",
-      "replaces": "msds-pdf-f566b59f33deed0f"
+      "replaces": "msds-pdf-f566b59f33deed0f",
+      "datesCheckedSha256": "5e370ce0d72c9b619e7e7c0d60924607ffa7f9ebd84c424d38b67a7dab1eaa92"
     }
   },
   "history": [
@@ -3633,7 +3866,9 @@
       "newRevision": "2021-12-29",
       "source": "https://www.kiswel.com/_lib/fileDownload.asp?idx=329&filetb=m",
       "sha256": "11c22d7c8857961783f5a9143796331875a617558f17bef1eea7d29489b385d8",
-      "note": ""
+      "note": "",
+      "labelReprint": false,
+      "labelReprintReason": ""
     },
     {
       "date": "2026-09-23",
@@ -3650,7 +3885,9 @@
       "newRevision": "2026-03-10",
       "source": "https://www.kiswel.com/_lib/fileDownload.asp?idx=250&filetb=m",
       "sha256": "fdde875c1f666638d957e57672136947ff77d4ec106e03cebb29501034812ec0",
-      "note": ""
+      "note": "",
+      "labelReprint": true,
+      "labelReprintReason": "새 판에서 바뀜: 그림문자 −GHS05; 유해·위험문구 −H315 −H318; 예방조치문구 −P305+P351+P338 −P310 −P332+P313"
     },
     {
       "date": "2026-09-23",
@@ -3667,7 +3904,9 @@
       "newRevision": "2021-12-29",
       "source": "https://www.kiswel.com/_lib/fileDownload.asp?idx=328&filetb=m",
       "sha256": "ba09056725252bb52c72fa511f5a13b112f294470e81460163150862dd42e50b",
-      "note": ""
+      "note": "",
+      "labelReprint": false,
+      "labelReprintReason": ""
     },
     {
       "date": "2026-09-23",
@@ -3684,7 +3923,9 @@
       "newRevision": "2025-02-07",
       "source": "https://www.kiswel.com/_lib/fileDownload.asp?idx=3697&filetb=m",
       "sha256": "f5392a5049a9e4dca0123bc7072d60f788912541099311902df23b693f18d9ec",
-      "note": ""
+      "note": "",
+      "labelReprint": true,
+      "labelReprintReason": "새 판에서 바뀜: 유해·위험문구 −H334 −H336 −H412; 예방조치문구 −P271 −P273 −P284 −P304+P340 −P312 −P342+P311 −P403+P233"
     },
     {
       "date": "2026-09-23",
@@ -3701,7 +3942,9 @@
       "newRevision": "2026-07-26",
       "source": "https://cdmsweb.3m.com/ingredientcommunication/file/Media/rJvhe-rqkbQ",
       "sha256": "c4e623e455a2408bff1ee1c94d5ceeb13c5f6c74b97802395dfca7828960217a",
-      "note": ""
+      "note": "",
+      "labelReprint": false,
+      "labelReprintReason": ""
     },
     {
       "date": "2026-09-23",
@@ -3718,7 +3961,9 @@
       "newRevision": "2026-02-10",
       "source": "https://cdmsweb.3m.com/ingredientcommunication/file/Media/oJIsIEjzcsk",
       "sha256": "a3104a8f5df8862f00f2aefa142fd262b31effc3ebd8212b9aca49be1fa635db",
-      "note": "최신판은 분류기준 비해당 — 번호 필요 없음"
+      "note": "최신판은 분류기준 비해당 — 번호 필요 없음",
+      "labelReprint": true,
+      "labelReprintReason": "새 판에서 바뀜: 그림문자 −GHS09; 유해·위험문구 −H412; 예방조치문구 −P273 −P501"
     },
     {
       "date": "2026-09-23",
@@ -3735,7 +3980,9 @@
       "newRevision": "2017-04-12",
       "source": "https://multimedia.3m.com/mws/mediawebserver?mwsId=tttttvV5A9vZm05XnyH_OZOtpXWlMEW9iXvaq9hV5tttttt--",
       "sha256": "85e8398bea9a733975360650517233f2dde6a37d94defffbc95ffe19cb43f7f4",
-      "note": "번호 없음 — 공급사 요청 필요"
+      "note": "번호 없음 — 공급사 요청 필요",
+      "labelReprint": false,
+      "labelReprintReason": ""
     },
     {
       "date": "2026-09-23",
@@ -3752,7 +3999,9 @@
       "newRevision": "2026-07-01",
       "source": "https://cdmsweb.3m.com/ingredientcommunication/file/Media/K2dxB7g-tY4",
       "sha256": "ee32b6fba91703fc7e445c54b8934864d0347a51257b116dded05aac176a6ee3",
-      "note": ""
+      "note": "",
+      "labelReprint": true,
+      "labelReprintReason": "새 판에서 바뀜: 그림문자 −GHS07; 유해·위험문구 −H318 −H335; 예방조치문구 −P261 −P271 −P280A −P312 −P321 −P363 −P403+P233"
     },
     {
       "date": "2026-09-23",
@@ -3769,7 +4018,9 @@
       "newRevision": "2026-06-30",
       "source": "http://www.taekyungeco.co.kr/resources/common/msds_file/business_file/태경에코05_알곤(3).pdf",
       "sha256": "622fff52885ce864e2cfd155b8f8d6a270ebdcc5e92c15d095dd9800f1cd048b",
-      "note": ""
+      "note": "",
+      "labelReprint": true,
+      "labelReprintReason": "새 판에서 바뀜: 유해·위험문구 −H281; 예방조치문구 −P282 −P315 −P336"
     },
     {
       "date": "2026-09-23",
@@ -3786,7 +4037,9 @@
       "newRevision": "2026-06-30",
       "source": "http://www.taekyungeco.co.kr/resources/common/msds_file/business_file/태경에코03_질소(3).pdf",
       "sha256": "31dbd1e2aac0e7dbb5ebad61ef1573f6ef0960a1224c90a034f76f835e0ceb5b",
-      "note": ""
+      "note": "",
+      "labelReprint": true,
+      "labelReprintReason": "새 판에서 바뀜: 유해·위험문구 +H280 −H281; 예방조치문구 −P282 −P336 −P351"
     },
     {
       "date": "2026-09-23",
@@ -3803,7 +4056,9 @@
       "newRevision": "2026-03-09",
       "source": "http://www.taekyungeco.co.kr/resources/common/msds_file/business_file/아세틸렌.pdf",
       "sha256": "5e370ce0d72c9b619e7e7c0d60924607ffa7f9ebd84c424d38b67a7dab1eaa92",
-      "note": "; 분류 글자층 깨짐 — 분류 칸 비움"
+      "note": "; 분류 글자층 깨짐 — 분류 칸 비움",
+      "labelReprint": true,
+      "labelReprintReason": "새 판에서 바뀜: 유해·위험문구 +H220"
     },
     {
       "date": "2026-09-23",
@@ -3906,6 +4161,1130 @@
       "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000005 아르곤(ARGON_ COMPRESSED).pdf",
       "sha256": "30984c300b5a41ad71a3ce45a4ea0338264efb9229c06f2c49a47b262adde42d",
       "note": "공급사 공식 MSDS 게시판의 파일명에 번호가 적혀 있음. 받은 파일은 가진 것과 같음. PDF 본문에는 번호가 없음"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "0278(HMC)",
+      "supplier": "케이씨씨 울산공장",
+      "oldId": "msds-007",
+      "newId": "msds-007",
+      "oldFile": "pdf/01_ 도장/KCC/KCC_MSDS_0278(HMC).pdf",
+      "newFile": "pdf/01_ 도장/KCC/KCC_MSDS_0278(HMC).pdf",
+      "oldMsdsNo": "AA00017-0000001132",
+      "newMsdsNo": "AA00017-0000001132",
+      "oldRevision": "2024-12-26",
+      "newRevision": "2025-12-15",
+      "source": "원본 PDF 대조",
+      "sha256": "280e00d177db2d62532bdcd9667a22ee86d1daf66d761e54d37e0e5663a63fa1",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "M7153(MF,CM,J,JL,M,JL-2,YFS,FS,TQ,VF,YI,VI,YV,V,V-2,Y,YL,L,BS,YG,YS,YM,YSK,YFS-W,K,FSJ,MD)",
+      "supplier": "㈜대하",
+      "oldId": "msds-068",
+      "newId": "msds-068",
+      "oldFile": "pdf/00_ 사출/대하/M7153(MF, CM, J, JL, M, JL-2, YFS, FS, TQ, VF, YI, VI, YV, V, V-2, Y, YL, L, BS, YG, YS, YM, YSK, YFS-W, K, FSJ, MD).pdf",
+      "newFile": "pdf/00_ 사출/대하/M7153(MF, CM, J, JL, M, JL-2, YFS, FS, TQ, VF, YI, VI, YV, V, V-2, Y, YL, L, BS, YG, YS, YM, YSK, YFS-W, K, FSJ, MD).pdf",
+      "oldMsdsNo": "AA08294-0000000027",
+      "newMsdsNo": "AA08294-0000000027",
+      "oldRevision": "",
+      "newRevision": "2026-01-14",
+      "source": "원본 PDF 대조",
+      "sha256": "637978533b925b48900eaf7c37800cb0790ecd528fb542ca0bea602b11cfc434",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "M7392(U,UE,UQ,UE-AD,UM,UT,UTL,UTR,UTRF,UTRR,UX,UXC,USX,USX-2,UC,TU,AU,UP,USK,UY,ULP,ULX,ULPG,UQR,ULC)",
+      "supplier": "㈜대하",
+      "oldId": "msds-070",
+      "newId": "msds-070",
+      "oldFile": "pdf/00_ 사출/대하/M7392(U,UE,UQ,UE-AD, UM, UT, UTL, UTR, UTRF, UTRR, UX, UXC ,USX, USX-2, UC, TU, AU, UP,USK, ,UY,ULP, ULX,ULPG,UQR, ULC..pdf",
+      "newFile": "pdf/00_ 사출/대하/M7392(U,UE,UQ,UE-AD, UM, UT, UTL, UTR, UTRF, UTRR, UX, UXC ,USX, USX-2, UC, TU, AU, UP,USK, ,UY,ULP, ULX,ULPG,UQR, ULC..pdf",
+      "oldMsdsNo": "AA08294-0000000016",
+      "newMsdsNo": "AA08294-0000000016",
+      "oldRevision": "",
+      "newRevision": "2026-01-07",
+      "source": "원본 PDF 대조",
+      "sha256": "8cd5936d8cbbf666224dd6e76bf1375faecdeb3193e89bf4b4580823496a1839",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "BD-3 (비디-3)",
+      "supplier": "나바켐",
+      "oldId": "msds-098",
+      "newId": "msds-098",
+      "oldFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/BD-3(나바켐)(24)+(GHS).pdf",
+      "newFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/BD-3(나바켐)(24)+(GHS).pdf",
+      "oldMsdsNo": "AA00190-0000000024",
+      "newMsdsNo": "AA00190-0000000024",
+      "oldRevision": "2009-01-15",
+      "newRevision": "2024-10-15",
+      "source": "원본 PDF 대조",
+      "sha256": "0eec81f22f7495b3516618027ea5e3141f4389408371e1b823792a7871e99661",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "다목적 세정제 DC-3000",
+      "supplier": "남방CNA",
+      "oldId": "msds-099",
+      "newId": "msds-099",
+      "oldFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/DC-3000(32)+(GHS).pdf",
+      "newFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/DC-3000(32)+(GHS).pdf",
+      "oldMsdsNo": "AA00141-0000000157",
+      "newMsdsNo": "AA00141-0000000157",
+      "oldRevision": "1996-06-20",
+      "newRevision": "2024-09-26",
+      "source": "원본 PDF 대조",
+      "sha256": "d192bf13df15d07a17dd2b224096215257f387d8ef7963a0eb32452333820f4d",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "LONG #2 스프레이",
+      "supplier": "남방CNA",
+      "oldId": "msds-101",
+      "newId": "msds-101",
+      "oldFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/LONG#2+Spray(38)+(GHS).pdf",
+      "newFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/LONG#2+Spray(38)+(GHS).pdf",
+      "oldMsdsNo": "AA00141-0000000109",
+      "newMsdsNo": "AA00141-0000000109",
+      "oldRevision": "1996-06-12",
+      "newRevision": "2024-05-10",
+      "source": "원본 PDF 대조",
+      "sha256": "730e25047269adedddbe5fe8e1e842d354b5b519aec1344cf72e2f4a7529e080",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "LONG #2H(롱#2에이치)",
+      "supplier": "남방CNA",
+      "oldId": "msds-102",
+      "newId": "msds-102",
+      "oldFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/LONG+#2H(23)+(GHS).pdf",
+      "newFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/LONG+#2H(23)+(GHS).pdf",
+      "oldMsdsNo": "AA00141-0000000271",
+      "newMsdsNo": "AA00141-0000000271",
+      "oldRevision": "1996-06-20",
+      "newRevision": "2025-03-20",
+      "source": "원본 PDF 대조",
+      "sha256": "9965ded76a3ececce4b2351498a75d08a4408c1e5825912ff134740161a63c26",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "MEGA CHECK 처리제(TREATMENT)",
+      "supplier": "남방CNA",
+      "oldId": "msds-103",
+      "newId": "msds-103",
+      "oldFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/Mega+check+처리제+(6)+(GHS).pdf",
+      "newFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/Mega+check+처리제+(6)+(GHS).pdf",
+      "oldMsdsNo": "AA00141-0000000054",
+      "newMsdsNo": "AA00141-0000000054",
+      "oldRevision": "2019-03-04",
+      "newRevision": "2024-09-25",
+      "source": "원본 PDF 대조",
+      "sha256": "f33e77404b68ea83578e2bc72bfba1736a48dd95a58fd56a373ba3032f9934c5",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "MEGA CHECK 침투제 W",
+      "supplier": "나바켐",
+      "oldId": "msds-105",
+      "newId": "msds-105",
+      "oldFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/Mega+check+침투제W+(5)+(GHS).pdf",
+      "newFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/Mega+check+침투제W+(5)+(GHS).pdf",
+      "oldMsdsNo": "AA00190-0000000226",
+      "newMsdsNo": "AA00190-0000000226",
+      "oldRevision": "2019-03-04",
+      "newRevision": "2025-03-06",
+      "source": "원본 PDF 대조",
+      "sha256": "cef52033cb412922e92d51483e6f2b29585c2da4fe13319a435a13692f5c20e9",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "MEGA CHECK 현상제(DEVELOPER)",
+      "supplier": "남방CNA",
+      "oldId": "msds-106",
+      "newId": "msds-106",
+      "oldFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/Mega+check+현상제+(5)+(GHS).pdf",
+      "newFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/Mega+check+현상제+(5)+(GHS).pdf",
+      "oldMsdsNo": "AA00141-0000000105",
+      "newMsdsNo": "AA00141-0000000105",
+      "oldRevision": "2019-03-04",
+      "newRevision": "2024-04-11",
+      "source": "원본 PDF 대조",
+      "sha256": "dcde445fec508eacf5f8349f86aba89f35dbde2a7b4b391c8a4f307253888f17",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "다용도세제 NB-1(분무기)",
+      "supplier": "나바켐",
+      "oldId": "msds-107",
+      "newId": "msds-107",
+      "oldFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/NB-1(분무기)(2)+(나바켐)+(GHS).pdf",
+      "newFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/NB-1(분무기)(2)+(나바켐)+(GHS).pdf",
+      "oldMsdsNo": "AA00190-0000000077",
+      "newMsdsNo": "AA00190-0000000077",
+      "oldRevision": "2021-08-13",
+      "newRevision": "2024-04-01",
+      "source": "원본 PDF 대조",
+      "sha256": "8fff4564d3acbebf2591d30eb541981e2651d282fe45a0736eff37b041629d57",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "PMC-3(피엠씨-3)",
+      "supplier": "남방CNA",
+      "oldId": "msds-108",
+      "newId": "msds-108",
+      "oldFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/PMC-3(32)+(GHS).pdf",
+      "newFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/PMC-3(32)+(GHS).pdf",
+      "oldMsdsNo": "AA00141-0000000082",
+      "newMsdsNo": "AA00141-0000000082",
+      "oldRevision": "1996-06-20",
+      "newRevision": "2025-06-26",
+      "source": "원본 PDF 대조",
+      "sha256": "d2fbe21dc25edd960feb875eb47e3a600c649f2fd3aab5ec7484227066bfe7e8",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "스티커 자국 제거제 SSR-220",
+      "supplier": "나바켐",
+      "oldId": "msds-109",
+      "newId": "msds-109",
+      "oldFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/SSR-220(나바켐)(24)+(GHS).pdf",
+      "newFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/SSR-220(나바켐)(24)+(GHS).pdf",
+      "oldMsdsNo": "AA00190-0000000165",
+      "newMsdsNo": "AA00190-0000000165",
+      "oldRevision": "2016-11-02",
+      "newRevision": "2025-05-15",
+      "source": "원본 PDF 대조",
+      "sha256": "899f7fdf9ab162c0b1cca27b544b1c909b32022fb71971aba369d516dbb90f33",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "스티커 자국 제거제 SSR-450",
+      "supplier": "나바켐",
+      "oldId": "msds-110",
+      "newId": "msds-110",
+      "oldFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/SSR-450(나바켐)(26)+(GHS).pdf",
+      "newFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/SSR-450(나바켐)(26)+(GHS).pdf",
+      "oldMsdsNo": "AA00190-0000000006",
+      "newMsdsNo": "AA00190-0000000006",
+      "oldRevision": "2009-01-12",
+      "newRevision": "2025-05-15",
+      "source": "원본 PDF 대조",
+      "sha256": "20281d4cfa1498b8368c68127f9e773dd344239f9735173218be878194f38576",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "탭핑 콤파운드 TC#1",
+      "supplier": "남방CNA",
+      "oldId": "msds-111",
+      "newId": "msds-111",
+      "oldFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/TC#1(36)+(GHS).pdf",
+      "newFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/TC#1(36)+(GHS).pdf",
+      "oldMsdsNo": "AA00141-0000000156",
+      "newMsdsNo": "AA00141-0000000156",
+      "oldRevision": "1996-06-20",
+      "newRevision": "2024-11-27",
+      "source": "원본 PDF 대조",
+      "sha256": "995f130feb87a963f384fdaccf538a5d6b33cc77bc4b0c77f943026635c7a718",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "LCP-77 분홍색 N101",
+      "supplier": "나바켐",
+      "oldId": "msds-112",
+      "newId": "msds-112",
+      "oldFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(분홍색).pdf",
+      "newFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(분홍색).pdf",
+      "oldMsdsNo": "AA00190-0000000186",
+      "newMsdsNo": "AA00190-0000000186",
+      "oldRevision": "2017-11-06",
+      "newRevision": "2023-02-16",
+      "source": "원본 PDF 대조",
+      "sha256": "147d79f30fc91ed5f15f05c3855fb25ba0925b6028488f4098052475e6780cc0",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "LCP-77 기계색 N313",
+      "supplier": "나바켐",
+      "oldId": "msds-115",
+      "newId": "msds-115",
+      "oldFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(기계색).pdf",
+      "newFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(기계색).pdf",
+      "oldMsdsNo": "AA00190-0000000112",
+      "newMsdsNo": "AA00190-0000000112",
+      "oldRevision": "2017-11-06",
+      "newRevision": "2022-03-28",
+      "source": "원본 PDF 대조",
+      "sha256": "c07999f8e57ae854d054697aa1c6057e6c1dc56a2a29fb4dab4e5f1888eb043c",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "LCP-77 은색 N900",
+      "supplier": "나바켐",
+      "oldId": "msds-116",
+      "newId": "msds-116",
+      "oldFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(은색).pdf",
+      "newFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(은색).pdf",
+      "oldMsdsNo": "AA00190-0000000114",
+      "newMsdsNo": "AA00190-0000000114",
+      "oldRevision": "2013-11-08",
+      "newRevision": "2023-06-19",
+      "source": "원본 PDF 대조",
+      "sha256": "3e50c26c03718649cbd9179f20dfe856ffe34c7219026c2a2b88d2b6aa6daa95",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "LCP-77 적색 N100",
+      "supplier": "나바켐",
+      "oldId": "msds-117",
+      "newId": "msds-117",
+      "oldFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(적색).pdf",
+      "newFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(적색).pdf",
+      "oldMsdsNo": "AA00190-0000000132",
+      "newMsdsNo": "AA00190-0000000132",
+      "oldRevision": "2017-11-06",
+      "newRevision": "2022-05-27",
+      "source": "원본 PDF 대조",
+      "sha256": "3b53fa38ee7381346a01fc22a234fdadd9a0274fc74b8463aab5b7a3fda4e363",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "LCP-77 중회색 N004",
+      "supplier": "나바켐",
+      "oldId": "msds-118",
+      "newId": "msds-118",
+      "oldFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(중회색).pdf",
+      "newFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(중회색).pdf",
+      "oldMsdsNo": "AA00190-0000000107",
+      "newMsdsNo": "AA00190-0000000107",
+      "oldRevision": "2017-11-06",
+      "newRevision": "2022-03-28",
+      "source": "원본 PDF 대조",
+      "sha256": "96e7b11d71e02c869dff459f792fd675704d9a6bd88e8fadb254366ab1fbc0e7",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "LCP-77 황색 N200",
+      "supplier": "나바켐",
+      "oldId": "msds-119",
+      "newId": "msds-119",
+      "oldFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(황색).pdf",
+      "newFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐_LCP-77(황색).pdf",
+      "oldMsdsNo": "AA00190-0000000110",
+      "newMsdsNo": "AA00190-0000000110",
+      "oldRevision": "2017-11-06",
+      "newRevision": "2022-03-28",
+      "source": "원본 PDF 대조",
+      "sha256": "7778fd9d6cdfb1c1ef46198194308b3d1e0590f446e1819efb67b88eddf91cab",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "인산(Phosphoric acid)",
+      "supplier": "JUNSEI CHEMICAL CO., LTD.",
+      "oldId": "msds-138",
+      "newId": "msds-138",
+      "oldFile": "pdf/03_ 시험실(시약)/인산_junsel.pdf",
+      "newFile": "pdf/03_ 시험실(시약)/인산_junsel.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "",
+      "newRevision": "2023-03-07",
+      "source": "원본 PDF 대조",
+      "sha256": "2e87b452ae7c5fe51c58f0686416fd55ee47c7eb287bf45f09aa22dd2d35cb15",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날); 원문 최초 작성일 2013-12-20 (사이트 없음)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "3M™ 피네스잇™ 폴리시 - 마무리 연마재(13084, 28792, 81235, 83058)",
+      "supplier": "한국쓰리엠",
+      "oldId": "msds-140",
+      "newId": "msds-140",
+      "oldFile": "pdf/3M/Finesse-it_13084.pdf",
+      "newFile": "pdf/3M/Finesse-it_13084.pdf",
+      "oldMsdsNo": "AA00437-0000030001",
+      "newMsdsNo": "AA00437-0000030001",
+      "oldRevision": "2021-07-15",
+      "newRevision": "2023-02-15",
+      "source": "원본 PDF 대조",
+      "sha256": "01bbccc7c4364b702d094f910ca3b5f592d8476043742509fa4ad5663670e1c7",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날); 원문 최초 작성일 2015-10-28 (사이트 2021-07-15)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "3M™ 피네스잇™ 폴리시 - 최종 마감재(28796, 84224, 82877, 82878, 88753)",
+      "supplier": "한국쓰리엠",
+      "oldId": "msds-141",
+      "newId": "msds-141",
+      "oldFile": "pdf/3M/Finesse-it_82878.pdf",
+      "newFile": "pdf/3M/Finesse-it_82878.pdf",
+      "oldMsdsNo": "AA00437-0000030000",
+      "newMsdsNo": "AA00437-0000030000",
+      "oldRevision": "2019-12-12",
+      "newRevision": "2021-07-15",
+      "source": "원본 PDF 대조",
+      "sha256": "112b8f05f42b859d5f15749c362437c33f24236e06d2c5d108871b68e64ed29e",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날); 원문 최초 작성일 2015-10-28 (사이트 2019-12-12)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "퍼크린 오븐제로엠",
+      "supplier": "휴먼텍",
+      "oldId": "msds-164",
+      "newId": "msds-164",
+      "oldFile": "pdf/식당/7_퍼크린 오븐제로엠 GHS MSDS.pdf",
+      "newFile": "pdf/식당/7_퍼크린 오븐제로엠 GHS MSDS.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "",
+      "newRevision": "2021-03-10",
+      "source": "원본 PDF 대조",
+      "sha256": "1d7c20d1a52d823a9db5d744c3aee97d9f979be908b8a5baf791f6f36864cb51",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "퍼크린 린스",
+      "supplier": "휴먼텍",
+      "oldId": "msds-172",
+      "newId": "msds-172",
+      "oldFile": "pdf/식당/4_퍼크린 린스 GHS MSDS.pdf",
+      "newFile": "pdf/식당/4_퍼크린 린스 GHS MSDS.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "",
+      "newRevision": "2021-04-09",
+      "source": "원본 PDF 대조",
+      "sha256": "4cb9b59677ed6ee71ada83d12480efbbc0c3b03230b650a51b0ecbbd54021214",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "나바켐 황색",
+      "supplier": "락카스프레이",
+      "oldId": "msds-pdf-007b2f977ffa1b20",
+      "newId": "msds-pdf-007b2f977ffa1b20",
+      "oldFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐 - 황색 MSDS.pdf",
+      "newFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐 - 황색 MSDS.pdf",
+      "oldMsdsNo": "AA03636-0000000217",
+      "newMsdsNo": "AA03636-0000000217",
+      "oldRevision": "2011-08-01",
+      "newRevision": "2024-01-02",
+      "source": "원본 PDF 대조",
+      "sha256": "007b2f977ffa1b208deaa1475e4bc140508b9b27458c55bbbd5b5e8c8fce578b",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "UT5800-A-SILVER(XAA)(개선)",
+      "supplier": "케이씨씨 울산공장",
+      "oldId": "msds-pdf-6cbf2ae6e822558d",
+      "newId": "msds-pdf-6cbf2ae6e822558d",
+      "oldFile": "pdf/GGM 상주원/[KCC] SILVER(XAA).pdf",
+      "newFile": "pdf/GGM 상주원/[KCC] SILVER(XAA).pdf",
+      "oldMsdsNo": "AA00017-0000001265",
+      "newMsdsNo": "AA00017-0000001265",
+      "oldRevision": "2020-06-24",
+      "newRevision": "2025-02-04",
+      "source": "원본 PDF 대조",
+      "sha256": "6cbf2ae6e822558d734bd7686254e39550daa8ff4c4790eb0411dffb06df702c",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "LPG(C3)",
+      "supplier": "액화석유가스(LPG)",
+      "oldId": "msds-pdf-f6a7a80e940a8ea3",
+      "newId": "msds-pdf-f6a7a80e940a8ea3",
+      "oldFile": "pdf/액화석유가스(LPG)/LPG(C3).pdf",
+      "newFile": "pdf/액화석유가스(LPG)/LPG(C3).pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2009-06-05",
+      "newRevision": "2022-04-01",
+      "source": "원본 PDF 대조",
+      "sha256": "f6a7a80e940a8ea3e803d1eba99343ed5de9178207f84f13e99fba055f25f15f",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "LPG(C4)",
+      "supplier": "액화석유가스(LPG)",
+      "oldId": "msds-pdf-d8b98810abb35e60",
+      "newId": "msds-pdf-d8b98810abb35e60",
+      "oldFile": "pdf/액화석유가스(LPG)/LPG(C4).pdf",
+      "newFile": "pdf/액화석유가스(LPG)/LPG(C4).pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2009-03-10",
+      "newRevision": "2022-04-01",
+      "source": "원본 PDF 대조",
+      "sha256": "d8b98810abb35e60f13be284cf0e9360b6a5b6af0120dae8c428b9d54795e0ec",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "SMOKING 911(스모킹911)",
+      "supplier": "남방CNA",
+      "oldId": "msds-pdf-b43e1258cdd26a33",
+      "newId": "msds-pdf-b43e1258cdd26a33",
+      "oldFile": "pdf/연기 감지기 MSDS.pdf",
+      "newFile": "pdf/연기 감지기 MSDS.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2017-08-09",
+      "newRevision": "2020-06-12",
+      "source": "원본 PDF 대조",
+      "sha256": "b43e1258cdd26a3321a76f43039642875e51a0c689ac09afd83dac46b89f60c4",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "락카 스프레이(각색)",
+      "supplier": "오공본드(OKONG)",
+      "oldId": "msds-pdf-00bd0830f6de7555",
+      "newId": "msds-pdf-00bd0830f6de7555",
+      "oldFile": "pdf/오공본드(OKONG)/락카 스프레이(각색).pdf",
+      "newFile": "pdf/오공본드(OKONG)/락카 스프레이(각색).pdf",
+      "oldMsdsNo": "AA01995-0000000050",
+      "newMsdsNo": "AA01995-0000000050",
+      "oldRevision": "",
+      "newRevision": "2024-04-01",
+      "source": "원본 PDF 대조",
+      "sha256": "00bd0830f6de755535f8eb7bb2086f28749684c3e3436984cc9465b79f07be1a",
+      "note": "원문 최종 개정일(개정 이력이 여럿이면 가장 늦은 날)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "DR-174 SWP M/BASE (SP2,SK3-CAR)",
+      "supplier": "노루오토코팅",
+      "oldId": "msds-014",
+      "newId": "msds-014",
+      "oldFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ004751 (KR).pdf",
+      "newFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ004751 (KR).pdf",
+      "oldMsdsNo": "AA00875-4156004751",
+      "newMsdsNo": "AA00875-4156004751",
+      "oldRevision": "2023-05-10",
+      "newRevision": "2023-05-10",
+      "source": "원본 PDF 대조",
+      "sha256": "82e2e66d668cbefa54b973648813e5dab79d2e263adf375eb78d10498931f0f3",
+      "note": "원문 최초 작성일 2019-09-24 (사이트 2023-05-10)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "DR-264 SAW (NE-CAR)",
+      "supplier": "노루오토코팅",
+      "oldId": "msds-015",
+      "newId": "msds-015",
+      "oldFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ005231 (KR).pdf",
+      "newFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ005231 (KR).pdf",
+      "oldMsdsNo": "AA00875-4156005231",
+      "newMsdsNo": "AA00875-4156005231",
+      "oldRevision": "2023-06-07",
+      "newRevision": "2023-06-07",
+      "source": "원본 PDF 대조",
+      "sha256": "190209dce1d25ccfc282cfad01dbabdacc7f2da571df5f9655fdbbc575d3146b",
+      "note": "원문 최초 작성일 2020-10-29 (사이트 2023-06-07)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "DR-174 FSB (NQ5-CAR, 범퍼용)",
+      "supplier": "노루오토코팅",
+      "oldId": "msds-016",
+      "newId": "msds-016",
+      "oldFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ005521 (KR).pdf",
+      "newFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ005521 (KR).pdf",
+      "oldMsdsNo": "AA00073-0000000124",
+      "newMsdsNo": "AA00073-0000000124",
+      "oldRevision": "2023-05-04",
+      "newRevision": "2023-05-04",
+      "source": "원본 PDF 대조",
+      "sha256": "6a8b02bb495d0af0805906f2ebf592d4d58b7f37ebbb4a5d93cbedb1a952996a",
+      "note": "원문 최초 작성일 2021-03-26 (사이트 2023-05-04)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "DR-174 FSB (SK3-PE, 범퍼용)",
+      "supplier": "노루오토코팅",
+      "oldId": "msds-017",
+      "newId": "msds-017",
+      "oldFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ005731 (KR).pdf",
+      "newFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ005731 (KR).pdf",
+      "oldMsdsNo": "AA00073-0000000748",
+      "newMsdsNo": "AA00073-0000000748",
+      "oldRevision": "2023-06-02",
+      "newRevision": "2023-06-02",
+      "source": "원본 PDF 대조",
+      "sha256": "cc93e0629f7f16af2ac47ed943d1a0d7aa36f1df9a28a6da906f66ea711b8527",
+      "note": "원문 최초 작성일 2022-02-16 (사이트 2023-06-02)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "DR-174 C7A(NQ5 PE-CAR)",
+      "supplier": "노루오토코팅",
+      "oldId": "msds-018",
+      "newId": "msds-018",
+      "oldFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ007641 (KR).pdf",
+      "newFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ007641 (KR).pdf",
+      "oldMsdsNo": "AA00875-4156007641",
+      "newMsdsNo": "AA00875-4156007641",
+      "oldRevision": "2024-09-25",
+      "newRevision": "2024-09-25",
+      "source": "원본 PDF 대조",
+      "sha256": "137d7241acd0d0a221558fe7d6ef0499b978ec6de3a651b8f6af897d9883cb07",
+      "note": "원문 최초 작성일 2024-07-10 (사이트 2024-09-25)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "DR-174 GBG (SP3-CAR)",
+      "supplier": "노루오토코팅",
+      "oldId": "msds-020",
+      "newId": "msds-020",
+      "oldFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ008761 (KR).pdf",
+      "newFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ008761 (KR).pdf",
+      "oldMsdsNo": "AA00875-4156008761",
+      "newMsdsNo": "AA00875-4156008761",
+      "oldRevision": "2025-12-10",
+      "newRevision": "2025-12-10",
+      "source": "원본 PDF 대조",
+      "sha256": "874bb9bb026d217a3e543ee78f3f58315b12715799e4ab62537bf53a228df78b",
+      "note": "원문 최초 작성일 2025-11-24 (사이트 2025-12-10)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "DR-164 1D (SK3)",
+      "supplier": "노루오토코팅",
+      "oldId": "msds-021",
+      "newId": "msds-021",
+      "oldFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ030001 (KR).pdf",
+      "newFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ030001 (KR).pdf",
+      "oldMsdsNo": "AA00875-4156030001",
+      "newMsdsNo": "AA00875-4156030001",
+      "oldRevision": "2023-05-10",
+      "newRevision": "2023-05-10",
+      "source": "원본 PDF 대조",
+      "sha256": "57c8a99e1defd169ea725788ec04b698d676200be27bacb541c28f499b6b2dba",
+      "note": "원문 최초 작성일 2005-10-11 (사이트 2023-05-10)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "DR-164 UD (QL-CAR)",
+      "supplier": "노루오토코팅",
+      "oldId": "msds-022",
+      "newId": "msds-022",
+      "oldFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ042701 (KR).pdf",
+      "newFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ042701 (KR).pdf",
+      "oldMsdsNo": "AA00875-4156042701",
+      "newMsdsNo": "AA00875-4156042701",
+      "oldRevision": "2023-03-17",
+      "newRevision": "2023-03-17",
+      "source": "원본 PDF 대조",
+      "sha256": "eccbdc388734b0b5ebcd28ae2925bf36e8d33bda025a0e795b0a6053bdaf78dd",
+      "note": "원문 최초 작성일 2010-05-17 (사이트 2023-03-17)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "T-725 희석제",
+      "supplier": "노루오토코팅",
+      "oldId": "msds-029",
+      "newId": "msds-029",
+      "oldFile": "pdf/01_ 도장/NAC(노루오토코팅)/SG3240001 (KR).pdf",
+      "newFile": "pdf/01_ 도장/NAC(노루오토코팅)/SG3240001 (KR).pdf",
+      "oldMsdsNo": "AA00073-0000000133",
+      "newMsdsNo": "AA00073-0000000133",
+      "oldRevision": "2023-10-27",
+      "newRevision": "2023-10-27",
+      "source": "원본 PDF 대조",
+      "sha256": "ba2c25409985aa211f825843237722f0032bb0794d606d3ed615f166a98af85f",
+      "note": "원문 최초 작성일 1997-06-10 (사이트 2023-10-27)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "T-507 희석제",
+      "supplier": "노루오토코팅",
+      "oldId": "msds-030",
+      "newId": "msds-030",
+      "oldFile": "pdf/01_ 도장/NAC(노루오토코팅)/SG9001902 (KR).pdf",
+      "newFile": "pdf/01_ 도장/NAC(노루오토코팅)/SG9001902 (KR).pdf",
+      "oldMsdsNo": "AA00073-0000000148",
+      "newMsdsNo": "AA00073-0000000148",
+      "oldRevision": "2023-04-24",
+      "newRevision": "2023-04-24",
+      "source": "원본 PDF 대조",
+      "sha256": "8a53aadc60c2a97794f5f7205b0a59fe5aa2eec90f6f50f6c825ab10b0818b8e",
+      "note": "원문 최초 작성일 2002-05-16 (사이트 2023-04-24)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "RB-194 L/GRAY 프라이머 (CAMS용 희석분)",
+      "supplier": "노루오토코팅",
+      "oldId": "msds-031",
+      "newId": "msds-031",
+      "oldFile": "pdf/01_ 도장/NAC(노루오토코팅)/PGE007902 (KR).pdf",
+      "newFile": "pdf/01_ 도장/NAC(노루오토코팅)/PGE007902 (KR).pdf",
+      "oldMsdsNo": "AA00875-2144007902",
+      "newMsdsNo": "AA00875-2144007902",
+      "oldRevision": "2023-06-07",
+      "newRevision": "2023-06-07",
+      "source": "원본 PDF 대조",
+      "sha256": "39db1e86dc6a7e1b7b3aa5697d4831e33176d61154cc5c5782b7ad59693c2f14",
+      "note": "원문 최초 작성일 2006-06-28 (사이트 2023-06-07)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "TC-317 세정제(CAMS용)",
+      "supplier": "노루오토코팅",
+      "oldId": "msds-033",
+      "newId": "msds-033",
+      "oldFile": "pdf/01_ 도장/NAC(노루오토코팅)/SG9007201 (KR).pdf",
+      "newFile": "pdf/01_ 도장/NAC(노루오토코팅)/SG9007201 (KR).pdf",
+      "oldMsdsNo": "AA00073-0000000366",
+      "newMsdsNo": "AA00073-0000000366",
+      "oldRevision": "2023-06-02",
+      "newRevision": "2023-06-02",
+      "source": "원본 PDF 대조",
+      "sha256": "ed3930cff9d8d66341a321fcc520b9df6d2b4f0258bd35c76c4dbbdcd01f6452",
+      "note": "원문 최초 작성일 2006-03-31 (사이트 2023-06-02)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "DR-174 BJG(SP3-CAR)",
+      "supplier": "노루오토코팅",
+      "oldId": "msds-039",
+      "newId": "msds-039",
+      "oldFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUG124221 (KR).pdf",
+      "newFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUG124221 (KR).pdf",
+      "oldMsdsNo": "AA00875-4155124221",
+      "newMsdsNo": "AA00875-4155124221",
+      "oldRevision": "2025-12-10",
+      "newRevision": "2025-12-10",
+      "source": "원본 PDF 대조",
+      "sha256": "0f4e36ac3ca32fdb3de1252bcc8d7a25e3bd86dceee076729b6ed2b02d3f94b1",
+      "note": "원문 최초 작성일 2025-11-26 (사이트 2025-12-10)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "DR-174 SWP M/BASE(QL-CAR)",
+      "supplier": "노루오토코팅",
+      "oldId": "msds-040",
+      "newId": "msds-040",
+      "oldFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ001951 (KR).pdf",
+      "newFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ001951 (KR).pdf",
+      "oldMsdsNo": "AA00875-4156001951",
+      "newMsdsNo": "AA00875-4156001951",
+      "oldRevision": "2023-05-10",
+      "newRevision": "2023-05-10",
+      "source": "원본 PDF 대조",
+      "sha256": "6690bc8c096e9223ef96c44ab7d41a57a3496ae6e0f3d6dabc806df488b891ba",
+      "note": "원문 최초 작성일 2015-07-23 (사이트 2023-05-10)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "DR-165 SWP C/BASE(QL-CAR 개량)",
+      "supplier": "노루오토코팅",
+      "oldId": "msds-041",
+      "newId": "msds-041",
+      "oldFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ003511 (KR).pdf",
+      "newFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ003511 (KR).pdf",
+      "oldMsdsNo": "AA00875-4156003511",
+      "newMsdsNo": "AA00875-4156003511",
+      "oldRevision": "2023-05-10",
+      "newRevision": "2023-05-10",
+      "source": "원본 PDF 대조",
+      "sha256": "2c14fbcab83bcf9c4691085780a6bd4feec65926ec9eff7ea02f4a2fb3d1cab5",
+      "note": "원문 최초 작성일 2017-12-05 (사이트 2023-05-10)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "DR-174 M3R (SK3-CAR)",
+      "supplier": "노루오토코팅",
+      "oldId": "msds-042",
+      "newId": "msds-042",
+      "oldFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ003631 (KR).pdf",
+      "newFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ003631 (KR).pdf",
+      "oldMsdsNo": "AA00875-4156003631",
+      "newMsdsNo": "AA00875-4156003631",
+      "oldRevision": "2024-08-05",
+      "newRevision": "2024-08-05",
+      "source": "원본 PDF 대조",
+      "sha256": "713cf97d109afeea7c7bca8a721f7a0109b78e6fcfed2b7e562c469143b50342",
+      "note": "원문 최초 작성일 2018-01-26 (사이트 2024-08-05)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "DR-165 SWP C/BASE (SK3)",
+      "supplier": "노루오토코팅",
+      "oldId": "msds-043",
+      "newId": "msds-043",
+      "oldFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ003891 (KR).pdf",
+      "newFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ003891 (KR).pdf",
+      "oldMsdsNo": "AA00875-4156003891",
+      "newMsdsNo": "AA00875-4156003891",
+      "oldRevision": "2023-05-10",
+      "newRevision": "2023-05-10",
+      "source": "원본 PDF 대조",
+      "sha256": "7b295ef4391681a251ec88d806d70cb194515001ef9c25dec72d138c8964988c",
+      "note": "원문 최초 작성일 2018-09-17 (사이트 2023-05-10)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "DR-174 KLG(SP2-CAR)",
+      "supplier": "노루오토코팅",
+      "oldId": "msds-044",
+      "newId": "msds-044",
+      "oldFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ004361 (KR).pdf",
+      "newFile": "pdf/01_ 도장/NAC(노루오토코팅)/PUJ004361 (KR).pdf",
+      "oldMsdsNo": "AA00875-4156004361",
+      "newMsdsNo": "AA00875-4156004361",
+      "oldRevision": "2023-05-11",
+      "newRevision": "2023-05-11",
+      "source": "원본 PDF 대조",
+      "sha256": "627947a4756789e8997cbeb90ed2ddd1c1bd2e3a8cfc3b5d1291497f1808f853",
+      "note": "원문 최초 작성일 2019-03-22 (사이트 2023-05-11)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "그라코 TSL",
+      "supplier": "Produc",
+      "oldId": "msds-078",
+      "newId": "msds-078",
+      "oldFile": "pdf/00_ 사출/그레이코(GRACO)/TSL.pdf",
+      "newFile": "pdf/00_ 사출/그레이코(GRACO)/TSL.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2023-01-01",
+      "newRevision": "2023-01-01",
+      "source": "원본 PDF 대조",
+      "sha256": "0721c4c3eb9b43c8498487f813550eb4a9e39ab2eed3abb6140ff33c54f487f8",
+      "note": "원문 최초 작성일 2013-08-19 (사이트 없음)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "KC-28",
+      "supplier": "고려용접봉 창원공장",
+      "oldId": "msds-089",
+      "newId": "msds-089",
+      "oldFile": "pdf/00_ 사출/고려용접봉/KC-28 2023.01.11.pdf",
+      "newFile": "pdf/00_ 사출/고려용접봉/KC-28 2023.01.11.pdf",
+      "oldMsdsNo": "AA06900-0000000004",
+      "newMsdsNo": "AA06900-0000000004",
+      "oldRevision": "2023-01-11",
+      "newRevision": "2023-01-11",
+      "source": "원본 PDF 대조",
+      "sha256": "eb51a3c6222b3ac8e3868dc284e9a90465a79c0b15e1a442100d0cf3ca5a19c8",
+      "note": "원문 최초 작성일 1996-06-28 (사이트 2023-01-11)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "KR-3000",
+      "supplier": "고려용접봉 창원공장",
+      "oldId": "msds-092",
+      "newId": "msds-092",
+      "oldFile": "pdf/00_ 사출/고려용접봉/KR-3000. 2021.10.14.pdf",
+      "newFile": "pdf/00_ 사출/고려용접봉/KR-3000. 2021.10.14.pdf",
+      "oldMsdsNo": "AA06900-0000000014",
+      "newMsdsNo": "AA06900-0000000014",
+      "oldRevision": "2021-10-14",
+      "newRevision": "2021-10-14",
+      "source": "원본 PDF 대조",
+      "sha256": "1239e3da9f27f58c328c084c25fb212d2a355b4de8f738aac24b096ee1c692c0",
+      "note": "원문 최초 작성일 2020-11-03 (사이트 2021-10-14)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "KST-308",
+      "supplier": "고려용접봉 창원공장",
+      "oldId": "msds-094",
+      "newId": "msds-094",
+      "oldFile": "pdf/00_ 사출/고려용접봉/KST-308. 2021.12.29.pdf",
+      "newFile": "pdf/00_ 사출/고려용접봉/KST-308. 2021.12.29.pdf",
+      "oldMsdsNo": "AA06900-0000000020",
+      "newMsdsNo": "AA06900-0000000020",
+      "oldRevision": "2021-12-29",
+      "newRevision": "2021-12-29",
+      "source": "원본 PDF 대조",
+      "sha256": "25a014652cf269e546b8cf81f8b002dbf46225fbb045a0a128cf29d65e2c4005",
+      "note": "원문 최초 작성일 2020-11-03 (사이트 2021-12-29)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "T-50",
+      "supplier": "고려용접봉 창원공장",
+      "oldId": "msds-096",
+      "newId": "msds-096",
+      "oldFile": "pdf/00_ 사출/고려용접봉/T-50.pdf",
+      "newFile": "pdf/00_ 사출/고려용접봉/T-50.pdf",
+      "oldMsdsNo": "AA06900-0000000018",
+      "newMsdsNo": "AA06900-0000000018",
+      "oldRevision": "2021-11-08",
+      "newRevision": "2021-11-08",
+      "source": "원본 PDF 대조",
+      "sha256": "55f2e793a85b64912dd3ef7ffaa569342bc36351b55748a5a58d76f260bc4d54",
+      "note": "원문 최초 작성일 1996-06-28 (사이트 2021-11-08)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "T-308",
+      "supplier": "고려용접봉 창원공장",
+      "oldId": "msds-097",
+      "newId": "msds-097",
+      "oldFile": "pdf/00_ 사출/고려용접봉/T-3083.2021.12.16.pdf",
+      "newFile": "pdf/00_ 사출/고려용접봉/T-3083.2021.12.16.pdf",
+      "oldMsdsNo": "AA06900-0000000040",
+      "newMsdsNo": "AA06900-0000000040",
+      "oldRevision": "2021-12-16",
+      "newRevision": "2021-12-16",
+      "source": "원본 PDF 대조",
+      "sha256": "8c28f368d5a9a2f3b584db428cf3a8a6cb74a094c6ea9fa9b7834b64ddf66ef2",
+      "note": "원문 최초 작성일 2020-11-03 (사이트 2021-12-16)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "무연 휘발유(UG)",
+      "supplier": "에이치디현대오일뱅크",
+      "oldId": "msds-122",
+      "newId": "msds-122",
+      "oldFile": "pdf/현대오일뱅크(주)/가솔린.pdf",
+      "newFile": "pdf/현대오일뱅크(주)/가솔린.pdf",
+      "oldMsdsNo": "AA01473-0000000028",
+      "newMsdsNo": "AA01473-0000000028",
+      "oldRevision": "2024-01-29",
+      "newRevision": "2024-01-29",
+      "source": "원본 PDF 대조",
+      "sha256": "b49eea0f60b2551700ffc7df8b01f97e8cc59f1b6ce5aaff0e4e91446ffe1e85",
+      "note": "원문 최초 작성일 2016-04-12 (사이트 2024-01-29)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "경유 (Diesel)",
+      "supplier": "에이치디현대오일뱅크",
+      "oldId": "msds-123",
+      "newId": "msds-123",
+      "oldFile": "pdf/현대오일뱅크(주)/디젤.pdf",
+      "newFile": "pdf/현대오일뱅크(주)/디젤.pdf",
+      "oldMsdsNo": "AA01473-0000000016",
+      "newMsdsNo": "AA01473-0000000016",
+      "oldRevision": "2024-01-29",
+      "newRevision": "2024-01-29",
+      "source": "원본 PDF 대조",
+      "sha256": "b9542f89c2df16a18d2593017f88207105141240fee67c8bf5738a8a61451f01",
+      "note": "원문 최초 작성일 2018-02-05 (사이트 2024-01-29)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "KF-3 (응집부상제)",
+      "supplier": "삼풍트라이텍",
+      "oldId": "msds-159",
+      "newId": "msds-159",
+      "oldFile": "pdf/삼풍트라이텍/[삼풍트라이텍]KF-3_GHS_MSDS_2011.11.24 6회.pdf",
+      "newFile": "pdf/삼풍트라이텍/[삼풍트라이텍]KF-3_GHS_MSDS_2011.11.24 6회.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2021-11-24",
+      "newRevision": "2021-11-24",
+      "source": "원본 PDF 대조",
+      "sha256": "87166e8702cc5fc5195151634ebedfee46d8326405c4c0b31441b95a7c960441",
+      "note": "원문 최초 작성일 2002-11-15 (사이트 2021-11-24)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "PK-3830(페인트 점성제거제) AA05008-0000000006",
+      "supplier": "범위83-937-17",
+      "oldId": "msds-160",
+      "newId": "msds-160",
+      "oldFile": "pdf/삼풍트라이텍/[삼풍트라이텍]PK-3830_GHS_MSDS.pdf",
+      "newFile": "pdf/삼풍트라이텍/[삼풍트라이텍]PK-3830_GHS_MSDS.pdf",
+      "oldMsdsNo": "AA05008-0000000006",
+      "newMsdsNo": "AA05008-0000000006",
+      "oldRevision": "2023-07-05",
+      "newRevision": "2023-07-05",
+      "source": "원본 PDF 대조",
+      "sha256": "d8b0ca7233f84725a4f018e5dbe4bfdbf4ca47d1904642210f630ad2b1f5e59b",
+      "note": "원문 최초 작성일 2002-11-15 (사이트 2023-07-05)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "그린플러스",
+      "supplier": "㈜휴먼텍",
+      "oldId": "msds-166",
+      "newId": "msds-166",
+      "oldFile": "pdf/식당/0_그린플러스 GHS MSDS.pdf",
+      "newFile": "pdf/식당/0_그린플러스 GHS MSDS.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2021-02-17",
+      "newRevision": "2021-02-17",
+      "source": "원본 PDF 대조",
+      "sha256": "72ca8b8801742e8d63459a21c835bac3c16946062b15c3783153119dbeae42c2",
+      "note": "원문 최초 작성일 2000-12-16 (사이트 2021-02-17)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "퍼크린 202",
+      "supplier": "㈜휴먼텍",
+      "oldId": "msds-170",
+      "newId": "msds-170",
+      "oldFile": "pdf/식당/2_퍼크린 202 GHS MSDS.pdf",
+      "newFile": "pdf/식당/2_퍼크린 202 GHS MSDS.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2021-03-10",
+      "newRevision": "2021-03-10",
+      "source": "원본 PDF 대조",
+      "sha256": "d0eb94bd6fe3e461bbee899840b8116ff9a44731e5df1a5ff8ca7a49eda7b7b9",
+      "note": "원문 최초 작성일 2013-12-12 (사이트 2021-03-10)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "CASMOLY EP-OHQ(2)",
+      "supplier": "장암칼스 충남 아산시 인주면 인주산단로 123-63",
+      "oldId": "msds-pdf-c04f0260b76f1ff7",
+      "newId": "msds-pdf-c04f0260b76f1ff7",
+      "oldFile": "pdf/장암칼스(CALS)/EP-OHQ(2) GHS MSDS (rev.1).pdf",
+      "newFile": "pdf/장암칼스(CALS)/EP-OHQ(2) GHS MSDS (rev.1).pdf",
+      "oldMsdsNo": "AA00181-0000000144",
+      "newMsdsNo": "AA00181-0000000144",
+      "oldRevision": "2023-03-20",
+      "newRevision": "2023-03-20",
+      "source": "원본 PDF 대조",
+      "sha256": "c04f0260b76f1ff7956c447839280e36863bc862c2a0a6a4768030d3bf66fc3a",
+      "note": "원문 최초 작성일 2021-01-14 (사이트 2023-03-20)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "날짜 바로잡음",
+      "productName": "S-308.16N",
+      "supplier": "현대종합금속",
+      "oldId": "msds-pdf-f1d24c79470dc24f",
+      "newId": "msds-pdf-f1d24c79470dc24f",
+      "oldFile": "pdf/현대종합금속/S-308.16N - 21.08.10.pdf",
+      "newFile": "pdf/현대종합금속/S-308.16N - 21.08.10.pdf",
+      "oldMsdsNo": "AA01352-0000000224",
+      "newMsdsNo": "AA01352-0000000224",
+      "oldRevision": "2021-08-10",
+      "newRevision": "2021-08-10",
+      "source": "원본 PDF 대조",
+      "sha256": "f1d24c79470dc24f9f11027cc7809547feb3c5d2ac8c111dc3a0f5e197581af7",
+      "note": "원문 최초 작성일 1997-02-14 (사이트 2021-08-10)"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "유해·위험문구 보완",
+      "productName": "락카 스프레이(각색)",
+      "supplier": "오공본드(OKONG)",
+      "oldId": "msds-pdf-00bd0830f6de7555",
+      "newId": "msds-pdf-00bd0830f6de7555",
+      "oldFile": "pdf/오공본드(OKONG)/락카 스프레이(각색).pdf",
+      "newFile": "pdf/오공본드(OKONG)/락카 스프레이(각색).pdf",
+      "oldMsdsNo": "AA01995-0000000050",
+      "newMsdsNo": "AA01995-0000000050",
+      "oldRevision": "",
+      "newRevision": "",
+      "source": "원본 PDF 대조",
+      "note": "사이트에 1개만 있던 유해·위험문구를 원문 제2항대로 9개로 채움 (H225, H280, H304, H315, H319, H336, H361, H373 빠져 있었음). 그림문자·신호어는 원문과 같아 그대로 둠",
+      "labelReprint": true,
+      "labelReprintReason": "빠져 있던 유해·위험문구 H225, H280, H304, H315, H319, H336, H361, H373 를 채움"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "유해·위험문구 보완",
+      "productName": "S-308.16N",
+      "supplier": "현대종합금속",
+      "oldId": "msds-pdf-f1d24c79470dc24f",
+      "newId": "msds-pdf-f1d24c79470dc24f",
+      "oldFile": "pdf/현대종합금속/S-308.16N - 21.08.10.pdf",
+      "newFile": "pdf/현대종합금속/S-308.16N - 21.08.10.pdf",
+      "oldMsdsNo": "AA01352-0000000224",
+      "newMsdsNo": "AA01352-0000000224",
+      "oldRevision": "2021-08-10",
+      "newRevision": "2021-08-10",
+      "source": "원본 PDF 대조",
+      "note": "사이트에 1개만 있던 유해·위험문구를 원문 제2항대로 5개로 채움 (H334, H351, H371, H373 빠져 있었음). 그림문자·신호어는 원문과 같아 그대로 둠",
+      "labelReprint": true,
+      "labelReprintReason": "빠져 있던 유해·위험문구 H334, H351, H371, H373 를 채움"
     }
   ]
 }

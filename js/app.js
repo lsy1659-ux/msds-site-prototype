@@ -30,7 +30,6 @@ const FALLBACK_PRODUCTS = [
   {
     id: "sample-msds-001",
     siteLabel: "사출구역 부착(NO.1)",
-    hazardBadge: "위험",
     productName: "2차이형제 (S6)",
     erpName: "샘플 ERP 품명 - 2차 이형제 S6",
     msdsNo: "SAMPLE-MSDS-0001",
@@ -85,7 +84,6 @@ const FALLBACK_PRODUCTS = [
   {
     id: "sample-msds-002",
     siteLabel: "도장부스 부착(NO.2)",
-    hazardBadge: "위험",
     productName: "신너 샘플 A",
     erpName: "샘플 ERP 품명 - 일반 신너",
     msdsNo: "SAMPLE-MSDS-0002",
@@ -127,7 +125,6 @@ const FALLBACK_PRODUCTS = [
   {
     id: "sample-msds-003",
     siteLabel: "세척구역 부착(NO.3)",
-    hazardBadge: "경고",
     productName: "세척제 샘플 C",
     erpName: "샘플 ERP 품명 - 금형 세척제",
     msdsNo: "SAMPLE-MSDS-0003",
@@ -170,7 +167,6 @@ const FALLBACK_PRODUCTS = [
   {
     id: "sample-msds-004",
     siteLabel: "도료보관구역 부착(NO.4)",
-    hazardBadge: "위험",
     productName: "도료 샘플 B",
     erpName: "샘플 ERP 품명 - 유성 도료",
     msdsNo: "SAMPLE-MSDS-0004",
@@ -213,7 +209,6 @@ const FALLBACK_PRODUCTS = [
   {
     id: "sample-msds-005",
     siteLabel: "에어로졸 보관구역 부착(NO.5)",
-    hazardBadge: "경고",
     productName: "고압가스 샘플 D",
     erpName: "샘플 ERP 품명 - 에어로졸 보조제",
     msdsNo: "SAMPLE-MSDS-0005",
@@ -1058,7 +1053,6 @@ function normalizeProduct(product) {
     ppeSummary: product.ppeSummary || "",
     issueDate: product.issueDate || product.preparationDate || "",
     revisionDate: product.revisionDate || "",
-    hazardBadge: product.hazardBadge || "확인",
     labelGhsCodes: normalizeGhsCodeList(product.labelGhsCodes || product.labelGhsPictograms || []),
     labelGhsPictograms: Array.isArray(product.labelGhsPictograms) ? product.labelGhsPictograms : [],
     classificationGhsCodes: normalizeGhsCodeList(product.classificationGhsCodes || product.classificationGhsPictograms || []),
@@ -1243,7 +1237,6 @@ function createPdfOnlyProduct(item, index, override = null) {
     dangerousGoods: "",
     ppeSummary: "",
     revisionDate,
-    hazardBadge: "PDF",
     dataSource: "msds_pdf",
     ingredients: override?.ingredients || [],
     components: override?.ingredients || [],
@@ -1721,7 +1714,6 @@ function buildSearchSource(product) {
 
   return [
     product.siteLabel,
-    product.hazardBadge,
     product.productName,
     product.erpName,
     product.msdsNo,
@@ -2580,7 +2572,7 @@ function renderPoster(product) {
         <h2 title="${escapeAttribute(product.productName)}">${escapeHtml(product.productName)}</h2>
         ${product.fileName ? `<p title="${escapeAttribute(product.fileName)}">${escapeHtml(product.fileName)}</p>` : ""}
       </div>
-      <span class="hazard-badge">${escapeHtml(posterData.hazardBadge)}</span>
+      <span class="hazard-badge">${escapeHtml(posterData.signalBadge)}</span>
       ${renderFavoriteToggle(product)}
     </div>
     <div class="poster-ghs-row">
@@ -2616,7 +2608,7 @@ function getPosterData(product) {
       showReviewStrip: true,
       reviewBadge: "PDF 원문 확인",
       reviewMessage: "자동 추출 요약이 없어 MSDS PDF 원문을 직접 확인해야 합니다.",
-      hazardBadge: "원본 확인",
+      signalBadge: "원본 확인",
       ghsPictograms: [],
       hazardStatements: [],
       precautionaryStatements: {},
@@ -2642,7 +2634,7 @@ function getPosterData(product) {
       showReviewStrip: showReviewStatus,
       reviewBadge: "자동 추출 요약",
       reviewMessage: "참고용 요약정보이며 작업 전 MSDS PDF 원문을 우선 확인하세요.",
-      hazardBadge: resolveSignalWord(product) || "원본 확인",
+      signalBadge: resolveSignalWord(product) || "원본 확인",
       ghsPictograms,
       hazardStatements: override.hazardStatements || [],
       precautionaryStatements: override.precautionaryStatements || {},
@@ -2668,7 +2660,7 @@ function getPosterData(product) {
     showReviewStrip: !hasProductSummary && showUnregisteredStatus,
     reviewBadge: hasProductSummary ? "" : "MSDS 원본 기준",
     reviewMessage: hasProductSummary ? "" : "정식 MSDS PDF를 확인하세요.",
-    hazardBadge: resolveSignalWord(product) || "원본 확인",
+    signalBadge: resolveSignalWord(product) || "원본 확인",
     ghsCodes: normalizeGhsCodeList(product.ghsCodes || product.ghsPictograms || []),
     ghsPictograms: normalizeGhsList(product),
     hazardStatements: product.hazardStatements || [],

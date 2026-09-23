@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
     <title>MSDS 번호 관리대장</title>
-    <link rel="stylesheet" href="css/substance.css?v=20260923-3">
-    <link rel="stylesheet" href="css/register.css?v=20260923-3">
-    <link rel="stylesheet" href="css/topbar.css?v=20260923-3">
+    <link rel="stylesheet" href="css/substance.css?v=20260923-4">
+    <link rel="stylesheet" href="css/register.css?v=20260923-4">
+    <link rel="stylesheet" href="css/topbar.css?v=20260923-4">
     <script>
       // 조회 화면에서 고른 화면 설정을 이 페이지에도 적용한다.
       try {
@@ -124,6 +124,13 @@
       </section>
 
       <section class="register-block">
+        <h2>표지를 다시 뽑을 제품</h2>
+        <p class="register-sub">새 판으로 바뀌어 신호어·그림문자·유해위험문구·예방조치문구가 달라졌거나, 빠진 문구를 채운 제품입니다.
+          현장에 붙은 표지는 옛 내용이니 새로 뽑아 바꾸세요. 경고표지 화면에도 같은 알림이 뜹니다(반년 동안).</p>
+        <div id="registerReprint" class="register-todo"></div>
+      </section>
+
+      <section class="register-block">
         <div class="register-block-head">
           <h2>교체·확인 이력</h2>
           <button type="button" id="registerHistoryExport" class="substance-button">이력 CSV</button>
@@ -171,11 +178,11 @@
       </section>
     </main>
 
-    <script src="vendor/qrcode.min.js?v=20260923-3"></script>
-    <script src="js/page-transition.js?v=20260923-3" defer></script>
-    <script src="js/site-qr.js?v=20260923-3" defer></script>
-    <script src="js/admin-gate.js?v=20260923-3" defer></script>
-    <script src="js/csv-export.js?v=20260923-3" defer></script>
-    <script src="js/register.js?v=20260923-3" defer></script>
+    <script src="vendor/qrcode.min.js?v=20260923-4"></script>
+    <script src="js/page-transition.js?v=20260923-4" defer></script>
+    <script src="js/site-qr.js?v=20260923-4" defer></script>
+    <script src="js/admin-gate.js?v=20260923-4" defer></script>
+    <script src="js/csv-export.js?v=20260923-4" defer></script>
+    <script src="js/register.js?v=20260923-4" defer></script>
   </body>
 </html>

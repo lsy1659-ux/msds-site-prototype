@@ -1,0 +1,162 @@
+"""공개 데이터의 문구 꼴, 원본 PDF 대조 보완, 날짜, 재인쇄 표시를 지킨다."""
+
+import hashlib
+import json
+import re
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+
+import msds_pdf_text as T  # noqa: E402
+import normalize_public_content as N  # noqa: E402
+import sync_pdf_library  # noqa: E402
+
+CODE = re.compile(r"[HP]\d{3}")
+LABEL_HEAD = re.compile(r"^\s*(?:[-•·▪]|예방|대응|저장|폐기|유해\s*[·ㆍᆞ·•,]?\s*위험\s*문구)")
+
+
+def load(name):
+    return json.loads((ROOT / "data" / name).read_text(encoding="utf-8"))
+
+
+class PublicContentTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.products = load("msds.public.json")
+        cls.overrides = load("msds-overrides.public.json")
+        cls.register = load("msds-register.json")
+        cls.repairs = load("msds-content-repairs.json")
+        cls.by_id = {p["id"]: p for p in cls.products}
+
+    def test_precautions_sit_in_the_group_their_code_names(self):
+        """P3 은 대응, P4 는 저장, P5 는 폐기. 예방 칸에 대응 문구가 섞이면 관리요령 사고 시 칸이 빈다."""
+        want = {"prevention": "12", "response": "3", "storage": "4", "disposal": "5"}
+        for record in self.products + self.overrides:
+            for group, items in (record.get("precautionaryStatements") or {}).items():
+                for line in items:
+                    code = CODE.match(line)
+                    if code and code.group(0).startswith("P"):
+                        self.assertIn(line[1], want[group], f"{record.get('productName') or record.get('productNameCandidate')}: {group} 칸의 {line[:30]}")
+
+    def test_statements_start_with_their_code_not_a_label(self):
+        for product in self.products:
+            lines = list(product.get("hazardStatements") or [])
+            lines += [x for items in (product.get("precautionaryStatements") or {}).values() for x in items]
+            for line in lines:
+                self.assertIsNone(LABEL_HEAD.match(line), f"{product['productName']}: 앞머리가 남음 {line[:30]}")
+
+    def test_normalizing_again_changes_nothing(self):
+        products, overrides, report = N.normalize_content(self.products, self.overrides)
+        self.assertEqual(products, self.products, "문구 꼴을 다시 고치면 또 바뀐다 — build 가 반영하지 않은 상태")
+        self.assertEqual(overrides, self.overrides)
+
+    def test_hazard_badge_is_not_published_or_read(self):
+        """hazardBadge 는 신호어가 아닌데 신호어로 쓰였다. 데이터와 화면 모두에서 뺐다."""
+        for product in self.products:
+            self.assertNotIn("hazardBadge", product, product["productName"])
+        for name in ("app.js", "label.js", "guide.js"):
+            source = (ROOT / "js" / name).read_text(encoding="utf-8")
+            self.assertNotIn("product.hazardBadge", source, name)
+
+    def test_repairs_from_pdf_are_in_the_data(self):
+        for pid, fix in self.repairs.get("firstAid", {}).items():
+            first_aid = self.by_id[pid].get("firstAid") or {}
+            for key in fix["fill"]:
+                self.assertTrue(first_aid.get(key), f"{self.by_id[pid]['productName']} 응급조치 {key} 가 비었다")
+        for pid, fix in self.repairs.get("hazardStatements", {}).items():
+            codes = N._codes(self.by_id[pid].get("hazardStatements"))
+            self.assertTrue(set(fix["added"]) <= set(codes), self.by_id[pid]["productName"])
+        for fix in self.repairs.get("ingredientNames", []):
+            row = self.by_id[fix["productId"]]["ingredients"][fix["index"]]
+            self.assertEqual(row["chemicalName"], fix["after"], self.by_id[fix["productId"]]["productName"])
+
+    def test_register_dates_are_published_for_the_checked_pdf(self):
+        """관리대장에 적은 날짜는 확인한 그 PDF 일 때 사이트에 나간다."""
+        for pid, entry in self.register["products"].items():
+            product = self.by_id.get(pid)
+            if not product or not entry.get("datesCheckedSha256"):
+                continue
+            digest = hashlib.sha256((ROOT / product["pdfPath"]).read_bytes()).hexdigest()
+            self.assertEqual(digest, entry["datesCheckedSha256"], f"{product['productName']}: 날짜 확인 뒤 PDF 가 바뀜")
+            for field in ("revisionDate", "issueDate"):
+                if entry.get(field):
+                    self.assertEqual(product.get(field), entry[field], f"{product['productName']} {field}")
+
+    def test_reprint_flags_follow_the_history(self):
+        flagged = {h["newId"] for h in self.register.get("history", []) if h.get("labelReprint")}
+        published = {p["id"] for p in self.products if p.get("labelReprint")}
+        self.assertEqual(published, flagged & set(self.by_id))
+        label = (ROOT / "js" / "label.js").read_text(encoding="utf-8")
+        self.assertIn('class="label-reprint no-print"', label, "재인쇄 알림이 표지에 찍히면 안 된다")
+
+
+class PdfTextRuleTests(unittest.TestCase):
+    def test_latest_date_in_a_revision_list_wins(self):
+        text = "나. 최초 작성일자 : 2012. 03. 06\n다. 개정횟수 및 최종 개정일자 :\n  16차/2019.01.16, 17차/2019.02.11, 18차/2022.07.13\n라. 기타"
+        self.assertEqual(T.revision_date(text), "2022-07-13")
+        self.assertEqual(T.issue_date(text), "2012-03-06")
+
+    def test_date_forms(self):
+        self.assertEqual(T.first_date("18 3월 2021"), "2021-03-18")
+        self.assertEqual(T.first_date("07/Mar/2023"), "2023-03-07")
+        self.assertEqual(T.revision_date("2021-12-29 (최종 개정일자) KR - ko 1/28"), "2021-12-29")
+
+    def test_statement_code_before_or_after_text(self):
+        hazards, groups = T.parse_statements([
+            "유해·위험문구 H280  고압가스 ; 가열 시 폭발할 수 있음",
+            "졸음 또는 현기증을 일으킬 수 있음H336",
+            "대응 흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하P304+P340",
+            "시오.",
+            "호흡기 과민성, 구분 1 H334",
+        ], set())
+        self.assertEqual(hazards, ["H280 고압가스 ; 가열 시 폭발할 수 있음", "H336 졸음 또는 현기증을 일으킬 수 있음"])
+        self.assertEqual(groups["response"], ["P304+P340 흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오."])
+
+    def test_first_aid_lines_from_another_route_are_dropped(self):
+        self.assertEqual(T.usable_first_aid("inhalation", [
+            "물질과 접촉시 즉시 20분 이상 흐르는 물에 눈을 씻어내시오.",
+            "신선한 공기가 있는 곳으로 옮기시오.",
+            "글루콘산 나트륨 527-07-1 0.1 ~ 5",
+        ]), ["신선한 공기가 있는 곳으로 옮기시오."])
+
+    def test_section_heading_found_out_of_order(self):
+        lines = ["4. 응급조치요령", "가. 눈에 들어갔을 때 물로 씻으시오", "2. 유해성·위험성", "분류 없음"]
+        self.assertEqual(T.section(lines, 4), lines[:2])
+        self.assertEqual(T.section(["제 4 항  응급 조치 요령", "x"], 4)[0], "제 4 항  응급 조치 요령")
+
+
+class NormalizeRuleTests(unittest.TestCase):
+    def test_labels_bullets_and_sentence_tails(self):
+        record = {"hazardStatements": ["- H226 인화성 액체 및 증기", "호흡기 과민성, 구분 1 H334", "H334 흡입 시 알레르기성 반응"],
+                  "precautionaryStatements": {"prevention": ["예방 P282 : 방한장갑을 착용하시오", "대응 P315 : 즉시 의학적인 조치·조언을",
+                                                             "받으시오. P336 : 미지근한 물로 언 부분을 녹이시오"]}}
+        N.normalize_statements(record)
+        self.assertEqual(record["hazardStatements"], ["H226 인화성 액체 및 증기", "H334 흡입 시 알레르기성 반응"])
+        self.assertEqual(record["precautionaryStatements"]["prevention"], ["P282 방한장갑을 착용하시오"])
+        self.assertEqual(record["precautionaryStatements"]["response"],
+                         ["P315 즉시 의학적인 조치·조언을 받으시오.", "P336 미지근한 물로 언 부분을 녹이시오"])
+
+    def test_ellipsis_after_code_is_kept(self):
+        record = {"precautionaryStatements": {"response": ["P321 ... 처치를 하시오."]}}
+        N.normalize_statements(record)
+        N.normalize_statements(record)
+        self.assertEqual(record["precautionaryStatements"]["response"], ["P321 ... 처치를 하시오."])
+
+
+class SyncArchiveTests(unittest.TestCase):
+    def test_archive_folder_is_not_synced(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "_구버전 보관(이력)" / "3M").mkdir(parents=True)
+            (root / "_구버전 보관(이력)" / "3M" / "old.pdf").write_bytes(b"%PDF-old")
+            (root / "3M").mkdir()
+            (root / "3M" / "new.pdf").write_bytes(b"%PDF-new")
+            self.assertEqual(sorted(sync_pdf_library.scan_pdfs(root)), ["3M/new.pdf"])
+
+
+if __name__ == "__main__":
+    unittest.main()

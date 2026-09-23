@@ -133,6 +133,20 @@
 }
 .register-now { display: block; font-weight: 700; }
 .register-action { white-space: nowrap; font-weight: 700; }
+.register-reprint { margin: 8px 0 0; padding-left: 18px; font-size: 0.86rem; line-height: 1.55; }
+.register-reprint li { margin-bottom: 4px; }
+.register-reprint a { font-weight: 700; color: inherit; }
+.register-reprint-flag {
+  display: inline-block;
+  margin: 4px 0 2px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: color-mix(in srgb, #c2410c 14%, transparent);
+  color: #c2410c;
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+[data-theme="dark"] .register-reprint-flag { color: #fb923c; }
 .register-history .register-number .register-was,
 .register-history .register-number .register-now { font-family: ui-monospace, Consolas, monospace; font-size: 0.76rem; white-space: nowrap; }
 

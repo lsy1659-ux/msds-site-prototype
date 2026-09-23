@@ -149,6 +149,22 @@ function noneNotice(text) {
   return `<span class="label-none">해당없음${text ? ` — ${labelEscape(text)}` : ""}</span>`;
 }
 
+/* 새 판으로 바뀌었거나 빠진 문구를 채워 표지 내용이 달라진 제품. 관리대장 이력이
+ * 정한다(labelReprint). 붙어 있는 표지는 옛 내용이므로 새로 뽑아 바꿔야 한다.
+ * 화면에만 띄우고 표지에는 찍지 않는다. 반년이 지나면 띄우지 않는다. */
+const REPRINT_NOTICE_DAYS = 183;
+
+function reprintNotice(product) {
+  const flag = product.labelReprint;
+  if (!flag || !flag.date) return "";
+  const age = (Date.now() - Date.parse(`${flag.date}T00:00:00`)) / 86400000;
+  if (!(age >= 0 && age <= REPRINT_NOTICE_DAYS)) return "";
+  return `<p class="label-reprint no-print" role="note">
+      <strong>표지 다시 뽑기</strong> ${labelEscape(flag.date)} · ${labelEscape(flag.reason || "표지 내용이 바뀌었습니다")}.
+      붙어 있는 표지를 새로 뽑아 바꾸세요.
+    </p>`;
+}
+
 // 원문이 분류 대상이 아니라고 적은 제품은 "확인 필요"가 아니라 "해당없음"이다.
 // 둘을 섞으면 확인이 끝난 제품까지 다시 뒤지게 된다.
 function isNotClassified(product) {
@@ -358,6 +374,7 @@ function renderLabelSheet() {
 
     return `<article class="label-card${checked ? " is-selected" : ""}" data-label-id="${labelEscape(product.id)}">
         ${head}
+        ${reprintNotice(product)}
         ${face}
       </article>${copies.join("")}`;
   }).join("");
