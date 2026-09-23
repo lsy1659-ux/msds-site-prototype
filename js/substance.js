@@ -30,10 +30,20 @@ const SUBSTANCE_DATA_SOURCES = [
  * 측정해야 한다는 것은 다른 이야기인데, "대상"이라고 적으면 사이트가
  * 법정 의무를 판정해 준 것처럼 읽힌다. */
 const FLAGS = [
-  { key: "workplaceMonitoringTarget", short: "작업환경측정", label: "작업환경측정 유해인자" },
-  { key: "specialHealthCheckTarget", short: "특수건강진단", label: "특수건강진단 유해인자" },
-  { key: "managementTarget", short: "관리대상", label: "관리대상 유해물질" }
+  { key: "workplaceMonitoringTarget", alt: "workEnvironmentMeasurement", short: "작업환경측정", label: "작업환경측정 유해인자" },
+  { key: "specialHealthCheckTarget", alt: "specialHealthExam", short: "특수건강진단", label: "특수건강진단 유해인자" },
+  { key: "managementTarget", alt: "controlledSubstance", short: "관리대상", label: "관리대상 유해물질" }
 ];
+
+/* 같은 칸이 제품에 따라 두 이름으로 들어 있다. 엑셀에서 옮긴 제품은
+ * managementTarget 을, PDF 에서 바로 뽑은 제품은 controlledSubstance 를
+ * 쓴다. 한쪽만 읽었더니 제품 20건의 작업환경측정 표시 74행이 이 화면에서
+ * 빠졌다. 조회 화면(app.js)은 처음부터 둘 다 읽고 있었다. */
+function flagValue(ingredient, flag) {
+  const primary = ingredient[flag.key];
+  if (primary !== undefined && primary !== null && String(primary).trim() !== "") return primary;
+  return ingredient[flag.alt];
+}
 
 const CAS_SHAPE = /^\d{2,7}-\d{2}-\d$/;
 
@@ -132,7 +142,7 @@ function buildSubstances(products) {
       }
       if (name) entry.names.set(name, (entry.names.get(name) || 0) + 1);
       entry.uses.push(use);
-      FLAGS.forEach((flag) => { entry.flags[flag.key][flagState(ingredient[flag.key])] += 1; });
+      FLAGS.forEach((flag) => { entry.flags[flag.key][flagState(flagValue(ingredient, flag))] += 1; });
     });
   });
 
