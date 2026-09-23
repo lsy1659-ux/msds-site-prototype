@@ -1233,40 +1233,30 @@
     "msds-090": {
       "productName": "KFN-50",
       "supplier": "고려용접봉 창원공장",
-      "status": "required",
+      "status": "retired",
       "msdsNo": "",
-      "kind": "용접재료",
-      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 같은 회사 KC-28 은 번호(AA06900-…)가 있어 제출 체계가 있음",
-      "basis": [
-        "L110",
-        "R157",
-        "R160",
-        "BU"
-      ],
-      "need": "공급사의 번호 기재 최신 MSDS",
-      "action": "고려용접봉에 최신 MSDS 요청",
+      "kind": "구판(최신판으로 교체)",
+      "reason": "공급사 공식 사이트의 최신판(AA06900-0000000134, 개정 2021-12-29)으로 교체. 구판 PDF 는 원본 보관함의 '_구버전 보관(이력)' 폴더로 옮김",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf2"
+      "signalSource": "pdf2",
+      "retired": true,
+      "replacedBy": "msds-pdf-56cf7bad5d00bb20",
+      "pdfPath": "pdf/00_ 사출/고려용접봉/KFN-50. 2021.12.29.pdf"
     },
     "msds-091": {
       "productName": "KH-500LF",
       "supplier": "고려용접봉 창원공장",
-      "status": "required",
+      "status": "retired",
       "msdsNo": "",
-      "kind": "용접재료",
-      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 같은 회사 KC-28 은 번호(AA06900-…)가 있어 제출 체계가 있음",
-      "basis": [
-        "L110",
-        "R157",
-        "R160",
-        "BU"
-      ],
-      "need": "공급사의 번호 기재 최신 MSDS",
-      "action": "고려용접봉에 최신 MSDS 요청",
+      "kind": "구판(최신판으로 교체)",
+      "reason": "공급사 공식 사이트의 최신판(AA06900-0000000135, 개정 2026-03-10)으로 교체. 구판 PDF 는 원본 보관함의 '_구버전 보관(이력)' 폴더로 옮김",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf2"
+      "signalSource": "pdf2",
+      "retired": true,
+      "replacedBy": "msds-pdf-84fc357fa53fe6e3",
+      "pdfPath": "pdf/00_ 사출/고려용접봉/KH-500LF. 2021.12.22.pdf"
     },
     "msds-092": {
       "productName": "KR-3000",
@@ -1284,21 +1274,16 @@
     "msds-093": {
       "productName": "KSN-100",
       "supplier": "고려용접봉 창원공장",
-      "status": "required",
+      "status": "retired",
       "msdsNo": "",
-      "kind": "용접재료",
-      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 같은 회사 KC-28 은 번호(AA06900-…)가 있어 제출 체계가 있음",
-      "basis": [
-        "L110",
-        "R157",
-        "R160",
-        "BU"
-      ],
-      "need": "공급사의 번호 기재 최신 MSDS",
-      "action": "고려용접봉에 최신 MSDS 요청",
+      "kind": "구판(최신판으로 교체)",
+      "reason": "공급사 공식 사이트의 최신판(AA06900-0000000207, 개정 2021-12-29)으로 교체. 구판 PDF 는 원본 보관함의 '_구버전 보관(이력)' 폴더로 옮김",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf2"
+      "signalSource": "pdf2",
+      "retired": true,
+      "replacedBy": "msds-pdf-089d6c3cb442ffc1",
+      "pdfPath": "pdf/00_ 사출/고려용접봉/KSN-100.2021.12.19.pdf"
     },
     "msds-094": {
       "productName": "KST-308",
@@ -1316,21 +1301,16 @@
     "msds-095": {
       "productName": "M-308",
       "supplier": "고려용접봉 창원공장",
-      "status": "required",
+      "status": "retired",
       "msdsNo": "",
-      "kind": "용접재료",
-      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 같은 회사 KC-28 은 번호(AA06900-…)가 있어 제출 체계가 있음",
-      "basis": [
-        "L110",
-        "R157",
-        "R160",
-        "BU"
-      ],
-      "need": "공급사의 번호 기재 최신 MSDS",
-      "action": "고려용접봉에 최신 MSDS 요청",
+      "kind": "구판(최신판으로 교체)",
+      "reason": "공급사 공식 사이트의 최신판(AA06900-0000000521, 개정 2025-02-07)으로 교체. 구판 PDF 는 원본 보관함의 '_구버전 보관(이력)' 폴더로 옮김",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf2"
+      "signalSource": "pdf2",
+      "retired": true,
+      "replacedBy": "msds-pdf-2d82a68c0697a3a2",
+      "pdfPath": "pdf/00_ 사출/고려용접봉/M-3081. 2021.12.16.pdf"
     },
     "msds-096": {
       "productName": "T-50",
@@ -1880,18 +1860,16 @@
     "msds-134": {
       "productName": "에틸렌(Ethylene)",
       "supplier": "태경가스기술(주)",
-      "status": "pending",
+      "status": "verified",
       "msdsNo": "AA12481-0000000010",
-      "kind": "사이트에만 번호",
-      "reason": "사이트에는 번호가 있는데 원본 PDF 본문·양식칸·주석 어디에도 번호가 없음. 번호 출처(옛 엑셀 대장 추정) 확인 불가",
+      "reason": "공급사 공식 MSDS 게시판의 파일명에 적힌 번호. 받은 파일은 가진 것과 같고 PDF 본문에는 번호가 없음. 시행규칙 제160조①은 MSDS 에 번호를 반영하게 하므로 번호가 적힌 판을 받아 두는 것이 좋음",
       "basis": [
         "R160"
       ],
-      "need": "공급사의 번호 기재 최신 MSDS",
-      "action": "공급사에 번호 기재본 요청 후 대조",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000010 에틸렌(Ethylene).pdf"
     },
     "msds-135": {
       "productName": "1N-염산[Hydrochloric acid]",
@@ -2012,82 +1990,58 @@
     "msds-142": {
       "productName": "3M PN3021 임페리얼 미세 마감 컴파운드",
       "supplier": "한국쓰리엠",
-      "status": "required",
+      "status": "retired",
       "msdsNo": "",
-      "supplierDocNo": "문서그룹 42-2264-2",
-      "kind": "수입 산업용(3M)",
-      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 사이트 값 '문서그룹 …'은 3M 사내 문서번호이지 공단 번호가 아님. 3M 공개 SDS 검색기에서 문서번호·제품명으로 조회했으나 결과 없음",
-      "basis": [
-        "L110",
-        "R157",
-        "R160",
-        "BU"
-      ],
-      "need": "공급사의 번호 기재 최신 MSDS (한국쓰리엠 02-3771-4114)",
-      "action": "한국쓰리엠에 최신 국문 MSDS 요청",
+      "kind": "구판(최신판으로 교체)",
+      "reason": "공급사 공식 사이트의 최신판(AA00437-0000060070, 개정 2026-07-26)으로 교체. 구판 PDF 는 원본 보관함의 '_구버전 보관(이력)' 폴더로 옮김",
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "retired": true,
+      "replacedBy": "msds-pdf-f4c4b93fdc7911df",
+      "pdfPath": "pdf/3M/PN3021.pdf"
     },
     "msds-143": {
       "productName": "PN3084 피네스잇 마무리 연마재(FINESSE-IT FINISHING MATERIAL)",
       "supplier": "한국쓰리엠",
-      "status": "required",
+      "status": "retired",
       "msdsNo": "",
-      "supplierDocNo": "문서그룹 36-9836-2",
-      "kind": "수입 산업용(3M)",
-      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 사이트 값 '문서그룹 …'은 3M 사내 문서번호이지 공단 번호가 아님. 3M 공개 SDS 검색기에서 문서번호·제품명으로 조회했으나 결과 없음",
-      "basis": [
-        "L110",
-        "R157",
-        "R160",
-        "BU"
-      ],
-      "need": "공급사의 번호 기재 최신 MSDS (한국쓰리엠 02-3771-4114)",
-      "action": "한국쓰리엠에 최신 국문 MSDS 요청",
+      "kind": "구판(최신판으로 교체)",
+      "reason": "공급사 공식 사이트의 최신판(번호 없음, 개정 2026-02-10)으로 교체. 구판 PDF 는 원본 보관함의 '_구버전 보관(이력)' 폴더로 옮김",
       "checkedOn": "2026-09-23",
       "signalWord": "해당없음",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "retired": true,
+      "replacedBy": "msds-pdf-f6d25ab4aeeced6d",
+      "pdfPath": "pdf/3M/PN3084. 2021.01.11.pdf"
     },
     "msds-144": {
       "productName": "스테인리스강 코팅제(Stainless Steel Coat)",
       "supplier": "한국쓰리엠",
-      "status": "required",
+      "status": "retired",
       "msdsNo": "",
-      "supplierDocNo": "문서그룹 22-4370-7",
-      "kind": "수입 산업용(3M)",
-      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 사이트 값 '문서그룹 …'은 3M 사내 문서번호이지 공단 번호가 아님. 3M 공개 SDS 검색기에서 문서번호·제품명으로 조회했으나 결과 없음",
-      "basis": [
-        "L110",
-        "R157",
-        "R160",
-        "BU"
-      ],
-      "need": "공급사의 번호 기재 최신 MSDS (한국쓰리엠 02-3771-4114)",
-      "action": "한국쓰리엠에 최신 국문 MSDS 요청",
+      "kind": "구판(최신판으로 교체)",
+      "reason": "공급사 공식 사이트의 최신판(번호 없음, 개정 2017-04-12)으로 교체. 구판 PDF 는 원본 보관함의 '_구버전 보관(이력)' 폴더로 옮김",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "retired": true,
+      "replacedBy": "msds-pdf-879e67e226aa209b",
+      "pdfPath": "pdf/3M/Stainless Steel Coat.pdf"
     },
     "msds-145": {
       "productName": "프로슈터",
       "supplier": "한국쓰리엠",
-      "status": "required",
+      "status": "retired",
       "msdsNo": "",
-      "supplierDocNo": "문서그룹 36-5933-1",
-      "kind": "수입 산업용(3M)",
-      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 사이트 값 '문서그룹 …'은 3M 사내 문서번호이지 공단 번호가 아님. 3M 공개 SDS 검색기에서 문서번호·제품명으로 조회했으나 결과 없음",
-      "basis": [
-        "L110",
-        "R157",
-        "R160",
-        "BU"
-      ],
-      "need": "공급사의 번호 기재 최신 MSDS (한국쓰리엠 02-3771-4114)",
-      "action": "한국쓰리엠에 최신 국문 MSDS 요청",
+      "kind": "구판(최신판으로 교체)",
+      "reason": "공급사 공식 사이트의 최신판(AA00437-0000180015, 개정 2026-07-01)으로 교체. 구판 PDF 는 원본 보관함의 '_구버전 보관(이력)' 폴더로 옮김",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "retired": true,
+      "replacedBy": "msds-pdf-4d3893d05b41b64e",
+      "pdfPath": "pdf/3M/프로슈터. 2020.12.11.pdf"
     },
     "msds-146": {
       "productName": "탄산나트륨 (Sodium Carbonate)",
@@ -2603,37 +2557,30 @@
     "msds-174": {
       "productName": "알곤, 아르곤(ARGON)",
       "supplier": "태경에코(주)",
-      "status": "required",
+      "status": "retired",
       "msdsNo": "",
-      "kind": "산업용 가스",
-      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음",
-      "basis": [
-        "L110",
-        "R157",
-        "R160",
-        "BU"
-      ],
-      "need": "공급사의 번호 기재 최신 MSDS",
-      "action": "태경에코에 최신 MSDS 요청",
+      "kind": "구판(최신판으로 교체)",
+      "reason": "공급사 공식 사이트의 최신판(AA07576-0000000010, 개정 2026-06-30)으로 교체. 구판 PDF 는 원본 보관함의 '_구버전 보관(이력)' 폴더로 옮김",
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "retired": true,
+      "replacedBy": "msds-pdf-2ad6c5c7848d75bf",
+      "pdfPath": "pdf/아르곤(알곤,Ar)/아르곤(알곤)_태경ECO(주).pdf"
     },
     "msds-175": {
       "productName": "아르곤(ARGON, COMPRESSED)",
       "supplier": "태경가스기술(주)",
-      "status": "pending",
+      "status": "verified",
       "msdsNo": "AA12481-0000000005",
-      "kind": "사이트에만 번호",
-      "reason": "사이트에는 번호가 있는데 원본 PDF 본문·양식칸·주석 어디에도 번호가 없음. 번호 출처(옛 엑셀 대장 추정) 확인 불가",
+      "reason": "공급사 공식 MSDS 게시판의 파일명에 적힌 번호. 받은 파일은 가진 것과 같고 PDF 본문에는 번호가 없음. 시행규칙 제160조①은 MSDS 에 번호를 반영하게 하므로 번호가 적힌 판을 받아 두는 것이 좋음",
       "basis": [
         "R160"
       ],
-      "need": "공급사의 번호 기재 최신 MSDS",
-      "action": "공급사에 번호 기재본 요청 후 대조",
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000005 아르곤(ARGON_ COMPRESSED).pdf"
     },
     "msds-176": {
       "productName": "아르곤(100%)",
@@ -2876,78 +2823,61 @@
     "msds-pdf-7570ffa55f692a8b": {
       "productName": "부탄(Butane)",
       "supplier": "태경가스기술(주)",
-      "status": "required",
-      "msdsNo": "",
-      "kind": "산업용 가스",
-      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 같은 회사 에틸렌·아르곤은 사이트에 AA12481-… 번호가 있음",
+      "status": "verified",
+      "msdsNo": "AA12481-0000000012",
+      "reason": "공급사 공식 MSDS 게시판의 파일명에 적힌 번호. 받은 파일은 가진 것과 같고 PDF 본문에는 번호가 없음. 시행규칙 제160조①은 MSDS 에 번호를 반영하게 하므로 번호가 적힌 판을 받아 두는 것이 좋음",
       "basis": [
-        "L110",
-        "R157",
-        "R160",
-        "BU"
+        "R160"
       ],
-      "need": "공급사의 번호 기재 최신 MSDS",
-      "action": "태경가스기술에 최신 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2024-03-28",
+      "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000012 부탄(Butane).pdf"
     },
     "msds-pdf-0aeeb73308c96e86": {
       "productName": "산소(OXYGEN, COMPRESSED)",
       "supplier": "태경가스기술(주)",
-      "status": "required",
-      "msdsNo": "",
-      "kind": "산업용 가스",
-      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 같은 회사 에틸렌·아르곤은 사이트에 AA12481-… 번호가 있음",
+      "status": "verified",
+      "msdsNo": "AA12481-0000000001",
+      "reason": "공급사 공식 MSDS 게시판의 파일명에 적힌 번호. 받은 파일은 가진 것과 같고 PDF 본문에는 번호가 없음. 시행규칙 제160조①은 MSDS 에 번호를 반영하게 하므로 번호가 적힌 판을 받아 두는 것이 좋음",
       "basis": [
-        "L110",
-        "R157",
-        "R160",
-        "BU"
+        "R160"
       ],
-      "need": "공급사의 번호 기재 최신 MSDS",
-      "action": "태경가스기술에 최신 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2024-03-27",
+      "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000001 산소(OXYGEN_ COMPRESSED).pdf"
     },
     "msds-pdf-f6b8f7761d44bb84": {
       "productName": "아세틸렌(ACETYLENE,dissolved)",
       "supplier": "태경가스기술(주)",
-      "status": "required",
-      "msdsNo": "",
-      "kind": "산업용 가스",
-      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 같은 회사 에틸렌·아르곤은 사이트에 AA12481-… 번호가 있음",
+      "status": "verified",
+      "msdsNo": "AA12481-0000000008",
+      "reason": "공급사 공식 MSDS 게시판의 파일명에 적힌 번호. 받은 파일은 가진 것과 같고 PDF 본문에는 번호가 없음. 시행규칙 제160조①은 MSDS 에 번호를 반영하게 하므로 번호가 적힌 판을 받아 두는 것이 좋음",
       "basis": [
-        "L110",
-        "R157",
-        "R160",
-        "BU"
+        "R160"
       ],
-      "need": "공급사의 번호 기재 최신 MSDS",
-      "action": "태경가스기술에 최신 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2024-03-28",
+      "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000008 아세틸렌(ACETYLENE_dissolved).pdf"
     },
     "msds-pdf-f566b59f33deed0f": {
       "productName": "아세틸렌",
       "supplier": "태경에코(주)",
-      "status": "required",
+      "status": "retired",
       "msdsNo": "",
-      "kind": "산업용 가스",
-      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음",
-      "basis": [
-        "L110",
-        "R157",
-        "R160",
-        "BU"
-      ],
-      "need": "공급사의 번호 기재 최신 MSDS",
-      "action": "태경에코에 최신 MSDS 요청",
+      "kind": "구판(최신판으로 교체)",
+      "reason": "공급사 공식 사이트의 최신판(AA07576-0000000012, 개정 2026-03-09)으로 교체. 구판 PDF 는 원본 보관함의 '_구버전 보관(이력)' 폴더로 옮김",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "retired": true,
+      "replacedBy": "msds-pdf-32c2b2126324e13b",
+      "pdfPath": "pdf/아세틸렌/태경에코_아세틸렌_msds(221123).pdf"
     },
     "msds-pdf-37736004f8e3d7b1": {
       "productName": "PP-303 GW(PU)",
@@ -3157,21 +3087,16 @@
     "msds-pdf-df5ff1a99215c913": {
       "productName": "질소(NITROGEN)",
       "supplier": "태경에코(주)",
-      "status": "required",
+      "status": "retired",
       "msdsNo": "",
-      "kind": "산업용 가스",
-      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음",
-      "basis": [
-        "L110",
-        "R157",
-        "R160",
-        "BU"
-      ],
-      "need": "공급사의 번호 기재 최신 MSDS",
-      "action": "태경에코에 최신 MSDS 요청",
+      "kind": "구판(최신판으로 교체)",
+      "reason": "공급사 공식 사이트의 최신판(AA07576-0000000011, 개정 2026-06-30)으로 교체. 구판 PDF 는 원본 보관함의 '_구버전 보관(이력)' 폴더로 옮김",
       "checkedOn": "2026-09-23",
       "signalWord": "경고",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "retired": true,
+      "replacedBy": "msds-pdf-3bc5be36daf11812",
+      "pdfPath": "pdf/질소/질소(N2)_태경ECO(주).pdf"
     },
     "msds-pdf-aff62f45049f6877": {
       "productName": "CTS-50 스틸 티그봉",
@@ -3228,21 +3153,16 @@
     "msds-pdf-79c7cd1ffffaab96": {
       "productName": "프로판(Propane)",
       "supplier": "태경가스기술(주)",
-      "status": "required",
-      "msdsNo": "",
-      "kind": "산업용 가스",
-      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 같은 회사 에틸렌·아르곤은 사이트에 AA12481-… 번호가 있음",
+      "status": "verified",
+      "msdsNo": "AA12481-0000000011",
+      "reason": "공급사 공식 MSDS 게시판의 파일명에 적힌 번호. 받은 파일은 가진 것과 같고 PDF 본문에는 번호가 없음. 시행규칙 제160조①은 MSDS 에 번호를 반영하게 하므로 번호가 적힌 판을 받아 두는 것이 좋음",
       "basis": [
-        "L110",
-        "R157",
-        "R160",
-        "BU"
+        "R160"
       ],
-      "need": "공급사의 번호 기재 최신 MSDS",
-      "action": "태경가스기술에 최신 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000011 프로판(Propane).pdf"
     },
     "msds-pdf-d53b862679ad3157": {
       "productName": "GHP CCG 2 (월)",
@@ -3519,6 +3439,473 @@
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
       "signalSource": "pdf1"
+    },
+    "msds-pdf-56cf7bad5d00bb20": {
+      "productName": "KFN-50",
+      "supplier": "고려용접봉 창원공장",
+      "status": "verified",
+      "msdsNo": "AA06900-0000000134",
+      "reason": "공급사 공식 사이트에서 받은 최신판(2021-12-29)의 번호. 원문에서 확인",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf-new",
+      "source": "https://www.kiswel.com/_lib/fileDownload.asp?idx=329&filetb=m",
+      "replaces": "msds-090"
+    },
+    "msds-pdf-84fc357fa53fe6e3": {
+      "productName": "KH-500LF",
+      "supplier": "고려용접봉 창원공장",
+      "status": "verified",
+      "msdsNo": "AA06900-0000000135",
+      "reason": "공급사 공식 사이트에서 받은 최신판(2026-03-10)의 번호. 원문에서 확인",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf-new",
+      "source": "https://www.kiswel.com/_lib/fileDownload.asp?idx=250&filetb=m",
+      "replaces": "msds-091"
+    },
+    "msds-pdf-089d6c3cb442ffc1": {
+      "productName": "KSN-100",
+      "supplier": "고려용접봉 창원공장",
+      "status": "verified",
+      "msdsNo": "AA06900-0000000207",
+      "reason": "공급사 공식 사이트에서 받은 최신판(2021-12-29)의 번호. 원문에서 확인",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf-new",
+      "source": "https://www.kiswel.com/_lib/fileDownload.asp?idx=328&filetb=m",
+      "replaces": "msds-093"
+    },
+    "msds-pdf-2d82a68c0697a3a2": {
+      "productName": "M-308",
+      "supplier": "고려용접봉 창원공장",
+      "status": "verified",
+      "msdsNo": "AA06900-0000000521",
+      "reason": "공급사 공식 사이트에서 받은 최신판(2025-02-07)의 번호. 원문에서 확인",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf-new",
+      "source": "https://www.kiswel.com/_lib/fileDownload.asp?idx=3697&filetb=m",
+      "replaces": "msds-095"
+    },
+    "msds-pdf-f4c4b93fdc7911df": {
+      "productName": "3M PN3021 임페리얼 미세 마감 컴파운드",
+      "supplier": "한국쓰리엠",
+      "status": "verified",
+      "msdsNo": "AA00437-0000060070",
+      "reason": "공급사 공식 사이트에서 받은 최신판(2026-07-26)의 번호. 원문에서 확인",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf-new",
+      "source": "https://cdmsweb.3m.com/ingredientcommunication/file/Media/rJvhe-rqkbQ",
+      "replaces": "msds-142"
+    },
+    "msds-pdf-f6d25ab4aeeced6d": {
+      "productName": "PN3084 피네스잇 마무리 연마재(FINESSE-IT FINISHING MATERIAL)",
+      "supplier": "한국쓰리엠",
+      "status": "not_required",
+      "msdsNo": "",
+      "reason": "공급사 공식 사이트의 최신판(2026-02-10) 원문 제2항에 '유해화학물질로 분류되지 않음'으로 적혀 있음 → 법 제110조의 물질안전보건자료대상물질이 아니므로 제출·번호 부여 대상이 아님. 옛 판에는 분류가 있었으나 최신판에서 바뀜",
+      "basis": [
+        "L110",
+        "G13"
+      ],
+      "kind": "분류기준 비해당",
+      "notClassified": true,
+      "certainty": "높음",
+      "action": "번호칸을 '필요 없음(분류기준 비해당)'으로 표시. 원본 PDF 를 비해당 서면으로 비치 유지",
+      "checkedOn": "2026-09-23",
+      "signalWord": "해당없음",
+      "signalSource": "pdf-new",
+      "source": "https://cdmsweb.3m.com/ingredientcommunication/file/Media/oJIsIEjzcsk",
+      "replaces": "msds-143"
+    },
+    "msds-pdf-879e67e226aa209b": {
+      "productName": "스테인리스강 코팅제(Stainless Steel Coat)",
+      "supplier": "한국쓰리엠",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "수입 산업용(3M)",
+      "reason": "공급사 공식 사이트의 최신판(2017-04-12)에도 공단 번호가 없음. 공급사에 번호 기재본 요청 필요",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS (한국쓰리엠 02-3771-4114)",
+      "action": "공급사에 번호 기재본 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf-new",
+      "source": "https://multimedia.3m.com/mws/mediawebserver?mwsId=tttttvV5A9vZm05XnyH_OZOtpXWlMEW9iXvaq9hV5tttttt--",
+      "replaces": "msds-144"
+    },
+    "msds-pdf-4d3893d05b41b64e": {
+      "productName": "프로슈터",
+      "supplier": "한국쓰리엠",
+      "status": "verified",
+      "msdsNo": "AA00437-0000180015",
+      "reason": "공급사 공식 사이트에서 받은 최신판(2026-07-01)의 번호. 원문에서 확인",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf-new",
+      "source": "https://cdmsweb.3m.com/ingredientcommunication/file/Media/K2dxB7g-tY4",
+      "replaces": "msds-145"
+    },
+    "msds-pdf-2ad6c5c7848d75bf": {
+      "productName": "알곤, 아르곤(ARGON)",
+      "supplier": "태경에코(주)",
+      "status": "verified",
+      "msdsNo": "AA07576-0000000010",
+      "reason": "공급사 공식 사이트에서 받은 최신판(2026-06-30)의 번호. 원문에서 확인",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf-new",
+      "source": "http://www.taekyungeco.co.kr/resources/common/msds_file/business_file/태경에코05_알곤(3).pdf",
+      "replaces": "msds-174"
+    },
+    "msds-pdf-3bc5be36daf11812": {
+      "productName": "질소(NITROGEN)",
+      "supplier": "태경에코(주)",
+      "status": "verified",
+      "msdsNo": "AA07576-0000000011",
+      "reason": "공급사 공식 사이트에서 받은 최신판(2026-06-30)의 번호. 원문에서 확인",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf-new",
+      "source": "http://www.taekyungeco.co.kr/resources/common/msds_file/business_file/태경에코03_질소(3).pdf",
+      "replaces": "msds-pdf-df5ff1a99215c913"
+    },
+    "msds-pdf-32c2b2126324e13b": {
+      "productName": "아세틸렌",
+      "supplier": "태경에코(주)",
+      "status": "verified",
+      "msdsNo": "AA07576-0000000012",
+      "reason": "공급사 공식 사이트에서 받은 최신판(2026-03-09)의 번호. 원문에서 확인",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf-new",
+      "source": "http://www.taekyungeco.co.kr/resources/common/msds_file/business_file/아세틸렌.pdf",
+      "replaces": "msds-pdf-f566b59f33deed0f"
     }
-  }
+  },
+  "history": [
+    {
+      "date": "2026-09-23",
+      "action": "최신판 교체",
+      "productName": "KFN-50",
+      "supplier": "고려용접봉 창원공장",
+      "oldId": "msds-090",
+      "newId": "msds-pdf-56cf7bad5d00bb20",
+      "oldFile": "pdf/00_ 사출/고려용접봉/KFN-50. 2021.12.29.pdf",
+      "newFile": "pdf/00_ 사출/고려용접봉/KFN-50_MSDS_20211229.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "AA06900-0000000134",
+      "oldRevision": "2021-12-29",
+      "newRevision": "2021-12-29",
+      "source": "https://www.kiswel.com/_lib/fileDownload.asp?idx=329&filetb=m",
+      "sha256": "11c22d7c8857961783f5a9143796331875a617558f17bef1eea7d29489b385d8",
+      "note": ""
+    },
+    {
+      "date": "2026-09-23",
+      "action": "최신판 교체",
+      "productName": "KH-500LF",
+      "supplier": "고려용접봉 창원공장",
+      "oldId": "msds-091",
+      "newId": "msds-pdf-84fc357fa53fe6e3",
+      "oldFile": "pdf/00_ 사출/고려용접봉/KH-500LF. 2021.12.22.pdf",
+      "newFile": "pdf/00_ 사출/고려용접봉/KH-500LF_MSDS_20260310.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "AA06900-0000000135",
+      "oldRevision": "2021-12-22",
+      "newRevision": "2026-03-10",
+      "source": "https://www.kiswel.com/_lib/fileDownload.asp?idx=250&filetb=m",
+      "sha256": "fdde875c1f666638d957e57672136947ff77d4ec106e03cebb29501034812ec0",
+      "note": ""
+    },
+    {
+      "date": "2026-09-23",
+      "action": "최신판 교체",
+      "productName": "KSN-100",
+      "supplier": "고려용접봉 창원공장",
+      "oldId": "msds-093",
+      "newId": "msds-pdf-089d6c3cb442ffc1",
+      "oldFile": "pdf/00_ 사출/고려용접봉/KSN-100.2021.12.19.pdf",
+      "newFile": "pdf/00_ 사출/고려용접봉/KSN-100_MSDS_20211229.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "AA06900-0000000207",
+      "oldRevision": "2021-12-29",
+      "newRevision": "2021-12-29",
+      "source": "https://www.kiswel.com/_lib/fileDownload.asp?idx=328&filetb=m",
+      "sha256": "ba09056725252bb52c72fa511f5a13b112f294470e81460163150862dd42e50b",
+      "note": ""
+    },
+    {
+      "date": "2026-09-23",
+      "action": "최신판 교체",
+      "productName": "M-308",
+      "supplier": "고려용접봉 창원공장",
+      "oldId": "msds-095",
+      "newId": "msds-pdf-2d82a68c0697a3a2",
+      "oldFile": "pdf/00_ 사출/고려용접봉/M-3081. 2021.12.16.pdf",
+      "newFile": "pdf/00_ 사출/고려용접봉/M-308_MSDS_20250207.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "AA06900-0000000521",
+      "oldRevision": "2021-12-16",
+      "newRevision": "2025-02-07",
+      "source": "https://www.kiswel.com/_lib/fileDownload.asp?idx=3697&filetb=m",
+      "sha256": "f5392a5049a9e4dca0123bc7072d60f788912541099311902df23b693f18d9ec",
+      "note": ""
+    },
+    {
+      "date": "2026-09-23",
+      "action": "최신판 교체",
+      "productName": "3M PN3021 임페리얼 미세 마감 컴파운드",
+      "supplier": "한국쓰리엠",
+      "oldId": "msds-142",
+      "newId": "msds-pdf-f4c4b93fdc7911df",
+      "oldFile": "pdf/3M/PN3021.pdf",
+      "newFile": "pdf/3M/PN3021_MSDS_20260726.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "AA00437-0000060070",
+      "oldRevision": "2020-10-18",
+      "newRevision": "2026-07-26",
+      "source": "https://cdmsweb.3m.com/ingredientcommunication/file/Media/rJvhe-rqkbQ",
+      "sha256": "c4e623e455a2408bff1ee1c94d5ceeb13c5f6c74b97802395dfca7828960217a",
+      "note": ""
+    },
+    {
+      "date": "2026-09-23",
+      "action": "최신판 교체",
+      "productName": "PN3084 피네스잇 마무리 연마재(FINESSE-IT FINISHING MATERIAL)",
+      "supplier": "한국쓰리엠",
+      "oldId": "msds-143",
+      "newId": "msds-pdf-f6d25ab4aeeced6d",
+      "oldFile": "pdf/3M/PN3084. 2021.01.11.pdf",
+      "newFile": "pdf/3M/PN3084_MSDS_20260210.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2019-12-12",
+      "newRevision": "2026-02-10",
+      "source": "https://cdmsweb.3m.com/ingredientcommunication/file/Media/oJIsIEjzcsk",
+      "sha256": "a3104a8f5df8862f00f2aefa142fd262b31effc3ebd8212b9aca49be1fa635db",
+      "note": "최신판은 분류기준 비해당 — 번호 필요 없음"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "최신판 교체",
+      "productName": "스테인리스강 코팅제(Stainless Steel Coat)",
+      "supplier": "한국쓰리엠",
+      "oldId": "msds-144",
+      "newId": "msds-pdf-879e67e226aa209b",
+      "oldFile": "pdf/3M/Stainless Steel Coat.pdf",
+      "newFile": "pdf/3M/Stainless Steel Coat_MSDS_20170412.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2016-11-10",
+      "newRevision": "2017-04-12",
+      "source": "https://multimedia.3m.com/mws/mediawebserver?mwsId=tttttvV5A9vZm05XnyH_OZOtpXWlMEW9iXvaq9hV5tttttt--",
+      "sha256": "85e8398bea9a733975360650517233f2dde6a37d94defffbc95ffe19cb43f7f4",
+      "note": "번호 없음 — 공급사 요청 필요"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "최신판 교체",
+      "productName": "프로슈터",
+      "supplier": "한국쓰리엠",
+      "oldId": "msds-145",
+      "newId": "msds-pdf-4d3893d05b41b64e",
+      "oldFile": "pdf/3M/프로슈터. 2020.12.11.pdf",
+      "newFile": "pdf/3M/프로슈터_MSDS_20260701.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "AA00437-0000180015",
+      "oldRevision": "2018-06-13",
+      "newRevision": "2026-07-01",
+      "source": "https://cdmsweb.3m.com/ingredientcommunication/file/Media/K2dxB7g-tY4",
+      "sha256": "ee32b6fba91703fc7e445c54b8934864d0347a51257b116dded05aac176a6ee3",
+      "note": ""
+    },
+    {
+      "date": "2026-09-23",
+      "action": "최신판 교체",
+      "productName": "알곤, 아르곤(ARGON)",
+      "supplier": "태경에코(주)",
+      "oldId": "msds-174",
+      "newId": "msds-pdf-2ad6c5c7848d75bf",
+      "oldFile": "pdf/아르곤(알곤,Ar)/아르곤(알곤)_태경ECO(주).pdf",
+      "newFile": "pdf/아르곤(알곤,Ar)/알곤(아르곤)_태경ECO(주)_MSDS_20260630.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "AA07576-0000000010",
+      "oldRevision": "2022-09-28",
+      "newRevision": "2026-06-30",
+      "source": "http://www.taekyungeco.co.kr/resources/common/msds_file/business_file/태경에코05_알곤(3).pdf",
+      "sha256": "622fff52885ce864e2cfd155b8f8d6a270ebdcc5e92c15d095dd9800f1cd048b",
+      "note": ""
+    },
+    {
+      "date": "2026-09-23",
+      "action": "최신판 교체",
+      "productName": "질소(NITROGEN)",
+      "supplier": "태경에코(주)",
+      "oldId": "msds-pdf-df5ff1a99215c913",
+      "newId": "msds-pdf-3bc5be36daf11812",
+      "oldFile": "pdf/질소/질소(N2)_태경ECO(주).pdf",
+      "newFile": "pdf/질소/질소(N2)_태경ECO(주)_MSDS_20260630.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "AA07576-0000000011",
+      "oldRevision": "2022-09-28",
+      "newRevision": "2026-06-30",
+      "source": "http://www.taekyungeco.co.kr/resources/common/msds_file/business_file/태경에코03_질소(3).pdf",
+      "sha256": "31dbd1e2aac0e7dbb5ebad61ef1573f6ef0960a1224c90a034f76f835e0ceb5b",
+      "note": ""
+    },
+    {
+      "date": "2026-09-23",
+      "action": "최신판 교체",
+      "productName": "아세틸렌",
+      "supplier": "태경에코(주)",
+      "oldId": "msds-pdf-f566b59f33deed0f",
+      "newId": "msds-pdf-32c2b2126324e13b",
+      "oldFile": "pdf/아세틸렌/태경에코_아세틸렌_msds(221123).pdf",
+      "newFile": "pdf/아세틸렌/아세틸렌_태경ECO(주)_MSDS_20260309.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "AA07576-0000000012",
+      "oldRevision": "2022-09-28",
+      "newRevision": "2026-03-09",
+      "source": "http://www.taekyungeco.co.kr/resources/common/msds_file/business_file/아세틸렌.pdf",
+      "sha256": "5e370ce0d72c9b619e7e7c0d60924607ffa7f9ebd84c424d38b67a7dab1eaa92",
+      "note": "; 분류 글자층 깨짐 — 분류 칸 비움"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "번호 확인",
+      "productName": "산소(OXYGEN, COMPRESSED)",
+      "supplier": "태경가스기술(주)",
+      "oldId": "msds-pdf-0aeeb73308c96e86",
+      "newId": "msds-pdf-0aeeb73308c96e86",
+      "oldFile": "pdf/산소.pdf",
+      "newFile": "pdf/산소.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "AA12481-0000000001",
+      "oldRevision": "2014-12-29",
+      "newRevision": "2024-03-27",
+      "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000001 산소(OXYGEN_ COMPRESSED).pdf",
+      "sha256": "0aeeb73308c96e86f5d482c14418888d9828cede0eccd674d715925dcec1888d",
+      "note": "공급사 공식 MSDS 게시판의 파일명에 번호가 적혀 있음. 받은 파일은 가진 것과 같음. PDF 본문에는 번호가 없음; 사이트 개정일이 최초 작성일로 잘못 들어가 있어 원문의 최종 개정일로 바로잡음"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "번호 확인",
+      "productName": "아세틸렌(ACETYLENE,dissolved)",
+      "supplier": "태경가스기술(주)",
+      "oldId": "msds-pdf-f6b8f7761d44bb84",
+      "newId": "msds-pdf-f6b8f7761d44bb84",
+      "oldFile": "pdf/아세틸렌/아세틸렌.pdf",
+      "newFile": "pdf/아세틸렌/아세틸렌.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "AA12481-0000000008",
+      "oldRevision": "2014-12-29",
+      "newRevision": "2024-03-28",
+      "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000008 아세틸렌(ACETYLENE_dissolved).pdf",
+      "sha256": "f6b8f7761d44bb84d5f04e0a936081ab0af2a5c192bf0f9ba69b7060d24edf8a",
+      "note": "공급사 공식 MSDS 게시판의 파일명에 번호가 적혀 있음. 받은 파일은 가진 것과 같음. PDF 본문에는 번호가 없음; 사이트 개정일이 최초 작성일로 잘못 들어가 있어 원문의 최종 개정일로 바로잡음"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "번호 확인",
+      "productName": "부탄(Butane)",
+      "supplier": "태경가스기술(주)",
+      "oldId": "msds-pdf-7570ffa55f692a8b",
+      "newId": "msds-pdf-7570ffa55f692a8b",
+      "oldFile": "pdf/부탄.pdf",
+      "newFile": "pdf/부탄.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "AA12481-0000000012",
+      "oldRevision": "2014-12-29",
+      "newRevision": "2024-03-28",
+      "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000012 부탄(Butane).pdf",
+      "sha256": "7570ffa55f692a8b9e3c5895749893589676c6c334d8e9c3f934109702cffe1d",
+      "note": "공급사 공식 MSDS 게시판의 파일명에 번호가 적혀 있음. 받은 파일은 가진 것과 같음. PDF 본문에는 번호가 없음; 사이트 개정일이 최초 작성일로 잘못 들어가 있어 원문의 최종 개정일로 바로잡음"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "번호 확인",
+      "productName": "프로판(Propane)",
+      "supplier": "태경가스기술(주)",
+      "oldId": "msds-pdf-79c7cd1ffffaab96",
+      "newId": "msds-pdf-79c7cd1ffffaab96",
+      "oldFile": "pdf/프로판.pdf",
+      "newFile": "pdf/프로판.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "AA12481-0000000011",
+      "oldRevision": "2024-03-28",
+      "newRevision": "2024-03-28",
+      "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000011 프로판(Propane).pdf",
+      "sha256": "79c7cd1ffffaab96d75ad8e419196218d734bf68176bd05393f664bbd46dac45",
+      "note": "공급사 공식 MSDS 게시판의 파일명에 번호가 적혀 있음. 받은 파일은 가진 것과 같음. PDF 본문에는 번호가 없음"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "번호 확인",
+      "productName": "에틸렌(Ethylene)",
+      "supplier": "태경가스기술(주)",
+      "oldId": "msds-134",
+      "newId": "msds-134",
+      "oldFile": "pdf/03_ 시험실(시약)/에틸렌(Ethylene).pdf",
+      "newFile": "pdf/03_ 시험실(시약)/에틸렌(Ethylene).pdf",
+      "oldMsdsNo": "AA12481-0000000010",
+      "newMsdsNo": "AA12481-0000000010",
+      "oldRevision": "2024-03-28",
+      "newRevision": "2024-03-28",
+      "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000010 에틸렌(Ethylene).pdf",
+      "sha256": "36072197834f35ce6a155725a731f35cfef45edb303efdb1690bc0893b249833",
+      "note": "공급사 공식 MSDS 게시판의 파일명에 번호가 적혀 있음. 받은 파일은 가진 것과 같음. PDF 본문에는 번호가 없음"
+    },
+    {
+      "date": "2026-09-23",
+      "action": "번호 확인",
+      "productName": "아르곤(ARGON, COMPRESSED)",
+      "supplier": "태경가스기술(주)",
+      "oldId": "msds-175",
+      "newId": "msds-175",
+      "oldFile": "pdf/아르곤(알곤,Ar)/아르곤(알곤)_태경가스기술(주).pdf",
+      "newFile": "pdf/아르곤(알곤,Ar)/아르곤(알곤)_태경가스기술(주).pdf",
+      "oldMsdsNo": "AA12481-0000000005",
+      "newMsdsNo": "AA12481-0000000005",
+      "oldRevision": "2024-03-27",
+      "newRevision": "2024-03-27",
+      "source": "http://www.taekyunggnt.co.kr/upload/msds/AA12481-0000000005 아르곤(ARGON_ COMPRESSED).pdf",
+      "sha256": "30984c300b5a41ad71a3ce45a4ea0338264efb9229c06f2c49a47b262adde42d",
+      "note": "공급사 공식 MSDS 게시판의 파일명에 번호가 적혀 있음. 받은 파일은 가진 것과 같음. PDF 본문에는 번호가 없음"
+    }
+  ]
 }

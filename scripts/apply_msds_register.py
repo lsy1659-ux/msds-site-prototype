@@ -20,6 +20,8 @@
            그림문자·유해위험문구·예방조치문구를 비운다. 원문에 없는 그림문자가
            경고표지에 인쇄되던 것을 막는다. overrides 쪽도 같이 비운다. 관리요령이
            제품 쪽이 비면 overrides 에서 채워 넣기 때문이다.
+  날짜     revisionDate·issueDate 를 적어 두면 그 값으로 바꾼다. 원문과 다르게
+           들어간 개정일을 바로잡을 때 쓴다.
   구판     retired 로 적힌 제품은 목록에서 뺀다. 대신 새 판에 formerIds 로 옛 id 를
            남겨, 옛 QR 을 찍어도 새 판이 열리게 한다.
 
@@ -97,7 +99,7 @@ def apply_register(
     products = deepcopy(products)
     overrides = deepcopy(overrides)
     report: dict[str, Any] = {"retired": [], "numbersSet": [], "notClassified": [], "signalChanged": [],
-                              "ingredientsRestored": 0, "missingEntry": []}
+                              "ingredientsRestored": 0, "missingEntry": [], "datesFixed": []}
 
     # 1. 구판·중복을 뺀다. 새 판에 옛 id 를 남긴다.
     retired = {pid for pid, e in entries.items() if e.get("status") == "retired" or e.get("retired")}
@@ -141,6 +143,17 @@ def apply_register(
         product["msdsNoReason"] = entry.get("reason", "")
         product["msdsNoLegalBasis"] = _legal_text(entry.get("basis") or [], legal)
         product["msdsNoCheckedOn"] = entry.get("checkedOn", "")
+
+        # 원문과 다르게 들어간 날짜를 바로잡는다. 원문에서 확인한 날짜만 관리대장에 적는다.
+        for field in ("revisionDate", "issueDate"):
+            value = str(entry.get(field) or "").strip()
+            if value and product.get(field) != value:
+                product[field] = value
+                report["datesFixed"].append(f"{product.get('id')} {field}")
+                if field == "revisionDate":
+                    for override in overrides:
+                        if _override_matches(override, product) and "revisionDateCandidate" in override:
+                            override["revisionDateCandidate"] = value
 
         signal = str(entry.get("signalWord") or "").strip()
         if entry.get("notClassified"):
@@ -213,6 +226,7 @@ def main() -> int:
     print(f"  번호 새로 넣음/바꿈  {len(report['numbersSet'])}")
     print(f"  분류기준 비해당 정리 {len(report['notClassified'])}")
     print(f"  신호어 바뀜         {len(report['signalChanged'])}")
+    print(f"  날짜 바로잡음       {len(report['datesFixed'])}")
     print(f"  성분표 되살림       {report['ingredientsRestored']}")
     print(f"  관리대장에 없는 제품 {len(report['missingEntry'])} {report['missingEntry'][:5]}")
     if args.write:

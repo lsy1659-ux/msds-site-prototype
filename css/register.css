@@ -116,6 +116,26 @@
 .register-date { white-space: nowrap; color: var(--substance-muted); }
 .register-retired { color: var(--substance-muted); text-decoration: line-through; }
 
+/* 교체·확인 이력 */
+.register-block-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.register-block-head h2 { margin: 0; }
+.register-was {
+  display: block;
+  color: var(--substance-muted);
+  text-decoration: line-through;
+  font-size: 0.76rem;
+}
+.register-now { display: block; font-weight: 700; }
+.register-action { white-space: nowrap; font-weight: 700; }
+.register-history .register-number .register-was,
+.register-history .register-number .register-now { font-family: ui-monospace, Consolas, monospace; font-size: 0.76rem; white-space: nowrap; }
+
 .register-status {
   display: inline-block;
   padding: 2px 8px;

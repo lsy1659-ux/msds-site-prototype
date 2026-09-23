@@ -167,6 +167,31 @@ class SiteUiContractTests(unittest.TestCase):
                 self.assertEqual(former.get(pid), entry["replacedBy"], entry.get("productName"))
         self.assertIn("(product.formerIds || []).includes(requestedId)", self.app_source)
 
+    def test_replacement_history_matches_the_register(self):
+        """최신판으로 바꾼 이력은 관리대장의 구판·새 판과 맞아야 한다.
+
+        이력만 적고 구판을 retired 로 안 두면 두 판이 같이 목록에 뜨고,
+        반대로 구판만 빼고 이력이 없으면 무엇이 바뀌었는지 알 길이 없다.
+        """
+        products = {p["id"]: p for p in json.loads((ROOT / "data" / "msds.public.json").read_text(encoding="utf-8"))}
+        register = json.loads((ROOT / "data" / "msds-register.json").read_text(encoding="utf-8"))
+        entries = register["products"]
+        replaced = set()
+        for item in register.get("history", []):
+            for field in ("date", "action", "productName", "oldId", "newId"):
+                self.assertTrue(item.get(field), f"이력에 {field} 가 없다: {item}")
+            self.assertIn(item["newId"], products, f"이력의 새 판이 목록에 없다: {item['productName']}")
+            if item["oldId"] != item["newId"]:
+                replaced.add(item["oldId"])
+                self.assertEqual(entries[item["oldId"]]["status"], "retired", item["productName"])
+                self.assertEqual(entries[item["oldId"]].get("replacedBy"), item["newId"], item["productName"])
+            number = item.get("newMsdsNo") or ""
+            if number:
+                self.assertEqual(products[item["newId"]].get("msdsNo"), number, item["productName"])
+        for pid, entry in entries.items():
+            if entry.get("kind") == "구판(최신판으로 교체)":
+                self.assertIn(pid, replaced, f"교체 이력이 없는 구판: {entry.get('productName')}")
+
     def test_admin_gate_is_documented_as_a_curtain_not_a_lock(self):
         # 정적 사이트라 암호 확인이 브라우저에서 일어난다. 이 파일을 나중에
         # 고치는 사람이 진짜 잠금으로 오해하면 민감한 것을 뒤에 둘 수 있다.

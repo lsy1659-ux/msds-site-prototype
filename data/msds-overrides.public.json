@@ -13068,30 +13068,53 @@
     }
   },
   {
-    "sourcePdfPath": "pdf/00_ 사출/고려용접봉/KFN-50. 2021.12.29.pdf",
-    "sourceRelativePath": "00_ 사출/고려용접봉/KFN-50. 2021.12.29.pdf",
-    "pdfRegistrationType": "excel_linked",
-    "productNameCandidate": "제품 형태 : 혼합물",
+    "sourcePdfPath": "pdf/00_ 사출/고려용접봉/KFN-50_MSDS_20211229.pdf",
+    "sourceRelativePath": "00_ 사출/고려용접봉/KFN-50_MSDS_20211229.pdf",
+    "pdfRegistrationType": "pdf_only",
+    "productNameCandidate": "KFN-50",
     "supplierCandidate": "고려용접봉 창원공장",
-    "msdsNoCandidate": "",
+    "msdsNoCandidate": "AA06900-0000000134",
     "revisionDateCandidate": "2021-12-29",
-    "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
-    "classificationGhsCodes": [
-      "GHS07",
+    "signalWordCandidate": "위험",
+    "ghsSource": "section2_label_images_checked",
+    "labelGhsCodes": [
       "GHS05",
+      "GHS07",
       "GHS08",
       "GHS09"
     ],
-    "classificationGhsPictograms": [
+    "labelGhsPictograms": [
+      {
+        "code": "GHS05",
+        "label": "부식성"
+      },
       {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
+        "code": "GHS08",
+        "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
+      }
+    ],
+    "classificationGhsCodes": [
+      "GHS05",
+      "GHS07",
+      "GHS08",
+      "GHS09"
+    ],
+    "classificationGhsPictograms": [
+      {
         "code": "GHS05",
         "label": "부식성"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
       },
       {
         "code": "GHS08",
@@ -13103,19 +13126,19 @@
       }
     ],
     "ghsCodes": [
-      "GHS07",
       "GHS05",
+      "GHS07",
       "GHS08",
       "GHS09"
     ],
     "ghsPictograms": [
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS05",
         "label": "부식성"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
       },
       {
         "code": "GHS08",
@@ -13127,133 +13150,149 @@
       }
     ],
     "hazardStatements": [
-      "피부 자극성, 구분 2 H315",
-      "눈 손상성, 구분 1 H318",
-      "호흡기 과민성, 구분 1 H334",
-      "피부 과민성, 구분 1 H317",
-      "발암성, 구분 2 H351",
-      "특정 표적장기 독성 (반복 노출), 구분 1 H372",
-      "급성 수생환경, 구분 1 H400",
-      "H315 - 피부에 자극을 일으킴.",
-      "H317 - 알레르기성 피부 반응을 일으킬 수 있음.",
-      "H318 - 눈에 심한 손상을 일으킴.",
-      "H334 - 흡입 시 알레르기성 반응, 천식 또는 호흡 곤란 등을 일으킬 수 있음.",
-      "H351 - 암을 일으킬 것으로 의심됨.",
-      "H372 - 장기간 또는 반복노출 되면 장기에 손상을 일으킴.",
-      "H400 - 수생생물에 매우 유독함."
+      "H315 피부에 자극을 일으킴.",
+      "H317 알레르기성 피부 반응을 일으킬 수 있음.",
+      "H318 눈에 심한 손상을 일으킴.",
+      "H334 흡입 시 알레르기성 반응, 천식 또는 호흡 곤란 등을 일으킬 수 있음.",
+      "H351 암을 일으킬 것으로 의심됨.",
+      "H372 장기간 또는 반복노출 되면 장기에 손상을 일으킴.",
+      "H400 수생생물에 매우 유독함."
     ],
     "precautionaryStatements": {
       "prevention": [
-        "P201 - 사용 전 취급 설명서를 확보하시오.",
-        "P202 - 모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.",
-        "P260 - 분진·흄·가스·미스트·증기·스프레이 를(을) 흡입하지 마시오.",
-        "P261 - 분진/흄/가스/미스트/증기/스프레이의 흡입을 피하시오.",
-        "P264 - 취급 후에는 취급 부위 을(를) 철저히 씻으시오.",
-        "P270 - 이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오.",
-        "P272 - 작업장 밖으로 오염된 의류를 반출하지 마시오.",
-        "P273 - 환경으로 배출하지 마시오.",
-        "P280 - 보호장갑/보호의/보안경/안면보호구를(을) 착용하시오.",
-        "P284 - [환기가 잘 되지 않는 경우] 호흡기 보호구를 착용하시오."
+        "P201 사용 전 취급 설명서를 확보하시오.",
+        "P202 모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.",
+        "P260 분진/흄/가스/미스트/증기/스프레이 를(을) 흡입하지 마시오.",
+        "P261 분진/흄/가스/미스트/증기/스프레이 의 흡입을 피하시오.",
+        "P264 취급 후에는 취급 부위 을(를) 철저히 씻으시오.",
+        "P270 이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오.",
+        "P272 작업장 밖으로 오염된 의류를 반출하지 마시오.",
+        "P273 환경으로 배출하지 마시오.",
+        "P280 보호장갑/보호의/보안경/안면보호구 를(을) 착용하시오.",
+        "P284 호흡기 보호구를 착용하시오."
       ],
       "response": [
-        "P302+P352 - 피부에 묻으면: 다량의 물 로 씻으시오.",
-        "P304+P340 - 흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.",
-        "P305+P351+P338 - 눈에 묻으면: 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.",
-        "P308+P313 - 노출되거나 노출이 우려되면: 의학적인 조치/조언을 받으시오.",
-        "P310 - 즉시 의료기관/의사/… 의 진찰을 받으시오.",
-        "P314 - 불편함을 느끼면 의학적인 조치/조언을 받으시오.",
-        "P321 - 응급 처치를 하시오.",
-        "P332+P313 - 피부 자극이 나타나면: 의학적인 조치/조언을 받으시오.",
-        "P333+P313 - 피부 자극 또는 홍반이 나타나면: 의학적인 조치/조언을 받으시오.",
-        "P342+P311 - 호흡기 증상이 나타나면: 의료기관/의사/… 의 진찰을 받으시오.",
-        "P362+P364 - 오염된 의류를 벗고 다시 사용 전 세척하시오.",
-        "P391 - 누출물을 모으시오."
+        "P302+P352 피부에 묻으면: 다량의 물/... (으)로 씻으시오.",
+        "P304+P340 흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.",
+        "P305+P351+P338 눈에 묻으면: 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.",
+        "P308+P313 노출되거나 노출이 우려되면: 의학적인 조치/조언 을(를) 받으시오.",
+        "P310 즉시 의료기관/의사/… 의 진찰을 받으시오.",
+        "P314 불편함을 느끼면 의학적인 조치/조언 을(를) 받으시오.",
+        "P321 ... 처치를 하시오.",
+        "P332+P313 피부 자극이 나타나면: 의학적인 조치/조언 을(를) 받으시오.",
+        "P333+P313 피부 자극 또는 홍반이 나타나면: 의학적인 조치/조언 을(를) 받으시오.",
+        "P342+P311 호흡기 증상이 나타나면: 의료기관/의사/… 의 진찰을 받으시오.",
+        "P362+P364 오염된 의류를 벗고 다시 사용 전 세척하시오.",
+        "P391 누출물을 모으시오."
       ],
       "storage": [
-        "P405 - 잠금장치를 하여 저장하시오."
+        "P405 잠금장치를 하여 저장하시오."
       ],
       "disposal": [
-        "P501 - 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오."
+        "P501 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오."
       ]
     },
     "ingredients": [
       {
-        "chemicalName": "번호:",
+        "chemicalName": "니켈(Nickel)",
         "casNo": "7440-02-0",
-        "content": ""
+        "content": "41~45"
       },
       {
-        "chemicalName": "철(Iron) 환원철 번호:",
+        "chemicalName": "철(Iron)",
         "casNo": "7439-89-6",
-        "content": "41 – 45"
+        "content": "31~35"
       },
       {
-        "chemicalName": "번호:",
+        "chemicalName": "탄산바륨(Barium carbonate)",
         "casNo": "513-77-9",
-        "content": ""
+        "content": "6~10"
       },
       {
-        "chemicalName": "경질칼슘카보네이트 / 탄산칼슘 번호:",
+        "chemicalName": "탄산칼슘(Calcium carbonate)",
         "casNo": "471-34-1",
-        "content": ""
+        "content": "6~10"
       },
       {
-        "chemicalName": "번호:",
+        "chemicalName": "불화 칼슘(CaF2)",
         "casNo": "7789-75-5",
-        "content": ""
+        "content": "1~3"
       },
       {
-        "chemicalName": "소듐실리케이트 번호:",
+        "chemicalName": "규산나트륨(Sodium silicate)",
         "casNo": "1344-09-8",
-        "content": ""
+        "content": "1~3"
       },
       {
-        "chemicalName": "운모(Mica minerals) 마이카 번호:",
+        "chemicalName": "운모(Mica minerals)",
         "casNo": "12001-26-2",
-        "content": "1 – 3"
+        "content": "0.1~1"
       },
       {
-        "chemicalName": "흑연(Graphite ) 흑연 (천연) 번호:",
+        "chemicalName": "흑연(Graphite)",
         "casNo": "7782-42-5",
-        "content": "0.1 – 1"
+        "content": "0.1~1"
       },
       {
-        "chemicalName": "번호:",
+        "chemicalName": "실리콘 금속(Silicon Metal)",
         "casNo": "7440-21-3",
-        "content": ""
+        "content": "0.1~0.8"
       }
     ],
     "ppeCandidates": [
-      "P280 - 보호장갑/보호의/보안경/안면보호구를(을) 착용하시오.",
-      "P284 - [환기가 잘 되지 않는 경우] 호흡기 보호구를 착용하시오."
+      "P280 - 보호장갑/보호의/보안경/안면보호구 를(을) 착용하시오.",
+      "다. 화재 진압 시 착용할 보호구 및 예방조치",
+      "화재 진압 중 보호 : 적절한 보호 장비 없이 조치를 취하려고 하지 마시오. 자급식 호흡보호구. 전신 보호복.",
+      "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구",
+      "유출지역을 환기시키시오.",
+      "보다 자세한 정보는 섹션 8: \"노출방지 및 개인보호구\"를 참조하시오.",
+      "안전취급요령 : 작업장의 환기 상태가 양호한지 확인하시오.",
+      "개인 보호구를 착용하시오.",
+      "보관 조건 : 환기가 잘 되는 곳에 보관하시오.",
+      "8. 노출방지 및 개인보호구",
+      "적절한 공학적 관리 : 작업장의 환기 상태가 양호한지 확인하시오.",
+      "다. 개인보호구",
+      "환기가 불충분할 경우, 적절한 호흡 장비를 착용하시오",
+      "보안경",
+      "적절한 보호복을 착용하시오"
     ],
     "match": {
-      "fileName": "KFN-50. 2021.12.29.pdf",
-      "relativePath": "00_ 사출/고려용접봉/KFN-50. 2021.12.29.pdf"
+      "fileName": "KFN-50_MSDS_20211229.pdf",
+      "relativePath": "00_ 사출/고려용접봉/KFN-50_MSDS_20211229.pdf"
     },
     "publication": {
       "summaryMode": "automatic",
       "summaryAvailable": true,
-      "validationStatus": "automatic_with_warnings",
-      "validationWarnings": [
-        "SIGNAL_WORD_INVALID"
-      ]
+      "validationStatus": "automatic",
+      "validationWarnings": []
     }
   },
   {
-    "sourcePdfPath": "pdf/00_ 사출/고려용접봉/KH-500LF. 2021.12.22.pdf",
-    "sourceRelativePath": "00_ 사출/고려용접봉/KH-500LF. 2021.12.22.pdf",
-    "pdfRegistrationType": "excel_linked",
-    "productNameCandidate": "제품 형태 : 혼합물",
+    "sourcePdfPath": "pdf/00_ 사출/고려용접봉/KH-500LF_MSDS_20260310.pdf",
+    "sourceRelativePath": "00_ 사출/고려용접봉/KH-500LF_MSDS_20260310.pdf",
+    "pdfRegistrationType": "pdf_only",
+    "productNameCandidate": "KH-500LF",
     "supplierCandidate": "고려용접봉 창원공장",
-    "msdsNoCandidate": "",
-    "revisionDateCandidate": "2021-12-22",
-    "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
+    "msdsNoCandidate": "AA06900-0000000135",
+    "revisionDateCandidate": "2026-03-10",
+    "signalWordCandidate": "위험",
+    "ghsSource": "section2_label_images_checked",
+    "labelGhsCodes": [
+      "GHS07",
+      "GHS08"
+    ],
+    "labelGhsPictograms": [
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
+      }
+    ],
     "classificationGhsCodes": [
       "GHS07",
-      "GHS05",
       "GHS08"
     ],
     "classificationGhsPictograms": [
@@ -13262,17 +13301,12 @@
         "label": "유해/자극성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
       }
     ],
     "ghsCodes": [
       "GHS07",
-      "GHS05",
       "GHS08"
     ],
     "ghsPictograms": [
@@ -13281,105 +13315,104 @@
         "label": "유해/자극성"
       },
       {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
         "code": "GHS08",
         "label": "건강유해성"
       }
     ],
     "hazardStatements": [
-      "피부 자극성, 구분 2 H315",
-      "눈 손상성, 구분 1 H318",
-      "호흡기 과민성, 구분 1 H334",
-      "피부 과민성, 구분 1 H317",
-      "특정 표적장기 독성 (1 회 노출), 구분 2 H371",
-      "특정 표적장기 독성 (반복 노출), 구분 2 H373",
-      "H315 - 피부에 자극을 일으킴.",
-      "H317 - 알레르기성 피부 반응을 일으킬 수 있음.",
-      "H318 - 눈에 심한 손상을 일으킴.",
-      "H334 - 흡입 시 알레르기성 반응, 천식 또는 호흡 곤란 등을 일으킬 수 있음.",
-      "H371 - 장기에 손상을 일으킬 수 있음.",
-      "H373 - 장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음."
+      "H317 알레르기성 피부 반응을 일으킬 수 있음",
+      "H334 흡입 시 알레르기성 반응, 천식 또는 호흡 곤란 등을 일으킬 수 있음",
+      "H371 장기에 손상을 일으킬 수 있음",
+      "H373 장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음"
     ],
     "precautionaryStatements": {
       "prevention": [
-        "P260 - 분진·흄·가스·미스트·증기·스프레이 를(을) 흡입하지 마시오.",
-        "P261 - 분진/흄/가스/미스트/증기/스프레이의 흡입을 피하시오.",
-        "P264 - 취급 후에는 취급 부위 을(를) 철저히 씻으시오.",
-        "P270 - 이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오.",
-        "P272 - 작업장 밖으로 오염된 의류를 반출하지 마시오.",
-        "P280 - 보호장갑/보호의/보안경/안면보호구를(을) 착용하시오.",
-        "P284 - [환기가 잘 되지 않는 경우] 호흡기 보호구를 착용하시오."
+        "P260 분진/흄/가스/미스트/증기/스프레이 를(을) 흡입하지 마시오.",
+        "P261 분진/흄/가스/미스트/증기/스프레이 의 흡입을 피하시오.",
+        "P264 취급 후에는 취급 부위 을(를) 철저히 씻으시오.",
+        "P270 이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오.",
+        "P272 작업장 밖으로 오염된 의류를 반출하지 마시오.",
+        "P280 보호장갑/보호의/보안경/안면보호구 를(을) 착용하시오.",
+        "P284 호흡기 보호구를 착용하시오."
       ],
       "response": [
-        "P302+P352 - 피부에 묻으면: 다량의 물 로 씻으시오.",
-        "P304+P340 - 흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.",
-        "P305+P351+P338 - 눈에 묻으면: 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.",
-        "P308+P311 - 노출되거나 노출이 우려되면: 의료기관/의사/… 의 진찰을 받으시오.",
-        "P310 - 즉시 의료기관/의사/… 의 진찰을 받으시오.",
-        "P314 - 불편함을 느끼면 의학적인 조치/조언을 받으시오.",
-        "P321 - 응급 처치를 하시오.",
-        "P332+P313 - 피부 자극이 나타나면: 의학적인 조치/조언을 받으시오.",
-        "P333+P313 - 피부 자극 또는 홍반이 나타나면: 의학적인 조치/조언을 받으시오.",
-        "P342+P311 - 호흡기 증상이 나타나면: 의료기관/의사/… 의 진찰을 받으시오.",
-        "P362+P364 - 오염된 의류를 벗고 다시 사용 전 세척하시오."
+        "P302+P352 피부에 묻으면: 다량의 물/... (으)로 씻으시오.",
+        "P304+P340 흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.",
+        "P308+P311 노출되거나 노출이 우려되면: 의료기관/의사/… 의 진찰을 받으시오.",
+        "P314 불편함을 느끼면 의학적인 조치/조언 을(를) 받으시오.",
+        "P321 ... 처치를 하시오.",
+        "P333+P313 피부 자극 또는 홍반이 나타나면: 의학적인 조치/조언 을(를) 받으시오.",
+        "P342+P311 호흡기 증상이 나타나면: 의료기관/의사/… 의 진찰을 받으시오.",
+        "P362+P364 오염된 의류를 벗고 다시 사용 전 세척하시오."
       ],
       "storage": [
-        "P405 - 잠금장치를 하여 저장하시오."
+        "P405 잠금장치를 하여 저장하시오."
       ],
       "disposal": [
-        "P501 - 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오."
+        "P501 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오."
       ]
     },
     "ingredients": [
       {
-        "chemicalName": "철(Iron) 환원철 번호:",
+        "chemicalName": "철(Iron)",
         "casNo": "7439-89-6",
-        "content": ""
+        "content": "68~72"
       },
       {
-        "chemicalName": "경질칼슘카보네이트 / 탄산칼슘 번호:",
+        "chemicalName": "탄산칼슘(Calcium carbonate)",
         "casNo": "471-34-1",
-        "content": ""
+        "content": "13~17"
       },
       {
-        "chemicalName": "번호:",
+        "chemicalName": "불화 칼슘(CaF2)",
         "casNo": "7789-75-5",
-        "content": ""
+        "content": "1~5"
       },
       {
-        "chemicalName": "번호:",
+        "chemicalName": "실리콘 금속(Silicon Metal)",
         "casNo": "7440-21-3",
-        "content": ""
+        "content": "1~5"
       },
       {
-        "chemicalName": "소듐실리케이트 번호:",
+        "chemicalName": "규산나트륨(Sodium silicate)",
         "casNo": "1344-09-8",
-        "content": ""
+        "content": "1~3"
       },
       {
-        "chemicalName": "번호:",
+        "chemicalName": "이산화티타늄(Titanium Dioxide)",
         "casNo": "13463-67-7",
-        "content": ""
+        "content": "1~3"
       }
     ],
     "ppeCandidates": [
-      "P280 - 보호장갑/보호의/보안경/안면보호구를(을) 착용하시오.",
-      "P284 - [환기가 잘 되지 않는 경우] 호흡기 보호구를 착용하시오."
+      "P280 - 보호장갑/보호의/보안경/안면보호구 를(을) 착용하시오.",
+      "다. 화재 진압 시 착용할 보호구 및 예방조치",
+      "호흡 보호구를 비롯한 적절한 보호 장비 없이 화재 지역에 들어가지 마시오.",
+      "자급식 호흡보호구.",
+      "전신 보호복.",
+      "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구",
+      "유출지역을 환기시키시오.",
+      "보다 자세한 정보는 8 항(노출방지 및 개인보호구)을 참조하시오.",
+      "안전취급요령 : 작업장의 환기 상태가 양호한지 확인하시오.",
+      "개인 보호구를 착용하시오.",
+      "기술적 조치 : 열을 피해서 서늘하고 환기가 잘 되는 곳에 보관하시오.",
+      "8. 노출방지 및 개인보호구",
+      "적절한 공학적 관리 : 작업장의 환기 상태가 양호한지 확인하시오.",
+      "다. 개인보호구",
+      "개인 보호구",
+      "[환기가 잘 되지 않는 경우] 호흡기 보호구를 착용하시오.",
+      "보안경",
+      "적절한 보호복을 착용하시오"
     ],
     "match": {
-      "fileName": "KH-500LF. 2021.12.22.pdf",
-      "relativePath": "00_ 사출/고려용접봉/KH-500LF. 2021.12.22.pdf"
+      "fileName": "KH-500LF_MSDS_20260310.pdf",
+      "relativePath": "00_ 사출/고려용접봉/KH-500LF_MSDS_20260310.pdf"
     },
     "publication": {
       "summaryMode": "automatic",
       "summaryAvailable": true,
-      "validationStatus": "automatic_with_warnings",
-      "validationWarnings": [
-        "SIGNAL_WORD_INVALID"
-      ]
+      "validationStatus": "automatic",
+      "validationWarnings": []
     }
   },
   {
@@ -13535,30 +13568,53 @@
     }
   },
   {
-    "sourcePdfPath": "pdf/00_ 사출/고려용접봉/KSN-100.2021.12.19.pdf",
-    "sourceRelativePath": "00_ 사출/고려용접봉/KSN-100.2021.12.19.pdf",
-    "pdfRegistrationType": "excel_linked",
-    "productNameCandidate": "제품 형태 : 혼합물",
+    "sourcePdfPath": "pdf/00_ 사출/고려용접봉/KSN-100_MSDS_20211229.pdf",
+    "sourceRelativePath": "00_ 사출/고려용접봉/KSN-100_MSDS_20211229.pdf",
+    "pdfRegistrationType": "pdf_only",
+    "productNameCandidate": "KSN-100",
     "supplierCandidate": "고려용접봉 창원공장",
-    "msdsNoCandidate": "",
+    "msdsNoCandidate": "AA06900-0000000207",
     "revisionDateCandidate": "2021-12-29",
-    "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
-    "classificationGhsCodes": [
-      "GHS07",
+    "signalWordCandidate": "위험",
+    "ghsSource": "section2_label_images_checked",
+    "labelGhsCodes": [
       "GHS05",
+      "GHS07",
       "GHS08",
       "GHS09"
     ],
-    "classificationGhsPictograms": [
+    "labelGhsPictograms": [
+      {
+        "code": "GHS05",
+        "label": "부식성"
+      },
       {
         "code": "GHS07",
         "label": "유해/자극성"
       },
       {
+        "code": "GHS08",
+        "label": "건강유해성"
+      },
+      {
+        "code": "GHS09",
+        "label": "환경유해성"
+      }
+    ],
+    "classificationGhsCodes": [
+      "GHS05",
+      "GHS07",
+      "GHS08",
+      "GHS09"
+    ],
+    "classificationGhsPictograms": [
+      {
         "code": "GHS05",
         "label": "부식성"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
       },
       {
         "code": "GHS08",
@@ -13570,19 +13626,19 @@
       }
     ],
     "ghsCodes": [
-      "GHS07",
       "GHS05",
+      "GHS07",
       "GHS08",
       "GHS09"
     ],
     "ghsPictograms": [
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
         "code": "GHS05",
         "label": "부식성"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
       },
       {
         "code": "GHS08",
@@ -13594,112 +13650,116 @@
       }
     ],
     "hazardStatements": [
-      "피부 자극성, 구분 2 H315",
-      "눈 손상성, 구분 1 H318",
-      "호흡기 과민성, 구분 1 H334",
-      "피부 과민성, 구분 1 H317",
-      "발암성, 구분 2 H351",
-      "특정 표적장기 독성 (반복 노출), 구분 1 H372",
-      "급성 수생환경, 구분 1 H400",
-      "H315 - 피부에 자극을 일으킴.",
-      "H317 - 알레르기성 피부 반응을 일으킬 수 있음.",
-      "H318 - 눈에 심한 손상을 일으킴.",
-      "H334 - 흡입 시 알레르기성 반응, 천식 또는 호흡 곤란 등을 일으킬 수 있음.",
-      "H351 - 암을 일으킬 것으로 의심됨.",
-      "H372 - 장기간 또는 반복노출 되면 장기에 손상을 일으킴.",
-      "H400 - 수생생물에 매우 유독함."
+      "H315 피부에 자극을 일으킴.",
+      "H317 알레르기성 피부 반응을 일으킬 수 있음.",
+      "H318 눈에 심한 손상을 일으킴.",
+      "H334 흡입 시 알레르기성 반응, 천식 또는 호흡 곤란 등을 일으킬 수 있음.",
+      "H351 암을 일으킬 것으로 의심됨.",
+      "H372 장기간 또는 반복노출 되면 장기에 손상을 일으킴.",
+      "H400 수생생물에 매우 유독함."
     ],
     "precautionaryStatements": {
       "prevention": [
-        "P201 - 사용 전 취급 설명서를 확보하시오.",
-        "P202 - 모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.",
-        "P260 - 분진·흄·가스·미스트·증기·스프레이 를(을) 흡입하지 마시오.",
-        "P261 - 분진/흄/가스/미스트/증기/스프레이의 흡입을 피하시오.",
-        "P264 - 취급 후에는 취급 부위 을(를) 철저히 씻으시오.",
-        "P270 - 이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오.",
-        "P272 - 작업장 밖으로 오염된 의류를 반출하지 마시오.",
-        "P273 - 환경으로 배출하지 마시오.",
-        "P280 - 보호장갑/보호의/보안경/안면보호구를(을) 착용하시오.",
-        "P284 - [환기가 잘 되지 않는 경우] 호흡기 보호구를 착용하시오."
+        "P201 사용 전 취급 설명서를 확보하시오.",
+        "P202 모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.",
+        "P260 분진/흄/가스/미스트/증기/스프레이 를(을) 흡입하지 마시오.",
+        "P261 분진/흄/가스/미스트/증기/스프레이 의 흡입을 피하시오.",
+        "P264 취급 후에는 취급 부위 을(를) 철저히 씻으시오.",
+        "P270 이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오.",
+        "P272 작업장 밖으로 오염된 의류를 반출하지 마시오.",
+        "P273 환경으로 배출하지 마시오.",
+        "P280 보호장갑/보호의/보안경/안면보호구 를(을) 착용하시오.",
+        "P284 호흡기 보호구를 착용하시오."
       ],
       "response": [
-        "P302+P352 - 피부에 묻으면: 다량의 물 로 씻으시오.",
-        "P304+P340 - 흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.",
-        "P305+P351+P338 - 눈에 묻으면: 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.",
-        "P308+P313 - 노출되거나 노출이 우려되면: 의학적인 조치/조언을 받으시오.",
-        "P310 - 즉시 의료기관/의사/… 의 진찰을 받으시오.",
-        "P314 - 불편함을 느끼면 의학적인 조치/조언을 받으시오.",
-        "P321 - 응급 처치를 하시오.",
-        "P332+P313 - 피부 자극이 나타나면: 의학적인 조치/조언을 받으시오.",
-        "P333+P313 - 피부 자극 또는 홍반이 나타나면: 의학적인 조치/조언을 받으시오.",
-        "P342+P311 - 호흡기 증상이 나타나면: 의료기관/의사/… 의 진찰을 받으시오.",
-        "P362+P364 - 오염된 의류를 벗고 다시 사용 전 세척하시오.",
-        "P391 - 누출물을 모으시오."
+        "P302+P352 피부에 묻으면: 다량의 물/... (으)로 씻으시오.",
+        "P304+P340 흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.",
+        "P305+P351+P338 눈에 묻으면: 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.",
+        "P308+P313 노출되거나 노출이 우려되면: 의학적인 조치/조언 을(를) 받으시오.",
+        "P310 즉시 의료기관/의사/… 의 진찰을 받으시오.",
+        "P314 불편함을 느끼면 의학적인 조치/조언 을(를) 받으시오.",
+        "P321 ... 처치를 하시오.",
+        "P332+P313 피부 자극이 나타나면: 의학적인 조치/조언 을(를) 받으시오.",
+        "P333+P313 피부 자극 또는 홍반이 나타나면: 의학적인 조치/조언 을(를) 받으시오.",
+        "P342+P311 호흡기 증상이 나타나면: 의료기관/의사/… 의 진찰을 받으시오.",
+        "P362+P364 오염된 의류를 벗고 다시 사용 전 세척하시오.",
+        "P391 누출물을 모으시오."
       ],
       "storage": [
-        "P405 - 잠금장치를 하여 저장하시오."
+        "P405 잠금장치를 하여 저장하시오."
       ],
       "disposal": [
-        "P501 - 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오."
+        "P501 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오."
       ]
     },
     "ingredients": [
       {
-        "chemicalName": "번호:",
+        "chemicalName": "니켈(Nickel)",
         "casNo": "7440-02-0",
-        "content": ""
+        "content": "71~75"
       },
       {
-        "chemicalName": "번호:",
+        "chemicalName": "탄산바륨(Barium carbonate)",
         "casNo": "513-77-9",
-        "content": ""
+        "content": "6~10"
       },
       {
-        "chemicalName": "석회석(Limestone) 탄산칼슘 / 탄산칼슘 (석회석) 번호:",
+        "chemicalName": "석회석(Limestone)",
         "casNo": "1317-65-3",
-        "content": "6 – 10"
+        "content": "6~10"
       },
       {
-        "chemicalName": "번호:",
+        "chemicalName": "불화 칼슘(CaF2)",
         "casNo": "7789-75-5",
-        "content": ""
+        "content": "1~3"
       },
       {
-        "chemicalName": "소듐실리케이트 번호:",
+        "chemicalName": "규산나트륨(Sodium silicate)",
         "casNo": "1344-09-8",
-        "content": ""
+        "content": "1~3"
       },
       {
-        "chemicalName": "운모(Mica minerals) 마이카 번호:",
+        "chemicalName": "운모(Mica minerals)",
         "casNo": "12001-26-2",
-        "content": "1 – 3"
+        "content": "0.1~1"
       },
       {
-        "chemicalName": "흑연(Graphite ) 흑연 (천연) 번호:",
+        "chemicalName": "흑연(Graphite)",
         "casNo": "7782-42-5",
-        "content": "0.1 – 1"
+        "content": "0.1~1"
       },
       {
-        "chemicalName": "번호:",
+        "chemicalName": "실리콘 금속(Silicon Metal)",
         "casNo": "7440-21-3",
-        "content": ""
+        "content": "0.1~0.6"
       }
     ],
     "ppeCandidates": [
-      "P280 - 보호장갑/보호의/보안경/안면보호구를(을) 착용하시오.",
-      "P284 - [환기가 잘 되지 않는 경우] 호흡기 보호구를 착용하시오."
+      "P280 - 보호장갑/보호의/보안경/안면보호구 를(을) 착용하시오.",
+      "다. 화재 진압 시 착용할 보호구 및 예방조치",
+      "화재 진압 중 보호 : 적절한 보호 장비 없이 조치를 취하려고 하지 마시오. 자급식 호흡보호구. 전신 보호복.",
+      "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구",
+      "유출지역을 환기시키시오.",
+      "보다 자세한 정보는 섹션 8: \"노출방지 및 개인보호구\"를 참조하시오.",
+      "안전취급요령 : 작업장의 환기 상태가 양호한지 확인하시오.",
+      "개인 보호구를 착용하시오.",
+      "보관 조건 : 환기가 잘 되는 곳에 보관하시오.",
+      "8. 노출방지 및 개인보호구",
+      "적절한 공학적 관리 : 작업장의 환기 상태가 양호한지 확인하시오.",
+      "다. 개인보호구",
+      "환기가 불충분할 경우, 적절한 호흡 장비를 착용하시오",
+      "보안경",
+      "적절한 보호복을 착용하시오"
     ],
     "match": {
-      "fileName": "KSN-100.2021.12.19.pdf",
-      "relativePath": "00_ 사출/고려용접봉/KSN-100.2021.12.19.pdf"
+      "fileName": "KSN-100_MSDS_20211229.pdf",
+      "relativePath": "00_ 사출/고려용접봉/KSN-100_MSDS_20211229.pdf"
     },
     "publication": {
       "summaryMode": "automatic",
       "summaryAvailable": true,
-      "validationStatus": "automatic_with_warnings",
-      "validationWarnings": [
-        "SIGNAL_WORD_INVALID"
-      ]
+      "validationStatus": "automatic",
+      "validationWarnings": []
     }
   },
   {
@@ -13867,138 +13927,148 @@
     }
   },
   {
-    "sourcePdfPath": "pdf/00_ 사출/고려용접봉/M-3081. 2021.12.16.pdf",
-    "sourceRelativePath": "00_ 사출/고려용접봉/M-3081. 2021.12.16.pdf",
-    "pdfRegistrationType": "excel_linked",
-    "productNameCandidate": "제품 형태 : 혼합물",
+    "sourcePdfPath": "pdf/00_ 사출/고려용접봉/M-308_MSDS_20250207.pdf",
+    "sourceRelativePath": "00_ 사출/고려용접봉/M-308_MSDS_20250207.pdf",
+    "pdfRegistrationType": "pdf_only",
+    "productNameCandidate": "M-308",
     "supplierCandidate": "고려용접봉 창원공장",
-    "msdsNoCandidate": "",
-    "revisionDateCandidate": "2021-12-16",
-    "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
+    "msdsNoCandidate": "AA06900-0000000521",
+    "revisionDateCandidate": "2025-02-07",
+    "signalWordCandidate": "위험",
+    "ghsSource": "section2_label_images_checked",
+    "labelGhsCodes": [
+      "GHS07",
+      "GHS08"
+    ],
+    "labelGhsPictograms": [
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
+      }
+    ],
     "classificationGhsCodes": [
-      "GHS08",
-      "GHS07"
+      "GHS07",
+      "GHS08"
     ],
     "classificationGhsPictograms": [
       {
-        "code": "GHS08",
-        "label": "건강유해성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
       }
     ],
     "ghsCodes": [
-      "GHS08",
-      "GHS07"
+      "GHS07",
+      "GHS08"
     ],
     "ghsPictograms": [
       {
-        "code": "GHS08",
-        "label": "건강유해성"
-      },
-      {
         "code": "GHS07",
         "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
       }
     ],
     "hazardStatements": [
-      "호흡기 과민성, 구분 1 H334",
-      "피부 과민성, 구분 1 H317",
-      "발암성, 구분 2 H351",
-      "특정 표적장기 독성 (1 회 노출), 구분 3 H336",
-      "특정 표적장기 독성 (반복 노출), 구분 1 H372",
-      "만성 수생환경, 구분 3 H412",
-      "H317 - 알레르기성 피부 반응을 일으킬 수 있음.",
-      "H334 - 흡입 시 알레르기성 반응, 천식 또는 호흡 곤란 등을 일으킬 수 있음.",
-      "H336 - 졸음 또는 현기증을 일으킬 수 있음.",
-      "H351 - 암을 일으킬 것으로 의심됨.",
-      "H372 - 장기간 또는 반복노출 되면 장기에 손상을 일으킴.",
-      "H412 - 장기적인 영향에 의해 수생생물에게 유해함."
+      "H317 알레르기성 피부 반응을 일으킬 수 있음.",
+      "H351 암을 일으킬 것으로 의심됨 (흡입).",
+      "H372 장기간 또는 반복노출 되면 장기(호흡계)에 손상을 일으킴 (흡입)."
     ],
     "precautionaryStatements": {
       "prevention": [
-        "P201 - 사용 전 취급 설명서를 확보하시오.",
-        "P202 - 모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.",
-        "P260 - 분진·흄·가스·미스트·증기·스프레이 를(을) 흡입하지 마시오.",
-        "P261 - 분진/흄/가스/미스트/증기/스프레이의 흡입을 피하시오.",
-        "P264 - 취급 후에는 취급 부위 을(를) 철저히 씻으시오.",
-        "P270 - 이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오.",
-        "P271 - 옥외 또는 환기가 잘 되는 곳에서만 취급하시오.",
-        "P272 - 작업장 밖으로 오염된 의류를 반출하지 마시오.",
-        "P273 - 환경으로 배출하지 마시오.",
-        "P280 - 보호장갑/보호의/보안경/안면보호구를(을) 착용하시오.",
-        "P284 - [환기가 잘 되지 않는 경우] 호흡기 보호구를 착용하시오."
+        "P201 사용 전 취급 설명서를 확보하시오.",
+        "P202 모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.",
+        "P260 가스, 분진, 흄 를(을) 흡입하지 마시오.",
+        "P261 가스, 분진, 흄 의 흡입을 피하시오.",
+        "P264 취급 후에는 손, 팔뚝 및 얼굴 을(를) 철저히 씻으시오.",
+        "P270 이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오.",
+        "P272 작업장 밖으로 오염된 의류를 반출하지 마시오.",
+        "P280 보안경, 안면보호구, 안전장갑, 보호의 를(을) 착용하시오."
       ],
       "response": [
-        "P302+P352 - 피부에 묻으면: 다량의 물 로 씻으시오.",
-        "P304+P340 - 흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.",
-        "P308+P313 - 노출되거나 노출이 우려되면: 의학적인 조치/조언을 받으시오.",
-        "P312 - 불편함을 느낀다면 의료기관/의사/… 의 진찰을 받으시오.",
-        "P314 - 불편함을 느끼면 의학적인 조치/조언을 받으시오.",
-        "P321 - 응급 처치를 하시오.",
-        "P333+P313 - 피부 자극 또는 홍반이 나타나면: 의학적인 조치/조언을 받으시오.",
-        "P342+P311 - 호흡기 증상이 나타나면: 의료기관/의사/… 의 진찰을 받으시오.",
-        "P362+P364 - 오염된 의류를 벗고 다시 사용 전 세척하시오."
+        "P302+P352 피부에 묻으면: 다량의 비누 및 물 (으)로 씻으시오.",
+        "P308+P313 노출되거나 노출이 우려되면: 의학적인 조치 을(를) 받으시오.",
+        "P314 불편함을 느끼면 의학적인 조치 을(를) 받으시오.",
+        "P321 즉시 의학적인 조치 처치를 하시오.",
+        "P333+P313 피부 자극 또는 홍반이 나타나면: 의학적인 조치 을(를) 받으시오.",
+        "P362+P364 오염된 의류를 벗고 다시 사용 전 세척하시오."
       ],
       "storage": [
-        "P403+P233 - 환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오.",
-        "P405 - 잠금장치를 하여 저장하시오."
+        "P405 잠금장치를 하여 저장하시오."
       ],
       "disposal": [
-        "P501 - 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오."
+        "P501 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오."
       ]
     },
     "ingredients": [
       {
-        "chemicalName": "철(Iron) 환원철 번호:",
+        "chemicalName": "철(Iron)",
         "casNo": "7439-89-6",
-        "content": ""
+        "content": "63.3~70.2"
       },
       {
-        "chemicalName": "크롬분 - 번호:",
+        "chemicalName": "크롬분(Chromium)",
         "casNo": "7440-47-3",
-        "content": "63.3 – 70.2"
+        "content": "19.5~22"
       },
       {
-        "chemicalName": "번호:",
+        "chemicalName": "니켈(Nickel)",
         "casNo": "7440-02-0",
-        "content": ""
+        "content": "9~11"
       },
       {
-        "chemicalName": "번호:",
+        "chemicalName": "망간(Manganese)",
         "casNo": "7439-96-5",
-        "content": ""
+        "content": "1~2.5"
       },
       {
-        "chemicalName": "번호:",
-        "casNo": "7440-21-3",
-        "content": ""
-      },
-      {
-        "chemicalName": "번호:",
+        "chemicalName": "구리(Copper)",
         "casNo": "7440-50-8",
-        "content": ""
+        "content": "≤0.75"
+      },
+      {
+        "chemicalName": "실리콘 금속(Silicon Metal)",
+        "casNo": "7440-21-3",
+        "content": "0.3~0.7"
       }
     ],
     "ppeCandidates": [
-      "P280 - 보호장갑/보호의/보안경/안면보호구를(을) 착용하시오.",
-      "P284 - [환기가 잘 되지 않는 경우] 호흡기 보호구를 착용하시오."
+      "P280 - 보안경, 안면보호구, 안전장갑, 보호의 를(을) 착용하시오.",
+      "다. 화재 진압 시 착용할 보호구 및 예방조치",
+      "자급식 호흡보호구.",
+      "전신 보호복.",
+      "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구",
+      "유출지역을 환기시키시오.",
+      "보다 자세한 정보는 8 항(노출방지 및 개인보호구)을 참조하시오.",
+      "개인 보호구를 착용하시오.",
+      "옥외 또는 환기가 잘 되는 곳에서만 취급하시오.",
+      "환기가 잘 되는 곳에 보관하시오.",
+      "8. 노출방지 및 개인보호구",
+      "적절한 공학적 관리 : 작업장의 환기 상태가 양호한지 확인하시오.",
+      "다. 개인보호구",
+      "마스크를 착용하십시오.",
+      "[환기가 잘 되지 않는 경우] 호흡기 보호구를 착용하시오.",
+      "보안경",
+      "적절한 보호복을 착용하시오"
     ],
     "match": {
-      "fileName": "M-3081. 2021.12.16.pdf",
-      "relativePath": "00_ 사출/고려용접봉/M-3081. 2021.12.16.pdf"
+      "fileName": "M-308_MSDS_20250207.pdf",
+      "relativePath": "00_ 사출/고려용접봉/M-308_MSDS_20250207.pdf"
     },
     "publication": {
       "summaryMode": "automatic",
       "summaryAvailable": true,
-      "validationStatus": "automatic_with_warnings",
-      "validationWarnings": [
-        "SIGNAL_WORD_INVALID"
-      ]
+      "validationStatus": "automatic",
+      "validationWarnings": []
     }
   },
   {
@@ -19997,17 +20067,24 @@
     }
   },
   {
-    "sourcePdfPath": "pdf/3M/PN3021.pdf",
-    "sourceRelativePath": "3M/PN3021.pdf",
-    "pdfRegistrationType": "excel_linked",
+    "sourcePdfPath": "pdf/3M/PN3021_MSDS_20260726.pdf",
+    "sourceRelativePath": "3M/PN3021_MSDS_20260726.pdf",
+    "pdfRegistrationType": "pdf_only",
     "productNameCandidate": "3M PN3021 임페리얼 미세 마감 컴파운드",
     "supplierCandidate": "한국쓰리엠",
-    "msdsNoCandidate": "",
-    "revisionDateCandidate": "2020-10-18",
+    "msdsNoCandidate": "AA00437-0000060070",
+    "revisionDateCandidate": "2026-07-26",
     "signalWordCandidate": "경고",
-    "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
+    "ghsSource": "section2_label_images_checked",
+    "labelGhsCodes": [
+      "GHS08"
+    ],
+    "labelGhsPictograms": [
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
+      }
+    ],
     "classificationGhsCodes": [
       "GHS08"
     ],
@@ -20034,42 +20111,51 @@
         "P260 분진/흄/가스/미스트/증기/스프레이를 흡입하지 마시오."
       ],
       "response": [
-        "P314 불편함을 느끼면 의학적인 조치/조언을 받으시오."
+        "P314 불편함을 느끼면 의학적인 조치 또는 조언를 받으시오."
       ],
       "storage": [],
       "disposal": [
-        "P501 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오"
+        "P501 폐기물 관련 법령에 따라 내용물과 용기를 폐기하시오"
       ]
     },
     "ingredients": [
       {
-        "chemicalName": "자료 없음.",
+        "chemicalName": "Hydrotreated Light Petroleum Distillates",
         "casNo": "64742-47-8",
-        "content": "10 - 20"
+        "content": "10~20"
       },
       {
-        "chemicalName": "Kaolinite CLAY",
+        "chemicalName": "Kaolinite",
         "casNo": "1318-74-7",
-        "content": "10 - 20"
+        "content": "3~7"
       },
       {
-        "chemicalName": "자료 없음.",
+        "chemicalName": "Solvent Dewaxed Heavy Paraffinic Distillate (Petroleum)",
         "casNo": "64742-65-0",
-        "content": "1 - 5"
-      },
-      {
-        "chemicalName": "",
-        "casNo": "9005-67-8",
-        "content": "0.1 - 1"
+        "content": "1~5"
       }
     ],
     "ppeCandidates": [
       "5.3. 화재 진압 시 착용할 보호구 및 예방조치",
-      "6.1. 인체를 보호하기 위해 필요한 조치 사항 및 보호구"
+      "6.1. 인체를 보호하기 위해 필요한 조치 사항 및 보호구",
+      "대피할 것. 신선한 공기로 환기하시오. 대량으로 유출되거나, 밀폐된 공간에서 유출되었을 때, 최적의 산",
+      "업위생 관행에 따라 기계적인 환기를 통해 분산시키거나 증기를 배출시켜야함. 노출 평가 결과에 따라 개",
+      "성, 감작제, 심각한 피부 자극제이거나 피부를 통해 흡수될 수 있는 경우 화학물질용 보호복을 착용하거나,",
+      "흡입 위험이 있는 화학 물질의 경우 양압 공급식 송기 마스크를 착용하는 것이 포함될 수 있습니다. 물리적",
+      "를 제거하시오. 신선한 공기로 공간을 환기하시오. 용제의 경고표지(label)과 물질안전보건자료(MSDS) 상의",
+      "8. 노출방지 및 개인보호구",
+      "기 위해 일반적인 희석 환기설비 또는 국소 배기 장치를 사용하시오. 만일 환기가 충분하지 않은 경우, 호흡",
+      "8.3 개인보호구(PPE)",
+      "눈/안면부의 보호를 위한 보호구의 선택 및 사용은 노출평가의 결과를 토대로 할 것. 눈/안면부의 보호는 다",
+      "측면 커버가 부착된 보안경",
+      "노출평가결과를 바탕으로 피부 접촉을 방지하기 위한 해당지역의 표준에 따라 허용된 장갑과 보호구를 선택",
+      "조건 및 기타 사용 조건등을 근거로 선택하시오. 적당하고 올바른 장갑과 보호복을 선택하기 위하여 장갑이",
+      "나 보호복 제조사에 문의하시오. 주의: 손놀림을 향상시키기 위하여 폴리머로 입힌 장갑위에 니트릴 장갑을",
+      "방진 겸용 유기화합물용 반면형 또는 전면형 방독 마스크"
     ],
     "match": {
-      "fileName": "PN3021.pdf",
-      "relativePath": "3M/PN3021.pdf"
+      "fileName": "PN3021_MSDS_20260726.pdf",
+      "relativePath": "3M/PN3021_MSDS_20260726.pdf"
     },
     "publication": {
       "summaryMode": "automatic",
@@ -20079,123 +20165,122 @@
     }
   },
   {
-    "sourcePdfPath": "pdf/3M/PN3084. 2021.01.11.pdf",
-    "sourceRelativePath": "3M/PN3084. 2021.01.11.pdf",
-    "pdfRegistrationType": "excel_linked",
+    "sourcePdfPath": "pdf/3M/PN3084_MSDS_20260210.pdf",
+    "sourceRelativePath": "3M/PN3084_MSDS_20260210.pdf",
+    "pdfRegistrationType": "pdf_only",
     "productNameCandidate": "PN3084 피네스잇 마무리 연마재(FINESSE-IT FINISHING MATERIAL)",
     "supplierCandidate": "한국쓰리엠",
     "msdsNoCandidate": "",
-    "revisionDateCandidate": "2019-12-12",
-    "ghsSource": "section2_classification_fallback",
+    "revisionDateCandidate": "2026-02-10",
+    "signalWordCandidate": "해당없음",
+    "ghsSource": "section2_label_images_checked",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
-    "classificationGhsCodes": [
-      "GHS09"
-    ],
-    "classificationGhsPictograms": [
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
-      }
-    ],
-    "ghsCodes": [
-      "GHS09"
-    ],
-    "ghsPictograms": [
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
-      }
-    ],
-    "hazardStatements": [
-      "H412 장기적인 영향에 의해 수생생물에게 유해함"
-    ],
+    "classificationGhsCodes": [],
+    "classificationGhsPictograms": [],
+    "ghsCodes": [],
+    "ghsPictograms": [],
+    "hazardStatements": [],
     "precautionaryStatements": {
-      "prevention": [
-        "P273 환경으로 배출하지 마시오."
-      ],
+      "prevention": [],
       "response": [],
       "storage": [],
-      "disposal": [
-        "P501 (관련 법규에 명시된 내용에 따라) 내용물/용기를 폐기하시오."
-      ]
+      "disposal": []
     },
     "ingredients": [
       {
-        "chemicalName": "물 증류수",
+        "chemicalName": "물",
         "casNo": "7732-18-5",
-        "content": "60 - 70"
+        "content": "60~70"
       },
       {
         "chemicalName": "수소처리된 중질 나프타 (석유)",
         "casNo": "64742-48-9",
-        "content": "2 - 12"
+        "content": "10~15"
       },
       {
-        "chemicalName": "자료 없음.",
+        "chemicalName": "Distillates (Petroleum), Acid Treated, Light",
         "casNo": "64742-14-9",
-        "content": "5 - 10"
+        "content": "5~10"
       },
       {
-        "chemicalName": "글리세린(Glycerin)",
-        "casNo": "56-81-5",
-        "content": "5 - 10"
-      },
-      {
-        "chemicalName": "Aluminum Oxide Mineral (nfibrous) ACTIVATED ALUMINUM OXIDE",
+        "chemicalName": "Aluminum Oxide Mineral (nonfibrous)",
         "casNo": "1344-28-1",
-        "content": "3 - 10"
+        "content": "5~10"
       },
       {
-        "chemicalName": "Mineral Oil 자료 없음.",
+        "chemicalName": "Mineral Oil",
         "casNo": "8042-47-5",
-        "content": "5 - 10"
+        "content": "1~5"
       },
       {
-        "chemicalName": "nane 자료 없음.",
-        "casNo": "111-84-2",
-        "content": "1 - 5"
-      },
-      {
-        "chemicalName": "Morpholine DIETHYLENE IMIDOXIDE",
+        "chemicalName": "Morpholine",
         "casNo": "110-91-8",
-        "content": "0.1 - 1"
-      },
-      {
-        "chemicalName": "1,2,4-Trimethylbenzene PSEUDOCUMENE",
-        "casNo": "95-63-6",
-        "content": "0.1 - 1"
+        "content": "<1"
       }
     ],
     "ppeCandidates": [
       "5.3. 화재 진압 시 착용할 보호구 및 예방조치",
       "마스크 및 노출된 부위의 보호덮개를 포함한 완전한 보호의를 착용하십시오.",
-      "6.1. 인체를 보호하기 위해 필요한 조치 사항 및 보호구"
+      "6.1. 인체를 보호하기 위해 필요한 조치 사항 및 보호구",
+      "질용 보호복을 착용하거나, 흡입 위험이 있는 화학 물질의 경우 양압 공급식 송기 마스크를 착용하는 것이",
+      "신선한 공기로 환기하시오. 대량으로 유출되거나, 밀폐된 공간에서 유출되었을 때, 최적의 산업위생 관행에",
+      "따라 기계적인 환기를 통해 분산시키거나 증기를 배출시켜야함.",
+      "를 제거하시오. 신선한 공기로 공간을 환기하시오. 용제의 경고표지(label)과 물질안전보건자료(MSDS) 상의",
+      "소, 크롬산등)와의 접촉을 피할 것. 필요에 따라 개인 보호구(장갑, 호흡기 보호구 등)를 착용하시오.",
+      "8. 노출방지 및 개인보호구",
+      "기 위해 일반적인 희석 환기설비 또는 국소 배기 장치를 사용하시오. 만일 환기가 충분하지 않은 경우, 호흡",
+      "8.3 개인보호구(PPE)",
+      "노출평가결과를 바탕으로 피부 접촉을 방지하기 위한 해당지역의 표준에 따라 허용된 장갑과 보호구를 선택",
+      "조건 및 기타 사용 조건등을 근거로 선택하시오. 적당하고 올바른 장갑과 보호복을 선택하기 위하여 장갑이",
+      "나 보호복 제조사에 문의하시오. 주의: 손놀림을 향상시키기 위하여 폴리머로 입힌 장갑위에 니트릴 장갑을",
+      "방진 겸용 유기화합물용 반면형 또는 전면형 방독 마스크"
     ],
     "match": {
-      "fileName": "PN3084. 2021.01.11.pdf",
-      "relativePath": "3M/PN3084. 2021.01.11.pdf"
+      "fileName": "PN3084_MSDS_20260210.pdf",
+      "relativePath": "3M/PN3084_MSDS_20260210.pdf"
     },
     "publication": {
       "summaryMode": "automatic",
       "summaryAvailable": true,
-      "validationStatus": "automatic_with_warnings",
-      "validationWarnings": [
-        "SIGNAL_WORD_INVALID"
-      ]
+      "validationStatus": "automatic",
+      "validationWarnings": []
     }
   },
   {
-    "sourcePdfPath": "pdf/3M/Stainless Steel Coat.pdf",
-    "sourceRelativePath": "3M/Stainless Steel Coat.pdf",
-    "pdfRegistrationType": "excel_linked",
+    "sourcePdfPath": "pdf/3M/Stainless Steel Coat_MSDS_20170412.pdf",
+    "sourceRelativePath": "3M/Stainless Steel Coat_MSDS_20170412.pdf",
+    "pdfRegistrationType": "pdf_only",
     "productNameCandidate": "스테인리스강 코팅제(Stainless Steel Coat)",
     "supplierCandidate": "한국쓰리엠",
     "msdsNoCandidate": "",
+    "revisionDateCandidate": "2017-04-12",
     "signalWordCandidate": "위험",
-    "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
+    "ghsSource": "section2_label_images_checked",
+    "labelGhsCodes": [
+      "GHS02",
+      "GHS04",
+      "GHS07",
+      "GHS08"
+    ],
+    "labelGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
+      }
+    ],
     "classificationGhsCodes": [
       "GHS02",
       "GHS04",
@@ -20254,8 +20339,8 @@
       "H304 삼켜서 기도로 유입되면 치명적일 수 있음",
       "H336 졸음 또는 현기증을 일으킬 수 있음",
       "H360 태아 또는 생식능력에 손상을 일으킬 수 있음.",
-      "H370 장기에 손상을 일으킴",
-      "H372 장기 또는 반복 노출에 의해 장기에 손상을 일으킴",
+      "H370 장기에 손상을 일으킴 감각기관들",
+      "H372 장기 또는 반복 노출에 의해 장기에 손상을 일으킴 신경계 감각기관들",
       "H412 장기적인 영향에 의해 수생생물에게 유해함"
     ],
     "precautionaryStatements": {
@@ -20278,25 +20363,25 @@
         "P273 환경으로 배출하지 마시오."
       ],
       "response": [
-        "P304 + P340 흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세를 유지",
-        "P305 + P351 + P338 눈에 묻으면 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제",
-        "P337 + P313 눈에 자극이 지속되면 의학적인 조치·조언을 구하시오.",
-        "P302 + P352 피부에 묻으면 다량의 비누와 물로 씻으시오.",
-        "P333 + P313 피부자극성 또는 홍반이 나타나면 의학적인 조치·조언을 구하시오.",
-        "P332 + P313 피부 자극이 생기면 의학적인 조치·조언을 구하시오.",
-        "P362 + P364 오염된 의복은 벗고 다시 사용 전 세탁하시오.",
+        "P304+P340 흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세를 유지하시오.",
+        "P305+P351+P338 눈에 묻으면 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.",
+        "P337+P313 눈에 자극이 지속되면 의학적인 조치·조언을 구하시오.",
+        "P302+P352 피부에 묻으면 다량의 비누와 물로 씻으시오.",
+        "P333+P313 피부자극성 또는 홍반이 나타나면 의학적인 조치·조언을 구하시오.",
+        "P332+P313 피부 자극이 생기면 의학적인 조치·조언을 구하시오.",
+        "P362+P364 오염된 의복은 벗고 다시 사용 전 세탁하시오.",
         "P331 토하게 하지 마시오.",
-        "P301 + P310 삼켰다면 즉시 의료기관(의사)의 진찰을 받으시오.",
-        "P308 + P311 노출되거나 노출이 우려되면: 의료기관(의사)의 진찰을 받으시오.",
-        "P308 + P313 노출되거나 노출이 우려되면 의학적인 조치·조언을 구하시오.",
-        "P321 처치를 하시오.(제품의 경고표지에 있는 의학적 조치에 대한 사항을 의사",
+        "P301+P310 삼켰다면 즉시 의료기관(의사)의 진찰을 받으시오.",
+        "P308+P311 노출되거나 노출이 우려되면: 의료기관(의사)의 진찰을 받으시오.",
+        "P308+P313 노출되거나 노출이 우려되면 의학적인 조치·조언을 구하시오.",
+        "P321 처치를 하시오.(제품의 경고표지에 있는 의학적 조치에 대한 사항을 의사에게 보이시오).",
         "P312 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.",
         "P314 불편함을 느끼면 의학적인 조치·조언을 구하시오."
       ],
       "storage": [
-        "P410 + P403 직사광선을 피하고 환기가 잘 되는 곳에 보관하시오.",
-        "P410 + P412 직사광선을 피하고 50℃ 이상의 온도에 노출시키지 마시오.",
-        "P403 + P233 용기는 환기가 잘 되는 곳에 단단히 밀폐하여 저장하시오.",
+        "P410+P403 직사광선을 피하고 환기가 잘 되는 곳에 보관하시오.",
+        "P410+P412 직사광선을 피하고 50℃ 이상의 온도에 노출시키지 마시오.",
+        "P403+P233 용기는 환기가 잘 되는 곳에 단단히 밀폐하여 저장하시오.",
         "P405 잠금장치가 있는 저장장소에 저장하시오."
       ],
       "disposal": [
@@ -20307,135 +20392,174 @@
       {
         "chemicalName": "디메틸에테르",
         "casNo": "115-10-6",
-        "content": "45 - 55"
+        "content": "45~55"
       },
       {
-        "chemicalName": "자일렌 DIMETHYLBENZENE",
+        "chemicalName": "자일렌",
         "casNo": "1330-20-7",
-        "content": "45 - 55"
+        "content": "10~20"
       },
       {
         "chemicalName": "톨루엔",
         "casNo": "108-88-3",
-        "content": "10 - 20"
+        "content": "10~20"
+      },
+      {
+        "chemicalName": "금속",
+        "casNo": "영업비밀",
+        "content": "7~13"
+      },
+      {
+        "chemicalName": "Polyamide Resin",
+        "casNo": "영업비밀",
+        "content": "7~13"
+      },
+      {
+        "chemicalName": "Metal Flake",
+        "casNo": "영업비밀",
+        "content": "1~5"
       },
       {
         "chemicalName": "메틸 에틸 케톤",
         "casNo": "78-93-3",
-        "content": "1 - 5"
+        "content": "1~5"
+      },
+      {
+        "chemicalName": "용매",
+        "casNo": "영업비밀",
+        "content": "0.1~1"
+      },
+      {
+        "chemicalName": "Xiameter Silane",
+        "casNo": "영업비밀",
+        "content": "0.1~1"
       }
     ],
     "ppeCandidates": [
       "P280D (보호장갑·보호의·보안경·안면보호구)를(을) 착용하시오.",
       "P280B (보호장갑·보호의·보안경·안면보호구)를(을) 착용하시오.",
       "P280A 눈/얼굴 보호구를 착용할 것.",
-      "P280E 보호장갑을 착용하시오."
+      "P280E 보호장갑을 착용하시오.",
+      "5.3. 화재 진압 시 착용할 보호구 및 예방조치",
+      "6.1. 인체를 보호하기 위해 필요한 조치 사항 및 보호구",
+      "오. 신선한 공기로 환기하시오. 대량으로 유출되거나, 밀폐된 공간에서 유출되었을 때, 최적의 산업위생",
+      "관행에 따라 기계적인 환기를 통해 분산시키거나 증기를 배출시켜야함. 경고! 모터가 점화원이 될 수 있으",
+      "가능하다면, 누출된 용기를 밀폐시킬 것. 누출된 용기는 잘 환기되는 지역, 되도록이면 작동되는 배기후드에",
+      "간을 환기하시오. 용제의 경고표지(label)과 물질안전보건자료(MSDS) 상의 안전 예방조치 사항을 읽고 준수",
+      "성을 피하기 위해 반응성 금속(예, 알루미늄, 아연등) 을 멀리하시오. 필요에 따라 개인 보호구(장갑, 호흡",
+      "기 보호구 등)를 착용하시오.",
+      "환기가 잘 되는 곳에 보관할 것.단단하게 밀폐하여 저장할 것. 물과 공기 오염로 인한 오염을 방지하기 위",
+      "피하시오. 50C/122F를 초과하는 온도에 노출되지 않게 할 것. 직사 광선을 피하시오. 환기가 잘된 장소에",
+      "8. 노출방지 및 개인보호구",
+      "기 위해 일반적인 희석 환기설비 또는 국소 배기 장치를 사용하시오. 만일 환기가 충분하지 않은 경우, 호흡",
+      "8.3 개인보호구(PPE)",
+      "눈/안면부의 보호를 위한 보호구의 선택 및 사용은 노출평가의 결과를 토대로 할 것. 눈/안면부의 보호는 다",
+      "노출평가결과를 바탕으로 피부 접촉을 방지하기 위한 해당지역의 표준에 따라 허용된 장갑과 보호구를 선택",
+      "조건 및 기타 사용 조건등을 근거로 선택하시오. 적당하고 올바른 장갑과 보호복을 선택하기 위하여 장갑이",
+      "나 보호복 제조사에 문의하시오. 주의: 손놀림을 향상시키기 위하여 폴리머로 입힌 장갑위에 니트릴 장갑을",
+      "것.다음과 같은 보호복 재료가 추천됨 : Apron - polymer laminate",
+      "(Full Respiratory Protection Program)의 일부분으로 호흡기를 사용할 수 있음. 흡입 노출을 저감하기 위해"
     ],
     "match": {
-      "fileName": "Stainless Steel Coat.pdf",
-      "relativePath": ""
+      "fileName": "Stainless Steel Coat_MSDS_20170412.pdf",
+      "relativePath": "3M/Stainless Steel Coat_MSDS_20170412.pdf"
     },
     "publication": {
       "summaryMode": "automatic",
       "summaryAvailable": true,
-      "validationStatus": "automatic_with_warnings",
-      "validationWarnings": [
-        "REVISION_DATE_CONFLICT"
-      ]
+      "validationStatus": "automatic",
+      "validationWarnings": []
     }
   },
   {
-    "sourcePdfPath": "pdf/3M/프로슈터. 2020.12.11.pdf",
-    "sourceRelativePath": "3M/프로슈터. 2020.12.11.pdf",
-    "pdfRegistrationType": "excel_linked",
+    "sourcePdfPath": "pdf/3M/프로슈터_MSDS_20260701.pdf",
+    "sourceRelativePath": "3M/프로슈터_MSDS_20260701.pdf",
+    "pdfRegistrationType": "pdf_only",
     "productNameCandidate": "프로슈터",
     "supplierCandidate": "한국쓰리엠",
-    "msdsNoCandidate": "",
-    "revisionDateCandidate": "2018-06-13",
+    "msdsNoCandidate": "AA00437-0000180015",
+    "revisionDateCandidate": "2026-07-01",
     "signalWordCandidate": "위험",
-    "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
+    "ghsSource": "section2_label_images_checked",
+    "labelGhsCodes": [
+      "GHS05"
+    ],
+    "labelGhsPictograms": [
+      {
+        "code": "GHS05",
+        "label": "부식성"
+      }
+    ],
     "classificationGhsCodes": [
-      "GHS05",
-      "GHS07"
+      "GHS05"
     ],
     "classificationGhsPictograms": [
       {
         "code": "GHS05",
         "label": "부식성"
-      },
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
       }
     ],
     "ghsCodes": [
-      "GHS05",
-      "GHS07"
+      "GHS05"
     ],
     "ghsPictograms": [
       {
         "code": "GHS05",
         "label": "부식성"
-      },
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
       }
     ],
     "hazardStatements": [
-      "H318 눈에 심한 손상을 일으킴",
-      "H314 피부에 심한 화상과 눈에 손상을 일으킴",
-      "H335 호흡기계 자극을 일으킬 수 있음"
+      "H314 피부에 심한 화상과 눈에 손상을 일으킴"
     ],
     "precautionaryStatements": {
       "prevention": [
         "P260 분진/흄/가스/미스트/증기/스프레이를 흡입하지 마시오.",
-        "P261 분진/흄/가스/미스트/증기/스프레이의 흡입을 피하시오.",
-        "P271 옥외 또는 환기가 잘 되는 곳에서만 취급하시오.",
-        "P280D 보호장갑·보호의·보안경·안면보호구를 착용하시오.",
-        "P280A 보안경·안면보호구를 착용할 것.",
-        "P264 취급 후에는 취급 부위를 철저히 씻으시오."
+        "P264 취급 후에는 노출된 피부를 철저히 씻으시오.",
+        "P280D 보호장갑/보호의/보안경/안면보호구를 착용하시오."
       ],
       "response": [
-        "P304 + P340 흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세를 유지",
-        "P303 + P361 + P353 피부(또는 머리카락)에 묻으면 오염된 모든 의복은 벗으시오. 피부를 물",
-        "P305 + P351 + P338 눈에 묻으면 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제",
-        "P310 즉시 의료기관(의사)의 진찰을 받으시오.",
-        "P363 다시 사용전 오염된 의복은 세척하시오.",
-        "P301 + P330 + P331 삼켰다면 입을 씻어내시오. 토하게 하려 하지 마시오.",
-        "P321 처치를 하시오.(제품의 경고표지에 있는 의학적 조치에 대한 사항을 의사",
-        "P312 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오."
+        "P301+P330+P331 삼켰다면: 입을 씻어내시오. 토하게 하지 마시오.",
+        "P303+P361+P353 피부(또는 머리카락)에 묻으면: 오염된 모든 의류를 즉시 벗으시오. 피부를 물로 씻으시오[또는 샤워하시오].",
+        "P304+P340 흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.",
+        "P305+P351+P338 눈에 묻으면: 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.",
+        "P310 즉시 의료기관 또는 의사의 진찰을 받으시오."
       ],
       "storage": [
-        "P403 + P233 용기는 환기가 잘 되는 곳에 단단히 밀폐하여 저장하시오.",
-        "P405 잠금장치가 있는 저장장소에 저장하시오."
+        "P405 잠금장치를 하여 저장하시오."
       ],
       "disposal": [
-        "P501 (관련 법규에 명시된 내용에 따라) 내용물/용기를 폐기하시오."
+        "P501 폐기물 관련 법령에 따라 내용물과 용기를 폐기하시오"
       ]
     },
     "ingredients": [
       {
-        "chemicalName": "물 증류수",
-        "casNo": "7732-18-5",
-        "content": "85 - 95"
-      },
-      {
-        "chemicalName": "오렌지 껍질 팅크 자료 없음. < 1",
+        "chemicalName": "오렌지 껍질 팅크",
         "casNo": "8028-48-6",
-        "content": "1 - 5"
+        "content": "<1"
       }
     ],
     "ppeCandidates": [
-      "P280D 보호장갑·보호의·보안경·안면보호구를 착용하시오.",
-      "P280A 보안경·안면보호구를 착용할 것.",
-      "5.3. 화재 진압 시 착용할 보호구 및 예방조치"
+      "P280D 보호장갑/보호의/보안경/안면보호구를 착용하시오.",
+      "5.3. 화재 진압 시 착용할 보호구 및 예방조치",
+      "헬멧, 압력 호흡기, 벙커 코트 및 바지, 팔, 허리 및 다리 주변의 밴드, 얼굴 마스크 및 노출된 부위의 보호",
+      "덮개를 포함한 완전한 보호의를 착용하십시오.",
+      "6.1. 인체를 보호하기 위해 필요한 조치 사항 및 보호구",
+      "대피할 것. 신선한 공기로 환기하시오. 대량으로 유출되거나, 밀폐된 공간에서 유출되었을 때, 최적의 산",
+      "업위생 관행에 따라 기계적인 환기를 통해 분산시키거나 증기를 배출시켜야함. 노출 평가 결과에 따라 개",
+      "성, 감작제, 심각한 피부 자극제이거나 피부를 통해 흡수될 수 있는 경우 화학물질용 보호복을 착용하거나,",
+      "흡입 위험이 있는 화학 물질의 경우 양압 공급식 송기 마스크를 착용하는 것이 포함될 수 있습니다. 물리적",
+      "8. 노출방지 및 개인보호구",
+      "기 위해 일반적인 희석 환기설비 또는 국소 배기 장치를 사용하시오. 만일 환기가 충분하지 않은 경우, 호흡",
+      "8.3 개인보호구(PPE)",
+      "눈/안면부의 보호를 위한 보호구의 선택 및 사용은 노출평가의 결과를 토대로 할 것. 눈/안면부의 보호는 다",
+      "노출평가결과를 바탕으로 피부 접촉을 방지하기 위한 해당지역의 표준에 따라 허용된 장갑과 보호구를 선택",
+      "조건 및 기타 사용 조건등을 근거로 선택하시오. 적당하고 올바른 장갑과 보호복을 선택하기 위하여 장갑이",
+      "나 보호복 제조사에 문의하시오. 주의: 손놀림을 향상시키기 위하여 폴리머로 입힌 장갑위에 니트릴 장갑을",
+      "방진 겸용 유기화합물용 반면형 또는 전면형 방독 마스크"
     ],
     "match": {
-      "fileName": "프로슈터. 2020.12.11.pdf",
-      "relativePath": "3M/프로슈터. 2020.12.11.pdf"
+      "fileName": "프로슈터_MSDS_20260701.pdf",
+      "relativePath": "3M/프로슈터_MSDS_20260701.pdf"
     },
     "publication": {
       "summaryMode": "automatic",
@@ -22993,17 +23117,24 @@
     }
   },
   {
-    "sourcePdfPath": "pdf/아르곤(알곤,Ar)/아르곤(알곤)_태경ECO(주).pdf",
-    "sourceRelativePath": "아르곤(알곤,Ar)/아르곤(알곤)_태경ECO(주).pdf",
-    "pdfRegistrationType": "excel_linked",
+    "sourcePdfPath": "pdf/아르곤(알곤,Ar)/알곤(아르곤)_태경ECO(주)_MSDS_20260630.pdf",
+    "sourceRelativePath": "아르곤(알곤,Ar)/알곤(아르곤)_태경ECO(주)_MSDS_20260630.pdf",
+    "pdfRegistrationType": "pdf_only",
     "productNameCandidate": "알곤, 아르곤(ARGON)",
     "supplierCandidate": "태경에코(주)",
-    "msdsNoCandidate": "",
-    "revisionDateCandidate": "2022-09-28",
+    "msdsNoCandidate": "AA07576-0000000010",
+    "revisionDateCandidate": "2026-06-30",
     "signalWordCandidate": "경고",
-    "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
+    "ghsSource": "section2_label_images_checked",
+    "labelGhsCodes": [
+      "GHS04"
+    ],
+    "labelGhsPictograms": [
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      }
+    ],
     "classificationGhsCodes": [
       "GHS04"
     ],
@@ -23023,44 +23154,36 @@
       }
     ],
     "hazardStatements": [
-      "유해·위험문구 H280 고압가스 ; 가열 시 폭발할 수 있음",
-      "H281 냉동가스 : 극저온에 의한 화상 또는 손상을 일으킬 수 있음"
+      "H280 고압가스 ; 가열 시 폭발할 수 있음"
     ],
     "precautionaryStatements": {
-      "prevention": [
-        "예방 P282 : 방한장갑, 보호의, 보안경, 안면보호구를 착용하시오"
-      ],
-      "response": [
-        "대응 P315 : 즉시 의학적인 조치, 조언을 받으시오",
-        "P336 : 미지근한 물로 언 부분을 녹이시오. 손상된 부위를 문지르지 마시오"
-      ],
+      "prevention": [],
+      "response": [],
       "storage": [
-        "저장 P410+P403 직사광선을 피하고 환기가 잘 되는 곳에 보관하시오."
+        "P410+P403 직사광선을 피하고 환기가 잘 되는 곳에 보관하시오."
       ],
       "disposal": []
     },
     "ingredients": [
       {
-        "chemicalName": "번호",
+        "chemicalName": "아르곤",
         "casNo": "7440-37-1",
         "content": "100%"
       }
     ],
     "ppeCandidates": [
-      "예방 P282 : 방한장갑, 보호의, 보안경, 안면보호구를 착용하시오",
-      "다. 화재진압시 착용할 보호구 및 예방조치 위험하지 않다면 화재지역으로부터 용기를 이동시킬 것",
-      "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구 위험하지 않다면 누출을 막을 것",
+      "다. 화재진압시 착용할 보호구 및 예방조치 파손된 실린더는 날아오를 수 있으니 주의하시오",
+      "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구 가능하다면 누출용기를 돌려 액체보다는 가스로 방출되도록 하시오",
+      "오염지역을 환기하시오",
+      "공학적 관리 및 개인보호구를 참조하여 작업하시오",
+      "환기가 잘 되는 곳에 보관하시오.",
       "8. 노출방지 및 개인보호구",
       "다. 개인보호구",
-      "은 송기마스크 및 전동식 호흡보호구를 착용하시오",
-      "특정하게 선정된 호흡용 보호구는 작업장 내의 오염 정도에 근거하여 착용하시오",
-      "흡배기저항 또는 기타 양압으로 작용되는 송기마스트 및 전동식 호흡보호구를 착용하시오",
-      "은 보안면 또는 보안경을 착용하시오",
-      "근로자는 이물질에 의한 접촉방지를 위해 보안면 또는 보안경을 착용하시오"
+      "호흡기 보호 노출되는 물질의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호"
     ],
     "match": {
-      "fileName": "아르곤(알곤)_태경ECO(주).pdf",
-      "relativePath": "아르곤(알곤,Ar)/아르곤(알곤)_태경ECO(주).pdf"
+      "fileName": "알곤(아르곤)_태경ECO(주)_MSDS_20260630.pdf",
+      "relativePath": "아르곤(알곤,Ar)/알곤(아르곤)_태경ECO(주)_MSDS_20260630.pdf"
     },
     "publication": {
       "summaryMode": "automatic",
@@ -24668,7 +24791,7 @@
     "productNameCandidate": "부탄(Butane)",
     "supplierCandidate": "태경가스기술(주)",
     "msdsNoCandidate": "",
-    "revisionDateCandidate": "2014-12-29",
+    "revisionDateCandidate": "2024-03-28",
     "signalWordCandidate": "위험",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
@@ -24781,7 +24904,7 @@
     "productNameCandidate": "산소(OXYGEN, COMPRESSED)",
     "supplierCandidate": "태경가스기술(주)",
     "msdsNoCandidate": "",
-    "revisionDateCandidate": "2014-12-29",
+    "revisionDateCandidate": "2024-03-27",
     "signalWordCandidate": "위험",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
@@ -24871,7 +24994,7 @@
     "productNameCandidate": "아세틸렌(ACETYLENE,dissolved)",
     "supplierCandidate": "태경가스기술(주)",
     "msdsNoCandidate": "",
-    "revisionDateCandidate": "2014-12-29",
+    "revisionDateCandidate": "2024-03-28",
     "signalWordCandidate": "위험",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
@@ -24985,17 +25108,34 @@
     }
   },
   {
-    "sourcePdfPath": "pdf/아세틸렌/태경에코_아세틸렌_msds(221123).pdf",
-    "sourceRelativePath": "아세틸렌/태경에코_아세틸렌_msds(221123).pdf",
-    "pdfRegistrationType": "excel_missing_pdf",
+    "sourcePdfPath": "pdf/아세틸렌/아세틸렌_태경ECO(주)_MSDS_20260309.pdf",
+    "sourceRelativePath": "아세틸렌/아세틸렌_태경ECO(주)_MSDS_20260309.pdf",
+    "pdfRegistrationType": "pdf_only",
     "productNameCandidate": "아세틸렌",
     "supplierCandidate": "태경에코(주)",
-    "msdsNoCandidate": "",
-    "revisionDateCandidate": "2022-09-28",
+    "msdsNoCandidate": "AA07576-0000000012",
+    "revisionDateCandidate": "2026-03-09",
     "signalWordCandidate": "위험",
-    "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
+    "ghsSource": "section2_label_images_checked",
+    "labelGhsCodes": [
+      "GHS02",
+      "GHS04",
+      "GHS07"
+    ],
+    "labelGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      }
+    ],
     "classificationGhsCodes": [
       "GHS02",
       "GHS04",
@@ -25035,87 +25175,68 @@
       }
     ],
     "hazardStatements": [
-      "H280 고압가스 포함 ; 가열하면 폭발할 수 있음",
+      "H220 극인화성 가스",
+      "H280 고압가스 포함 가열하면 폭발할 수 있음",
       "H336 졸음 또는 현기증을 일으킬 수 있음"
     ],
     "precautionaryStatements": {
       "prevention": [
-        "예방 P210 열·스파크·화염·고열로부터 멀리하시오 - 금연",
-        "P261 가스의 흡입을 피하시오.",
-        "P271 옥외 또는 환기가 잘 되는 곳에서만 취급하시오.",
-        "대응 P304+P340 흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하",
-        "P312 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.",
-        "P377 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
-        "P381 안전하게 처리하는 것이 가능하면 모든 점화원을 제거하시오.",
-        "저장 P403 환기가 잘 되는 곳에 보관하시오.",
-        "P403+P233 용기는 환기가 잘 되는 곳에 단단히 밀폐하여 저장하시오.",
-        "P405 잠금장치가 있는 저장장소에 저장하시오.",
-        "P410+P403 직사광선을 피하고 환기가 잘 되는 곳에 보관하시오.",
-        "폐기 P501 (관련 법규에 명시된 내용에 따라) 내용물 용기를 폐기하시오.",
-        "다. 화재진압시 착용할 보호구 및 예방조치 화물에 불이 붙은 경우 폭발하여 파편은 500M 이상 날아갈 수 있음",
-        "화물에 불이 붙은 경우 모든 통행을 막고 모든 방향으로 최소한 1,600m 대피하시오",
-        "화물에 불이 붙은 경우 화물이 폭발할 수 있으므로 소화하지 마시오",
-        "가스 누출화재; 누출을 안전하게 막을 수 없다면불을 끄려하지 마시오",
-        "누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
-        "안전하게 처리하는 것이 가능하면 모든 점화원을 제거하시오.",
-        "지역을 벗어나 안전거리를 유지하여 바람을 등지면서 소화하시오",
-        "파손된 실린더는 날아오를 수 있으니 주의하시오"
+        "P210 열 스파크 화염 고열로부터 멀리하시오 금연",
+        "P261 분진 흄 가스 미스트 증기 스프레이 의 흡입을 피하시오",
+        "P271 옥외 또는 환기가 잘 되는 곳에서만 취급하시오"
       ],
-      "response": [],
-      "storage": [],
-      "disposal": []
+      "response": [
+        "P304+P340 흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.",
+        "P312 불편함을 느끼면 의료기관 의사 의 진찰을 받으시오",
+        "P377 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오",
+        "P381 안전하게 처리하는 것이 가능하면 모든 점화원을 제거하시오"
+      ],
+      "storage": [
+        "P403 환기가 잘 되는 곳에 보관하시오",
+        "P403+P233 용기는 환기가 잘 되는 곳에 단단히 밀폐하여 저장하시오",
+        "P405 잠금장치가 있는 저장장소에 저장하시오",
+        "P410+P403 직사광선을 피하고 환기가 잘 되는 곳에 보관하시오"
+      ],
+      "disposal": [
+        "P501 관련 법규에 명시된 내용에 따라 내용물 용기를 폐기하시오"
+      ]
     },
     "ingredients": [
       {
-        "chemicalName": "아세틸렌 ETHYNE 98",
+        "chemicalName": "아세틸렌",
         "casNo": "74-86-2",
-        "content": ""
+        "content": "98% 이상"
       },
       {
-        "chemicalName": "황화수소 0.05",
+        "chemicalName": "황화수소",
         "casNo": "7783-06-4",
-        "content": ""
+        "content": "0.05% 이하"
       },
       {
-        "chemicalName": "인화수소 0.05",
+        "chemicalName": "인화수소",
         "casNo": "7803-51-2",
-        "content": "0.1~1.9"
-      },
-      {
-        "chemicalName": "산소 OXYGEN",
-        "casNo": "7782-44-7",
-        "content": "0.1~1.9"
-      },
-      {
-        "chemicalName": "질소 NITROGEN",
-        "casNo": "7727-37-9",
-        "content": "0.1~1.9"
-      },
-      {
-        "chemicalName": "메탄 METHANE",
-        "casNo": "74-82-8",
-        "content": "0.1~1.9"
+        "content": "0.05% 이하"
       }
     ],
     "ppeCandidates": [
-      "다. 화재진압시 착용할 보호구 및 예방조치 화물에 불이 붙은 경우 폭발하여 파편은 500M 이상 날아갈 수 있음",
-      "다. 화재진압시 착용할 보호구 및 예방조치 탱크 화재시 대규모 화재의 경우 무인 소화장비를 이용하고 불가능하다면 물러나 타게 놔두",
+      "옥외 또는 환기가 잘 되는 곳에서만 취급하시오P271 .",
+      "저장 환기가 잘 되는 곳에 보관하시오P403 .",
+      "다 화재진압시 착용할 보호구 및 예방조치 . 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+      "다 화재진압시 착용할 보호구 및 예방조치 . 탱크 화재시 대규모 화재의 경우 무인 소화장비를 이용하고 불가능하다면 물러나 타게 놔두",
       "보호구",
       "공학적 관리 및 개인보호구를 참조하여 작업하시오",
       "옥외 또는 환기가 잘 되는 곳에서만 취급하시오.",
       "용기는 환기가 잘 되는 곳에 단단히 밀폐하여 저장하시오.",
       "환기가 잘 되는 곳에 보관하시오.",
-      "8. 노출방지 및 개인보호구",
-      "나. 적절한 공학적 관리 국소배기장치 등의 환기장치를 설치하고 적정 제어풍속이 유지되도록 관리하시오.",
+      "노출방지 및 개인보호구8.",
+      "나 적절한 공학적 관리 . 국소배기장치 등의 환기장치를 설치하고 적정 제어풍속이 유지되도록 관리하시오.",
       "폭발 위험이 있는 농도일 경우에는 방폭설비가 갖춰진 환기장치를 설치하시오.",
-      "다. 개인보호구",
-      "호흡기 보호 노출되는 물질의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호",
-      "손 보호 노출되는 물질의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 보호장갑를",
-      "신체 보호 노출되는 물질의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 보호복를 착"
+      "다 개인보호구 .",
+      "호흡기 보호 노출되는 물질의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호"
     ],
     "match": {
-      "fileName": "태경에코_아세틸렌_msds(221123).pdf",
-      "relativePath": "아세틸렌/태경에코_아세틸렌_msds(221123).pdf"
+      "fileName": "아세틸렌_태경ECO(주)_MSDS_20260309.pdf",
+      "relativePath": "아세틸렌/아세틸렌_태경ECO(주)_MSDS_20260309.pdf"
     },
     "publication": {
       "summaryMode": "automatic",
@@ -26277,17 +26398,24 @@
     }
   },
   {
-    "sourcePdfPath": "pdf/질소/질소(N2)_태경ECO(주).pdf",
-    "sourceRelativePath": "질소/질소(N2)_태경ECO(주).pdf",
-    "pdfRegistrationType": "excel_missing_pdf",
+    "sourcePdfPath": "pdf/질소/질소(N2)_태경ECO(주)_MSDS_20260630.pdf",
+    "sourceRelativePath": "질소/질소(N2)_태경ECO(주)_MSDS_20260630.pdf",
+    "pdfRegistrationType": "pdf_only",
     "productNameCandidate": "질소(NITROGEN)",
     "supplierCandidate": "태경에코(주)",
-    "msdsNoCandidate": "",
-    "revisionDateCandidate": "2022-09-28",
+    "msdsNoCandidate": "AA07576-0000000011",
+    "revisionDateCandidate": "2026-06-30",
     "signalWordCandidate": "경고",
-    "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
+    "ghsSource": "section2_label_images_checked",
+    "labelGhsCodes": [
+      "GHS04"
+    ],
+    "labelGhsPictograms": [
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      }
+    ],
     "classificationGhsCodes": [
       "GHS04"
     ],
@@ -26307,48 +26435,36 @@
       }
     ],
     "hazardStatements": [
-      "H281 냉동가스 포함 : 극저온에 의한 화상 또는 손상을 일으킬 수 있음"
+      "H280 고압가스 포함 ; 가열하면 폭발할 수 있음"
     ],
     "precautionaryStatements": {
-      "prevention": [
-        "예방 P282 : 방한장갑, 보호의, 보안경, 안면보호구를 착용하시오",
-        "대응 P351 : 즉시 의학적인 조치,조언을 받으시오",
-        "P336 : 미지근한 물로 언 부분을 녹이시오. 손상된 부위를 문지르지 마시오",
-        "저장 P410+P403 직사광선을 피하고 환기가 잘 되는 곳에 보관하시오."
-      ],
+      "prevention": [],
       "response": [],
-      "storage": [],
+      "storage": [
+        "P410+P403 직사광선을 피하고 환기가 잘 되는 곳에 보관하시오."
+      ],
       "disposal": []
     },
     "ingredients": [
       {
-        "chemicalName": "번호",
+        "chemicalName": "질소(NITROGEN)",
         "casNo": "7727-37-9",
         "content": "100%"
       }
     ],
     "ppeCandidates": [
-      "다. 화재진압시 착용할 보호구 및 예방조치 위험하지 않다면 화재지역으로부터 용기를 이동시킬 것",
+      "다. 화재진압시 착용할 보호구 및 예방조치 탱크 화재시 소화가 진화된 후에도 다량의 물로 용기를 식히시오",
       "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구 가능하다면 누출용기를 돌려 액체보다는 가스로 방출되도록 하시오",
       "오염지역을 환기하시오",
-      "다. 정화 또는 제거 방법 주위를 환기시킬 것. 사용자의 시스템에서 누출이 발생되었다면 실린더 밸브를 잠그고",
-      "8. 노출방지 및 개인보호구",
-      "나. 적절한 공학적 관리 국소배기장치를 설치하시오",
-      "산소농도 19.5%이하의 산소결핍 분위기를 방지하기 위해 환기설비를 설치하시오",
-      "다. 개인보호구",
-      "은 송기마스크 및 전동식 호흡보호구를 착용하시오",
-      "특정하게 선정된 호흡용 보호구는 작업장 내의 오염 정도에 근거하여 착용하시오",
-      "흡배기저항 또는 기타 양압으로 작용되는 송기마스트 및 전동식 호흡보호구를 착용하시오",
-      "은 보안면 또는 보안경을 착용하시오",
-      "근로자는 이물질에 의한 접촉방지를 위해 보안면 또는 보안경을 착용하시오",
-      "은 보호복, 안전화을 착용하시오",
-      "용 보호복, 안전화를 착용하시오",
       "공학적 관리 및 개인보호구를 참조하여 작업하시오",
-      "직사광선을 피하고 환기가 잘 되는 곳에 보관하시오."
+      "직사광선을 피하고 환기가 잘 되는 곳에 보관하시오.",
+      "8. 노출방지 및 개인보호구",
+      "다. 개인보호구",
+      "호흡기 보호 노출되는 물질의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호"
     ],
     "match": {
-      "fileName": "질소(N2)_태경ECO(주).pdf",
-      "relativePath": "질소/질소(N2)_태경ECO(주).pdf"
+      "fileName": "질소(N2)_태경ECO(주)_MSDS_20260630.pdf",
+      "relativePath": "질소/질소(N2)_태경ECO(주)_MSDS_20260630.pdf"
     },
     "publication": {
       "summaryMode": "automatic",

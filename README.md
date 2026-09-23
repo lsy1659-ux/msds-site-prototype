@@ -56,6 +56,9 @@ MSDS 를 받아야 합니다(시행규칙 제160조제1항). 번호가 있다고
   `signalWord` 하나만 씁니다. `hazardBadge` 는 신호어가 아닙니다(228건 중 180건에 일괄 "위험").
 - **비해당**: `notClassified` 인 제품은 그림문자·유해위험문구·예방조치문구를 비웁니다(overrides 쪽도).
 - **구판**: `retired` 는 목록에서 빼고 새 판에 `formerIds` 를 남겨 옛 QR 이 새 판을 엽니다. 옛 PDF 는 기록으로 둡니다.
+- **날짜**: `revisionDate`·`issueDate` 를 적으면 그 값으로 바꿉니다. 원문과 다르게 들어간 개정일을 바로잡을 때만 씁니다.
+- **이력**: `history` 에 최신판 교체·번호 확인을 한 줄씩 남깁니다(날짜, 이전/새 번호·개정일·파일, 출처, SHA-256).
+  관리대장 화면의 "교체·확인 이력"에 보이고 CSV 로 받을 수 있습니다.
 - **성분표**: 2026-09-18 원본 대조로 고친 113행(`reports/ingredient_repair_log.json`)도 다시 반영합니다.
 
 **새 제품을 등록할 때**는 관리대장에도 한 줄을 넣습니다. 빠지면 `validate_public_release.py` 가
@@ -65,6 +68,11 @@ MSDS 를 받아야 합니다(시행규칙 제160조제1항). 번호가 있다고
 py scripts/extract_signal_words.py --write    신호어를 원문에서 다시 뽑아 관리대장에 적기
 py scripts/apply_msds_register.py --write     관리대장을 사이트 데이터에 반영
 ```
+
+**최신판으로 바꿀 때**는 새 PDF 를 같은 폴더에 `제품명_MSDS_YYYYMMDD.pdf` 로 넣고 새 제품으로 등록한 뒤,
+구판 항목을 `retired`·`replacedBy` 로 두고 `history` 에 한 줄 남깁니다. 원본 보관함(OneDrive `00_ 캠스 MSDS`)에서는
+구판을 지우지 않고 `_구버전 보관(이력)\같은 하위 경로` 로 옮기고, 보관함 맨 위 `MSDS_교체이력.csv` 에 같은 줄을
+적습니다. `scripts/sync_pdf_library.py` 는 `_구버전` 으로 시작하는 폴더를 건너뛰어 구판이 사이트로 다시 올라오지 않습니다.
 
 ### 관리자 가림막
 

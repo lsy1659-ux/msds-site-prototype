@@ -28,6 +28,10 @@ DEFAULT_PREVIEW_CSV = Path("reports/pdf-sync-preview.local.csv")
 DEFAULT_APPLY_JSON = Path("reports/pdf-sync-apply.local.json")
 DEFAULT_APPLY_CSV = Path("reports/pdf-sync-apply.local.csv")
 
+# 원본 보관함 안의 구판 보관 폴더. 최신판으로 바꾸면 구판 PDF 를 여기로 옮긴다.
+# 사이트에 올릴 것이 아니므로 비교에서 뺀다. 넣으면 연결 안 된 PDF 가 된다.
+ARCHIVE_PREFIX = "_구버전"
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Preview or apply safe MSDS PDF library sync.")
@@ -64,6 +68,8 @@ def scan_pdfs(root: Path) -> dict[str, dict[str, Any]]:
     items: dict[str, dict[str, Any]] = {}
     for path in sorted(root.rglob("*.pdf")):
         if not path.is_file():
+            continue
+        if any(part.startswith(ARCHIVE_PREFIX) for part in path.relative_to(root).parts[:-1]):
             continue
         relative_path = normalize_relative(path.relative_to(root))
         stat = path.stat()

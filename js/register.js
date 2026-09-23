@@ -177,6 +177,53 @@ function renderTodo() {
   }).join("") || '<p class="register-empty">남은 할 일이 없습니다.</p>';
 }
 
+/* 교체·확인 이력. 관리대장의 history 를 새것부터 보여 준다.
+ * 구판 항목은 목록에서 빠지므로, 무엇이 무엇으로 바뀌었는지는 여기서 본다. */
+function historyRows() {
+  const items = Array.isArray(registerState.data.history) ? registerState.data.history : [];
+  return items
+    .map((item, order) => ({ item, order }))
+    .sort((a, b) => String(b.item.date || "").localeCompare(String(a.item.date || "")) || a.order - b.order)
+    .map(({ item }) => item);
+}
+
+function change(before, after) {
+  const was = String(before || "").trim();
+  const now = String(after || "").trim();
+  if (was === now) return now ? rEscape(now) : '<span class="register-sub">없음</span>';
+  return `<span class="register-was">${rEscape(was || "없음")}</span><span class="register-now">→ ${rEscape(now || "없음")}</span>`;
+}
+
+function fileName(path) {
+  return String(path || "").split("/").pop();
+}
+
+function renderHistory() {
+  const items = historyRows();
+  registerElements.history.innerHTML = items.map((item) => `
+    <tr>
+      <td class="register-date">${rEscape(item.date)}</td>
+      <td class="register-name">${item.newId ? `<a href="index.html?product=${encodeURIComponent(item.newId)}">${rEscape(item.productName)}</a>` : rEscape(item.productName)}
+        <span class="register-sub">${rEscape(item.supplier)}</span></td>
+      <td class="register-action">${rEscape(item.action)}</td>
+      <td class="register-number">${change(item.oldMsdsNo, item.newMsdsNo)}</td>
+      <td class="register-date">${change(item.oldRevision, item.newRevision)}</td>
+      <td class="register-long">${change(fileName(item.oldFile), fileName(item.newFile))}</td>
+      <td class="register-long">${rEscape(item.note)}${item.source ? `<span class="register-sub">출처 ${rEscape(item.source)}</span>` : ""}</td>
+    </tr>`).join("") || '<tr><td colspan="7" class="register-empty">아직 이력이 없습니다.</td></tr>';
+}
+
+function exportHistoryCsv() {
+  const header = ["날짜", "한 일", "제품명", "공급사", "이전 MSDS 번호", "새 MSDS 번호", "이전 개정일", "새 개정일",
+    "이전 파일", "새 파일", "비고", "출처", "SHA-256", "이전 id", "새 id"];
+  const rows = historyRows().map((item) => [
+    item.date, item.action, item.productName, item.supplier, item.oldMsdsNo, item.newMsdsNo,
+    item.oldRevision, item.newRevision, item.oldFile, item.newFile, item.note, item.source, item.sha256,
+    item.oldId, item.newId
+  ]);
+  window.downloadCsv(`MSDS교체이력_${window.csvStamp()}.csv`, header, rows);
+}
+
 function renderLegal() {
   const legal = registerState.data.legalBasis || {};
   registerElements.legal.innerHTML = `
@@ -208,6 +255,7 @@ async function initRegisterPage() {
   registerElements.todo = document.querySelector("#registerTodo");
   registerElements.legal = document.querySelector("#registerLegal");
   registerElements.checked = document.querySelector("#registerChecked");
+  registerElements.history = document.querySelector("#registerHistory");
 
   const [register, products] = await Promise.all([rFetch(REGISTER_SOURCE), rFetch(REGISTER_PRODUCTS)]);
   registerState.data = register;
@@ -227,9 +275,11 @@ async function initRegisterPage() {
     renderTable();
   });
   document.querySelector("#registerExport").addEventListener("click", exportRegisterCsv);
+  document.querySelector("#registerHistoryExport").addEventListener("click", exportHistoryCsv);
 
   render();
   renderTodo();
+  renderHistory();
   renderLegal();
 }
 
