@@ -132,9 +132,8 @@ function guideMergeOverride(product, override) {
   if (!(merged.ppeCandidates || []).length && (override.ppeCandidates || []).length) {
     merged.ppeCandidates = override.ppeCandidates;
   }
-  if (!String(merged.hazardBadge || "").trim() && String(override.signalWordCandidate || "").trim()) {
-    merged.hazardBadge = override.signalWordCandidate;
-  }
+  // 신호어는 관리대장이 원문에서 확인해 signalWord 에 넣는다. overrides 후보값으로
+  // 채우지 않는다.
   return merged;
 }
 
@@ -247,8 +246,11 @@ function getPictogramCodes(product) {
 // 신호어는 고시가 정한 "위험"과 "경고" 둘뿐이다. 추출이 실패해 붙은
 // 임시 배지를 신호어 자리에 찍으면 잘못된 게시물이 된다.
 function getSignalWord(product) {
-  const badge = String(product.hazardBadge || product.signalWord || "").trim();
-  return badge === "위험" || badge === "경고" ? badge : "";
+  // hazardBadge 는 신호어가 아니다(228건 중 180건에 일괄 "위험"). 원문에서 뽑아
+  // 관리대장이 확인한 signalWord 만 쓴다. 경고표지·조회 화면과 같은 규칙이다.
+  if (product.hazardNotClassified) return "";
+  const word = String(product.signalWord || "").trim();
+  return word === "위험" || word === "경고" ? word : "";
 }
 
 // 같은 문구가 여러 영역에 반복되면 게시물이 길어지고 읽히지 않는다.

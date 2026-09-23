@@ -12245,7 +12245,8 @@
       "validationWarnings": [
         "SIGNAL_WORD_INVALID"
       ]
-    }
+    },
+    "signalWordCandidate": "해당없음"
   },
   {
     "sourcePdfPath": "pdf/00_ 사출/GS칼텍스/Kixx Grease EP 0 MSDS.pdf",
@@ -12781,7 +12782,8 @@
       "validationWarnings": [
         "SIGNAL_WORD_INVALID"
       ]
-    }
+    },
+    "signalWordCandidate": "해당없음"
   },
   {
     "sourcePdfPath": "pdf/00_ 사출/MOBIL코리아/DTE25 MSDS 2021.03.18.pdf",
@@ -12794,51 +12796,11 @@
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
-    "classificationGhsCodes": [
-      "GHS09",
-      "GHS07",
-      "GHS05"
-    ],
-    "classificationGhsPictograms": [
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      }
-    ],
-    "ghsCodes": [
-      "GHS09",
-      "GHS07",
-      "GHS05"
-    ],
-    "ghsPictograms": [
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      }
-    ],
-    "hazardStatements": [
-      "2,6-디-tert-부틸-P-크레졸 - KE-03079 0.1 - < 0.25% H400(M factor 1),",
-      "H410(M factor 1)",
-      "- KE-11963 0.1 - < 1% H315, H319(2A), H317",
-      "- 68442-22-8 0.1 - < 1% H303, H315, H318,",
-      "H401, H411"
-    ],
+    "classificationGhsCodes": [],
+    "classificationGhsPictograms": [],
+    "ghsCodes": [],
+    "ghsPictograms": [],
+    "hazardStatements": [],
     "precautionaryStatements": {
       "prevention": [],
       "response": [],
@@ -12866,7 +12828,8 @@
       "validationWarnings": [
         "SIGNAL_WORD_INVALID"
       ]
-    }
+    },
+    "signalWordCandidate": "해당없음"
   },
   {
     "sourcePdfPath": "pdf/00_ 사출/MOBIL코리아/MOBILUX EP 0 MSDS 2021.03.30.pdf",
@@ -12879,48 +12842,11 @@
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
-    "classificationGhsCodes": [
-      "GHS05",
-      "GHS09",
-      "GHS07"
-    ],
-    "classificationGhsPictograms": [
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      }
-    ],
-    "ghsCodes": [
-      "GHS05",
-      "GHS09",
-      "GHS07"
-    ],
-    "ghsPictograms": [
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      }
-    ],
-    "hazardStatements": [
-      "포스포릭산 에스테르, 아민염 - 99-3-1171 0.1 - < 1% H318, H401, H411",
-      "아연 디티오포스페이트 - KE-28667 1 - 2.5% H315, H318, H401, H411"
-    ],
+    "classificationGhsCodes": [],
+    "classificationGhsPictograms": [],
+    "ghsCodes": [],
+    "ghsPictograms": [],
+    "hazardStatements": [],
     "precautionaryStatements": {
       "prevention": [],
       "response": [],
@@ -12943,7 +12869,8 @@
       "validationWarnings": [
         "SIGNAL_WORD_INVALID"
       ]
-    }
+    },
+    "signalWordCandidate": "해당없음"
   },
   {
     "sourcePdfPath": "pdf/00_ 사출/MOBIL코리아/SPARTAN EP 220. MSDS 22.06.13.pdf",
@@ -12956,59 +12883,11 @@
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
-    "classificationGhsCodes": [
-      "GHS07",
-      "GHS08",
-      "GHS05",
-      "GHS09"
-    ],
-    "classificationGhsPictograms": [
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
-      }
-    ],
-    "ghsCodes": [
-      "GHS07",
-      "GHS08",
-      "GHS05",
-      "GHS09"
-    ],
-    "ghsPictograms": [
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
-      }
-    ],
-    "hazardStatements": [
-      "LONG-CHAIN ALKENYL AMINE - KE-26433 0.01 - < 0.025% H302, H304, H335,",
-      "H314(1B), H373, H400(M",
-      "factor 10), H410(M"
-    ],
+    "classificationGhsCodes": [],
+    "classificationGhsPictograms": [],
+    "ghsCodes": [],
+    "ghsPictograms": [],
+    "hazardStatements": [],
     "precautionaryStatements": {
       "prevention": [],
       "response": [],
@@ -13030,7 +12909,8 @@
       "validationWarnings": [
         "SIGNAL_WORD_INVALID"
       ]
-    }
+    },
+    "signalWordCandidate": "해당없음"
   },
   {
     "sourcePdfPath": "pdf/00_ 사출/MOBIL코리아/XHP222 MSDS. 2021.09.27.pdf",
@@ -13043,50 +12923,11 @@
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
-    "classificationGhsCodes": [
-      "GHS07",
-      "GHS09",
-      "GHS05"
-    ],
-    "classificationGhsPictograms": [
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      }
-    ],
-    "ghsCodes": [
-      "GHS07",
-      "GHS09",
-      "GHS05"
-    ],
-    "ghsPictograms": [
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
-      },
-      {
-        "code": "GHS05",
-        "label": "부식성"
-      }
-    ],
-    "hazardStatements": [
-      "- KE-28307 1 - < 5% H316, H402, H412",
-      "NAPHTHENIC ACIDS, ZINC SALTS - KE-35560 0.1 - < 1% H317, H319(2A), H401,",
-      "H411",
-      "아연 디알킬 디티오포스페이트 - KE-28665 1 - < 2.5% H315, H318, H401, H411"
-    ],
+    "classificationGhsCodes": [],
+    "classificationGhsPictograms": [],
+    "ghsCodes": [],
+    "ghsPictograms": [],
+    "hazardStatements": [],
     "precautionaryStatements": {
       "prevention": [],
       "response": [],
@@ -13108,7 +12949,8 @@
       "validationWarnings": [
         "SIGNAL_WORD_INVALID"
       ]
-    }
+    },
+    "signalWordCandidate": "해당없음"
   },
   {
     "sourcePdfPath": "pdf/00_ 사출/고려용접봉/KC-28 2023.01.11.pdf",
@@ -18657,7 +18499,8 @@
       "validationWarnings": [
         "SIGNAL_WORD_INVALID"
       ]
-    }
+    },
+    "signalWordCandidate": "해당없음"
   },
   {
     "sourcePdfPath": "pdf/03_ 시험실(시약)/블스원 3in1 장벽 유리 크리너.pdf",
@@ -18886,7 +18729,8 @@
       "validationWarnings": [
         "SIGNAL_WORD_INVALID"
       ]
-    }
+    },
+    "signalWordCandidate": "해당없음"
   },
   {
     "sourcePdfPath": "pdf/03_ 시험실(시약)/블스원 시그니처 엔진오일 5w30.pdf",
@@ -21924,7 +21768,8 @@
       "validationWarnings": [
         "SIGNAL_WORD_INVALID"
       ]
-    }
+    },
+    "signalWordCandidate": "해당없음"
   },
   {
     "sourcePdfPath": "pdf/삼풍트라이텍/[삼풍트라이텍]PK-3830_GHS_MSDS.pdf",
@@ -23409,267 +23254,6 @@
     }
   },
   {
-    "sourcePdfPath": "pdf/00_ 사출/GS칼텍스/Kixx Grease EP 0.pdf",
-    "sourceRelativePath": "00_ 사출/GS칼텍스/Kixx Grease EP 0.pdf",
-    "pdfRegistrationType": "excel_missing_pdf",
-    "productNameCandidate": "Kixx Grease EP 0",
-    "supplierCandidate": "지에스칼텍스",
-    "msdsNoCandidate": "목록번호 최초 작성일자 최종 개정일자",
-    "revisionDateCandidate": "2024-07-30",
-    "signalWordCandidate": "경고",
-    "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
-    "classificationGhsCodes": [
-      "GHS07"
-    ],
-    "classificationGhsPictograms": [
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      }
-    ],
-    "ghsCodes": [
-      "GHS07"
-    ],
-    "ghsPictograms": [
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      }
-    ],
-    "hazardStatements": [
-      "H319 눈에 심한 자극을 일으킴-"
-    ],
-    "precautionaryStatements": {
-      "prevention": [
-        "P264 취급 후에는 취급 부위를 철저히 씻으시오.-",
-        "P280 보호장갑/보호의/보안경/안면보호구를(을) 착용하시오.-",
-        "P305 + P351 + P338 눈에 묻으면: 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻",
-        "P337 + P313 눈에 자극이 지속되면: 의학적인 조치/조언을 받으시오.-"
-      ],
-      "response": [],
-      "storage": [],
-      "disposal": []
-    },
-    "ingredients": [
-      {
-        "chemicalName": "유제 오일 KE-12546",
-        "casNo": "64742-54-7",
-        "content": "62 ~ 72"
-      },
-      {
-        "chemicalName": "KE-12611",
-        "casNo": "64741-96-4",
-        "content": "12 ~ 22"
-      },
-      {
-        "chemicalName": "Polyisobutylene KE-28918",
-        "casNo": "9003-27-4",
-        "content": "12 ~ 22"
-      },
-      {
-        "chemicalName": "리튬금속비누",
-        "casNo": "7620-77-1",
-        "content": "1 ~ 5"
-      },
-      {
-        "chemicalName": "KE-28665",
-        "casNo": "68457-79-4",
-        "content": "1 ~ 3"
-      },
-      {
-        "chemicalName": "KE-26333",
-        "casNo": "57-11-4",
-        "content": "0.1 ~ 1"
-      },
-      {
-        "chemicalName": "KE-12930",
-        "casNo": "68411-58-5",
-        "content": "0.1 ~ 0.5"
-      },
-      {
-        "chemicalName": "KE-12553",
-        "casNo": "64742-55-8",
-        "content": "0.1 ~ 0.3"
-      },
-      {
-        "chemicalName": "KE-12602",
-        "casNo": "64742-65-0",
-        "content": "0.1 ~ 0.3"
-      },
-      {
-        "chemicalName": "KE-12609",
-        "casNo": "64742-56-9",
-        "content": "0.1 ~ 0.3"
-      },
-      {
-        "chemicalName": "propanediamine KE-26547",
-        "casNo": "7173-62-8",
-        "content": "0.01 ~ 0.3"
-      }
-    ],
-    "ppeCandidates": [
-      "P280 보호장갑/보호의/보안경/안면보호구를(을) 착용하시오.",
-      "다. 화재진압시 착용할 보호구",
-      "한 조치사항 및 보호구",
-      "구조자는 적절한 보호구를 착용하시오.",
-      "보호구 항(「８. 노출방지 및 개인보호구」항 참조)의 예방조치를 하고, 엎질러진 것을 즉",
-      "적절한 보호의를 착용하지 않고 파손된 용기나 누출물에 손대지 마시오.",
-      "8. 노출방지 및 개인보호구",
-      "공학적 관리 및 개인보호구를 참조하여 작업하시오.",
-      "용기는 환기가 잘 되는 곳에 단단히 밀폐하여 저장하시오.",
-      "다. 개인보호구",
-      "국소배기 장치를 설치하시오.",
-      "학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오.",
-      "호흡보호구를 착용하시오.",
-      "(loose-fitting) 후드/헬멧형 전동식 호흡보호구 혹은 연속흐름식 방진마스크/방독마스크",
-      "(방진마스크는 액체 에어로졸인 경우에만 해당)를 착용하시오.",
-      "동식 반면형 또는 공기 공급형 연속흐름식/압력요구식 반면형 호흡보호구를 착용하시",
-      "헬멧/후드 타입, 압력요구식 송기마스크를 착용하시오.",
-      "급식(SCBA) 또는 압력요구식 자가공기공급식(SCBA) 호흡보호구를 착용하시오."
-    ],
-    "match": {
-      "fileName": "Kixx Grease EP 0.pdf",
-      "relativePath": "00_ 사출/GS칼텍스/Kixx Grease EP 0.pdf"
-    },
-    "publication": {
-      "summaryMode": "automatic",
-      "summaryAvailable": true,
-      "validationStatus": "automatic",
-      "validationWarnings": []
-    }
-  },
-  {
-    "sourcePdfPath": "pdf/00_ 사출/고려용접봉/KC-28. 2021.12.14.pdf",
-    "sourceRelativePath": "00_ 사출/고려용접봉/KC-28. 2021.12.14.pdf",
-    "pdfRegistrationType": "excel_missing_pdf",
-    "productNameCandidate": "제품 형태 : 혼합물",
-    "supplierCandidate": "고려용접봉 창원공장",
-    "msdsNoCandidate": "",
-    "revisionDateCandidate": "2021-12-14",
-    "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
-    "classificationGhsCodes": [
-      "GHS08",
-      "GHS07"
-    ],
-    "classificationGhsPictograms": [
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
-      },
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      }
-    ],
-    "ghsCodes": [
-      "GHS08",
-      "GHS07"
-    ],
-    "ghsPictograms": [
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
-      },
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      }
-    ],
-    "hazardStatements": [
-      "호흡기 과민성, 구분 1 H334",
-      "피부 과민성, 구분 1 H317",
-      "특정 표적장기 독성 (1 회 노출), 구분 2 H371",
-      "특정 표적장기 독성 (반복 노출), 구분 2 H373",
-      "H317 - 알레르기성 피부 반응을 일으킬 수 있음.",
-      "H334 - 흡입 시 알레르기성 반응, 천식 또는 호흡 곤란 등을 일으킬 수 있음.",
-      "H371 - 장기에 손상을 일으킬 수 있음.",
-      "H373 - 장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음."
-    ],
-    "precautionaryStatements": {
-      "prevention": [
-        "O 예방 조치 문구 (GHS KR)",
-        "P260 - 분진·흄·가스·미스트·증기·스프레이 를(을) 흡입하지 마시오.",
-        "P261 - 분진/흄/가스/미스트/증기/스프레이의 흡입을 피하시오.",
-        "P264 - 취급 후에는 취급 부위 을(를) 철저히 씻으시오.",
-        "P270 - 이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오.",
-        "P272 - 작업장 밖으로 오염된 의류를 반출하지 마시오.",
-        "P280 - 보호장갑/보호의/보안경/안면보호구를(을) 착용하시오.",
-        "P284 - [환기가 잘 되지 않는 경우] 호흡기 보호구를 착용하시오."
-      ],
-      "response": [
-        "P302+P352 - 피부에 묻으면: 다량의 물 로 씻으시오.",
-        "P304+P340 - 흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.",
-        "P308+P311 - 노출되거나 노출이 우려되면: 의료기관/의사/… 의 진찰을 받으시오.",
-        "P314 - 불편함을 느끼면 의학적인 조치/조언을 받으시오.",
-        "P321 - 응급 처치를 하시오.",
-        "P333+P313 - 피부 자극 또는 홍반이 나타나면: 의학적인 조치/조언을 받으시오.",
-        "P342+P311 - 호흡기 증상이 나타나면: 의료기관/의사/… 의 진찰을 받으시오.",
-        "P362+P364 - 오염된 의류를 벗고 다시 사용 전 세척하시오."
-      ],
-      "storage": [
-        "P405 - 잠금장치를 하여 저장하시오."
-      ],
-      "disposal": [
-        "P501 - 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오."
-      ]
-    },
-    "ingredients": [
-      {
-        "chemicalName": "철(Iron) 환원철 번호:",
-        "casNo": "7439-89-6",
-        "content": ""
-      },
-      {
-        "chemicalName": "번호:",
-        "casNo": "7439-96-5",
-        "content": ""
-      },
-      {
-        "chemicalName": "번호:",
-        "casNo": "7440-21-3",
-        "content": ""
-      },
-      {
-        "chemicalName": "번호:",
-        "casNo": "7440-50-8",
-        "content": ""
-      }
-    ],
-    "ppeCandidates": [
-      "P280 - 보호장갑/보호의/보안경/안면보호구를(을) 착용하시오.",
-      "다. 화재 진압 시 착용할 보호구 및 예방조치",
-      "화재 진압 중 보호 : 적절한 보호 장비 없이 조치를 취하려고 하지 마시오. 자급식 호흡보호구. 전신 보호복.",
-      "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구",
-      "유출지역을 환기시키시오.",
-      "보다 자세한 정보는 섹션 8: \"노출방지 및 개인보호구\"를 참조하시오.",
-      "작업장의 환기 상태가 양호한지 확인하시오.",
-      "개인 보호구를 착용하시오.",
-      "환기가 잘 되는 곳에 보관하시오.",
-      "8. 노출방지 및 개인보호구",
-      "적절한 공학적 관리 : 작업장의 환기 상태가 양호한지 확인하시오.",
-      "다. 개인보호구",
-      "보안경",
-      "적절한 보호복을 착용하시오",
-      "환기가 불충분할 경우, 적절한 호흡 장비를 착용하시오"
-    ],
-    "match": {
-      "fileName": "KC-28. 2021.12.14.pdf",
-      "relativePath": "00_ 사출/고려용접봉/KC-28. 2021.12.14.pdf"
-    },
-    "publication": {
-      "summaryMode": "automatic",
-      "summaryAvailable": true,
-      "validationStatus": "automatic_with_warnings",
-      "validationWarnings": [
-        "SIGNAL_WORD_INVALID"
-      ]
-    }
-  },
-  {
     "sourcePdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐 - 적색 MSDS.pdf",
     "sourceRelativePath": "00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐 - 적색 MSDS.pdf",
     "pdfRegistrationType": "excel_missing_pdf",
@@ -24584,445 +24168,6 @@
     }
   },
   {
-    "sourcePdfPath": "pdf/GGM 상주원/[KCC] SRM.pdf",
-    "sourceRelativePath": "GGM 상주원/[KCC] SRM.pdf",
-    "pdfRegistrationType": "excel_missing_pdf",
-    "productNameCandidate": "UT5731-SRM(GGM)(FRT)",
-    "supplierCandidate": "케이씨씨 울산공장",
-    "msdsNoCandidate": "",
-    "revisionDateCandidate": "2024-08-06",
-    "signalWordCandidate": "위험",
-    "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
-    "classificationGhsCodes": [
-      "GHS02",
-      "GHS07",
-      "GHS08"
-    ],
-    "classificationGhsPictograms": [
-      {
-        "code": "GHS02",
-        "label": "인화성"
-      },
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
-      }
-    ],
-    "ghsCodes": [
-      "GHS02",
-      "GHS07",
-      "GHS08"
-    ],
-    "ghsPictograms": [
-      {
-        "code": "GHS02",
-        "label": "인화성"
-      },
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
-      }
-    ],
-    "hazardStatements": [
-      "H226 인화성 액체 및 증기",
-      "H304 삼켜서 기도로 유입되면 치명적일 수 있음",
-      "H315 피부에 자극을 일으킴",
-      "H319 눈에 심한 자극을 일으킴",
-      "H332 흡입하면 유해함",
-      "H335 호흡기 자극을 일으킬 수 있음",
-      "H336 졸음 또는 현기증을 일으킬 수 있음",
-      "H340 유전적인 결함을 일으킬 수 있음",
-      "H350 암을 일으킬 수 있음",
-      "H361 태아 또는 생식능력에 손상을 일으킬 것으로 의심됨",
-      "H373 장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음",
-      "H412 장기적인 영향에 의해 수생생물에게 유해함"
-    ],
-    "precautionaryStatements": {
-      "prevention": [
-        "P201 사용 전 취급 설명서를 확보하시오.",
-        "P202 모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.",
-        "P210 열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연",
-        "P233 용기를 단단히 밀폐하시오.",
-        "P240 용기와 수용설비를 접지하시오.",
-        "P241 방폭형 (전기·환기·조명)설비를 사용하시오.",
-        "P242 스파크가 발생하지 않는 도구를 사용하시오.",
-        "P243 정전기 방지 조치를 취하시오.",
-        "P260 가스/미스트/증기/스프레이를(을) 흡입하지 마시오.",
-        "P261 가스/미스트/증기/스프레이의 흡입을 피하시오.",
-        "P264 취급 후에는 취급부위를 철저히 씻으시오.",
-        "P271 옥외 또는 환기가 잘 되는 곳에서만 취급하시오.",
-        "P273 환경으로 배출하지 마시오.",
-        "P280 보호장갑·보호의·보안경·안면보호구를(을) 착용하시오."
-      ],
-      "response": [
-        "P301+P310 삼켰다면: 즉시 의료기관/의사의 진찰을 받으시오.",
-        "P302+P352 피부에 묻으면: 다량의 물로 씻으시오.",
-        "P303+P361+P353 피부(또는 머리카락)에 묻으면: 오염된 모든 의류를 즉시 벗으시오. 피부를 물로 씻으시오/샤워하시",
-        "P304+P340 흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.",
-        "P305+P351+P338 눈에 묻으면: 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.",
-        "P308+P313 노출되거나 노출이 우려되면: 의학적인 조치/조언을 받으시오.",
-        "P312 불편함을 느끼면 의료기관/의사의 진찰을 받으시오.",
-        "P314 불편함을 느끼면 의학적인 조치/조언을 받으시오.",
-        "P321 응급처치(눈에 들어갔을 때는 다량의 흐르는 물로 세척, 피부에 접촉했을 때는 다량의 흐르는 물로 세척, 흡입했을",
-        "때 신선한 공기로 이동, 먹었을 때 구토를 유발할지에 대하여 의료진의 조언을 구함)를 하시오.",
-        "P331 토하게 하지 마시오.",
-        "P332+P313 피부 자극이 나타나면: 의학적인 조치/조언을 받으시오.",
-        "P337+P313 눈에 자극이 지속되면: 의학적인 조치/조언을 받으시오.",
-        "P362+P364 오염된 의류를 벗고 다시 사용 전 세척하시오.",
-        "P370+P378 화재 시: 불을 끄기 위해 적절한 소화제를 사용하시오."
-      ],
-      "storage": [
-        "P403+P233 환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오.",
-        "P403+P235 환기가 잘 되는 곳에 보관하시오. 저온으로 유지하시오.",
-        "P405 잠금장치를 하여 저장하시오."
-      ],
-      "disposal": [
-        "P501 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오."
-      ]
-    },
-    "ingredients": [
-      {
-        "chemicalName": "n-뷰틸 아세테이트",
-        "casNo": "123-86-4",
-        "content": "22 ~ 29"
-      },
-      {
-        "chemicalName": "자일렌 자일롤 ; 메틸톨루엔 ; 다이메틸벤젠 / KE-35427",
-        "casNo": "1330-20-7",
-        "content": "13 ~ 20"
-      },
-      {
-        "chemicalName": "타시드 ; 톨루올 ; 1-메틸벤젠 / KE-33936",
-        "casNo": "108-88-3",
-        "content": "7 ~ 14"
-      },
-      {
-        "chemicalName": "셀룰로스 아세테이트 뷰틸레이트",
-        "casNo": "9004-36-8",
-        "content": "1 ~ 8"
-      },
-      {
-        "chemicalName": "자료없음 / KE-32296",
-        "casNo": "190524-92-6",
-        "content": "1 ~ 8"
-      },
-      {
-        "chemicalName": "톡시프로판-2-일 아세트산 / KE-23315",
-        "casNo": "108-65-6",
-        "content": "1 ~ 6"
-      },
-      {
-        "chemicalName": "안료 레드 101 / KE-10897",
-        "casNo": "1309-37-1",
-        "content": "1 ~ 6"
-      },
-      {
-        "chemicalName": "C.I. 염료 황색 110 C.I. PIGMENT YELLOW 110 / KE-33287",
-        "casNo": "106276-80-6",
-        "content": "1 ~ 6"
-      },
-      {
-        "chemicalName": "페닐에테인 / KE-13532",
-        "casNo": "100-41-4",
-        "content": "1 ~ 6"
-      },
-      {
-        "chemicalName": "수소탈황된 중질 나프타 (석유)",
-        "casNo": "64742-82-1",
-        "content": "1 ~ 6"
-      },
-      {
-        "chemicalName": "아세트산 에틸",
-        "casNo": "141-78-6",
-        "content": "1 ~ 6"
-      },
-      {
-        "chemicalName": "알루미늄",
-        "casNo": "7429-90-5",
-        "content": "1 ~ 6"
-      },
-      {
-        "chemicalName": "드 ; / KE-18271",
-        "casNo": "142-82-5",
-        "content": "1 ~ 6"
-      },
-      {
-        "chemicalName": "/ 97-3-501",
-        "casNo": "127519-17-9",
-        "content": "1 ~ 6"
-      },
-      {
-        "chemicalName": "2-프로판올",
-        "casNo": "67-63-0",
-        "content": "1 ~ 6"
-      },
-      {
-        "chemicalName": "/ KE-24725 미만",
-        "casNo": "108-10-1",
-        "content": "0.1~1"
-      },
-      {
-        "chemicalName": "방향족 경질 나프타 용매(석유) 나프타 / KE-31662 미만",
-        "casNo": "64742-95-6",
-        "content": "0.1~1"
-      }
-    ],
-    "ppeCandidates": [
-      "P280 보호장갑·보호의·보안경·안면보호구를(을) 착용하시오.",
-      "다. 화재 진압 시 착용할 보호구 및 예방조치",
-      "가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구",
-      "밀폐된 공간에 출입하기 전에 환기를 실시하시오.",
-      "공학적 관리 및 개인보호구를 참조하여 작업하시오.",
-      "8. 노출방지 및 개인보호구",
-      "다. 개인 보호구",
-      "호흡보호는 최소농도부터 최대농도까지 분류됨.",
-      "해당물질에 직접적인 노출 또는 노출 가능성이 있는 경우, 한국산업안전보건공단 인증을 받은 방독마스크(직결식 소형, 유기",
-      "단, 유해·위험성이 없는 경우에는 한국산업안전보건공단 인증을 받은 방진 마스크도 착용 가능함.",
-      "미지농도 또는 기타 생명이나 건강에 급박한 위험이 있는 경우 : 송기마스크(복합식 에어라인 마스크), 공기호흡기(전면형)",
-      "해당물질에 직접적인 노출 또는 노출 가능성이 있는 경우, 한국산업안전보건공단 인증을 받은 보안경을 착용할 것.",
-      "해당물질에 직접적인 노출 또는 노출 가능성이 있는 경우, 한국산업안전보건공단 인증을 받은 화학물질용 보호복을 착용할"
-    ],
-    "match": {
-      "fileName": "[KCC] SRM.pdf",
-      "relativePath": "GGM 상주원/[KCC] SRM.pdf"
-    },
-    "publication": {
-      "summaryMode": "automatic",
-      "summaryAvailable": true,
-      "validationStatus": "automatic",
-      "validationWarnings": []
-    }
-  },
-  {
-    "sourcePdfPath": "pdf/GGM 상주원/[KCC] TKS.pdf",
-    "sourceRelativePath": "GGM 상주원/[KCC] TKS.pdf",
-    "pdfRegistrationType": "excel_missing_pdf",
-    "productNameCandidate": "UT5731-TKS(GGM)",
-    "supplierCandidate": "케이씨씨 울산공장",
-    "msdsNoCandidate": "",
-    "revisionDateCandidate": "2025-03-06",
-    "signalWordCandidate": "위험",
-    "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
-    "classificationGhsCodes": [
-      "GHS02",
-      "GHS07",
-      "GHS08"
-    ],
-    "classificationGhsPictograms": [
-      {
-        "code": "GHS02",
-        "label": "인화성"
-      },
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
-      }
-    ],
-    "ghsCodes": [
-      "GHS02",
-      "GHS07",
-      "GHS08"
-    ],
-    "ghsPictograms": [
-      {
-        "code": "GHS02",
-        "label": "인화성"
-      },
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
-      }
-    ],
-    "hazardStatements": [
-      "H226 인화성 액체 및 증기",
-      "H304 삼켜서 기도로 유입되면 치명적일 수 있음",
-      "H315 피부에 자극을 일으킴",
-      "H319 눈에 심한 자극을 일으킴",
-      "H335 호흡기 자극을 일으킬 수 있음",
-      "H336 졸음 또는 현기증을 일으킬 수 있음",
-      "H340 유전적인 결함을 일으킬 수 있음",
-      "H350 암을 일으킬 수 있음",
-      "H361 태아 또는 생식능력에 손상을 일으킬 것으로 의심됨",
-      "H373 장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음",
-      "H412 장기적인 영향에 의해 수생생물에게 유해함"
-    ],
-    "precautionaryStatements": {
-      "prevention": [
-        "P201 사용 전 취급 설명서를 확보하시오.",
-        "P202 모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.",
-        "P210 열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연",
-        "P233 용기를 단단히 밀폐하시오.",
-        "P240 용기와 수용설비를 접지하시오.",
-        "P241 방폭형 (전기·환기·조명)설비를 사용하시오.",
-        "P242 스파크가 발생하지 않는 도구를 사용하시오.",
-        "P243 정전기 방지 조치를 취하시오.",
-        "P260 가스/미스트/증기/스프레이를(을) 흡입하지 마시오.",
-        "P261 가스/미스트/증기/스프레이의 흡입을 피하시오.",
-        "P264 취급 후에는 취급부위를 철저히 씻으시오.",
-        "P271 옥외 또는 환기가 잘 되는 곳에서만 취급하시오.",
-        "P273 환경으로 배출하지 마시오.",
-        "P280 보호장갑·보호의·보안경·안면보호구를(을) 착용하시오."
-      ],
-      "response": [
-        "P301+P310 삼켰다면: 즉시 의료기관/의사의 진찰을 받으시오.",
-        "P302+P352 피부에 묻으면: 다량의 물로 씻으시오.",
-        "P303+P361+P353 피부(또는 머리카락)에 묻으면: 오염된 모든 의류를 즉시 벗으시오. 피부를 물로 씻으시오/샤워하시",
-        "P304+P340 흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.",
-        "P305+P351+P338 눈에 묻으면: 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.",
-        "P308+P313 노출되거나 노출이 우려되면: 의학적인 조치/조언을 받으시오.",
-        "P312 불편함을 느끼면 의료기관/의사의 진찰을 받으시오.",
-        "P314 불편함을 느끼면 의학적인 조치/조언을 받으시오.",
-        "P321 응급처치(눈에 들어갔을 때는 다량의 흐르는 물로 세척, 피부에 접촉했을 때는 다량의 흐르는 물로 세척, 흡입했을",
-        "때 신선한 공기로 이동, 먹었을 때 구토를 유발할지에 대하여 의료진의 조언을 구함)를 하시오.",
-        "P331 토하게 하지 마시오.",
-        "P332+P313 피부 자극이 나타나면: 의학적인 조치/조언을 받으시오.",
-        "P337+P313 눈에 자극이 지속되면: 의학적인 조치/조언을 받으시오.",
-        "P362+P364 오염된 의류를 벗고 다시 사용 전 세척하시오.",
-        "P370+P378 화재 시: 불을 끄기 위해 적절한 소화제를 사용하시오."
-      ],
-      "storage": [
-        "P403+P233 환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오.",
-        "P403+P235 환기가 잘 되는 곳에 보관하시오. 저온으로 유지하시오.",
-        "P405 잠금장치를 하여 저장하시오."
-      ],
-      "disposal": [
-        "P501 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오."
-      ]
-    },
-    "ingredients": [
-      {
-        "chemicalName": "n-뷰틸 아세테이트",
-        "casNo": "123-86-4",
-        "content": "25 ~ 32"
-      },
-      {
-        "chemicalName": "타시드 ; 톨루올 ; 1-메틸벤젠 / KE-33936",
-        "casNo": "108-88-3",
-        "content": "4 ~ 11"
-      },
-      {
-        "chemicalName": "자일렌 자일롤 ; 메틸톨루엔 ; 다이메틸벤젠 / KE-35427",
-        "casNo": "1330-20-7",
-        "content": "4 ~ 11"
-      },
-      {
-        "chemicalName": "소티타늄 ; 피그먼트 화이트 6 / KE-33900",
-        "casNo": "13463-67-7",
-        "content": "1 ~ 8"
-      },
-      {
-        "chemicalName": "셀룰로스 아세테이트 뷰틸레이트",
-        "casNo": "9004-36-8",
-        "content": "1 ~ 8"
-      },
-      {
-        "chemicalName": "톡시프로판-2-일 아세트산 / KE-23315",
-        "casNo": "108-65-6",
-        "content": "1 ~ 6"
-      },
-      {
-        "chemicalName": "자료없음 / KE-32296",
-        "casNo": "190524-92-6",
-        "content": "1 ~ 6"
-      },
-      {
-        "chemicalName": "자료없음 /",
-        "casNo": "103818-85-5",
-        "content": "1 ~ 6"
-      },
-      {
-        "chemicalName": "아세트산 에틸",
-        "casNo": "141-78-6",
-        "content": "1 ~ 6"
-      },
-      {
-        "chemicalName": "수산화 산화 철 옐로우",
-        "casNo": "51274-00-1",
-        "content": "1 ~ 6"
-      },
-      {
-        "chemicalName": "2-뷰톡시에탄올, 아세테이트",
-        "casNo": "112-07-2",
-        "content": "1 ~ 6"
-      },
-      {
-        "chemicalName": "수소탈황된 중질 나프타 (석유)",
-        "casNo": "64742-82-1",
-        "content": "1 ~ 6"
-      },
-      {
-        "chemicalName": "드 ; / KE-18271",
-        "casNo": "142-82-5",
-        "content": "1 ~ 6"
-      },
-      {
-        "chemicalName": "페닐에테인 / KE-13532",
-        "casNo": "100-41-4",
-        "content": "1 ~ 6"
-      },
-      {
-        "chemicalName": "방향족 경질 나프타 용매(석유) 나프타 / KE-31662 미만",
-        "casNo": "64742-95-6",
-        "content": "1 ~ 6"
-      },
-      {
-        "chemicalName": "/ KE-24725 미만",
-        "casNo": "108-10-1",
-        "content": "0.1~1"
-      },
-      {
-        "chemicalName": "블랙 / KE-04682 미만",
-        "casNo": "1333-86-4",
-        "content": "0.1~1"
-      }
-    ],
-    "ppeCandidates": [
-      "P280 보호장갑·보호의·보안경·안면보호구를(을) 착용하시오.",
-      "다. 화재 진압 시 착용할 보호구 및 예방조치",
-      "가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구",
-      "밀폐된 공간에 출입하기 전에 환기를 실시하시오.",
-      "공학적 관리 및 개인보호구를 참조하여 작업하시오.",
-      "8. 노출방지 및 개인보호구",
-      "다. 개인 보호구",
-      "호흡보호는 최소농도부터 최대농도까지 분류됨.",
-      "해당물질에 직접적인 노출 또는 노출 가능성이 있는 경우, 한국산업안전보건공단 인증을 받은 방독마스크(직결식 소형, 유기",
-      "단, 유해·위험성이 없는 경우에는 한국산업안전보건공단 인증을 받은 방진 마스크도 착용 가능함.",
-      "미지농도 또는 기타 생명이나 건강에 급박한 위험이 있는 경우 : 송기마스크(복합식 에어라인 마스크), 공기호흡기(전면형)",
-      "해당물질에 직접적인 노출 또는 노출 가능성이 있는 경우, 한국산업안전보건공단 인증을 받은 보안경을 착용할 것.",
-      "해당물질에 직접적인 노출 또는 노출 가능성이 있는 경우, 한국산업안전보건공단 인증을 받은 화학물질용 보호복을 착용할"
-    ],
-    "match": {
-      "fileName": "[KCC] TKS.pdf",
-      "relativePath": "GGM 상주원/[KCC] TKS.pdf"
-    },
-    "publication": {
-      "summaryMode": "automatic",
-      "summaryAvailable": true,
-      "validationStatus": "automatic",
-      "validationWarnings": []
-    }
-  },
-  {
     "sourcePdfPath": "pdf/GGM 상주원/[KCC] YFB.pdf",
     "sourceRelativePath": "GGM 상주원/[KCC] YFB.pdf",
     "pdfRegistrationType": "excel_missing_pdf",
@@ -25220,232 +24365,6 @@
     }
   },
   {
-    "sourcePdfPath": "pdf/GGM 상주원/[KNK] NES(듀프렉스 뉴에크루).pdf",
-    "sourceRelativePath": "GGM 상주원/[KNK] NES(듀프렉스 뉴에크루).pdf",
-    "pdfRegistrationType": "excel_missing_pdf",
-    "productNameCandidate": "한글명: 듀프렉스 뉴에크루 [NES](A203-X7020)",
-    "supplierCandidate": "KNK코팅스",
-    "msdsNoCandidate": "",
-    "revisionDateCandidate": "2021-01-08",
-    "signalWordCandidate": "위험",
-    "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
-    "classificationGhsCodes": [
-      "GHS02",
-      "GHS07",
-      "GHS08",
-      "GHS09"
-    ],
-    "classificationGhsPictograms": [
-      {
-        "code": "GHS02",
-        "label": "인화성"
-      },
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
-      }
-    ],
-    "ghsCodes": [
-      "GHS02",
-      "GHS07",
-      "GHS08",
-      "GHS09"
-    ],
-    "ghsPictograms": [
-      {
-        "code": "GHS02",
-        "label": "인화성"
-      },
-      {
-        "code": "GHS07",
-        "label": "유해/자극성"
-      },
-      {
-        "code": "GHS08",
-        "label": "건강유해성"
-      },
-      {
-        "code": "GHS09",
-        "label": "환경유해성"
-      }
-    ],
-    "hazardStatements": [
-      "H225 고인화성 액체 및 증기",
-      "H305 삼켜서 기도로 유입되면 유해할 수 있음",
-      "H315 피부에 자극을 일으킴",
-      "H319 눈에 심한 자극을 일으킴",
-      "H350 암을 일으킬 수 있음",
-      "H360 태아 또는 생식능력에 손상을 일으킬 수 있음(태아의 체중 감소, 간장 상대 중량 증가, 혈액에 영향)",
-      "H370 장기에 손상을 일으킴(폐,간,신장,위장,호흡계,신경계)",
-      "H411 장기적인 영향에 의해 수생생물에게 유독함"
-    ],
-    "precautionaryStatements": {
-      "prevention": [
-        "○ 예방조치 문구 (예방)",
-        "P201 사용 전 취급 설명서를 확보하시오.",
-        "P202 모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.",
-        "P210 열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연.",
-        "P233 용기를 단단히 밀폐하시오.",
-        "P240 용기와 수용설비를 접지하시오.",
-        "P241 방폭형 전기·환기·조명설비를 사용하시오.",
-        "P242 스파크가 발생하지 않는 도구만을 사용하시오.",
-        "P243 정전기 방지 조치를 취하시오.",
-        "P260 분진·흄·가스·미스트·증기·스프레이를 흡입하지 마시오.",
-        "P264 취급 후에는 취급부위를 철저히 씻으시오.",
-        "P270 이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오.",
-        "P273 환경으로 배출하지 마시오.",
-        "P280 보호장갑·보호의·보안경·안면보호구 등 보호구를 착용하시오.",
-        "○ 예방조치 문구 (대응)",
-        "P301+P310 삼켰다면 : 즉시 의료기관(의사)의 진찰을 받으시오.",
-        "P302+P352 피부에 묻으면 : 다량의 물과 비누로 씻으시오.",
-        "P303+P361+P353 피부(또는 머리카락)에 묻으면: 오염된 모든 의류를 즉시 벗으시오. 피부를 물로 씻으시오(또는 샤워하시오).",
-        "P305+P351+P338 눈에 묻으면 : 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.",
-        "P308+P311 노출되거나 노출이 우려되면: 의료기관,의사의 진찰을 받으시오.",
-        "P308+P313 노출되거나 노출이 우려되면: 의학적인 조치,조언을 받으시오.",
-        "P321 MSDS 4항에 기재된 처치를 하시오.",
-        "P331 토하게 하지 마시오.",
-        "P332+P313 피부 자극이 나타나면: 의학적인 조치,조언을 받으시오.",
-        "P337+P313 눈에 자극이 지속되면: 의학적인 조치,조언을 받으시오.",
-        "P362 오염된 의류를 벗으시오.",
-        "P370+P376 화재 시: 안전하게 처리하는 것이 가능하면 누출을 막으시오.",
-        "P391 누출물을 모으시오.",
-        "○ 예방조치 문구 (저장)",
-        "P403+P235 환기가 잘 되는 곳에 보관하시오. 저온으로 유지하시오.",
-        "P405 잠금장치를 하여 저장하시오.",
-        "○ 예방조치 문구 (폐기)",
-        "P501 환경부 지정 폐기물업체를 통하여 내용물과 용기를 폐기하시오."
-      ],
-      "response": [],
-      "storage": [],
-      "disposal": []
-    },
-    "ingredients": [
-      {
-        "chemicalName": "에틸벤젠",
-        "casNo": "100-41-4",
-        "content": "0.1 - 2"
-      },
-      {
-        "chemicalName": "α-[3-[3-(2H-Benzotriazol-2-yl)-5-(1,1-di- methyle",
-        "casNo": "104810-47-1",
-        "content": "0.1 - 2"
-      },
-      {
-        "chemicalName": "1-oxo- propyl]-ω-hydroxypoly(oxy-1,2-ethane- diyl",
-        "casNo": "104810-48-2",
-        "content": "0.1 - 2"
-      },
-      {
-        "chemicalName": "4-메틸-2-펜탄온",
-        "casNo": "108-10-1",
-        "content": "0.1 - 2"
-      },
-      {
-        "chemicalName": "프로필렌 글리콜모노메틸에테르 이세트산(PMA)",
-        "casNo": "108-65-6",
-        "content": "2 - 5"
-      },
-      {
-        "chemicalName": "2-뷰톡시에탄올, 아세테이트",
-        "casNo": "112-07-2",
-        "content": "2 - 5"
-      },
-      {
-        "chemicalName": "n-뷰틸 아세트산(n-Butyl acetate)",
-        "casNo": "123-86-4",
-        "content": "0.1 - 2"
-      },
-      {
-        "chemicalName": "자일렌(Xylene)",
-        "casNo": "1330-20-7",
-        "content": "10 - 20"
-      },
-      {
-        "chemicalName": "이산화 티타늄",
-        "casNo": "13463-67-7",
-        "content": "10 - 20"
-      },
-      {
-        "chemicalName": "수산화알류미늄(Aluminium hydroxide)",
-        "casNo": "21645-51-2",
-        "content": "20 - 30"
-      },
-      {
-        "chemicalName": "방향족 중질 나프타 용매(석유)",
-        "casNo": "64742-94-5",
-        "content": "0.1 - 2"
-      },
-      {
-        "chemicalName": "n-뷰틸 알코올(1-Butal;n-Butal)",
-        "casNo": "71-36-3",
-        "content": "0.1 - 2"
-      },
-      {
-        "chemicalName": "산화규소(Silicon dioxide)",
-        "casNo": "7631-86-9",
-        "content": "2 - 5"
-      },
-      {
-        "chemicalName": "데케인이산, 1-메틸 10-(1,2,2,6,6-펜타메틸-4-피페리딘일) 에스터",
-        "casNo": "82919-37-7",
-        "content": "0.1 - 2"
-      },
-      {
-        "chemicalName": "셀룰로스 아세테이트 뷰틸레이트",
-        "casNo": "9004-36-8",
-        "content": "0.1 - 2"
-      }
-    ],
-    "ppeCandidates": [
-      "P280 보호장갑·보호의·보안경·안면보호구 등 보호구를 착용하시오.",
-      "c.화재진압시 착용할 보호구 및 예방조치 :",
-      "구조자는 적절한 보호구를 착용하시오.",
-      "a.인체를 보호하기 위해 필요한 조치사항 및 보호구 :",
-      "오염 지역을 격리 및 환기하시오.",
-      "적절한 보호의를 착용하지 않고 파손된 용기나 누출물에 손대지 마시오.",
-      "저지대 밀폐공간에서 작업시 산소결핍의 우려가 있으므로 작업중, 공기중 산소농도 측정 및 환기를 하시오.",
-      "폭발 방지용 전기·환기·조명·장비를 사용하시오.",
-      "옥외 또는 환기가 잘 되는 곳에서만 취급하시고 열 및 고온에 주의하시오.",
-      "환기가 잘 되는 지역에서만 사용하시오.",
-      "공학적 관리 및 개인보호구를 참조하여 작업하시오.",
-      "환기가 잘 되는 곳에 보관하고 단단히 밀폐하여 저온으로 유지하시오.(실내보관)",
-      "8. 노출방지 및 개인보호구",
-      "공정격리, 국소배기를 사용하거나, 공기수준을 노출기준 이하로 조절하는 다른 공학적 관리를 하시오.",
-      "운전시 먼지, 흄 또는 미스트를 발생하는 경우, 공기 오염이 노출기준 이하로 유지되도록 환기하시오.",
-      "c.개인보호구 :",
-      "노출되는 물질의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오..",
-      "적합한 내화학성 보호의 및 안경, 보안면을 착용하시오.",
-      "노출농도가 100mg/m3보다 낮을 경우 적절한 타입의 필터를 장착한 반면형 호흡보호구를 착용하시오.",
-      "노출농도가 500ppm보다 낮을 경우 적절한 타입의 필터를 장착한 반면형 호흡보호구를 착용하시오.",
-      "노출농도가 1000ppm보다 낮을 경우 적절한 타입의 필터를 장착한 반면형 호흡보호구를 착용하시오.",
-      "반면형 호흡보호구를 착용하시오.",
-      "후드/헬멧형 전동식 호흡보호구 혹은 연속흐름식 방진마스크를 착용하시오.",
-      "노출농도가 400000ppm보다 낮을 경우 적절한 필터 또는 정화통을 장착한 전면형 또는 헬멧/후드 타입, 압력요구식 송기마스크를 착용하시오.",
-      "(SCBA) 호흡보호구를 착용하시오.",
-      "적당한 내화학성 보호의을 착용할 것."
-    ],
-    "match": {
-      "fileName": "[KNK] NES(듀프렉스 뉴에크루).pdf",
-      "relativePath": "GGM 상주원/[KNK] NES(듀프렉스 뉴에크루).pdf"
-    },
-    "publication": {
-      "summaryMode": "automatic",
-      "summaryAvailable": true,
-      "validationStatus": "automatic",
-      "validationWarnings": []
-    }
-  },
-  {
     "sourcePdfPath": "pdf/GGM 상주원/[LG화학] 이소프로필알코올(220518).pdf",
     "sourceRelativePath": "GGM 상주원/[LG화학] 이소프로필알코올(220518).pdf",
     "pdfRegistrationType": "excel_missing_pdf",
@@ -25576,7 +24495,7 @@
     "supplierCandidate": "카렉스",
     "msdsNoCandidate": "",
     "revisionDateCandidate": "2016-10-18",
-    "signalWordCandidate": "",
+    "signalWordCandidate": "해당없음",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
@@ -26712,9 +25631,7 @@
     "ghsPictograms": [],
     "hazardStatements": [],
     "precautionaryStatements": {
-      "prevention": [
-        "예방조치 문구를 포함한 경고 표지 항목가.나."
-      ],
+      "prevention": [],
       "response": [],
       "storage": [],
       "disposal": []
@@ -26737,43 +25654,8 @@
       "validationWarnings": [
         "SIGNAL_WORD_INVALID"
       ]
-    }
-  },
-  {
-    "sourcePdfPath": "pdf/에쓰-오일토탈윤활유/TST-K-001K(SERIOLA+KS+2120).pdf",
-    "sourceRelativePath": "에쓰-오일토탈윤활유/TST-K-001K(SERIOLA+KS+2120).pdf",
-    "pdfRegistrationType": "excel_missing_pdf",
-    "productNameCandidate": "",
-    "supplierCandidate": "에쓰-오일토탈윤활유",
-    "msdsNoCandidate": "",
-    "revisionDateCandidate": "2020-09-08",
-    "signalWordCandidate": "",
-    "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
-    "classificationGhsCodes": [],
-    "classificationGhsPictograms": [],
-    "ghsCodes": [],
-    "ghsPictograms": [],
-    "hazardStatements": [],
-    "precautionaryStatements": {
-      "prevention": [],
-      "response": [],
-      "storage": [],
-      "disposal": []
     },
-    "ingredients": [],
-    "ppeCandidates": [],
-    "match": {
-      "fileName": "TST-K-001K(SERIOLA+KS+2120).pdf",
-      "relativePath": "에쓰-오일토탈윤활유/TST-K-001K(SERIOLA+KS+2120).pdf"
-    },
-    "publication": {
-      "summaryMode": "automatic",
-      "summaryAvailable": true,
-      "validationStatus": "automatic",
-      "validationWarnings": []
-    }
+    "signalWordCandidate": "해당없음"
   },
   {
     "sourcePdfPath": "pdf/연기 감지기 MSDS.pdf",
@@ -27280,9 +26162,7 @@
       "prevention": [],
       "response": [],
       "storage": [],
-      "disposal": [
-        "다.화재 진압시 착용할 보호구 및 예방"
-      ]
+      "disposal": []
     },
     "ingredients": [],
     "ppeCandidates": [
@@ -28145,92 +27025,6 @@
     }
   },
   {
-    "sourcePdfPath": "pdf/현대ep/(GHS-MSDS) HR580 현대ep 수지.pdf",
-    "sourceRelativePath": "현대ep/(GHS-MSDS) HR580 현대ep 수지.pdf",
-    "pdfRegistrationType": "excel_missing_pdf",
-    "productNameCandidate": "",
-    "supplierCandidate": "현대ep",
-    "msdsNoCandidate": "",
-    "revisionDateCandidate": "2015-09-01",
-    "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
-    "classificationGhsCodes": [],
-    "classificationGhsPictograms": [],
-    "ghsCodes": [],
-    "ghsPictograms": [],
-    "hazardStatements": [],
-    "precautionaryStatements": {
-      "prevention": [],
-      "response": [],
-      "storage": [],
-      "disposal": []
-    },
-    "ingredients": [],
-    "ppeCandidates": [],
-    "match": {
-      "fileName": "(GHS-MSDS) HR580 현대ep 수지.pdf",
-      "relativePath": "현대ep/(GHS-MSDS) HR580 현대ep 수지.pdf"
-    },
-    "publication": {
-      "summaryMode": "automatic",
-      "summaryAvailable": true,
-      "validationStatus": "automatic_with_warnings",
-      "validationWarnings": [
-        "SIGNAL_WORD_INVALID"
-      ]
-    }
-  },
-  {
-    "sourcePdfPath": "pdf/현대ep/HR530_MSDS(GHS)_2021.12.20(4차).pdf",
-    "sourceRelativePath": "현대ep/HR530_MSDS(GHS)_2021.12.20(4차).pdf",
-    "pdfRegistrationType": "excel_missing_pdf",
-    "productNameCandidate": "",
-    "supplierCandidate": "HDC 현대EP",
-    "msdsNoCandidate": "",
-    "revisionDateCandidate": "2018-03-22",
-    "signalWordCandidate": "해당없음",
-    "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
-    "classificationGhsCodes": [],
-    "classificationGhsPictograms": [],
-    "ghsCodes": [],
-    "ghsPictograms": [],
-    "hazardStatements": [],
-    "precautionaryStatements": {
-      "prevention": [],
-      "response": [],
-      "storage": [],
-      "disposal": []
-    },
-    "ingredients": [],
-    "ppeCandidates": [
-      "다. 화재진압 시 착용할 보호구 및 예방조치",
-      "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구",
-      "8. 노출방지 및 개인보호구",
-      "○ 공정격리, 국소배기를 사용하거나, 공기수준을 노출기준 이하로 조절하는 다른 공학적 관리를 하시오.",
-      "다. 개인보호구",
-      "ｏ 사용빈도가 높거나 노출이 심한 경우에는 호흡용 보호구가 필요",
-      "ｏ 사용가능 보호구",
-      "분진/미스트 및 혼용 호흡보호구",
-      "공기 여과식 호흡보호구(고효율 미립자 여과재)",
-      "전동팬 부착 호흡보호구(분진/미시트, 혼용 여과재)",
-      "고효율 미립자 필터가 부착된 자급식 호흡용 보호구",
-      "ｏ 적합한 내화학성 보호의를 착용하시오"
-    ],
-    "match": {
-      "fileName": "HR530_MSDS(GHS)_2021.12.20(4차).pdf",
-      "relativePath": "현대ep/HR530_MSDS(GHS)_2021.12.20(4차).pdf"
-    },
-    "publication": {
-      "summaryMode": "automatic",
-      "summaryAvailable": true,
-      "validationStatus": "automatic",
-      "validationWarnings": []
-    }
-  },
-  {
     "sourcePdfPath": "pdf/현대ep/HR530U MSDS(GHS)__2023.10.10(최초).pdf",
     "sourceRelativePath": "현대ep/HR530U MSDS(GHS)__2023.10.10(최초).pdf",
     "pdfRegistrationType": "excel_missing_pdf",
@@ -28302,104 +27096,6 @@
     }
   },
   {
-    "sourcePdfPath": "pdf/현대ep/HR580_MSDS(GHS)_2023.07.27(6차).pdf",
-    "sourceRelativePath": "현대ep/HR580_MSDS(GHS)_2023.07.27(6차).pdf",
-    "pdfRegistrationType": "excel_missing_pdf",
-    "productNameCandidate": "",
-    "supplierCandidate": "현대EP",
-    "msdsNoCandidate": "",
-    "revisionDateCandidate": "2013-06-15",
-    "signalWordCandidate": "해당없음",
-    "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
-    "classificationGhsCodes": [],
-    "classificationGhsPictograms": [],
-    "ghsCodes": [],
-    "ghsPictograms": [],
-    "hazardStatements": [],
-    "precautionaryStatements": {
-      "prevention": [],
-      "response": [],
-      "storage": [],
-      "disposal": []
-    },
-    "ingredients": [],
-    "ppeCandidates": [
-      "다. 화재진압 시 착용할 보호구 및 예방조치",
-      "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구",
-      "8. 노출방지 및 개인보호구",
-      "○ 공정격리, 국소배기를 사용하거나, 공기수준을 노출기준 이하로 조절하는 다른 공학적 관리를 하시오.",
-      "다. 개인보호구",
-      "ｏ 사용빈도가 높거나 노출이 심한 경우에는 호흡용 보호구가 필요",
-      "ｏ 사용가능 보호구",
-      "분진/미스트 및 혼용 호흡보호구",
-      "공기 여과식 호흡보호구(고효율 미립자 여과재)",
-      "전동팬 부착 호흡보호구(분진/미시트, 혼용 여과재)",
-      "고효율 미립자 필터가 부착된 자급식 호흡용 보호구",
-      "ｏ 적합한 내화학성 보호의를 착용하시오"
-    ],
-    "match": {
-      "fileName": "HR580_MSDS(GHS)_2023.07.27(6차).pdf",
-      "relativePath": "현대ep/HR580_MSDS(GHS)_2023.07.27(6차).pdf"
-    },
-    "publication": {
-      "summaryMode": "automatic",
-      "summaryAvailable": true,
-      "validationStatus": "automatic",
-      "validationWarnings": []
-    }
-  },
-  {
-    "sourcePdfPath": "pdf/현대ep/HR580U_MSDS(GHS)__2023.06.09(6차).pdf",
-    "sourceRelativePath": "현대ep/HR580U_MSDS(GHS)__2023.06.09(6차).pdf",
-    "pdfRegistrationType": "excel_missing_pdf",
-    "productNameCandidate": "",
-    "supplierCandidate": "HDC 현대EP",
-    "msdsNoCandidate": "",
-    "revisionDateCandidate": "2013-06-15",
-    "signalWordCandidate": "해당없음",
-    "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
-    "classificationGhsCodes": [],
-    "classificationGhsPictograms": [],
-    "ghsCodes": [],
-    "ghsPictograms": [],
-    "hazardStatements": [],
-    "precautionaryStatements": {
-      "prevention": [],
-      "response": [],
-      "storage": [],
-      "disposal": []
-    },
-    "ingredients": [],
-    "ppeCandidates": [
-      "다. 화재진압 시 착용할 보호구 및 예방조치",
-      "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구",
-      "8. 노출방지 및 개인보호구",
-      "○ 공정격리, 국소배기를 사용하거나, 공기수준을 노출기준 이하로 조절하는 다른 공학적 관리를 하시오.",
-      "다. 개인보호구",
-      "ｏ 사용빈도가 높거나 노출이 심한 경우에는 호흡용 보호구가 필요",
-      "ｏ 사용가능 보호구",
-      "분진/미스트 및 혼용 호흡보호구",
-      "공기 여과식 호흡보호구(고효율 미립자 여과재)",
-      "전동팬 부착 호흡보호구(분진/미시트, 혼용 여과재)",
-      "고효율 미립자 필터가 부착된 자급식 호흡용 보호구",
-      "ｏ 적합한 내화학성 보호의를 착용하시오"
-    ],
-    "match": {
-      "fileName": "HR580U_MSDS(GHS)__2023.06.09(6차).pdf",
-      "relativePath": "현대ep/HR580U_MSDS(GHS)__2023.06.09(6차).pdf"
-    },
-    "publication": {
-      "summaryMode": "automatic",
-      "summaryAvailable": true,
-      "validationStatus": "automatic",
-      "validationWarnings": []
-    }
-  },
-  {
     "sourcePdfPath": "pdf/현대오일뱅크(주)/MK_XTeer Therm 46S_MSDS.pdf",
     "sourceRelativePath": "현대오일뱅크(주)/MK_XTeer Therm 46S_MSDS.pdf",
     "pdfRegistrationType": "excel_missing_pdf",
@@ -28418,22 +27114,7 @@
     "hazardStatements": [],
     "precautionaryStatements": {
       "prevention": [],
-      "response": [
-        "나. 예방조치 문구를 포함한 경고 표지 항목",
-        "가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구",
-        "작업자는 적절한 보호구(『８. 노출방지 및 개인보호구』항 참조)를 착용하여, 눈 피부에의 접촉과 흡입을 피할 것.",
-        "관계인 외 접근을 막고 위험 지역의 출입을 금지하시오.",
-        "다. 화재 진압 시 착용할 보호구 및 예방조치",
-        "직사주수를 사용한 소화는 피하시오.",
-        "화재 진압 시 방화복, 소방용 구조헬멧, 소방용 안전화, 소방용 안전장갑, 공기호흡기를 착용하시오.",
-        "필요에 따른 조치를 취하시오.",
-        "구토를 유발해야 하는지에 대해서 의사의 조언을 받으시오.",
-        "오염상황을 의료관계자에게 알려 그들도 적절한 보호조치를 취하도록 하시오.",
-        "오염된 피복은 재사용 전에 (충분히) 세탁하시오",
-        "다량의 증기나 미스트에 노출되었을 경우 맑은 공기가 있는 곳으로 이동하시오.",
-        "4. 응급조치 요령",
-        "눈을 문지르지 마시오."
-      ],
+      "response": [],
       "storage": [],
       "disposal": []
     },

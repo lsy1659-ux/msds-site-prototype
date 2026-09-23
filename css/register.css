@@ -1,0 +1,185 @@
+/* MSDS 번호 관리대장. 바탕·머리글·설정 칸은 substance.css 를 같이 쓴다.
+ * 여기에는 상태 타일과 넓은 표만 둔다. */
+
+.register-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+  gap: 8px;
+}
+
+.register-tile {
+  display: grid;
+  gap: 2px;
+  min-height: 64px;
+  padding: 10px 12px;
+  border: 1px solid var(--substance-line);
+  border-left-width: 4px;
+  border-radius: 10px;
+  background: var(--substance-surface);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.register-tile strong {
+  font-size: 1.35rem;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.register-tile span {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--substance-muted);
+}
+
+.register-tile.is-on {
+  outline: 2px solid var(--substance-accent);
+  outline-offset: 1px;
+}
+
+/* 상태 색. 해야 할 일이 남은 것만 눈에 띄게 하고, 끝난 것은 가라앉힌다. */
+.is-required { --state: #c2410c; }
+.is-pending { --state: #b45309; }
+.is-not_required { --state: #0b5d4d; }
+.is-submission_exempt { --state: #1d6fa5; }
+.is-verified { --state: #55655f; }
+.is-retired { --state: #9aa7a3; }
+.is-all { --state: var(--substance-accent); }
+
+.register-tile { border-left-color: var(--state); }
+
+.register-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+}
+
+.register-block {
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid var(--substance-line);
+  border-radius: 14px;
+  background: var(--substance-surface);
+}
+
+.register-block h2 {
+  margin: 0 0 6px;
+  font-size: 1.02rem;
+  font-weight: 800;
+}
+
+.register-sub {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.76rem;
+  color: var(--substance-muted);
+}
+
+.register-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--substance-line);
+  border-radius: 10px;
+}
+
+.register-table {
+  width: 100%;
+  min-width: 1080px;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.register-table th,
+.register-table td {
+  padding: 7px 9px;
+  border-bottom: 1px solid var(--substance-line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.register-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--substance-surface);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.register-table tr { border-left: 3px solid var(--state, transparent); }
+
+.register-name { min-width: 180px; font-weight: 700; }
+.register-name a { color: inherit; }
+.register-number code { font-family: ui-monospace, Consolas, monospace; font-size: 0.76rem; white-space: nowrap; }
+.register-long { min-width: 170px; max-width: 280px; line-height: 1.5; }
+.register-date { white-space: nowrap; color: var(--substance-muted); }
+.register-retired { color: var(--substance-muted); text-decoration: line-through; }
+
+.register-status {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--state) 14%, transparent);
+  color: var(--state);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.register-basis {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.74rem;
+  color: var(--substance-muted);
+}
+
+.register-empty {
+  padding: 20px;
+  text-align: center;
+  color: var(--substance-muted);
+}
+
+.register-todo {
+  display: grid;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.register-todo-item {
+  border: 1px solid var(--substance-line);
+  border-radius: 10px;
+}
+
+.register-todo-item summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  padding: 9px 12px;
+  cursor: pointer;
+}
+
+.register-todo-kinds { font-size: 0.76rem; color: var(--substance-muted); }
+.register-todo-item ul { margin: 0; padding: 0 14px 6px 30px; font-size: 0.84rem; }
+.register-todo-need { margin: 0; padding: 0 14px 10px; font-size: 0.8rem; line-height: 1.55; }
+
+.register-legal ul,
+.register-howto ul { margin: 6px 0 0; padding-left: 18px; font-size: 0.84rem; line-height: 1.6; }
+.register-howto p { margin: 0; font-size: 0.86rem; line-height: 1.6; }
+
+@media (min-width: 760px) {
+  .register-toolbar { grid-template-columns: minmax(0, 1fr) auto; align-items: end; }
+}
+
+[data-theme="dark"] .is-required { --state: #fb923c; }
+[data-theme="dark"] .is-pending { --state: #fbbf24; }
+[data-theme="dark"] .is-not_required { --state: #6fe0bf; }
+[data-theme="dark"] .is-submission_exempt { --state: #7cc4f0; }
+[data-theme="dark"] .is-verified { --state: #a3b7b1; }
+[data-theme="dark"] .register-block,
+[data-theme="dark"] .register-tile,
+[data-theme="dark"] .register-table th { background: #16211f; border-color: rgba(120, 170, 158, 0.28); }
+[data-theme="dark"] .register-table th,
+[data-theme="dark"] .register-table td,
+[data-theme="dark"] .register-todo-item,
+[data-theme="dark"] .register-table-wrap { border-color: rgba(120, 170, 158, 0.22); }

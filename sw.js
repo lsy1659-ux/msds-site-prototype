@@ -11,7 +11,7 @@
  *  - PDF: 열어본 것만 캐시. 전체는 80MB가 넘어 미리 담지 않는다.
  */
 
-const CACHE_VERSION = "msds-20260923-1";
+const CACHE_VERSION = "msds-20260923-2";
 const SHELL_CACHE = `${CACHE_VERSION}-shell`;
 const DATA_CACHE = `${CACHE_VERSION}-data`;
 const PDF_CACHE = `${CACHE_VERSION}-pdf`;
@@ -23,10 +23,12 @@ const SHELL_ASSETS = [
   "label.html",
   "guide.html",
   "substance.html",
+  "register.html",
   "css/style.css",
   "css/label.css",
   "css/guide.css",
   "css/substance.css",
+  "css/register.css",
   "css/topbar.css",
   "js/app.js",
   "js/page-transition.js",
@@ -35,6 +37,7 @@ const SHELL_ASSETS = [
   "js/label.js",
   "js/guide.js",
   "js/substance.js",
+  "js/register.js",
   "js/csv-export.js",
   "js/pick-assist.js",
   "vendor/qrcode.min.js",
@@ -63,7 +66,8 @@ const SHELL_ASSETS = [
 const DATA_ASSETS = [
   "data/msds.public.json",
   "data/msds-overrides.public.json",
-  "data/release-manifest.json"
+  "data/release-manifest.json",
+  "data/msds-register.json"
 ];
 
 self.addEventListener("install", (event) => {

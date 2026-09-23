@@ -4,8 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
-    <title>MSDS 물질 찾기</title>
+    <title>MSDS 번호 관리대장</title>
     <link rel="stylesheet" href="css/substance.css?v=20260923-2">
+    <link rel="stylesheet" href="css/register.css?v=20260923-2">
     <link rel="stylesheet" href="css/topbar.css?v=20260923-2">
     <script>
       // 조회 화면에서 고른 화면 설정을 이 페이지에도 적용한다.
@@ -33,7 +34,7 @@
         <a class="top-bar-tab" href="index.html">조회</a>
         <a class="top-bar-tab" href="label.html">경고표지</a>
         <a class="top-bar-tab" href="guide.html">관리요령</a>
-        <a class="top-bar-tab" href="substance.html" data-admin-only aria-current="page">물질</a>
+        <a class="top-bar-tab" href="substance.html" data-admin-only>물질</a>
         <a class="top-bar-tab" href="index.html?offline=1">오프라인 저장</a>
       </div>
       <div class="top-bar-tools">
@@ -70,12 +71,11 @@
 
     <div id="adminPanel" class="top-bar-panel no-print" hidden></div>
 
-    <!-- 주소를 바로 쳐서 들어왔을 때. 관리자 모드면 스타일이 이 칸을 접는다. -->
     <section class="admin-locked-screen" data-admin-locked>
       <h1>관리자 화면입니다</h1>
       <p>
-        물질 찾기는 안전보건 담당자가 작업환경측정 계획이나 특수건강진단 대상을
-        추릴 때 쓰는 화면입니다. 현장에서 MSDS 를 확인하는 데는 필요하지 않아
+        MSDS 번호 관리대장은 안전보건 담당자가 제품마다 MSDS 번호가 필요한지,
+        무엇을 더 받아야 하는지 관리하는 화면입니다. 현장 조회에는 필요하지 않아
         평소에는 감춰 둡니다.
       </p>
       <div id="adminGate"></div>
@@ -84,65 +84,79 @@
 
     <header class="substance-header" data-admin-only>
       <div class="substance-header-inner">
-        <h1>물질 찾기</h1>
+        <h1>MSDS 번호 관리대장</h1>
         <p>
-          제품이 아니라 성분에서 시작합니다. 어느 물질이 어느 제품에 들어 있는지 CAS 번호로 묶어 보여 줍니다.
-          작업환경측정 계획을 세우거나 특수건강진단 대상을 추릴 때 씁니다.
+          제품마다 MSDS 번호가 있어야 하는지, 없어도 되는지, 무엇을 더 받아야 하는지를 적어 둔 표입니다.
+          번호가 비었다고 다 누락은 아닙니다 — 분류기준 비해당 제품, 다른 법률로 관리되는 제품, 시험용 시약은 번호가 없어도 됩니다.
         </p>
         <a class="substance-back" href="index.html">← MSDS 조회로 돌아가기</a>
       </div>
     </header>
 
     <main class="substance-main" data-admin-only>
-      <section class="substance-controls" aria-label="물질 찾기 설정">
-        <label class="substance-field">
-          <span>물질 찾기</span>
-          <input id="substanceSearch" type="search" placeholder="물질명이나 CAS 번호" autocomplete="off">
-        </label>
+      <section class="substance-controls" aria-label="관리대장 보기 설정">
+        <div id="registerTiles" class="register-tiles" role="group" aria-label="상태로 좁히기"></div>
 
-        <div class="substance-filters" role="group" aria-label="법정분류로 좁히기">
-          <label class="substance-check">
-            <input type="checkbox" data-substance-filter="workplaceMonitoringTarget">
-            <span>작업환경측정 유해인자</span>
+        <div class="register-toolbar">
+          <label class="substance-field">
+            <span>찾기</span>
+            <input id="registerSearch" type="search" placeholder="제품명, 공급사, 번호" autocomplete="off">
           </label>
-          <label class="substance-check">
-            <input type="checkbox" data-substance-filter="specialHealthCheckTarget">
-            <span>특수건강진단 유해인자</span>
-          </label>
-          <label class="substance-check">
-            <input type="checkbox" data-substance-filter="managementTarget">
-            <span>관리대상 유해물질</span>
-          </label>
-        </div>
-
-        <div class="substance-actions">
-          <span id="substanceStatus" class="substance-status" role="status" aria-live="polite">물질 목록을 만드는 중입니다.</span>
-          <button type="button" id="substanceExport" class="substance-button">현재 목록 CSV</button>
+          <div class="substance-actions">
+            <span id="registerCount" class="substance-status" role="status" aria-live="polite">관리대장을 불러오는 중입니다.</span>
+            <span id="registerChecked" class="substance-status"></span>
+            <button type="button" id="registerExport" class="substance-button">현재 목록 CSV</button>
+          </div>
         </div>
 
         <p class="substance-notice">
-          <strong>법정분류 표시는 원본 MSDS 에 적힌 내용을 그대로 옮긴 것입니다.</strong>
-          이 사이트가 판정한 것이 아니며, 해당 유해인자인지 여부만 나타냅니다.
-          실제로 작업환경측정이나 특수건강진단을 해야 하는지는 취급 공정, 노출 여부,
-          허용소비량·임시작업 같은 법령상 예외를 따로 따져야 합니다.
-          원본이 안 적은 칸은 &ldquo;해당없음&rdquo;이 아니라 &ldquo;표기 없음&rdquo;으로 둡니다.
+          <strong>이 표는 원본 MSDS 와 현행 법령으로 판단한 결과입니다.</strong>
+          판정 기준은 번호가 있느냐가 아니라 원문 제2항의 유해성 분류입니다. 유해성 분류가 있는 산업용 제품은
+          2026. 1. 16. 로 제출 유예가 모두 끝나 지금은 번호가 적힌 MSDS 를 받아야 합니다.
+          "자료 충분도"는 법적 결론의 확률이 아니라 근거 자료가 충분한지를 뜻합니다.
         </p>
-
-        <label class="substance-check substance-check-quiet">
-          <input type="checkbox" id="substanceShowOrphans">
-          <span>CAS 번호가 없어 묶지 못한 성분도 보기</span>
-        </label>
       </section>
 
-      <div id="substanceList" class="substance-list"></div>
+      <section class="register-block">
+        <h2>공급사별 할 일</h2>
+        <p class="register-sub">확보 필요·추가 확인 제품을 공급사별로 묶었습니다. 한 번 연락할 때 같이 물어보세요.</p>
+        <div id="registerTodo" class="register-todo"></div>
+      </section>
+
+      <section class="register-block">
+        <h2>제품별 판정</h2>
+        <div class="register-table-wrap">
+          <table class="register-table">
+            <thead>
+              <tr><th>제품</th><th>공급사</th><th>MSDS 번호</th><th>상태</th><th>사유</th><th>법적 근거</th><th>추가 필요자료</th><th>조치안</th><th>확인일</th></tr>
+            </thead>
+            <tbody id="registerBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="register-block">
+        <h2>법적 근거</h2>
+        <div id="registerLegal" class="register-legal"></div>
+      </section>
+
+      <section class="register-block register-howto">
+        <h2>고치는 방법</h2>
+        <p>이 화면은 보기만 합니다. 서버가 없는 사이트라 여기서 고쳐 저장할 수는 없습니다.
+          고치는 곳은 <code>data/msds-register.json</code> 하나입니다.</p>
+        <ul>
+          <li>공급사에서 번호가 적힌 새 MSDS 를 받으면, 제품 등록을 맡길 때 관리대장도 같이 고쳐 달라고 하면 됩니다.</li>
+          <li>라벨을 확인해 소비자용·타법 제품으로 확인되면 그 제품의 <code>status</code> 를 <code>not_required</code> 로, 까닭과 근거를 적습니다.</li>
+          <li>사이트 데이터를 만들 때마다 <code>scripts/apply_msds_register.py</code> 가 관리대장을 덮어써서, 집 PC 에서 다시 만들어도 되돌아가지 않습니다.</li>
+        </ul>
+      </section>
     </main>
 
     <script src="vendor/qrcode.min.js?v=20260923-2"></script>
     <script src="js/page-transition.js?v=20260923-2" defer></script>
     <script src="js/site-qr.js?v=20260923-2" defer></script>
     <script src="js/admin-gate.js?v=20260923-2" defer></script>
-    <script src="js/pick-assist.js?v=20260923-2" defer></script>
     <script src="js/csv-export.js?v=20260923-2" defer></script>
-    <script src="js/substance.js?v=20260923-2" defer></script>
+    <script src="js/register.js?v=20260923-2" defer></script>
   </body>
 </html>

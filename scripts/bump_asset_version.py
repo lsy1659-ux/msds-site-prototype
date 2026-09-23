@@ -21,7 +21,7 @@ from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = ["index.html", "label.html", "guide.html", "substance.html"]
+PAGES = ["index.html", "label.html", "guide.html", "substance.html", "register.html"]
 SW = ROOT / "sw.js"
 
 ASSET_VERSION = re.compile(r'\?v=[0-9A-Za-z._-]+')

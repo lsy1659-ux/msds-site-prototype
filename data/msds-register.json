@@ -1,0 +1,3524 @@
+{
+  "schemaVersion": 1,
+  "title": "MSDS 번호 관리대장",
+  "about": "사람이 고치는 곳은 이 파일 하나다. scripts/apply_msds_register.py 가 사이트 데이터를 만들 때마다 이 파일을 덮어써서, 집 PC 에서 로컬 데이터로 다시 만들어도 고친 것이 되돌아가지 않는다.",
+  "statusLabels": {
+    "verified": "확인됨",
+    "required": "확보 필요",
+    "not_required": "필요 없음",
+    "submission_exempt": "제출 면제(시약)",
+    "pending": "추가 확인",
+    "retired": "구판·중복(목록에서 뺌)"
+  },
+  "legalBasis": {
+    "L110": "산업안전보건법 제110조제1항 — 제104조 분류기준에 해당하는 화학물질·혼합물(물질안전보건자료대상물질)을 제조·수입하려는 자는 MSDS 를 작성해 제출",
+    "L111": "산업안전보건법 제111조 — 양도·제공자는 MSDS 와 변경된 MSDS 를 제공",
+    "L114": "산업안전보건법 제114조제1항 — 취급 사업주는 MSDS 를 작업장에 게시·비치",
+    "R157": "시행규칙 제157조 — 제조·수입 전 공단 물질안전보건자료시스템에 전자 제출",
+    "R160": "시행규칙 제160조제1항 — 제공 시 시스템 제출 때 부여된 번호를 MSDS 에 반영",
+    "BU": "법률 제16272호 부칙 제7조·제8조, 시행규칙(고용노동부령 제272호) 부칙 제9조·제10조 — 기존 MSDS 제출·제공 기한 2022.1.16~2026.1.16 (모두 경과)",
+    "D86_7": "시행령 제86조제7호 — 생활화학제품법 안전확인대상생활화학제품·살생물제품 중 일반소비자 생활용",
+    "D86_8": "시행령 제86조제8호 — 식품위생법 식품·식품첨가물",
+    "D86_9": "시행령 제86조제9호 — 약사법 의약품·의약외품",
+    "D86_11": "시행령 제86조제11호 — 위생용품 관리법 위생용품",
+    "D86_15": "시행령 제86조제15호 — 화장품법 화장품",
+    "D86_16": "시행령 제86조제16호 — 일반소비자 생활용(사업장 내 취급 포함)",
+    "D86_17": "시행령 제86조제17호 + 고시 제19조제1호 — 시약 등 과학적 실험·분석용은 법 제110조제1항~제3항 자료의 제출만 제외",
+    "G11_1": "고시 제11조제1항 — MSDS 는 한글 작성 원칙",
+    "G11_2": "고시 제11조제2항 — 시험·연구용 시약은 외국어 MSDS 허용",
+    "G13": "고시 제13조제2항·제3항 — 분류기준 비해당 물질은 서면 통보, 통보받은 자는 사업장 내 비치"
+  },
+  "legalVersions": "산업안전보건법 [시행 2026.8.1. 법률 제21374호] · 시행령 [시행 2026.8.1. 대통령령 제36540호] · 시행규칙 [시행 2026.8.1. 고용노동부령 제477호] · 「화학물질의 분류·표시 및 물질안전보건자료에 관한 기준」 [시행 2026.4.24. 고용노동부고시 제2026-26호] — 2026-09-23 국가법령정보센터 확인",
+  "products": {
+    "msds-001": {
+      "productName": "UT595(F)-CLEAR(G-25)",
+      "supplier": "케이씨씨 울산공장",
+      "status": "verified",
+      "msdsNo": "AA00017-0000001782",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-002": {
+      "productName": "UT5731-TGW(GGM)",
+      "supplier": "케이씨씨 울산공장",
+      "status": "verified",
+      "msdsNo": "AA00017-0000018538",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-003": {
+      "productName": "UT5731-TKS(GGM)",
+      "supplier": "케이씨씨 울산공장",
+      "status": "verified",
+      "msdsNo": "AA00017-0000000199",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-004": {
+      "productName": "UT5731-UMA(GGM)",
+      "supplier": "케이씨씨 울산공장",
+      "status": "verified",
+      "msdsNo": "AA00017-0000016329",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-005": {
+      "productName": "UT5731-ZRM(GGM)",
+      "supplier": "케이씨씨 울산공장",
+      "status": "verified",
+      "msdsNo": "AA00017-0000014476",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-006": {
+      "productName": "064(BP)",
+      "supplier": "케이씨씨 울산공장",
+      "status": "verified",
+      "msdsNo": "AA00017-0000001094",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-007": {
+      "productName": "0278(HMC)",
+      "supplier": "케이씨씨 울산공장",
+      "status": "verified",
+      "msdsNo": "AA00017-0000001132",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-008": {
+      "productName": "TH0261(AP)",
+      "supplier": "케이씨씨 울산공장",
+      "status": "verified",
+      "msdsNo": "AA00017-0000001258",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-009": {
+      "productName": "TH0261(N)",
+      "supplier": "케이씨씨",
+      "status": "verified",
+      "msdsNo": "AA00017-0000001019",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-010": {
+      "productName": "UT5731-JUG(KIA)",
+      "supplier": "케이씨씨 울산공장",
+      "status": "verified",
+      "msdsNo": "AA00017-0000000196",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-011": {
+      "productName": "UT5731-KLG(KIA)",
+      "supplier": "케이씨씨 울산공장",
+      "status": "verified",
+      "msdsNo": "AA00017-0000012853",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-012": {
+      "productName": "UT5731-SRM(GGM)(FRT)",
+      "supplier": "케이씨씨 울산공장",
+      "status": "verified",
+      "msdsNo": "AA00017-0000013675",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-013": {
+      "productName": "R-255 경화제(캠스)",
+      "supplier": "(주)노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00875-9152795101",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-014": {
+      "productName": "DR-174 SWP M/BASE (SP2,SK3-CAR)",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00875-4156004751",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-015": {
+      "productName": "DR-264 SAW (NE-CAR)",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00875-4156005231",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-016": {
+      "productName": "DR-174 FSB (NQ5-CAR, 범퍼용)",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00073-0000000124",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-017": {
+      "productName": "DR-174 FSB (SK3-PE, 범퍼용)",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00073-0000000748",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-018": {
+      "productName": "DR-174 C7A(NQ5 PE-CAR)",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00875-4156007641",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-019": {
+      "productName": "DR-164 HRB(NQ5 PE-CAR)",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00875-4156007651",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-020": {
+      "productName": "DR-174 GBG (SP3-CAR)",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00875-4156008761",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-021": {
+      "productName": "DR-164 1D (SK3)",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00875-4156030001",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-022": {
+      "productName": "DR-164 UD (QL-CAR)",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00875-4156042701",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-023": {
+      "productName": "T-508 희석제(AIA)",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00073-0000000379",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-024": {
+      "productName": "TA-619 PRIMER 희석제",
+      "supplier": "(주)노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00073-0000000156",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-025": {
+      "productName": "TA-618 PRIMER 희석제",
+      "supplier": "(주)노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00073-0000000155",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-026": {
+      "productName": "T-803 희석제",
+      "supplier": "(주)노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00073-0000000355",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-027": {
+      "productName": "T-730(P) 희석제",
+      "supplier": "(주)노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00073-0000000154",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-028": {
+      "productName": "T-801 희석제",
+      "supplier": "(주)노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00073-0000000342",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-029": {
+      "productName": "T-725 희석제",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00073-0000000133",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-030": {
+      "productName": "T-507 희석제",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00073-0000000148",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-031": {
+      "productName": "RB-194 L/GRAY 프라이머 (CAMS용 희석분)",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00875-2144007902",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-032": {
+      "productName": "RB-194 D/GRAY 프라이머 (CAMS용 희석분)",
+      "supplier": "(주)노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00875-2144008002",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-033": {
+      "productName": "TC-317 세정제(CAMS용)",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00073-0000000366",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-035": {
+      "productName": "R-266 CLEAR 개량 (캠스 희석분)",
+      "supplier": "(주)노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00875-6155034691",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-036": {
+      "productName": "DR-165 YLC C/BASE(AX1 EV)",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00875-4155107851",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-037": {
+      "productName": "DR-174 A2B(AX1 PE)",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00875-4155107861",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-038": {
+      "productName": "DR-174 YLC M/BASE(AX1 EV)",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00875-4155107871",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-039": {
+      "productName": "DR-174 BJG(SP3-CAR)",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00875-4155124221",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-040": {
+      "productName": "DR-174 SWP M/BASE(QL-CAR)",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00875-4156001951",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-041": {
+      "productName": "DR-165 SWP C/BASE(QL-CAR 개량)",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00875-4156003511",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-042": {
+      "productName": "DR-174 M3R (SK3-CAR)",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00875-4156003631",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-043": {
+      "productName": "DR-165 SWP C/BASE (SK3)",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00875-4156003891",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-044": {
+      "productName": "DR-174 KLG(SP2-CAR)",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00875-4156004361",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-045": {
+      "productName": "E 201 신나(T802-D0101T)",
+      "supplier": "KNK코팅스",
+      "status": "verified",
+      "msdsNo": "AA00586-0000000248",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-046": {
+      "productName": "E 301 신나(T803-D0104T)",
+      "supplier": "KNK코팅스",
+      "status": "verified",
+      "msdsNo": "AA00586-0000000247",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-047": {
+      "productName": "E 301 신나 [동절용](T803-D0106)",
+      "supplier": "KNK코팅스",
+      "status": "verified",
+      "msdsNo": "AA00586-0000000377",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-048": {
+      "productName": "E 412 신나(T804-D1203T)",
+      "supplier": "KNK코팅스",
+      "status": "verified",
+      "msdsNo": "AA00586-0000000244",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-049": {
+      "productName": "E 413 신나(T804-D1204T)",
+      "supplier": "KNK코팅스",
+      "status": "verified",
+      "msdsNo": "AA00586-0000000243",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-050": {
+      "productName": "KU 4150KNK (H600-H0554H)",
+      "supplier": "KNK코팅스",
+      "status": "verified",
+      "msdsNo": "AA00586-0000000274",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-051": {
+      "productName": "듀프렉스 그래비티 그레이[MGG](A203-C7071)",
+      "supplier": "KNK코팅스",
+      "status": "verified",
+      "msdsNo": "AA00586-0000000029",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-052": {
+      "productName": "듀프렉스 그래비티그레이 [KDG](A203-C7060)",
+      "supplier": "KNK코팅스",
+      "status": "verified",
+      "msdsNo": "AA00586-0000000117",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-053": {
+      "productName": "듀프렉스 그래비티그레이 [KDT-GP2](A203-C7066)",
+      "supplier": "KNK코팅스",
+      "status": "verified",
+      "msdsNo": "AA00586-0000000119",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-054": {
+      "productName": "듀프렉스 언블리치드 아이보리 [NES](A203-X7020)",
+      "supplier": "KNK코팅스",
+      "status": "verified",
+      "msdsNo": "AA00586-0000000670",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-055": {
+      "productName": "듀프렉스 에어로실버 매트 [T4M](A203-C7086)",
+      "supplier": "KNK코팅스",
+      "status": "verified",
+      "msdsNo": "AA00586-0000000318",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-056": {
+      "productName": "듀프렉스 인페르노레드 [AJR](A203-R7038)",
+      "supplier": "KNK코팅스",
+      "status": "verified",
+      "msdsNo": "AA00586-0000000121",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-057": {
+      "productName": "듀프렉스 플루톤 블루[PLU](A203-K7077)",
+      "supplier": "KNK코팅스",
+      "status": "verified",
+      "msdsNo": "AA00586-0000000068",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-058": {
+      "productName": "소프렉스#500 무광투명 [G-30](K806-A4005)",
+      "supplier": "KNK코팅스",
+      "status": "verified",
+      "msdsNo": "AA00586-0000000127",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-059": {
+      "productName": "소프렉스#500 크리어 [DL](K806-A0070)",
+      "supplier": "KNK코팅스",
+      "status": "verified",
+      "msdsNo": "AA00586-0000000126",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-060": {
+      "productName": "아크렉스 마그마 레드 [OVR](A203-R7054)",
+      "supplier": "KNK코팅스",
+      "status": "verified",
+      "msdsNo": "AA00586-0000000459",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-061": {
+      "productName": "아크렉스 아이보리 실버 [ISG](A203-S7058)",
+      "supplier": "KNK코팅스",
+      "status": "verified",
+      "msdsNo": "AA00586-0000000460",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-062": {
+      "productName": "아크렉스 아이스버그 그린 [IEG](A203-G7033)",
+      "supplier": "KNK코팅스",
+      "status": "verified",
+      "msdsNo": "AA00586-0000000461",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-063": {
+      "productName": "아크렉스 프로스트 블루 [EBB](A203-K7079)",
+      "supplier": "KNK코팅스",
+      "status": "verified",
+      "msdsNo": "AA00586-0000000462",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-064": {
+      "productName": "R1252",
+      "supplier": "㈜대하",
+      "status": "verified",
+      "msdsNo": "AA08294-0000000025",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "해당없음",
+      "signalSource": "pdf3"
+    },
+    "msds-065": {
+      "productName": "SW920S-COLOR",
+      "supplier": "㈜대하",
+      "status": "verified",
+      "msdsNo": "AA08294-0000000028",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "해당없음",
+      "signalSource": "pdf3"
+    },
+    "msds-066": {
+      "productName": "HW160-COLOR",
+      "supplier": "㈜대하",
+      "status": "verified",
+      "msdsNo": "AA08294-0000000012",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf3"
+    },
+    "msds-067": {
+      "productName": "M1352(A,C,G,JY,X,IJ,H,D,DH,T)-COLOR",
+      "supplier": "㈜대하",
+      "status": "verified",
+      "msdsNo": "AA08294-0000000024",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "해당없음",
+      "signalSource": "pdf3"
+    },
+    "msds-068": {
+      "productName": "M7153(MF,CM,J,JL,M,JL-2,YFS,FS,TQ,VF,YI,VI,YV,V,V-2,Y,YL,L,BS,YG,YS,YM,YSK,YFS-W,K,FSJ,MD)",
+      "supplier": "㈜대하",
+      "status": "verified",
+      "msdsNo": "AA08294-0000000027",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "해당없음",
+      "signalSource": "pdf3"
+    },
+    "msds-069": {
+      "productName": "M7392(T,TA,TH,TS,TKV,D,JA,F,MF,J,ET,ED,E,EDC,Q,QR,QF,CN,CNR,CNF,HCN,THC)",
+      "supplier": "㈜대하",
+      "status": "verified",
+      "msdsNo": "AA08294-0000000019",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "해당없음",
+      "signalSource": "pdf3"
+    },
+    "msds-070": {
+      "productName": "M7392(U,UE,UQ,UE-AD,UM,UT,UTL,UTR,UTRF,UTRR,UX,UXC,USX,USX-2,UC,TU,AU,UP,USK,UY,ULP,ULX,ULPG,UQR,ULC)",
+      "supplier": "㈜대하",
+      "status": "verified",
+      "msdsNo": "AA08294-0000000016",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "해당없음",
+      "signalSource": "pdf3"
+    },
+    "msds-071": {
+      "productName": "SUPOL HR580U, SUPOL HR580UIN, SUPOL HR580UX",
+      "supplier": "HDC현대EP(주)",
+      "status": "verified",
+      "msdsNo": "AA06046-1100000145",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "",
+      "signalSource": "none"
+    },
+    "msds-072": {
+      "productName": "SUPOL N20HR580U",
+      "supplier": "HDC현대EP(주)",
+      "status": "verified",
+      "msdsNo": "AA06046-1100000320",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "",
+      "signalSource": "none"
+    },
+    "msds-073": {
+      "productName": "SUPOL HR530, SUPOL HR530X",
+      "supplier": "HDC현대EP(주)",
+      "status": "verified",
+      "msdsNo": "AA06046-1100000125",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "",
+      "signalSource": "none"
+    },
+    "msds-074": {
+      "productName": "SUPOL HR580,SUPOL HR580G,SUPOL HR580IN,SUPOL HR580TF,SUPOL",
+      "supplier": "HDC현대EP(주)",
+      "status": "verified",
+      "msdsNo": "AA06046-1100000140",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "",
+      "signalSource": "none"
+    },
+    "msds-075": {
+      "productName": "일신 뿌리는 그리스",
+      "supplier": "일신케미칼",
+      "status": "verified",
+      "msdsNo": "AA01093-0000000087",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf3"
+    },
+    "msds-076": {
+      "productName": "CRS 그리스 841",
+      "supplier": "옥인유화",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "분류 공란",
+      "reason": "원문 분류 칸이 '-'로만 되어 있고 그림문자 '없음'. 비해당인지 미작성인지 원문만으로 불명",
+      "basis": [
+        "L110",
+        "G13"
+      ],
+      "need": "옥인유화의 최신 MSDS 또는 비해당 통보서",
+      "action": "공급사 문의",
+      "checkedOn": "2026-09-23",
+      "signalWord": "해당없음",
+      "signalSource": "pdf1"
+    },
+    "msds-077": {
+      "productName": "2차이형제 (S6)",
+      "supplier": "㈜극동산업",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "산업용 혼합물",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 원문이 2011~2017년 구판인 것이 섞여 있음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "공급사에 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf3"
+    },
+    "msds-078": {
+      "productName": "그라코 TSL",
+      "supplier": "Produc",
+      "status": "pending",
+      "msdsNo": "",
+      "supplierDocNo": "307765ENJP",
+      "kind": "국문 MSDS·수입자 자료 없음",
+      "reason": "원문이 외국어 SDS 이고 '비분류(Not classified/Not classifiable)'로 적혀 있으나 국내 수입자·공급자의 국문 MSDS 또는 비해당 서면이 없음. 시약이 아니라 외국어본은 인정 안 됨",
+      "basis": [
+        "L110",
+        "G11_1",
+        "G13"
+      ],
+      "need": "국내 수입자(공급사)의 국문 MSDS 또는 '분류기준 비해당' 통보서",
+      "action": "공급사에 국문 MSDS 또는 비해당 통보서 요청. 비해당 확인되면 '필요 없음'",
+      "checkedOn": "2026-09-23",
+      "signalWord": "",
+      "signalSource": "none"
+    },
+    "msds-079": {
+      "productName": "Kixx Gear EP 220",
+      "supplier": "지에스칼텍스",
+      "status": "not_required",
+      "msdsNo": "",
+      "supplierDocNo": "LB3026",
+      "kind": "분류기준 비해당(윤활유)",
+      "reason": "공급사 원문 제2항에 유해성·위험성 분류가 '해당없음/분류되지 않음/적용되지 않음'으로 적혀 있음 → 법 제110조의 물질안전보건자료대상물질이 아니므로 제출·번호 부여 대상이 아님. 원문 MSDS번호 칸에 '제출대상아님' 명시",
+      "basis": [
+        "L110",
+        "G13"
+      ],
+      "action": "번호칸을 '필요 없음(분류기준 비해당)'으로 표시",
+      "certainty": "높음",
+      "checkedOn": "2026-09-23",
+      "notClassified": true,
+      "signalWord": "",
+      "signalSource": "none"
+    },
+    "msds-080": {
+      "productName": "Kixx Grease EP 0",
+      "supplier": "지에스칼텍스",
+      "status": "verified",
+      "msdsNo": "AA03534-0000004121",
+      "supplierDocNo": "LB2982",
+      "reason": "사이트 번호 = 원본 PDF 번호. 번호칸에 사내번호 'LB2982'가 같이 들어 있음(정리 권장)",
+      "basis": [
+        "R160"
+      ],
+      "action": "정리 권장",
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-081": {
+      "productName": "Kixx Grease EP 1",
+      "supplier": "지에스칼텍스",
+      "status": "verified",
+      "msdsNo": "AA03534-0000004122",
+      "supplierDocNo": "LB3919",
+      "reason": "사이트 번호 = 원본 PDF 번호. 번호칸에 사내번호 'LB3919'가 같이 들어 있음(정리 권장)",
+      "basis": [
+        "R160"
+      ],
+      "action": "정리 권장",
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-082": {
+      "productName": "Kixx Grease EP 2",
+      "supplier": "지에스칼텍스",
+      "status": "verified",
+      "msdsNo": "AA03534-0000004123",
+      "supplierDocNo": "LB2986",
+      "reason": "사이트 번호 = 원본 PDF 번호. 번호칸에 사내번호 'LB2986'가 같이 들어 있음(정리 권장)",
+      "basis": [
+        "R160"
+      ],
+      "action": "정리 권장",
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-083": {
+      "productName": "Kixx Grease EP 3",
+      "supplier": "지에스칼텍스",
+      "status": "verified",
+      "msdsNo": "AA03534-0000004124",
+      "supplierDocNo": "LB2987",
+      "reason": "사이트 번호 = 원본 PDF 번호. 번호칸에 사내번호 'LB2987'가 같이 들어 있음(정리 권장)",
+      "basis": [
+        "R160"
+      ],
+      "action": "정리 권장",
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-084": {
+      "productName": "Kixx RD LZ 46(구 Rando HD LZ 46)",
+      "supplier": "지에스칼텍스",
+      "status": "not_required",
+      "msdsNo": "",
+      "supplierDocNo": "LB2647",
+      "kind": "분류기준 비해당(윤활유)",
+      "reason": "공급사 원문 제2항에 유해성·위험성 분류가 '해당없음/분류되지 않음/적용되지 않음'으로 적혀 있음 → 법 제110조의 물질안전보건자료대상물질이 아니므로 제출·번호 부여 대상이 아님. 원문 MSDS번호 칸에 '제출대상아님' 명시",
+      "basis": [
+        "L110",
+        "G13"
+      ],
+      "action": "번호칸을 '필요 없음(분류기준 비해당)'으로 표시",
+      "certainty": "높음",
+      "checkedOn": "2026-09-23",
+      "notClassified": true,
+      "signalWord": "",
+      "signalSource": "none"
+    },
+    "msds-085": {
+      "productName": "MOBIL DTE 25",
+      "supplier": "모빌코리아윤활유주식회사",
+      "status": "not_required",
+      "msdsNo": "",
+      "kind": "분류기준 비해당(윤활유·그리스)",
+      "reason": "공급사 원문 제2항에 유해성·위험성 분류가 '해당없음/분류되지 않음/적용되지 않음'으로 적혀 있음 → 법 제110조의 물질안전보건자료대상물질이 아니므로 제출·번호 부여 대상이 아님. 원문에 'MSDS 번호: 적용되지 않음'도 명시",
+      "basis": [
+        "L110",
+        "G13"
+      ],
+      "action": "번호칸을 '필요 없음(분류기준 비해당)'으로 표시. 원본 PDF 를 비해당 서면으로 비치 유지",
+      "certainty": "높음",
+      "checkedOn": "2026-09-23",
+      "notClassified": true,
+      "signalWord": "해당없음",
+      "signalSource": "pdf1"
+    },
+    "msds-086": {
+      "productName": "MOBILUX EP 0",
+      "supplier": "모빌코리아윤활유주식회사",
+      "status": "not_required",
+      "msdsNo": "",
+      "kind": "분류기준 비해당(윤활유·그리스)",
+      "reason": "공급사 원문 제2항에 유해성·위험성 분류가 '해당없음/분류되지 않음/적용되지 않음'으로 적혀 있음 → 법 제110조의 물질안전보건자료대상물질이 아니므로 제출·번호 부여 대상이 아님. 원문에 'MSDS 번호: 적용되지 않음'도 명시",
+      "basis": [
+        "L110",
+        "G13"
+      ],
+      "action": "번호칸을 '필요 없음(분류기준 비해당)'으로 표시. 원본 PDF 를 비해당 서면으로 비치 유지",
+      "certainty": "높음",
+      "checkedOn": "2026-09-23",
+      "notClassified": true,
+      "signalWord": "해당없음",
+      "signalSource": "pdf1"
+    },
+    "msds-087": {
+      "productName": "SPARTAN EP 220",
+      "supplier": "모빌코리아윤활유주식회사",
+      "status": "not_required",
+      "msdsNo": "",
+      "kind": "분류기준 비해당(윤활유·그리스)",
+      "reason": "공급사 원문 제2항에 유해성·위험성 분류가 '해당없음/분류되지 않음/적용되지 않음'으로 적혀 있음 → 법 제110조의 물질안전보건자료대상물질이 아니므로 제출·번호 부여 대상이 아님. 원문에 'MSDS 번호: 적용되지 않음'도 명시",
+      "basis": [
+        "L110",
+        "G13"
+      ],
+      "action": "번호칸을 '필요 없음(분류기준 비해당)'으로 표시. 원본 PDF 를 비해당 서면으로 비치 유지",
+      "certainty": "높음",
+      "checkedOn": "2026-09-23",
+      "notClassified": true,
+      "signalWord": "해당없음",
+      "signalSource": "pdf1"
+    },
+    "msds-088": {
+      "productName": "MOBILGREASE XHP 222",
+      "supplier": "모빌코리아윤활유주식회사",
+      "status": "not_required",
+      "msdsNo": "",
+      "kind": "분류기준 비해당(윤활유·그리스)",
+      "reason": "공급사 원문 제2항에 유해성·위험성 분류가 '해당없음/분류되지 않음/적용되지 않음'으로 적혀 있음 → 법 제110조의 물질안전보건자료대상물질이 아니므로 제출·번호 부여 대상이 아님. 원문에 'MSDS 번호: 적용되지 않음'도 명시",
+      "basis": [
+        "L110",
+        "G13"
+      ],
+      "action": "번호칸을 '필요 없음(분류기준 비해당)'으로 표시. 원본 PDF 를 비해당 서면으로 비치 유지",
+      "certainty": "높음",
+      "checkedOn": "2026-09-23",
+      "notClassified": true,
+      "signalWord": "해당없음",
+      "signalSource": "pdf1"
+    },
+    "msds-089": {
+      "productName": "KC-28",
+      "supplier": "고려용접봉 창원공장",
+      "status": "verified",
+      "msdsNo": "AA06900-0000000004",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf2"
+    },
+    "msds-090": {
+      "productName": "KFN-50",
+      "supplier": "고려용접봉 창원공장",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "용접재료",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 같은 회사 KC-28 은 번호(AA06900-…)가 있어 제출 체계가 있음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "고려용접봉에 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf2"
+    },
+    "msds-091": {
+      "productName": "KH-500LF",
+      "supplier": "고려용접봉 창원공장",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "용접재료",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 같은 회사 KC-28 은 번호(AA06900-…)가 있어 제출 체계가 있음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "고려용접봉에 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf2"
+    },
+    "msds-092": {
+      "productName": "KR-3000",
+      "supplier": "고려용접봉 창원공장",
+      "status": "verified",
+      "msdsNo": "AA06900-0000000014",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf2"
+    },
+    "msds-093": {
+      "productName": "KSN-100",
+      "supplier": "고려용접봉 창원공장",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "용접재료",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 같은 회사 KC-28 은 번호(AA06900-…)가 있어 제출 체계가 있음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "고려용접봉에 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf2"
+    },
+    "msds-094": {
+      "productName": "KST-308",
+      "supplier": "고려용접봉 창원공장",
+      "status": "verified",
+      "msdsNo": "AA06900-0000000020",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf2"
+    },
+    "msds-095": {
+      "productName": "M-308",
+      "supplier": "고려용접봉 창원공장",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "용접재료",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 같은 회사 KC-28 은 번호(AA06900-…)가 있어 제출 체계가 있음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "고려용접봉에 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf2"
+    },
+    "msds-096": {
+      "productName": "T-50",
+      "supplier": "고려용접봉 창원공장",
+      "status": "verified",
+      "msdsNo": "AA06900-0000000018",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf2"
+    },
+    "msds-097": {
+      "productName": "T-308",
+      "supplier": "고려용접봉 창원공장",
+      "status": "verified",
+      "msdsNo": "AA06900-0000000040",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf2"
+    },
+    "msds-098": {
+      "productName": "BD-3 (비디-3)",
+      "supplier": "나바켐",
+      "status": "verified",
+      "msdsNo": "AA00190-0000000024",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-099": {
+      "productName": "다목적 세정제 DC-3000",
+      "supplier": "남방CNA",
+      "status": "verified",
+      "msdsNo": "AA00141-0000000157",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-100": {
+      "productName": "K1(케이1)",
+      "supplier": "나바켐",
+      "status": "verified",
+      "msdsNo": "AA00190-0000000116",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-101": {
+      "productName": "LONG #2 스프레이",
+      "supplier": "남방CNA",
+      "status": "verified",
+      "msdsNo": "AA00141-0000000109",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-102": {
+      "productName": "LONG #2H(롱#2에이치)",
+      "supplier": "남방CNA",
+      "status": "verified",
+      "msdsNo": "AA00141-0000000271",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-103": {
+      "productName": "MEGA CHECK 처리제(TREATMENT)",
+      "supplier": "남방CNA",
+      "status": "verified",
+      "msdsNo": "AA00141-0000000054",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-104": {
+      "productName": "MEGA CHECK 침투제(PENETRANT)",
+      "supplier": "남방CNA",
+      "status": "verified",
+      "msdsNo": "AA00141-0000000151",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-105": {
+      "productName": "MEGA CHECK 침투제 W",
+      "supplier": "나바켐",
+      "status": "verified",
+      "msdsNo": "AA00190-0000000226",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-106": {
+      "productName": "MEGA CHECK 현상제(DEVELOPER)",
+      "supplier": "남방CNA",
+      "status": "verified",
+      "msdsNo": "AA00141-0000000105",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-107": {
+      "productName": "다용도세제 NB-1(분무기)",
+      "supplier": "나바켐",
+      "status": "verified",
+      "msdsNo": "AA00190-0000000077",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-108": {
+      "productName": "PMC-3(피엠씨-3)",
+      "supplier": "남방CNA",
+      "status": "verified",
+      "msdsNo": "AA00141-0000000082",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-109": {
+      "productName": "스티커 자국 제거제 SSR-220",
+      "supplier": "나바켐",
+      "status": "verified",
+      "msdsNo": "AA00190-0000000165",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-110": {
+      "productName": "스티커 자국 제거제 SSR-450",
+      "supplier": "나바켐",
+      "status": "verified",
+      "msdsNo": "AA00190-0000000006",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-111": {
+      "productName": "탭핑 콤파운드 TC#1",
+      "supplier": "남방CNA",
+      "status": "verified",
+      "msdsNo": "AA00141-0000000156",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-112": {
+      "productName": "LCP-77 분홍색 N101",
+      "supplier": "나바켐",
+      "status": "verified",
+      "msdsNo": "AA00190-0000000186",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-113": {
+      "productName": "나바켐 락카스프레이 - 아이보리색 [LCP-77](N502)",
+      "supplier": "㈜영일 / ㈜나바켐",
+      "status": "verified",
+      "msdsNo": "AA03636-0000000201",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf3"
+    },
+    "msds-114": {
+      "productName": "나바켐 락카스프레이 - 진청색 [LCP-77](N400)",
+      "supplier": "㈜영일 / ㈜나바켐",
+      "status": "verified",
+      "msdsNo": "AA03636-0000000205",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf3"
+    },
+    "msds-115": {
+      "productName": "LCP-77 기계색 N313",
+      "supplier": "나바켐",
+      "status": "verified",
+      "msdsNo": "AA00190-0000000112",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-116": {
+      "productName": "LCP-77 은색 N900",
+      "supplier": "나바켐",
+      "status": "verified",
+      "msdsNo": "AA00190-0000000114",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-117": {
+      "productName": "LCP-77 적색 N100",
+      "supplier": "나바켐",
+      "status": "verified",
+      "msdsNo": "AA00190-0000000132",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-118": {
+      "productName": "LCP-77 중회색 N004",
+      "supplier": "나바켐",
+      "status": "verified",
+      "msdsNo": "AA00190-0000000107",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-119": {
+      "productName": "LCP-77 황색 N200",
+      "supplier": "나바켐",
+      "status": "verified",
+      "msdsNo": "AA00190-0000000110",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-120": {
+      "productName": "아이소발레르산(Isovaleric Acid)",
+      "supplier": "TOKYO CHEMICAL INDUSTRY CO., LTD.",
+      "status": "submission_exempt",
+      "msdsNo": "",
+      "supplierDocNo": "M0182",
+      "kind": "MSDS 필요·제출만 면제(시약)",
+      "reason": "시험실 분석용 시약. 시행령 제86조제17호·고시 제19조제1호에 따라 MSDS 작성·비치는 필요하지만 공단 제출(=번호 부여)만 면제. 번호가 없는 것이 적법할 수 있음",
+      "basis": [
+        "L114",
+        "D86_17",
+        "G11_2"
+      ],
+      "need": "실제 용도가 시험·분석뿐인지(생산 투입 없음) 현장 확인; 공급사가 시약으로 공급한 제품인지(라벨의 '시약/시험용' 표기) 확인",
+      "action": "번호칸을 '제출 면제(시약)'으로 표시. MSDS 원본은 계속 게시·비치",
+      "certainty": "중간",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-121": {
+      "productName": "ZIC X7 5W-30",
+      "supplier": "SK루브리컨츠",
+      "status": "not_required",
+      "msdsNo": "",
+      "supplierDocNo": "LP1027.6",
+      "kind": "분류기준 비해당(엔진오일)",
+      "reason": "공급사 원문 제2항에 유해성·위험성 분류가 '해당없음/분류되지 않음/적용되지 않음'으로 적혀 있음 → 법 제110조의 물질안전보건자료대상물질이 아니므로 제출·번호 부여 대상이 아님",
+      "basis": [
+        "L110",
+        "G13"
+      ],
+      "action": "번호칸 '필요 없음' 표시",
+      "certainty": "높음",
+      "checkedOn": "2026-09-23",
+      "notClassified": true,
+      "signalWord": "해당없음",
+      "signalSource": "pdf1"
+    },
+    "msds-122": {
+      "productName": "무연 휘발유(UG)",
+      "supplier": "에이치디현대오일뱅크",
+      "status": "verified",
+      "msdsNo": "AA01473-0000000028",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf2"
+    },
+    "msds-123": {
+      "productName": "경유 (Diesel)",
+      "supplier": "에이치디현대오일뱅크",
+      "status": "verified",
+      "msdsNo": "AA01473-0000000016",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-124": {
+      "productName": "불스원 물 없이 바로 쓰는 부동액",
+      "supplier": "불스원",
+      "status": "verified",
+      "msdsNo": "AA04335-0000000021",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-125": {
+      "productName": "카나우바 고광택왁스",
+      "supplier": "불스원",
+      "status": "not_required",
+      "msdsNo": "",
+      "kind": "분류기준 비해당(자동차 왁스)",
+      "reason": "공급사 원문 제2항에 유해성·위험성 분류가 '해당없음/분류되지 않음/적용되지 않음'으로 적혀 있음 → 법 제110조의 물질안전보건자료대상물질이 아니므로 제출·번호 부여 대상이 아님. 원문: '고용노동부 고시 제2020-130호에 따라 분류되지 않음'(분류 당시 고시 기준)",
+      "basis": [
+        "L110",
+        "G13"
+      ],
+      "action": "번호칸 '필요 없음' 표시",
+      "certainty": "높음",
+      "checkedOn": "2026-09-23",
+      "notClassified": true,
+      "signalWord": "해당없음",
+      "signalSource": "pdf1"
+    },
+    "msds-126": {
+      "productName": "3in1 장벽 유리 크리너",
+      "supplier": "불스원",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "소비자용·생활화학제품 여부 불명",
+      "reason": "유해성 분류가 있는 생활용 제품. 일반소비자용 안전확인대상생활화학제품·살생물제품·의약외품이면 적용 제외, 아니면 번호 필요",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU",
+        "D86_7",
+        "D86_9",
+        "D86_16"
+      ],
+      "need": "구매한 제품의 라벨 사진(가정용/업소용·산업용, 안전기준확인·자가검사번호, 위생용품·식품첨가물 표기), 구매처",
+      "action": "라벨 확인 후 판정",
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-127": {
+      "productName": "RainOK 에탄올 3in1 코팅워셔",
+      "supplier": "불스원",
+      "status": "verified",
+      "msdsNo": "AA04335-0000000010",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-128": {
+      "productName": "슈퍼 샤인 레자왁스",
+      "supplier": "불스원",
+      "status": "not_required",
+      "msdsNo": "",
+      "kind": "분류기준 비해당(자동차 왁스)",
+      "reason": "공급사 원문 제2항에 유해성·위험성 분류가 '해당없음/분류되지 않음/적용되지 않음'으로 적혀 있음 → 법 제110조의 물질안전보건자료대상물질이 아니므로 제출·번호 부여 대상이 아님. 원문: '고용노동부 고시 제2020-130호에 따라 분류되지 않음'(분류 당시 고시 기준)",
+      "basis": [
+        "L110",
+        "G13"
+      ],
+      "action": "번호칸 '필요 없음' 표시",
+      "certainty": "높음",
+      "checkedOn": "2026-09-23",
+      "notClassified": true,
+      "signalWord": "해당없음",
+      "signalSource": "pdf1"
+    },
+    "msds-129": {
+      "productName": "불스원 시그니처 엔진오일 5W30",
+      "supplier": "제조자: 씨엔루브 / 공급자: 불스원",
+      "status": "verified",
+      "msdsNo": "AA04335-0000000075",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "해당없음",
+      "signalSource": "pdf1"
+    },
+    "msds-130": {
+      "productName": "1N-수산화나트륨 (1M)[Sodium hydroxide]",
+      "supplier": "DUKSANPURECHEMICALSCO.LTD",
+      "status": "submission_exempt",
+      "msdsNo": "",
+      "kind": "MSDS 필요·제출만 면제(시약)",
+      "reason": "시험실 분석용 시약. 시행령 제86조제17호·고시 제19조제1호에 따라 MSDS 작성·비치는 필요하지만 공단 제출(=번호 부여)만 면제. 번호가 없는 것이 적법할 수 있음",
+      "basis": [
+        "L114",
+        "D86_17",
+        "G11_2"
+      ],
+      "need": "실제 용도가 시험·분석뿐인지(생산 투입 없음) 현장 확인; 공급사가 시약으로 공급한 제품인지(라벨의 '시약/시험용' 표기) 확인",
+      "action": "번호칸을 '제출 면제(시약)'으로 표시. MSDS 원본은 계속 게시·비치",
+      "certainty": "중간",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-131": {
+      "productName": "아세톤(Acetone, 100080)",
+      "supplier": "DC Fine Chemicals",
+      "status": "submission_exempt",
+      "msdsNo": "",
+      "kind": "MSDS 필요·제출만 면제(시약)",
+      "reason": "시험실 분석용 시약. 시행령 제86조제17호·고시 제19조제1호에 따라 MSDS 작성·비치는 필요하지만 공단 제출(=번호 부여)만 면제. 번호가 없는 것이 적법할 수 있음",
+      "basis": [
+        "L114",
+        "D86_17",
+        "G11_2"
+      ],
+      "need": "실제 용도가 시험·분석뿐인지(생산 투입 없음) 현장 확인; 공급사가 시약으로 공급한 제품인지(라벨의 '시약/시험용' 표기) 확인",
+      "action": "번호칸을 '제출 면제(시약)'으로 표시. MSDS 원본은 계속 게시·비치",
+      "certainty": "중간",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-132": {
+      "productName": "에틸 알코올 (Ethyl alcohol, 94.5%)",
+      "supplier": "삼젂순약공업",
+      "status": "verified",
+      "msdsNo": "AA00130-0000000110",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-133": {
+      "productName": "에틸알코올 (ethanol)",
+      "supplier": "제조자: ㈜디씨알이 / 공급자: OCI주식회사",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "시약 여부 불명",
+      "reason": "시험실 폴더에 있으나 원문에 시약·연구용 표기가 없음(2010년판). 시약이면 제출 면제, 공업용이면 번호 필요",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU",
+        "D86_17"
+      ],
+      "need": "제품 라벨(시약/공업용), 구매처, 실제 용도",
+      "action": "시약으로 확인되면 '제출 면제(시약)', 공업용이면 번호 기재된 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-134": {
+      "productName": "에틸렌(Ethylene)",
+      "supplier": "태경가스기술(주)",
+      "status": "pending",
+      "msdsNo": "AA12481-0000000010",
+      "kind": "사이트에만 번호",
+      "reason": "사이트에는 번호가 있는데 원본 PDF 본문·양식칸·주석 어디에도 번호가 없음. 번호 출처(옛 엑셀 대장 추정) 확인 불가",
+      "basis": [
+        "R160"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "공급사에 번호 기재본 요청 후 대조",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-135": {
+      "productName": "1N-염산[Hydrochloric acid]",
+      "supplier": "DUKSANPURECHEMICALSCO.LTD",
+      "status": "submission_exempt",
+      "msdsNo": "",
+      "kind": "MSDS 필요·제출만 면제(시약)",
+      "reason": "시험실 분석용 시약. 시행령 제86조제17호·고시 제19조제1호에 따라 MSDS 작성·비치는 필요하지만 공단 제출(=번호 부여)만 면제. 번호가 없는 것이 적법할 수 있음",
+      "basis": [
+        "L114",
+        "D86_17",
+        "G11_2"
+      ],
+      "need": "실제 용도가 시험·분석뿐인지(생산 투입 없음) 현장 확인; 공급사가 시약으로 공급한 제품인지(라벨의 '시약/시험용' 표기) 확인",
+      "action": "번호칸을 '제출 면제(시약)'으로 표시. MSDS 원본은 계속 게시·비치",
+      "certainty": "중간",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-136": {
+      "productName": "염화 나트륨 (sodium chloride)",
+      "supplier": "OCI",
+      "status": "verified",
+      "msdsNo": "AA00725-0000098084",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-137": {
+      "productName": "염화 제이구리 2수화물 (Copper(II) chloride dihydrate)",
+      "supplier": "e-mail:daejung@daejung.kr",
+      "status": "submission_exempt",
+      "msdsNo": "",
+      "kind": "MSDS 필요·제출만 면제(시약)",
+      "reason": "시험실 분석용 시약. 시행령 제86조제17호·고시 제19조제1호에 따라 MSDS 작성·비치는 필요하지만 공단 제출(=번호 부여)만 면제. 번호가 없는 것이 적법할 수 있음",
+      "basis": [
+        "L114",
+        "D86_17",
+        "G11_2"
+      ],
+      "need": "실제 용도가 시험·분석뿐인지(생산 투입 없음) 현장 확인; 공급사가 시약으로 공급한 제품인지(라벨의 '시약/시험용' 표기) 확인",
+      "action": "번호칸을 '제출 면제(시약)'으로 표시. MSDS 원본은 계속 게시·비치",
+      "certainty": "중간",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-138": {
+      "productName": "인산(Phosphoric acid)",
+      "supplier": "JUNSEI CHEMICAL CO., LTD.",
+      "status": "submission_exempt",
+      "msdsNo": "",
+      "supplierDocNo": "84045jis_J_E1-4",
+      "kind": "MSDS 필요·제출만 면제(시약)",
+      "reason": "시험실 분석용 시약. 시행령 제86조제17호·고시 제19조제1호에 따라 MSDS 작성·비치는 필요하지만 공단 제출(=번호 부여)만 면제. 번호가 없는 것이 적법할 수 있음",
+      "basis": [
+        "L114",
+        "D86_17",
+        "G11_2"
+      ],
+      "need": "실제 용도가 시험·분석뿐인지(생산 투입 없음) 현장 확인; 공급사가 시약으로 공급한 제품인지(라벨의 '시약/시험용' 표기) 확인",
+      "action": "번호칸을 '제출 면제(시약)'으로 표시. MSDS 원본은 계속 게시·비치",
+      "certainty": "중간",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-139": {
+      "productName": "1N-황산 용액(0.5M)[Sulfuric Acid]",
+      "supplier": "DUKSANPURECHEMICALSCO.LTD",
+      "status": "submission_exempt",
+      "msdsNo": "",
+      "kind": "MSDS 필요·제출만 면제(시약)",
+      "reason": "시험실 분석용 시약. 시행령 제86조제17호·고시 제19조제1호에 따라 MSDS 작성·비치는 필요하지만 공단 제출(=번호 부여)만 면제. 번호가 없는 것이 적법할 수 있음",
+      "basis": [
+        "L114",
+        "D86_17",
+        "G11_2"
+      ],
+      "need": "실제 용도가 시험·분석뿐인지(생산 투입 없음) 현장 확인; 공급사가 시약으로 공급한 제품인지(라벨의 '시약/시험용' 표기) 확인",
+      "action": "번호칸을 '제출 면제(시약)'으로 표시. MSDS 원본은 계속 게시·비치",
+      "certainty": "중간",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-140": {
+      "productName": "3M™ 피네스잇™ 폴리시 - 마무리 연마재(13084, 28792, 81235, 83058)",
+      "supplier": "한국쓰리엠",
+      "status": "verified",
+      "msdsNo": "AA00437-0000030001",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "해당없음",
+      "signalSource": "pdf1"
+    },
+    "msds-141": {
+      "productName": "3M™ 피네스잇™ 폴리시 - 최종 마감재(28796, 84224, 82877, 82878, 88753)",
+      "supplier": "한국쓰리엠",
+      "status": "verified",
+      "msdsNo": "AA00437-0000030000",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "해당없음",
+      "signalSource": "pdf1"
+    },
+    "msds-142": {
+      "productName": "3M PN3021 임페리얼 미세 마감 컴파운드",
+      "supplier": "한국쓰리엠",
+      "status": "required",
+      "msdsNo": "",
+      "supplierDocNo": "문서그룹 42-2264-2",
+      "kind": "수입 산업용(3M)",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 사이트 값 '문서그룹 …'은 3M 사내 문서번호이지 공단 번호가 아님. 3M 공개 SDS 검색기에서 문서번호·제품명으로 조회했으나 결과 없음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS (한국쓰리엠 02-3771-4114)",
+      "action": "한국쓰리엠에 최신 국문 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-143": {
+      "productName": "PN3084 피네스잇 마무리 연마재(FINESSE-IT FINISHING MATERIAL)",
+      "supplier": "한국쓰리엠",
+      "status": "required",
+      "msdsNo": "",
+      "supplierDocNo": "문서그룹 36-9836-2",
+      "kind": "수입 산업용(3M)",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 사이트 값 '문서그룹 …'은 3M 사내 문서번호이지 공단 번호가 아님. 3M 공개 SDS 검색기에서 문서번호·제품명으로 조회했으나 결과 없음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS (한국쓰리엠 02-3771-4114)",
+      "action": "한국쓰리엠에 최신 국문 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "해당없음",
+      "signalSource": "pdf1"
+    },
+    "msds-144": {
+      "productName": "스테인리스강 코팅제(Stainless Steel Coat)",
+      "supplier": "한국쓰리엠",
+      "status": "required",
+      "msdsNo": "",
+      "supplierDocNo": "문서그룹 22-4370-7",
+      "kind": "수입 산업용(3M)",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 사이트 값 '문서그룹 …'은 3M 사내 문서번호이지 공단 번호가 아님. 3M 공개 SDS 검색기에서 문서번호·제품명으로 조회했으나 결과 없음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS (한국쓰리엠 02-3771-4114)",
+      "action": "한국쓰리엠에 최신 국문 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-145": {
+      "productName": "프로슈터",
+      "supplier": "한국쓰리엠",
+      "status": "required",
+      "msdsNo": "",
+      "supplierDocNo": "문서그룹 36-5933-1",
+      "kind": "수입 산업용(3M)",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 사이트 값 '문서그룹 …'은 3M 사내 문서번호이지 공단 번호가 아님. 3M 공개 SDS 검색기에서 문서번호·제품명으로 조회했으나 결과 없음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS (한국쓰리엠 02-3771-4114)",
+      "action": "한국쓰리엠에 최신 국문 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-146": {
+      "productName": "탄산나트륨 (Sodium Carbonate)",
+      "supplier": "OCI",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "산업용 원료",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "OCI 에 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-148": {
+      "productName": "대륙 부탄 CRV",
+      "supplier": "주식회사 대륙제관",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "소비자용 여부 불명(휴대용 부탄·라이터가스)",
+      "reason": "인화성 가스로 분류됨. 일반소비자 생활용으로 공급된 휴대용 연료면 사업장에서 써도 적용 제외, 산업용으로 공급된 것이면 번호 필요",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU",
+        "D86_16"
+      ],
+      "need": "구매한 제품의 라벨 사진(가정용/업소용·산업용, 안전기준확인·자가검사번호, 위생용품·식품첨가물 표기), 구매처; 대륙제관·태양에 산업용 공급 여부 문의",
+      "action": "소비자용 확인 시 '필요 없음', 산업용이면 번호 기재 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-149": {
+      "productName": "맥스 CRV",
+      "supplier": "주식회사 대륙제관",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "소비자용 여부 불명(휴대용 부탄·라이터가스)",
+      "reason": "인화성 가스로 분류됨. 일반소비자 생활용으로 공급된 휴대용 연료면 사업장에서 써도 적용 제외, 산업용으로 공급된 것이면 번호 필요",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU",
+        "D86_16"
+      ],
+      "need": "구매한 제품의 라벨 사진(가정용/업소용·산업용, 안전기준확인·자가검사번호, 위생용품·식품첨가물 표기), 구매처; 대륙제관·태양에 산업용 공급 여부 문의",
+      "action": "소비자용 확인 시 '필요 없음', 산업용이면 번호 기재 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-150": {
+      "productName": "세이프 부탄 CRV",
+      "supplier": "주식회사 대륙제관",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "소비자용 여부 불명(휴대용 부탄·라이터가스)",
+      "reason": "인화성 가스로 분류됨. 일반소비자 생활용으로 공급된 휴대용 연료면 사업장에서 써도 적용 제외, 산업용으로 공급된 것이면 번호 필요",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU",
+        "D86_16"
+      ],
+      "need": "구매한 제품의 라벨 사진(가정용/업소용·산업용, 안전기준확인·자가검사번호, 위생용품·식품첨가물 표기), 구매처; 대륙제관·태양에 산업용 공급 여부 문의",
+      "action": "소비자용 확인 시 '필요 없음', 산업용이면 번호 기재 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-151": {
+      "productName": "썬플라워 부탄 CRV",
+      "supplier": "주식회사 대륙제관",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "소비자용 여부 불명(휴대용 부탄·라이터가스)",
+      "reason": "인화성 가스로 분류됨. 일반소비자 생활용으로 공급된 휴대용 연료면 사업장에서 써도 적용 제외, 산업용으로 공급된 것이면 번호 필요",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU",
+        "D86_16"
+      ],
+      "need": "구매한 제품의 라벨 사진(가정용/업소용·산업용, 안전기준확인·자가검사번호, 위생용품·식품첨가물 표기), 구매처; 대륙제관·태양에 산업용 공급 여부 문의",
+      "action": "소비자용 확인 시 '필요 없음', 산업용이면 번호 기재 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-152": {
+      "productName": "썬히트 부탄 CRV",
+      "supplier": "주식회사 대륙제관",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "소비자용 여부 불명(휴대용 부탄·라이터가스)",
+      "reason": "인화성 가스로 분류됨. 일반소비자 생활용으로 공급된 휴대용 연료면 사업장에서 써도 적용 제외, 산업용으로 공급된 것이면 번호 필요",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU",
+        "D86_16"
+      ],
+      "need": "구매한 제품의 라벨 사진(가정용/업소용·산업용, 안전기준확인·자가검사번호, 위생용품·식품첨가물 표기), 구매처; 대륙제관·태양에 산업용 공급 여부 문의",
+      "action": "소비자용 확인 시 '필요 없음', 산업용이면 번호 기재 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-153": {
+      "productName": "퍼펙트 부탄 CRV",
+      "supplier": "주식회사 대륙제관",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "소비자용 여부 불명(휴대용 부탄·라이터가스)",
+      "reason": "인화성 가스로 분류됨. 일반소비자 생활용으로 공급된 휴대용 연료면 사업장에서 써도 적용 제외, 산업용으로 공급된 것이면 번호 필요",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU",
+        "D86_16"
+      ],
+      "need": "구매한 제품의 라벨 사진(가정용/업소용·산업용, 안전기준확인·자가검사번호, 위생용품·식품첨가물 표기), 구매처; 대륙제관·태양에 산업용 공급 여부 문의",
+      "action": "소비자용 확인 시 '필요 없음', 산업용이면 번호 기재 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-154": {
+      "productName": "백양락스",
+      "supplier": "덕진",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "타법 관리 여부 불명(락스)",
+      "reason": "원문 용도에 식품첨가물과 폐수·수영장 등 산업용이 섞여 있어 제품의 법적 지위를 원문만으로 확정 불가",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU",
+        "D86_8"
+      ],
+      "need": "구매한 제품의 라벨 사진(가정용/업소용·산업용, 안전기준확인·자가검사번호, 위생용품·식품첨가물 표기), 구매처",
+      "action": "식품첨가물 표기 확인되면 '필요 없음', 아니면 번호 기재 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-155": {
+      "productName": "백양퐁",
+      "supplier": "덕진",
+      "status": "not_required",
+      "msdsNo": "",
+      "kind": "타법 관리 제품(위생용품 세척제)",
+      "reason": "원문에 '주방용합성세제', '위생용품제조신고'가 명시 → 적용 제외",
+      "basis": [
+        "D86_11"
+      ],
+      "need": "라벨의 위생용품(세척제) 표기 확인",
+      "action": "번호칸 '필요 없음(위생용품 관리법)' 표시",
+      "certainty": "중간",
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-156": {
+      "productName": "LOCTITE SF CPG CA PRIMER GOLD 230ML",
+      "supplier": "헨켈코리아유한회사",
+      "status": "required",
+      "msdsNo": "",
+      "supplierDocNo": "153559",
+      "kind": "수입 산업용(헨켈)",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 사이트 값 '153559'는 헨켈 사내 번호",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "헨켈코리아에 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-157": {
+      "productName": "더블유디-40(WD-40)",
+      "supplier": "사용고객,대리점,딜러,운송자등모든취급자및관리자",
+      "status": "verified",
+      "msdsNo": "AA00459-0000000004",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-158": {
+      "productName": "산도깨비 곰팡이제거제",
+      "supplier": "(주)산도깨비",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "소비자용·생활화학제품 여부 불명",
+      "reason": "유해성 분류가 있는 생활용 제품. 일반소비자용 안전확인대상생활화학제품·살생물제품·의약외품이면 적용 제외, 아니면 번호 필요",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU",
+        "D86_7",
+        "D86_9",
+        "D86_16"
+      ],
+      "need": "구매한 제품의 라벨 사진(가정용/업소용·산업용, 안전기준확인·자가검사번호, 위생용품·식품첨가물 표기), 구매처",
+      "action": "라벨 확인 후 판정",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-159": {
+      "productName": "KF-3 (응집부상제)",
+      "supplier": "삼풍트라이텍",
+      "status": "not_required",
+      "msdsNo": "",
+      "kind": "분류기준 비해당(폐수처리약품)",
+      "reason": "공급사 원문 제2항에 유해성·위험성 분류가 '해당없음/분류되지 않음/적용되지 않음'으로 적혀 있음 → 법 제110조의 물질안전보건자료대상물질이 아니므로 제출·번호 부여 대상이 아님",
+      "basis": [
+        "L110",
+        "G13"
+      ],
+      "action": "번호칸 '필요 없음' 표시",
+      "certainty": "높음",
+      "checkedOn": "2026-09-23",
+      "notClassified": true,
+      "signalWord": "해당없음",
+      "signalSource": "pdf1"
+    },
+    "msds-160": {
+      "productName": "PK-3830(페인트 점성제거제) AA05008-0000000006",
+      "supplier": "범위83-937-17",
+      "status": "verified",
+      "msdsNo": "AA05008-0000000006",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-161": {
+      "productName": "AF-1(난실리콘 소포제)",
+      "supplier": "청산화학주식회사 / 삼풍트라이텍",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "산업용 혼합물",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 원문이 2011~2017년 구판인 것이 섞여 있음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "공급사에 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-162": {
+      "productName": "배터리전해액(Electrolyte)",
+      "supplier": "세방전지",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "번호 형식 비정상",
+      "reason": "원문·사이트 모두 'AA2158-0000000008'(영문2+숫자4). 공단 번호 꼴은 영문2+숫자5. 원문 오기로 보임(AA02158-… 추정이나 확인 전에는 고치지 않음)",
+      "basis": [
+        "R160"
+      ],
+      "need": "세방전지에 정확한 MSDS 번호 확인",
+      "action": "번호 확인 후 정정",
+      "checkedOn": "2026-09-23",
+      "msdsNoAsWritten": "AA2158-0000000008",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-163": {
+      "productName": "231-S250",
+      "supplier": "수도씨에이씨",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "산업용 혼합물",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 원문이 2011~2017년 구판인 것이 섞여 있음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "공급사에 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-164": {
+      "productName": "퍼크린 오븐제로엠",
+      "supplier": "휴먼텍",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "타법 관리 여부 불명(주방·세척제)",
+      "reason": "유해성 분류가 있는 세척제. 위생용품(세척제)·식품첨가물 신고품이면 적용 제외, 업소용 산업 세제면 번호 필요. 원문에 신고·보고번호 없음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU",
+        "D86_8",
+        "D86_11"
+      ],
+      "need": "구매한 제품의 라벨 사진(가정용/업소용·산업용, 안전기준확인·자가검사번호, 위생용품·식품첨가물 표기), 구매처",
+      "action": "라벨 확인 후 '필요 없음' 또는 번호 기재 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-165": {
+      "productName": "하이락스",
+      "supplier": "㈜하이코리아",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "타법 관리 여부 불명(주방·세척제)",
+      "reason": "유해성 분류가 있는 세척제. 위생용품(세척제)·식품첨가물 신고품이면 적용 제외, 업소용 산업 세제면 번호 필요. 원문에 신고·보고번호 없음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU",
+        "D86_8",
+        "D86_11"
+      ],
+      "need": "구매한 제품의 라벨 사진(가정용/업소용·산업용, 안전기준확인·자가검사번호, 위생용품·식품첨가물 표기), 구매처",
+      "action": "라벨 확인 후 '필요 없음' 또는 번호 기재 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf3"
+    },
+    "msds-166": {
+      "productName": "그린플러스",
+      "supplier": "㈜휴먼텍",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "타법 관리 여부 불명(주방·세척제)",
+      "reason": "유해성 분류가 있는 세척제. 위생용품(세척제)·식품첨가물 신고품이면 적용 제외, 업소용 산업 세제면 번호 필요. 원문에 신고·보고번호 없음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU",
+        "D86_8",
+        "D86_11"
+      ],
+      "need": "구매한 제품의 라벨 사진(가정용/업소용·산업용, 안전기준확인·자가검사번호, 위생용품·식품첨가물 표기), 구매처",
+      "action": "라벨 확인 후 '필요 없음' 또는 번호 기재 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-167": {
+      "productName": "멀티크로 / 차아염소산나트륨",
+      "supplier": "(주)푸른들 / (주)사라야코리아",
+      "status": "not_required",
+      "msdsNo": "",
+      "kind": "타법 관리 제품(식품첨가물)",
+      "reason": "원문에 '식품첨가물(혼합제제) 및 기구등의 살균소독제 품목보고번호'가 명시 → 적용 제외",
+      "basis": [
+        "D86_8"
+      ],
+      "need": "라벨의 식품첨가물 품목보고번호 확인",
+      "action": "번호칸 '필요 없음(식품위생법 식품첨가물)' 표시",
+      "certainty": "중간",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-168": {
+      "productName": "샤보BCG",
+      "supplier": "(주)크린피스 / SARAYA KOREA",
+      "status": "not_required",
+      "msdsNo": "",
+      "kind": "타법 관리 제품(의약외품)",
+      "reason": "원문에 '의약외품'(손 소독)으로 명시 → 산안법 MSDS 작성·제출 적용 제외",
+      "basis": [
+        "D86_9"
+      ],
+      "need": "라벨의 '의약외품' 표기 확인",
+      "action": "번호칸 '필요 없음(약사법 의약외품)' 표시",
+      "certainty": "중간",
+      "checkedOn": "2026-09-23",
+      "signalWord": "",
+      "signalSource": "none"
+    },
+    "msds-169": {
+      "productName": "더폼 핸드솝",
+      "supplier": "(주)크린피스 / (주)사라야코리아",
+      "status": "not_required",
+      "msdsNo": "",
+      "kind": "타법 관리 제품(화장품)",
+      "reason": "원문에 '화장품 인체 세정용 제품류 액체 비누'로 명시 → 적용 제외",
+      "basis": [
+        "D86_15"
+      ],
+      "need": "라벨의 화장품 표기 확인",
+      "action": "번호칸 '필요 없음(화장품법)' 표시",
+      "certainty": "중간",
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-170": {
+      "productName": "퍼크린 202",
+      "supplier": "㈜휴먼텍",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "타법 관리 여부 불명(주방·세척제)",
+      "reason": "유해성 분류가 있는 세척제. 위생용품(세척제)·식품첨가물 신고품이면 적용 제외, 업소용 산업 세제면 번호 필요. 원문에 신고·보고번호 없음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU",
+        "D86_8",
+        "D86_11"
+      ],
+      "need": "구매한 제품의 라벨 사진(가정용/업소용·산업용, 안전기준확인·자가검사번호, 위생용품·식품첨가물 표기), 구매처",
+      "action": "라벨 확인 후 '필요 없음' 또는 번호 기재 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-171": {
+      "productName": "be chef. clean 주방세제 알뜰형",
+      "supplier": "(주)성진켐",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "타법 관리 여부 불명(주방·세척제)",
+      "reason": "유해성 분류가 있는 세척제. 위생용품(세척제)·식품첨가물 신고품이면 적용 제외, 업소용 산업 세제면 번호 필요. 원문에 신고·보고번호 없음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU",
+        "D86_8",
+        "D86_11"
+      ],
+      "need": "구매한 제품의 라벨 사진(가정용/업소용·산업용, 안전기준확인·자가검사번호, 위생용품·식품첨가물 표기), 구매처",
+      "action": "라벨 확인 후 '필요 없음' 또는 번호 기재 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf3"
+    },
+    "msds-172": {
+      "productName": "퍼크린 린스",
+      "supplier": "휴먼텍",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "타법 관리 여부 불명(주방·세척제)",
+      "reason": "유해성 분류가 있는 세척제. 위생용품(세척제)·식품첨가물 신고품이면 적용 제외, 업소용 산업 세제면 번호 필요. 원문에 신고·보고번호 없음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU",
+        "D86_8",
+        "D86_11"
+      ],
+      "need": "구매한 제품의 라벨 사진(가정용/업소용·산업용, 안전기준확인·자가검사번호, 위생용품·식품첨가물 표기), 구매처",
+      "action": "라벨 확인 후 '필요 없음' 또는 번호 기재 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-173": {
+      "productName": "스마트상S-1(알펫ES)",
+      "supplier": "(주)크린피스 / (주)사라야코리아",
+      "status": "not_required",
+      "msdsNo": "",
+      "kind": "타법 관리 제품(식품첨가물)",
+      "reason": "원문에 '식품첨가물(혼합제제) 및 기구등의 살균소독제 품목보고번호'가 명시 → 적용 제외",
+      "basis": [
+        "D86_8"
+      ],
+      "need": "라벨의 식품첨가물 품목보고번호 확인",
+      "action": "번호칸 '필요 없음(식품위생법 식품첨가물)' 표시",
+      "certainty": "중간",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-174": {
+      "productName": "알곤, 아르곤(ARGON)",
+      "supplier": "태경에코(주)",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "산업용 가스",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "태경에코에 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-175": {
+      "productName": "아르곤(ARGON, COMPRESSED)",
+      "supplier": "태경가스기술(주)",
+      "status": "pending",
+      "msdsNo": "AA12481-0000000005",
+      "kind": "사이트에만 번호",
+      "reason": "사이트에는 번호가 있는데 원본 PDF 본문·양식칸·주석 어디에도 번호가 없음. 번호 출처(옛 엑셀 대장 추정) 확인 불가",
+      "basis": [
+        "R160"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "공급사에 번호 기재본 요청 후 대조",
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-176": {
+      "productName": "아르곤(100%)",
+      "supplier": "대덕가스㈜",
+      "status": "verified",
+      "msdsNo": "AA02129-0000000003",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-e58b143d91e7a0a2": {
+      "productName": "CARBAFLO 2372",
+      "supplier": "FuchsLubritechGmbH",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "국문 MSDS·수입자 자료 없음",
+      "reason": "원문이 외국어 SDS 이고 '비분류(Not classified/Not classifiable)'로 적혀 있으나 국내 수입자·공급자의 국문 MSDS 또는 비해당 서면이 없음. 시약이 아니라 외국어본은 인정 안 됨",
+      "basis": [
+        "L110",
+        "G11_1",
+        "G13"
+      ],
+      "need": "국내 수입자(공급사)의 국문 MSDS 또는 '분류기준 비해당' 통보서",
+      "action": "공급사에 국문 MSDS 또는 비해당 통보서 요청. 비해당 확인되면 '필요 없음'",
+      "checkedOn": "2026-09-23",
+      "signalWord": "",
+      "signalSource": "none"
+    },
+    "msds-pdf-a13a665c2e940b35": {
+      "productName": "Kixx Grease EP 0",
+      "supplier": "지에스칼텍스",
+      "status": "retired",
+      "msdsNo": "",
+      "kind": "중복(깨진 값)",
+      "reason": "Kixx Grease EP 0 완전 중복(같은 번호·같은 개정일). 사이트 번호칸이 '목록번호 최초 작성일자 최종 개정일자'로 깨져 있음",
+      "action": "번호 있는 최신판만 남기고 이 항목은 제외 검토(승인 후)",
+      "checkedOn": "2026-09-23",
+      "retired": true,
+      "replacedBy": "msds-080",
+      "signalWord": "경고",
+      "signalSource": "pdf1",
+      "pdfPath": "pdf/00_ 사출/GS칼텍스/Kixx Grease EP 0.pdf"
+    },
+    "msds-pdf-a54a4e462898861a": {
+      "productName": "KC-28",
+      "supplier": "고려용접봉 창원공장",
+      "status": "retired",
+      "msdsNo": "",
+      "kind": "구판 중복",
+      "reason": "KC-28 2021-12-14 구판. 2023-01-11 판(msds-089)이 따로 있음",
+      "action": "번호 있는 최신판만 남기고 이 항목은 제외 검토(승인 후)",
+      "checkedOn": "2026-09-23",
+      "retired": true,
+      "replacedBy": "msds-089",
+      "signalWord": "위험",
+      "signalSource": "pdf2",
+      "pdfPath": "pdf/00_ 사출/고려용접봉/KC-28. 2021.12.14.pdf"
+    },
+    "msds-pdf-306f4ca012db5ce6": {
+      "productName": "나바켐 적색",
+      "supplier": "락카스프레이",
+      "status": "verified",
+      "msdsNo": "AA03636-0000000204",
+      "reason": "원본 PDF 의 번호를 옮김(2026-09-23). 전에는 사이트 번호칸이 비었거나 깨져 있었음",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf3"
+    },
+    "msds-pdf-007b2f977ffa1b20": {
+      "productName": "나바켐 황색",
+      "supplier": "락카스프레이",
+      "status": "verified",
+      "msdsNo": "AA03636-0000000217",
+      "reason": "원본 PDF 의 번호를 옮김(2026-09-23). 전에는 사이트 번호칸이 비었거나 깨져 있었음",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf3"
+    },
+    "msds-pdf-c384c78d2b394114": {
+      "productName": "IPO #1000컴파운드(PN7001,PN7002)",
+      "supplier": "선보",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "산업용 혼합물",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 원문이 2011~2017년 구판인 것이 섞여 있음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "공급사에 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-d1ef2fcc672a6120": {
+      "productName": "인텍 스프레이(INTEC - SPRAY)",
+      "supplier": "아이에스피케미칼",
+      "status": "verified",
+      "msdsNo": "AA19790-0000000034",
+      "reason": "원본 PDF 의 번호를 옮김(2026-09-23). 전에는 사이트 번호칸이 비었거나 깨져 있었음",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-6cbf2ae6e822558d": {
+      "productName": "UT5800-A-SILVER(XAA)(개선)",
+      "supplier": "케이씨씨 울산공장",
+      "status": "verified",
+      "msdsNo": "AA00017-0000001265",
+      "reason": "원본 PDF 의 번호를 옮김(2026-09-23). 전에는 사이트 번호칸이 비었거나 깨져 있었음",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-99c0868aa28d0e46": {
+      "productName": "UT5731-SRM(GGM)(FRT)",
+      "supplier": "케이씨씨 울산공장",
+      "status": "retired",
+      "msdsNo": "",
+      "kind": "중복",
+      "reason": "UT5731-SRM(GGM)(FRT) 같은 개정일(2024-08-06) 판인데 이 PDF 에는 번호가 없음. 번호 있는 판(msds-012, AA00017-0000013675)이 따로 있음",
+      "action": "번호 있는 최신판만 남기고 이 항목은 제외 검토(승인 후)",
+      "checkedOn": "2026-09-23",
+      "retired": true,
+      "replacedBy": "msds-012",
+      "signalWord": "위험",
+      "signalSource": "pdf1",
+      "pdfPath": "pdf/GGM 상주원/[KCC] SRM.pdf"
+    },
+    "msds-pdf-c30a4a45b677d34e": {
+      "productName": "UT5731-TKS(GGM)",
+      "supplier": "케이씨씨 울산공장",
+      "status": "retired",
+      "msdsNo": "",
+      "kind": "구판 중복",
+      "reason": "UT5731-TKS(GGM) 2025-03-06 판. 같은 제품의 2025-07-03 판(msds-003, 번호 AA00017-0000000199)이 따로 있음",
+      "action": "번호 있는 최신판만 남기고 이 항목은 제외 검토(승인 후)",
+      "checkedOn": "2026-09-23",
+      "retired": true,
+      "replacedBy": "msds-003",
+      "signalWord": "위험",
+      "signalSource": "pdf1",
+      "pdfPath": "pdf/GGM 상주원/[KCC] TKS.pdf"
+    },
+    "msds-pdf-9c13bfc18fd404a8": {
+      "productName": "UT5700-YFB(1K)",
+      "supplier": "케이씨씨 울산공장",
+      "status": "verified",
+      "msdsNo": "AA00017-0000013776",
+      "reason": "원본 PDF 의 번호를 옮김(2026-09-23). 전에는 사이트 번호칸이 비었거나 깨져 있었음",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-def9c52b21a05593": {
+      "productName": "듀프렉스 뉴에크루 [NES](A203-X7020)",
+      "supplier": "KNK코팅스",
+      "status": "retired",
+      "msdsNo": "",
+      "kind": "구판 추정",
+      "reason": "듀프렉스 뉴에크루[NES](A203-X7020) 2021 판(번호 없음). 같은 제품코드 [NES](A203-X7020)의 2026-03-03 판(msds-054 '언블리치드 아이보리', AA00586-0000000670)이 있어 이름만 바뀐 구판으로 추정",
+      "action": "번호 있는 최신판만 남기고 이 항목은 제외 검토(승인 후)",
+      "checkedOn": "2026-09-23",
+      "retired": true,
+      "replacedBy": "msds-054",
+      "signalWord": "위험",
+      "signalSource": "pdf1",
+      "pdfPath": "pdf/GGM 상주원/[KNK] NES(듀프렉스 뉴에크루).pdf"
+    },
+    "msds-pdf-c198e71df3ae97f3": {
+      "productName": "이소프로필 알코올 벌크(ISOPROPYL ALCOHOL BULK)",
+      "supplier": "LGC 여수(화치)",
+      "status": "verified",
+      "msdsNo": "AA00566-2100001257",
+      "reason": "원본 PDF 의 번호를 옮김(2026-09-23). 전에는 사이트 번호칸이 비었거나 깨져 있었음",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-43261801e597af65": {
+      "productName": "카렉스 3분세차 고광택왁스",
+      "supplier": "카렉스",
+      "status": "not_required",
+      "msdsNo": "",
+      "kind": "분류기준 비해당(자동차 왁스)",
+      "reason": "공급사 원문 제2항에 유해성·위험성 분류가 '해당없음/분류되지 않음/적용되지 않음'으로 적혀 있음 → 법 제110조의 물질안전보건자료대상물질이 아니므로 제출·번호 부여 대상이 아님",
+      "basis": [
+        "L110",
+        "G13"
+      ],
+      "action": "번호칸 '필요 없음' 표시",
+      "certainty": "높음",
+      "checkedOn": "2026-09-23",
+      "notClassified": true,
+      "signalWord": "해당없음",
+      "signalSource": "pdf3"
+    },
+    "msds-pdf-838acfd9993bcf72": {
+      "productName": "캉가루 구두약 (가정용)",
+      "supplier": "캉가루",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "소비자용 여부 불명",
+      "reason": "사이트 제품명에 '가정용'이 있으나 원문에는 그 표기가 없음. 일반소비자 생활용이면 적용 제외",
+      "basis": [
+        "D86_7",
+        "D86_16"
+      ],
+      "need": "구매한 제품의 라벨 사진(가정용/업소용·산업용, 안전기준확인·자가검사번호, 위생용품·식품첨가물 표기), 구매처",
+      "action": "라벨에 가정용 표기 확인되면 '필요 없음'",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-7570ffa55f692a8b": {
+      "productName": "부탄(Butane)",
+      "supplier": "태경가스기술(주)",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "산업용 가스",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 같은 회사 에틸렌·아르곤은 사이트에 AA12481-… 번호가 있음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "태경가스기술에 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-0aeeb73308c96e86": {
+      "productName": "산소(OXYGEN, COMPRESSED)",
+      "supplier": "태경가스기술(주)",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "산업용 가스",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 같은 회사 에틸렌·아르곤은 사이트에 AA12481-… 번호가 있음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "태경가스기술에 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-f6b8f7761d44bb84": {
+      "productName": "아세틸렌(ACETYLENE,dissolved)",
+      "supplier": "태경가스기술(주)",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "산업용 가스",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 같은 회사 에틸렌·아르곤은 사이트에 AA12481-… 번호가 있음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "태경가스기술에 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-f566b59f33deed0f": {
+      "productName": "아세틸렌",
+      "supplier": "태경에코(주)",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "산업용 가스",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "태경에코에 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-37736004f8e3d7b1": {
+      "productName": "PP-303 GW(PU)",
+      "supplier": "악조노벨(AzoNobel)",
+      "status": "verified",
+      "msdsNo": "AA00040-0000001778",
+      "reason": "원본 PDF 의 번호를 옮김(2026-09-23). 전에는 사이트 번호칸이 비었거나 깨져 있었음",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-3f2506c20209fd62": {
+      "productName": "용접재료 (알루미늄 와이어)",
+      "supplier": "㈜세아에삽",
+      "status": "verified",
+      "msdsNo": "AA04397-0000002413",
+      "reason": "원본 PDF 의 번호를 옮김(2026-09-23). 전에는 사이트 번호칸이 비었거나 깨져 있었음",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-f6a7a80e940a8ea3": {
+      "productName": "LPG(C3)",
+      "supplier": "액화석유가스(LPG)",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "산업용 가스",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음 공급자 표기가 불분명",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS; 실제 공급사 확인",
+      "action": "LPG 공급사 확인 후 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-d8b98810abb35e60": {
+      "productName": "LPG(C4)",
+      "supplier": "액화석유가스(LPG)",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "산업용 가스",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음 공급자 표기가 불분명",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS; 실제 공급사 확인",
+      "action": "LPG 공급사 확인 후 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-7aeec8c87fe01629": {
+      "productName": "LPG(혼합) 태경ECO(주)",
+      "supplier": "액화석유가스(LPG)",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "산업용 가스",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "태경에코에 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-25117e7770dfe7d6": {
+      "productName": "SERIOLA+KS+2120+(KR)",
+      "supplier": "에쓰-오일토탈윤활유",
+      "status": "not_required",
+      "msdsNo": "",
+      "kind": "분류기준 비해당(윤활유)",
+      "reason": "공급사 원문 제2항에 유해성·위험성 분류가 '해당없음/분류되지 않음/적용되지 않음'으로 적혀 있음 → 법 제110조의 물질안전보건자료대상물질이 아니므로 제출·번호 부여 대상이 아님. 원문: '산업안전보건법 및 화학물질관리법에 따라 평가되었으며 분류되지 않음으로 결정'",
+      "basis": [
+        "L110",
+        "G13"
+      ],
+      "action": "번호칸 '필요 없음' 표시",
+      "certainty": "높음",
+      "checkedOn": "2026-09-23",
+      "notClassified": true,
+      "signalWord": "해당없음",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-edd5512c31860584": {
+      "productName": "TST-K-001K(SERIOLA+KS+2120)",
+      "supplier": "에쓰-오일토탈윤활유",
+      "status": "retired",
+      "msdsNo": "",
+      "kind": "MSDS 아님",
+      "reason": "2쪽짜리 제품 사양서(TDS)이지 MSDS 가 아님. 같은 제품의 MSDS(SERIOLA KS 2120)는 따로 등록돼 있음",
+      "action": "사이트 목록에서 제외 검토(승인 후)",
+      "checkedOn": "2026-09-23",
+      "retired": true,
+      "replacedBy": "msds-pdf-25117e7770dfe7d6",
+      "signalWord": "",
+      "signalSource": "none",
+      "pdfPath": "pdf/에쓰-오일토탈윤활유/TST-K-001K(SERIOLA+KS+2120).pdf"
+    },
+    "msds-pdf-b43e1258cdd26a33": {
+      "productName": "SMOKING 911(스모킹911)",
+      "supplier": "남방CNA",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "산업용 혼합물",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 원문이 2011~2017년 구판인 것이 섞여 있음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "공급사에 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-00bd0830f6de7555": {
+      "productName": "락카 스프레이(각색)",
+      "supplier": "오공본드(OKONG)",
+      "status": "verified",
+      "msdsNo": "AA01995-0000000050",
+      "reason": "원본 PDF 의 번호를 옮김(2026-09-23). 전에는 사이트 번호칸이 비었거나 깨져 있었음",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf3"
+    },
+    "msds-pdf-c04f0260b76f1ff7": {
+      "productName": "CASMOLY EP-OHQ(2)",
+      "supplier": "장암칼스 충남 아산시 인주면 인주산단로 123-63",
+      "status": "verified",
+      "msdsNo": "AA00181-0000000144",
+      "reason": "원본 PDF 의 번호를 옮김(2026-09-23). 전에는 사이트 번호칸이 비었거나 깨져 있었음",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-f1d5241c30dc8b13": {
+      "productName": "용접재료(연강용 피복아크 용접봉)",
+      "supplier": "조선선재",
+      "status": "verified",
+      "msdsNo": "AA05999-0000001000",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-e807f4edcc3681dc": {
+      "productName": "증류수(물)",
+      "supplier": "삼전순약공업",
+      "status": "not_required",
+      "msdsNo": "",
+      "kind": "분류기준 비해당(물)",
+      "reason": "공급사 원문 제2항에 유해성·위험성 분류가 '해당없음/분류되지 않음/적용되지 않음'으로 적혀 있음 → 법 제110조의 물질안전보건자료대상물질이 아니므로 제출·번호 부여 대상이 아님",
+      "basis": [
+        "L110",
+        "G13"
+      ],
+      "action": "번호칸 '필요 없음' 표시",
+      "certainty": "높음",
+      "checkedOn": "2026-09-23",
+      "notClassified": true,
+      "signalWord": "해당없음",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-deca16082851d0c0": {
+      "productName": "질소(N2) 대덕가스(주)",
+      "supplier": "대덕가스",
+      "status": "verified",
+      "msdsNo": "AA02129-0000000001",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-df5ff1a99215c913": {
+      "productName": "질소(NITROGEN)",
+      "supplier": "태경에코(주)",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "산업용 가스",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "태경에코에 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-aff62f45049f6877": {
+      "productName": "CTS-50 스틸 티그봉",
+      "supplier": "크레텍웰딩",
+      "status": "verified",
+      "msdsNo": "AA00700-0000000048",
+      "reason": "원본 PDF 의 번호를 옮김(2026-09-23). 전에는 사이트 번호칸이 비었거나 깨져 있었음",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf2"
+    },
+    "msds-pdf-a26053814f066ef9": {
+      "productName": "썬 라이타 가스",
+      "supplier": "태양(SUN)",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "소비자용 여부 불명(휴대용 부탄·라이터가스)",
+      "reason": "인화성 가스로 분류됨. 일반소비자 생활용으로 공급된 휴대용 연료면 사업장에서 써도 적용 제외, 산업용으로 공급된 것이면 번호 필요",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU",
+        "D86_16"
+      ],
+      "need": "구매한 제품의 라벨 사진(가정용/업소용·산업용, 안전기준확인·자가검사번호, 위생용품·식품첨가물 표기), 구매처; 대륙제관·태양에 산업용 공급 여부 문의",
+      "action": "소비자용 확인 시 '필요 없음', 산업용이면 번호 기재 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf3"
+    },
+    "msds-pdf-52d86cde38911013": {
+      "productName": "피비원(PB-1)",
+      "supplier": "파이씨스",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "산업용 혼합물",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 원문이 2011~2017년 구판인 것이 섞여 있음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "공급사에 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf3"
+    },
+    "msds-pdf-79c7cd1ffffaab96": {
+      "productName": "프로판(Propane)",
+      "supplier": "태경가스기술(주)",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "산업용 가스",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음. 같은 회사 에틸렌·아르곤은 사이트에 AA12481-… 번호가 있음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "태경가스기술에 최신 MSDS 요청",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-d53b862679ad3157": {
+      "productName": "GHP CCG 2 (월)",
+      "supplier": "한일루켐",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "구형 서식(분류 없음)",
+      "reason": "현행 16개 항목 서식이 아니라 구형 서식이라 유해성 '분류'가 없음(신호어 '경고'만 있음). 비해당인지 미작성인지 판단 불가",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU",
+        "G13"
+      ],
+      "need": "한일루켐의 현행 서식 최신 MSDS",
+      "action": "최신 MSDS 요청. 분류 있으면 번호 확보, 비해당이면 '필요 없음'",
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-d353876f24b4839c": {
+      "productName": "GHP HTG 2 (월)",
+      "supplier": "한일루켐",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "구형 서식(분류 없음)",
+      "reason": "현행 16개 항목 서식이 아니라 구형 서식이라 유해성 '분류'가 없음(신호어 '경고'만 있음). 비해당인지 미작성인지 판단 불가",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU",
+        "G13"
+      ],
+      "need": "한일루켐의 현행 서식 최신 MSDS",
+      "action": "최신 MSDS 요청. 분류 있으면 번호 확보, 비해당이면 '필요 없음'",
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-d462ab4576452226": {
+      "productName": "GHP PCG EP 0(그리스)",
+      "supplier": "나.눈에대한영향:약간의자극을줄수있음.",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "구형 서식(분류 없음)",
+      "reason": "현행 16개 항목 서식이 아니라 구형 서식이라 유해성 '분류'가 없음(신호어 '경고'만 있음). 비해당인지 미작성인지 판단 불가",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU",
+        "G13"
+      ],
+      "need": "한일루켐의 현행 서식 최신 MSDS",
+      "action": "최신 MSDS 요청. 분류 있으면 번호 확보, 비해당이면 '필요 없음'",
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-f60438c81a0521d8": {
+      "productName": "GHP PCG 0",
+      "supplier": "한일루켐",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "구형 서식(분류 없음)",
+      "reason": "현행 16개 항목 서식이 아니라 구형 서식이라 유해성 '분류'가 없음(신호어 '경고'만 있음). 비해당인지 미작성인지 판단 불가",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU",
+        "G13"
+      ],
+      "need": "한일루켐의 현행 서식 최신 MSDS",
+      "action": "최신 MSDS 요청. 분류 있으면 번호 확보, 비해당이면 '필요 없음'",
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-2ebaad2a63202319": {
+      "productName": "HR580 현대ep 수지",
+      "supplier": "현대ep",
+      "status": "retired",
+      "msdsNo": "",
+      "kind": "구판 추정",
+      "reason": "HR580 현대ep 수지 2015 판(번호 없음). 같은 품번 HR580 의 2026 판(AA06046-1100000140)이 따로 있어 구판으로 추정",
+      "action": "번호 있는 최신판만 남기고 이 항목은 제외 검토(승인 후)",
+      "checkedOn": "2026-09-23",
+      "retired": true,
+      "replacedBy": "msds-074",
+      "signalWord": "해당없음",
+      "signalSource": "pdf1",
+      "pdfPath": "pdf/현대ep/(GHS-MSDS) HR580 현대ep 수지.pdf"
+    },
+    "msds-pdf-ad0d9920d007a881": {
+      "productName": "SUPOL HR530",
+      "supplier": "HDC 현대EP",
+      "status": "retired",
+      "msdsNo": "",
+      "kind": "구판 중복",
+      "reason": "SUPOL HR530 2021 판(번호 없음). 같은 제품의 2026-01-06 판 'SUPOL HR530, SUPOL HR530X'(AA06046-1100000125)가 따로 있음",
+      "action": "번호 있는 최신판만 남기고 이 항목은 제외 검토(승인 후)",
+      "checkedOn": "2026-09-23",
+      "retired": true,
+      "replacedBy": "msds-073",
+      "signalWord": "해당없음",
+      "signalSource": "pdf1",
+      "pdfPath": "pdf/현대ep/HR530_MSDS(GHS)_2021.12.20(4차).pdf"
+    },
+    "msds-pdf-3b92d1fa1c9a3177": {
+      "productName": "SUPOL HR530U",
+      "supplier": "HYUNDAI EP co., ltd",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "국문 MSDS·수입자 자료 없음",
+      "reason": "원문이 외국어 SDS 이고 '비분류(Not classified/Not classifiable)'로 적혀 있으나 국내 수입자·공급자의 국문 MSDS 또는 비해당 서면이 없음. 시약이 아니라 외국어본은 인정 안 됨",
+      "basis": [
+        "L110",
+        "G11_1",
+        "G13"
+      ],
+      "need": "국내 수입자(공급사)의 국문 MSDS 또는 '분류기준 비해당' 통보서",
+      "action": "공급사에 국문 MSDS 또는 비해당 통보서 요청. 비해당 확인되면 '필요 없음'",
+      "checkedOn": "2026-09-23",
+      "signalWord": "",
+      "signalSource": "none"
+    },
+    "msds-pdf-1191eaa28df73490": {
+      "productName": "SUPOL HR580",
+      "supplier": "현대EP",
+      "status": "retired",
+      "msdsNo": "",
+      "kind": "구판 중복",
+      "reason": "SUPOL HR580 2023 판(번호 없음). 같은 제품의 2026 판 'SUPOL HR580,SUPOL HR580G…'(AA06046-1100000140)가 따로 있음",
+      "action": "번호 있는 최신판만 남기고 이 항목은 제외 검토(승인 후)",
+      "checkedOn": "2026-09-23",
+      "retired": true,
+      "replacedBy": "msds-074",
+      "signalWord": "해당없음",
+      "signalSource": "pdf1",
+      "pdfPath": "pdf/현대ep/HR580_MSDS(GHS)_2023.07.27(6차).pdf"
+    },
+    "msds-pdf-29946d446656ed55": {
+      "productName": "SUPOL HR580U",
+      "supplier": "HDC 현대EP",
+      "status": "retired",
+      "msdsNo": "",
+      "kind": "구판 중복",
+      "reason": "SUPOL HR580U 2023 판(번호 없음). 같은 제품의 2026-01-06 판 'SUPOL HR580U, …'(AA06046-1100000145)가 따로 있음",
+      "action": "번호 있는 최신판만 남기고 이 항목은 제외 검토(승인 후)",
+      "checkedOn": "2026-09-23",
+      "retired": true,
+      "replacedBy": "msds-071",
+      "signalWord": "해당없음",
+      "signalSource": "pdf1",
+      "pdfPath": "pdf/현대ep/HR580U_MSDS(GHS)__2023.06.09(6차).pdf"
+    },
+    "msds-pdf-48f0afe382fbccab": {
+      "productName": "MK XTeer Therm 46S",
+      "supplier": "현대오일뱅크",
+      "status": "not_required",
+      "msdsNo": "",
+      "kind": "분류기준 비해당(열매체유)",
+      "reason": "공급사 원문 제2항에 유해성·위험성 분류가 '해당없음/분류되지 않음/적용되지 않음'으로 적혀 있음 → 법 제110조의 물질안전보건자료대상물질이 아니므로 제출·번호 부여 대상이 아님",
+      "basis": [
+        "L110",
+        "G13"
+      ],
+      "action": "번호칸 '필요 없음' 표시",
+      "certainty": "높음",
+      "checkedOn": "2026-09-23",
+      "notClassified": true,
+      "signalWord": "해당없음",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-f1d24c79470dc24f": {
+      "productName": "S-308.16N",
+      "supplier": "현대종합금속",
+      "status": "verified",
+      "msdsNo": "AA01352-0000000224",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "경고",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-65ea6911134f71e5": {
+      "productName": "해피홈에어로솔수성(무향) Rav",
+      "supplier": "신호어",
+      "status": "pending",
+      "msdsNo": "",
+      "kind": "소비자용·생활화학제품 여부 불명",
+      "reason": "유해성 분류가 있는 생활용 제품. 일반소비자용 안전확인대상생활화학제품·살생물제품·의약외품이면 적용 제외, 아니면 번호 필요",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU",
+        "D86_7",
+        "D86_9",
+        "D86_16"
+      ],
+      "need": "구매한 제품의 라벨 사진(가정용/업소용·산업용, 안전기준확인·자가검사번호, 위생용품·식품첨가물 표기), 구매처",
+      "action": "라벨 확인 후 판정",
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf3"
+    },
+    "msds-177": {
+      "productName": "UT5731-BB2(KIA)",
+      "supplier": "케이씨씨 울산공장",
+      "status": "verified",
+      "msdsNo": "AA00017-0000000197",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-e3aa33ca136c6558": {
+      "productName": "천연가스(LNG, Natural Gas with Odorant)",
+      "supplier": "한국가스공사",
+      "status": "verified",
+      "msdsNo": "AA06600-0000000001",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    },
+    "msds-pdf-5e875f5e2847e4d0": {
+      "productName": "부탄(Butane) 석유화학 및 산업용",
+      "supplier": "주식회사 E1",
+      "status": "verified",
+      "msdsNo": "AA00370-0000000002",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf3"
+    },
+    "msds-pdf-53b098ac5f0be241": {
+      "productName": "프로판(Propane) 석유화학 및 산업용",
+      "supplier": "주식회사 E1",
+      "status": "verified",
+      "msdsNo": "AA00370-0000000001",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf3"
+    },
+    "msds-pdf-0bf7ca74da0367b2": {
+      "productName": "소석회(수산화칼슘)",
+      "supplier": "(주)태경비케이 단양1공장",
+      "status": "verified",
+      "msdsNo": "AA02836-0000000004",
+      "reason": "사이트 번호 = 원본 PDF 번호",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-09-23",
+      "signalWord": "위험",
+      "signalSource": "pdf1"
+    }
+  }
+}

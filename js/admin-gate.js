@@ -35,6 +35,7 @@
 
   // 관리자만 쓰는 화면들. 여기 적으면 관리자 패널에 줄이 하나 생긴다.
   const ADMIN_PAGES = [
+    { href: "register.html", name: "MSDS 번호 관리대장", note: "번호가 있어야 하는지, 없어도 되는지, 무엇을 더 받아야 하는지 봅니다" },
     { href: "substance.html", name: "물질 찾기", note: "CAS 로 묶어 어느 물질이 어느 제품에 들었는지 봅니다" },
     { href: "review.html", name: "PDF 추출 후보 검토", note: "PDF 에서 뽑은 요약 후보를 확인합니다" },
     { href: "pdf-queue.html", name: "PDF 미등록 자료 검토", note: "아직 제품에 붙지 않은 PDF 를 봅니다" }

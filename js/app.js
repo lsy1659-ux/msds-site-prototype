@@ -724,6 +724,16 @@ function getRequestedProductId(products = []) {
   if (requestedId && products.some((product) => product.id === requestedId)) return requestedId;
   if (!requestedId && !wantedName) return null;
 
+  // 구판·중복을 목록에서 빼면서 새 판에 옛 id 를 formerIds 로 남겼다.
+  // 옛 판으로 뽑은 표지의 QR 을 찍으면 새 판이 바로 열린다.
+  if (requestedId) {
+    const successor = products.find((product) => (product.formerIds || []).includes(requestedId));
+    if (successor) {
+      state.publicNotice = `인쇄물의 QR이 가리키던 MSDS 가 새 판으로 바뀌어, 새 판("${successor.productName}")을 열었습니다.`;
+      return successor.id;
+    }
+  }
+
   if (wantedName) {
     const needle = normalizeSearchText(wantedName);
     const exact = products.find((product) => normalizeSearchText(product.productName) === needle);
@@ -2176,17 +2186,18 @@ function exportProductListCsv() {
   const products = hasQuery ? getSortedSearchResults(getFilteredProducts()) : getAllSelectableProducts();
   const header = [
     "제품명", "공급업체", "용도", "분류", "신호어", "유해위험성 분류",
-    "위험물 구분", "MSDS 번호", "발행일", "개정일", "성분 수", "MSDS 원본"
+    "위험물 구분", "MSDS 번호", "MSDS 번호 상태", "발행일", "개정일", "성분 수", "MSDS 원본"
   ];
   const rows = products.map((product) => [
     product.productName || "",
     getDisplaySupplierName(product),
     product.recommendedUse || "",
     product.category || "",
-    product.signalWord || product.hazardBadge || "",
+    resolveSignalWord(product),
     product.hazardClassification || "",
     product.dangerousGoods || "",
     product.msdsNo || "",
+    describeMsdsNo(product),
     product.issueDate || "",
     product.revisionDate || "",
     (product.ingredients || []).length,
@@ -2530,7 +2541,7 @@ function renderFullProductItem(product, index) {
         <span>${escapeHtml(metaText)}</span>
       </span>
       <span class="full-product-tags">
-        <span class="full-risk-badge">${escapeHtml(product.hazardBadge || "확인")}</span>
+        <span class="full-risk-badge">${escapeHtml(resolveSignalWord(product) || "확인")}</span>
         <span class="full-pdf-badge ${pdfInfo.status === "connected" ? "is-connected" : ""}">${pdfLabel}</span>
         ${renderProductReviewBadge(product)}
       </span>
@@ -2631,7 +2642,7 @@ function getPosterData(product) {
       showReviewStrip: showReviewStatus,
       reviewBadge: "자동 추출 요약",
       reviewMessage: "참고용 요약정보이며 작업 전 MSDS PDF 원문을 우선 확인하세요.",
-      hazardBadge: cleanSignalWord(override.signalWordCandidate) || cleanSignalWord(product.hazardBadge) || "원본 확인",
+      hazardBadge: resolveSignalWord(product) || "원본 확인",
       ghsPictograms,
       hazardStatements: override.hazardStatements || [],
       precautionaryStatements: override.precautionaryStatements || {},
@@ -2657,7 +2668,7 @@ function getPosterData(product) {
     showReviewStrip: !hasProductSummary && showUnregisteredStatus,
     reviewBadge: hasProductSummary ? "" : "MSDS 원본 기준",
     reviewMessage: hasProductSummary ? "" : "정식 MSDS PDF를 확인하세요.",
-    hazardBadge: cleanSignalWord(product.hazardBadge) || "원본 확인",
+    hazardBadge: resolveSignalWord(product) || "원본 확인",
     ghsCodes: normalizeGhsCodeList(product.ghsCodes || product.ghsPictograms || []),
     ghsPictograms: normalizeGhsList(product),
     hazardStatements: product.hazardStatements || [],
@@ -2684,7 +2695,18 @@ function hasProductAutomaticSummary(product = {}) {
     || Boolean((product.components || []).length)
     || Boolean(product.hazardSummary)
     || Boolean(product.dangerousGoods)
-    || Boolean(product.ppeSummary);
+    || Boolean(product.ppeSummary)
+    // 원문이 분류기준 비해당이라고 적은 것도 확인이 끝난 요약이다.
+    || Boolean(product.hazardNotClassified);
+}
+
+/* 신호어는 원문 제2항에서 뽑아 관리대장(data/msds-register.json)이 확인한
+ * signalWord 하나만 쓴다. hazardBadge 는 신호어가 아니다. 228건 중 180건에
+ * 일괄로 "위험"이 들어 있어서, 이걸 신호어로 쓰면 원문이 "경고"인 제품까지
+ * "위험"으로 보였다. 경고표지·관리요령도 같은 규칙을 쓴다. */
+function resolveSignalWord(product) {
+  if (product?.hazardNotClassified) return "해당없음";
+  return cleanSignalWord(product?.signalWord);
 }
 
 function cleanSignalWord(value) {
@@ -2932,10 +2954,10 @@ function getDetailData(product) {
     overrideApplied,
     productName: displayValue(product.productName, overrideProductName),
     supplier: detailSupplier,
-    msdsNo: displayValue(product.msdsNo, override?.msdsNoCandidate),
+    msdsNo: describeMsdsNo(product),
     revisionDate: displayRevisionDate || "정보 없음",
     dateSummary: buildDateSummary(product.issueDate || product.preparationDate, displayRevisionDate),
-    signalWord: cleanSignalWord(override?.signalWordCandidate),
+    signalWord: resolveSignalWord(product),
     hazardSummary: displayValue(summarizeItems(hazardStatements, 2, " / "), product.hazardSummary),
     ppeSummary: displayValue(summarizeItems(ppeCandidates, 3, ", "), product.ppeSummary),
     ghsPictograms: getDisplayGhsPictograms(product),
@@ -3137,6 +3159,25 @@ function workerCautionIconSvg(type = "shield") {
     info: `<svg viewBox="0 0 24 24" role="img" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 10v6M12 7h.1"/></svg>`
   };
   return icons[type] || icons.shield;
+}
+
+/* 번호가 비었을 때 "정보 없음" 이라고만 하면 진짜 누락인지 법적으로 필요 없는
+ * 것인지 가려지지 않는다. 관리대장이 정한 상태를 같이 보여 준다. */
+const MSDS_NO_STATUS_LABELS = {
+  required: "확보 중 — 공급사에 번호가 적힌 최신 MSDS 요청",
+  not_required: "필요 없음",
+  submission_exempt: "제출 면제(시험용 시약)",
+  pending: "확인 중"
+};
+
+function describeMsdsNo(product) {
+  const number = String(product.msdsNo || "").trim();
+  const status = product.msdsNoStatus;
+  if (number) return status === "pending" ? `${number} (원본 대조 중)` : number;
+  if (product.msdsNoAsWritten) return `원문 표기 ${product.msdsNoAsWritten} (번호 꼴 확인 중)`;
+  const label = MSDS_NO_STATUS_LABELS[status];
+  if (!label) return "정보 없음";
+  return status === "not_required" && product.msdsNoKind ? `${label} — ${product.msdsNoKind}` : label;
 }
 
 function displayValue(preferred, fallback) {

@@ -45,10 +45,11 @@ class SiteUiContractTests(unittest.TestCase):
                           f"{page} 가 첫 그림 전에 관리자 상태를 정하지 않는다")
 
     def test_substance_page_hides_its_body_until_unlocked(self):
-        source = (ROOT / "substance.html").read_text(encoding="utf-8")
-        self.assertIn('class="admin-locked-screen" data-admin-locked', source)
-        self.assertIn('<main class="substance-main" data-admin-only>', source)
-        self.assertIn('id="adminGate"', source)
+        for page in ("substance.html", "register.html"):
+            source = (ROOT / page).read_text(encoding="utf-8")
+            self.assertIn('class="admin-locked-screen" data-admin-locked', source, page)
+            self.assertIn('<main class="substance-main" data-admin-only>', source, page)
+            self.assertIn('id="adminGate"', source, page)
 
     def test_admin_gate_never_spells_the_passcode_out(self):
         """암호를 주석이나 문자열로 적어 두면 가림막 구실조차 못 한다.
@@ -96,6 +97,75 @@ class SiteUiContractTests(unittest.TestCase):
                     for wrong in bad:
                         self.assertNotIn(wrong, hit,
                                          f"{product['productName']} 의 {name} 칸에 무관한 문장: {hit[:40]}")
+
+    def test_signal_word_never_comes_from_hazard_badge(self):
+        """신호어를 hazardBadge 에서 가져오지 않는다.
+
+        hazardBadge 는 신호어가 아니라 228건 중 180건에 일괄로 "위험"이 들어간
+        칸이었다. 경고표지·관리요령이 이걸 신호어로 써서 원문 "경고" 18건이
+        "위험"으로, 원문 "위험" 14건이 빈칸으로 인쇄됐다.
+        """
+        for name in ("label.js", "guide.js"):
+            source = (ROOT / "js" / name).read_text(encoding="utf-8")
+            code = "\n".join(line for line in source.splitlines() if not line.strip().startswith("//"))
+            self.assertNotRegex(code, r"(signal|badge)\s*=\s*String\(product\.hazardBadge",
+                                f"{name} 가 hazardBadge 를 신호어로 쓴다")
+            self.assertIn("product.signalWord", source, f"{name} 가 signalWord 를 쓰지 않는다")
+        self.assertIn("function resolveSignalWord(product)", self.app_source)
+        self.assertNotIn("cleanSignalWord(product.hazardBadge)", self.app_source)
+
+    def test_public_signal_words_match_the_register(self):
+        products = json.loads((ROOT / "data" / "msds.public.json").read_text(encoding="utf-8"))
+        register = json.loads((ROOT / "data" / "msds-register.json").read_text(encoding="utf-8"))["products"]
+        for product in products:
+            entry = register[product["id"]]
+            expected = "해당없음" if entry.get("notClassified") else entry.get("signalWord", "")
+            if expected:
+                self.assertEqual(product.get("signalWord"), expected, product["productName"])
+
+    def test_not_classified_products_carry_no_hazard_marks(self):
+        """원문이 분류기준 비해당이라고 적은 제품에 그림문자가 남으면 표지에 인쇄된다."""
+        products = json.loads((ROOT / "data" / "msds.public.json").read_text(encoding="utf-8"))
+        overrides = json.loads((ROOT / "data" / "msds-overrides.public.json").read_text(encoding="utf-8"))
+        register = json.loads((ROOT / "data" / "msds-register.json").read_text(encoding="utf-8"))["products"]
+        files = {}
+        for o in overrides:
+            for key in ((o.get("match") or {}).get("fileName"), str(o.get("sourcePdfPath", "")).split("/")[-1]):
+                if key:
+                    files.setdefault(key, o)
+        for product in products:
+            if not register[product["id"]].get("notClassified"):
+                continue
+            self.assertTrue(product.get("hazardNotClassified"), product["productName"])
+            for field in ("ghsPictograms", "hazardStatements", "ghsCodes"):
+                self.assertEqual(product.get(field) or [], [], f"{product['productName']} {field}")
+            override = files.get(product.get("fileName")) or {}
+            for field in ("ghsPictograms", "labelGhsPictograms", "hazardStatements"):
+                self.assertEqual(override.get(field) or [], [], f"{product['productName']} override {field}")
+
+    def test_every_product_is_in_the_register_and_numbers_are_clean(self):
+        products = json.loads((ROOT / "data" / "msds.public.json").read_text(encoding="utf-8"))
+        register = json.loads((ROOT / "data" / "msds-register.json").read_text(encoding="utf-8"))
+        entries = register["products"]
+        for product in products:
+            self.assertIn(product["id"], entries, f"관리대장에 없음: {product['productName']}")
+            number = product.get("msdsNo") or ""
+            if number:
+                self.assertRegex(number, r"^[A-Z]{2}\d{5}-\d{10}$", product["productName"])
+            self.assertNotEqual(entries[product["id"]]["status"], "retired", product["productName"])
+        for pid, entry in entries.items():
+            if entry["status"] in ("not_required", "submission_exempt"):
+                self.assertTrue(entry.get("basis"), f"근거 없는 '필요 없음': {entry.get('productName')}")
+
+    def test_retired_ids_still_open_their_successor(self):
+        """구판을 목록에서 빼도 그 판으로 뽑은 표지의 QR 은 새 판으로 열린다."""
+        products = json.loads((ROOT / "data" / "msds.public.json").read_text(encoding="utf-8"))
+        register = json.loads((ROOT / "data" / "msds-register.json").read_text(encoding="utf-8"))["products"]
+        former = {old: p["id"] for p in products for old in p.get("formerIds", [])}
+        for pid, entry in register.items():
+            if entry["status"] == "retired" and entry.get("replacedBy"):
+                self.assertEqual(former.get(pid), entry["replacedBy"], entry.get("productName"))
+        self.assertIn("(product.formerIds || []).includes(requestedId)", self.app_source)
 
     def test_admin_gate_is_documented_as_a_curtain_not_a_lock(self):
         # 정적 사이트라 암호 확인이 브라우저에서 일어난다. 이 파일을 나중에

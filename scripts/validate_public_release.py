@@ -266,6 +266,71 @@ def read_boolean_config(app_text: str, name: str) -> bool | None:
     return match.group(1) == "true"
 
 
+REGISTER_STATUSES = {"verified", "required", "not_required", "submission_exempt", "pending", "retired"}
+KOSHA_MSDS_NO = re.compile(r"^[A-Z]{2}\d{5}-\d{10}$")
+
+
+def validate_msds_register(root: Path, products: list[dict[str, Any]], result: "ValidationResult") -> set[str]:
+    """MSDS 번호 관리대장(data/msds-register.json)과 공개 데이터가 맞는지 본다.
+
+    번호칸에는 공단 번호만 둔다. 번호가 비면 관리대장에 까닭이 있어야 한다.
+    '필요 없음'·'제출 면제'는 법적 근거 없이 둘 수 없다. 돌려주는 것은 구판으로
+    목록에서 뺀 제품의 PDF 경로들이다. 옛 판도 기록으로 남기므로 연결 안 된
+    PDF 로 치지 않는다.
+    """
+    register_file = root / "data" / "msds-register.json"
+    if not register_file.exists():
+        result.add("warning", "MSDS_REGISTER_MISSING", "data/msds-register.json 이 없다.")
+        return set()
+    try:
+        register = read_json(register_file)
+    except (OSError, json.JSONDecodeError) as error:
+        result.add("error", "MSDS_REGISTER_UNREADABLE", str(error))
+        return set()
+
+    entries = register.get("products") or {}
+    legal = register.get("legalBasis") or {}
+    retired_pdfs: set[str] = set()
+    for pid, entry in entries.items():
+        status = entry.get("status")
+        if status not in REGISTER_STATUSES:
+            result.add("error", "MSDS_REGISTER_STATUS_INVALID", f"상태 값이 틀렸다: {status}", pid)
+        number = str(entry.get("msdsNo") or "").strip()
+        if number and not KOSHA_MSDS_NO.match(number):
+            result.add("error", "MSDS_REGISTER_NUMBER_INVALID", f"공단 번호 꼴이 아니다: {number}", pid)
+        if status in ("not_required", "submission_exempt"):
+            keys = entry.get("basis") or []
+            if not keys:
+                result.add("error", "MSDS_REGISTER_BASIS_MISSING", "'필요 없음'·'제출 면제'에 법적 근거가 없다.", pid)
+            for key in keys:
+                if key not in legal:
+                    result.add("error", "MSDS_REGISTER_BASIS_UNKNOWN", f"legalBasis 에 없는 근거: {key}", pid)
+        if status == "retired":
+            if entry.get("pdfPath"):
+                retired_pdfs.add(normalize_key(entry["pdfPath"]))
+            if entry.get("replacedBy") and entry["replacedBy"] not in entries:
+                result.add("error", "MSDS_REGISTER_REPLACEMENT_UNKNOWN", "대체 제품이 관리대장에 없다.", pid)
+
+    for product in products:
+        pid = product.get("id")
+        entry = entries.get(pid)
+        number = str(product.get("msdsNo") or "").strip()
+        if number and not KOSHA_MSDS_NO.match(number):
+            result.add("warning", "MSDS_NUMBER_NOT_KOSHA_FORMAT", f"번호칸에 공단 번호가 아닌 값: {number[:40]}", pid)
+        if entry is None:
+            # 새로 등록한 제품은 관리대장에도 한 줄 넣어야 한다.
+            result.add("warning", "MSDS_REGISTER_ENTRY_MISSING", "관리대장에 없는 제품이다.", pid)
+            continue
+        if entry.get("status") == "retired":
+            result.add("error", "MSDS_REGISTER_RETIRED_STILL_PUBLISHED", "구판으로 정한 제품이 아직 목록에 있다.", pid)
+        if number != str(entry.get("msdsNo") or "").strip():
+            result.add("error", "MSDS_REGISTER_NUMBER_OUT_OF_SYNC",
+                       "공개 데이터 번호가 관리대장과 다르다. scripts/apply_msds_register.py --write 를 돌린다.", pid)
+    result.stats["registerEntries"] = len(entries)
+    result.stats["retiredKept"] = len(retired_pdfs)
+    return retired_pdfs
+
+
 def validate_public_release(
     root: Path,
     products_path: Path = DEFAULT_PRODUCTS,
@@ -494,6 +559,8 @@ def validate_public_release(
                     subject,
                 )
 
+    retired_pdf_keys = validate_msds_register(root, products, result)
+
     actual_pdfs = sorted(
         (path for path in (root / "pdf").rglob("*") if path.is_file() and path.suffix.casefold() == ".pdf"),
         key=lambda path: path.relative_to(root).as_posix().casefold(),
@@ -501,7 +568,7 @@ def validate_public_release(
     result.stats["pdfFiles"] = len(actual_pdfs)
     for path in actual_pdfs:
         key = normalize_key(path.relative_to(root).as_posix())
-        if key not in linked_pdf_keys and key not in KNOWN_NON_PRODUCT_PDFS:
+        if key not in linked_pdf_keys and key not in KNOWN_NON_PRODUCT_PDFS and key not in retired_pdf_keys:
             result.stats["unlinkedPdfFiles"] += 1
             result.add(
                 "error",

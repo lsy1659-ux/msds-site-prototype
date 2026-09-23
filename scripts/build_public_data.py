@@ -7,6 +7,13 @@ from datetime import date
 from pathlib import Path
 from typing import Any
 
+# 사람이 확인한 번호·신호어·비해당·구판 정리는 관리대장에 있다. 로컬 데이터로
+# 다시 만들 때마다 그것을 덮어써야 고친 것이 되돌아가지 않는다.
+try:
+    from scripts.apply_msds_register import apply_register
+except ImportError:  # py scripts/build_public_data.py 로 부를 때
+    from apply_msds_register import apply_register
+
 
 ROOT = Path(__file__).resolve().parents[1]
 LOCAL_PRODUCTS_PATH = ROOT / "data" / "msds.local.json"
@@ -535,6 +542,7 @@ def main() -> int:
     public_overrides, carried_overrides = carry_forward_public_only(
         public_overrides, PUBLIC_OVERRIDES_PATH, "overrides", ("sourcePdfPath", "sourceRelativePath")
     )
+    public_products, public_overrides, register_report = apply_register(public_products, public_overrides)
     products_payload = build_payload(products_source, "products", public_products)
     overrides_payload = build_payload(overrides_source, "overrides", public_overrides)
 
@@ -551,6 +559,12 @@ def main() -> int:
     print(f"- Public-only products kept: {len(carried_products)}")
     for label in carried_products:
         print(f"  - kept product without local source: {label}")
+    print(f"- MSDS register: retired {len(register_report['retired'])}, "
+          f"not classified {len(register_report['notClassified'])}, "
+          f"ingredients restored {register_report['ingredientsRestored']}, "
+          f"missing entry {len(register_report['missingEntry'])}")
+    for label in register_report["missingEntry"]:
+        print(f"  - not in data/msds-register.json yet: {label}")
     print(f"- Public-only overrides kept: {len(carried_overrides)}")
     for label in carried_overrides:
         print(f"  - kept override without local source: {label}")

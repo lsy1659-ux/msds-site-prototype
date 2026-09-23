@@ -57,5 +57,5 @@ jobs:
       - name: Validate public products, automatic summaries, and release manifest
         run: >-
           python scripts/validate_public_release.py
-          --expected-products 228
+          --expected-products 218
           --check-manifest data/release-manifest.json

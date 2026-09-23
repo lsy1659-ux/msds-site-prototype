@@ -100,9 +100,8 @@ function mergeOverride(product, override) {
   if (!hasPrecautions && override.precautionaryStatements) {
     merged.precautionaryStatements = override.precautionaryStatements;
   }
-  if (!String(merged.hazardBadge || "").trim() && String(override.signalWordCandidate || "").trim()) {
-    merged.hazardBadge = override.signalWordCandidate;
-  }
+  // 신호어는 관리대장이 원문에서 확인해 signalWord 에 넣는다. overrides 의 후보값으로
+  // 채우지 않는다. 후보값도 옛 추출이라 틀린 것이 섞여 있다.
   return merged;
 }
 
@@ -295,10 +294,12 @@ function renderLabelSheet() {
     const precautionNote = shortenPrecautions
       ? `그 밖의 예방조치 문구는 물질안전보건자료(MSDS)를 참조하십시오.`
       : "";
-    // 고시가 정한 신호어는 "위험"과 "경고" 둘뿐이다. 추출이 실패해서
-    // 붙은 임시 배지(MSDS)를 신호어 자리에 찍으면 잘못된 표시가 된다.
-    const badge = String(product.hazardBadge || "").trim();
-    const signal = badge === "위험" || badge === "경고" ? badge : "";
+    // 고시가 정한 신호어는 "위험"과 "경고" 둘뿐이다. 원문 제2항에서 뽑아
+    // 관리대장이 확인한 signalWord 만 쓴다. hazardBadge 는 신호어가 아니라
+    // 228건 중 180건에 일괄로 "위험"이 들어간 칸이라, 그걸 쓰면 원문이
+    // "경고"인 제품이 "위험"으로 인쇄됐다(18건).
+    const word = String(product.signalWord || "").trim();
+    const signal = !isNotClassified(product) && (word === "위험" || word === "경고") ? word : "";
     const qr = `<div class="label-qr" data-label-qr="${labelEscape(product.id)}"></div>`;
 
     let body;
