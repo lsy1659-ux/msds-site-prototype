@@ -5,14 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="제품별 물질안전보건자료와 현장 안전정보를 조회하고 원본 MSDS를 확인하는 사이트입니다.">
     <title>물질안전보건자료(MSDS) 안전정보 조회</title>
-    <link rel="manifest" href="manifest.webmanifest?v=20261007-3">
+    <link rel="manifest" href="manifest.webmanifest?v=20261007-4">
     <meta name="theme-color" content="#0f5f4f">
     <link rel="icon" href="assets/icons/icon-192.png" sizes="192x192" type="image/png">
     <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="MSDS">
-    <link rel="stylesheet" href="css/style.css?v=20261007-3">
-    <link rel="stylesheet" href="css/topbar.css?v=20261007-3">
+    <link rel="stylesheet" href="css/style.css?v=20261007-4">
+    <link rel="stylesheet" href="css/topbar.css?v=20261007-4">
+    <link rel="stylesheet" href="css/tone.css?v=20261007-4">
+    <!-- 글꼴은 ESH 와 같은 Pretendard. 신호가 약해도 첫 화면을 막지 않게 나중에 붙이고,
+         못 받으면 맑은 고딕으로 그대로 보인다. -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'">
     <script>
       // 관리자 화면은 감춰 둔 채로 그린다. 나중에 자바스크립트가 켜면
       // 탭이 툭 나타나 보이므로, 첫 그림부터 상태를 정해 둔다.
@@ -79,7 +83,7 @@
               </a>
             </h1>
             <button type="button" id="themeToggle" class="theme-toggle" aria-pressed="false">
-              <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+              <span class="theme-toggle-icon" aria-hidden="true"></span>
               <span class="theme-toggle-label">어두운 화면</span>
             </button>
           </div>
@@ -96,17 +100,6 @@
             </div>
           </dl>
         </div>
-        <div class="hero-visual" aria-hidden="true">
-          <div class="hero-visual-card hero-document">
-            <span class="hero-doc-title">MSDS</span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          <div class="hero-shield">✓</div>
-          <div class="hero-magnifier"></div>
-          <div class="hero-flask"></div>
-        </div>
       </div>
     </header>
 
@@ -116,7 +109,6 @@
       <section id="search-section" class="search-panel" aria-labelledby="searchTitle">
         <div class="search-title-row">
           <div class="search-heading">
-            <span class="search-heading-icon" aria-hidden="true">⌕</span>
             <div>
               <label id="searchTitle" class="search-label" for="searchInput">현장 안전정보 검색</label>
               <p id="searchHelp" class="search-help">물질명, 제품명, 용도, CAS No.로 검색하세요.</p>
@@ -156,6 +148,9 @@
           </div>
         </div>
 
+        <!-- 검색·초기화·분류만 늘 보이게 두고, 정렬·보기 방식·내려받기는 접어 둔다. -->
+        <details class="search-options">
+          <summary>정렬 · 보기 · 내려받기</summary>
         <div class="search-control-bar" aria-label="검색 결과 제어">
           <button class="filter-toggle-button" id="toggleSearchFilters" type="button" aria-expanded="true" aria-controls="emptySearchGuide">
             빠른 검색 닫기
@@ -169,13 +164,14 @@
             </select>
           </label>
           <div class="view-toggle" role="group" aria-label="결과 보기 방식">
-            <button class="view-toggle-button is-active" type="button" data-view-mode="grid" aria-pressed="true" aria-label="카드형으로 보기" title="카드형 보기">▦</button>
-            <button class="view-toggle-button" type="button" data-view-mode="list" aria-pressed="false" aria-label="목록형으로 보기" title="목록형 보기">☰</button>
+            <button class="view-toggle-button is-active" type="button" data-view-mode="grid" aria-pressed="true" aria-label="카드형으로 보기" title="카드형 보기"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></button>
+            <button class="view-toggle-button" type="button" data-view-mode="list" aria-pressed="false" aria-label="목록형으로 보기" title="목록형 보기"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
           </div>
           <button class="filter-toggle-button" id="exportProductCsv" type="button" title="지금 보이는 제품 목록을 엑셀로 내려받습니다">
             목록 CSV
           </button>
         </div>
+        </details>
 
         <div id="emptySearchGuide" class="empty-search-guide">
           <p>검색 후 핵심 안전정보를 확인하고, 하단 MSDS 원본자료를 반드시 확인하세요.</p>
@@ -211,7 +207,6 @@
           <h2 id="posterTitle" class="visually-hidden">현장 부착용 요약 안전정보</h2>
           <div id="posterPanel" class="poster-board">
             <div class="selection-placeholder" role="status">
-              <span class="selection-placeholder-icon" aria-hidden="true">⌕</span>
               <div>
                 <strong>제품을 먼저 검색하고 선택하세요.</strong>
                 <p>제품을 선택하기 전에는 안전정보를 표시하지 않습니다. 제품명·제품코드·CAS No.를 확인한 뒤 정확한 제품을 선택하세요.</p>
@@ -243,15 +238,19 @@
       </nav>
 
       <footer class="site-footer">
-        <a class="site-footer-link" href="label.html">용기 부착용 경고표지 만들기 →</a>
+        <a class="site-footer-link" href="label.html" data-handoff>용기 부착용 경고표지 만들기</a>
+        <a class="site-footer-link" href="guide.html" data-handoff>작업공정별 관리요령(A4) 만들기</a>
       </footer>
     </main>
 
-    <script src="js/page-transition.js?v=20261007-3" defer></script>
-    <script src="js/csv-export.js?v=20261007-3" defer></script>
-    <script src="js/app.js?v=20261007-3" defer></script>
-    <script src="vendor/qrcode.min.js?v=20261007-3"></script>
-    <script src="js/site-qr.js?v=20261007-3" defer></script>
-    <script src="js/admin-gate.js?v=20261007-3" defer></script>
+    <script src="js/page-transition.js?v=20261007-4" defer></script>
+    <script src="js/csv-export.js?v=20261007-4" defer></script>
+    <script src="js/ppe-rules.js?v=20261007-4" defer></script>
+    <script src="js/ui-icons.js?v=20261007-4" defer></script>
+    <script src="js/handoff.js?v=20261007-4" defer></script>
+    <script src="js/app.js?v=20261007-4" defer></script>
+    <script src="vendor/qrcode.min.js?v=20261007-4"></script>
+    <script src="js/site-qr.js?v=20261007-4" defer></script>
+    <script src="js/admin-gate.js?v=20261007-4" defer></script>
   </body>
 </html>

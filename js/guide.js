@@ -319,22 +319,17 @@ function getHandlingItems(product, used) {
   return out;
 }
 
-/* 보호구는 네 가지로만 나눈다. MSDS 8항이 요구한 것만 싣고, 없는 것을
- * 채워 넣지 않는다. 한 유형에 여러 표현이 있어도 한 번만 보여 준다. */
-const PPE_RULES = [
-  { key: "goggles", label: "보안경 / 안면보호구", words: ["보안경", "고글", "안면보호", "눈 보호", "밀폐형 보안경"] },
-  { key: "gloves", label: "보호장갑", words: ["장갑"] },
-  { key: "mask", label: "호흡보호구", words: ["마스크", "호흡", "방독", "방진", "송기", "공기호흡기"] },
-  { key: "suit", label: "보호복 / 신체보호구", words: ["보호복", "보호의", "앞치마", "보호의복", "신체", "안전화", "장화"] }
-];
+/* 보호구는 조회 화면 요약판과 같은 규칙(js/ppe-rules.js)으로 고른다.
+ * MSDS 가 이름을 적은 것만 싣고, 없는 것을 채워 넣지 않는다.
+ * 한 유형에 여러 표현이 있어도 한 번만 보여 준다. */
+const GUIDE_PPE_LABELS = { goggles: "보안경 / 안면보호구" };
 
 function getPpeItems(product) {
-  const text = [
-    (product.ppeCandidates || []).join(" "),
-    product.ppeSummary || "",
-    Object.values(product.precautionaryStatements || {}).flat().join(" ")
-  ].join(" ");
-  return PPE_RULES.filter((rule) => rule.words.some((word) => text.includes(word)));
+  if (!window.MsdsPpe) return [];
+  const prevention = ((product.precautionaryStatements || {}).prevention || [])
+    .filter((text) => String(text || "").includes("착용"));
+  return window.MsdsPpe.detect([product.ppeSummary || "", ...(product.ppeCandidates || []), ...prevention])
+    .map((item) => ({ ...item, label: GUIDE_PPE_LABELS[item.key] || item.label }));
 }
 
 /* 응급조치는 실제로 크게 다치는 순서로 싣는다. 흡입과 섭취는 전혀 다른
@@ -444,7 +439,7 @@ function renderSheetCard(product) {
             <div class="guide-ppe">
               ${ppe.map((item) => `
                 <div class="guide-ppe-item">
-                  <img src="assets/ppe/${item.key}.svg" alt="">
+                  <img src="${guideEscape(item.file)}" alt="">
                   <span>${guideEscape(item.label)}</span>
                 </div>`).join("")}
             </div>` : `<p class="guide-blank-line">${blankMark()}</p>`}
@@ -566,7 +561,7 @@ function updateGuideStatus() {
   if (!guideElements.status) return;
   const picked = guideState.selected.size;
   const parts = [`전체 ${guideState.products.length}건 중 ${guideState.filtered.length}건 표시`];
-  parts.push(picked ? `고른 제품 ${picked}건(찾기를 바꿔도 남습니다)` : "고른 제품 없음(보이는 전체가 인쇄됩니다)");
+  parts.push(picked ? `고른 제품 ${picked}건(찾기를 바꿔도 남습니다)` : "고른 제품 없음");
   const hidden = guideState.products.filter((product) => !isPostable(product)).length;
   if (guideState.onlyPostable && hidden) parts.push(`원문에서 내용이 안 나온 ${hidden}건은 제외됨`);
   guideElements.status.textContent = parts.join(" · ");
@@ -591,8 +586,26 @@ function renderGuidePicked() {
   }
 }
 
+/* 고른 것이 없을 때 "고른 것 인쇄"가 보이는 전체를 내보내면, 모르고 누른
+ * 사람이 수십 장을 뽑는다. 고른 것이 없으면 누를 수 없게 하고, 전체 인쇄는
+ * 따로 둔다. */
+function syncGuidePrintButtons() {
+  const picked = guideState.selected.size;
+  if (guideElements.print) {
+    guideElements.print.disabled = picked === 0;
+    guideElements.print.textContent = picked ? `고른 관리요령 ${picked}건 인쇄` : "고른 관리요령 인쇄";
+  }
+  if (guideElements.printAll) {
+    const count = guideState.filtered.length;
+    guideElements.printAll.disabled = count === 0;
+    guideElements.printAll.textContent = `보이는 전체 ${count}건 인쇄`;
+  }
+}
+
 function syncGuideSelection() {
   renderGuidePicked();
+  syncGuidePrintButtons();
+  window.MsdsHandoff?.carry([...guideState.selected]);
   guideElements.sheet?.classList.toggle("has-selection", guideState.selected.size > 0);
   guideElements.sheet?.querySelectorAll("[data-guide-id]").forEach((card) => {
     card.classList.toggle("is-selected", guideState.selected.has(card.dataset.guideId));
@@ -668,17 +681,32 @@ function bindGuideEvents() {
     syncGuideSelection();
   });
 
+  guideElements.printAll?.addEventListener("click", () => {
+    const count = guideState.filtered.length;
+    if (!count) return;
+    if (count > 1 && !window.confirm(`화면에 보이는 관리요령 ${count}건을 모두 인쇄합니다. ${count}장이 나갑니다. 계속할까요?`)) return;
+    // 고른 것만 남기는 인쇄 규칙을 잠시 끄고, 보이는 것을 모두 그린 뒤 인쇄한다.
+    guideState.onlySelected = false;
+    applyGuideFilter();
+    guideState.renderCount = guideState.filtered.length;
+    renderGuideSheet();
+    syncGuideSelection();
+    guideElements.sheet?.classList.remove("has-selection");
+    guideElements.sheet?.querySelectorAll("[data-guide-qr]").forEach(drawGuideQr);
+    window.addEventListener("afterprint", () => syncGuideSelection(), { once: true });
+    window.setTimeout(() => window.print(), 60);
+  });
+
   guideElements.print?.addEventListener("click", () => {
     // 화면에는 앞쪽 몇 장만 그려 둔다. 인쇄 전에 나갈 것을 모두 그린다.
     const picked = guideState.selected.size;
+    if (!picked) return;
     const missingPicked = picked
       && [...guideState.selected].some((id) => !guideState.filtered.some((product) => product.id === id));
-    const needsAll = missingPicked || guideState.filtered.length > visibleGuideProducts().length;
-    if (needsAll) {
-      if (missingPicked) guideState.onlySelected = true;
+    if (missingPicked) {
+      guideState.onlySelected = true;
       applyGuideFilter();
-      // 고른 것이 없으면 보이는 전체가 나가므로 전부 그려야 한다.
-      guideState.renderCount = picked ? RENDER_STEP : guideState.filtered.length;
+      guideState.renderCount = RENDER_STEP;
       renderGuideSheet();
       syncGuideSelection();
       guideElements.sheet?.querySelectorAll("[data-guide-qr]").forEach(drawGuideQr);
@@ -705,6 +733,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   guideElements.selectAll = document.querySelector("#guideSelectAll");
   guideElements.clear = document.querySelector("#guideClear");
   guideElements.print = document.querySelector("#guidePrint");
+  guideElements.printAll = document.querySelector("#guidePrintAll");
 
   bindGuideEvents();
 
@@ -730,11 +759,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // 조회 화면에서 제품을 보다가 넘어오면 그 제품을 골라 둔 채로 연다.
-  const wanted = new URLSearchParams(window.location.search).get("product");
-  if (wanted && guideState.products.some((product) => product.id === wanted)) {
-    guideState.selected.add(wanted);
-  }
+  // 조회·경고표지 화면에서 고른 제품을 그대로 골라 둔 채로 연다.
+  (window.MsdsHandoff?.requested() || []).forEach((wanted) => {
+    if (guideState.products.some((product) => product.id === wanted)) guideState.selected.add(wanted);
+  });
+  // 넘겨받은 것만 보이게 연다. 전체 목록은 "전체 목록으로" 한 번이면 돌아간다.
+  if (guideState.selected.size) guideState.onlySelected = true;
 
   window.attachPickAssist?.({
     input: guideElements.search,

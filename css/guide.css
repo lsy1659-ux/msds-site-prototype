@@ -148,6 +148,18 @@ body {
   border-color: var(--guide-accent);
 }
 
+/* 고른 것이 없을 때 "고른 관리요령 인쇄"는 누를 수 없다. 꺼진 것이 한눈에 보이게. */
+.guide-control-row .guide-button:disabled,
+.guide-control-row .guide-button:disabled:hover {
+  border-color: var(--guide-line);
+  background: var(--guide-surface);
+  color: var(--guide-muted, #6b7280);
+  opacity: 0.6;
+  transform: none;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
 .guide-button-primary {
   border-color: var(--guide-accent);
   background: var(--guide-accent);

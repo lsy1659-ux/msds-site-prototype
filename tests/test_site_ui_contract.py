@@ -216,6 +216,116 @@ class SiteUiContractTests(unittest.TestCase):
         self.assertIn('data-pdfjs-preview-mount', self.app_source)
         self.assertIn('data-pdf-viewer-mode="full"', self.app_source)
 
+    # ── 2026-10-07 GPT 점검 반영 ──────────────────────────────
+
+    def _ppe_rules(self):
+        """js/ppe-rules.js 의 낱말 목록을 그대로 읽어 파이썬으로 같은 판별을 한다."""
+        source = (ROOT / "js" / "ppe-rules.js").read_text(encoding="utf-8")
+        rules = re.findall(r'key: "(\w+)",.*?words: \[(.*?)\]', source, re.S)
+        self.assertEqual([key for key, _ in rules], ["goggles", "gloves", "mask", "suit", "boots"])
+        fire = re.search(r"const FIRE_CONTEXT = \[(.*?)\];", source, re.S)
+        self.assertIsNotNone(fire)
+        return (
+            {key: re.findall(r'"([^"]+)"', words) for key, words in rules},
+            re.findall(r'"([^"]+)"', fire.group(1)),
+        )
+
+    def _detect_ppe(self, texts):
+        rules, fire = self._ppe_rules()
+        sentences = [part.strip() for text in texts
+                     for part in re.split(r"[.。!?;]\s*|\n+|\s(?=[가-하]\.)", text or "") if part.strip()]
+        lines = [t for t in sentences if not any(w in re.sub(r"\s+", "", t.lower()) for w in fire)]
+        joined = re.sub(r"\s+", "", " ".join(lines).lower())
+        return [key for key, words in rules.items() if any(w in joined for w in words)]
+
+    def test_ppe_words_are_names_of_equipment_not_single_syllables(self):
+        """"눈"·"호흡"·"신체" 한 낱말로 고르면 응급조치 문장에도 보호구가 붙는다."""
+        rules, _ = self._ppe_rules()
+        banned = {"눈", "호흡", "신체", "보호화", "송기", "눈보호", "신체보호"}
+        for key, words in rules.items():
+            self.assertFalse(banned & set(words), f"{key} 에 너무 넓은 낱말: {banned & set(words)}")
+
+    def test_unknown_ppe_text_never_gets_a_default_pictogram(self):
+        """종류를 못 읽은 문구에 보호복 그림을 기본으로 붙이지 않는다."""
+        self.assertNotIn('const file = labels[type] ? type : "suit"', self.app_source)
+        self.assertNotIn("function getPpeType(", self.app_source)
+        self.assertIn("window.MsdsPpe.detect(sources)", self.app_source)
+        guide = (ROOT / "js" / "guide.js").read_text(encoding="utf-8")
+        self.assertIn("window.MsdsPpe.detect(", guide)
+        self.assertNotIn("const PPE_RULES", guide)
+
+    def test_tc317_shows_all_four_ppe_from_one_p280_sentence(self):
+        """P280 한 문장에 든 보호구를 모두 읽는다. 전에는 보안경 하나가 되어 보호장갑이 빠졌다."""
+        products = json.loads((ROOT / "data" / "msds.public.json").read_text(encoding="utf-8"))
+        product = next(p for p in products if p["id"] == "msds-033")
+        found = self._detect_ppe([product.get("ppeSummary", ""), *product.get("ppeCandidates", [])])
+        self.assertEqual(found, ["goggles", "gloves", "mask", "suit"])
+        # 제목 조각과 화재 진압용 보호구만으로는 아무것도 그리지 않는다.
+        self.assertEqual(self._detect_ppe(["○ 착용할 보호구 :", "다. 화재진압 시 착용할 보호구 및 예방조치"]), [])
+        self.assertEqual(self._detect_ppe(["소방관은 공기호흡기(SCBA)를 착용할 것"]), [])
+        self.assertEqual(self._detect_ppe(["흡입하면 호흡하기 쉬운 자세로 안정을 취하시오"]), [])
+        # 8항이 한 덩어리로 들어와 "화재" 가 섞여 있어도 착용 문장은 살린다(GHP 제품).
+        self.assertEqual(self._detect_ppe(["가.화재 시 소화기를 쓴다.나.호흡기 보호 :연속 작업시 방독면 등을 착용한다."]), ["mask"])
+
+    def test_print_buttons_do_not_print_everything_when_nothing_is_picked(self):
+        for page, script, prefix in (("guide.html", "guide.js", "guide"), ("label.html", "label.js", "label")):
+            html = (ROOT / page).read_text(encoding="utf-8")
+            button = re.search(rf'<button[^>]*id="{prefix}Print"[^>]*>', html)
+            self.assertIsNotNone(button, page)
+            self.assertIn("disabled", button.group(0), f"{page} 의 고른 것 인쇄 단추가 처음부터 눌린다")
+            self.assertIn(f'id="{prefix}PrintAll"', html, f"{page} 에 전체 인쇄 단추가 따로 없다")
+            source = (ROOT / "js" / script).read_text(encoding="utf-8")
+            self.assertIn("if (!picked) return;", source, f"{script} 가 고른 것 없이 인쇄한다")
+            self.assertIn("window.confirm(", source, f"{script} 가 전체 인쇄 전에 묻지 않는다")
+
+    def test_selected_product_follows_across_tabs(self):
+        for page in ("index.html", "label.html", "guide.html"):
+            html = (ROOT / page).read_text(encoding="utf-8")
+            self.assertIn('src="js/handoff.js', html, f"{page} 에 handoff.js 가 없다")
+        self.assertIn("window.MsdsHandoff?.carry(", self.app_source)
+        for script in ("label.js", "guide.js"):
+            source = (ROOT / "js" / script).read_text(encoding="utf-8")
+            self.assertIn("window.MsdsHandoff?.carry(", source, script)
+            self.assertIn("window.MsdsHandoff?.requested()", source, script)
+
+    def test_pdf_refits_when_the_screen_size_changes(self):
+        self.assertIn('window.addEventListener("resize", schedulePdfRefit', self.app_source)
+        self.assertIn('window.addEventListener("orientationchange", schedulePdfRefit', self.app_source)
+        self.assertIn("data-pdf-page-input", self.app_source)
+        self.assertIn("data-pdf-search-form", self.app_source)
+
+    def test_service_worker_only_clears_msds_caches(self):
+        source = (ROOT / "sw.js").read_text(encoding="utf-8")
+        activate = source[source.index('addEventListener("activate"'):source.index("function isDataRequest")]
+        self.assertIn('name.startsWith("msds-")', activate, "다른 사이트의 저장칸까지 지운다")
+        self.assertIn('name.startsWith("msds-") && name.endsWith("-pdf")', self.app_source)
+
+    def test_every_local_script_and_style_is_saved_for_offline(self):
+        """화면이 읽는 js·css 가 서비스워커 목록에 없으면 끊긴 현장에서 화면이 깨진다."""
+        source = (ROOT / "sw.js").read_text(encoding="utf-8")
+        shell = set(re.findall(r'"([^"]+)"', source[source.index("const SHELL_ASSETS"):source.index("const DATA_ASSETS")]))
+        for page in ("index.html", "label.html", "guide.html", "substance.html", "register.html"):
+            html = (ROOT / page).read_text(encoding="utf-8")
+            for asset in re.findall(r'(?:src|href)="((?:js|css|vendor)/[^"?]+)', html):
+                self.assertIn(asset, shell, f"{page} 의 {asset} 가 오프라인 저장 목록에 없다")
+
+    def test_tone_layer_is_the_last_stylesheet_on_every_page(self):
+        """css/tone.css 가 위에서 덮는 층이라 맨 뒤에 와야 한다."""
+        for page in ("index.html", "label.html", "guide.html", "substance.html", "register.html"):
+            html = (ROOT / page).read_text(encoding="utf-8")
+            sheets = re.findall(r'<link rel="stylesheet" href="(css/[^"?]+)', html)
+            self.assertEqual(sheets[-1], "css/tone.css", f"{page} 의 마지막 스타일이 tone.css 가 아니다")
+
+    def test_ghs_and_ppe_signs_are_not_restyled_as_icons(self):
+        """GHS 그림문자와 ISO 7010 표지는 원본 그림 그대로 둔다. 화면 아이콘으로 바꾸지 않는다."""
+        icons = (ROOT / "js" / "ui-icons.js").read_text(encoding="utf-8")
+        names = re.findall(r"^\s{4}(\w+): '", icons, re.M)
+        self.assertTrue(names, "ui-icons.js 의 아이콘 이름을 못 읽었다")
+        self.assertFalse([name for name in names if name.startswith(("ghs", "ppe"))], "표지를 화면 아이콘으로 바꿨다")
+        tone = (ROOT / "css" / "tone.css").read_text(encoding="utf-8")
+        self.assertNotRegex(tone, r"\.ghs-diamond[^{]*\{[^}]*(filter|background)", "그림문자 그림을 칠한다")
+        self.assertNotRegex(tone, r"\.ppe-sign img[^{]*\{[^}]*filter", "보호구 표지 그림을 칠한다")
+
 
 if __name__ == "__main__":
     unittest.main()

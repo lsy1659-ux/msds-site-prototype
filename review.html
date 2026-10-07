@@ -3,8 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
     <title>MSDS PDF 추출 후보 검토</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/tone.css">
   </head>
   <body class="review-page">
     <header class="site-header review-header">
@@ -16,6 +18,11 @@
     </header>
 
     <main class="app-shell review-shell">
+      <div id="reviewSampleBanner" class="review-sample-banner" role="alert" hidden>
+        <strong>샘플 화면입니다. 실제 검토자료가 아닙니다.</strong>
+        <span>공개 주소에서는 연습용 샘플 1건만 보입니다. 실제 PDF 추출 후보 검토는 회사 PC에서 <code>start_msds_review.bat</code> 로 엽니다.</span>
+      </div>
+
       <section class="review-toolbar" aria-label="검토 필터">
         <div class="review-toolbar-top">
           <div>

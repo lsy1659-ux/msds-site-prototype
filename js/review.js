@@ -12,6 +12,8 @@ const reviewState = {
   statusFilter: "all",
   dataMode: "데이터 확인 중",
   dirty: false,
+  // 불러올 때의 검토 상태. 이번에 바꾼 것을 목록과 상세에 표시한다.
+  originalStatus: new Map(),
   pdfAvailability: {},
   pdfModal: {
     isOpen: false,
@@ -28,6 +30,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const data = await loadReviewOverrides();
   reviewState.overrides = data.overrides;
   reviewState.dataMode = data.mode;
+  reviewState.originalStatus = new Map(data.overrides.map((override, index) => [getOverrideKey(override, index), override.reviewStatus]));
+  // 공개 주소에서는 샘플 1건이 실제 검토자료처럼 보였다. 샘플이면 크게 알린다.
+  document.querySelector("#reviewSampleBanner")?.toggleAttribute("hidden", !data.mode.includes("샘플"));
   reviewState.selectedKey = getOverrideKey(reviewState.overrides[0], 0);
   renderReview();
 });
@@ -149,13 +154,22 @@ function normalizeReviewOverride(override) {
 }
 
 function renderReview() {
-  reviewElements.dataMode.textContent = `${reviewState.dataMode}${reviewState.dirty ? " / 수정됨" : ""}`;
+  const changed = countChangedReviews();
+  reviewElements.dataMode.textContent = `${reviewState.dataMode}${changed ? ` / 바꾼 항목 ${changed}건` : ""}`;
   reviewElements.dataMode.classList.toggle("is-local", reviewState.dataMode.includes("로컬"));
   reviewElements.dirtyNotice.classList.toggle("is-hidden", !reviewState.dirty);
   renderCounts();
   renderReviewList();
   renderReviewDetail();
   renderReviewPdfModal();
+}
+
+function getOriginalStatus(override, index) {
+  return reviewState.originalStatus.get(getOverrideKey(override, index)) || override.reviewStatus;
+}
+
+function countChangedReviews() {
+  return reviewState.overrides.filter((override, index) => getOriginalStatus(override, index) !== override.reviewStatus).length;
 }
 
 function renderCounts() {
@@ -195,9 +209,11 @@ function renderReviewList() {
 
   reviewElements.list.innerHTML = filtered.map(({ override, index }) => {
     const key = getOverrideKey(override, index);
+    const changed = getOriginalStatus(override, index) !== override.reviewStatus;
     return `
-      <button class="review-list-item ${key === reviewState.selectedKey ? "is-selected" : ""}" type="button" data-review-key="${escapeAttribute(key)}">
+      <button class="review-list-item ${key === reviewState.selectedKey ? "is-selected" : ""} ${changed ? "is-changed" : ""}" type="button" data-review-key="${escapeAttribute(key)}">
         <span class="review-status ${getStatusClass(override.reviewStatus)}">${escapeHtml(override.reviewStatus)}</span>
+        ${changed ? `<span class="review-changed-mark">이번에 바꿈</span>` : ""}
         <strong class="text-break clamp-2">${escapeHtml(getDisplayTitle(override))}</strong>
         <span class="text-muted-path clamp-2">${escapeHtml(getFileName(override))}</span>
       </button>
@@ -223,6 +239,8 @@ function renderReviewDetail() {
   const { override, index } = selected;
   const pdfInfo = buildReviewPdfInfo(override);
   const conflict = getGhsConflict(override);
+  const originalStatus = getOriginalStatus(override, index);
+  // 넓은 화면에서는 후보 옆에 원문 PDF 를 붙여 두고 대조한다(css/tone.css .review-compare).
   reviewElements.detail.className = "review-detail";
   reviewElements.detail.innerHTML = `
     <section class="review-detail-block">
@@ -240,6 +258,7 @@ function renderReviewDetail() {
         ${quickStatusButton("제외", override.reviewStatus)}
         ${quickStatusButton("검토필요", override.reviewStatus, "검토필요로 되돌리기")}
       </div>
+      ${originalStatus !== override.reviewStatus ? `<p class="review-change-line">상태를 바꿨습니다: <s>${escapeHtml(originalStatus)}</s> → <strong>${escapeHtml(override.reviewStatus)}</strong> (수정 JSON 을 내려받아야 남습니다)</p>` : ""}
       <div class="review-navigation-buttons" aria-label="검토 항목 이동">
         <button class="result-nav-button" type="button" data-review-nav="previous">이전 항목</button>
         <button class="result-nav-button" type="button" data-review-nav="next">다음 항목</button>
@@ -247,6 +266,8 @@ function renderReviewDetail() {
       </div>
     </section>
 
+    <div class="review-compare">
+    <div class="review-compare-fields">
     ${reviewSection("기본 후보", `
       ${conflict ? `<div class="review-conflict-box">${escapeHtml(conflict)}</div>` : ""}
       <div class="info-grid">
@@ -268,7 +289,11 @@ function renderReviewDetail() {
     ${reviewSection("예방조치문구 후보", renderPrecautionCandidates(override.precautionaryStatements))}
     ${reviewSection("PPE 후보", renderSimpleList(override.ppeCandidates))}
     ${reviewSection("성분/CAS 후보", renderIngredientCandidates(override.ingredients))}
+    </div>
+    <div class="review-compare-pdf">
     ${reviewSection("원본 PDF 미리보기", renderReviewPdfPreview(pdfInfo))}
+    </div>
+    </div>
   `;
 
   reviewElements.detail.querySelector("#reviewStatusSelect")?.addEventListener("change", (event) => {

@@ -8012,6 +8012,50 @@ button.full-product-item {
   color: var(--color-muted);
 }
 
+.offline-panel-state {
+  margin: 0 0 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: var(--color-surface-soft);
+  color: var(--color-ink);
+}
+
+.offline-panel-state.is-ok {
+  background: var(--color-reviewed-bg);
+  color: var(--color-reviewed);
+}
+
+.offline-panel-state.is-stale {
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+}
+
+.offline-panel-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 4px 12px;
+  margin: 0 0 10px;
+  font-size: 0.84rem;
+}
+
+.offline-panel-facts div {
+  display: flex;
+  gap: 6px;
+  min-width: 0;
+}
+
+.offline-panel-facts dt {
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.offline-panel-facts dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
 .offline-panel-note {
   margin: 0 0 8px;
   font-size: 0.86rem;

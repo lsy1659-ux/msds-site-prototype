@@ -694,6 +694,49 @@ function bindEvents() {
 
   window.addEventListener("scroll", scheduleScrollProgressUpdate, { passive: true });
   window.addEventListener("resize", scheduleScrollProgressUpdate, { passive: true });
+  window.addEventListener("resize", schedulePdfRefit, { passive: true });
+  // 접어 둔 예방조치·응급조치 문장도 종이에는 모두 나가야 한다.
+  // 닫힌 details 속은 CSS 로 꺼낼 수 없어서 인쇄하는 동안만 펼친다.
+  window.addEventListener("beforeprint", () => {
+    document.querySelectorAll(".poster-board details:not([open]), .detail-panel details:not([open])").forEach((item) => {
+      item.dataset.printOpened = "true";
+      item.open = true;
+    });
+  });
+  window.addEventListener("afterprint", () => {
+    document.querySelectorAll("details[data-print-opened]").forEach((item) => {
+      item.open = false;
+      delete item.dataset.printOpened;
+    });
+  });
+  window.addEventListener("orientationchange", schedulePdfRefit, { passive: true });
+}
+
+/* 폰을 돌리거나 창 폭을 바꾸면 PDF 가 처음 폭에 머물러 작게 남았다.
+ * 폭맞춤 상태일 때만 지금 폭으로 다시 그린다. 직접 확대한 배율은 지킨다. */
+let pdfRefitTimer = 0;
+function schedulePdfRefit() {
+  window.clearTimeout(pdfRefitTimer);
+  pdfRefitTimer = window.setTimeout(refitPdfViewers, 220);
+}
+
+function refitPdfViewers() {
+  document.querySelectorAll("[data-pdfjs-preview-mount]").forEach((mount) => {
+    const viewer = getPdfViewerStateForMount(mount);
+    if (!viewer.document || !viewer.fitToWidth || viewer.status !== "rendered") return;
+    const renderedWidth = Number(mount.dataset.fitWidth || 0);
+    if (renderedWidth && Math.abs(mount.clientWidth - renderedWidth) < 8) return;
+    renderAllPdfPages(mount, capturePdfScrollPosition(mount, viewer));
+  });
+}
+
+function bringSummaryIntoView() {
+  const target = document.querySelector("#safety-summary-section");
+  if (!target) return;
+  const top = target.getBoundingClientRect().top;
+  // 이미 화면 위쪽에 보이면 움직이지 않는다.
+  if (top >= 0 && top < window.innerHeight * 0.4) return;
+  window.requestAnimationFrame(() => target.scrollIntoView({ behavior: "smooth", block: "start" }));
 }
 
 function resetResultWindow() {
@@ -2207,6 +2250,8 @@ function render() {
   const selected = getSelectedProduct(selectedPool);
 
   elements.emptySearchGuide.classList.toggle("is-hidden", !state.searchFiltersOpen);
+  // 제품을 골랐으면 빠른 분류·보기 옵션을 접어 검색 칸을 짧게 둔다.
+  document.querySelector("#search-section")?.classList.toggle("has-selection", Boolean(selected));
   elements.toggleSearchFilters?.setAttribute("aria-expanded", String(state.searchFiltersOpen));
   if (elements.toggleSearchFilters) {
     elements.toggleSearchFilters.textContent = state.searchFiltersOpen ? "빠른 검색 닫기" : "빠른 검색 열기";
@@ -2244,7 +2289,7 @@ function render() {
   elements.scrollQuickNav?.classList.toggle("is-hidden", !shouldShowQuickNav);
   scheduleScrollProgressUpdate();
   document.body.classList.toggle("is-pdf-full-view-open", state.pdfFullView.isOpen);
-  syncLabelTabLink(selected);
+  syncHandoffTabLinks(selected);
   liftPdfFullViewToBody();
   hydrateRequestedPdfPreview();
 }
@@ -2380,8 +2425,11 @@ function renderSelectionList(results, hasQuery, canShowCandidates) {
       if (state.selectedId !== button.dataset.productId) resetPdfPreviewState();
       state.selectedId = button.dataset.productId;
       updateProductUrl(state.selectedId);
-      state.selectionCollapsed = window.matchMedia("(max-width: 767px)").matches;
+      // 고르면 후보 목록을 접고 요약판(제품명·그림문자·보호구)으로 데려간다.
+      // 다른 제품은 "다른 제품 선택"으로 다시 펼친다. 검색 결과는 그대로 남는다.
+      state.selectionCollapsed = true;
       render();
+      bringSummaryIntoView();
     });
   });
 
@@ -2547,7 +2595,6 @@ function renderPoster(product) {
     elements.posterPanel.className = "poster-board";
     elements.posterPanel.innerHTML = `
       <div class="selection-placeholder" role="status">
-        <span class="selection-placeholder-icon" aria-hidden="true">⌕</span>
         <div>
           <strong>${state.dataLoadError ? "MSDS 자료를 불러오지 못했습니다." : "제품을 먼저 검색하고 선택하세요."}</strong>
           <p>${state.dataLoadError ? escapeHtml(state.dataLoadError) : "제품명·제품코드·CAS No.를 확인한 뒤 정확한 제품을 선택해야 안전정보가 표시됩니다."}</p>
@@ -2559,6 +2606,9 @@ function renderPoster(product) {
 
   const posterData = getPosterData(product);
   const pdfInfo = buildPdfInfo(product);
+  // 현장에서 먼저 볼 것은 그림문자와 보호구다. 긴 예방조치 문구 뒤에 두면
+  // 폰에서 한참 내려가야 보였다. 아래 바닥글의 원문 확인 안내는 위쪽 띠에
+  // 이미 있어 화면에서는 감추고 인쇄할 때만 싣는다(poster-footer-notice).
   elements.posterPanel.className = `poster-board ${posterData.statusClass}`;
   elements.posterPanel.innerHTML = `
     ${posterData.showReviewStrip ? `
@@ -2572,7 +2622,7 @@ function renderPoster(product) {
         <h2 title="${escapeAttribute(product.productName)}">${escapeHtml(product.productName)}</h2>
         ${product.fileName ? `<p title="${escapeAttribute(product.fileName)}">${escapeHtml(product.fileName)}</p>` : ""}
       </div>
-      <span class="hazard-badge">${escapeHtml(posterData.signalBadge)}</span>
+      <span class="hazard-badge ${getSignalBadgeClass(posterData.signalBadge)}">${escapeHtml(posterData.signalBadge)}</span>
       ${renderFavoriteToggle(product)}
     </div>
     <div class="poster-ghs-row">
@@ -2588,16 +2638,23 @@ function renderPoster(product) {
         </div>
       </section>
     ` : `
+      ${posterData.ppe.items.length || posterData.ppe.unspecified ? posterSection(posterData.ppeTitle, renderPpeCards(posterData.ppe), "poster-ppe-candidates") : ""}
       ${posterSection(posterData.hazardTitle, renderSafetyStatementList(posterData.hazardStatements, "H", false), "poster-hazard-statements")}
       ${posterSection(posterData.precautionTitle, renderPrecautionCards(posterData.precautionaryStatements, false), "poster-precaution-statements")}
-      ${posterData.ppeCandidates.length ? posterSection(posterData.ppeTitle, renderPpeCards(posterData.ppeCandidates), "poster-ppe-candidates") : ""}
     `}
     <footer class="poster-footer">
-      ${posterData.footerNotice.map((notice) => `<p>${escapeHtml(notice)}</p>`).join("")}
+      ${posterData.footerNotice.map((notice) => `<p class="poster-footer-notice">${escapeHtml(notice)}</p>`).join("")}
       <p>공급자 정보: ${escapeHtml(getDisplaySupplierName(product))}</p>
       ${posterData.showSourcePdfPath && posterData.sourcePdfPath ? `<p>PDF 출처: ${escapeHtml(posterData.sourcePdfPath)}</p>` : ""}
     </footer>
   `;
+}
+
+// 신호어 배지 색. "위험"은 빨강, "경고"는 주황, 나머지(해당없음·원본 확인)는 무채색.
+function getSignalBadgeClass(signal = "") {
+  if (signal === "위험") return "is-danger";
+  if (signal === "경고") return "is-warning";
+  return "is-neutral";
 }
 
 function getPosterData(product) {
@@ -2612,7 +2669,7 @@ function getPosterData(product) {
       ghsPictograms: [],
       hazardStatements: [],
       precautionaryStatements: {},
-      ppeCandidates: [],
+      ppe: { items: [], unspecified: false },
       ppeTitle: "개인보호구(PPE)",
       hazardTitle: "유해·위험 문구",
       precautionTitle: "예방조치 문구",
@@ -2638,7 +2695,7 @@ function getPosterData(product) {
       ghsPictograms,
       hazardStatements: override.hazardStatements || [],
       precautionaryStatements: override.precautionaryStatements || {},
-      ppeCandidates: limitList(buildPpeDisplayItems(override.ppeCandidates, product.ppeSummary), 6),
+      ppe: buildPpeDisplayItems(override.ppeCandidates, product.ppeSummary, override.precautionaryStatements),
       ppeTitle: "개인보호구(PPE)",
       hazardTitle: "유해 위험 문구",
       precautionTitle: "예방조치 문구",
@@ -2665,7 +2722,7 @@ function getPosterData(product) {
     ghsPictograms: normalizeGhsList(product),
     hazardStatements: product.hazardStatements || [],
     precautionaryStatements: product.precautionaryStatements || {},
-    ppeCandidates: buildPpeDisplayItems([], product.ppeSummary),
+    ppe: buildPpeDisplayItems([], product.ppeSummary, product.precautionaryStatements),
     ppeTitle: "개인보호구(PPE)",
     hazardTitle: "유해 위험 문구",
     precautionTitle: "예방조치 문구",
@@ -2817,35 +2874,7 @@ function renderDetail(product) {
 
     ${shouldRenderExtractionStatusSection(override) ? detailSection("MSDS 요약 확인 상태", renderOverrideDetail(override)) : ""}
 
-    ${summaryAvailable ? detailSection("성분정보", `
-      <div class="component-table-wrap">
-        <table class="component-table">
-          <caption>자동 추출된 구성성분 참고정보</caption>
-          <thead>
-            <tr>
-              <th scope="col">화학물질명</th>
-              <th scope="col">CAS No.</th>
-              <th scope="col">함유량(%)</th>
-              <th scope="col">관리대상</th>
-              <th scope="col">작업환경측정</th>
-              <th scope="col">특수건강진단</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${(product.components || []).length ? (product.components || []).map((component) => `
-              <tr>
-                <td>${escapeHtml(component.chemicalName || "미확인")}</td>
-                <td>${escapeHtml(component.casNo || "미확인")}</td>
-                <td>${escapeHtml(component.content || "미확인")}</td>
-                <td>${escapeHtml(component.controlledSubstance || "미확인")}</td>
-                <td>${escapeHtml(component.workEnvironmentMeasurement || "미확인")}</td>
-                <td>${escapeHtml(component.specialHealthExam || "미확인")}</td>
-              </tr>
-            `).join("") : `<tr><td colspan="6">자동 추출된 구성성분 정보가 없습니다. 원본 PDF를 확인하세요.</td></tr>`}
-          </tbody>
-        </table>
-      </div>
-    `, "detail-block-components") : detailSection("성분정보", renderPdfOnlySummaryNotice(pdfInfo), "detail-block-components")}
+    ${summaryAvailable ? detailSection("성분정보", renderComponentTable(product.components || []), "detail-block-components") : detailSection("성분정보", renderPdfOnlySummaryNotice(pdfInfo), "detail-block-components")}
 
     ${summaryAvailable ? detailSection("작업자 주의 포인트", `
       ${renderWorkerCautionPoints(workerCautions)}
@@ -2866,6 +2895,69 @@ function renderDetail(product) {
   `;
 }
 
+/* 성분표. PC 는 표, 폰은 성분마다 세로 카드로 보인다(td 의 data-label).
+ * 관리대상·작업환경측정·특수건강진단은 이 제품의 모든 행이 빈칸이면 칸을
+ * 통째로 뺀다. 빈칸 세 개가 줄마다 "미확인"으로 반복돼 읽기 어려웠다.
+ * 빈칸은 원문에 표시가 없다는 뜻이라 "-" 로 두고, 해당 여부는 원문을 보게 한다. */
+const COMPONENT_FLAG_COLUMNS = [
+  { key: "controlledSubstance", label: "관리대상" },
+  { key: "workEnvironmentMeasurement", label: "작업환경측정" },
+  { key: "specialHealthExam", label: "특수건강진단" }
+];
+
+function renderComponentTable(components = []) {
+  if (!components.length) {
+    return `<p class="component-empty">자동 추출된 구성성분 정보가 없습니다. 원본 PDF를 확인하세요.</p>`;
+  }
+  const filled = (value) => String(value || "").trim();
+  // 이름도 함유량도 표시도 없는 줄("CAS 없음 · CAS 미기재 · -")은 읽을 것이 없어 뺀다.
+  const isPlaceholderRow = (component) => {
+    const name = filled(component.chemicalName);
+    const content = filled(component.content);
+    const placeholderName = !name || name === "미확인" || name === "-" || /^CAS\s*(없음|미기재)$/.test(name);
+    return placeholderName && (!content || content === "-")
+      && COMPONENT_FLAG_COLUMNS.every((column) => !filled(component[column.key]));
+  };
+  const rows = components.filter((component) => !isPlaceholderRow(component));
+  const droppedCount = components.length - rows.length;
+  if (!rows.length) {
+    return `<p class="component-empty">성분명이 확인된 구성성분이 없습니다. 원본 PDF 3항을 확인하세요.</p>`;
+  }
+  const flagColumns = COMPONENT_FLAG_COLUMNS.filter((column) => rows.some((component) => filled(component[column.key])));
+  const hiddenLabels = COMPONENT_FLAG_COLUMNS.filter((column) => !flagColumns.includes(column)).map((column) => column.label);
+  const cell = (label, value, fallback = "-") => `<td data-label="${escapeAttribute(label)}">${escapeHtml(filled(value) || fallback)}</td>`;
+  return `
+    <div class="component-table-wrap">
+      <table class="component-table">
+        <caption>자동 추출된 구성성분 참고정보</caption>
+        <thead>
+          <tr>
+            <th scope="col">화학물질명</th>
+            <th scope="col">CAS No.</th>
+            <th scope="col">함유량(%)</th>
+            ${flagColumns.map((column) => `<th scope="col">${escapeHtml(column.label)}</th>`).join("")}
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.map((component) => `
+            <tr>
+              <th scope="row" data-label="화학물질명">${escapeHtml(filled(component.chemicalName) || "미확인")}</th>
+              ${cell("CAS No.", component.casNo, "미확인")}
+              ${cell("함유량(%)", component.content, "미확인")}
+              ${flagColumns.map((column) => cell(column.label, component[column.key])).join("")}
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+    <p class="component-legend">
+      ${flagColumns.length ? "○ 해당 · - 원문 표시 없음. " : ""}${hiddenLabels.length ? `${escapeHtml(hiddenLabels.join("·"))} 표시는 이 자료에 없습니다. ` : ""}${droppedCount ? `내용이 없는 줄 ${droppedCount}개는 뺐습니다. ` : ""}법적 해당 여부는 원문 15항(법적 규제현황)을 확인하세요.
+    </p>
+  `;
+}
+
+// 화면 요약은 짧게 보고, 종이로 붙일 것은 정해진 규격 화면(경고표지·관리요령)에서
+// 만들게 한다. 그래서 선택 제품 띠에 그 두 화면으로 가는 길을 둔다.
 function renderSelectedProductBar(product, detailData, pdfInfo, summaryAvailable) {
   const phone = String(product.emergencyContact || "").match(/(?:\+?82[-\s]?)?0\d{1,2}[-\s]\d{3,4}[-\s]\d{4}/)?.[0] || "";
   const telHref = phone ? phone.replace(/[^+\d]/g, "") : "";
@@ -2881,6 +2973,11 @@ function renderSelectedProductBar(product, detailData, pdfInfo, summaryAvailable
         ${telHref ? `<button type="button" class="emergency-copy-button" data-copy-tel="${escapeAttribute(telHref)}">번호 복사</button>` : ""}
         ${renderOriginalPdfButton(pdfInfo, "compact")}
         ${renderPdfPreviewButton(pdfInfo, "compact")}
+      </div>
+      <div class="selected-product-bar-print">
+        <span>인쇄용</span>
+        <a href="label.html?product=${encodeURIComponent(product.id)}">경고표지 만들기</a>
+        <a href="guide.html?product=${encodeURIComponent(product.id)}">관리요령(A4) 만들기</a>
       </div>
     </section>
   `;
@@ -2929,7 +3026,10 @@ function getDetailData(product) {
   const precautionaryStatements = hasPrecautionSummary(override?.precautionaryStatements)
     ? override.precautionaryStatements
     : (product.precautionaryStatements || {});
-  const ppeCandidates = override?.ppeCandidates?.length ? override.ppeCandidates : [];
+  // 원문 항목 제목 조각("○ 착용할 보호구 :")은 내용이 아니라서 뺀다.
+  const ppeCandidates = (override?.ppeCandidates || [])
+    .map((text) => (window.MsdsPpe ? window.MsdsPpe.cleanCandidate(text) : text))
+    .filter(Boolean);
   const overrideProductName = product.isPdfAbsorbed
     ? cleanPdfProductName(override?.productNameCandidate)
     : override?.productNameCandidate;
@@ -3053,13 +3153,7 @@ function renderWorkerCautionPoints(cautionData) {
   }
   return `
     <div class="worker-caution-premium">
-      <header class="worker-caution-header">
-        <span class="worker-caution-header-icon" aria-hidden="true">${workerCautionIconSvg("shield")}</span>
-        <div>
-          <h4>작업자 주의 포인트</h4>
-          <p>MSDS에서 자동 추출한 키워드 기반 참고사항이며 PDF 원문이 우선입니다.</p>
-        </div>
-      </header>
+      <p class="worker-caution-note">MSDS 낱말로 자동으로 고른 참고사항입니다. 제품별 공식 지시를 대체하지 않으며 PDF 원문이 우선입니다.</p>
       <div class="worker-caution-card-grid">
         ${cards.map((card) => `
           <article class="worker-caution-card is-${escapeAttribute(card.key)}">
@@ -3070,17 +3164,8 @@ function renderWorkerCautionPoints(cautionData) {
             <ul class="worker-caution-list">
               ${card.items.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}
             </ul>
-            <span class="worker-caution-card-watermark" aria-hidden="true">${workerCautionIconSvg("shield")}</span>
           </article>
         `).join("")}
-      </div>
-      <div class="worker-caution-banner">
-        <span class="worker-caution-banner-icon" aria-hidden="true">${workerCautionIconSvg("info")}</span>
-        <p>
-          <strong>MSDS와 성분정보 기준의 현장 참고 안내입니다.</strong>
-          <span>제품별 공식 지시를 대체하지 않으므로 MSDS 원문과 관련 법규를 반드시 확인하세요.</span>
-        </p>
-        <span class="worker-caution-banner-art" aria-hidden="true">${workerCautionIconSvg("clipboard")}</span>
       </div>
     </div>
   `;
@@ -3325,6 +3410,10 @@ function renderPdfPreview(pdfInfo) {
     `;
   }
 
+  // "원본 PDF 열기"는 전체화면 미리보기와 같은 창을 열어 단추 둘이 같은 일을
+  // 했다. 여기서는 "이 자리에서 보기"와 "크게 보기" 두 가지만 두고, 이 자리에
+  // 이미 펼쳐 둔 뒤에는 미리보기 단추를 감춘다.
+  const inlineOpen = state.pdfPreview.path === pdfInfo.encodedPath && state.pdfPreview.status !== "idle";
   return `
     <div class="pdf-preview is-connected pdf-confirm-panel">
       <div class="pdf-confirm-alert">
@@ -3339,8 +3428,7 @@ function renderPdfPreview(pdfInfo) {
         ${renderPdfPreviewBody(pdfInfo)}
       </div>
       <div class="pdf-actions">
-        ${renderOriginalPdfButton(pdfInfo)}
-        ${renderPdfPreviewButton(pdfInfo)}
+        ${inlineOpen ? "" : renderPdfPreviewButton(pdfInfo)}
         <button class="pdf-preview-button is-secondary" type="button" data-pdf-full-view data-pdf-title="${escapeAttribute(pdfInfo.title)}" data-pdf-path="${escapeAttribute(pdfInfo.encodedPath)}"><span class="pdf-button-icon">${pdfPanelIconSvg("expand")}</span>전체화면 미리보기</button>
       </div>
       ${state.pdfFullView.isOpen && state.pdfFullView.path === pdfInfo.encodedPath ? renderPdfFullView(pdfInfo) : ""}
@@ -3352,13 +3440,10 @@ function renderPdfPreview(pdfInfo) {
 // 중인지 멈춘 건지 알 수 없어서, 종이 모양 뼈대를 어른거리게 둔다.
 // 복사가 막힌 환경(보안 설정, 구형 브라우저)도 있으므로 실패하면
 // 예전 방식으로 한 번 더 시도하고, 그것도 안 되면 그렇게 알린다.
-// 제품을 보다가 경고표지 탭을 누르면 그 제품이 이미 골라진 채로 열리게
-// 한다. 목록은 그대로 두므로 다른 제품을 더 고를 수도 있다.
-function syncLabelTabLink(selected) {
-  const suffix = selected?.id ? `?product=${encodeURIComponent(selected.id)}` : "";
-  document.querySelectorAll('.top-bar-tab[href^="label.html"]').forEach((tab) => {
-    tab.setAttribute("href", "label.html" + suffix);
-  });
+// 제품을 보다가 경고표지·관리요령 탭을 누르면 그 제품이 이미 골라진 채로
+// 열리게 한다(js/handoff.js).
+function syncHandoffTabLinks(selected) {
+  window.MsdsHandoff?.carry(selected?.id ? [selected.id] : []);
 }
 
 async function copyTextToClipboard(text, button) {
@@ -3629,7 +3714,11 @@ function renderPdfViewerShell(mount) {
         <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="prev-page" aria-label="이전 페이지">
           <span class="pdf-control-full">이전</span><span class="pdf-control-compact" aria-hidden="true">‹</span>
         </button>
-        <span class="pdf-page-status" data-pdf-page-status>0 / ${viewer.totalPages || 1}쪽</span>
+        <label class="pdf-page-status">
+          <span class="visually-hidden">이동할 쪽 번호</span>
+          <input class="pdf-page-input" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" data-pdf-page-input value="1" aria-label="이동할 쪽 번호 (전체 ${viewer.totalPages || 1}쪽)">
+          <span data-pdf-page-total>/ ${viewer.totalPages || 1}쪽</span>
+        </label>
         <button class="pdf-viewer-button" type="button" data-pdf-viewer-action="next-page" aria-label="다음 페이지">
           <span class="pdf-control-full">다음</span><span class="pdf-control-compact" aria-hidden="true">›</span>
         </button>
@@ -3649,6 +3738,11 @@ function renderPdfViewerShell(mount) {
           <span class="pdf-control-full">화면 맞춤</span><span class="pdf-control-compact" aria-hidden="true">맞춤</span>
         </button>
       </div>
+      <form class="pdf-viewer-group is-search" data-pdf-search-form role="search" aria-label="PDF 원문에서 찾기">
+        <input class="pdf-search-input" type="search" data-pdf-search-input placeholder="원문에서 찾기 (예: 15. 법적)" aria-label="PDF 원문에서 찾을 말" autocomplete="off">
+        <button class="pdf-viewer-button" type="submit">찾기</button>
+        <span class="pdf-search-status" data-pdf-search-status role="status" aria-live="polite"></span>
+      </form>
     </div>
     <div class="pdf-js-page-stage" data-pdf-page-stage>
       ${pdfLoadingPlaceholder("PDF 페이지를 불러오는 중입니다.")}
@@ -3656,6 +3750,24 @@ function renderPdfViewerShell(mount) {
   `;
   if (!mount.dataset.viewerScrollBound) {
     mount.addEventListener("scroll", () => updatePdfViewerControls(mount), { passive: true });
+    // 쪽 번호를 직접 넣고 Enter(또는 칸을 벗어나면) 그 쪽으로 간다. 26쪽 PDF 에서
+    // 15항(법적 규제)을 보려고 "다음"을 열네 번 누르지 않게 한다.
+    mount.addEventListener("change", (event) => {
+      const input = event.target.closest?.("[data-pdf-page-input]");
+      if (input) goToPdfPage(mount, input.value);
+    });
+    mount.addEventListener("keydown", (event) => {
+      const input = event.target.closest?.("[data-pdf-page-input]");
+      if (!input || event.key !== "Enter") return;
+      event.preventDefault();
+      input.blur();
+    });
+    mount.addEventListener("submit", (event) => {
+      const form = event.target.closest?.("[data-pdf-search-form]");
+      if (!form) return;
+      event.preventDefault();
+      searchPdfText(mount, form.querySelector("[data-pdf-search-input]")?.value || "");
+    });
     mount.dataset.viewerScrollBound = "true";
   }
   updatePdfViewerControls(mount);
@@ -3665,13 +3777,16 @@ function updatePdfViewerControls(mount) {
   const viewer = getPdfViewerStateForMount(mount);
   const { renderedPages, totalPages, status } = viewer;
   const isBusy = status === "rendering";
-  const pageStatus = mount.querySelector("[data-pdf-page-status]");
+  const pageInput = mount.querySelector("[data-pdf-page-input]");
+  const pageTotal = mount.querySelector("[data-pdf-page-total]");
   const currentPosition = status === "rendered" && !viewer.suppressPageTracking
     ? capturePdfScrollPosition(mount, viewer)
     : { page: viewer.currentPage || renderedPages || 0 };
   const currentPage = Math.max(0, currentPosition.page || 0);
   if (currentPage > 0) viewer.currentPage = currentPage;
-  if (pageStatus) pageStatus.textContent = `${currentPage || renderedPages || 0} / ${totalPages || 1}쪽`;
+  if (pageInput && document.activeElement !== pageInput) pageInput.value = String(currentPage || renderedPages || 1);
+  if (pageInput) pageInput.disabled = isBusy;
+  if (pageTotal) pageTotal.textContent = `/ ${totalPages || 1}쪽`;
 
   const firstButton = mount.querySelector('[data-pdf-viewer-action="first-page"]');
   const prevButton = mount.querySelector('[data-pdf-viewer-action="prev-page"]');
@@ -3690,6 +3805,65 @@ function updatePdfViewerControls(mount) {
   if (zoomInButton) zoomInButton.disabled = isBusy || viewer.scale >= 2.8;
   if (fitButton) fitButton.disabled = isBusy || (viewer.fitToWidth && viewer.fitRatio === 1);
   if (zoomStatus) zoomStatus.textContent = `${Math.round((viewer.scale || 1) * 100)}%`;
+}
+
+/* 원문에서 찾기. 쪽마다 글자를 뽑아 그 말이 든 쪽으로 옮겨 간다. 같은 말로
+ * 다시 찾으면 다음 쪽으로 간다. 한글 PDF 는 띄어쓰기가 깨진 것이 많아
+ * 빈칸을 빼고 맞춘다. 쪽 안의 위치까지 칠하지는 않는다. */
+async function searchPdfText(mount, rawQuery) {
+  const viewer = getPdfViewerStateForMount(mount);
+  const status = mount.querySelector("[data-pdf-search-status]");
+  const say = (text) => { if (status) status.textContent = text; };
+  const needle = String(rawQuery || "").toLowerCase().replace(/\s+/g, "");
+  if (!viewer.document) return;
+  if (!needle) {
+    viewer.search = null;
+    say("");
+    return;
+  }
+
+  if (!viewer.pageTexts) {
+    say("원문 글자를 읽는 중…");
+    try {
+      viewer.pageTexts = await Promise.all(Array.from({ length: viewer.totalPages || 0 }, async (_, index) => {
+        const page = await viewer.document.getPage(index + 1);
+        const content = await page.getTextContent();
+        return content.items.map((item) => item.str || "").join("").toLowerCase().replace(/\s+/g, "");
+      }));
+    } catch (error) {
+      viewer.pageTexts = null;
+      say("이 PDF 는 글자를 읽을 수 없습니다(스캔본).");
+      return;
+    }
+  }
+
+  if (viewer.search?.needle !== needle) {
+    const hits = viewer.pageTexts.map((text, index) => (text.includes(needle) ? index + 1 : 0)).filter(Boolean);
+    viewer.search = { needle, hits, at: -1 };
+  }
+  const { hits } = viewer.search;
+  if (!hits.length) {
+    say(viewer.pageTexts.every((text) => !text) ? "글자가 없는 PDF(스캔본)라 찾을 수 없습니다." : "찾는 말이 없습니다.");
+    return;
+  }
+  viewer.search.at = (viewer.search.at + 1) % hits.length;
+  const page = hits[viewer.search.at];
+  say(`${page}쪽 · ${viewer.search.at + 1}/${hits.length}곳`);
+  viewer.currentPage = page;
+  await renderAllPdfPages(mount, { page, offsetRatio: 0 });
+}
+
+async function goToPdfPage(mount, value) {
+  const viewer = getPdfViewerStateForMount(mount);
+  if (!viewer.document) return;
+  const wanted = Math.round(Number(String(value || "").replace(/[^0-9]/g, "")));
+  if (!wanted) {
+    updatePdfViewerControls(mount);
+    return;
+  }
+  const page = Math.min(viewer.totalPages || 1, Math.max(1, wanted));
+  viewer.currentPage = page;
+  await renderAllPdfPages(mount, { page, offsetRatio: 0 });
 }
 
 async function handlePdfViewerAction(action, mount = null) {
@@ -3757,6 +3931,8 @@ async function renderAllPdfPages(mount, restorePosition = null) {
     preview.renderedPages = 1;
     preview.currentPage = pageNumber;
     stage.replaceChildren(...Array.from(nextStage.childNodes));
+    // 그린 뒤의 폭을 적는다. 그리면서 세로 막대가 생기면 폭이 줄어든다.
+    mount.dataset.fitWidth = String(mount.clientWidth || 0);
     preview.status = "rendered";
     if (pendingRestore) {
       scrollPdfPageIntoView(mount, pageNumber, pendingRestore.offsetRatio);
@@ -3799,7 +3975,9 @@ async function renderPdfPageIntoStage(stage, pageNumber, renderToken, mountOverr
   const pageLabel = document.createElement("div");
   const context = canvas.getContext("2d");
 
-  if (preview.fitToWidth && pageNumber === 1) preview.scale = scale;
+  // 폭맞춤은 어느 쪽을 보든 지금 배율을 알려 준다. 첫 쪽에서만 적으면
+  // 3쪽에서 폭맞춤을 누른 뒤 확대·축소가 옛 배율에서 시작했다.
+  if (preview.fitToWidth) preview.scale = scale;
   pageWrap.className = "pdf-js-page";
   pageWrap.dataset.pdfPageNumber = String(pageNumber);
   pageLabel.className = "pdf-js-page-label";
@@ -3888,7 +4066,7 @@ function nextFrame() {
 function posterSection(title, content, className) {
   return `
     <section class="poster-block ${escapeAttribute(className)}">
-      <h3><span aria-hidden="true">■</span> ${escapeHtml(title)}</h3>
+      <h3>${escapeHtml(title)}</h3>
       ${content}
     </section>
   `;
@@ -3990,16 +4168,20 @@ function renderPrecautionCards(precautions, isCandidate = false) {
     if (!items.length) return "";
     const visibleItems = items.slice(0, 5);
     const hiddenItems = items.slice(5);
+    // 처음에는 예방만 펼친다(PC 는 대응까지). 폰에서 네 묶음을 다 펼치면 이 칸만
+    // 2,000px 가까이 됐다. 문구는 그대로 두고 제목을 누르면 펼친다. 사고 때 할 일은
+    // 상세의 응급조치 칸에 따로 있다.
+    const openByDefault = key === "prevention" || (key === "response" && !isNarrowScreen());
     return `
-      <article class="precaution-card ${isCandidate ? "is-candidate" : ""}">
-        <div class="precaution-card-head">
+      <details class="precaution-card is-${escapeAttribute(key)} ${isCandidate ? "is-candidate" : ""}"${openByDefault ? " open" : ""}>
+        <summary class="precaution-card-head">
           <span class="precaution-mark" aria-hidden="true"></span>
-          <div class="precaution-summary-text">
+          <span class="precaution-summary-text">
             <strong>${escapeHtml(label)}</strong>
             <span class="precaution-description">${escapeHtml(getPrecautionDescription(key))}</span>
-          </div>
+          </span>
           <span class="precaution-count">${items.length}개</span>
-        </div>
+        </summary>
         <div class="precaution-card-body">
           ${visibleItems.map(renderSafetyStatementItem).join("")}
           ${hiddenItems.length ? `
@@ -4014,11 +4196,15 @@ function renderPrecautionCards(precautions, isCandidate = false) {
             </details>
           ` : ""}
         </div>
-      </article>
+      </details>
     `;
   }).join("");
 
   return groups ? `<div class="precaution-card-list">${groups}</div>` : `<p class="empty-text">원본 MSDS 예방조치 항목을 확인하세요.</p>`;
+}
+
+function isNarrowScreen() {
+  return Boolean(window.matchMedia?.("(max-width: 767px)")?.matches);
 }
 
 function groupPrecautionStatements(precautions = {}) {
@@ -4123,83 +4309,34 @@ function getPrecautionDescription(key) {
   }[key] || "원본 MSDS 기준 조치사항";
 }
 
-function buildPpeDisplayItems(candidates = [], summary = "") {
-  const values = [...normalizeDisplayItems(candidates)];
-  const source = normalizeSearchText([summary, values.join(" ")].join(" "));
-  const add = (label, keywords) => {
-    if (keywords.some((keyword) => source.includes(normalizeSearchText(keyword))) && !values.some((value) => normalizeSearchText(value).includes(normalizeSearchText(label)))) {
-      values.push(label);
-    }
-  };
-  add("보안경", ["보안경", "고글", "눈 보호", "goggle", "safetyglasses"]);
-  add("보호장갑", ["보호장갑", "장갑", "glove"]);
-  add("방독마스크", ["방독마스크", "호흡보호구", "마스크", "respir", "mask"]);
-  add("보호복", ["보호복", "보호의", "앞치마", "apron", "protectiveclothing"]);
-  add("안전화", ["안전화", "안전장화", "boots", "safetyshoes"]);
-  // 서로 다른 원문 문장이 같은 보호구로 해석되면 카드에는 한 번만 표시한다.
-  return [...new Set(values.map((value) => getPpeLabel(value)))].slice(0, 6);
+/* 보호구 판별은 js/ppe-rules.js 의 공통 규칙을 쓴다. 관리요령과 같은 결과가 나온다.
+ * 종류를 못 읽은 문장에는 그림을 붙이지 않는다. 원문에 없는 보호구를 그리게 된다. */
+function buildPpeDisplayItems(candidates = [], summary = "", precautions = null) {
+  const prevention = (precautions?.prevention || []).filter((text) => String(text || "").includes("착용"));
+  const sources = [summary, ...(candidates || []), ...prevention];
+  const items = window.MsdsPpe ? window.MsdsPpe.detect(sources) : [];
+  const unspecified = !items.length && Boolean(window.MsdsPpe?.hasUnspecifiedMention(sources));
+  return { items, unspecified };
 }
 
-function renderPpeCards(items = []) {
-  const displayItems = buildPpeDisplayItems(items);
-  if (!displayItems.length) return `<p class="empty-text">등록된 보호구 정보가 없습니다.</p>`;
+function renderPpeCards(ppe = { items: [], unspecified: false }) {
+  const items = ppe.items || [];
+  if (!items.length) {
+    return ppe.unspecified
+      ? `<p class="ppe-unspecified">원문에 보호구 종류가 적혀 있지 않습니다. MSDS 8항(노출방지 및 개인보호구)을 확인하세요.</p>`
+      : `<p class="empty-text">등록된 보호구 정보가 없습니다.</p>`;
+  }
   return `
     <div class="ppe-card-grid">
-      ${displayItems.map((item) => `
+      ${items.map((item) => `
         <div class="ppe-card">
-          ${renderPpeSign(item)}
-          <span class="ppe-name">${escapeHtml(getPpeLabel(item))}</span>
-          <span class="ppe-purpose">${escapeHtml(getPpePurpose(item))}</span>
+          <span class="ppe-sign" aria-hidden="true"><img src="${escapeAttribute(item.file)}" alt="" loading="lazy" decoding="async"></span>
+          <span class="ppe-name">${escapeHtml(item.label)}</span>
+          <span class="ppe-purpose">${escapeHtml(item.purpose)}</span>
         </div>
       `).join("")}
     </div>
   `;
-}
-
-function renderPpeSign(value = "") {
-  const type = getPpeType(value);
-  // ISO 7010 지시표지 원본을 그대로 쓴다. 파란 원까지 그림 안에 들어
-  // 있으므로 화면에서 따로 원을 그리지 않는다.
-  const labels = {
-    goggles: "보안경 착용(M004)",
-    gloves: "보호장갑 착용(M009)",
-    mask: "호흡보호구 착용(M017)",
-    suit: "보호복 착용(M010)",
-    boots: "안전화 착용(M008)"
-  };
-  const file = labels[type] ? type : "suit";
-  return `<span class="ppe-sign" aria-hidden="true"><img src="assets/ppe/${file}.svg" alt="" loading="lazy" decoding="async"></span>`;
-}
-
-function getPpeType(value = "") {
-  const label = getPpeLabel(value);
-  if (label === "보안경") return "goggles";
-  if (label === "보호장갑") return "gloves";
-  if (label === "방독마스크") return "mask";
-  if (label === "보호복") return "suit";
-  if (label === "안전화") return "boots";
-  return "suit";
-}
-
-function getPpeLabel(value = "") {
-  const text = normalizeSearchText(value);
-  if (["보안경", "고글", "눈"].some((keyword) => text.includes(normalizeSearchText(keyword)))) return "보안경";
-  if (["장갑"].some((keyword) => text.includes(normalizeSearchText(keyword)))) return "보호장갑";
-  if (["마스크", "호흡", "방독"].some((keyword) => text.includes(normalizeSearchText(keyword)))) return "방독마스크";
-  if (["보호복", "보호의", "앞치마"].some((keyword) => text.includes(normalizeSearchText(keyword)))) return "보호복";
-  if (["안전화", "장화"].some((keyword) => text.includes(normalizeSearchText(keyword)))) return "안전화";
-  return value;
-}
-
-function getPpePurpose(value = "") {
-  const label = getPpeLabel(value);
-  return {
-    "보안경": "눈 자극·비산물 보호",
-    "보호장갑": "피부 접촉 저감",
-    "방독마스크": "증기·분진 흡입 저감",
-    "보호복": "피부·의복 오염 방지",
-    "안전화": "발 보호 및 미끄럼 저감"
-  }[label] || "MSDS 원문 기준 보호구";
 }
 
 function normalizeDisplayItems(items = []) {
@@ -4795,7 +4932,7 @@ function renderFavoriteToggle(product) {
   if (!product?.id) return "";
   const on = isFavoriteProduct(product.id);
   const label = on ? "즐겨찾기에서 빼기" : "즐겨찾기에 추가";
-  return `<button type="button" class="favorite-toggle${on ? " is-on" : ""}" data-favorite-id="${escapeAttribute(product.id)}" aria-pressed="${on}" title="${escapeAttribute(label)}" aria-label="${escapeAttribute(label)}">${on ? "★" : "☆"}</button>`;
+  return `<button type="button" class="favorite-toggle${on ? " is-on" : ""}" data-favorite-id="${escapeAttribute(product.id)}" aria-pressed="${on}" title="${escapeAttribute(label)}" aria-label="${escapeAttribute(label)}">${window.uiIcon ? window.uiIcon("star", { filled: on }) : (on ? "★" : "☆")}<span class="favorite-toggle-label">${on ? "즐겨찾기됨" : "즐겨찾기"}</span></button>`;
 }
 
 
@@ -4843,7 +4980,8 @@ const offlineSave = { running: false, cancel: false, done: 0, total: 0, failed: 
 async function findPdfCacheName() {
   try {
     const names = await caches.keys();
-    return names.find((name) => name.endsWith("-pdf")) || "";
+    // 같은 주소(github.io) 아래 다른 사이트의 저장칸과 섞이지 않게 이름을 가린다.
+    return names.find((name) => name.startsWith("msds-") && name.endsWith("-pdf")) || "";
   } catch (error) {
     return "";
   }
@@ -4870,14 +5008,36 @@ function toPdfRequestUrl(pdfPath) {
 async function getOfflinePdfStatus() {
   const all = getProductPdfPaths("all");
   const favorites = getProductPdfPaths("favorites");
+  // 저장 기록은 저장칸이 비어 있어도 읽는다. 새 판이 저장칸을 비운 경우가
+  // 바로 "다시 저장하세요"를 알려야 하는 때다.
+  const saved = readOfflineSaveRecord();
   const cacheName = await findPdfCacheName();
-  if (!cacheName) return { total: all.length, favorites: favorites.length, cached: 0, savedAt: "" };
-  const cache = await caches.open(cacheName);
-  const keys = new Set((await cache.keys()).map((request) => request.url));
-  const cached = all.filter((path) => keys.has(toPdfRequestUrl(path))).length;
-  let savedAt = "";
-  try { savedAt = window.localStorage.getItem(OFFLINE_SAVE_STATE_KEY) || ""; } catch (error) { savedAt = ""; }
-  return { total: all.length, favorites: favorites.length, cached, savedAt };
+  let cached = 0;
+  if (cacheName) {
+    const cache = await caches.open(cacheName);
+    const keys = new Set((await cache.keys()).map((request) => request.url));
+    cached = all.filter((path) => keys.has(toPdfRequestUrl(path))).length;
+  }
+  return { total: all.length, favorites: favorites.length, cached, savedAt: saved.date, savedVersion: saved.version };
+}
+
+/* 저장 기록은 날짜와 그때의 자료판을 같이 남긴다. 새 판이 올라오면
+ * 서비스워커가 옛 저장칸을 비우므로, 날짜만 보면 저장된 줄 알고 현장에
+ * 나갔다가 원본이 안 열린다. 판이 다르면 다시 저장하라고 알린다.
+ * 예전 기록은 날짜 글자만 들어 있다. */
+function readOfflineSaveRecord() {
+  let raw = "";
+  try { raw = window.localStorage.getItem(OFFLINE_SAVE_STATE_KEY) || ""; } catch (error) { raw = ""; }
+  if (!raw) return { date: "", version: "" };
+  try {
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed === "object") return { date: String(parsed.date || ""), version: String(parsed.version || "") };
+  } catch (error) { /* 예전 꼴: 날짜만 */ }
+  return { date: raw, version: "" };
+}
+
+function currentDataVersion() {
+  return String(state.releaseMeta?.version || "");
 }
 
 async function runOfflineSave(scope) {
@@ -4921,13 +5081,28 @@ async function runOfflineSave(scope) {
 
   offlineSave.running = false;
   if (!offlineSave.cancel) {
-    try { window.localStorage.setItem(OFFLINE_SAVE_STATE_KEY, new Date().toISOString().slice(0, 10)); } catch (error) { /* 저장소 차단 환경 */ }
+    const record = { date: new Date().toISOString().slice(0, 10), version: currentDataVersion() };
+    try { window.localStorage.setItem(OFFLINE_SAVE_STATE_KEY, JSON.stringify(record)); } catch (error) { /* 저장소 차단 환경 */ }
   }
   renderOfflinePanel(offlineSave.cancel ? "저장을 중단했습니다." : "");
 }
 
-function formatSavedAt(value) {
-  return value ? ` · 마지막 저장 ${escapeHtml(value)}` : "";
+function describeOfflineState(status) {
+  const version = currentDataVersion();
+  const changed = Boolean(status.savedAt && status.savedVersion && version && status.savedVersion !== version);
+  if (status.total && status.cached >= status.total) {
+    return { tone: "is-ok", text: `전체 저장됨 · 저장일 ${status.savedAt || "확인 안 됨"}` };
+  }
+  if (status.savedAt && (changed || status.cached < status.total)) {
+    return {
+      tone: "is-stale",
+      text: changed
+        ? "새 자료판이 올라와 저장본이 비었습니다. 와이파이에서 다시 저장하세요."
+        : "저장한 뒤 일부가 비었습니다(새 판 반영·브라우저 정리). 다시 저장하세요."
+    };
+  }
+  if (status.cached) return { tone: "is-partial", text: "열어본 MSDS 원본만 저장되어 있습니다." };
+  return { tone: "is-empty", text: "아직 저장한 MSDS 원본이 없습니다." };
 }
 
 async function renderOfflinePanel(message = "") {
@@ -4946,10 +5121,17 @@ async function renderOfflinePanel(message = "") {
   }
 
   const status = await getOfflinePdfStatus();
+  const summary = describeOfflineState(status);
+  const version = currentDataVersion();
   const note = message ? `<p class="offline-panel-note">${escapeHtml(message)}</p>` : "";
   host.innerHTML = `
     <p class="offline-panel-title">현장용 오프라인 저장</p>
-    <p class="offline-panel-status">MSDS 원본 ${status.cached} / ${status.total}건 저장됨${formatSavedAt(status.savedAt)}</p>
+    <p class="offline-panel-state ${summary.tone}">${escapeHtml(summary.text)}</p>
+    <dl class="offline-panel-facts">
+      <div><dt>저장된 원본</dt><dd>${status.cached} / ${status.total}건</dd></div>
+      <div><dt>마지막 저장</dt><dd>${escapeHtml(status.savedAt || "없음")}</dd></div>
+      <div><dt>지금 자료판</dt><dd>${escapeHtml(version || "확인 중")}</dd></div>
+    </dl>
     ${note}
     <div class="offline-panel-actions">
       <button type="button" class="offline-button" data-offline-save="favorites"${status.favorites ? "" : " disabled"}>즐겨찾기만 저장 (${status.favorites}건)</button>
@@ -4996,12 +5178,15 @@ function bindOfflinePanel() {
 /* ── 응급조치 요령 ─────────────────────────────────────── */
 
 const FIRST_AID_SECTIONS = [
-  { key: "eye", label: "눈에 들어갔을 때", icon: "👁" },
-  { key: "skin", label: "피부에 닿았을 때", icon: "✋" },
-  { key: "inhalation", label: "들이마셨을 때", icon: "🫁" },
-  { key: "ingestion", label: "삼켰을 때", icon: "⚠" },
-  { key: "note", label: "의료진에게 알릴 것", icon: "＋" }
+  { key: "eye", label: "눈에 들어갔을 때", icon: "eye" },
+  { key: "skin", label: "피부에 닿았을 때", icon: "hand" },
+  { key: "inhalation", label: "들이마셨을 때", icon: "wind" },
+  { key: "ingestion", label: "삼켰을 때", icon: "cup" },
+  { key: "note", label: "의료진에게 알릴 것", icon: "medical" }
 ];
+
+// 한 칸에 문장이 여럿이면 앞의 둘만 펼쳐 둔다. 나머지는 지우지 않고 접어 둔다.
+const FIRST_AID_VISIBLE = 2;
 
 // 사고 순간에 26쪽 PDF에서 4항을 찾게 하지 않으려고 화면 위쪽에 따로 둔다.
 function renderFirstAidSection(product) {
@@ -5011,9 +5196,16 @@ function renderFirstAidSection(product) {
     .map((section) => {
       const items = Array.isArray(firstAid[section.key]) ? firstAid[section.key] : [];
       if (!items.length) return "";
-      return `<article class="first-aid-block">
-          <h4><span aria-hidden="true">${section.icon}</span>${escapeHtml(section.label)}</h4>
-          <ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+      const shown = items.slice(0, FIRST_AID_VISIBLE);
+      const rest = items.slice(FIRST_AID_VISIBLE);
+      return `<article class="first-aid-block is-${escapeAttribute(section.key)}">
+          <h4><span class="first-aid-icon" aria-hidden="true">${window.uiIcon ? window.uiIcon(section.icon) : ""}</span>${escapeHtml(section.label)}</h4>
+          <ul>${shown.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+          ${rest.length ? `
+            <details class="first-aid-more">
+              <summary>나머지 ${rest.length}개 문장 보기</summary>
+              <ul>${rest.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+            </details>` : ""}
         </article>`;
     })
     .filter(Boolean)
@@ -5076,7 +5268,7 @@ function applyTheme(theme) {
   button.setAttribute("aria-pressed", String(dark));
   const icon = button.querySelector(".theme-toggle-icon");
   const label = button.querySelector(".theme-toggle-label");
-  if (icon) icon.textContent = dark ? "☀" : "🌙";
+  if (icon) icon.innerHTML = window.uiIcon ? window.uiIcon(dark ? "sun" : "moon") : "";
   if (label) label.textContent = dark ? "밝은 화면" : "어두운 화면";
   button.title = dark ? "밝은 화면으로 바꾸기" : "어두운 화면으로 바꾸기";
 }

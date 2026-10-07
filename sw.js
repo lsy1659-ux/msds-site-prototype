@@ -11,7 +11,7 @@
  *  - PDF: 열어본 것만 캐시. 전체는 80MB가 넘어 미리 담지 않는다.
  */
 
-const CACHE_VERSION = "msds-20261007-3";
+const CACHE_VERSION = "msds-20261007-4";
 const SHELL_CACHE = `${CACHE_VERSION}-shell`;
 const DATA_CACHE = `${CACHE_VERSION}-data`;
 const PDF_CACHE = `${CACHE_VERSION}-pdf`;
@@ -30,6 +30,7 @@ const SHELL_ASSETS = [
   "css/substance.css",
   "css/register.css",
   "css/topbar.css",
+  "css/tone.css",
   "js/app.js",
   "js/page-transition.js",
   "js/site-qr.js",
@@ -40,6 +41,9 @@ const SHELL_ASSETS = [
   "js/register.js",
   "js/csv-export.js",
   "js/pick-assist.js",
+  "js/ppe-rules.js",
+  "js/handoff.js",
+  "js/ui-icons.js",
   "vendor/qrcode.min.js",
   "vendor/pdf.mjs",
   "vendor/pdf.worker.mjs",
@@ -83,9 +87,13 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("activate", (event) => {
   event.waitUntil((async () => {
+    // 옛 판의 MSDS 저장칸만 비운다. github.io 는 같은 주소 아래 다른 사이트도
+    // 있어서, 이름을 가리지 않고 지우면 남의 저장본까지 지운다.
     const names = await caches.keys();
     await Promise.all(
-      names.filter((name) => !name.startsWith(CACHE_VERSION)).map((name) => caches.delete(name))
+      names
+        .filter((name) => name.startsWith("msds-") && !name.startsWith(`${CACHE_VERSION}-`))
+        .map((name) => caches.delete(name))
     );
     await self.clients.claim();
   })());

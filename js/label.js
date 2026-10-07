@@ -425,7 +425,7 @@ function updateLabelStatus() {
   const notPrintable = labelState.products.filter((product) => !isPrintable(product)).length;
   const picked = labelState.selected.size;
   const parts = [`전체 ${labelState.products.length}건 중 ${labelState.filtered.length}건 표시`];
-  parts.push(picked ? `고른 제품 ${picked}건(찾기를 바꿔도 남습니다)` : "고른 제품 없음(보이는 전체가 인쇄됩니다)");
+  parts.push(picked ? `고른 제품 ${picked}건(찾기를 바꿔도 남습니다)` : "고른 제품 없음");
   if (notPrintable) parts.push(`원문 확인 필요 ${notPrintable}건은 제외됨`);
   labelElements.status.textContent = parts.join(" · ");
 }
@@ -494,8 +494,26 @@ function renderPickedList() {
   }
 }
 
+/* 고른 것이 없을 때 "고른 것 인쇄"가 보이는 전체를 내보내면, 모르고 누른
+ * 사람이 수십 장을 뽑는다. 고른 것이 없으면 누를 수 없게 하고, 전체 인쇄는
+ * 따로 둔다. */
+function syncLabelPrintButtons() {
+  const picked = labelState.selected.size;
+  if (labelElements.print) {
+    labelElements.print.disabled = picked === 0;
+    labelElements.print.textContent = picked ? `고른 표지 ${picked}건 인쇄` : "고른 표지 인쇄";
+  }
+  if (labelElements.printAll) {
+    const count = labelState.filtered.length;
+    labelElements.printAll.disabled = count === 0;
+    labelElements.printAll.textContent = `보이는 전체 ${count}건 인쇄`;
+  }
+}
+
 function syncLabelSelection() {
   renderPickedList();
+  syncLabelPrintButtons();
+  window.MsdsHandoff?.carry([...labelState.selected]);
   renderLabelShortcuts();
   labelElements.sheet?.classList.toggle("has-selection", labelState.selected.size > 0);
   labelElements.sheet?.querySelectorAll("[data-label-id]").forEach((card) => {
@@ -603,18 +621,35 @@ function bindLabelEvents() {
     syncLabelSelection();
   });
 
+  labelElements.printAll?.addEventListener("click", () => {
+    const count = labelState.filtered.length;
+    if (!count) return;
+    if (count > 1 && !window.confirm(`화면에 보이는 표지 ${count}건을 모두 인쇄합니다. 계속할까요?`)) return;
+    // 고른 것만 남기는 인쇄 규칙을 잠시 끄고, 보이는 것을 모두 그린 뒤 인쇄한다.
+    labelState.onlySelected = false;
+    applyLabelFilter();
+    labelState.renderCount = labelState.filtered.length;
+    renderLabelSheet();
+    syncLabelSelection();
+    labelElements.sheet?.classList.remove("has-selection");
+    labelElements.sheet?.querySelectorAll("[data-label-qr]").forEach(drawLabelQr);
+    window.addEventListener("afterprint", () => syncLabelSelection(), { once: true });
+    window.setTimeout(() => window.print(), 60);
+  });
+
   labelElements.print?.addEventListener("click", () => {
     // 찾기 칸으로 걸러진 제품은 화면에 카드가 없다. 그대로 인쇄하면
     // 골라 둔 제품인데도 빠진다. 빠지는 게 있으면 먼저 전부 불러온다.
     const picked = labelState.selected.size;
+    if (!picked) return;
     const missing = picked
       && [...labelState.selected].some((id) => !labelState.filtered.some((product) => product.id === id));
-    // 화면에는 앞쪽 몇 장만 그려 둔다. 인쇄 전에 나갈 것을 모두 그린다.
-    const needsAll = missing || labelState.filtered.length > visibleLabelProducts().length;
-    if (needsAll) {
-      if (missing) labelState.onlySelected = true;
+    // 고른 것은 화면 아래쪽에 있어도 함께 그려 두므로(visibleLabelProducts),
+    // 찾기로 걸러져 빠진 것만 다시 불러오면 된다.
+    if (missing) {
+      labelState.onlySelected = true;
       applyLabelFilter();
-      labelState.renderCount = picked ? LABEL_RENDER_STEP : labelState.filtered.length;
+      labelState.renderCount = LABEL_RENDER_STEP;
       renderLabelSheet();
       syncLabelSelection();
       labelElements.sheet?.querySelectorAll("[data-label-qr]").forEach(drawLabelQr);
@@ -641,6 +676,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   labelElements.selectAll = document.querySelector("#labelSelectAll");
   labelElements.clear = document.querySelector("#labelClear");
   labelElements.print = document.querySelector("#labelPrint");
+  labelElements.printAll = document.querySelector("#labelPrintAll");
   labelElements.shorten = document.querySelector("#labelShorten");
   labelElements.onlyPrintable = document.querySelector("#labelOnlyPrintable");
 
@@ -663,11 +699,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // 조회 화면에서 제품을 보다가 넘어오면 그 제품을 골라 둔 채로 연다.
-  const wanted = new URLSearchParams(window.location.search).get("product");
-  if (wanted && labelState.products.some((product) => product.id === wanted)) {
-    labelState.selected.add(wanted);
-  }
+  // 조회·관리요령 화면에서 고른 제품을 그대로 골라 둔 채로 연다.
+  // 목록은 그대로 두므로 다른 제품을 더 고를 수도 있다.
+  (window.MsdsHandoff?.requested() || []).forEach((wanted) => {
+    if (labelState.products.some((product) => product.id === wanted)) labelState.selected.add(wanted);
+  });
 
   window.attachPickAssist?.({
     input: labelElements.search,
