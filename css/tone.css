@@ -21,15 +21,15 @@
 :root {
   --tone-font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
                system-ui, "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
-  --tone-bg: #f5f6f8;
+  --tone-bg: #f1f5f3;
   --tone-surface: #ffffff;
-  --tone-soft: #f2f4f6;
-  --tone-hover: #eaecef;
+  --tone-soft: #eef4f1;
+  --tone-hover: #e4ede9;
   --tone-ink: #262b33;
   --tone-muted: #5b6571;
   --tone-subtle: #8b95a1;
-  --tone-line: #e2e5e9;
-  --tone-line-strong: #d1d6db;
+  --tone-line: #dde6e2;
+  --tone-line-strong: #c9d6d1;
   --tone-accent: #0b5d4d;
   --tone-btn: #0b5d4d;
   --tone-btn-hover: #084a3d;
@@ -41,19 +41,27 @@
   --tone-warning-line: rgba(180, 83, 9, 0.28);
   --tone-focus: #2563eb;
   --tone-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+  /* 회사 초록. 탭줄·머리글·요약판 제품명 띠·바로가기에 쓴다. */
+  --tone-brand-band: linear-gradient(120deg, #06382b 0%, #0a5842 58%, #063027 100%);
+  --tone-brand-bar: linear-gradient(120deg, #052a21 0%, #084636 62%, #04231c 100%);
+  --tone-on-brand: #f2fbf8;
+  --tone-on-brand-muted: rgba(226, 246, 240, 0.78);
+  --tone-on-brand-line: rgba(255, 255, 255, 0.2);
+  --tone-on-brand-fill: rgba(255, 255, 255, 0.1);
+  --tone-mint: #6fe0bf;
   --tone-radius: 10px;
   --tone-radius-sm: 8px;
 }
 
 /* 조회 화면(style.css)의 토큰도 같은 값으로 맞춘다. 어두운 화면 값은 style.css 그대로 둔다. */
 :root:not([data-theme="dark"]) {
-  --color-bg: #f5f6f8;
+  --color-bg: #f1f5f3;
   --color-surface: #ffffff;
-  --color-surface-soft: #f2f4f6;
+  --color-surface-soft: #eef4f1;
   --color-paper: #ffffff;
   --color-ink: #262b33;
   --color-muted: #5b6571;
-  --color-line: #e2e5e9;
+  --color-line: #dde6e2;
   --color-accent: #0b5d4d;
   --color-accent-dark: #084a3d;
   --color-primary: #0b5d4d;
@@ -64,11 +72,11 @@
   --shadow-card: 0 1px 2px rgba(16, 24, 40, 0.04);
   --shadow-soft: none;
   --radius-lg: 10px;
-  --label-bg: #f5f6f8;
+  --label-bg: #f1f5f3;
   --label-ink: #262b33;
-  --label-line: #d1d6db;
+  --label-line: #c9d6d1;
   --guide-ink: #262b33;
-  --guide-line: #d1d6db;
+  --guide-line: #c9d6d1;
 }
 
 [data-theme="dark"] {
@@ -92,6 +100,8 @@
   --tone-warning-line: rgba(240, 180, 84, 0.3);
   --tone-focus: #6ea8fe;
   --tone-shadow: none;
+  --tone-brand-band: linear-gradient(120deg, #041a15 0%, #062e25 62%, #03110e 100%);
+  --tone-brand-bar: linear-gradient(120deg, #041a15 0%, #062e25 62%, #03110e 100%);
 }
 
 /* ── 바탕 ───────────────────────────────────────────────── */
@@ -227,6 +237,7 @@
 
 /* ── 머리글: 장식 그림과 큰 초록 바탕을 걷고 제목·안내만 둔다 ── */
 :root .site-header {
+  width: auto;
   margin: 0;
   border: 0;
   border-bottom: 1px solid var(--tone-line);
@@ -2419,5 +2430,245 @@
   .review-compare-pdf .review-pdf-frame {
     height: calc(100vh - 160px);
     min-height: 520px;
+  }
+}
+
+
+/* ══ 시그니처 초록 (2026-10-08) ═════════════════════════════
+ * 정돈한 틀(1px 선 · 가벼운 글자 · 접기)은 그대로 두고, 사이트를 알아보게 하던
+ * 초록을 원래 자리에 되돌린다: 위쪽 탭줄, 머리글, 요약판의 제품명 띠, 아래쪽
+ * 바로가기, 주요 단추. 색만 바꾸므로 크기·배치 규칙은 위에서 정한 대로다.
+ * 위험을 알리는 빨강·주황(신호어 배지, 원문 확인 띠)은 그대로 둔다. */
+
+/* 탭줄 */
+:root .top-bar {
+  background: var(--tone-brand-bar);
+  border-bottom: 0;
+  box-shadow: 0 2px 8px rgba(5, 34, 27, 0.18);
+}
+
+:root .top-bar-brand,
+:root .top-bar-brand:hover {
+  color: var(--tone-on-brand);
+}
+
+:root .top-bar-tab {
+  color: var(--tone-on-brand-muted);
+}
+
+:root .top-bar-tab:hover {
+  color: #ffffff;
+  background: var(--tone-on-brand-fill);
+}
+
+:root .top-bar-tab[aria-current="page"],
+:root button.top-bar-tab[aria-expanded="true"] {
+  color: #ffffff;
+  border-bottom-color: var(--tone-mint);
+}
+
+:root .top-bar-icon {
+  border-color: var(--tone-on-brand-line);
+  background: var(--tone-on-brand-fill);
+  color: var(--tone-on-brand);
+}
+
+:root .top-bar-icon:hover {
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+:root .top-bar-icon[aria-expanded="true"] {
+  border-color: var(--tone-mint);
+  background: rgba(111, 224, 191, 0.22);
+  color: #ffffff;
+}
+
+/* 머리글: 짧게 둔 채 초록 띠로 */
+:root .site-header,
+:root .label-header,
+:root .guide-header,
+:root .substance-header {
+  border-bottom: 0;
+  background: var(--tone-brand-band);
+  color: var(--tone-on-brand);
+}
+
+:root .site-header h1,
+:root .site-header h1 a,
+:root .hero-copy .desktop-title,
+:root .hero-copy .mobile-title,
+:root .label-header h1,
+:root .guide-header h1,
+:root .substance-header h1 {
+  color: #ffffff;
+}
+
+:root .header-note,
+:root .label-header p,
+:root .guide-header p,
+:root .substance-header p {
+  color: var(--tone-on-brand-muted);
+}
+
+:root .label-back,
+:root .guide-back,
+:root .substance-header a {
+  color: var(--tone-mint);
+}
+
+:root .current-selection,
+:root .hero-copy .current-selection {
+  border-color: var(--tone-on-brand-line);
+  background: var(--tone-on-brand-fill);
+  color: var(--tone-on-brand);
+}
+
+:root .dataset-meta dt {
+  color: var(--tone-on-brand-muted);
+}
+
+:root .dataset-meta dd {
+  color: #ffffff;
+}
+
+:root .theme-toggle {
+  border-color: var(--tone-on-brand-line);
+  background: var(--tone-on-brand-fill);
+  color: var(--tone-on-brand);
+}
+
+:root .theme-toggle:hover {
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* 요약판: 제품명 띠 */
+:root .poster-product-row {
+  border-bottom: 0;
+  background: var(--tone-brand-band);
+  color: var(--tone-on-brand);
+}
+
+:root .poster-product-title h2 {
+  color: #ffffff;
+}
+
+:root .poster-product-title p {
+  color: var(--tone-on-brand-muted);
+}
+
+:root .hazard-badge.is-neutral {
+  border-color: var(--tone-on-brand-line);
+  background: var(--tone-on-brand-fill);
+  color: #ffffff;
+}
+
+:root .favorite-toggle {
+  border-color: var(--tone-on-brand-line);
+  background: var(--tone-on-brand-fill);
+  color: var(--tone-on-brand);
+}
+
+:root .favorite-toggle:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+:root .favorite-toggle.is-on {
+  border-color: rgba(255, 214, 102, 0.6);
+  color: #ffd666;
+}
+
+/* 칸 제목: 초록 글자에 짧은 초록 막대 */
+:root .poster-block h3,
+:root .detail-section .section-heading h2 {
+  color: var(--tone-accent);
+}
+
+:root .poster-block h3 {
+  padding-left: 9px;
+  border-left: 3px solid var(--tone-accent);
+  line-height: 1.25;
+}
+
+:root .detail-block-icon,
+:root .worker-caution-card-icon {
+  background: var(--tone-primary-soft);
+  color: var(--tone-accent);
+}
+
+:root .detail-panel .detail-block-pdf .detail-block-icon {
+  background: var(--tone-warning-bg);
+  color: var(--tone-warning);
+}
+
+:root .info-icon {
+  color: var(--tone-accent);
+  opacity: 0.7;
+}
+
+/* 선택 제품 띠: 옅은 초록 바탕 */
+:root .selected-product-bar {
+  border-color: rgba(11, 93, 77, 0.22);
+  border-left: 4px solid var(--tone-accent);
+  background: var(--tone-primary-soft);
+}
+
+[data-theme="dark"] .selected-product-bar {
+  border-color: var(--tone-line);
+  border-left-color: var(--tone-accent);
+  background: var(--tone-surface);
+}
+
+/* 고른 칩·빠른 분류의 "전체 보기"도 초록 쪽으로 */
+:root .quick-search button[data-action="show-all"] {
+  border-color: var(--tone-btn);
+  background: var(--tone-btn);
+  color: #ffffff;
+}
+
+:root .quick-search button[data-action="show-all"]:hover {
+  background: var(--tone-btn-hover);
+  color: #ffffff;
+}
+
+/* 아래쪽 바로가기: 초록 띠, 지금 칸은 흰 칩 */
+:root #scrollQuickNav.scroll-quick-nav {
+  border: 0;
+  background: var(--tone-brand-bar);
+  box-shadow: 0 8px 24px rgba(5, 34, 27, 0.28);
+}
+
+:root #scrollQuickNav.scroll-quick-nav button {
+  color: var(--tone-on-brand-muted);
+}
+
+:root #scrollQuickNav.scroll-quick-nav button span {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+:root #scrollQuickNav.scroll-quick-nav button.is-active {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+:root #scrollQuickNav.scroll-quick-nav button.is-active span {
+  background: #ffffff;
+  color: #0b5d4d;
+}
+
+:root #scrollQuickNav.scroll-quick-nav button.is-active b {
+  color: #ffffff;
+}
+
+@media print {
+  :root .poster-product-row {
+    background: none;
+    color: #000000;
+  }
+
+  :root .poster-product-title h2 {
+    color: #000000;
   }
 }
