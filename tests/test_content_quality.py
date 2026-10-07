@@ -169,11 +169,9 @@ class PublicContentTests(unittest.TestCase):
         flagged = {h["newId"] for h in self.register.get("history", []) if h.get("labelReprint")}
         published = {p["id"] for p in self.products if p.get("labelReprint")}
         self.assertEqual(published, flagged & set(self.by_id))
+        # 현장에 아직 표지를 붙이지 않아 화면 알림은 뺐다(2026-10-07). 표지는 인쇄물이라 알림이 찍히면 안 된다.
         label = (ROOT / "js" / "label.js").read_text(encoding="utf-8")
-        self.assertIn('class="label-reprint-chip no-print"', label, "재인쇄 알림이 표지에 찍히면 안 된다")
-        # 표지 면(face)에 알림을 넣으면 종이 규격으로 그린 면이 밀려 아래가 잘린다.
-        face = re.search(r"const face = `(.*?)`;", label, re.S).group(1)
-        self.assertNotIn("reprint", face, "재인쇄 알림은 표지 면 밖(인쇄 선택 줄)에 둔다")
+        self.assertNotIn("labelReprint", label)
 
 
 class PdfTextRuleTests(unittest.TestCase):
