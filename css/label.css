@@ -186,22 +186,48 @@ body {
   cursor: pointer;
 }
 
-/* 표지 다시 뽑기 알림. 표지 면과 같이 테마와 상관없이 밝은 색으로 둔다. */
+/* 표지 다시 뽑기 알림. 몇 건인지·왜인지는 설정 칸에 한 번만 적는다. */
 .label-reprint {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 8px 12px;
+  border: 1px solid #f0c9a0;
+  border-radius: 10px;
+  background: #fff5e8;
+  color: #875d00;
+  font-size: 0.88rem;
+}
+
+.label-reprint[hidden] { display: none; }
+
+.label-reprint p {
+  flex: 1 1 320px;
   margin: 0;
-  padding: 7px 10px;
-  border: 1px solid #f0b35a;
-  border-left-width: 4px;
-  border-radius: 8px;
-  background: #fff6e6;
-  color: #7a4300;
-  font-size: 0.8rem;
-  line-height: 1.45;
+  line-height: 1.5;
 }
 
 .label-reprint strong {
   margin-right: 4px;
   font-weight: 800;
+}
+
+/* 카드의 "인쇄 선택" 줄(종이에 안 찍힘)에 다는 작은 표시. 글자 크기는 그 줄을
+ * 따라가게 em 으로 둔다. 종이 규격 미리보기에서 줄이 7pt 로 줄어도 같이 준다.
+ * 카드 면은 테마와 상관없이 흰색이라 색도 고정한다. */
+.label-reprint-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1em 0.6em;
+  border: 1px solid #f0b35a;
+  border-radius: 999px;
+  background: #fff1dc;
+  color: #7a4300;
+  font-size: 0.92em;
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
 }
 
 .label-name {
@@ -439,7 +465,8 @@ select:focus-visible {
   color: #ffffff;
 }
 
-[data-theme="dark"] .label-warning {
+[data-theme="dark"] .label-warning,
+[data-theme="dark"] .label-reprint {
   border-color: #6b4a1a;
   background: #2a2013;
   color: #f0b454;

@@ -31,7 +31,7 @@ const GHS_PICTOGRAMS = {
 };
 
 const labelState = { products: [], filtered: [], selected: new Set(), query: "", size: "mini", onlySelected: false, renderCount: 12,
-  shorten: true, onlyPrintable: true, quantity: new Map() };
+  shorten: true, onlyPrintable: true, onlyReprint: false, quantity: new Map() };
 const labelElements = {};
 
 function labelNormalize(value) {
@@ -151,18 +151,24 @@ function noneNotice(text) {
 
 /* 새 판으로 바뀌었거나 빠진 문구를 채워 표지 내용이 달라진 제품. 관리대장 이력이
  * 정한다(labelReprint). 붙어 있는 표지는 옛 내용이므로 새로 뽑아 바꿔야 한다.
- * 화면에만 띄우고 표지에는 찍지 않는다. 반년이 지나면 띄우지 않는다. */
+ * 반년이 지나면 띄우지 않는다.
+ * 표지 면 안에 알림을 넣으면 종이 규격으로 그린 면이 밀려 아래가 잘린다.
+ * 그래서 카드에는 종이에 안 찍히는 "인쇄 선택" 줄에 작은 표시만 달고,
+ * 까닭과 몇 건인지는 위쪽 설정 칸에 한 번만 적는다. */
 const REPRINT_NOTICE_DAYS = 183;
 
-function reprintNotice(product) {
+function reprintFlag(product) {
   const flag = product.labelReprint;
-  if (!flag || !flag.date) return "";
+  if (!flag || !flag.date) return null;
   const age = (Date.now() - Date.parse(`${flag.date}T00:00:00`)) / 86400000;
-  if (!(age >= 0 && age <= REPRINT_NOTICE_DAYS)) return "";
-  return `<p class="label-reprint no-print" role="note">
-      <strong>표지 다시 뽑기</strong> ${labelEscape(flag.date)} · ${labelEscape(flag.reason || "표지 내용이 바뀌었습니다")}.
-      붙어 있는 표지를 새로 뽑아 바꾸세요.
-    </p>`;
+  return age >= 0 && age <= REPRINT_NOTICE_DAYS ? flag : null;
+}
+
+function reprintChip(product) {
+  const flag = reprintFlag(product);
+  if (!flag) return "";
+  const why = `${flag.date} · ${flag.reason || "표지 내용이 바뀌었습니다"}. 붙어 있는 표지를 새로 뽑아 바꾸세요.`;
+  return `<span class="label-reprint-chip no-print" title="${labelEscape(why)}">다시 뽑기</span>`;
 }
 
 // 원문이 분류 대상이 아니라고 적은 제품은 "확인 필요"가 아니라 "해당없음"이다.
@@ -267,6 +273,7 @@ function applyLabelFilter() {
         product.productName, product.supplier, product.category, product.useCategory, product.msdsNo
       ].join(" ")).includes(needle));
   if (labelState.onlyPrintable) list = list.filter(isPrintable);
+  if (labelState.onlyReprint) list = list.filter(reprintFlag);
   labelState.filtered = list;
 }
 
@@ -346,6 +353,7 @@ function renderLabelSheet() {
     const head = `<label class="label-card-pick no-print">
           <input type="checkbox" data-label-check="${labelEscape(product.id)}"${checked ? " checked" : ""}>
           <span>인쇄 선택</span>
+          ${reprintChip(product)}
           <span class="label-qty">
             <span>장수</span>
             <input type="number" min="1" max="60" step="1" value="${count}" data-label-qty="${labelEscape(product.id)}" aria-label="${labelEscape(product.productName)} 인쇄 장수">
@@ -374,7 +382,6 @@ function renderLabelSheet() {
 
     return `<article class="label-card${checked ? " is-selected" : ""}" data-label-id="${labelEscape(product.id)}">
         ${head}
-        ${reprintNotice(product)}
         ${face}
       </article>${copies.join("")}`;
   }).join("");
@@ -445,6 +452,21 @@ function updateLabelStatus() {
   parts.push(picked ? `고른 제품 ${picked}건(찾기를 바꿔도 남습니다)` : "고른 제품 없음(보이는 전체가 인쇄됩니다)");
   if (notPrintable) parts.push(`원문 확인 필요 ${notPrintable}건은 제외됨`);
   labelElements.status.textContent = parts.join(" · ");
+  updateReprintSummary();
+}
+
+function updateReprintSummary() {
+  const box = labelElements.reprint;
+  if (!box) return;
+  const count = labelState.products
+    .filter((product) => reprintFlag(product) && (!labelState.onlyPrintable || isPrintable(product))).length;
+  box.hidden = !count && !labelState.onlyReprint;
+  if (labelElements.reprintCount) labelElements.reprintCount.textContent = `표지 다시 뽑을 제품 ${count}건`;
+  const button = labelElements.onlyReprint;
+  if (button) {
+    button.setAttribute("aria-pressed", String(labelState.onlyReprint));
+    button.textContent = labelState.onlyReprint ? "전체 보기" : "다시 뽑을 것만 보기";
+  }
 }
 
 // 조회 화면에서 보던 제품을 표지로 뽑는 일이 대부분이다. 같은 저장소를
@@ -589,6 +611,15 @@ function bindLabelEvents() {
     syncLabelSelection();
   });
 
+  labelElements.onlyReprint?.addEventListener("click", () => {
+    labelState.onlyReprint = !labelState.onlyReprint;
+    labelState.onlySelected = false;
+    labelState.renderCount = LABEL_RENDER_STEP;
+    applyLabelFilter();
+    renderLabelSheet();
+    syncLabelSelection();
+  });
+
   labelElements.onlySelected?.addEventListener("click", () => {
     labelState.onlySelected = !labelState.onlySelected;
     labelState.renderCount = LABEL_RENDER_STEP;
@@ -660,6 +691,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   labelElements.print = document.querySelector("#labelPrint");
   labelElements.shorten = document.querySelector("#labelShorten");
   labelElements.onlyPrintable = document.querySelector("#labelOnlyPrintable");
+  labelElements.reprint = document.querySelector("#labelReprint");
+  labelElements.reprintCount = document.querySelector("#labelReprintCount");
+  labelElements.onlyReprint = document.querySelector("#labelOnlyReprint");
 
   bindLabelEvents();
 
