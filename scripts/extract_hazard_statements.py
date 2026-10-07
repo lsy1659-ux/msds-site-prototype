@@ -114,7 +114,7 @@ def parse_section2(text: str) -> dict:
                 signal = next((c for c in VALID_SIGNALS if c in value), "해당없음" if NOT_CLASSIFIED.search(value) else "")
             current = "signal"
             continue
-        if re.match(r"^[가-하]\s*[.．]", label) or re.match(r"^\d\s*[.．]", label):
+        if re.match(r"^[가나다라마바사아자차카타파하]\s*[.．]", label) or re.match(r"^\d\s*[.．]", label):
             if NOT_CLASSIFIED.search(cleaned):
                 not_classified = True
             current = ""

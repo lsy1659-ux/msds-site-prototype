@@ -172,7 +172,7 @@ def candidate_after_label(line: str, labels: list[str]) -> str:
         match = re.search(pattern, line, flags=re.I)
         if match:
             value = match.group(1)
-            value = re.split(r"\s{2,}|(?=\s+[가-하]\.\s)|(?=주소\s*[:：])|(?=긴급전화번호)|(?=TEL\s*[:：])|(?=FAX\s*[:：])|(?=나\.)", value)[0]
+            value = re.split(r"\s{2,}|(?=\s+[가나다라마바사아자차카타파하]\.\s)|(?=주소\s*[:：])|(?=긴급전화번호)|(?=TEL\s*[:：])|(?=FAX\s*[:：])|(?=나\.)", value)[0]
             return value
     return ""
 

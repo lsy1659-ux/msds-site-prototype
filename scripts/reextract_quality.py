@@ -139,7 +139,7 @@ def parse_section2(lines: list[str]) -> dict:
         if STOP_LABEL.search(label):
             current = ""
             continue
-        if BLOCK_LABEL.match(raw.strip()) or re.match(r"^[가-하]\s*[.．]", label) or re.match(r"^\d{1,2}\s*[.．]", label):
+        if BLOCK_LABEL.match(raw.strip()) or re.match(r"^[가나다라마바사아자차카타파하]\s*[.．]", label) or re.match(r"^\d{1,2}\s*[.．]", label):
             current = ""
             continue
 
@@ -209,7 +209,7 @@ def parse_section15(lines: list[str]) -> dict[str, dict[str, str]]:
             block_key = next((key for key, pattern in FLAG_BLOCKS if pattern.search(block.group(1))), "")
             substance = ""
             continue
-        if re.match(r"^[가-하]\s*[.．]", stripped):
+        if re.match(r"^[가나다라마바사아자차카타파하]\s*[.．]", stripped):
             block_key = ""
             substance = ""
             continue

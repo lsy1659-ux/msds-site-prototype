@@ -20,7 +20,8 @@
   보완      data/msds-content-repairs.json 에 적힌, 원본 PDF 에서 다시 읽어 확인한 것.
             응급조치의 빠진 칸 채우기, 깨진 성분 이름 바로잡기, 빠진 유해·위험문구
             채우기, 비었거나 MSDS 번호 조각이 들어간 긴급전화번호와 빈 공급자 주소 채우기, 응급조치에 섞인 쪽
-            머리글·꼬리글 빼기, 중간에서 잘린 문구를 원문 문구로 채우기(꼴을 고른 뒤 비교). 지금 값이 적어 둔 '고치기 전' 값과 같을 때만 바꿔, 다른 곳에서
+            머리글·꼬리글 빼기, 중간에서 잘린 문구를 원문 문구로 채우기(꼴을 고른 뒤 비교),
+            앞뒤가 잘린 응급조치를 원문 문단으로 바꾸기(지금 줄이 모두 원문 문단 안에 있을 때만). 지금 값이 적어 둔 '고치기 전' 값과 같을 때만 바꿔, 다른 곳에서
             이미 고쳤으면 건드리지 않는다.
   hazardBadge 칸을 뺀다. 신호어가 아닌데 228건 중 180건에 일괄로 "위험"이 들어 있어
             신호어로 오해받았다. 신호어는 signalWord 하나만 쓴다.
@@ -175,7 +176,7 @@ def fix_spacing(products: list[dict[str, Any]], overrides: list[dict[str, Any]],
 
 
 def _is_label(head: str) -> bool:
-    head = re.sub(r"^\s*(?:\(?\d{1,2}[).．]|[가-하][.)．])\s*", "", head)   # "3)", "가." 같은 번호
+    head = re.sub(r"^\s*(?:\(?\d{1,2}[).．]|[가나다라마바사아자차카타파하][.)．])\s*", "", head)   # "3)", "가." 같은 번호
     flat = re.sub(r"[^가-힣A-Za-z]", "", head)   # 가운뎃점은 PDF 마다 글자가 달라(·ㆍᆞ·•) 모두 뗀다
     if not flat:
         return True
@@ -296,7 +297,7 @@ def drop_uncoded_precautions(record: dict[str, Any], product: dict[str, Any] | N
         return dropped
     # 6~8항의 소항목 머리("나. 환경을 보호하기 위해 필요한 조치사항 …", "가. 안전취급요령 …")로 시작하는
     # 줄은 코드 꼴이 아닌 MSDS 에서도 예방조치문구가 아니다.
-    other_section = re.compile(r"^\s*[가-하]\s*[.．]\s*(?:인체를\s*보호|환경을\s*보호|정화\s*또는\s*제거|안전\s*취급|"
+    other_section = re.compile(r"^\s*[가나다라마바사아자차카타파하]\s*[.．]\s*(?:인체를\s*보호|환경을\s*보호|정화\s*또는\s*제거|안전\s*취급|"
                                r"안전한\s*저장|화학물질의\s*노출|적절한\s*공학|개인\s*보호구)")
     early = 0
     for group, items in groups.items():
@@ -330,6 +331,42 @@ def _matching_overrides(overrides: list[dict[str, Any]], product: dict[str, Any]
     return [o for o in overrides
             if names & ({_file_key((o.get("match") or {}).get("fileName")), _file_key(o.get("sourcePdfPath")),
                          _file_key(o.get("sourceRelativePath"))} - {""})]
+
+
+# 응급조치 칸에 섞여 든 쪽 머리글·꼬리글("LCP-77 적색 N100 ( 4 / 25 )", "페이지 2/ 12",
+# "(Material Safety Data Sheet)", 괄호만 있는 읽는 이름 줄)과 4항 증상 표 제목·칸("증상/영향", "단기간노출").
+AID_JUNK = re.compile(r"\(\s*\d+\s*/\s*\d+\s*\)|페이지\s*\d|^\s*\d+\s*/\s*\d+\s*$|M\s*ater\s*ial\s*Safety|물질\s*안전\s*보건\s*자료"
+                      r"|PRODUCT\s*NAME|^\s*\(.*\)\s*$|증상\s*/?\s*영향|단기간\s*노출|장기간\s*노출"
+                      r"|Date\s*(?:prepared|revised)|품목\s*보고\s*번호", re.I)
+
+
+def _nospace(text: Any) -> str:
+    return re.sub(r"\s", "", str(text or ""))
+
+
+def aid_flat(text: Any) -> str:
+    """응급조치 글 비교용. 빈칸·쉼표·가운뎃점·마침표는 읽는 방법마다 달라("벨트," / "벨트", "조언·주의" /
+    "조언 주의") 빼고 비교한다."""
+    return re.sub(r"[\s,.·ㆍ∙]", "", str(text or ""))
+
+
+def first_aid_covered(items: list[str], source: list[str]) -> bool:
+    """원문 문단(source)이 사이트 응급조치 줄(items)을 모두 품는지.
+
+    예전 추출은 문단 앞뒤를 자르고, 한 문단을 여러 줄로 끊고, 쪽 머리글("페이지 2/ 12",
+    "LCP-77 적색 N100 ( 4 / 25 )")을 섞었다. 사이트 줄이 하나하나 원문 문단 안에 있으면 원문 문단으로
+    바꿔도 잃는 글이 없다. 원문 문단에 없는 줄은 쪽 머리글·꼬리글이나 증상 표 제목(AID_JUNK)일 때만
+    봐준다. 그 밖의 줄이 하나라도 원문 문단에 없으면 바꾸지 않는다("즉시다량의물이나우유를먹임" 처럼
+    문장 꼴이 아니어도 조치일 수 있다).
+    """
+    flat = aid_flat
+    whole = flat("".join(source))
+    pieces = [flat(x) for x in items if flat(x)]
+    core = [x for x in pieces if x in whole]
+    extra = [x for x in items if flat(x) and flat(x) not in whole]
+    if not core or not whole:
+        return False
+    return all(AID_JUNK.search(x) for x in extra)
 
 
 def apply_repairs(products: list[dict[str, Any]], overrides: list[dict[str, Any]],
@@ -370,6 +407,21 @@ def apply_repairs(products: list[dict[str, Any]], overrides: list[dict[str, Any]
             if [_flat(x) for x in first_aid.get(key) or []] == [_flat(x) for x in change.get("before") or []]:
                 first_aid[key] = list(change.get("after") or [])
                 report["firstAidJoined"] += 1
+
+    # 앞뒤가 잘렸거나 쪽 머리글이 섞인 응급조치 칸을 원문 문단으로. 지금 줄이 모두 원문 문단 안에
+    # 있을 때만 바꾼다(first_aid_covered). 집 PC 의 로컬 데이터처럼 고치기 전 꼴이 조금 달라도 맞는다.
+    for pid, fix in (repairs.get("firstAidSource") or {}).items():
+        first_aid = (by_id.get(pid) or {}).get("firstAid")
+        if not isinstance(first_aid, dict):
+            continue
+        for key, change in fix.items():
+            after = list(change.get("after") or [])
+            current = first_aid.get(key) or []
+            if not after or not current or [_nospace(x) for x in current] == [_nospace(x) for x in after]:
+                continue
+            if first_aid_covered(current, after):
+                first_aid[key] = after
+                report["firstAidSourced"] += 1
 
     for pid, fix in (repairs.get("emergencyContact") or {}).items():
         product = by_id.get(pid)
@@ -468,7 +520,7 @@ def normalize_content(
     report: dict[str, Any] = {"statementsProducts": 0, "statementsOverrides": 0, "firstAidFilled": [],
                               "ingredientNames": 0, "hazardStatementsFilled": [], "hazardBadgeRemoved": 0,
                               "emergencyContact": 0, "firstAidRemoved": 0, "statementsCompleted": 0,
-                              "firstAidJoined": 0, "spacingFixed": 0,
+                              "firstAidJoined": 0, "firstAidSourced": 0, "spacingFixed": 0,
                               "supplierAddress": 0, "precautionsFilled": [], "pictogramsFixed": [],
                               "uncodedDropped": 0}
 
@@ -512,6 +564,7 @@ def main() -> int:
     print(f"응급조치 머리글 뺌    {report['firstAidRemoved']}")
     print(f"잘린 문구 채움        {report['statementsCompleted']}")
     print(f"응급조치 끊긴 줄 이음 {report['firstAidJoined']}")
+    print(f"응급조치 원문 문단으로 {report['firstAidSourced']}")
     print(f"띄어쓰기 고침         {report['spacingFixed']}")
     print(f"hazardBadge 뺌       {report['hazardBadgeRemoved']}")
     if args.write:

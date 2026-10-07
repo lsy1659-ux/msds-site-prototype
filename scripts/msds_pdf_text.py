@@ -14,7 +14,7 @@ CODE = re.compile(r"[HP]\d{3}[A-Za-z]?(?:\s*\+\s*[HP]\d{3}[A-Za-z]?)*")
 HANGUL = re.compile(r"[가-힣]")
 GROUP_LABEL = re.compile(r"^[\s·ㆍ∙•\-▪○]*(?:유해\s*[·ㆍ∙▪]?\s*위험\s*문구|예방\s*조치\s*문구|예방|대응|저장|폐기)\s*[:：]?\s*")
 STOP_LINE = re.compile(
-    r"^[\s·ㆍ∙•\-▪]*(?:[OoＯ○●◎]\s|[가-하]\s*[.．]|\d+(?:\.\d+)*\s*[.．]|예방|대응|저장|폐기|신\s*호\s*어|그림\s*문자"
+    r"^[\s·ㆍ∙•\-▪]*(?:[OoＯ○●◎]\s|[가나다라마바사아자차카타파하]\s*[.．]|\d+(?:\.\d+)*\s*[.．]|예방|대응|저장|폐기|신\s*호\s*어|그림\s*문자"
     r"|심볼|유해|해당\s*없음|자료\s*없음)|분류\s*기준에\s*포함되지\s*않는|NFPA|\(GHS\s*KR\)")
 CATEGORY = re.compile(r"구분\s*[:：]?\s*\d")
 CAS = re.compile(r"\b\d{2,7}-\d{2}-\d\b")
@@ -46,7 +46,7 @@ HEADINGS = {
 SECTION_WORDS = ("화학제품", "유해성", "유해 위험성", "구성성분", "응급조치", "폭발", "화재", "누출", "취급", "노출방지",
                  "물리화학", "안정성", "독성", "환경", "폐기", "운송", "법적", "그 밖의")
 TRAILING_NUMBER = re.compile(r"^(?P<title>\D{2,40}?)\s*(?P<num>\d{1,2})\s*[.．]\s*[·ㆍ]?\s*$")
-DISPLACED_DOT = re.compile(r"^(?P<mark>[가-하])\s+(?P<label>\S.*?)\s+[.．]\s+(?P<rest>.*)$")
+DISPLACED_DOT = re.compile(r"^(?P<mark>[가나다라마바사아자차카타파하])\s+(?P<label>\S.*?)\s+[.．]\s+(?P<rest>.*)$")
 
 
 def repair_line(line):
@@ -88,7 +88,7 @@ def statements_from(pages):
     """쪽 글에서 2항 문구를 읽는다. (유해문구, 예방조치 칸)"""
     lines = "\n".join(pages).splitlines()
     section2 = section(lines, 2)
-    return parse_statements(section2, boilerplate(pages)) if section2 else ([], {})
+    return parse_statements(section2, boilerplate(pages), doc_words(pages)) if section2 else ([], {})
 
 
 def flat(text):
@@ -132,7 +132,12 @@ def tidy_text(text):
     # 글자층에서 떨어져 나온 문장부호 찌꺼기("( ) .", " , ,")는 뺀다.
     text = re.sub(r"\(\s*\)", " ", flat(text))
     text = re.sub(r"(?:\s+[,.]+)+\s*$", "", text)
+    text = re.sub(r"^[.．]+\s*(?=[가-힣A-Za-z(])", "", flat(text))   # 앞 줄에서 떨어져 나온 마침표(". 긴급 의료조치를 …")
     return flat(text).strip(" ;:：-·ㆍ∙,○●◦•▪")
+
+
+# ㅁ 받침으로 끝나도 문장 끝("있음", "함")이 아닌 이름씨. 응급조치·문구에 자주 나온다.
+M_NOUNS = ("흄", "사람", "바람", "몸", "힘", "늄", "륨", "슘", "뮴", "롬")
 
 
 def ends_sentence(text):
@@ -140,19 +145,66 @@ def ends_sentence(text):
     if not text:
         return True
     last = text[-1]
-    batchim_m = 0 <= ord(last) - 0xAC00 < 11172 and (ord(last) - 0xAC00) % 28 == 16
+    batchim_m = (0 <= ord(last) - 0xAC00 < 11172 and (ord(last) - 0xAC00) % 28 == 16
+                 and not text.endswith(M_NOUNS))
     return batchim_m or text.endswith(("시오", "것", "다")) or not HANGUL.match(last)
 
 
-def join_wrapped(prev, prev_raw, raw):
+def doc_words(pages):
+    """PDF 한 줄 안에서 띄어 쓴 낱말들. 줄 끝에서 접힌 낱말을 붙일지 띄울지 가릴 때 본다.
+
+    줄의 첫 낱말과 끝 낱말은 접혀서 잘린 조각일 수 있어("샤워하시" / "오.") 넣지 않는다."""
+    words = set()
+    for text in pages:
+        for line in text.splitlines():
+            for token in flat(line).split(" ")[1:-1]:
+                words.add(token)
+                words.add(token.rstrip(".,)"))
+    words.discard("")
+    return words
+
+
+# 낱말 끝에 오는 토씨·씨끝. 줄이 이것으로 끝나면 낱말이 끝난 자리에서 접힌 것으로 본다.
+WORD_END = set("을를은는이가에의와과로도만고며서면게나여야한된할될인난운른던")
+# 홀로 쓰는 한 글자 낱말("할 수 있음", "말 것").
+STANDALONE = {"수", "것", "등", "및", "더", "잘", "꼭", "곧", "또"}
+# 낱말 첫머리로만 오는 말. 뒷줄이 이것으로 시작하면 띄운다("일어난 / 경우").
+WORD_START = ("것", "경우", "때", "동안", "즉시")
+
+
+def wrap_spaced(prev, line, words=None):
+    """줄 끝에서 접힌 두 줄 사이를 띄울지. 글자층의 줄 끝 빈칸은 PDF 마다 제멋대로라 보지 않는다.
+
+    - 앞 줄이 문장으로 끝나거나 뒷줄이 한글로 시작하지 않으면 띄운다.
+    - 같은 PDF 의 다른 줄에 붙인 낱말("계속", "호흡보호구를")이 있으면 붙이고, 두 조각이 저마다 낱말로
+      쓰였으면("말" / "것.") 띄운다.
+    - 그도 없으면 앞 낱말이 토씨·씨끝으로 끝날 때 띄우고, 아니면 낱말 한가운데서 접힌 것으로 보고 붙인다.
+    """
+    if not prev or not line or ends_sentence(prev):
+        return True
+    if line[0] == "(" and HANGUL.match(prev[-1]):
+        return False   # "흄" / "(fumes)이", "의료기관" / "(의사)의"
+    if not HANGUL.match(line[0]):
+        return True
+    tail, head = prev.split()[-1], line.split()[0]
+    if words:
+        joined = tail + head
+        if joined in words or joined.rstrip(".,)") in words:
+            return False
+        if tail in words and (head in words or head.rstrip(".,)") in words):
+            return True
+    if head.startswith(WORD_START) or tail in STANDALONE:
+        return True
+    return len(tail) >= 2 and tail[-1] in WORD_END
+
+
+def join_wrapped(prev, prev_raw, raw, words=None):
     """접힌 줄을 잇는다. 한글 낱말 한가운데서 접혔으면 붙이고, 아니면 띄운다."""
     line = flat(raw)
-    spaced = (prev_raw.endswith((" ", "\t")) or raw[:1].isspace() or ends_sentence(prev)
-              or not HANGUL.match(line[0]))
-    return tidy_text(prev + (" " if spaced else "") + line)
+    return tidy_text(prev + (" " if wrap_spaced(prev, line, words) else "") + line)
 
 
-def parse_statements(lines, junk):
+def parse_statements(lines, junk, words=None):
     """H·P 문구를 읽는다. 코드가 문장 앞에 오든 뒤에 오든 같은 규칙으로 읽는다.
 
     - 한 줄에 코드가 있으면 코드 뒤 글을 문구로 본다. 뒤에 한글이 없으면 앞 글을 본다.
@@ -170,7 +222,7 @@ def parse_statements(lines, junk):
             # "인화성 액체 : 구분2" 같은 분류 줄은 이어지는 문장이 아니다. 두 칸 표에서 문구 뒤에
             # 분류 칸 값이 몰려 나오는 PDF 가 있어(오공본드 락카 스프레이) 여기서 멈춘다.
             if last and not STOP_LINE.search(line) and not CATEGORY.search(line) and HANGUL.search(line) and len(line) <= 120:
-                items[last] = join_wrapped(items[last], prev_raw, raw)
+                items[last] = join_wrapped(items[last], prev_raw, raw, words)
             else:
                 last = None
             prev_raw = raw
@@ -287,7 +339,7 @@ def parse_ingredients(lines, junk):
     return rows
 
 
-AID_ENUM = r"^[\s　]*(?:[가-하]|[a-eA-E]|[1-5](?:\.\d)?)?\s*[.．)]?\s*"
+AID_ENUM = r"^[\s　]*(?:[가나다라마바사아자차카타파하]|[a-eA-E]|[1-5](?:\.\d)?)?\s*[.．)]?\s*"
 AID = [
     # 영문 SDS 는 "IF IN EYES", "When inhaled :", "B. Skin contact" 처럼 적는다. 영문 항목 이름은 줄 끝이거나
     # 쌍점이 붙을 때만 항목으로 본다(문장 속 "skin contact" 에 걸리지 않게).
@@ -304,8 +356,8 @@ AID = [
 ]
 
 
-def parse_first_aid(lines, junk):
-    """4항. 항목 이름 뒤 같은 줄에 적힌 조치도 받는다. 접힌 줄은 잇는다."""
+def parse_first_aid(lines, junk, words=None):
+    """4항. 항목 이름 뒤 같은 줄에 적힌 조치도 받는다. 접힌 줄은 잇는다(words: doc_words, 띄어쓰기를 가릴 때)."""
     result, current, prev_raw = {}, None, ""
     for raw in lines[1:]:
         line = flat(raw)
@@ -327,7 +379,7 @@ def parse_first_aid(lines, junk):
             continue
         # 다른 절 제목이나, 응급조치 항목이 아닌 가./나. 항목이 나오면 4항이 끝난 것이다.
         # "4.1 Description …" 같은 소번호는 절 머리가 아니다. 숫자 뒤 점 다음에 글자가 올 때만 멈춘다.
-        if current is not None and (re.match(r"^\d+\s*[.．]\s*[^\d\s.]", line) or re.match(r"^[가-하]\s*[.．]\s*\S", line)):
+        if current is not None and (re.match(r"^\d+\s*[.．]\s*[^\d\s.]", line) or re.match(r"^[가나다라마바사아자차카타파하]\s*[.．]\s*\S", line)):
             break
         if re.match(r"^\d+(?:\.\d+)+\s", line):
             # "4.2 Most important symptoms" 같은 소항목 머리. 다음 항목 이름이 나올 때까지 모으지 않는다.
@@ -338,8 +390,10 @@ def parse_first_aid(lines, junk):
             continue
         items = result[current]
         # 앞 줄이 짧으면 접힌 줄이 아니라 제목·값을 줄을 나눠 적은 것이다. 잇지 않는다.
-        if items and not ends_sentence(items[-1]) and len(flat(prev_raw)) >= 30:
-            items[-1] = join_wrapped(items[-1], prev_raw, raw)
+        # 다만 이 줄이 문장 끝만 남은 짧은 꼬리("구하시오", "실시하시오.")면 앞 줄이 짧아도 잇는다.
+        tail_only = len(line) <= 15 and ends_sentence(line) and not re.match(r"[가-힣]+\s*[:：]", line)
+        if items and not ends_sentence(items[-1]) and (len(flat(prev_raw)) >= 30 or tail_only):
+            items[-1] = join_wrapped(items[-1], prev_raw, raw, words)
         else:
             items.append(tidy_text(line))
         prev_raw = raw
@@ -379,7 +433,7 @@ def first_date(text):
 
 # 라벨 값이 끝나는 곳. 다음 항목(라./4.), 빈 줄, 다른 날짜 라벨(인쇄·대체·작성 …).
 VALUE_END = re.compile(
-    r"\n\s*(?:[가-하a-z]|\d{1,2})\s*[.．)]\s*[가-힣A-Za-z]|\n\s*\n|인쇄|대체|supersed|print|작성|제정|발행|최초|created",
+    r"\n\s*(?:[가나다라마바사아자차카타파하a-z]|\d{1,2})\s*[.．)]\s*[가-힣A-Za-z]|\n\s*\n|인쇄|대체|supersed|print|작성|제정|발행|최초|created",
     re.I)
 # 최초 작성일 값은 개정일 라벨에서도 끝난다. 개정일 값은 "개정" 이 라벨 자신에 들어 있어 넣지 않는다.
 ISSUE_VALUE_END = re.compile(VALUE_END.pattern + r"|개정|revision", re.I)
@@ -427,7 +481,9 @@ ROUTE_WORDS = {
     "inhalation": r"공기|호흡|흡입|산소|air|breath|inhal",
     "ingestion": r"입|삼키|삼켰|먹|구토|토하|섭취|마시|mouth|swallow|vomit|ingest",
 }
-NOT_FIRST_AID = re.compile(r"\b\d{2,7}-\d{2}-\d\b|KE-\d|\bTWA\b|STEL|ppm|mg/m", re.I)
+# 다른 절이 딸려 온 줄: CAS·노출기준(3·8항), H·P 코드(2항), 등재번호·NFPA 등급(15·16항).
+NOT_FIRST_AID = re.compile(r"\b\d{2,7}-\d{2}-\d\b|KE-\d|\bTWA\b|STEL|ppm|mg/m|(?<![A-Za-z])[HP]\d{3}(?!\d)|등재\s*번호"
+                           r"|NFPA|보건\s*=\s*\d|화재\s*=\s*\d", re.I)
 # 글꼴 연결이 깨진 PDF 에서 제 글자 대신 튀어나오는 음절("싞발을 벖고", "조얶을"). 보통 글에는 거의 안 나온다.
 CORRUPTED = re.compile("[싞늒맊홖젂핚짂갂숚렦맋핛젗벖첛얶옦젘앆젃]")
 # 마침표 없이 끝나는 영문 조치는 시키는 말로 시작할 때만 조치로 본다("Move person to fresh air").
@@ -503,7 +559,7 @@ def emergency_phone(pages):
 
 # 공급자 주소. 라벨과 같은 줄의 값을 먼저 보고, 없으면 1항에 도로명 주소가 하나뿐일 때만 그것을 쓴다.
 # 제조자·수입자 주소가 둘 다 적혀 있으면 어느 것이 공급자인지 알 수 없어 비워 둔다.
-ADDRESS_LABEL = re.compile(r"^\s*[-·•]?\s*(?:[가-하]\.\s*)?(?:주\s*소|address)\s*[:：]?\s*(?P<value>.*)$", re.I)
+ADDRESS_LABEL = re.compile(r"^\s*[-·•]?\s*(?:[가나다라마바사아자차카타파하]\.\s*)?(?:주\s*소|address)\s*[:：]?\s*(?P<value>.*)$", re.I)
 ROAD_ADDRESS = re.compile(
     r"(?:서울|부산|대구|인천|광주|대전|울산|세종|경기|강원|충청|충북|충남|전라|전북|전남|경상|경북|경남|제주)"
     r"[가-힣]*\s*(?:[가-힣]+(?:시|군|구)\s*){1,3}(?:[가-힣0-9]+(?:읍|면)\s*)?"

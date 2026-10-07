@@ -75,7 +75,7 @@ class PublicContentTests(unittest.TestCase):
                 for item in items:
                     if T.SENTENCE.search(item):
                         continue
-                    self.assertIsNone(re.match(r"^\s*[가-하]\s*[.．]\s*\S", item), f"{product['productName']} {key}: {item[:40]}")
+                    self.assertIsNone(re.match(r"^\s*[가나다라마바사아자차카타파하]\s*[.．]\s*\S", item), f"{product['productName']} {key}: {item[:40]}")
                     self.assertNotIn("물질안전보건자료", item, f"{product['productName']} {key}")
 
     def test_normalizing_again_changes_nothing(self):
@@ -109,9 +109,17 @@ class PublicContentTests(unittest.TestCase):
             for key, items in fix.items():
                 for item in items:
                     self.assertNotIn(item, first_aid.get(key) or [], f"{self.by_id[pid]['productName']} 응급조치에 머리글이 남음")
+        sourced = self.repairs.get("firstAidSource", {})
+        for pid, fix in sourced.items():
+            first_aid = self.by_id[pid].get("firstAid") or {}
+            for key, change in fix.items():
+                self.assertEqual([N.aid_flat(x) for x in first_aid.get(key) or []], [N.aid_flat(x) for x in change["after"]],
+                                 f"{self.by_id[pid]['productName']} 응급조치 {key} 가 원문 문단이 아니다")
         for pid, fix in self.repairs.get("firstAidText", {}).items():
             first_aid = self.by_id[pid].get("firstAid") or {}
             for key, change in fix.items():
+                if key in sourced.get(pid, {}):
+                    continue   # 뒤에 원문 문단으로 통째로 바뀐 칸
                 self.assertEqual([re.sub(r"\s", "", x) for x in first_aid.get(key) or []],
                                  [re.sub(r"\s", "", x) for x in change["after"]],
                                  f"{self.by_id[pid]['productName']} 응급조치 {key} 를 원문대로 잇지 않았다")
@@ -139,7 +147,7 @@ class PublicContentTests(unittest.TestCase):
 
     def test_candidate_precautions_carry_no_other_section_text(self):
         """추출 후보 예방조치 칸에 6~8항 소항목("나. 환경을 보호하기 위해 …")이 섞이지 않는다."""
-        pattern = re.compile(r"^\s*[가-하]\s*[.．]\s*(?:인체를\s*보호|환경을\s*보호|정화\s*또는\s*제거|안전\s*취급|안전한\s*저장)")
+        pattern = re.compile(r"^\s*[가나다라마바사아자차카타파하]\s*[.．]\s*(?:인체를\s*보호|환경을\s*보호|정화\s*또는\s*제거|안전\s*취급|안전한\s*저장)")
         for override in self.overrides:
             for items in (override.get("precautionaryStatements") or {}).values():
                 for line in items:
@@ -220,6 +228,35 @@ class PdfTextRuleTests(unittest.TestCase):
                          "충남 예산군 봉산면 예덕로 341-10")
         self.assertEqual(T.emergency_phone(["긴급전화번호 031) 494 - 5096"]), "031-494-5096")
 
+    def test_wrapped_line_starting_like_an_item_number_is_not_a_new_item(self):
+        # "가." 나 "나." 만 항목 번호다. "오. 계속 씻으시오" 는 앞 줄에서 접힌 줄이다([가-하] 범위는 거의 모든 한글을 품는다).
+        lines = ["4. 응급조치 요령",
+                 "가. 눈에 들어갔을 때 : 눈에 묻으면 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시 ",
+                 "오. 계속 씻으시오. ",
+                 "나. 피부에 접촉했을 때 : 피부를 물로 씻으시오."]
+        parsed = T.parse_first_aid(lines, set())
+        self.assertEqual(parsed["eye"], ["눈에 묻으면 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오."])
+        self.assertEqual(parsed["skin"], ["피부를 물로 씻으시오."])
+
+    def test_wrapped_words_join_or_split_as_the_document_writes_them(self):
+        words = T.doc_words(["가끔 눈을 계속 씻을 것. 마스크 또는 호흡보호구를 착용"])
+        self.assertFalse(T.wrap_spaced("적어도 10분 동안 계", "속 세척할 것.", words))
+        self.assertFalse(T.wrap_spaced("자급식 호", "흡보호구를 착용할 것.", words))
+        self.assertTrue(T.wrap_spaced("구토를 유도하지 말", "것. 만약", words))
+        self.assertTrue(T.wrap_spaced("울렁거림을", "느끼면 위험하므로", words))
+        self.assertTrue(T.wrap_spaced("호흡정지가 일어난", "경우, 훈련", words))
+        self.assertFalse(T.wrap_spaced("안정을 취하시오. 흄", "(fumes)이 남아", words))
+        # 줄 끝·줄 첫 조각은 낱말 증거로 쓰지 않는다("샤워하시" / "오.")
+        self.assertNotIn("샤워하시", T.doc_words(["피부를 물로 씻으시오/샤워하시", "오."]))
+        self.assertFalse(T.ends_sentence("흡입을 피하시오. 흄"))
+
+    def test_first_aid_junk_lines_from_other_sections(self):
+        self.assertEqual(T.usable_first_aid("inhalation", [
+            "(관련 법규에 명시된 내용에 따라) 내용물·용기를 폐기하시오(P501).",
+            "보건=3 화재=0 반응성=2 (0=불충분, 4=매우 높음)",
+            "신선한 공기가 있는 곳으로 옮기시오.",
+        ]), ["신선한 공기가 있는 곳으로 옮기시오."])
+
     def test_section_heading_found_out_of_order(self):
         lines = ["4. 응급조치요령", "가. 눈에 들어갔을 때 물로 씻으시오", "2. 유해성·위험성", "분류 없음"]
         self.assertEqual(T.section(lines, 4), lines[:2])
@@ -227,6 +264,14 @@ class PdfTextRuleTests(unittest.TestCase):
 
 
 class NormalizeRuleTests(unittest.TestCase):
+    def test_first_aid_source_paragraph_must_hold_every_site_line(self):
+        source = ["눈에 묻으면 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오."]
+        # 앞이 잘리고 쪽 머리글이 섞인 줄은 원문 문단으로 바꿔도 잃는 글이 없다
+        self.assertTrue(N.first_aid_covered(["오. 계속 씻으시오.", "LCP-77 적색 N100 ( 4 / 25 )", "(엘씨피-77 적색 엔 100)"], source))
+        # 원문 문단에 없는 조치가 하나라도 있으면(문장 꼴이 아니어도) 바꾸지 않는다
+        self.assertFalse(N.first_aid_covered(["계속 씻으시오.", "즉시다량의물이나우유를먹임"], source))
+        self.assertFalse(N.first_aid_covered(["계속 씻으시오.", "유해성 정보를 참조할 것. (11항)"], source))
+
     def test_labels_bullets_and_sentence_tails(self):
         record = {"hazardStatements": ["- H226 인화성 액체 및 증기", "호흡기 과민성, 구분 1 H334", "H334 흡입 시 알레르기성 반응"],
                   "precautionaryStatements": {"prevention": ["예방 P282 : 방한장갑을 착용하시오", "대응 P315 : 즉시 의학적인 조치·조언을",

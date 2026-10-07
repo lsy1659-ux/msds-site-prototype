@@ -160,7 +160,7 @@ def is_reliable_name(value: object) -> bool:
         return False
     if re.search(r"(^|\s)([2-9]|1[0-6])\s*[.)]", text):
         return False
-    if re.search(r"(^|\s)[가-하]\s*[.)]", text):
+    if re.search(r"(^|\s)[가나다라마바사아자차카타파하]\s*[.)]", text):
         return False
     if re.search(r"(TEL|FAX|E-?mail|http|www\.|주소|경기도|서울|전화|팩스|@)", text, re.I):
         return False

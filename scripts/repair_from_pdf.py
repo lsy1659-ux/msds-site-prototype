@@ -94,15 +94,13 @@ def examine(product: dict, today: str) -> dict:
     # 응급조치: 빈 칸만
     current = product.get("firstAid") or {}
     section4 = T.section(lines, 4)
-    parsed = T.parse_first_aid(section4, junk) if section4 else {}
+    parsed = T.parse_first_aid(section4, junk, T.doc_words(pages)) if section4 else {}
     fill = {}
-    # 빈 칸을 pypdf 로 못 읽었으면 두 번째 글자 읽기로 다시 본다(두 칸 표 PDF).
-    alt_parsed = {}
-    if any(not current.get(key) and key not in parsed for key in AID_KEYS):
-        alt = T.page_texts_alt(path)
-        if alt:
-            alt_section4 = T.section("\n".join(alt).splitlines(), 4)
-            alt_parsed = T.parse_first_aid(alt_section4, T.boilerplate(alt)) if alt_section4 else {}
+    # 두 번째 글자 읽기(pymupdf, 있으면). 두 칸 표 PDF 는 pypdf 가 항목 이름과 조치를 따로 떼어
+    # 읽어 칸이 비거나 문단이 잘린다. 빈 칸 채우기와 잘린 문단 바꾸기에 같이 쓴다.
+    alt = T.page_texts_alt(path)
+    alt_section4 = T.section("\n".join(alt).splitlines(), 4) if alt else []
+    alt_parsed = T.parse_first_aid(alt_section4, T.boilerplate(alt), T.doc_words(alt)) if alt_section4 else {}
     for key in AID_KEYS:
         if current.get(key):
             continue
@@ -163,22 +161,58 @@ def examine(product: dict, today: str) -> dict:
     remove = {}
     for key, items in (product.get("firstAid") or {}).items():
         bad = [item for item in items if not T.SENTENCE.search(item) and (
-            T.key(item) in junk or re.match(r"^\s*[가-하]\s*[.．]\s*\S", item) or "물질안전보건자료" in item)]
+            T.key(item) in junk or re.match(r"^\s*[가나다라마바사아자차카타파하]\s*[.．]\s*\S", item) or "물질안전보건자료" in item
+            or N.AID_JUNK.search(item))]
         if bad:
             remove[key] = bad
-    if remove:
-        found["firstAidRemove"] = remove
 
     # 응급조치의 잘린 줄. 예전 추출이 한 문단을 50자 남짓씩 끊어 여러 줄로 넣은 것과, 문장 끝이
     # 잘린 것이 있다. 끊긴 줄은 이어 붙인 글이 원문 4항에 그대로 있을 때만 잇고(띄어쓰기도 원문대로),
     # 끝이 잘린 줄은 원문 4항의 조치가 그 글로 시작해 문장으로 끝나면 그 조치로 바꾼다.
-    after_remove = {key: [item for item in items if item not in remove.get(key, [])]
-                    for key, items in (product.get("firstAid") or {}).items()}
-    source4 = "\n".join(section4)
+    def without(removed):
+        return {key: [item for item in items if item not in removed.get(key, [])]
+                for key, items in (product.get("firstAid") or {}).items()}
+
+    after_remove = without(remove)
+    source_fix = _source_fix(after_remove, parsed, alt_parsed, product["pdfPath"], today)
+
+    # 다른 항목의 글이 딸려 온 줄: 원문 이 항목 문단(두 읽기 모두)에는 없고, 원문 다른 항목에 있으며
+    # 그 항목의 사이트 글(원문 문단으로 바꾼 뒤)에 이미 있는 줄. 빼도 잃는 글이 없다.
+    # 같은 줄이 두 칸에 있고 두 칸 원문에 다 없으면 서로를 근거로 둘 다 빠질 수 있다. 근거로 삼는 다른 칸 글은
+    # 원문 문단으로 바뀐 칸이거나, 그 칸에서 빠질 후보를 뺀 사이트 글이어야 한다.
+    candidates = {}
+    for key, items in after_remove.items():
+        own = [_aid_flat("".join(parsed.get(key) or [])), _aid_flat("".join(alt_parsed.get(key) or []))]
+        if any(own):
+            candidates[key] = [item for item in items
+                               if len(_aid_flat(item)) >= 8 and not any(_aid_flat(item) in o for o in own)]
+    final = {key: (source_fix[key]["after"] if key in source_fix
+                   else [item for item in items if item not in candidates.get(key, [])])
+             for key, items in after_remove.items()}
+    stray = {}
+    for key, items in candidates.items():
+        others = [_aid_flat("".join(texts)) for other, texts in final.items() if other != key]
+        for item in items:
+            if any(_aid_flat(item) in o for o in others):
+                stray.setdefault(key, []).append(item)
+    if stray:
+        for key, items in stray.items():
+            remove.setdefault(key, []).extend(x for x in items if x not in remove[key])
+        after_remove = without(remove)
+        source_fix = _source_fix(after_remove, parsed, alt_parsed, product["pdfPath"], today)
+    if remove:
+        found["firstAidRemove"] = remove
+    if source_fix:
+        found["firstAidSource"] = source_fix
+
+    # 끊긴 줄을 이을 때 보는 원문 4항 글. 두 칸 표 PDF 는 pypdf 로 4항을 못 찾기도 해 두 읽기를 함께 본다.
+    source4 = "\n".join(section4 + alt_section4)
     pool = [item for items in parsed.values() for item in items]
     text_fix = {}
     for key, items in after_remove.items():
-        fixed = _complete_first_aid(items, source4, pool, parsed.get(key), key)
+        if key in source_fix:
+            continue
+        fixed = _complete_first_aid(items, source4, pool, parsed.get(key), key, T.doc_words(pages + (alt or [])))
         if fixed != items:
             text_fix[key] = {"before": items, "after": fixed}
     if text_fix:
@@ -187,7 +221,7 @@ def examine(product: dict, today: str) -> dict:
     # 중간에서 잘린 문구: 사이트 문구가 문장으로 끝나지 않고, 원문 2항의 같은 코드 문구가 그 글로
     # 시작해 더 길고 문장으로 끝나면 원문 문구로 바꾼다. 늘어난 부분에 쪽 머리글이 섞이면 두지 않는다.
     section2 = T.section(lines, 2)
-    pdf_h, pdf_p = T.parse_statements(section2, junk) if section2 else ([], {})
+    pdf_h, pdf_p = T.parse_statements(section2, junk, T.doc_words(pages)) if section2 else ([], {})
     by_code = {}
     for line in pdf_h + [x for items in pdf_p.values() for x in items]:
         by_code.setdefault(re.sub(r"\s", "", N.CODE.match(line).group(0)), line)
@@ -250,12 +284,50 @@ def _nospace(text: str) -> str:
     return re.sub(r"\s", "", text)
 
 
-def _join_as_source(first: str, second: str, source: str) -> str:
-    """두 줄을 원문에 적힌 띄어쓰기대로 잇는다. 원문에 이어진 글이 없으면 빈 문자열."""
-    if _nospace(first + second) not in _nospace(source):
+def _aid_flat(text: str) -> str:
+    """응급조치 글 비교용(N.first_aid_covered 와 같은 꼴)."""
+    return N.aid_flat(text)
+
+
+def _source_fix(after_remove: dict, parsed: dict, alt_parsed: dict, pdf: str, today: str) -> dict:
+    """앞뒤가 잘렸거나 쪽 머리글이 섞인 칸: 원문 같은 항목 문단이 지금 줄을 모두 품으면 원문 문단으로
+    (N.first_aid_covered). 두 가지 글자 읽기가 다 품으면 더 짧은 쪽을 쓴다. 글 순서가 뒤틀린 읽기는
+    다른 항목·다른 절 글까지 한 문단으로 끌고 와 길어지기 때문이다."""
+    fixes = {}
+    for key, items in after_remove.items():
+        fits = []
+        for engine, got in (("pypdf", parsed.get(key)), ("pymupdf", alt_parsed.get(key))):
+            full = T.usable_first_aid(key, got or [])
+            # 글자층에 빈칸이 없는 PDF("긴급의료조치를받으시오")를 띄어 쓴 사이트 글 대신 넣지 않는다.
+            if _spacing(items) >= 0.12 and _spacing(full) < 0.06:
+                continue
+            if (full and [N._nospace(x) for x in full] != [N._nospace(x) for x in items]
+                    and N.first_aid_covered(items, full)):
+                fits.append((len(N._nospace("".join(full))), engine, full))
+        if fits:
+            _, engine, full = min(fits, key=lambda fit: fit[0])
+            fixes[key] = {"after": full, "engine": engine, "pdf": pdf, "checkedOn": today}
+    return fixes
+
+
+def _spacing(items: list[str]) -> float:
+    """한글 글자당 빈칸 수. 보통 한국어 글은 0.2 안팎, 빈칸이 빠진 글층은 0 에 가깝다."""
+    hangul = sum(len(T.HANGUL.findall(x)) for x in items)
+    return sum(x.count(" ") for x in items) / hangul if hangul else 1.0
+
+
+def _join_as_source(first: str, second: str, source: str, words: set | None = None) -> str:
+    """두 줄을 원문에 적힌 띄어쓰기대로 잇는다. 원문에 이어진 글이 없으면 빈 문자열.
+
+    원문에서 두 조각 사이가 줄바꿈이면 그 빈칸은 원문의 띄어쓰기가 아니다. 그때는 접힌 줄 규칙
+    (T.wrap_spaced)으로 정한다. 뒷줄이 "눈 :" 같은 항목 이름으로 시작하면 두 칸 표의 다른 칸 글이라 잇지 않는다."""
+    if _nospace(first + second) not in _nospace(source) or re.match(r"^[가-힣]{1,4}\s*[:：]", second):
         return ""
     tail, head = first.split()[-1], second.split()[0]
-    if re.search(re.escape(tail) + r"\s+" + re.escape(head), source):
+    gap = re.search(re.escape(tail) + r"(\s*)" + re.escape(head), source)
+    if gap and "\n" in gap.group(1):
+        return first + (" " if T.wrap_spaced(first, second, words) else "") + second
+    if gap and gap.group(1):
         return f"{first} {second}"
     if (tail + head) in source:
         return first + second
@@ -263,7 +335,7 @@ def _join_as_source(first: str, second: str, source: str) -> str:
 
 
 def _complete_first_aid(items: list[str], source: str, pool: list[str], same_key: list[str] | None = None,
-                        key: str = "") -> list[str]:
+                        key: str = "", words: set | None = None) -> list[str]:
     # 예전 추출은 항목 이름이 적힌 첫 줄("나. 피부에 접촉했을 때 : 피부(또는 머리카락)에 …")을
     # 버려서 문단 앞(때로 끝도)이 잘린 채 들어갔다. 사이트 글이 원문 같은 항목 글 안에 그대로
     # 들어 있고 원문 쪽이 더 길면 원문 글로 바꾼다. 원문이 사이트 글을 모두 품으므로 잃는 글이 없다.
@@ -277,12 +349,16 @@ def _complete_first_aid(items: list[str], source: str, pool: list[str], same_key
     while index < len(out):
         item = out[index]
         if len(_nospace(item)) >= 8 and not T.ends_sentence(item):
-            joined = _join_as_source(item, out[index + 1], source) if index + 1 < len(out) else ""
+            joined = _join_as_source(item, out[index + 1], source, words) if index + 1 < len(out) else ""
             if joined:
                 out[index:index + 2] = [joined]
                 continue   # 이은 줄이 아직 안 끝났으면 한 번 더 잇는다
+            # 다음 줄이 있으면 그 줄과도 앞머리가 맞아야 한다. 앞부분만 같고 뒤가 갈라지는 다른 항목 문단
+            # ("…자급식 호흡보호구를 착용할 것. 구강 대 구강…" / "흡보호구를 착용할 것. 호흡하지 않거나…")으로 바꾸지 않는다.
+            joined = _nospace(item + (out[index + 1] if index + 1 < len(out) else ""))
             longer = next((x for x in pool if _nospace(x).startswith(_nospace(item))
-                           and len(_nospace(x)) > len(_nospace(item)) and T.ends_sentence(x)), "")
+                           and len(_nospace(x)) > len(_nospace(item)) and T.ends_sentence(x)
+                           and (_nospace(x).startswith(joined) or joined.startswith(_nospace(x)))), "")
             if longer:
                 out[index] = longer
         index += 1
@@ -296,6 +372,14 @@ def _merge_lists(old: dict | None, new: dict) -> dict:
         for key, items in value.items():
             bucket = merged.setdefault(pid, {}).setdefault(key, [])
             bucket.extend(item for item in items if item not in bucket)
+    return merged
+
+
+def _merge_keys(old: dict | None, new: dict) -> dict:
+    """{제품: {칸: 보완}} 둘을 칸마다 합친다. 같은 칸은 새것으로."""
+    merged = {pid: dict(value) for pid, value in (old or {}).items()}
+    for pid, value in new.items():
+        merged.setdefault(pid, {}).update(value)
     return merged
 
 
@@ -348,6 +432,8 @@ def main() -> int:
     aid_texts = [r for r in results if "firstAidText" in r]
     print(f"응급조치 끊긴 줄을 원문대로 이음         {len(aid_texts)}건 "
           f"({sum(len(v['before']) - len(v['after']) for r in aid_texts for v in r['firstAidText'].values())}줄 줄어듦)")
+    sourced = [r for r in results if "firstAidSource" in r]
+    print(f"응급조치 잘린 문단을 원문 문단으로       {len(sourced)}건 ({sum(len(r['firstAidSource']) for r in sourced)}칸)")
     print(f"응급조치에 섞인 쪽 머리글·꼬리글       {len(removes)}건 ({sum(len(v) for r in removes for v in r['firstAidRemove'].values())}줄)")
     print(f"중간에서 잘린 문구를 원문으로 채움     {len(texts)}건 ({sum(len(r['statementText']) for r in texts)}줄)")
     contacts = [r for r in results if "emergencyContact" in r]
@@ -386,8 +472,10 @@ def main() -> int:
             "supplierAddress": {**(old.get("supplierAddress") or {}), **{r["id"]: r["supplierAddress"] for r in addresses}},
             "firstAidRemove": _merge_lists(old.get("firstAidRemove"), {r["id"]: r["firstAidRemove"] for r in removes}),
             "statementText": _merge_pairs(old.get("statementText"), {r["id"]: r["statementText"] for r in texts}),
-            # 줄 목록을 통째로 바꾸므로 제품·칸마다 가장 최근 것 하나만 둔다.
-            "firstAidText": {**(old.get("firstAidText") or {}), **{r["id"]: r["firstAidText"] for r in aid_texts}},
+            # 줄 목록을 통째로 바꾸므로 제품·칸마다 가장 최근 것 하나만 둔다. 다른 칸의 예전 보완은 남긴다
+            # (이미 반영된 칸은 지금 데이터에서 다시 안 찾아지므로, 제품째 덮으면 집 PC 빌드에서 빠진다).
+            "firstAidText": _merge_keys(old.get("firstAidText"), {r["id"]: r["firstAidText"] for r in aid_texts}),
+            "firstAidSource": _merge_keys(old.get("firstAidSource"), {r["id"]: r["firstAidSource"] for r in sourced}),
         }
         with REPAIRS_PATH.open("w", encoding="utf-8", newline="\n") as file:
             file.write(json.dumps(repairs, ensure_ascii=False, indent=2) + "\n")
