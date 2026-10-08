@@ -167,8 +167,9 @@ function renderPictograms(codes, product) {
     if (!isNotClassified(product) && needsPictogram(product)) {
       return `<div class="label-pictograms is-empty">${missingNotice("그림문자")}</div>`;
     }
-    // 분류 대상이 아니거나, 그림문자가 없는 분류(H412 등)만 있으면 그림문자가 없는 것이 맞다.
-    if (isNotClassified(product) || cleanStatements(product?.hazardStatements).length) {
+    // 분류 대상이 아니거나, 그림문자가 없는 분류(H412 등)만 있거나, 원문 경고표지에 그림문자 없이
+    // 신호어·문구만 있으면(CRS 그리스 841) 그림문자가 없는 것이 맞다.
+    if (isNotClassified(product) || hasLabelElements(product)) {
       return `<div class="label-pictograms is-empty"><span class="label-none">그림문자 없음</span></div>`;
     }
     return `<div class="label-pictograms is-empty">${missingNotice("그림문자")}</div>`;
@@ -184,6 +185,9 @@ function renderPictograms(codes, product) {
 
 function renderStatementBlock(title, items, missingLabel, product, note = "") {
   if (!items.length) {
+    // 원문 경고표지에 유해·위험문구가 아예 없는 MSDS(한일루켐 GHP 그리스: 그림문자·신호어·예방조치만 있음)는
+    // 빈 칸을 찍지 않고 그 칸을 뺀다. 2026-10-08 전체 대조로 사이트 문구가 원문과 같음을 확인했다.
+    if (!isNotClassified(product) && title === "유해·위험 문구" && hasLabelElements(product)) return "";
     const body = isNotClassified(product) ? noneNotice("분류 대상 아님") : missingNotice(missingLabel);
     return `<section class="label-block"><h3>${labelEscape(title)}</h3>${body}</section>`;
   }
@@ -239,9 +243,16 @@ function getQuantity(productId) {
   return Number.isFinite(value) && value >= 1 ? Math.min(60, Math.round(value)) : 1;
 }
 
+// 원문 경고표지 항목(그림문자·신호어·유해위험문구·예방조치문구) 가운데 하나라도 있는지.
+function hasLabelElements(product) {
+  const word = String(product?.signalWord || "").trim();
+  return getPictogramCodes(product || {}).length > 0 || word === "위험" || word === "경고"
+    || cleanStatements(product?.hazardStatements).length > 0 || getPrecautionList(product || {}).length > 0;
+}
+
 function isPrintable(product) {
   if (isNotClassified(product)) return true;
-  if (!cleanStatements(product.hazardStatements).length) return false;
+  if (!hasLabelElements(product)) return false;
   // 유해문구가 그림문자를 요구하는데 그림문자가 비어 있으면 붙일 수 없는 표지다.
   return !(needsPictogram(product) && !getPictogramCodes(product).length);
 }
@@ -277,7 +288,8 @@ function applyLabelFilter() {
     : labelState.products.filter((product) => labelNormalize([
         product.productName, product.supplier, product.category, product.useCategory, product.msdsNo
       ].join(" ")).includes(needle));
-  if (labelState.onlyPrintable) list = list.filter(isPrintable);
+  // 조회 화면에서 넘겨받았거나 고른 제품은 표지 항목이 덜 차 있어도 보여 준다(안 보이면 왜 없는지 모른다).
+  if (labelState.onlyPrintable) list = list.filter((product) => isPrintable(product) || labelState.selected.has(product.id));
   labelState.filtered = list;
 }
 

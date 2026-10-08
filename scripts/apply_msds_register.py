@@ -23,6 +23,7 @@
   날짜     revisionDate·issueDate 를 적어 두면 그 값으로 바꾼다. 원문과 다르게
            들어간 개정일을 바로잡을 때 쓴다. datesCheckedSha256 이 있으면 그 PDF 일
            때만 바꾼다. 같은 자리에 새 판이 들어오면 옛 날짜로 덮지 않는다.
+           issueDateNotInSource 가 참이면 원문에 없는 최초 작성일을 비운다.
   재인쇄   history 에 labelReprint 로 적힌 제품에 labelReprint 를 붙인다. 경고표지
            화면이 "표지 다시 뽑기" 를 띄운다.
   구판     retired 로 적힌 제품은 목록에서 뺀다. 대신 새 판에 formerIds 로 옛 id 를
@@ -197,6 +198,11 @@ def apply_register(
         dates_ok = _pdf_unchanged(product, entry.get("datesCheckedSha256"))
         if not dates_ok:
             report["datesStale"].append(product.get("id"))
+        # 새 판으로 바꿀 때 옛 판의 날짜가 '최초 작성일'로 넘어온 것. 새 판 원문에 최초 작성일이
+        # 없으면(3M 은 발행일·대체일만 적는다) 비워 둔다.
+        if dates_ok and entry.get("issueDateNotInSource") and product.get("issueDate"):
+            product["issueDate"] = ""
+            report["datesFixed"].append(f"{product.get('id')} issueDate")
         for field in ("revisionDate", "issueDate"):
             value = str(entry.get(field) or "").strip()
             if dates_ok and value and product.get(field) != value:

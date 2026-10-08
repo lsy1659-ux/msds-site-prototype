@@ -293,6 +293,16 @@ try {
     expect(text.includes("삼키면 유해함"), "유해·위험문구 없음");
   });
 
+  await check("경고표지: 유해·위험문구가 없는 MSDS(GHP 그리스)도 표지가 열리고 빈 칸 없이 찍힌다", async () => {
+    await page.go(`${BASE}/label.html?dataMode=public&product=msds-pdf-d53b862679ad3157`);
+    await page.until("document.querySelector('[data-label-id=\"msds-pdf-d53b862679ad3157\"] .label-pictogram')");
+    await page.eval("const s = document.querySelector('#labelSize'); s.value = 'medium'; s.dispatchEvent(new Event('change')); return true;");
+    await page.until("document.querySelector('[data-label-id=\"msds-pdf-d53b862679ad3157\"]')?.textContent.includes('예방조치 문구')");
+    const card = await page.eval(`const c = document.querySelector('[data-label-id="msds-pdf-d53b862679ad3157"]');
+      return { signal: c.querySelector('.label-signal')?.textContent.trim(), missing: c.querySelectorAll('.label-missing').length };`);
+    expect(card.signal === "경고" && card.missing === 0, JSON.stringify(card));
+  });
+
   await check("경고표지: 분류 대상이 아닌 제품은 '그림문자 없음'", async () => {
     await page.go(`${BASE}/label.html?dataMode=public&product=msds-064`);
     await page.until("document.querySelector('[data-label-id=\"msds-064\"] .label-pictograms')");

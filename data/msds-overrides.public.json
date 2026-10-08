@@ -11654,7 +11654,7 @@
     "supplierCandidate": "HDC현대EP(주)",
     "msdsNoCandidate": "",
     "revisionDateCandidate": "",
-    "signalWordCandidate": "",
+    "signalWordCandidate": "해당없음",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
@@ -11727,7 +11727,7 @@
     "productNameCandidate": "",
     "supplierCandidate": "HDC현대EP(주)",
     "msdsNoCandidate": "",
-    "signalWordCandidate": "",
+    "signalWordCandidate": "해당없음",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
@@ -11818,7 +11818,7 @@
     "supplierCandidate": "HDC현대EP(주)",
     "msdsNoCandidate": "",
     "revisionDateCandidate": "2026-01-06",
-    "signalWordCandidate": "",
+    "signalWordCandidate": "해당없음",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
@@ -11884,7 +11884,7 @@
     "supplierCandidate": "HDC현대EP(주)",
     "msdsNoCandidate": "",
     "revisionDateCandidate": "",
-    "signalWordCandidate": "",
+    "signalWordCandidate": "해당없음",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
@@ -19958,10 +19958,35 @@
       "H402 Harmful to aquatic life"
     ],
     "precautionaryStatements": {
-      "prevention": [],
-      "response": [],
-      "storage": [],
-      "disposal": []
+      "prevention": [
+        "Avoid release to the environment.",
+        "Do not breathe dust/fume/gas/mist/vapors/spray.",
+        "Use only outdoors or in a well-ventilated area.",
+        "Wash contaminated parts thoroughly after handling.",
+        "Wear protective gloves or protective clothing.",
+        "Wear eye protection/face protection.",
+        "Do not eat, drink or smoke when using this product."
+      ],
+      "response": [
+        "Immediately call a POISON CENTER/doctor/physician.",
+        "Call a POISON CENTER/doctor/physician if you feel unwell.",
+        "IF exposed or concerned: Call a POISON CENTER/doctor/physician.",
+        "IF INHALED: Remove person to fresh air and keep comfortable for breathing.",
+        "IF ON SKIN: Wash with plenty of soap and water.",
+        "IF ON SKIN (or hair): Take off immediately all contaminated clothing. Rinse skin with water or shower.",
+        "Wash contaminated clothing before reuse.",
+        "Take off contaminated clothing and wash it before reuse.",
+        "IF IN EYES: Rinse cautiously with water for several minutes. Remove contact lenses, if present and easy to do. Continue rinsing.",
+        "IF SWALLOWED: Call a POISON CENTER/doctor/physician if you feel unwell.",
+        "IF SWALLOWED: Rinse mouth. Do NOT induce vomiting."
+      ],
+      "storage": [
+        "Store in a well-ventilated place. Keep container tightly closed.",
+        "Store locked up."
+      ],
+      "disposal": [
+        "Dispose of contents/container in accordance with local/national regulation."
+      ]
     },
     "ingredients": [
       {
@@ -20192,7 +20217,8 @@
         "REVISION_DATE_CONFLICT",
         "SIGNAL_WORD_INVALID"
       ]
-    }
+    },
+    "signalWordCandidate": "해당없음"
   },
   {
     "sourcePdfPath": "pdf/3M/Finesse-it_82878.pdf",
@@ -20863,7 +20889,7 @@
     "productNameCandidate": "대륙 부탄 CRV",
     "supplierCandidate": "주식회사 대륙제관",
     "msdsNoCandidate": "",
-    "revisionDateCandidate": "2010-06-16",
+    "revisionDateCandidate": "2017-08-17",
     "signalWordCandidate": "위험",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
@@ -20990,7 +21016,7 @@
     "productNameCandidate": "맥스 CRV",
     "supplierCandidate": "주식회사 대륙제관",
     "msdsNoCandidate": "",
-    "revisionDateCandidate": "2010-06-16",
+    "revisionDateCandidate": "2023-03-10",
     "signalWordCandidate": "위험",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
@@ -21117,7 +21143,7 @@
     "productNameCandidate": "세이프 부탄 CRV",
     "supplierCandidate": "주식회사 대륙제관",
     "msdsNoCandidate": "",
-    "revisionDateCandidate": "2010-06-16",
+    "revisionDateCandidate": "2023-07-14",
     "signalWordCandidate": "위험",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
@@ -21244,7 +21270,7 @@
     "productNameCandidate": "썬플라워 부탄 CRV",
     "supplierCandidate": "주식회사 대륙제관",
     "msdsNoCandidate": "",
-    "revisionDateCandidate": "2010-06-16",
+    "revisionDateCandidate": "2017-08-17",
     "signalWordCandidate": "위험",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
@@ -21371,7 +21397,7 @@
     "productNameCandidate": "썬히트 부탄 CRV",
     "supplierCandidate": "주식회사 대륙제관",
     "msdsNoCandidate": "",
-    "revisionDateCandidate": "2010-06-16",
+    "revisionDateCandidate": "2017-08-17",
     "signalWordCandidate": "위험",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
@@ -21498,7 +21524,7 @@
     "productNameCandidate": "퍼펙트 부탄 CRV",
     "supplierCandidate": "주식회사 대륙제관",
     "msdsNoCandidate": "",
-    "revisionDateCandidate": "2010-06-16",
+    "revisionDateCandidate": "2017-08-17",
     "signalWordCandidate": "위험",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
@@ -23884,7 +23910,7 @@
     "productNameCandidate": "",
     "supplierCandidate": "락카스프레이",
     "msdsNoCandidate": "",
-    "revisionDateCandidate": "2011-08-01",
+    "revisionDateCandidate": "2024-01-02",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],
@@ -26414,11 +26440,11 @@
       "prevention": [
         "P201 사용 전 취급 설명서를 확보하시오.",
         "P202 모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.",
-        "P210 열스파크화염고열로부터멀리하시오· · · - 금연",
+        "P210 열·스파크·화염·고열로부터 멀리하시오 - 금연",
         "P281 적절한 개인 보호구를 착용하시오."
       ],
       "response": [
-        "P308+P313 노출되거나노출이우려되면의학적인조치조언을구하시오",
+        "P308+P313 노출되거나 노출이 우려되면 의학적인 조치·조언을 구하시오",
         "P377 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
         "P381 안전하게 처리하는 것이 가능하면 모든 점화원을 제거하시오."
       ],
@@ -26428,7 +26454,7 @@
         "P410+P403 직사광선을 피하고 환기가 잘 되는 곳에 보관하시오."
       ],
       "disposal": [
-        "P501 (관련법규에명시된내용에따라내용물용기를폐기하시오)"
+        "P501 (관련 법규에 명시된 내용에 따라) 내용물·용기를 폐기하시오"
       ]
     },
     "ingredients": [
@@ -28069,7 +28095,7 @@
     "supplierCandidate": "HYUNDAI EP co., ltd",
     "msdsNoCandidate": "",
     "revisionDateCandidate": "2023-10-10",
-    "signalWordCandidate": "",
+    "signalWordCandidate": "해당없음",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
     "labelGhsPictograms": [],

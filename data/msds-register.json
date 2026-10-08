@@ -1142,7 +1142,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "",
-      "signalSource": "none"
+      "signalSource": "none",
+      "notClassified": true,
+      "notClassifiedNote": "원문 2항 경고표지 항목(그림문자·신호어·유해위험문구·예방조치문구)이 모두 '자료없음'인 고분자 컴파운드 (2026-10-08 원문 대조)"
     },
     "msds-072": {
       "productName": "SUPOL N20HR580U",
@@ -1156,7 +1158,9 @@
       "checkedOn": "2026-09-23",
       "signalWord": "",
       "signalSource": "none",
-      "datesCheckedSha256": "7432875ed6fa20b24257c517c784d3063b0d04b86fc699990430105664af7abe"
+      "datesCheckedSha256": "7432875ed6fa20b24257c517c784d3063b0d04b86fc699990430105664af7abe",
+      "notClassified": true,
+      "notClassifiedNote": "원문 2항 경고표지 항목(그림문자·신호어·유해위험문구·예방조치문구)이 모두 '자료없음'인 고분자 컴파운드 (2026-10-08 원문 대조)"
     },
     "msds-073": {
       "productName": "SUPOL HR530, SUPOL HR530X",
@@ -1169,7 +1173,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "",
-      "signalSource": "none"
+      "signalSource": "none",
+      "notClassified": true,
+      "notClassifiedNote": "원문 2항 경고표지 항목(그림문자·신호어·유해위험문구·예방조치문구)이 모두 '자료없음'인 고분자 컴파운드 (2026-10-08 원문 대조)"
     },
     "msds-074": {
       "productName": "SUPOL HR580,SUPOL HR580G,SUPOL HR580IN,SUPOL HR580TF,SUPOL",
@@ -1182,7 +1188,9 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "",
-      "signalSource": "none"
+      "signalSource": "none",
+      "notClassified": true,
+      "notClassifiedNote": "원문 2항 경고표지 항목(그림문자·신호어·유해위험문구·예방조치문구)이 모두 '자료없음'인 고분자 컴파운드 (2026-10-08 원문 대조)"
     },
     "msds-075": {
       "productName": "일신 뿌리는 그리스",
@@ -2289,7 +2297,9 @@
       "signalSource": "pdf1",
       "revisionDate": "2023-02-15",
       "issueDate": "2015-10-28",
-      "datesCheckedSha256": "01bbccc7c4364b702d094f910ca3b5f592d8476043742509fa4ad5663670e1c7"
+      "datesCheckedSha256": "01bbccc7c4364b702d094f910ca3b5f592d8476043742509fa4ad5663670e1c7",
+      "notClassified": true,
+      "notClassifiedNote": "원문 2.1 '유해 화학 물질로 분류되지 않음', 2.2 신호어·그림문자·유해위험문구·예방조치문구 모두 '해당없음' (2026-10-08 원문 대조)"
     },
     "msds-141": {
       "productName": "3M™ 피네스잇™ 폴리시 - 최종 마감재(28796, 84224, 82877, 82878, 88753)",
@@ -2401,7 +2411,10 @@
       "action": "소비자용 확인 시 '필요 없음', 산업용이면 번호 기재 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2017-08-17",
+      "issueDate": "2010-06-16",
+      "datesCheckedSha256": "0ffb4e277ad5e5d0c38df39baa62bf1a7413d9771653e5d486ea95923cd63361"
     },
     "msds-149": {
       "productName": "맥스 CRV",
@@ -2421,7 +2434,10 @@
       "action": "소비자용 확인 시 '필요 없음', 산업용이면 번호 기재 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2023-03-10",
+      "issueDate": "2010-06-16",
+      "datesCheckedSha256": "24d5066da2ae6c2b9daab25c9fb8c8a7e116b9480ba8b8689d3d6f09b037e89d"
     },
     "msds-150": {
       "productName": "세이프 부탄 CRV",
@@ -2441,7 +2457,10 @@
       "action": "소비자용 확인 시 '필요 없음', 산업용이면 번호 기재 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2023-07-14",
+      "issueDate": "2010-06-16",
+      "datesCheckedSha256": "6d1b5a2379ba410178f8b3f76742453633f6ae3874d4124e92042d59f738bbaf"
     },
     "msds-151": {
       "productName": "썬플라워 부탄 CRV",
@@ -2461,7 +2480,10 @@
       "action": "소비자용 확인 시 '필요 없음', 산업용이면 번호 기재 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2017-08-17",
+      "issueDate": "2010-06-16",
+      "datesCheckedSha256": "38e70fcb941d997c009f789e2e2c7275abbfadab7d99399b248b6055c6a74c79"
     },
     "msds-152": {
       "productName": "썬히트 부탄 CRV",
@@ -2481,7 +2503,10 @@
       "action": "소비자용 확인 시 '필요 없음', 산업용이면 번호 기재 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2017-08-17",
+      "issueDate": "2010-06-16",
+      "datesCheckedSha256": "5898661d1d6c50a30b53e91f8857ec8af7c12da595818a25a7fcead29cbb0455"
     },
     "msds-153": {
       "productName": "퍼펙트 부탄 CRV",
@@ -2501,7 +2526,10 @@
       "action": "소비자용 확인 시 '필요 없음', 산업용이면 번호 기재 MSDS 요청",
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf1"
+      "signalSource": "pdf1",
+      "revisionDate": "2017-08-17",
+      "issueDate": "2010-06-16",
+      "datesCheckedSha256": "2d9c546b14404b7292bf85d333be16dba3397e65548d82a489771a4f66067b31"
     },
     "msds-154": {
       "productName": "백양락스",
@@ -3019,7 +3047,10 @@
       ],
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
-      "signalSource": "pdf3"
+      "signalSource": "pdf3",
+      "revisionDate": "2024-01-02",
+      "issueDate": "2011-08-01",
+      "datesCheckedSha256": "306f4ca012db5ce6068c3aac94b628969f62d43a8b8e426669ff6dc6ec65b2f4"
     },
     "msds-pdf-007b2f977ffa1b20": {
       "productName": "나바켐 황색",
@@ -3756,7 +3787,9 @@
       "action": "공급사에 국문 MSDS 또는 비해당 통보서 요청. 비해당 확인되면 '필요 없음'",
       "checkedOn": "2026-09-23",
       "signalWord": "",
-      "signalSource": "none"
+      "signalSource": "none",
+      "notClassified": true,
+      "notClassifiedNote": "원문 2항 'Hazard classification: Not classifiable', 경고표지 항목 모두 'Data not available' (2026-10-08 원문 대조)"
     },
     "msds-pdf-1191eaa28df73490": {
       "productName": "SUPOL HR580",
@@ -3993,7 +4026,8 @@
       "signalSource": "pdf-new",
       "source": "https://cdmsweb.3m.com/ingredientcommunication/file/Media/rJvhe-rqkbQ",
       "replaces": "msds-142",
-      "datesCheckedSha256": "c4e623e455a2408bff1ee1c94d5ceeb13c5f6c74b97802395dfca7828960217a"
+      "datesCheckedSha256": "c4e623e455a2408bff1ee1c94d5ceeb13c5f6c74b97802395dfca7828960217a",
+      "issueDateNotInSource": true
     },
     "msds-pdf-f6d25ab4aeeced6d": {
       "productName": "PN3084 피네스잇 마무리 연마재(FINESSE-IT FINISHING MATERIAL)",
@@ -4014,7 +4048,8 @@
       "signalSource": "pdf-new",
       "source": "https://cdmsweb.3m.com/ingredientcommunication/file/Media/oJIsIEjzcsk",
       "replaces": "msds-143",
-      "datesCheckedSha256": "a3104a8f5df8862f00f2aefa142fd262b31effc3ebd8212b9aca49be1fa635db"
+      "datesCheckedSha256": "a3104a8f5df8862f00f2aefa142fd262b31effc3ebd8212b9aca49be1fa635db",
+      "issueDateNotInSource": true
     },
     "msds-pdf-879e67e226aa209b": {
       "productName": "스테인리스강 코팅제(Stainless Steel Coat)",
@@ -4052,7 +4087,8 @@
       "signalSource": "pdf-new",
       "source": "https://cdmsweb.3m.com/ingredientcommunication/file/Media/K2dxB7g-tY4",
       "replaces": "msds-145",
-      "datesCheckedSha256": "ee32b6fba91703fc7e445c54b8934864d0347a51257b116dded05aac176a6ee3"
+      "datesCheckedSha256": "ee32b6fba91703fc7e445c54b8934864d0347a51257b116dded05aac176a6ee3",
+      "issueDateNotInSource": true
     },
     "msds-pdf-2ad6c5c7848d75bf": {
       "productName": "알곤, 아르곤(ARGON)",
@@ -7259,9 +7295,9 @@
       "newRevision": "2022-07-25",
       "source": "원본 PDF 대조",
       "sha256": "c78d6e848dc5f01fafef8aafb21e5f2bad8ce0cdf6fee51d0ac8a6441bde79f2",
-      "note": "원문 글꼴이 깨져 '싞호어·심핚'처럼 읽힌 글자를 제 글자로 바꿈(같은 PDF 안에서 늘 같은 글자로 바뀜); 원문 2항 유해·위험문구 13개·예방조치문구 41개가 사이트에 없었음(글꼴이 깨진 PDF 라 읽기에서 빠짐); 원문 4항 응급조치가 사이트에 없었음; 그림문자: 불꽃·느낌표·건강유해성 3개. 사이트에 건강유해성이 빠져 있었음",
+      "note": "원문 글꼴이 깨져 '싞호어·심핚'처럼 읽힌 글자를 제 글자로 바꿈(같은 PDF 안에서 늘 같은 글자로 바뀜); 원문 2항 유해·위험문구 13개·예방조치문구 33줄이 사이트에 없었음(글꼴이 깨진 PDF 라 읽기에서 빠짐); 원문 4항 응급조치가 사이트에 없었음; 그림문자: 불꽃·느낌표·건강유해성 3개. 사이트에 건강유해성이 빠져 있었음",
       "labelReprint": true,
-      "labelReprintReason": "원문 전체 대조로 바뀜: 그림문자 +GHS08; 유해·위험문구; 예방조치문구"
+      "labelReprintReason": "원문 전체 대조로 바뀜: 그림문자 +GHS08; 유해·위험문구; 예방조치문구; 주소; 긴급전화"
     },
     {
       "date": "2026-10-08",
@@ -7278,9 +7314,9 @@
       "newRevision": "2024-11-11",
       "source": "원본 PDF 대조",
       "sha256": "0998978cb3ebd3ee82ead988ff1bec3d4b166f36945358300097375a40d97115",
-      "note": "원문 글꼴이 깨져 '싞호어·심핚'처럼 읽힌 글자를 제 글자로 바꿈(같은 PDF 안에서 늘 같은 글자로 바뀜)",
+      "note": "원문 글꼴이 깨져 '싞호어·심핚'처럼 읽힌 글자를 제 글자로 바꿈(같은 PDF 안에서 늘 같은 글자로 바뀜); 원문 4항 응급조치가 사이트에 없었음(글꼴이 깨진 PDF)",
       "labelReprint": true,
-      "labelReprintReason": "원문 전체 대조로 바뀜: 유해·위험문구; 예방조치문구"
+      "labelReprintReason": "원문 전체 대조로 바뀜: 유해·위험문구; 예방조치문구; 공급자; 긴급전화"
     },
     {
       "date": "2026-10-08",
@@ -7449,7 +7485,7 @@
       "newRevision": "2024-05-22",
       "source": "원본 PDF 대조",
       "sha256": "c3ed91f196436380fd306dae722399a5fa933709da30a56e8297609f7919e4e1",
-      "note": "원문 2항 예방조치문구 13개가 사이트에 없었음",
+      "note": "원문 2항 예방조치문구 13개가 사이트에 없었음; 피부 칸에 앞 줄 끝('…/샤워하시오')이 한 번 더 '샤워하시오.' 한 줄로 들어가 있었음",
       "labelReprint": true,
       "labelReprintReason": "원문 전체 대조로 바뀜: 예방조치문구"
     },
@@ -7544,9 +7580,9 @@
       "newRevision": "2024-04-01",
       "source": "원본 PDF 대조",
       "sha256": "00bd0830f6de755535f8eb7bb2086f28749684c3e3436984cc9465b79f07be1a",
-      "note": "원문 2항 예방조치문구 27개가 사이트에 없었음",
+      "note": "원문 2항 예방조치문구 27개가 사이트에 없었음; 원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음",
       "labelReprint": true,
-      "labelReprintReason": "원문 전체 대조로 바뀜: 예방조치문구"
+      "labelReprintReason": "원문 전체 대조로 바뀜: 예방조치문구; 공급자"
     },
     {
       "date": "2026-10-08",
@@ -7563,9 +7599,9 @@
       "newRevision": "2023-06-13",
       "source": "원본 PDF 대조",
       "sha256": "a26053814f066ef9a0d91e27680b74ee0dc547730618df0a3b361fbcad830c38",
-      "note": "원문 2항 예방조치문구 7개가 사이트에 없었음; 그림문자: 불꽃·가스통·느낌표 (H335·H336 의 느낌표가 빠져 있었음)",
+      "note": "원문 2항 예방조치문구 7개가 사이트에 없었음; 원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음; 그림문자: 불꽃·가스통·느낌표 (H335·H336 의 느낌표가 빠져 있었음)",
       "labelReprint": true,
-      "labelReprintReason": "원문 전체 대조로 바뀜: 예방조치문구"
+      "labelReprintReason": "원문 전체 대조로 바뀜: 예방조치문구; 공급자"
     },
     {
       "date": "2026-10-08",
@@ -7582,9 +7618,9 @@
       "newRevision": "2022-12-12",
       "source": "원본 PDF 대조",
       "sha256": "52d86cde3891101378e31f57772b7ed901584f1170ee1d2a7ce0eeada4ca7fab",
-      "note": "원문 2항 예방조치문구 8개가 사이트에 없었음; 그림문자: 부식성 하나 (사이트는 느낌표로 잘못 두었음, H314·H318)",
+      "note": "원문 2항 예방조치문구 8개가 사이트에 없었음; 원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음; 그림문자: 부식성 하나 (사이트는 느낌표로 잘못 두었음, H314·H318)",
       "labelReprint": true,
-      "labelReprintReason": "원문 전체 대조로 바뀜: 예방조치문구"
+      "labelReprintReason": "원문 전체 대조로 바뀜: 예방조치문구; 공급자; 주소"
     },
     {
       "date": "2026-10-08",
@@ -7639,9 +7675,9 @@
       "newRevision": "2011-08-01",
       "source": "원본 PDF 대조",
       "sha256": "306f4ca012db5ce6068c3aac94b628969f62d43a8b8e426669ff6dc6ec65b2f4",
-      "note": "원문 2항 유해·위험문구 6개(H220·H222·H225·H229·H280·H312)가 사이트에 없었음",
+      "note": "원문 2항 유해·위험문구 6개(H220·H222·H225·H229·H280·H312)가 사이트에 없었음; 원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음",
       "labelReprint": true,
-      "labelReprintReason": "원문 전체 대조로 바뀜: 유해·위험문구"
+      "labelReprintReason": "원문 전체 대조로 바뀜: 유해·위험문구; 공급자; 긴급전화"
     },
     {
       "date": "2026-10-08",
@@ -7696,9 +7732,9 @@
       "newRevision": "2024-01-22",
       "source": "원본 PDF 대조",
       "sha256": "b05a993ac4d4cd62b8c9a82357f9414ee8c2de0838d76e139d67ce8fa035bacd",
-      "note": "원문 2항 예방조치문구 32개(문장 끝 괄호에 코드)가 사이트에 하나도 없었음; 원문 4항이 줄 중간에서 끊겨 칸이 뒤섞였고(눈 칸에 '사의 진료를 받을 것.'), 먹었을 때 칸에 증상 글이 들어가 있었음",
+      "note": "원문 2항 예방조치문구 32개(문장 끝 괄호에 코드)가 사이트에 하나도 없었음; 원문 4항이 줄 중간에서 끊겨 칸이 뒤섞였고(눈 칸에 '사의 진료를 받을 것.'), 먹었을 때 칸에 증상 글이 들어가 있었음; 원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음",
       "labelReprint": true,
-      "labelReprintReason": "원문 전체 대조로 바뀜: 예방조치문구"
+      "labelReprintReason": "원문 전체 대조로 바뀜: 예방조치문구; 긴급전화"
     },
     {
       "date": "2026-10-08",
@@ -7753,7 +7789,7 @@
       "newRevision": "2022-09-05",
       "source": "원본 PDF 대조",
       "sha256": "d53b862679ad3157e1bd6b38a206612dce531db153ce984e54295af673b61e9d",
-      "note": "원문 2.2.3 예방조치문구 6개가 사이트에 없었음; 원문 4항 흡입·먹었을 때·의사 주의사항 칸이 사이트에 없었음; 그림문자: 느낌표 1개. 사이트에 그림문자가 없었음",
+      "note": "원문 2.2.3 예방조치문구 6개가 사이트에 없었음; 원문 4항 흡입·먹었을 때·의사 주의사항 칸이 사이트에 없었음; 원문 3항 성분표(CAS·함유량)가 사이트와 달랐음; 그림문자: 느낌표 1개. 사이트에 그림문자가 없었음",
       "labelReprint": true,
       "labelReprintReason": "원문 전체 대조로 바뀜: 그림문자 +GHS07; 예방조치문구"
     },
@@ -7772,7 +7808,7 @@
       "newRevision": "2022-09-05",
       "source": "원본 PDF 대조",
       "sha256": "d353876f24b4839c20a62c546c27040eb074dbdbf903c72e702703bd31c4d4cc",
-      "note": "원문 2.2.3 예방조치문구 6개가 사이트에 없었음; 원문 4항 흡입·먹었을 때·의사 주의사항 칸이 사이트에 없었음; 그림문자: 느낌표 1개. 사이트에 그림문자가 없었음",
+      "note": "원문 2.2.3 예방조치문구 6개가 사이트에 없었음; 원문 4항 흡입·먹었을 때·의사 주의사항 칸이 사이트에 없었음; 원문 3항 성분표(CAS·함유량)가 사이트와 달랐음; 그림문자: 느낌표 1개. 사이트에 그림문자가 없었음",
       "labelReprint": true,
       "labelReprintReason": "원문 전체 대조로 바뀜: 그림문자 +GHS07; 예방조치문구"
     },
@@ -7791,7 +7827,7 @@
       "newRevision": "2022-09-05",
       "source": "원본 PDF 대조",
       "sha256": "d462ab4576452226813c9b1749731929228a4f1453163cbe662a7aa1e338e9f0",
-      "note": "원문 2.2.3 예방조치문구 6개가 사이트에 없었음; 원문 4항 흡입·먹었을 때·의사 주의사항 칸이 사이트에 없었음; 그림문자: 느낌표 1개. 사이트에 그림문자가 없었음",
+      "note": "원문 2.2.3 예방조치문구 6개가 사이트에 없었음; 원문 4항 흡입·먹었을 때·의사 주의사항 칸이 사이트에 없었음; 원문 3항 성분표(CAS·함유량)가 사이트와 달랐음; 그림문자: 느낌표 1개. 사이트에 그림문자가 없었음",
       "labelReprint": true,
       "labelReprintReason": "원문 전체 대조로 바뀜: 그림문자 +GHS07; 예방조치문구"
     },
@@ -7905,9 +7941,9 @@
       "newRevision": "2021-04-19",
       "source": "원본 PDF 대조",
       "sha256": "4107175d25aa9cc2dfe1d5949aa0fe4972da345631e4ae252569951781c51179",
-      "note": "예방조치문구가 신호어·유해문구와 한 덩어리로 붙어 있었거나 예방·대응·저장·폐기 칸이 섞여 있었음; 그림문자: 느낌표 1개. 사이트에 원문에 없는 해골이 있었음",
+      "note": "예방조치문구가 신호어·유해문구와 한 덩어리로 붙어 있었거나 예방·대응·저장·폐기 칸이 섞여 있었음; 유해·위험문구가 띄어쓰기 없이 붙어 있었음; 먹었을 때 칸에 회사 이름('SARAYA CO., LTD.')이 들어가 있었음; 원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음; 그림문자: 느낌표 1개. 사이트에 원문에 없는 해골이 있었음",
       "labelReprint": true,
-      "labelReprintReason": "원문 전체 대조로 바뀜: 그림문자 −GHS06; 유해·위험문구; 예방조치문구"
+      "labelReprintReason": "원문 전체 대조로 바뀜: 그림문자 −GHS06; 유해·위험문구; 예방조치문구; 주소"
     },
     {
       "date": "2026-10-08",
@@ -7924,9 +7960,9 @@
       "newRevision": "2021-03-31",
       "source": "원본 PDF 대조",
       "sha256": "9472292d03bfdf4ce8ac6e7ebe05961541c7aa89843d7d9e2732f2aed5708df4",
-      "note": "예방조치문구가 신호어·유해문구와 한 덩어리로 붙어 있었거나 예방·대응·저장·폐기 칸이 섞여 있었음; 눈 칸에 회사 이름('SARAYA CO., LTD.')이 들어가 있었음; 그림문자: 느낌표·불꽃 2개. 사이트에 느낌표가 빠져 있었음",
+      "note": "예방조치문구가 신호어·유해문구와 한 덩어리로 붙어 있었거나 예방·대응·저장·폐기 칸이 섞여 있었음; 유해·위험문구가 띄어쓰기 없이 붙어 있었음; 눈 칸에 회사 이름('SARAYA CO., LTD.')이 들어가 있었음; 원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음; 그림문자: 느낌표·불꽃 2개. 사이트에 느낌표가 빠져 있었음",
       "labelReprint": true,
-      "labelReprintReason": "원문 전체 대조로 바뀜: 그림문자 +GHS07; 유해·위험문구; 예방조치문구"
+      "labelReprintReason": "원문 전체 대조로 바뀜: 그림문자 +GHS07; 유해·위험문구; 예방조치문구; 주소"
     },
     {
       "date": "2026-10-08",
@@ -7962,7 +7998,7 @@
       "newRevision": "2023-11-20",
       "source": "원본 PDF 대조",
       "sha256": "320628fc09406fd2ea68f03671b6d358755fe825e5dd449fe2f345859de9e08a",
-      "note": "한 문장이 두 줄로 끊겨 있었음(눈에 묻으면…, 보관할 때는…)",
+      "note": "한 문장이 두 줄로 끊겨 있었음(눈에 묻으면…, 보관할 때는…); 먹었을 때 칸에 다음 항목('마. 가장 중요한 증후…', '바. 응급조치를 하는 사람의 보호…')이 들어가 있었음",
       "labelReprint": true,
       "labelReprintReason": "원문 전체 대조로 바뀜: 예방조치문구"
     },
@@ -8117,7 +8153,9 @@
       "newRevision": "2024-11-04",
       "source": "원본 PDF 대조",
       "sha256": "f4e9adee0c215e3cdbf17e5ea2503c0df3411363e9d8997e3e3b714a35e2f40b",
-      "note": "영문 MSDS 4항(First aid measures)이 사이트에 하나도 없었음"
+      "note": "영문 MSDS 4항(First aid measures)이 사이트에 하나도 없었음; 원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음",
+      "labelReprint": true,
+      "labelReprintReason": "원문 전체 대조로 바뀜: 주소"
     },
     {
       "date": "2026-10-08",
@@ -8134,9 +8172,9 @@
       "newRevision": "2023-03-07",
       "source": "원본 PDF 대조",
       "sha256": "2e87b452ae7c5fe51c58f0686416fd55ee47c7eb287bf45f09aa22dd2d35cb15",
-      "note": "눈 칸 첫 줄 끝이 잘렸고('…if present and easy'), 먹었을 때 칸에 증상 글이, 일반 조치가 빠져 있었음; 그림문자: 부식성·해골·건강유해성 3개(영문 MSDS Label elements). 해골이 있으면 느낌표는 붙이지 않음",
+      "note": "눈 칸 첫 줄 끝이 잘렸고('…if present and easy'), 먹었을 때 칸에 증상 글이, 일반 조치가 빠져 있었음; 영문 MSDS Section 2 의 예방조치문구(Prevention·Response·Storage·Disposal)가 사이트에 없었음; 그림문자: 부식성·해골·건강유해성 3개(영문 MSDS Label elements). 해골이 있으면 느낌표는 붙이지 않음",
       "labelReprint": true,
-      "labelReprintReason": "원문 전체 대조로 바뀜: 그림문자 −GHS07"
+      "labelReprintReason": "원문 전체 대조로 바뀜: 그림문자 −GHS07; 예방조치문구"
     },
     {
       "date": "2026-10-08",
@@ -8225,9 +8263,9 @@
       "newRevision": "2018-10-15",
       "source": "원본 PDF 대조",
       "sha256": "e58c1f0cd49d509ce20caab34c316b55de3df0403cc9be21ad6b1ec85d77617e",
-      "note": "눈 칸에 회사 이름('SARAYA CO., LTD.')이 들어가 있었고 피부·눈 조치가 없었음",
+      "note": "눈 칸에 회사 이름('SARAYA CO., LTD.')이 들어가 있었고 피부·눈 조치가 없었음; 원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음",
       "labelReprint": true,
-      "labelReprintReason": "원문 전체 대조로 바뀜: 신호어 -→해당없음; 분류 비해당(원문)"
+      "labelReprintReason": "원문 전체 대조로 바뀜: 신호어 -→해당없음; 분류 비해당(원문); 주소"
     },
     {
       "date": "2026-10-08",
@@ -8244,7 +8282,9 @@
       "newRevision": "2022-01-20",
       "source": "원본 PDF 대조",
       "sha256": "7aeec8c87fe0162932dc3ad06f1a9250c89bc8a2eb7d86bdac52abc74b9a8eea",
-      "note": "원문 4항 문장 일부가 빠지거나 끝이 잘려('제거하지,') 있었음"
+      "note": "원문 4항 문장 일부가 빠지거나 끝이 잘려('제거하지,') 있었음; 예방조치 세 줄(P210·P308+P313·P501)이 띄어쓰기 없이 붙어 있었음; 원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음",
+      "labelReprint": true,
+      "labelReprintReason": "원문 전체 대조로 바뀜: 예방조치문구; 공급자; 주소; 긴급전화"
     },
     {
       "date": "2026-10-08",
@@ -8280,7 +8320,9 @@
       "newRevision": "2021-10-28",
       "source": "원본 PDF 대조",
       "sha256": "25117e7770dfe7d6643b39b72bda1fa6f6da0ef2b9a5acb2833aea60741c1a23",
-      "note": "의사 주의사항 첫 줄이 '취할 것.'만 남아 있었음"
+      "note": "의사 주의사항 첫 줄이 '취할 것.'만 남아 있었음; 원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음",
+      "labelReprint": true,
+      "labelReprintReason": "원문 전체 대조로 바뀜: 공급자; 주소; 긴급전화"
     },
     {
       "date": "2026-10-08",
@@ -8333,9 +8375,9 @@
       "newRevision": "2021-03-31",
       "source": "원본 PDF 대조",
       "sha256": "2a4981b8a294e1222273ac726b4488a50be38d58c5678bbf5b2a51dac847152f",
-      "note": "그림문자: 느낌표·부식성·환경 3개. 사이트는 해골·건강유해성으로 잘못 적혀 있었음",
+      "note": "유해·위험문구가 띄어쓰기 없이 붙어 있었고 다음 쪽으로 넘어간 3개(삼켜서 기도로…, 수생 생물에…)와 예방조치문구 전부가 없었음; 피부 칸에 회사 이름('SARAYA CO., LTD.')이 들어가 있었고, 글자층에 띄어쓰기가 없어 '최소분(15~20)'처럼 뒤섞였으며 의사 주의사항 3줄이 없었음; 원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음; 그림문자: 느낌표·부식성·환경 3개. 사이트는 해골·건강유해성으로 잘못 적혀 있었음",
       "labelReprint": true,
-      "labelReprintReason": "원문 전체 대조로 바뀜: 그림문자 +GHS07 +GHS09 −GHS06 −GHS08; 유해·위험문구; 예방조치문구"
+      "labelReprintReason": "원문 전체 대조로 바뀜: 그림문자 +GHS07 +GHS09 −GHS06 −GHS08; 유해·위험문구; 예방조치문구; 주소"
     },
     {
       "date": "2026-10-08",
@@ -8371,7 +8413,7 @@
       "newRevision": "2021-10-05",
       "source": "원본 PDF 대조",
       "sha256": "4d74083377739ddcc8c44d9f827ac4e807f08e8c14359a67f333bb64c91b7059",
-      "note": "그림문자: 해골·건강유해성·불꽃 3개. 해골이 있으면 느낌표는 붙이지 않음",
+      "note": "원문 글꼴이 깨져 '싞호어·심핚'처럼 읽힌 글자를 제 글자로 바꿈(같은 PDF 안에서 늘 같은 글자로 바뀜); 원문 4항 응급조치가 사이트에 없었음(글꼴이 깨진 PDF); 그림문자: 해골·건강유해성·불꽃 3개. 해골이 있으면 느낌표는 붙이지 않음",
       "labelReprint": true,
       "labelReprintReason": "원문 전체 대조로 바뀜: 그림문자 −GHS07"
     },
@@ -8409,9 +8451,515 @@
       "newRevision": "2020-06-12",
       "source": "원본 PDF 대조",
       "sha256": "b43e1258cdd26a3321a76f43039642875e51a0c689ac09afd83dac46b89f60c4",
-      "note": "원문 전체 대조로 바뀜: 유해·위험문구",
+      "note": "유해·위험문구 칸 끝에 쪽 머리글('PRODUCT NAME PAGE', 'SMOKING 911(스모킹 911) ( 2 / 11 )')이 붙어 있었음",
       "labelReprint": true,
       "labelReprintReason": "원문 전체 대조로 바뀜: 유해·위험문구"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "날짜 바로잡음",
+      "productName": "대륙 부탄 CRV",
+      "supplier": "주식회사 대륙제관",
+      "oldId": "msds-148",
+      "newId": "msds-148",
+      "oldFile": "pdf/대륙제관(부탄)/대륙 부탄 CRV_2023.pdf",
+      "newFile": "pdf/대륙제관(부탄)/대륙 부탄 CRV_2023.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2010-06-16",
+      "newRevision": "2017-08-17",
+      "source": "원본 PDF 대조",
+      "sha256": "0ffb4e277ad5e5d0c38df39baa62bf1a7413d9771653e5d486ea95923cd63361",
+      "note": "원문 16항 'MSDS 최종개정일자'(사이트는 최초 작성일 2010-06-16 을 개정일로 보이고 있었음)"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "날짜 바로잡음",
+      "productName": "맥스 CRV",
+      "supplier": "주식회사 대륙제관",
+      "oldId": "msds-149",
+      "newId": "msds-149",
+      "oldFile": "pdf/대륙제관(부탄)/맥스 부탄 CRV_2023.pdf",
+      "newFile": "pdf/대륙제관(부탄)/맥스 부탄 CRV_2023.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2010-06-16",
+      "newRevision": "2023-03-10",
+      "source": "원본 PDF 대조",
+      "sha256": "24d5066da2ae6c2b9daab25c9fb8c8a7e116b9480ba8b8689d3d6f09b037e89d",
+      "note": "원문 16항 'MSDS 최종개정일자'(사이트는 최초 작성일 2010-06-16 을 개정일로 보이고 있었음)"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "날짜 바로잡음",
+      "productName": "세이프 부탄 CRV",
+      "supplier": "주식회사 대륙제관",
+      "oldId": "msds-150",
+      "newId": "msds-150",
+      "oldFile": "pdf/대륙제관(부탄)/세이프 부탄 CRV_2023.pdf",
+      "newFile": "pdf/대륙제관(부탄)/세이프 부탄 CRV_2023.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2010-06-16",
+      "newRevision": "2023-07-14",
+      "source": "원본 PDF 대조",
+      "sha256": "6d1b5a2379ba410178f8b3f76742453633f6ae3874d4124e92042d59f738bbaf",
+      "note": "원문 16항 'MSDS 최종개정일자'(사이트는 최초 작성일 2010-06-16 을 개정일로 보이고 있었음)"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "날짜 바로잡음",
+      "productName": "썬플라워 부탄 CRV",
+      "supplier": "주식회사 대륙제관",
+      "oldId": "msds-151",
+      "newId": "msds-151",
+      "oldFile": "pdf/대륙제관(부탄)/썬플라워 CRV_2023.pdf",
+      "newFile": "pdf/대륙제관(부탄)/썬플라워 CRV_2023.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2010-06-16",
+      "newRevision": "2017-08-17",
+      "source": "원본 PDF 대조",
+      "sha256": "38e70fcb941d997c009f789e2e2c7275abbfadab7d99399b248b6055c6a74c79",
+      "note": "원문 16항 'MSDS 최종개정일자'(사이트는 최초 작성일 2010-06-16 을 개정일로 보이고 있었음)"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "날짜 바로잡음",
+      "productName": "썬히트 부탄 CRV",
+      "supplier": "주식회사 대륙제관",
+      "oldId": "msds-152",
+      "newId": "msds-152",
+      "oldFile": "pdf/대륙제관(부탄)/썬히트 CRV_2023.pdf",
+      "newFile": "pdf/대륙제관(부탄)/썬히트 CRV_2023.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2010-06-16",
+      "newRevision": "2017-08-17",
+      "source": "원본 PDF 대조",
+      "sha256": "5898661d1d6c50a30b53e91f8857ec8af7c12da595818a25a7fcead29cbb0455",
+      "note": "원문 16항 'MSDS 최종개정일자'(사이트는 최초 작성일 2010-06-16 을 개정일로 보이고 있었음)"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "날짜 바로잡음",
+      "productName": "퍼펙트 부탄 CRV",
+      "supplier": "주식회사 대륙제관",
+      "oldId": "msds-153",
+      "newId": "msds-153",
+      "oldFile": "pdf/대륙제관(부탄)/퍼펙트 부탄 CRV_2023.pdf",
+      "newFile": "pdf/대륙제관(부탄)/퍼펙트 부탄 CRV_2023.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2010-06-16",
+      "newRevision": "2017-08-17",
+      "source": "원본 PDF 대조",
+      "sha256": "2d9c546b14404b7292bf85d333be16dba3397e65548d82a489771a4f66067b31",
+      "note": "원문 16항 'MSDS 최종개정일자'(사이트는 최초 작성일 2010-06-16 을 개정일로 보이고 있었음)"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "날짜 바로잡음",
+      "productName": "나바켐 적색",
+      "supplier": "락카스프레이",
+      "oldId": "msds-pdf-306f4ca012db5ce6",
+      "newId": "msds-pdf-306f4ca012db5ce6",
+      "oldFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐 - 적색 MSDS.pdf",
+      "newFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐 - 적색 MSDS.pdf",
+      "oldMsdsNo": "AA03636-0000000204",
+      "newMsdsNo": "AA03636-0000000204",
+      "oldRevision": "2011-08-01",
+      "newRevision": "2024-01-02",
+      "source": "원본 PDF 대조",
+      "sha256": "306f4ca012db5ce6068c3aac94b628969f62d43a8b8e426669ff6dc6ec65b2f4",
+      "note": "원문 16항 'MSDS 최종개정일자'(사이트는 최초 작성일 2011-08-01 을 개정일로 보이고 있었음)"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "날짜 바로잡음",
+      "productName": "3M PN3021 임페리얼 미세 마감 컴파운드",
+      "supplier": "한국쓰리엠",
+      "oldId": "msds-pdf-f4c4b93fdc7911df",
+      "newId": "msds-pdf-f4c4b93fdc7911df",
+      "oldFile": "pdf/3M/PN3021_MSDS_20260726.pdf",
+      "newFile": "pdf/3M/PN3021_MSDS_20260726.pdf",
+      "oldMsdsNo": "AA00437-0000060070",
+      "newMsdsNo": "AA00437-0000060070",
+      "oldRevision": "2026-07-26",
+      "newRevision": "2026-07-26",
+      "source": "원본 PDF 대조",
+      "sha256": "c4e623e455a2408bff1ee1c94d5ceeb13c5f6c74b97802395dfca7828960217a",
+      "note": "최초 작성일 2020-10-18 은 옛 판의 개정일이 넘어온 것. 새 판 원문에는 발행일·대체일만 있어 비움"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "날짜 바로잡음",
+      "productName": "PN3084 피네스잇 마무리 연마재(FINESSE-IT FINISHING MATERIAL)",
+      "supplier": "한국쓰리엠",
+      "oldId": "msds-pdf-f6d25ab4aeeced6d",
+      "newId": "msds-pdf-f6d25ab4aeeced6d",
+      "oldFile": "pdf/3M/PN3084_MSDS_20260210.pdf",
+      "newFile": "pdf/3M/PN3084_MSDS_20260210.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2026-02-10",
+      "newRevision": "2026-02-10",
+      "source": "원본 PDF 대조",
+      "sha256": "a3104a8f5df8862f00f2aefa142fd262b31effc3ebd8212b9aca49be1fa635db",
+      "note": "최초 작성일 2019-12-12 은 옛 판의 개정일이 넘어온 것. 새 판 원문에는 발행일·대체일만 있어 비움"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "날짜 바로잡음",
+      "productName": "프로슈터",
+      "supplier": "한국쓰리엠",
+      "oldId": "msds-pdf-4d3893d05b41b64e",
+      "newId": "msds-pdf-4d3893d05b41b64e",
+      "oldFile": "pdf/3M/프로슈터_MSDS_20260701.pdf",
+      "newFile": "pdf/3M/프로슈터_MSDS_20260701.pdf",
+      "oldMsdsNo": "AA00437-0000180015",
+      "newMsdsNo": "AA00437-0000180015",
+      "oldRevision": "2026-07-01",
+      "newRevision": "2026-07-01",
+      "source": "원본 PDF 대조",
+      "sha256": "ee32b6fba91703fc7e445c54b8934864d0347a51257b116dded05aac176a6ee3",
+      "note": "최초 작성일 2018-06-13 은 옛 판의 개정일이 넘어온 것. 새 판 원문에는 발행일·대체일만 있어 비움"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "원문 전체 대조 보완",
+      "productName": "SUPOL HR580U, SUPOL HR580UIN, SUPOL HR580UX",
+      "supplier": "HDC현대EP(주)",
+      "oldId": "msds-071",
+      "newId": "msds-071",
+      "oldFile": "pdf/00_ 사출/현대ep/(MSDS) SUPOL HR580U,SUPOL HR580UIN,SUPOL HR580UX.pdf",
+      "newFile": "pdf/00_ 사출/현대ep/(MSDS) SUPOL HR580U,SUPOL HR580UIN,SUPOL HR580UX.pdf",
+      "oldMsdsNo": "AA06046-1100000145",
+      "newMsdsNo": "AA06046-1100000145",
+      "oldRevision": "",
+      "newRevision": "",
+      "source": "원본 PDF 대조",
+      "sha256": "9cc039ec17531e36f72bbad24bc6f50ab537136fda68f752af4a41bb37691fef",
+      "note": "바뀐 칸: 신호어 -→해당없음, 분류 비해당(원문)",
+      "labelReprint": true,
+      "labelReprintReason": "원문 전체 대조로 바뀜: 신호어 -→해당없음; 분류 비해당(원문)"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "원문 전체 대조 보완",
+      "productName": "SUPOL N20HR580U",
+      "supplier": "HDC현대EP(주)",
+      "oldId": "msds-072",
+      "newId": "msds-072",
+      "oldFile": "pdf/00_ 사출/현대ep/(MSDS) SUPOL N20HR580U.pdf",
+      "newFile": "pdf/00_ 사출/현대ep/(MSDS) SUPOL N20HR580U.pdf",
+      "oldMsdsNo": "AA06046-1100000320",
+      "newMsdsNo": "AA06046-1100000320",
+      "oldRevision": "2026-01-09",
+      "newRevision": "2026-01-09",
+      "source": "원본 PDF 대조",
+      "sha256": "7432875ed6fa20b24257c517c784d3063b0d04b86fc699990430105664af7abe",
+      "note": "바뀐 칸: 신호어 -→해당없음, 분류 비해당(원문)",
+      "labelReprint": true,
+      "labelReprintReason": "원문 전체 대조로 바뀜: 신호어 -→해당없음; 분류 비해당(원문)"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "원문 전체 대조 보완",
+      "productName": "SUPOL HR530, SUPOL HR530X",
+      "supplier": "HDC현대EP(주)",
+      "oldId": "msds-073",
+      "newId": "msds-073",
+      "oldFile": "pdf/00_ 사출/현대ep/(MSDS) SUPOL HR530,SUPOL HR530X.pdf",
+      "newFile": "pdf/00_ 사출/현대ep/(MSDS) SUPOL HR530,SUPOL HR530X.pdf",
+      "oldMsdsNo": "AA06046-1100000125",
+      "newMsdsNo": "AA06046-1100000125",
+      "oldRevision": "",
+      "newRevision": "",
+      "source": "원본 PDF 대조",
+      "sha256": "eb95cf4ce5d405bd93340e409800fbd401712ac4a4f704179f5a383eed1a02aa",
+      "note": "바뀐 칸: 신호어 -→해당없음, 분류 비해당(원문)",
+      "labelReprint": true,
+      "labelReprintReason": "원문 전체 대조로 바뀜: 신호어 -→해당없음; 분류 비해당(원문)"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "원문 전체 대조 보완",
+      "productName": "SUPOL HR580,SUPOL HR580G,SUPOL HR580IN,SUPOL HR580TF,SUPOL",
+      "supplier": "HDC현대EP(주)",
+      "oldId": "msds-074",
+      "newId": "msds-074",
+      "oldFile": "pdf/00_ 사출/현대ep/(MSDS) SUPOL HR580,SUPOL HR580G,SUPOL HR580IN,SUPOL HR580TF,SUPOL HR580TR,SUPOL HR580X.pdf",
+      "newFile": "pdf/00_ 사출/현대ep/(MSDS) SUPOL HR580,SUPOL HR580G,SUPOL HR580IN,SUPOL HR580TF,SUPOL HR580TR,SUPOL HR580X.pdf",
+      "oldMsdsNo": "AA06046-1100000140",
+      "newMsdsNo": "AA06046-1100000140",
+      "oldRevision": "",
+      "newRevision": "",
+      "source": "원본 PDF 대조",
+      "sha256": "881268ed87e42c25956ed91784b7199763f3b2af56cf8db4ebdfe9bbfc5314ad",
+      "note": "바뀐 칸: 신호어 -→해당없음, 분류 비해당(원문)",
+      "labelReprint": true,
+      "labelReprintReason": "원문 전체 대조로 바뀜: 신호어 -→해당없음; 분류 비해당(원문)"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "원문 전체 대조 보완",
+      "productName": "나바켐 락카스프레이 - 아이보리색 [LCP-77](N502)",
+      "supplier": "㈜영일 / ㈜나바켐",
+      "oldId": "msds-113",
+      "newId": "msds-113",
+      "oldFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐 - 아이보리색 MSDS.pdf",
+      "newFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐 - 아이보리색 MSDS.pdf",
+      "oldMsdsNo": "AA03636-0000000201",
+      "newMsdsNo": "AA03636-0000000201",
+      "oldRevision": "2024-01-02",
+      "newRevision": "2024-01-02",
+      "source": "원본 PDF 대조",
+      "sha256": "5c96d83c189705fbe63ff9178c26cf2c233ae528c7f28a6c80a995cb0633b6c7",
+      "note": "원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음",
+      "labelReprint": true,
+      "labelReprintReason": "원문 전체 대조로 바뀜: 주소"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "원문 전체 대조 보완",
+      "productName": "ZIC X7 5W-30",
+      "supplier": "SK루브리컨츠",
+      "oldId": "msds-121",
+      "newId": "msds-121",
+      "oldFile": "pdf/SK ZIC/MSDSkor_ZIC_X7_5W_30_KOR.pdf",
+      "newFile": "pdf/SK ZIC/MSDSkor_ZIC_X7_5W_30_KOR.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2020-05-22",
+      "newRevision": "2020-05-22",
+      "source": "원본 PDF 대조",
+      "sha256": "4a1c86e031b30e22f07da706718790e67e5da78adbc580962143ba9628f68446",
+      "note": "원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음",
+      "labelReprint": true,
+      "labelReprintReason": "원문 전체 대조로 바뀜: 주소"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "원문 전체 대조 보완",
+      "productName": "에틸알코올 (ethanol)",
+      "supplier": "제조자: ㈜디씨알이 / 공급자: OCI주식회사",
+      "oldId": "msds-133",
+      "newId": "msds-133",
+      "oldFile": "pdf/03_ 시험실(시약)/에탄올(에틸 알코올Ethanol)_DC Chemicals.pdf",
+      "newFile": "pdf/03_ 시험실(시약)/에탄올(에틸 알코올Ethanol)_DC Chemicals.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2010-03-16",
+      "newRevision": "2010-03-16",
+      "source": "원본 PDF 대조",
+      "sha256": "ef84e776ef45392bd3980c086554afc8e2b69165719ac90eb6b352c074f72f49",
+      "note": "원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음",
+      "labelReprint": true,
+      "labelReprintReason": "원문 전체 대조로 바뀜: 주소"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "원문 전체 대조 보완",
+      "productName": "3M™ 피네스잇™ 폴리시 - 마무리 연마재(13084, 28792, 81235, 83058)",
+      "supplier": "한국쓰리엠",
+      "oldId": "msds-140",
+      "newId": "msds-140",
+      "oldFile": "pdf/3M/Finesse-it_13084.pdf",
+      "newFile": "pdf/3M/Finesse-it_13084.pdf",
+      "oldMsdsNo": "AA00437-0000030001",
+      "newMsdsNo": "AA00437-0000030001",
+      "oldRevision": "2023-02-15",
+      "newRevision": "2023-02-15",
+      "source": "원본 PDF 대조",
+      "sha256": "01bbccc7c4364b702d094f910ca3b5f592d8476043742509fa4ad5663670e1c7",
+      "note": "바뀐 칸: 분류 비해당(원문)",
+      "labelReprint": true,
+      "labelReprintReason": "원문 전체 대조로 바뀜: 분류 비해당(원문)"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "원문 전체 대조 보완",
+      "productName": "3M PN3021 임페리얼 미세 마감 컴파운드",
+      "supplier": "한국쓰리엠",
+      "oldId": "msds-pdf-f4c4b93fdc7911df",
+      "newId": "msds-pdf-f4c4b93fdc7911df",
+      "oldFile": "pdf/3M/PN3021_MSDS_20260726.pdf",
+      "newFile": "pdf/3M/PN3021_MSDS_20260726.pdf",
+      "oldMsdsNo": "AA00437-0000060070",
+      "newMsdsNo": "AA00437-0000060070",
+      "oldRevision": "2026-07-26",
+      "newRevision": "2026-07-26",
+      "source": "원본 PDF 대조",
+      "sha256": "c4e623e455a2408bff1ee1c94d5ceeb13c5f6c74b97802395dfca7828960217a",
+      "note": "바뀐 칸: 날짜"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "원문 전체 대조 보완",
+      "productName": "PN3084 피네스잇 마무리 연마재(FINESSE-IT FINISHING MATERIAL)",
+      "supplier": "한국쓰리엠",
+      "oldId": "msds-pdf-f6d25ab4aeeced6d",
+      "newId": "msds-pdf-f6d25ab4aeeced6d",
+      "oldFile": "pdf/3M/PN3084_MSDS_20260210.pdf",
+      "newFile": "pdf/3M/PN3084_MSDS_20260210.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2026-02-10",
+      "newRevision": "2026-02-10",
+      "source": "원본 PDF 대조",
+      "sha256": "a3104a8f5df8862f00f2aefa142fd262b31effc3ebd8212b9aca49be1fa635db",
+      "note": "바뀐 칸: 날짜"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "원문 전체 대조 보완",
+      "productName": "프로슈터",
+      "supplier": "한국쓰리엠",
+      "oldId": "msds-pdf-4d3893d05b41b64e",
+      "newId": "msds-pdf-4d3893d05b41b64e",
+      "oldFile": "pdf/3M/프로슈터_MSDS_20260701.pdf",
+      "newFile": "pdf/3M/프로슈터_MSDS_20260701.pdf",
+      "oldMsdsNo": "AA00437-0000180015",
+      "newMsdsNo": "AA00437-0000180015",
+      "oldRevision": "2026-07-01",
+      "newRevision": "2026-07-01",
+      "source": "원본 PDF 대조",
+      "sha256": "ee32b6fba91703fc7e445c54b8934864d0347a51257b116dded05aac176a6ee3",
+      "note": "바뀐 칸: 날짜"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "원문 전체 대조 보완",
+      "productName": "탄산나트륨 (Sodium Carbonate)",
+      "supplier": "OCI",
+      "oldId": "msds-146",
+      "newId": "msds-146",
+      "oldFile": "pdf/OCI주식회사/소다회 MSDS.2019.06.01.pdf",
+      "newFile": "pdf/OCI주식회사/소다회 MSDS.2019.06.01.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2019-06-01",
+      "newRevision": "2019-06-01",
+      "source": "원본 PDF 대조",
+      "sha256": "e2c4b54eb3c951aabbb18f79db0f17123d5ba5e030e45437422fa5fb30aa7c7e",
+      "note": "원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음",
+      "labelReprint": true,
+      "labelReprintReason": "원문 전체 대조로 바뀜: 주소"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "원문 전체 대조 보완",
+      "productName": "나바켐 황색",
+      "supplier": "㈜영일 / ㈜나바켐",
+      "oldId": "msds-pdf-007b2f977ffa1b20",
+      "newId": "msds-pdf-007b2f977ffa1b20",
+      "oldFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐 - 황색 MSDS.pdf",
+      "newFile": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐 - 황색 MSDS.pdf",
+      "oldMsdsNo": "AA03636-0000000217",
+      "newMsdsNo": "AA03636-0000000217",
+      "oldRevision": "2024-01-02",
+      "newRevision": "2024-01-02",
+      "source": "원본 PDF 대조",
+      "sha256": "007b2f977ffa1b208deaa1475e4bc140508b9b27458c55bbbd5b5e8c8fce578b",
+      "note": "원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음",
+      "labelReprint": true,
+      "labelReprintReason": "원문 전체 대조로 바뀜: 공급자; 긴급전화"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "원문 전체 대조 보완",
+      "productName": "PP-303 GW(PU)",
+      "supplier": "악조노벨인더스트리얼코팅 (유)",
+      "oldId": "msds-pdf-37736004f8e3d7b1",
+      "newId": "msds-pdf-37736004f8e3d7b1",
+      "oldFile": "pdf/악조노벨(AzoNobel)/[MSDS] PP-303 GW(PU)_20250904.pdf",
+      "newFile": "pdf/악조노벨(AzoNobel)/[MSDS] PP-303 GW(PU)_20250904.pdf",
+      "oldMsdsNo": "AA00040-0000001778",
+      "newMsdsNo": "AA00040-0000001778",
+      "oldRevision": "2024-05-17",
+      "newRevision": "2024-05-17",
+      "source": "원본 PDF 대조",
+      "sha256": "37736004f8e3d7b1c847f84860e4971e79135671b83f24776855af763d06b5c2",
+      "note": "원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음",
+      "labelReprint": true,
+      "labelReprintReason": "원문 전체 대조로 바뀜: 공급자; 긴급전화"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "원문 전체 대조 보완",
+      "productName": "LPG(C3)",
+      "supplier": "한화토탈에너지스 주식회사",
+      "oldId": "msds-pdf-f6a7a80e940a8ea3",
+      "newId": "msds-pdf-f6a7a80e940a8ea3",
+      "oldFile": "pdf/액화석유가스(LPG)/LPG(C3).pdf",
+      "newFile": "pdf/액화석유가스(LPG)/LPG(C3).pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2022-04-01",
+      "newRevision": "2022-04-01",
+      "source": "원본 PDF 대조",
+      "sha256": "f6a7a80e940a8ea3e803d1eba99343ed5de9178207f84f13e99fba055f25f15f",
+      "note": "원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음",
+      "labelReprint": true,
+      "labelReprintReason": "원문 전체 대조로 바뀜: 공급자"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "원문 전체 대조 보완",
+      "productName": "LPG(C4)",
+      "supplier": "한화토탈에너지스 주식회사",
+      "oldId": "msds-pdf-d8b98810abb35e60",
+      "newId": "msds-pdf-d8b98810abb35e60",
+      "oldFile": "pdf/액화석유가스(LPG)/LPG(C4).pdf",
+      "newFile": "pdf/액화석유가스(LPG)/LPG(C4).pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2022-04-01",
+      "newRevision": "2022-04-01",
+      "source": "원본 PDF 대조",
+      "sha256": "d8b98810abb35e60f13be284cf0e9360b6a5b6af0120dae8c428b9d54795e0ec",
+      "note": "원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음",
+      "labelReprint": true,
+      "labelReprintReason": "원문 전체 대조로 바뀜: 공급자"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "원문 전체 대조 보완",
+      "productName": "SUPOL HR530U",
+      "supplier": "HYUNDAI EP co., ltd",
+      "oldId": "msds-pdf-3b92d1fa1c9a3177",
+      "newId": "msds-pdf-3b92d1fa1c9a3177",
+      "oldFile": "pdf/현대ep/HR530U MSDS(GHS)__2023.10.10(최초).pdf",
+      "newFile": "pdf/현대ep/HR530U MSDS(GHS)__2023.10.10(최초).pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2023-10-10",
+      "newRevision": "2023-10-10",
+      "source": "원본 PDF 대조",
+      "sha256": "3b92d1fa1c9a31777a92a707a8be86cabf5e73f19ab80270fc49ea7aa218db4b",
+      "note": "원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음",
+      "labelReprint": true,
+      "labelReprintReason": "원문 전체 대조로 바뀜: 신호어 -→해당없음; 분류 비해당(원문); 주소"
+    },
+    {
+      "date": "2026-10-08",
+      "action": "원문 전체 대조 보완",
+      "productName": "해피홈에어로솔수성(무향) Rav",
+      "supplier": "㈜유한양행",
+      "oldId": "msds-pdf-65ea6911134f71e5",
+      "newId": "msds-pdf-65ea6911134f71e5",
+      "oldFile": "pdf/홈키파/해피홈에어로솔수성(무향)_MSDS_Rav.pdf",
+      "newFile": "pdf/홈키파/해피홈에어로솔수성(무향)_MSDS_Rav.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "2019-01-22",
+      "newRevision": "2019-01-22",
+      "source": "원본 PDF 대조",
+      "sha256": "65ea6911134f71e53173be61c34a75cdeeb848a57bfa55d47d9ff4e713814a19",
+      "note": "원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음",
+      "labelReprint": true,
+      "labelReprintReason": "원문 전체 대조로 바뀜: 공급자"
     }
   ]
 }

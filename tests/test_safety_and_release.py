@@ -161,6 +161,37 @@ class FullVerificationTests(unittest.TestCase):
             self.assertEqual(ghs[pid], ["GHS07"], pid)
 
 
+class ScreenSweepFollowUpTests(unittest.TestCase):
+    """218건 화면 전수 점검(조회·경고표지·관리요령)과 날짜·성분 대조에서 더 나온 것."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.by_id = {p["id"]: p for p in json.loads((ROOT / "data" / "msds.public.json").read_text(encoding="utf-8"))}
+
+    def test_revision_date_is_the_last_revision_not_the_first_issue(self):
+        """부탄 CRV 6종·나바켐 적색은 최초 작성일이 개정일 칸에 들어가 있었다(원문 16항 'MSDS 최종개정일자')."""
+        self.assertEqual(self.by_id["msds-148"]["revisionDate"], "2017-08-17")
+        self.assertEqual(self.by_id["msds-149"]["revisionDate"], "2023-03-10")
+        self.assertEqual(self.by_id["msds-pdf-306f4ca012db5ce6"]["revisionDate"], "2024-01-02")
+        # 3M 새 판에는 최초 작성일이 없다. 옛 판 날짜가 넘어와 있었다.
+        self.assertEqual(self.by_id["msds-pdf-f4c4b93fdc7911df"].get("issueDate"), "")
+
+    def test_ghp_ingredients_follow_each_pdf(self):
+        rows = lambda pid: [(r["casNo"], r["content"]) for r in self.by_id[pid]["ingredients"]]
+        self.assertEqual(rows("msds-pdf-d53b862679ad3157")[0], ("64742-54-7", "70-85"))
+        self.assertIn(("64742-57-0", "10-15"), rows("msds-pdf-d353876f24b4839c"))
+        self.assertIn(("64742-54-7", "74-82"), rows("msds-pdf-d462ab4576452226"))
+
+    def test_first_aid_present_for_broken_font_pdfs(self):
+        for pid in ("msds-009", "msds-132", "msds-177"):
+            self.assertEqual(set(self.by_id[pid].get("firstAid") or {}), {"eye", "skin", "inhalation", "ingestion", "note"}, pid)
+
+    def test_label_page_keeps_handed_off_products_and_msds_without_hazard_text(self):
+        source = (ROOT / "js" / "label.js").read_text(encoding="utf-8")
+        self.assertIn("function hasLabelElements", source)
+        self.assertIn("isPrintable(product) || labelState.selected.has(product.id)", source)
+
+
 class DateReaderTests(unittest.TestCase):
     def test_revision_history_that_continues_on_the_next_page(self):
         text = ("다. 개정횟수 및 최종 개정일자 :\n 16차/2019.01.16, 20차/2022.04.06,\n\n"

@@ -617,7 +617,8 @@ def apply_verified(products: list[dict[str, Any]], overrides: list[dict[str, Any
 
     - brokenFont  글꼴이 깨진 PDF 에서 읽힌 글자("싞호어", "심핚")를 제 글자로. 같은 PDF 안에서
                   깨진 글자 → 제 글자가 늘 하나로 맞는 것만 적었다. 제품·추출 후보의 모든 글에 쓴다.
-    - hazardStatements · precautionaryStatements · firstAid.<칸>
+    - hazardStatements · precautionaryStatements · firstAid.<칸> · ingredients(성분명·CAS·함유량으로 비교)
+                  · fields.<supplier|supplierAddress|emergencyContact>
                   {"before", "after"}. 지금 값이 before 와 같을 때만(빈칸 무시) after 로 바꾼다.
                   추출 후보(overrides)는 그 값이 before·beforeOverride 이거나 비어 있을 때 함께 바꾼다
                   (화면은 후보를 먼저 본다).
@@ -654,6 +655,21 @@ def apply_verified(products: list[dict[str, Any]], overrides: list[dict[str, Any
                         or _same(current, change.get("after")) or not any(
                         (current or {}).values() if isinstance(current, dict) else current or []):
                     override[field] = deepcopy(change.get("after"))
+        # 공급자 칸(회사명·주소·긴급전화). 경고표지 아래 '공급자 정보'로 찍힌다.
+        for field, change in (fix.get("fields") or {}).items():
+            current = str(product.get(field) or "").strip()
+            if current == str(change.get("before") or "").strip() and current != change.get("after"):
+                product[field] = change.get("after")
+                changed = True
+        change = fix.get("ingredients")
+        if change:
+            def rows(items):
+                return [tuple(str(row.get(k) or "").strip() for k in ("chemicalName", "casNo", "content")) for row in items or []]
+            if rows(product.get("ingredients")) == rows(change.get("after")):
+                product["ingredients"] = deepcopy(change.get("after"))
+            elif rows(product.get("ingredients")) == rows(change.get("before")):
+                product["ingredients"] = deepcopy(change.get("after"))
+                changed = True
         aid = product.get("firstAid") if isinstance(product.get("firstAid"), dict) else None
         for key, change in (fix.get("firstAid") or {}).items():
             if aid is None:

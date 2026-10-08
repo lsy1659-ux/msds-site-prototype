@@ -2314,7 +2314,7 @@
     },
     "labelReprint": {
       "date": "2026-10-08",
-      "reason": "원문 전체 대조로 바뀜: 그림문자 +GHS08; 유해·위험문구; 예방조치문구"
+      "reason": "원문 전체 대조로 바뀜: 그림문자 +GHS08; 유해·위험문구; 예방조치문구; 주소; 긴급전화"
     }
   },
   {
@@ -17566,7 +17566,15 @@
     "msdsNoReason": "사이트 번호 = 원본 PDF 번호",
     "msdsNoLegalBasis": "시행규칙 제160조제1항 — 제공 시 시스템 제출 때 부여된 번호를 MSDS 에 반영",
     "msdsNoCheckedOn": "2026-09-23",
-    "signalWord": ""
+    "signalWord": "해당없음",
+    "hazardNotClassified": true,
+    "classificationGhsPictograms": [],
+    "classificationGhsCodes": [],
+    "ghsCodes": [],
+    "labelReprint": {
+      "date": "2026-10-08",
+      "reason": "원문 전체 대조로 바뀜: 신호어 -→해당없음; 분류 비해당(원문)"
+    }
   },
   {
     "id": "msds-072",
@@ -17714,7 +17722,15 @@
     "msdsNoReason": "사이트 번호 = 원본 PDF 번호",
     "msdsNoLegalBasis": "시행규칙 제160조제1항 — 제공 시 시스템 제출 때 부여된 번호를 MSDS 에 반영",
     "msdsNoCheckedOn": "2026-09-23",
-    "signalWord": ""
+    "signalWord": "해당없음",
+    "hazardNotClassified": true,
+    "classificationGhsPictograms": [],
+    "classificationGhsCodes": [],
+    "ghsCodes": [],
+    "labelReprint": {
+      "date": "2026-10-08",
+      "reason": "원문 전체 대조로 바뀜: 신호어 -→해당없음; 분류 비해당(원문)"
+    }
   },
   {
     "id": "msds-073",
@@ -17828,7 +17844,15 @@
     "msdsNoReason": "사이트 번호 = 원본 PDF 번호",
     "msdsNoLegalBasis": "시행규칙 제160조제1항 — 제공 시 시스템 제출 때 부여된 번호를 MSDS 에 반영",
     "msdsNoCheckedOn": "2026-09-23",
-    "signalWord": ""
+    "signalWord": "해당없음",
+    "hazardNotClassified": true,
+    "classificationGhsPictograms": [],
+    "classificationGhsCodes": [],
+    "ghsCodes": [],
+    "labelReprint": {
+      "date": "2026-10-08",
+      "reason": "원문 전체 대조로 바뀜: 신호어 -→해당없음; 분류 비해당(원문)"
+    }
   },
   {
     "id": "msds-074",
@@ -17942,7 +17966,15 @@
     "msdsNoReason": "사이트 번호 = 원본 PDF 번호",
     "msdsNoLegalBasis": "시행규칙 제160조제1항 — 제공 시 시스템 제출 때 부여된 번호를 MSDS 에 반영",
     "msdsNoCheckedOn": "2026-09-23",
-    "signalWord": ""
+    "signalWord": "해당없음",
+    "hazardNotClassified": true,
+    "classificationGhsPictograms": [],
+    "classificationGhsCodes": [],
+    "ghsCodes": [],
+    "labelReprint": {
+      "date": "2026-10-08",
+      "reason": "원문 전체 대조로 바뀜: 신호어 -→해당없음; 분류 비해당(원문)"
+    }
   },
   {
     "id": "msds-075",
@@ -25141,7 +25173,12 @@
     "msdsNoReason": "사이트 번호 = 원본 PDF 번호",
     "msdsNoLegalBasis": "시행규칙 제160조제1항 — 제공 시 시스템 제출 때 부여된 번호를 MSDS 에 반영",
     "msdsNoCheckedOn": "2026-09-23",
-    "signalWord": "위험"
+    "signalWord": "위험",
+    "supplierAddress": "경남 양산시 유산공단 4길 28-140",
+    "labelReprint": {
+      "date": "2026-10-08",
+      "reason": "원문 전체 대조로 바뀜: 주소"
+    }
   },
   {
     "id": "msds-114",
@@ -27110,7 +27147,12 @@
     "classificationGhsPictograms": [],
     "classificationGhsCodes": [],
     "ghsCodes": [],
-    "msdsNoKind": "분류기준 비해당(엔진오일)"
+    "msdsNoKind": "분류기준 비해당(엔진오일)",
+    "supplierAddress": "본사) 서울특별시 종로구 종로 26 (서린동 99) / 공장) 울산광역시 남구 신여천로 2 (고사동 110)",
+    "labelReprint": {
+      "date": "2026-10-08",
+      "reason": "원문 전체 대조로 바뀜: 주소"
+    }
   },
   {
     "id": "msds-122",
@@ -28463,6 +28505,7 @@
     "msdsNoCheckedOn": "2026-09-23",
     "signalWord": "위험",
     "msdsNoKind": "MSDS 필요·제출만 면제(시약)",
+    "supplierAddress": "Avda. del Vallès 362, 08227 Terrassa, Spain",
     "firstAid": {
       "eye": [
         "After contact with the eyes, rinse with water with the eyelids open for a sufficient length of time, then consult an ophthalmologist immediately."
@@ -28484,8 +28527,8 @@
       ]
     },
     "labelReprint": {
-      "date": "2026-09-23",
-      "reason": "그림문자 +GHS02(원문 그림 확인)"
+      "date": "2026-10-08",
+      "reason": "원문 전체 대조로 바뀜: 주소"
     }
   },
   {
@@ -28627,9 +28670,27 @@
     "msdsNoLegalBasis": "시행규칙 제160조제1항 — 제공 시 시스템 제출 때 부여된 번호를 MSDS 에 반영",
     "msdsNoCheckedOn": "2026-09-23",
     "signalWord": "위험",
+    "firstAid": {
+      "eye": [
+        "많은 양의 물이나 생리식염수로 15분 이상 눈을 세척하고 즉시 의사의 치료를 받을 것."
+      ],
+      "skin": [
+        "오염된 의복 및 신발을 즉시 벗고 15분 이상 다량의 물과 비누로 씻을 것."
+      ],
+      "inhalation": [
+        "노출로부터 환자를 즉시 신선한 공기가 있는 곳으로 옮기고 호흡정지 및 곤란시 인공호흡 실시 및 의사의 치료를 받을 것."
+      ],
+      "ingestion": [
+        "구토를 하지 않도록 하고 의식이 있을 경우 즉시 2~4컵의 물이나 우유를 제공할 것.",
+        "즉시 의사의 치료를 받을 것."
+      ],
+      "note": [
+        "의료인력이 해당물질에 대해 인지하고 보호조치를 취하도록 할 것."
+      ]
+    },
     "labelReprint": {
       "date": "2026-10-08",
-      "reason": "원문 전체 대조로 바뀜: 유해·위험문구; 예방조치문구"
+      "reason": "원문 전체 대조로 바뀜: 유해·위험문구; 예방조치문구; 공급자; 긴급전화"
     }
   },
   {
@@ -28644,7 +28705,7 @@
     "siteLabel": "",
     "revisionDate": "2010-03-16",
     "emergencyContact": "DCRI 032-860-6116 / OCI 032-860-6261",
-    "supplierAddress": "및 전화번호 : 인천광역시 남구 학익동 587-46번지 TEL : (032) 860 – 6116",
+    "supplierAddress": "인천광역시 남구 학익동 587-46번지 (제조자) / 인천광역시 남구 학익동 595번지 (공급자)",
     "hazardClassification": "- 인화성 액체 : 구분2 - 심한 눈 손상성/눈 자극성 : 구분2 - 발암성 : 구분2 - 생식세포 변이원성 : 구분1B - 생식독성 : 구분1A - 특정표적장기 독성(1회 노출) : 구분3(마취작용, 호흡기계 자극) - 특정표적장기 독성(반복 노출) : 구분1",
     "dangerousGoods": "UN1170 / Ethanol / Class 3 / 제4류 알코올류",
     "ppeSummary": "방독마스크, 보안경/보안면, 내화학성 장갑, 보호의",
@@ -28786,8 +28847,8 @@
     "msdsNoCheckedOn": "2026-09-23",
     "msdsNoKind": "시약 여부 불명",
     "labelReprint": {
-      "date": "2026-09-23",
-      "reason": "빠져 있던 유해·위험문구 1개; 빠져 있던 예방조치문구 3개; 중간에서 잘린 문구 1줄을 원문대로 채움"
+      "date": "2026-10-08",
+      "reason": "원문 전체 대조로 바뀜: 주소"
     }
   },
   {
@@ -29380,10 +29441,35 @@
       "H402 Harmful to aquatic life"
     ],
     "precautionaryStatements": {
-      "prevention": [],
-      "response": [],
-      "storage": [],
-      "disposal": []
+      "prevention": [
+        "Avoid release to the environment.",
+        "Do not breathe dust/fume/gas/mist/vapors/spray.",
+        "Use only outdoors or in a well-ventilated area.",
+        "Wash contaminated parts thoroughly after handling.",
+        "Wear protective gloves or protective clothing.",
+        "Wear eye protection/face protection.",
+        "Do not eat, drink or smoke when using this product."
+      ],
+      "response": [
+        "Immediately call a POISON CENTER/doctor/physician.",
+        "Call a POISON CENTER/doctor/physician if you feel unwell.",
+        "IF exposed or concerned: Call a POISON CENTER/doctor/physician.",
+        "IF INHALED: Remove person to fresh air and keep comfortable for breathing.",
+        "IF ON SKIN: Wash with plenty of soap and water.",
+        "IF ON SKIN (or hair): Take off immediately all contaminated clothing. Rinse skin with water or shower.",
+        "Wash contaminated clothing before reuse.",
+        "Take off contaminated clothing and wash it before reuse.",
+        "IF IN EYES: Rinse cautiously with water for several minutes. Remove contact lenses, if present and easy to do. Continue rinsing.",
+        "IF SWALLOWED: Call a POISON CENTER/doctor/physician if you feel unwell.",
+        "IF SWALLOWED: Rinse mouth. Do NOT induce vomiting."
+      ],
+      "storage": [
+        "Store in a well-ventilated place. Keep container tightly closed.",
+        "Store locked up."
+      ],
+      "disposal": [
+        "Dispose of contents/container in accordance with local/national regulation."
+      ]
     },
     "classificationGhsCodes": [
       "GHS05",
@@ -29457,7 +29543,7 @@
     "supplierAddress": "1-6, Ohmano-cho, Koshigaya-shi, Saitama 343-0844, Japan",
     "labelReprint": {
       "date": "2026-10-08",
-      "reason": "원문 전체 대조로 바뀜: 그림문자 −GHS07"
+      "reason": "원문 전체 대조로 바뀜: 그림문자 −GHS07; 예방조치문구"
     }
   },
   {
@@ -29725,7 +29811,15 @@
     "msdsNoReason": "사이트 번호 = 원본 PDF 번호",
     "msdsNoLegalBasis": "시행규칙 제160조제1항 — 제공 시 시스템 제출 때 부여된 번호를 MSDS 에 반영",
     "msdsNoCheckedOn": "2026-09-23",
-    "signalWord": "해당없음"
+    "signalWord": "해당없음",
+    "hazardNotClassified": true,
+    "classificationGhsPictograms": [],
+    "classificationGhsCodes": [],
+    "ghsCodes": [],
+    "labelReprint": {
+      "date": "2026-10-08",
+      "reason": "원문 전체 대조로 바뀜: 분류 비해당(원문)"
+    }
   },
   {
     "id": "msds-141",
@@ -29851,7 +29945,7 @@
     "recommendedUse": "자동차용 러빙 컴파운드(Rubbing Compound)",
     "supplier": "한국쓰리엠",
     "siteLabel": "",
-    "issueDate": "2020-10-18",
+    "issueDate": "",
     "revisionDate": "2026-07-26",
     "emergencyContact": "긴급전화번호: 82-80-033-4114",
     "supplierAddress": "서울특별시 영등포구 의사당대로 82, 19층 (우)07321",
@@ -29977,7 +30071,7 @@
     "recommendedUse": "Polish, 산업용",
     "supplier": "한국쓰리엠",
     "siteLabel": "",
-    "issueDate": "2019-12-12",
+    "issueDate": "",
     "revisionDate": "2026-02-10",
     "emergencyContact": "긴급전화번호: 82-80-033-4114",
     "supplierAddress": "서울특별시 영등포구 의사당대로 82, 19층 (우)07321",
@@ -30366,7 +30460,7 @@
     "recommendedUse": "세정제",
     "supplier": "한국쓰리엠",
     "siteLabel": "",
-    "issueDate": "2018-06-13",
+    "issueDate": "",
     "revisionDate": "2026-07-01",
     "emergencyContact": "긴급전화번호: 82-80-033-4114",
     "supplierAddress": "서울특별시 영등포구 의사당대로 82, 19층 (우)07321",
@@ -30492,7 +30586,7 @@
     "issueDate": "2019-06-01",
     "revisionDate": "2019-06-01",
     "emergencyContact": "031-684-7600",
-    "supplierAddress": "및 전화번호 : 충청남도 당진시 신평면 당진항만로 45 TEL : (031) 684 – 7600",
+    "supplierAddress": "충청남도 당진시 신평면 당진항만로 45",
     "hazardClassification": "급성 독성(흡입: 분진/미스트) 구분4, 심한 눈 손상/자극성 구분1, STOT(1회) 구분3(호흡기계 자극)",
     "dangerousGoods": "해당없음",
     "ppeSummary": "방진마스크, 화학물질 방어용 안경/보안면, 보호장갑, 보호의",
@@ -30605,8 +30699,8 @@
     "msdsNoCheckedOn": "2026-09-23",
     "msdsNoKind": "산업용 원료",
     "labelReprint": {
-      "date": "2026-09-23",
-      "reason": "중간에서 잘린 문구 1줄을 원문대로 채움"
+      "date": "2026-10-08",
+      "reason": "원문 전체 대조로 바뀜: 주소"
     }
   },
   {
@@ -30620,7 +30714,7 @@
     "supplier": "주식회사 대륙제관",
     "siteLabel": "",
     "issueDate": "2010-06-16",
-    "revisionDate": "2010-06-16",
+    "revisionDate": "2017-08-17",
     "emergencyContact": "전화번호: 02-6003-0600",
     "supplierAddress": "서울시 강남구 역삼로 221",
     "hazardClassification": "인화성 가스 구분1, 고압가스(저압액화가스/냉동액화가스), STOT(1회) 구분3(마취작용), 피부 자극성 구분2",
@@ -30796,7 +30890,7 @@
     "supplier": "주식회사 대륙제관",
     "siteLabel": "",
     "issueDate": "2010-06-16",
-    "revisionDate": "2010-06-16",
+    "revisionDate": "2023-03-10",
     "emergencyContact": "전화번호: 02-6003-0600",
     "supplierAddress": "서울시 강남구 역삼로 221",
     "hazardClassification": "인화성 가스 구분1, 고압가스(저압액화가스/냉동액화가스), STOT(1회) 구분3(마취작용), 피부 자극성 구분2",
@@ -30972,7 +31066,7 @@
     "supplier": "주식회사 대륙제관",
     "siteLabel": "",
     "issueDate": "2010-06-16",
-    "revisionDate": "2010-06-16",
+    "revisionDate": "2023-07-14",
     "emergencyContact": "전화번호: 02-6003-0600",
     "supplierAddress": "서울시 강남구 역삼로 221",
     "hazardClassification": "인화성 가스 구분1, 고압가스(저압액화가스/냉동액화가스), STOT(1회) 구분3(마취작용), 피부 자극성 구분2",
@@ -31148,7 +31242,7 @@
     "supplier": "주식회사 대륙제관",
     "siteLabel": "",
     "issueDate": "2010-06-16",
-    "revisionDate": "2010-06-16",
+    "revisionDate": "2017-08-17",
     "emergencyContact": "전화번호: 02-6003-0600",
     "supplierAddress": "서울시 강남구 역삼로 221",
     "hazardClassification": "인화성 가스 구분1, 고압가스(저압액화가스/냉동액화가스), STOT(1회) 구분3(마취작용), 피부 자극성 구분2",
@@ -31324,7 +31418,7 @@
     "supplier": "주식회사 대륙제관",
     "siteLabel": "",
     "issueDate": "2010-06-16",
-    "revisionDate": "2010-06-16",
+    "revisionDate": "2017-08-17",
     "emergencyContact": "전화번호: 02-6003-0600",
     "supplierAddress": "서울시 강남구 역삼로 221",
     "hazardClassification": "인화성 가스 구분1, 고압가스(저압액화가스/냉동액화가스), STOT(1회) 구분3(마취작용), 피부 자극성 구분2",
@@ -31500,7 +31594,7 @@
     "supplier": "주식회사 대륙제관",
     "siteLabel": "",
     "issueDate": "2010-06-16",
-    "revisionDate": "2010-06-16",
+    "revisionDate": "2017-08-17",
     "emergencyContact": "전화번호: 02-6003-0600",
     "supplierAddress": "서울시 강남구 역삼로 221",
     "hazardClassification": "인화성 가스 구분1, 고압가스(저압액화가스/냉동액화가스), STOT(1회) 구분3(마취작용), 피부 자극성 구분2",
@@ -33035,7 +33129,7 @@
     "siteLabel": "",
     "issueDate": "2008-05-16",
     "revisionDate": "2024-01-22",
-    "emergencyContact": ": TEL: +82-55-279-9734 FAX: +82-55-282-2658",
+    "emergencyContact": "TEL: +82-55-279-9734 FAX: +82-55-282-2658",
     "supplierAddress": "경남 창원시 성산구 정동로 122",
     "hazardClassification": "금속부식성 구분1, 급성독성(흡입) 구분2, 피부 부식성/자극성 구분1, 심한 눈 손상/자극성 구분1, 발암성 구분1A(강산 Mist), STOT(1회/반복) 구분1, 만성 수생환경 유해성 구분3",
     "dangerousGoods": "UN2796 / Class 8 / PG II / 황산 함유",
@@ -33195,7 +33289,7 @@
     "msdsNoKind": "번호 형식 비정상",
     "labelReprint": {
       "date": "2026-10-08",
-      "reason": "원문 전체 대조로 바뀜: 예방조치문구"
+      "reason": "원문 전체 대조로 바뀜: 예방조치문구; 긴급전화"
     }
   },
   {
@@ -34028,9 +34122,10 @@
     "msdsNoLegalBasis": "시행령 제86조제8호 — 식품위생법 식품·식품첨가물",
     "msdsNoCheckedOn": "2026-09-23",
     "msdsNoKind": "타법 관리 제품(식품첨가물)",
+    "supplierAddress": "경기도 화성시 서신면 전곡산단로 154-24 (장외리 651-1) / 경기도 성남시 분당구 성남대로925번길 41, 4층",
     "labelReprint": {
       "date": "2026-10-08",
-      "reason": "원문 전체 대조로 바뀜: 그림문자 +GHS07 +GHS09 −GHS06 −GHS08; 유해·위험문구; 예방조치문구"
+      "reason": "원문 전체 대조로 바뀜: 그림문자 +GHS07 +GHS09 −GHS06 −GHS08; 유해·위험문구; 예방조치문구; 주소"
     }
   },
   {
@@ -34109,9 +34204,10 @@
     "classificationGhsPictograms": [],
     "classificationGhsCodes": [],
     "ghsCodes": [],
+    "supplierAddress": "경기도 평택시 산단로15번길 46 (모곡동 430-6) / 서울시 서초구 명달로22길 8 서덕빌딩 5층",
     "labelReprint": {
       "date": "2026-10-08",
-      "reason": "원문 전체 대조로 바뀜: 신호어 -→해당없음; 분류 비해당(원문)"
+      "reason": "원문 전체 대조로 바뀜: 신호어 -→해당없음; 분류 비해당(원문); 주소"
     }
   },
   {
@@ -34296,9 +34392,10 @@
     "msdsNoLegalBasis": "시행령 제86조제15호 — 화장품법 화장품",
     "msdsNoCheckedOn": "2026-09-23",
     "msdsNoKind": "타법 관리 제품(화장품)",
+    "supplierAddress": "경기도 평택시 산단로 15번길 (모곡동 430-6) 송탄공단(내) / 경기도 성남시 분당구 성남대로925번길 41, 4층",
     "labelReprint": {
       "date": "2026-10-08",
-      "reason": "원문 전체 대조로 바뀜: 그림문자 −GHS06; 유해·위험문구; 예방조치문구"
+      "reason": "원문 전체 대조로 바뀜: 그림문자 −GHS06; 유해·위험문구; 예방조치문구; 주소"
     }
   },
   {
@@ -35042,9 +35139,10 @@
     "msdsNoLegalBasis": "시행령 제86조제8호 — 식품위생법 식품·식품첨가물",
     "msdsNoCheckedOn": "2026-09-23",
     "msdsNoKind": "타법 관리 제품(식품첨가물)",
+    "supplierAddress": "경기도 평택시 산단로 15번길 (모곡동 430-6) 송탄공단(내) / 경기도 성남시 분당구 성남대로925번길 41, 4층",
     "labelReprint": {
       "date": "2026-10-08",
-      "reason": "원문 전체 대조로 바뀜: 그림문자 +GHS07; 유해·위험문구; 예방조치문구"
+      "reason": "원문 전체 대조로 바뀜: 그림문자 +GHS07; 유해·위험문구; 예방조치문구; 주소"
     }
   },
   {
@@ -35445,10 +35543,10 @@
     "fileName": "나바켐 - 적색 MSDS.pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐 - 적색 MSDS.pdf",
     "recommendedUse": "",
-    "supplier": "락카스프레이",
+    "supplier": "㈜영일 / ㈜나바켐",
     "issueDate": "2011-08-01",
-    "revisionDate": "2011-08-01",
-    "emergencyContact": "",
+    "revisionDate": "2024-01-02",
+    "emergencyContact": "제조자 055-785-2091 / 판매자 041-531-7992",
     "supplierAddress": "경남 양산시 유산공단 4길 28-140",
     "dangerousGoods": "",
     "ppeSummary": "",
@@ -35796,7 +35894,7 @@
     "signalWord": "위험",
     "labelReprint": {
       "date": "2026-10-08",
-      "reason": "원문 전체 대조로 바뀜: 유해·위험문구"
+      "reason": "원문 전체 대조로 바뀜: 유해·위험문구; 공급자; 긴급전화"
     }
   },
   {
@@ -35806,10 +35904,10 @@
     "fileName": "나바켐 - 황색 MSDS.pdf",
     "pdfPath": "pdf/00_ 사출/나바켐(NAVAKEM), 남방CNA(주)/락카스프레이/나바켐 - 황색 MSDS.pdf",
     "recommendedUse": "",
-    "supplier": "락카스프레이",
+    "supplier": "㈜영일 / ㈜나바켐",
     "issueDate": "2011-08-01",
     "revisionDate": "2024-01-02",
-    "emergencyContact": "",
+    "emergencyContact": "제조자 055-785-2091 / 판매자 041-531-7992",
     "supplierAddress": "경남 양산시 유산공단 4길 28-140",
     "dangerousGoods": "",
     "ppeSummary": "",
@@ -36150,8 +36248,8 @@
     "msdsNoCheckedOn": "2026-09-23",
     "signalWord": "위험",
     "labelReprint": {
-      "date": "2026-09-23",
-      "reason": "빠져 있던 유해·위험문구 13개; 빠져 있던 예방조치문구 37개"
+      "date": "2026-10-08",
+      "reason": "원문 전체 대조로 바뀜: 공급자; 긴급전화"
     }
   },
   {
@@ -38207,10 +38305,10 @@
     "fileName": "[MSDS] PP-303 GW(PU)_20250904.pdf",
     "pdfPath": "pdf/악조노벨(AzoNobel)/[MSDS] PP-303 GW(PU)_20250904.pdf",
     "recommendedUse": "",
-    "supplier": "악조노벨(AzoNobel)",
+    "supplier": "악조노벨인더스트리얼코팅 (유)",
     "issueDate": "2024-05-17",
     "revisionDate": "2024-05-17",
-    "emergencyContact": "악조노벨인더스트리얼코팅 (유)경상남도 김해시 진영읍 본산1로56번길 60대표 전화번호 : 055-720-0200+82 55–720–0200긴급전화번호 (근무시간과 함께) :",
+    "emergencyContact": "대표 전화번호 055-720-0200",
     "dangerousGoods": "",
     "ppeSummary": "",
     "ingredients": [],
@@ -38330,8 +38428,8 @@
     "msdsNoCheckedOn": "2026-09-23",
     "supplierAddress": "경상남도 김해시 진영읍 본산1로56번길 60",
     "labelReprint": {
-      "date": "2026-09-23",
-      "reason": "비어 있던 공급자 주소 채움"
+      "date": "2026-10-08",
+      "reason": "원문 전체 대조로 바뀜: 공급자; 긴급전화"
     }
   },
   {
@@ -38529,7 +38627,7 @@
     "fileName": "LPG(C3).pdf",
     "pdfPath": "pdf/액화석유가스(LPG)/LPG(C3).pdf",
     "recommendedUse": "",
-    "supplier": "액화석유가스(LPG)",
+    "supplier": "한화토탈에너지스 주식회사",
     "issueDate": "2009-06-05",
     "revisionDate": "2022-04-01",
     "emergencyContact": "긴급전화번호 041-670-7403 전송 041-670-7490",
@@ -38643,7 +38741,11 @@
     "msdsNoReason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음 공급자 표기가 불분명",
     "msdsNoLegalBasis": "산업안전보건법 제110조제1항 — 제104조 분류기준에 해당하는 화학물질·혼합물(물질안전보건자료대상물질)을 제조·수입하려는 자는 MSDS 를 작성해 제출; 시행규칙 제157조 — 제조·수입 전 공단 물질안전보건자료시스템에 전자 제출; 시행규칙 제160조제1항 — 제공 시 시스템 제출 때 부여된 번호를 MSDS 에 반영; 법률 제16272호 부칙 제7조·제8조, 시행규칙(고용노동부령 제272호) 부칙 제9조·제10조 — 기존 MSDS 제출·제공 기한 2022.1.16~2026.1.16 (모두 경과)",
     "msdsNoCheckedOn": "2026-09-23",
-    "msdsNoKind": "산업용 가스"
+    "msdsNoKind": "산업용 가스",
+    "labelReprint": {
+      "date": "2026-10-08",
+      "reason": "원문 전체 대조로 바뀜: 공급자"
+    }
   },
   {
     "id": "msds-pdf-d8b98810abb35e60",
@@ -38652,7 +38754,7 @@
     "fileName": "LPG(C4).pdf",
     "pdfPath": "pdf/액화석유가스(LPG)/LPG(C4).pdf",
     "recommendedUse": "",
-    "supplier": "액화석유가스(LPG)",
+    "supplier": "한화토탈에너지스 주식회사",
     "issueDate": "2009-03-10",
     "revisionDate": "2022-04-01",
     "emergencyContact": "긴급전화번호 041-660-6421 전송 041-660-6649",
@@ -38774,7 +38876,11 @@
     "msdsNoReason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF 에는 번호가 없음 공급자 표기가 불분명",
     "msdsNoLegalBasis": "산업안전보건법 제110조제1항 — 제104조 분류기준에 해당하는 화학물질·혼합물(물질안전보건자료대상물질)을 제조·수입하려는 자는 MSDS 를 작성해 제출; 시행규칙 제157조 — 제조·수입 전 공단 물질안전보건자료시스템에 전자 제출; 시행규칙 제160조제1항 — 제공 시 시스템 제출 때 부여된 번호를 MSDS 에 반영; 법률 제16272호 부칙 제7조·제8조, 시행규칙(고용노동부령 제272호) 부칙 제9조·제10조 — 기존 MSDS 제출·제공 기한 2022.1.16~2026.1.16 (모두 경과)",
     "msdsNoCheckedOn": "2026-09-23",
-    "msdsNoKind": "산업용 가스"
+    "msdsNoKind": "산업용 가스",
+    "labelReprint": {
+      "date": "2026-10-08",
+      "reason": "원문 전체 대조로 바뀜: 공급자"
+    }
   },
   {
     "id": "msds-pdf-7aeec8c87fe01629",
@@ -38783,11 +38889,11 @@
     "fileName": "LPG(혼합)_태경ECO(주).pdf",
     "pdfPath": "pdf/액화석유가스(LPG)/LPG(혼합)_태경ECO(주).pdf",
     "recommendedUse": "",
-    "supplier": "액화석유가스(LPG)",
+    "supplier": "태경에코(주) 청주공장",
     "issueDate": "2012-11-27",
     "revisionDate": "2022-01-20",
-    "emergencyContact": "긴급전화번호 번 호 043)213-3450",
-    "supplierAddress": "충 북 청 주 시 청 원 구 내 수 읍 풍 정 길 26",
+    "emergencyContact": "043)213-3450",
+    "supplierAddress": "충북 청주시 청원구 내수읍 풍정길 26",
     "dangerousGoods": "",
     "ppeSummary": "",
     "ingredients": [
@@ -38824,11 +38930,11 @@
       "prevention": [
         "P201 사용 전 취급 설명서를 확보하시오.",
         "P202 모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.",
-        "P210 열스파크화염고열로부터멀리하시오· · · - 금연",
+        "P210 열·스파크·화염·고열로부터 멀리하시오 - 금연",
         "P281 적절한 개인 보호구를 착용하시오."
       ],
       "response": [
-        "P308+P313 노출되거나노출이우려되면의학적인조치조언을구하시오",
+        "P308+P313 노출되거나 노출이 우려되면 의학적인 조치·조언을 구하시오",
         "P377 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
         "P381 안전하게 처리하는 것이 가능하면 모든 점화원을 제거하시오."
       ],
@@ -38838,7 +38944,7 @@
         "P410+P403 직사광선을 피하고 환기가 잘 되는 곳에 보관하시오."
       ],
       "disposal": [
-        "P501 (관련법규에명시된내용에따라내용물용기를폐기하시오)"
+        "P501 (관련 법규에 명시된 내용에 따라) 내용물·용기를 폐기하시오"
       ]
     },
     "classificationGhsCodes": [
@@ -38907,8 +39013,8 @@
     "msdsNoCheckedOn": "2026-09-23",
     "msdsNoKind": "산업용 가스",
     "labelReprint": {
-      "date": "2026-09-23",
-      "reason": "그림문자 +GHS02 +GHS08(원문 그림 확인); 빠져 있던 유해·위험문구 2개; 빠져 있던 예방조치문구 9개"
+      "date": "2026-10-08",
+      "reason": "원문 전체 대조로 바뀜: 예방조치문구; 공급자; 주소; 긴급전화"
     }
   },
   {
@@ -38918,9 +39024,9 @@
     "fileName": "SERIOLA+KS+2120+(KR)_2021.10.28.pdf",
     "pdfPath": "pdf/에쓰-오일토탈윤활유/SERIOLA+KS+2120+(KR)_2021.10.28.pdf",
     "recommendedUse": "",
-    "supplier": "에쓰-오일토탈윤활유",
+    "supplier": "에쓰-오일토탈윤활유㈜",
     "revisionDate": "2021-10-28",
-    "emergencyContact": "TotalEnergies Marketing Asia-Pacific Middle East Pte. Ltd.182 Cecil Street #27-01 Frasers Tower Singapore 069547 Tel: +6",
+    "emergencyContact": "대한민국 +82 2 3479 8401 / 전화 02-6320-2000",
     "dangerousGoods": "",
     "ppeSummary": "",
     "ingredients": [],
@@ -38980,10 +39086,10 @@
     "msdsNoCheckedOn": "2026-09-23",
     "signalWord": "해당없음",
     "msdsNoKind": "분류기준 비해당(윤활유)",
-    "supplierAddress": "서울특별시 중구 칠패로 37",
+    "supplierAddress": "서울특별시 중구 칠패로 37, HSBC빌딩 16층",
     "labelReprint": {
-      "date": "2026-09-23",
-      "reason": "비어 있던 공급자 주소 채움"
+      "date": "2026-10-08",
+      "reason": "원문 전체 대조로 바뀜: 공급자; 주소; 긴급전화"
     }
   },
   {
@@ -39162,7 +39268,7 @@
     "fileName": "락카 스프레이(각색).pdf",
     "pdfPath": "pdf/오공본드(OKONG)/락카 스프레이(각색).pdf",
     "recommendedUse": "",
-    "supplier": "오공본드(OKONG)",
+    "supplier": "(주)오공",
     "issueDate": "2024-04-01",
     "revisionDate": "2024-04-01",
     "emergencyContact": "032-822-5050",
@@ -39347,7 +39453,7 @@
     "signalWord": "위험",
     "labelReprint": {
       "date": "2026-10-08",
-      "reason": "원문 전체 대조로 바뀜: 예방조치문구"
+      "reason": "원문 전체 대조로 바뀜: 예방조치문구; 공급자"
     }
   },
   {
@@ -40253,7 +40359,7 @@
     "fileName": "썬 라이타 가스 MSDS.pdf",
     "pdfPath": "pdf/태양(SUN)/썬 라이타 가스 MSDS.pdf",
     "recommendedUse": "",
-    "supplier": "태양(SUN)",
+    "supplier": "주식회사 태양",
     "issueDate": "2023-06-13",
     "revisionDate": "2023-06-13",
     "emergencyContact": "041-621-9810",
@@ -40416,7 +40522,7 @@
     "msdsNoKind": "소비자용 여부 불명(휴대용 부탄·라이터가스)",
     "labelReprint": {
       "date": "2026-10-08",
-      "reason": "원문 전체 대조로 바뀜: 예방조치문구"
+      "reason": "원문 전체 대조로 바뀜: 예방조치문구; 공급자"
     }
   },
   {
@@ -40426,7 +40532,7 @@
     "fileName": "피비원(PB-1)_MSDS.pdf",
     "pdfPath": "pdf/파이씨스(파워피엔비)/피비원(PB-1)_MSDS.pdf",
     "recommendedUse": "",
-    "supplier": "파이씨스",
+    "supplier": "주식회사 파워피앤비",
     "issueDate": "2022-12-12",
     "revisionDate": "2022-12-12",
     "emergencyContact": "031-684-8470",
@@ -40582,9 +40688,10 @@
     "msdsNoCheckedOn": "2026-09-23",
     "signalWord": "위험",
     "msdsNoKind": "산업용 혼합물",
+    "supplierAddress": "경기도 평택시 포승읍 포승공단로 117번길 38",
     "labelReprint": {
       "date": "2026-10-08",
-      "reason": "원문 전체 대조로 바뀜: 예방조치문구"
+      "reason": "원문 전체 대조로 바뀜: 예방조치문구; 공급자; 주소"
     }
   },
   {
@@ -40757,7 +40864,40 @@
     "supplierAddress": "경남 김해시 진영읍 본산1로56번길 22",
     "dangerousGoods": "",
     "ppeSummary": "",
-    "ingredients": [],
+    "ingredients": [
+      {
+        "chemicalName": "Mineral Oil",
+        "casNo": "64742-54-7",
+        "content": "70-85",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "Additive",
+        "casNo": "67701-06-8",
+        "content": "14-18",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "Additive",
+        "casNo": "68411-12-1",
+        "content": "2-4",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "Additive",
+        "casNo": "57-11-4",
+        "content": "2-5",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      }
+    ],
     "signalWord": "경고",
     "ghsPictograms": [
       {
@@ -40848,7 +40988,7 @@
       {
         "chemicalName": "Mineral Oil",
         "casNo": "64741-96-4",
-        "content": "6-10",
+        "content": "10-15",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
         "specialHealthExam": ""
@@ -40856,15 +40996,15 @@
       {
         "chemicalName": "Mineral Oil",
         "casNo": "64742-54-7",
-        "content": "75-80",
+        "content": "55-67",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
         "specialHealthExam": ""
       },
       {
         "chemicalName": "Mineral Oil",
-        "casNo": "64742-10-5",
-        "content": "5-10",
+        "casNo": "64742-57-0",
+        "content": "10-15",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
         "specialHealthExam": ""
@@ -40872,7 +41012,7 @@
       {
         "chemicalName": "Additive",
         "casNo": "106-14-9",
-        "content": "3-5",
+        "content": "9-11",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
         "specialHealthExam": ""
@@ -40887,8 +41027,8 @@
       },
       {
         "chemicalName": "Additive",
-        "casNo": "128-37-0",
-        "content": "1-2",
+        "casNo": "64742-52-5",
+        "content": "1-4",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
         "specialHealthExam": ""
@@ -40992,7 +41132,7 @@
       {
         "chemicalName": "Mineral Oil",
         "casNo": "64742-54-7",
-        "content": "75-80",
+        "content": "74-82",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
         "specialHealthExam": ""
@@ -41000,7 +41140,7 @@
       {
         "chemicalName": "Mineral Oil",
         "casNo": "64742-10-5",
-        "content": "5-10",
+        "content": "6-10",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
         "specialHealthExam": ""
@@ -41008,7 +41148,7 @@
       {
         "chemicalName": "Additive",
         "casNo": "106-14-9",
-        "content": "3-5",
+        "content": "2-4",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
         "specialHealthExam": ""
@@ -41331,7 +41471,7 @@
     "msdsNoReason": "원문이 외국어 SDS 이고 '비분류(Not classified/Not classifiable)'로 적혀 있으나 국내 수입자·공급자의 국문 MSDS 또는 비해당 서면이 없음. 시약이 아니라 외국어본은 인정 안 됨",
     "msdsNoLegalBasis": "산업안전보건법 제110조제1항 — 제104조 분류기준에 해당하는 화학물질·혼합물(물질안전보건자료대상물질)을 제조·수입하려는 자는 MSDS 를 작성해 제출; 고시 제11조제1항 — MSDS 는 한글 작성 원칙; 고시 제13조제2항·제3항 — 분류기준 비해당 물질은 서면 통보, 통보받은 자는 사업장 내 비치",
     "msdsNoCheckedOn": "2026-09-23",
-    "signalWord": "",
+    "signalWord": "해당없음",
     "msdsNoKind": "국문 MSDS·수입자 자료 없음",
     "firstAid": {
       "eye": [
@@ -41353,6 +41493,12 @@
         "Do not give anything by mouth to an unconscious person",
         "Seek medical attention immediately."
       ]
+    },
+    "hazardNotClassified": true,
+    "supplierAddress": "1221-32 Daehoman-ro, Seokmun-myeon, Dangjin-si, Chungcheongnam-do, KOREA",
+    "labelReprint": {
+      "date": "2026-10-08",
+      "reason": "원문 전체 대조로 바뀜: 신호어 -→해당없음; 분류 비해당(원문); 주소"
     }
   },
   {
@@ -41853,7 +41999,7 @@
     "fileName": "해피홈에어로솔수성(무향)_MSDS_Rav.pdf",
     "pdfPath": "pdf/홈키파/해피홈에어로솔수성(무향)_MSDS_Rav.pdf",
     "recommendedUse": "",
-    "supplier": "",
+    "supplier": "㈜유한양행",
     "issueDate": "2019-01-22",
     "revisionDate": "2019-01-22",
     "emergencyContact": "02-828-0098",
@@ -42030,8 +42176,8 @@
     "signalWord": "위험",
     "msdsNoKind": "소비자용·생활화학제품 여부 불명",
     "labelReprint": {
-      "date": "2026-09-23",
-      "reason": "빠져 있던 유해·위험문구 1개; 빠져 있던 예방조치문구 3개; 중간에서 잘린 문구 3줄을 원문대로 채움; 비어 있던 긴급전화번호 채움"
+      "date": "2026-10-08",
+      "reason": "원문 전체 대조로 바뀜: 공급자"
     }
   },
   {
@@ -42285,6 +42431,41 @@
     "msdsNoLegalBasis": "시행규칙 제160조제1항 — 제공 시 시스템 제출 때 부여된 번호를 MSDS 에 반영",
     "msdsNoCheckedOn": "2026-09-23",
     "signalWord": "위험",
+    "firstAid": {
+      "eye": [
+        "눈을 문지르지 마시오.",
+        "많은 양의 물을 사용하여 적어도 15분 동안 눈을 씻어내시오.",
+        "즉시 의사의 치료를 받으시오.",
+        "증상(발적, 자극 등)이 발생할 경우 즉시 병원으로 가시오.",
+        "콘택트렌즈를 착용했을 경우 우선 렌즈를 제거하시오."
+      ],
+      "skin": [
+        "오염된 의복 및 신발을 벗고 즉시 적어도 15분 동안 비누와 물로 씻어내시오.",
+        "오염된 피복은 재사용 전에 (충분히) 세탁하시오.",
+        "오염된 피복과 신발을 제거하고 격리시키시오.",
+        "즉시 의사의 치료를 받으시오.",
+        "증상(발적, 자극 등)이 발생할 경우 즉시 병원으로 가시오.",
+        "취급 후 철저히 씻으시오.",
+        "환자를 씻길 경우 장갑을 착용하고 오염된 피복의 접촉을 피하시오."
+      ],
+      "inhalation": [
+        "다량의 증기나 미스트에 노출되었을 경우 맑은 공기가 있는 곳으로 이동하시오.",
+        "필요에 따른 조치를 취하시오.",
+        "의사의 진찰을 받으시오.",
+        "즉시 의사의 치료를 받으시오.",
+        "호흡이 불규칙하거나 멈출 경우 인공호흡을 실시하고 산소를 공급하시오."
+      ],
+      "ingestion": [
+        "구토를 유발해야 하는지에 대해서 의사의 조언을 받으시오.",
+        "즉시 물로 입을 씻어내시오.",
+        "만약 삼켰다면 많은 양의 물을 마시도록하고 구토를 유도하지 마시오.",
+        "즉시 의사의 치료를 받으시오."
+      ],
+      "note": [
+        "오염상황을 의료관계자에게 알려 그들도 적절한 보호조치를 취하도록 하시오.",
+        "노출 및 노출 우려시 의학적인 조치, 조언을 구하시오."
+      ]
+    },
     "labelReprint": {
       "date": "2026-10-08",
       "reason": "원문 전체 대조로 바뀜: 그림문자 −GHS07"
