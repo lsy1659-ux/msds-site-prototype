@@ -383,6 +383,12 @@ function renderSheetCard(product) {
   const handling = getHandlingItems(product, used);
   const ppe = getPpeItems(product);
   const aid = getEmergencyItems(product, used);
+  // 원문 응급조치(삼켰을 때)와 H·P 문구가 어긋나면 종이에도 표시한다. 문장은 바꾸지 않는다.
+  const vomit = window.MsdsSafety?.vomitConflict({
+    hazards: product.hazardStatements,
+    precautions: product.precautionaryStatements,
+    ingestion: (product.firstAid || {}).ingestion
+  });
   const contacts = splitContacts(product.emergencyContact);
 
   const pictograms = codes.length
@@ -448,8 +454,9 @@ function renderSheetCard(product) {
         <section class="guide-block">
           <h3><b>⑤</b> 응급조치 및 사고 대응</h3>
           ${aid.length ? `<ul class="guide-aid-list">${aid.map((group) => `
-            <li><b>${guideEscape(group.label)}</b> ${guideEscape(group.text)}</li>`).join("")}
+            <li><b>${guideEscape(group.label)}</b> ${guideEscape(group.text)}${group.label === "삼켰을 때" && vomit ? " ※" : ""}</li>`).join("")}
           </ul>` : `<p class="guide-blank-line">${blankMark()}</p>`}
+          ${vomit ? `<p class="guide-aid-conflict">※ ${guideEscape(window.MsdsSafety.vomitNotice(vomit))}</p>` : ""}
         </section>
       </div>
 

@@ -14,6 +14,9 @@ const reviewState = {
   dirty: false,
   // 불러올 때의 검토 상태. 이번에 바꾼 것을 목록과 상세에 표시한다.
   originalStatus: new Map(),
+  // 불러올 때의 고칠 수 있는 칸 값. 바꾼 것을 원래 값과 나란히 보인다.
+  originalFields: new Map(),
+  editing: null,
   pdfAvailability: {},
   pdfModal: {
     isOpen: false,
@@ -31,6 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   reviewState.overrides = data.overrides;
   reviewState.dataMode = data.mode;
   reviewState.originalStatus = new Map(data.overrides.map((override, index) => [getOverrideKey(override, index), override.reviewStatus]));
+  reviewState.originalFields = new Map(data.overrides.map((override, index) => [getOverrideKey(override, index), editableSnapshot(override)]));
   // 공개 주소에서는 샘플 1건이 실제 검토자료처럼 보였다. 샘플이면 크게 알린다.
   document.querySelector("#reviewSampleBanner")?.toggleAttribute("hidden", !data.mode.includes("샘플"));
   reviewState.selectedKey = getOverrideKey(reviewState.overrides[0], 0);
@@ -169,7 +173,11 @@ function getOriginalStatus(override, index) {
 }
 
 function countChangedReviews() {
-  return reviewState.overrides.filter((override, index) => getOriginalStatus(override, index) !== override.reviewStatus).length;
+  return reviewState.overrides.filter((override, index) => isChangedReview(override, index)).length;
+}
+
+function isChangedReview(override, index) {
+  return getOriginalStatus(override, index) !== override.reviewStatus || getChangedFields(override, index).length > 0;
 }
 
 function renderCounts() {
@@ -209,7 +217,7 @@ function renderReviewList() {
 
   reviewElements.list.innerHTML = filtered.map(({ override, index }) => {
     const key = getOverrideKey(override, index);
-    const changed = getOriginalStatus(override, index) !== override.reviewStatus;
+    const changed = isChangedReview(override, index);
     return `
       <button class="review-list-item ${key === reviewState.selectedKey ? "is-selected" : ""} ${changed ? "is-changed" : ""}" type="button" data-review-key="${escapeAttribute(key)}">
         <span class="review-status ${getStatusClass(override.reviewStatus)}">${escapeHtml(override.reviewStatus)}</span>
@@ -266,6 +274,7 @@ function renderReviewDetail() {
       </div>
     </section>
 
+    ${renderChangeSummary(override, index)}
     <div class="review-compare">
     <div class="review-compare-fields">
     ${reviewSection("기본 후보", `
@@ -283,11 +292,11 @@ function renderReviewDetail() {
       </div>
     `)}
 
-    ${reviewSection("GHS 실제 표지/현장 표시", renderGhsCandidates(override, "label"))}
+    ${editableSection("label", "GHS 실제 표지/현장 표시 · 신호어", `${renderGhsCandidates(override, "label")}<p class="summary-note">신호어 후보: ${escapeHtml(override.signalWordCandidate || "없음")}</p>`, override)}
     ${reviewSection("GHS 분류문구 기준 후보", renderGhsCandidates(override, "classification"))}
-    ${reviewSection("유해위험문구 후보", renderSimpleList(override.hazardStatements))}
-    ${reviewSection("예방조치문구 후보", renderPrecautionCandidates(override.precautionaryStatements))}
-    ${reviewSection("PPE 후보", renderSimpleList(override.ppeCandidates))}
+    ${editableSection("hazard", "유해위험문구 후보", renderSimpleList(override.hazardStatements), override)}
+    ${editableSection("precaution", "예방조치문구 후보", renderPrecautionCandidates(override.precautionaryStatements), override)}
+    ${editableSection("ppe", "PPE 후보", renderSimpleList(override.ppeCandidates), override)}
     ${reviewSection("성분/CAS 후보", renderIngredientCandidates(override.ingredients))}
     </div>
     <div class="review-compare-pdf">
@@ -306,6 +315,21 @@ function renderReviewDetail() {
 
   reviewElements.detail.querySelectorAll("[data-review-nav]").forEach((button) => {
     button.addEventListener("click", () => moveReviewSelection(button.dataset.reviewNav));
+  });
+
+  reviewElements.detail.querySelectorAll("[data-review-edit]").forEach((button) => {
+    button.addEventListener("click", () => {
+      reviewState.editing = { key: reviewState.selectedKey, group: button.dataset.reviewEdit };
+      renderReview();
+    });
+  });
+  reviewElements.detail.querySelector("[data-edit-cancel]")?.addEventListener("click", () => {
+    reviewState.editing = null;
+    renderReview();
+  });
+  reviewElements.detail.querySelector("[data-edit-form]")?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    saveReviewEdit(event.currentTarget, index);
   });
 }
 
@@ -785,4 +809,207 @@ function escapeHtml(value) {
 
 function escapeAttribute(value) {
   return escapeHtml(value).replace(/`/g, "&#096;");
+}
+
+
+/* ── 문구 직접 고치기 ───────────────────────────────────────
+ * 상태만 바꾸던 화면에서, 잘못 읽힌 문구·그림문자·신호어를 바로 고친다.
+ * 고친 것은 그 항목의 reviewLog 에 남는다: 언제, 누가, 원문 몇 쪽을 보고,
+ * 그때 PDF 의 지문(SHA-256), 바꾸기 전과 뒤. 같은 자리에 새 PDF 가 들어오면
+ * 지문이 달라 다시 봐야 할 것을 알 수 있다.
+ * 내려받은 파일은 scripts/apply_reviewed_overrides.py 가 검사해 반영한다. */
+const REVIEW_EDIT_GROUPS = {
+  hazard: { title: "유해위험문구", fields: [{ field: "hazardStatements", label: "유해위험문구", kind: "lines" }] },
+  precaution: {
+    title: "예방조치문구",
+    fields: [
+      { field: "precautionaryStatements.prevention", label: "예방", kind: "lines" },
+      { field: "precautionaryStatements.response", label: "대응", kind: "lines" },
+      { field: "precautionaryStatements.storage", label: "저장", kind: "lines" },
+      { field: "precautionaryStatements.disposal", label: "폐기", kind: "lines" }
+    ]
+  },
+  ppe: { title: "PPE 후보", fields: [{ field: "ppeCandidates", label: "PPE 후보", kind: "lines" }] },
+  label: {
+    title: "그림문자 · 신호어",
+    fields: [
+      { field: "labelGhsCodes", label: "실제 표지 그림문자", kind: "ghs" },
+      { field: "signalWordCandidate", label: "신호어", kind: "signal" }
+    ]
+  }
+};
+const REVIEW_EDIT_FIELDS = Object.values(REVIEW_EDIT_GROUPS).flatMap((group) => group.fields);
+const REVIEW_GHS_CODES = ["GHS01", "GHS02", "GHS03", "GHS04", "GHS05", "GHS06", "GHS07", "GHS08", "GHS09"];
+const REVIEW_GHS_NAMES = {
+  GHS01: "폭발성", GHS02: "인화성", GHS03: "산화성", GHS04: "고압가스", GHS05: "부식성",
+  GHS06: "급성독성", GHS07: "유해/자극성", GHS08: "건강유해성", GHS09: "환경유해성"
+};
+const REVIEW_SIGNALS = ["", "위험", "경고", "해당없음"];
+const REVIEWER_KEY = "msds.reviewer.v1";
+
+function readField(override, field) {
+  return field.split(".").reduce((value, key) => (value == null ? value : value[key]), override);
+}
+
+function writeField(override, field, value) {
+  const keys = field.split(".");
+  let target = override;
+  keys.slice(0, -1).forEach((key) => {
+    if (!target[key] || typeof target[key] !== "object") target[key] = {};
+    target = target[key];
+  });
+  target[keys[keys.length - 1]] = value;
+}
+
+// 빈 목록과 빈 값은 같은 것으로 본다. 바꾸지 않은 칸이 바뀐 것으로 잡히지 않게.
+function comparable(value) {
+  if (Array.isArray(value)) return value.length ? JSON.stringify(value) : "";
+  return value == null ? "" : JSON.stringify(value);
+}
+
+function editableSnapshot(override) {
+  return Object.fromEntries(REVIEW_EDIT_FIELDS.map(({ field }) => [field, JSON.parse(JSON.stringify(readField(override, field) ?? null))]));
+}
+
+function getChangedFields(override, index) {
+  const before = reviewState.originalFields.get(getOverrideKey(override, index));
+  if (!before) return [];
+  return REVIEW_EDIT_FIELDS.filter(({ field }) => comparable(before[field]) !== comparable(readField(override, field)));
+}
+
+function readReviewer() {
+  try { return window.localStorage.getItem(REVIEWER_KEY) || ""; } catch (error) { return ""; }
+}
+
+function rememberReviewer(name) {
+  try { window.localStorage.setItem(REVIEWER_KEY, name); } catch (error) { /* 저장소 차단 환경 */ }
+}
+
+async function pdfSha256(override) {
+  const info = buildReviewPdfInfo(override);
+  if (!info?.encodedPath || !window.crypto?.subtle) return "";
+  try {
+    const response = await fetch(info.encodedPath, { cache: "no-store" });
+    if (!response.ok) return "";
+    const digest = await window.crypto.subtle.digest("SHA-256", await response.arrayBuffer());
+    return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+  } catch (error) {
+    return "";
+  }
+}
+
+function editButton(groupKey) {
+  return `<button type="button" class="review-edit-button" data-review-edit="${escapeAttribute(groupKey)}">고치기</button>`;
+}
+
+function editableSection(groupKey, title, content, override) {
+  // 다른 항목으로 옮기면 열어 둔 편집 칸은 따라가지 않는다.
+  const editing = reviewState.editing?.group === groupKey && reviewState.editing.key === reviewState.selectedKey;
+  return `
+    <section class="review-detail-block ${editing ? "is-editing" : ""}">
+      <div class="review-block-head"><h3>${escapeHtml(title)}</h3>${editing ? "" : editButton(groupKey)}</div>
+      ${editing ? renderEditor(override, groupKey) : content}
+    </section>
+  `;
+}
+
+function renderEditor(override, groupKey) {
+  const group = REVIEW_EDIT_GROUPS[groupKey];
+  const fields = group.fields.map(({ field, label, kind }) => {
+    const value = readField(override, field);
+    if (kind === "lines") {
+      const lines = Array.isArray(value) ? value : [];
+      return `<label class="review-edit-field"><span>${escapeHtml(label)}</span>
+        <textarea data-edit-field="${escapeAttribute(field)}" rows="${Math.min(14, Math.max(3, lines.length + 1))}">${escapeHtml(lines.join("\n"))}</textarea></label>`;
+    }
+    if (kind === "ghs") {
+      const codes = new Set(Array.isArray(value) && value.length ? value : (override.ghsCodes || []));
+      return `<fieldset class="review-edit-field" data-edit-ghs="${escapeAttribute(field)}"><legend>${escapeHtml(label)}</legend>
+        <div class="review-edit-ghs">${REVIEW_GHS_CODES.map((code) => `<label><input type="checkbox" value="${code}" ${codes.has(code) ? "checked" : ""}> ${code} ${escapeHtml(REVIEW_GHS_NAMES[code])}</label>`).join("")}</div></fieldset>`;
+    }
+    return `<label class="review-edit-field"><span>${escapeHtml(label)}</span>
+      <select data-edit-field="${escapeAttribute(field)}">${REVIEW_SIGNALS.map((signal) => `<option value="${escapeAttribute(signal)}" ${signal === (value || "") ? "selected" : ""}>${escapeHtml(signal || "(비움)")}</option>`).join("")}</select></label>`;
+  }).join("");
+  return `
+    <form class="review-editor" data-edit-form="${escapeAttribute(groupKey)}">
+      ${fields}
+      <p class="review-edit-hint">한 줄에 문구 하나. 코드(H225 · P210)를 앞에 두세요. 원문에 있는 글만 적습니다.</p>
+      <div class="review-edit-evidence">
+        <label><span>원문 쪽</span><input type="number" min="1" inputmode="numeric" data-edit-page placeholder="예: 2" required></label>
+        <label><span>검토자</span><input type="text" data-edit-reviewer value="${escapeAttribute(readReviewer())}" placeholder="이름" required></label>
+      </div>
+      <div class="review-edit-actions">
+        <button type="submit" class="quick-status-button is-active">저장</button>
+        <button type="button" class="quick-status-button" data-edit-cancel>취소</button>
+      </div>
+    </form>
+  `;
+}
+
+async function saveReviewEdit(form, index) {
+  const override = reviewState.overrides[index];
+  const group = REVIEW_EDIT_GROUPS[form.dataset.editForm];
+  const page = Number(form.querySelector("[data-edit-page]")?.value || 0) || null;
+  const reviewer = String(form.querySelector("[data-edit-reviewer]")?.value || "").trim();
+  if (reviewer) rememberReviewer(reviewer);
+  const next = {};
+  group.fields.forEach(({ field, kind }) => {
+    if (kind === "lines") {
+      next[field] = String(form.querySelector(`[data-edit-field="${field}"]`)?.value || "")
+        .split("\n").map((line) => line.trim()).filter(Boolean);
+    } else if (kind === "ghs") {
+      next[field] = [...form.querySelectorAll(`[data-edit-ghs="${field}"] input:checked`)].map((box) => box.value);
+    } else {
+      next[field] = String(form.querySelector(`[data-edit-field="${field}"]`)?.value || "");
+    }
+  });
+  const changed = Object.keys(next).filter((field) => comparable(readField(override, field)) !== comparable(next[field]));
+  if (!changed.length) {
+    reviewState.editing = null;
+    renderReview();
+    return;
+  }
+  const sha = await pdfSha256(override);
+  const at = new Date().toISOString();
+  const pdf = buildReviewPdfInfo(override)?.displayPath || override.sourcePdfPath || "";
+  override.reviewLog = Array.isArray(override.reviewLog) ? override.reviewLog : [];
+  changed.forEach((field) => {
+    override.reviewLog.push({ at, reviewer, field, page, pdf, pdfSha256: sha, before: readField(override, field) ?? null, after: next[field] });
+    writeField(override, field, next[field]);
+    // 실제 표지 그림문자를 고치면 화면이 같이 쓰는 칸도 맞춘다.
+    if (field === "labelGhsCodes") {
+      override.ghsCodes = next[field];
+      override.labelGhsPictograms = next[field].map((code) => ({ code, label: REVIEW_GHS_NAMES[code] }));
+    }
+  });
+  reviewState.dirty = true;
+  reviewState.editing = null;
+  renderReview();
+}
+
+// 바꾼 칸을 원래 값과 나란히 보인다. 지운 줄은 줄을 긋고, 넣은 줄은 밑줄을 친다.
+function renderChangeSummary(override, index) {
+  const changed = getChangedFields(override, index);
+  if (!changed.length) return "";
+  const before = reviewState.originalFields.get(getOverrideKey(override, index)) || {};
+  const asLines = (value) => (Array.isArray(value) ? value : value ? [value] : []).map((item) => typeof item === "object" ? JSON.stringify(item) : String(item));
+  const rows = changed.map(({ field, label }) => {
+    const old = asLines(before[field]);
+    const now = asLines(readField(override, field));
+    const removed = old.filter((line) => !now.includes(line));
+    const added = now.filter((line) => !old.includes(line));
+    return `<li><strong>${escapeHtml(label)}</strong>
+      ${removed.map((line) => `<del>${escapeHtml(line)}</del>`).join("")}
+      ${added.map((line) => `<ins>${escapeHtml(line)}</ins>`).join("")}
+      ${!removed.length && !added.length ? "<span>(차례만 바뀜)</span>" : ""}</li>`;
+  }).join("");
+  const log = (override.reviewLog || []).slice(-3).reverse().map((entry) =>
+    `<li>${escapeHtml(String(entry.at || "").slice(0, 10))} · ${escapeHtml(entry.reviewer || "검토자 미기재")} · ${escapeHtml(entry.field)}${entry.page ? ` · 원문 ${escapeHtml(entry.page)}쪽` : ""}${entry.pdfSha256 ? "" : " · PDF 지문 없음"}</li>`).join("");
+  return `
+    <section class="review-detail-block review-change-block">
+      <h3>바꾼 문구 (원래 → 지금)</h3>
+      <ul class="review-change-list">${rows}</ul>
+      ${log ? `<p class="summary-note">최근 기록</p><ul class="review-change-log">${log}</ul>` : ""}
+    </section>
+  `;
 }

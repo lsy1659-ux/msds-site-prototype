@@ -1,33 +1,15 @@
 name: Validate MSDS public release
 
+# 예전에는 고른 경로만 보았다. 그래서 label.html·sw.js·관리대장만 바꾼 커밋은
+# 검증 없이 올라갔다. 이제 설명 문서(.md) 말고는 무엇이 바뀌어도 돈다.
 on:
   pull_request:
-    paths:
-      - "data/msds.public.json"
-      - "data/msds-overrides.public.json"
-      - "data/release-manifest.json"
-      - "pdf/**"
-      - "index.html"
-      - "css/**"
-      - "assets/**"
-      - "js/**"
-      - "scripts/**"
-      - "tests/**"
-      - ".github/workflows/validate-msds-release.yml"
+    paths-ignore:
+      - "**/*.md"
   push:
     branches: [main]
-    paths:
-      - "data/msds.public.json"
-      - "data/msds-overrides.public.json"
-      - "data/release-manifest.json"
-      - "pdf/**"
-      - "index.html"
-      - "css/**"
-      - "assets/**"
-      - "js/**"
-      - "scripts/**"
-      - "tests/**"
-      - ".github/workflows/validate-msds-release.yml"
+    paths-ignore:
+      - "**/*.md"
   workflow_dispatch:
 
 permissions:
@@ -54,8 +36,11 @@ jobs:
       - name: Run unit tests
         run: python -m unittest discover -s tests -p "test_*.py"
 
+      - name: Screen files carry a fresh asset version
+        run: python scripts/bump_asset_version.py --check
+
+      # 제품 수 기준은 data/release-policy.json 에서 읽는다.
       - name: Validate public products, automatic summaries, and release manifest
         run: >-
           python scripts/validate_public_release.py
-          --expected-products 218
           --check-manifest data/release-manifest.json

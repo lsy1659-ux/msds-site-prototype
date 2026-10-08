@@ -18873,7 +18873,7 @@
     "productNameCandidate": "",
     "supplierCandidate": "DUKSANPURECHEMICALSCO.LTD",
     "msdsNoCandidate": "",
-    "revisionDateCandidate": "2010-04-05",
+    "revisionDateCandidate": "2025-08-13",
     "signalWordCandidate": "",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
@@ -19008,9 +19008,6 @@
       }
     ],
     "hazardStatements": [
-      "H225 Flammable liquids : Category 2 ; Highly flammable liquid and vapour.",
-      "H319 Serious eye damage/ey e irritation : Category 2 ; Causes serious eye irritation.",
-      "H335 STOT -single exposure : Category 3 ; May cause respiratory irritation.",
       "H225 Highly flammable liquid and vapour.",
       "H319 Causes serious eye irritation.",
       "H335 May cause respiratory irritation."
@@ -19393,7 +19390,7 @@
     "productNameCandidate": "",
     "supplierCandidate": "DUKSANPURECHEMICALSCO.LTD",
     "msdsNoCandidate": "",
-    "revisionDateCandidate": "2011-03-30",
+    "revisionDateCandidate": "2025-08-13",
     "signalWordCandidate": "",
     "ghsSource": "section2_classification_fallback",
     "labelGhsCodes": [],
@@ -24779,21 +24776,43 @@
     "revisionDateCandidate": "2024-01-03",
     "signalWordCandidate": "위험",
     "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
+    "labelGhsCodes": [
+      "GHS07",
+      "GHS08"
+    ],
+    "labelGhsPictograms": [
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
+      }
+    ],
     "classificationGhsCodes": [
+      "GHS07",
       "GHS08"
     ],
     "classificationGhsPictograms": [
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
       {
         "code": "GHS08",
         "label": "건강유해성"
       }
     ],
     "ghsCodes": [
+      "GHS07",
       "GHS08"
     ],
     "ghsPictograms": [
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
       {
         "code": "GHS08",
         "label": "건강유해성"
@@ -25413,14 +25432,34 @@
       "H351 암을 일으킬 것으로 의심됨.",
       "H361 태아 또는 생식능력에 손상을 일으킬 것으로 의심됨.",
       "H372 장기간 또는 반복노출 되면 장기에 손상을 일으킴.",
-      "H412 장기적인 영향에 의해 수생생물에게 유해함.",
-      "PP-303 GW(PU)2. 유해성·위험성유해·위험 문구:H226 - 인화성 액체 및 증기.H315 - 피부에 자극을 일으킴.H317 - 알레르기성 피부 반응을 일으킬 수 있음.H319 - 눈에 심한 자극을 일으킴.H336 - 졸음 또는 현기증을 일으킬 수 있음.H351 - 암을 일으킬 것으로 의심됨.H361 - 태아 또는 생식능력에 손상을 일으킬 것으로 의심됨.H372 - 장기간 또는 반복노출 되면 장기에 손상을 일으킴.H412 - 장기적인 영향에 의해 수생생물에게 유해함.예방조치 문구예방:P201 - 사용 전 취급 설명서를 확보하시오.P280 - (보호장갑, 보호의과 보안경또는안면보호구)를(을) 착용하시오.P210 - 열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연.P273 - 환경으로 배출하지 마시오.P260 - 증기를 흡입하지 마시오.P270 - 이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오.P264 - 취급 후에는 손을 철저히 씻으시오.대응:P308 + P313 - 노출되거나 노출이 우려되면: 의학적 조언 또는 치료를 받으십시오.P304 + P312 - 흡입하면: 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.P362 + P364 - 오염된 의류를 벗고 다시 사용 전 세척하시오.P302 + P352 - 피부에 묻으면: 다량의 물로 씻으시오.P333 + P313 - 피부 자극 또는 홍반이 나타나면: 의학적 조언이나 치료를 받으십시오.P305 + P351 + P338 - 눈에 묻으면: 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.P337 + P313 - 눈에 자극이 지속되면: 의학적인 조언을 구하시오.저장:P403 + P233 - 환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오.P403 + P235 - 저온으로 유지하시오.폐기:P501 - 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오.유해성·위험성 분류기준에포함되지 않는 기타 유해성·위험성:알려진 바 없음.다."
+      "H412 장기적인 영향에 의해 수생생물에게 유해함."
     ],
     "precautionaryStatements": {
-      "prevention": [],
-      "response": [],
-      "storage": [],
-      "disposal": []
+      "prevention": [
+        "P201 사용 전 취급 설명서를 확보하시오.",
+        "P280 (보호장갑, 보호의과 보안경또는안면보호구)를(을) 착용하시오.",
+        "P210 열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연.",
+        "P273 환경으로 배출하지 마시오.",
+        "P260 증기를 흡입하지 마시오.",
+        "P270 이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오.",
+        "P264 취급 후에는 손을 철저히 씻으시오."
+      ],
+      "response": [
+        "P308+P313 노출되거나 노출이 우려되면: 의학적 조언 또는 치료를 받으십시오.",
+        "P304+P312 흡입하면: 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.",
+        "P362+P364 오염된 의류를 벗고 다시 사용 전 세척하시오.",
+        "P302+P352 피부에 묻으면: 다량의 물로 씻으시오.",
+        "P333+P313 피부 자극 또는 홍반이 나타나면: 의학적 조언이나 치료를 받으십시오.",
+        "P305+P351+P338 눈에 묻으면: 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.",
+        "P337+P313 눈에 자극이 지속되면: 의학적인 조언을 구하시오."
+      ],
+      "storage": [
+        "P403+P233 환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오.",
+        "P403+P235 저온으로 유지하시오."
+      ],
+      "disposal": [
+        "P501 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오."
+      ]
     },
     "ingredients": [
       {
@@ -26799,11 +26838,29 @@
     "revisionDateCandidate": "2023-06-13",
     "signalWordCandidate": "위험",
     "ghsSource": "section2_classification_and_hazard_statement_reviewed",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
+    "labelGhsCodes": [
+      "GHS02",
+      "GHS04",
+      "GHS07"
+    ],
+    "labelGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS04",
+        "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      }
+    ],
     "classificationGhsCodes": [
       "GHS02",
-      "GHS04"
+      "GHS04",
+      "GHS07"
     ],
     "classificationGhsPictograms": [
       {
@@ -26813,11 +26870,16 @@
       {
         "code": "GHS04",
         "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS04"
+      "GHS04",
+      "GHS07"
     ],
     "ghsPictograms": [
       {
@@ -26827,6 +26889,10 @@
       {
         "code": "GHS04",
         "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
     "hazardStatements": [
@@ -26917,24 +26983,31 @@
     "revisionDateCandidate": "2022-12-12",
     "signalWordCandidate": "위험",
     "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
+    "labelGhsCodes": [
+      "GHS05"
+    ],
+    "labelGhsPictograms": [
+      {
+        "code": "GHS05",
+        "label": "부식성"
+      }
+    ],
     "classificationGhsCodes": [
-      "GHS07"
+      "GHS05"
     ],
     "classificationGhsPictograms": [
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
+        "code": "GHS05",
+        "label": "부식성"
       }
     ],
     "ghsCodes": [
-      "GHS07"
+      "GHS05"
     ],
     "ghsPictograms": [
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
+        "code": "GHS05",
+        "label": "부식성"
       }
     ],
     "hazardStatements": [
@@ -27469,11 +27542,28 @@
     ],
     "precautionaryStatements": {
       "prevention": [
-        "P201 사용 전 취급 설명서를 확보하시오. P260 분진·흄·가스·미스트·증기· 스프레이를 흡입하지 마시오. P264 취급 후에는 취급 부위를 철저히 씻으시오. P270 이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오. P280 보호장갑·보호의·보안경·안면보호구를 착용하시오. P285 환기가 잘 되지 않는 곳에서는 호흡기 보호구를 착용하시오. 2.2.4.2. 대응 P304+P341 흡입하여 호흡이 어려워지면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오. P308+P313 노출 또는 접촉이 우려되면 의학적인 조언·주의를 받으시오. P309+P311 노출되거나 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오. P342+P311 호흡기 증상이 나타나면 의료기관(의사)의 진찰을 받으시오. P302+P352 피부에 묻으면 다량의 비누와 물로 씻으시오. P333+P313 피부자극성 또는 홍반이 나타나면 의학적인 조치·조언을 구하시오. P363 다시 사용전 오염된 의복은 세척하시오. 2.2.4.3. 저장 P405 밀봉하여 저장하시오.2.2.4.4. 폐기 P501 (관련 법규에 명시된 내용에 따라) 내용물 용기를 폐기하시오. 2.3. 유해·위험성 분류기준에 포함되지않는 기타 유해·위험성 아크광선(Arc Ray) 및 스패터(Spatter)는 눈과 피부를 손상시킬 수 있음.전기감전에 의한 안전사고를 유발할 수 있음. ※ 제품에 대한 유해·위험성 분류기준 자료가 없으므로, 구성성분별 자료를 기재함. NFPA 지수물질명 보건화재반응성1) 철 (Iron)2자료없음자료없음2) 크롬 (Chromium)0자료없음03) 이산화티타늄 (Titanium Dioxide)0자료없음04) 니켈 (Nickel;Raney nickel)0자료없음15) 산화규소 (Silicon Dioxide)1 0 06) 탄산칼슘 (Calcium Carbonate)2 0 07) 산화알루미늄 (Aluminum Oxide)0자료없음자료없음8) 불화칼슘 (Calcium Fluoride)3 0 09) 망간 (Manganese)0자료없음1"
+        "P201 사용 전 취급 설명서를 확보하시오.",
+        "P260 분진·흄·가스·미스트·증기· 스프레이를 흡입하지 마시오.",
+        "P264 취급 후에는 취급 부위를 철저히 씻으시오.",
+        "P270 이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오.",
+        "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오.",
+        "P285 환기가 잘 되지 않는 곳에서는 호흡기 보호구를 착용하시오."
       ],
-      "response": [],
-      "storage": [],
-      "disposal": []
+      "response": [
+        "P304+P341 흡입하여 호흡이 어려워지면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.",
+        "P308+P313 노출 또는 접촉이 우려되면 의학적인 조언·주의를 받으시오.",
+        "P309+P311 노출되거나 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.",
+        "P342+P311 호흡기 증상이 나타나면 의료기관(의사)의 진찰을 받으시오.",
+        "P302+P352 피부에 묻으면 다량의 비누와 물로 씻으시오.",
+        "P333+P313 피부자극성 또는 홍반이 나타나면 의학적인 조치·조언을 구하시오.",
+        "P363 다시 사용전 오염된 의복은 세척하시오."
+      ],
+      "storage": [
+        "P405 밀봉하여 저장하시오."
+      ],
+      "disposal": [
+        "P501 (관련 법규에 명시된 내용에 따라) 내용물 용기를 폐기하시오."
+      ]
     },
     "ingredients": [],
     "ppeCandidates": [],

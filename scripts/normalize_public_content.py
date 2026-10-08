@@ -52,6 +52,15 @@ LABEL_WORDS = ("유해위험문구", "예방조치문구", "예방", "대응", "
 CATEGORY = re.compile(r"구분\s*[:：]?\s*\d|Category|;\s*$", re.I)
 SENTENCE_TAIL = re.compile(r"^[가-힣\s·,()]{1,20}(?:시오|것|음|함|됨|다)\s*\.?$")
 PAGE_MARK = re.compile(r"\d+\s*/\s*\d+\s*$")
+# 문장 끝에 다음 항목 제목이 붙은 꼴: "…씻으시오.대응", "…세척하시오. 2.2.4.3. 저장",
+# "…유해함.예방조치 문구예방". 문장이 끝난 뒤에 붙은 것만 뗀다("밀폐하여 저장." 은 그대로).
+TRAILING_HEADING = re.compile(
+    r"(?<=[.다요음함됨])\s*(?:\d+(?:\.\d+)*\.?\s*)?(?:예방\s*조치\s*문구\s*)?(?:예방|대응|저장|폐기)\s*[:：]?\s*$")
+# 덩어리에서 나눈 마지막 문구 뒤에 다음 절이 이어 붙은 꼴: "…폐기하시오.유해성·위험성 분류기준에…",
+# "…폐기하시오. 2.3. 유해·위험성 분류기준…". 문장이 끝난 자리에서 자른다.
+NEXT_SECTION = re.compile(r"(?<=[.])\s*(?=\d+(?:\.\d+)+\.?\s|유해\s*성?\s*[·ㆍᆞ・]?\s*위험\s*성?\s*분류|[가-하]\.\s)")
+# 분류를 앞에 단 문구: "Flammable liquids : Category 2 ; Highly flammable liquid and vapour."
+CATEGORY_PREFIX = re.compile(r"^.{0,80}?(?:Category|구분)\s*\d[A-Za-z]?\s*;\s*(?=\S)", re.I)
 # 글자 사이가 벌어진 항목 이름("유 해 위 험 문 구·", "대 응").
 SPACED_LABEL = re.compile(r"^(?:유\s*해\s*[·ㆍᆞ·,]?\s*위\s*험\s*문\s*구|예\s*방\s*조\s*치\s*문\s*구|예\s*방|대\s*응|저\s*장|폐\s*기)"
                           r"\s*[·ㆍᆞ·:：]?\s*")
@@ -201,14 +210,40 @@ def _clean(raw: str) -> tuple[str, str, str]:
     code = re.sub(r"\s", "", match.group(0))
     # 코드 뒤 구분표(" - ", " : ")만 뗀다. 마침표는 두어야 "P321 … 처치를 하시오" 가 줄지 않는다.
     body = re.sub(r"^\s*[-–:：;]\s*", "", text[match.end():]).strip()
-    return code, body, head
+    return code, _tidy_body(body), head
+
+
+def _split_runs(items: list[str]) -> list[str]:
+    """한 줄에 문구 여럿이 붙어 들어온 것을 코드마다 나눈다.
+
+    2항 전체가 한 줄로 들어온 PDF 가 있다("PP-303 GW(PU)2. 유해성·위험성유해·위험 문구:H226 -
+    인화성 액체 및 증기.H315 - …"). 그대로 두면 화면에 한 덩어리로 나온다. 코드가 셋 이상인
+    긴 줄만 나누고, 첫 코드 앞의 머리(제품명·항목 제목)는 버린다. 문구 글자는 바꾸지 않는다.
+    """
+    out: list[str] = []
+    for raw in items:
+        text = re.sub(r"\s+", " ", str(raw or "")).strip()
+        starts = [m.start() for m in CODE.finditer(text)]
+        if len(starts) < 3 or len(text) < 100:
+            out.append(raw)
+            continue
+        pieces = [text[a:b].strip() for a, b in zip(starts, starts[1:] + [len(text)])]
+        pieces = [NEXT_SECTION.split(piece, 1)[0].strip() for piece in pieces]
+        out.extend(piece for piece in pieces if piece)
+    return out
+
+
+def _tidy_body(body: str) -> str:
+    """문구 끝에 붙은 다음 항목 제목과, 앞에 단 분류("… : Category 2 ;")를 뗀다."""
+    body = TRAILING_HEADING.sub("", body).strip()
+    return CATEGORY_PREFIX.sub("", body).strip()
 
 
 def _normalize_list(items: list[str]) -> tuple[list[tuple[str, str]], list[tuple[str, str]]]:
     """[(코드, 한 줄)] 과 분류만 적힌 줄 [(코드, 원래 줄)] 을 돌려준다."""
     out: list[tuple[str, str]] = []
     class_only: list[tuple[str, str]] = []
-    for raw in items:
+    for raw in _split_runs(items):
         code, body, head = _clean(raw)
         if not code:
             # 쪽 꼬리글("CALS Corp.1/13")은 뺀다. 한글 문장이 든 줄은 코드가 없어도 둔다.
@@ -252,10 +287,26 @@ def normalize_statements(record: dict[str, Any]) -> bool:
             if line not in groups[target]:
                 groups[target].append(line)
 
+    # 유해문구 칸에 섞여 들어온 P 문구(2항이 한 줄로 들어온 PDF)는 예방조치 칸으로 옮긴다.
+    # 같은 코드가 그 칸에 이미 있으면 버린다.
+    have_p = {re.sub(r"\s", "", m.group(0)) for g in groups.values() for line in g for m in CODE.finditer(line[:20])}
+    kept_hazards = []
+    for code, line in hazards:
+        if code.startswith("P"):
+            if code not in have_p:
+                groups[GROUP_BY_DIGIT.get(code[1:2], "prevention")].append(line)
+                have_p.add(code)
+            continue
+        kept_hazards.append((code, line))
+    hazards = kept_hazards
+
     lines: list[str] = []
     seen_codes = set()
     for code, line in hazards + moved_h:
         if line in lines:
+            continue
+        # 나눈 덩어리에서 나온 같은 코드 문구가 끝 마침표만 다르면 겹친 것으로 본다.
+        if code and code in seen_codes and line.rstrip(". ") in {l.rstrip(". ") for l in lines}:
             continue
         if code and code in seen_codes and line == code:
             continue

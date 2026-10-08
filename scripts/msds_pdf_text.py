@@ -406,11 +406,14 @@ DATE_FORMS = [
     (re.compile(r"((?:19|20)\d{2})\s*[.\-/년]\s*(\d{1,2})\s*[.\-/월]\s*(\d{1,2})"), (1, 2, 3)),
     (re.compile(r"(?<!\d)(\d{1,2})\s+(\d{1,2})월\s+((?:19|20)\d{2})"), (3, 2, 1)),
     (re.compile(r"(?<!\d)(\d{1,2})[/\s-]([A-Za-z]{3})[a-z]*[/\s-]((?:19|20)\d{2})"), (3, 2, 1)),
+    # 유럽식 일.월.연도("개정: 13.04.2017", 헨켈·록타이트). 점으로 이은 꼴만 읽는다.
+    (re.compile(r"(?<![\d.])(\d{1,2})\.(\d{1,2})\.((?:19|20)\d{2})(?!\d)"), (3, 2, 1)),
 ]
-REVISION_LABELS = (r"최종\s*개정\s*일(?:자)?", r"개정\s*일(?:자)?", r"개정\s*날짜", r"revision\s*date", r"date\s*of\s*revision")
+REVISION_LABELS = (r"최종\s*개정\s*일(?:자)?", r"개정\s*일(?:자)?", r"개정\s*날짜", r"revision\s*date", r"date\s*of\s*revision",
+                   r"date\s*of\s*last\s*revision", r"last\s*revis(?:ion|ed)\s*date", r"개정\s*[:：]")
 # 최초 작성일로 볼 수 있는 라벨만. 그냥 "작성일자" 는 제조사에 따라 이 판을 쓴 날이라 넣지 않는다.
 ISSUE_LABELS = (r"최초\s*작성\s*일(?:자)?", r"제정\s*일(?:자)?", r"date\s*of\s*issue\s*for\s*the\s*1st\s*edition",
-                r"created\s*date")
+                r"created\s*date", r"date\s*created\s*first", r"date\s*of\s*first\s*issue")
 
 
 def all_dates(text):
@@ -461,9 +464,21 @@ def labelled_dates(text, labels, value_end=VALUE_END):
     return []
 
 
+# 개정 이력 한 칸: "20차/2022.04.06", "21차//2022.07.13"
+HISTORY_ENTRY = re.compile(r"\d{1,3}\s*차\s*/+\s*([0-9][0-9.\-/ ]{5,13}\d)")
+
+
 def revision_date(text):
-    """원문의 최종 개정일. 개정 이력이 줄줄이 적혔으면 가장 늦은 날짜. 못 찾으면 빈 문자열."""
+    """원문의 최종 개정일. 개정 이력이 줄줄이 적혔으면 가장 늦은 날짜. 못 찾으면 빈 문자열.
+
+    개정 이력이 쪽을 넘어 이어지면("20차/2022.04.06," ‖ 쪽 머리글 ‖ "21차//2022.07.13")
+    라벨 값이 쪽 끝 빈 줄에서 끊겨 마지막 차수를 놓쳤다(K1). 라벨에서 날짜를 찾았고
+    "N차/날짜" 꼴의 이력이 있으면 그 이력의 날짜까지 함께 본다.
+    """
     dates = labelled_dates(text, REVISION_LABELS)
+    if dates:
+        history = [d for m in HISTORY_ENTRY.finditer(text) for d in all_dates(m.group(1))]
+        dates = sorted(set(dates + history))
     return dates[-1] if dates else ""
 
 

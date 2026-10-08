@@ -782,3 +782,12 @@ body {
   background: var(--surface-2, #1e2b28);
   color: #9beed4;
 }
+
+/* 원문 응급조치(삼켰을 때)와 예방조치가 어긋날 때 붙는 한 줄. 종이에도 나간다. */
+.guide-aid-conflict {
+  margin: 1mm 0 0;
+  padding: 1mm 1.5mm;
+  border: 0.3mm solid #b45309;
+  font-size: 7.5pt;
+  line-height: 1.35;
+}

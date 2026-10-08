@@ -772,7 +772,8 @@ def parse_args(argv: Iterable[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--products", type=Path, default=DEFAULT_PRODUCTS)
     parser.add_argument("--overrides", type=Path, default=DEFAULT_OVERRIDES)
     parser.add_argument("--app", type=Path, default=DEFAULT_APP)
-    parser.add_argument("--expected-products", type=int, default=223)
+    parser.add_argument("--expected-products", type=int, default=None,
+                        help="안 주면 data/release-policy.json 의 expectedProducts")
     parser.add_argument("--strict-warnings", action="store_true")
     parser.add_argument("--json", action="store_true", help="Print the full machine-readable result")
     parser.add_argument("--max-issues", type=int, default=50)
@@ -784,9 +785,20 @@ def parse_args(argv: Iterable[str] | None = None) -> argparse.Namespace:
     return parser.parse_args(argv)
 
 
+def policy_expected_products(root: Path) -> int | None:
+    """제품 수 기준은 data/release-policy.json 한 곳에 둔다. 워크플로·준비 스크립트가 같이 읽는다."""
+    path = root / "data" / "release-policy.json"
+    if not path.is_file():
+        return None
+    value = read_json(path).get("expectedProducts")
+    return int(value) if value is not None else None
+
+
 def main(argv: Iterable[str] | None = None) -> int:
     args = parse_args(argv)
     root = args.root.resolve()
+    if args.expected_products is None:
+        args.expected_products = policy_expected_products(root)
     result = validate_public_release(
         root,
         products_path=args.products,

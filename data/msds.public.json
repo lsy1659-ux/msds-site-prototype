@@ -21979,10 +21979,8 @@
     "publication": {
       "summaryMode": "automatic",
       "summaryAvailable": true,
-      "validationStatus": "automatic_with_warnings",
-      "validationWarnings": [
-        "REVISION_DATE_CONFLICT"
-      ]
+      "validationStatus": "automatic",
+      "validationWarnings": []
     },
     "firstAid": {
       "eye": [
@@ -28014,7 +28012,7 @@
     "recommendedUse": "실험용 화학물질(시약)",
     "supplier": "DUKSANPURECHEMICALSCO.LTD",
     "siteLabel": "",
-    "revisionDate": "",
+    "revisionDate": "2025-08-13",
     "emergencyContact": "031-495-4057",
     "hazardClassification": "- 금속 부식성물질 : 구분1 - 피부 부식성/피부 자극성 : 구분1 - 심한 눈 손상/눈 자극성 : 구분1",
     "dangerousGoods": "UN1824 / Sodium hydroxide solution / Class 8 / PG II",
@@ -28107,7 +28105,8 @@
         "오염된 의복 및 신발을 벗고 즉시 적어도 15분 동안 비누와 물로 씻어내시오.",
         "오염된 피복은 재사용 전에 (충분히) 세탁하시오",
         "증상(발적, 자극 등)이 발생할 경우 즉시 병원으로 가시오.",
-        "취급 후 철저히 씻으시오."
+        "취급 후 철저히 씻으시오.",
+        "필요에 따른 조치를 취하시오."
       ],
       "inhalation": [
         "다량의 증기나 미스트에 노출되었을 경우 맑은 공기가 있는 곳으로 이동하시오.",
@@ -28124,6 +28123,7 @@
       ]
     },
     "supplierAddress": "53, Sinwon-ro 133beon-gil, Danwon-gu, Ansan-si, Gyeonggi-do, Korea",
+    "issueDate": "2010-04-05",
     "labelReprint": {
       "date": "2026-09-23",
       "reason": "비어 있던 공급자 주소 채움"
@@ -28165,9 +28165,6 @@
       }
     ],
     "hazardStatements": [
-      "H225 Flammable liquids : Category 2 ; Highly flammable liquid and vapour.",
-      "H319 Serious eye damage/ey e irritation : Category 2 ; Causes serious eye irritation.",
-      "H335 STOT -single exposure : Category 3 ; May cause respiratory irritation.",
       "H225 Highly flammable liquid and vapour.",
       "H319 Causes serious eye irritation.",
       "H335 May cause respiratory irritation."
@@ -28655,7 +28652,7 @@
     "recommendedUse": "실험용 화학물질(시약)",
     "supplier": "DUKSANPURECHEMICALSCO.LTD",
     "siteLabel": "",
-    "revisionDate": "2011-03-30",
+    "revisionDate": "2025-08-13",
     "emergencyContact": "031-495-4057",
     "hazardClassification": "- 피부 부식성/피부 자극성 : 구분1 - 심한 눈 손상/눈 자극성 : 구분1",
     "dangerousGoods": "UN1789 / Hydrochloric acid / Class 8 / PG II",
@@ -28743,7 +28740,8 @@
         "오염된 의복 및 신발을 벗고 즉시 적어도 15분 동안 비누와 물로 씻어내시오.",
         "오염된 피복은 재사용 전에 (충분히) 세탁하시오",
         "즉시 의사의 치료를 받으시오.",
-        "취급 후 철저히 씻으시오."
+        "취급 후 철저히 씻으시오.",
+        "필요에 따른 조치를 취하시오."
       ],
       "inhalation": [
         "다량의 증기나 미스트에 노출되었을 경우 맑은 공기가 있는 곳으로 이동하시오.",
@@ -28761,6 +28759,7 @@
       ]
     },
     "supplierAddress": "53, Sinwon-ro 133beon-gil, Danwon-gu, Ansan-si, Gyeonggi-do, Korea",
+    "issueDate": "2011-03-30",
     "labelReprint": {
       "date": "2026-09-23",
       "reason": "비어 있던 공급자 주소 채움"
@@ -29318,10 +29317,8 @@
     "publication": {
       "summaryMode": "automatic",
       "summaryAvailable": true,
-      "validationStatus": "automatic_with_warnings",
-      "validationWarnings": [
-        "REVISION_DATE_CONFLICT"
-      ]
+      "validationStatus": "automatic",
+      "validationWarnings": []
     },
     "msdsNoStatus": "submission_exempt",
     "msdsNoReason": "시험실 분석용 시약. 시행령 제86조제17호·고시 제19조제1호에 따라 MSDS 작성·비치는 필요하지만 공단 제출(=번호 부여)만 면제. 번호가 없는 것이 적법할 수 있음",
@@ -29341,7 +29338,8 @@
         "오염된 피복은 재사용 전에 (충분히) 세탁하시오",
         "즉시 의사의 치료를 받으시오.",
         "취급 후 철저히 씻으시오.",
-        "환자를 씻길 경우 장갑을 착용하고 오염된 피복의 접촉을 피하시오."
+        "환자를 씻길 경우 장갑을 착용하고 오염된 피복의 접촉을 피하시오.",
+        "필요에 따른 조치를 취하시오."
       ],
       "inhalation": [
         "다량의 증기나 미스트에 노출되었을 경우 맑은 공기가 있는 곳으로 이동하시오.",
@@ -29360,6 +29358,7 @@
       ]
     },
     "supplierAddress": "53, Sinwon-ro 133beon-gil, Danwon-gu, Ansan-si, Gyeonggi-do, Korea",
+    "issueDate": "2011-08-10",
     "labelReprint": {
       "date": "2026-09-23",
       "reason": "비어 있던 공급자 주소 채움"
@@ -31733,10 +31732,8 @@
     "publication": {
       "summaryMode": "automatic",
       "summaryAvailable": true,
-      "validationStatus": "automatic_with_warnings",
-      "validationWarnings": [
-        "REVISION_DATE_CONFLICT"
-      ]
+      "validationStatus": "automatic",
+      "validationWarnings": []
     },
     "firstAid": {
       "eye": [
@@ -36816,6 +36813,10 @@
     ],
     "ghsPictograms": [
       {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
         "code": "GHS08",
         "label": "건강유해성"
       }
@@ -36828,15 +36829,21 @@
       "disposal": []
     },
     "classificationGhsCodes": [
+      "GHS07",
       "GHS08"
     ],
     "classificationGhsPictograms": [
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
       {
         "code": "GHS08",
         "label": "건강유해성"
       }
     ],
     "ghsCodes": [
+      "GHS07",
       "GHS08"
     ],
     "ppeCandidates": [
@@ -39519,6 +39526,10 @@
       {
         "code": "GHS04",
         "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
     "hazardStatements": [
@@ -39543,7 +39554,8 @@
     },
     "classificationGhsCodes": [
       "GHS02",
-      "GHS04"
+      "GHS04",
+      "GHS07"
     ],
     "classificationGhsPictograms": [
       {
@@ -39553,11 +39565,16 @@
       {
         "code": "GHS04",
         "label": "고압가스"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
       }
     ],
     "ghsCodes": [
       "GHS02",
-      "GHS04"
+      "GHS04",
+      "GHS07"
     ],
     "ppeCandidates": [
       "밀폐된 공간에서의 가스 사용은 폭발 및 질식의 위험이 있으니 환기가 잘되는 곳에서",
@@ -39684,8 +39701,8 @@
     ],
     "ghsPictograms": [
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
+        "code": "GHS05",
+        "label": "부식성"
       }
     ],
     "hazardStatements": [],
@@ -39701,16 +39718,16 @@
       "disposal": []
     },
     "classificationGhsCodes": [
-      "GHS07"
+      "GHS05"
     ],
     "classificationGhsPictograms": [
       {
-        "code": "GHS07",
-        "label": "유해/자극성"
+        "code": "GHS05",
+        "label": "부식성"
       }
     ],
     "ghsCodes": [
-      "GHS07"
+      "GHS05"
     ],
     "ppeCandidates": [
       "P280 보호장갑/보호의/보안경/안면보호구를 착용하시오.",
@@ -40827,7 +40844,7 @@
         "P264 취급 후에는 취급 부위를 철저히 씻으시오",
         "P270 이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오",
         "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오",
-        "P285 환기가 잘 되지 않는 곳에서는 호흡기 보호구를 착용하시오. 2.2.4.2. 대응"
+        "P285 환기가 잘 되지 않는 곳에서는 호흡기 보호구를 착용하시오."
       ],
       "response": [
         "P304+P341 흡입하여 호흡이 어려워지면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오",
@@ -40836,10 +40853,10 @@
         "P342+P311 호흡기 증상이 나타나면 의료기관(의사)의 진찰을 받으시오",
         "P302+P352 피부에 묻으면 다량의 비누와 물로 씻으시오",
         "P333+P313 피부자극성 또는 홍반이 나타나면 의학적인 조치·조언을 구하시오",
-        "P363 다시 사용전 오염된 의복은 세척하시오. 2.2.4.3. 저장"
+        "P363 다시 사용전 오염된 의복은 세척하시오."
       ],
       "storage": [
-        "P405 밀봉하여 저장하시오.2.2.4.4. 폐기"
+        "P405 밀봉하여 저장하시오."
       ],
       "disposal": [
         "P501 (관련 법규에 명시된 내용에 따라) 내용물 용기를 폐기하시오. 2.3. 유해·위험성 분류기준에 포함되지않는 기타 유해·위험성 아크광선(Arc Ray) 및 스패터(Spatter)는 눈과 피부를 손상시킬 수 있음.전기감전에 의한 안전사고를 유발할 수 있음. ※ 제품에 대한 유해·위…"
@@ -41745,8 +41762,8 @@
     },
     "firstAid": {
       "eye": [
-        "긴급 의료조치를 받으시오",
-        "물질과 접촉시 즉시 20분 이상 흐르는 물에 피부와 눈을 씻어내시오"
+        "물질과 접촉시 즉시 20분 이상 흐르는 물에 피부와 눈을 씻어내시오",
+        "긴급 의료조치를 받으시오"
       ],
       "skin": [
         "긴급 의료조치를 받으시오",

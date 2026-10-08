@@ -82,6 +82,8 @@ function buildRows(register, products) {
       signalWord: entry.signalWord || "",
       sourceIssue: entry.sourceIssue || "",
       sourceIssueAsk: entry.sourceIssueAsk || "",
+      // 무엇을 보고 적었는지(확인일·원문 쪽·PDF 지문). 같은 자리에 새 PDF 가 오면 다시 봐야 한다.
+      sourceIssueEvidence: entry.sourceIssueEvidence || null,
       replacement,
       pdf: product?.pdfPath || "",
       haystack: rNormalize([entry.productName, entry.supplier, entry.msdsNo, entry.supplierDocNo, entry.kind].join(" "))
@@ -175,13 +177,21 @@ function renderTodo() {
         <summary><strong>${rEscape(supplier)}</strong><span>${rows.length}건</span>
           <span class="register-todo-kinds">${[...new Set(rows.map((r) => r.sourceIssue && !["required", "pending"].includes(r.status) ? "원문 확인" : r.statusLabel))].map(rEscape).join(" · ")}</span></summary>
         <ul>${rows.map((row) => `<li>${rEscape(row.name)} <span class="register-sub">${rEscape(row.kind || row.statusLabel)}</span>
-          ${row.sourceIssue ? `<span class="register-issue">원문 확인: ${rEscape(row.sourceIssue)}</span>` : ""}</li>`).join("")}</ul>
+          ${row.sourceIssue ? `<span class="register-issue">원문 확인: ${rEscape(row.sourceIssue)}${evidenceText(row)}</span>` : ""}</li>`).join("")}</ul>
         ${needs.length ? `<p class="register-todo-need"><b>받을 것</b> ${needs.map(rEscape).join(" / ")}</p>` : ""}
         ${rows.some(askable) ? `<p class="register-todo-need"><button type="button" class="substance-button" data-request-copy="${index}">요청 문안 복사</button>
           <span class="register-sub">메일·메신저에 붙여 쓰는 문안입니다. 여기서 보내지는 않습니다.</span></p>`
           : `<p class="register-todo-need register-sub">우리 쪽에서 확인할 일입니다(라벨·용도 확인).</p>`}
       </details>`;
   }).join("") || '<p class="register-empty">남은 할 일이 없습니다.</p>';
+}
+
+/* 원문 확인의 근거. "2026-10-08 확인 · 원문 4쪽" */
+function evidenceText(row) {
+  const evidence = row.sourceIssueEvidence;
+  if (!evidence) return "";
+  const parts = [evidence.checkedOn ? `${evidence.checkedOn} 확인` : "", evidence.page ? `원문 ${evidence.page}쪽` : ""].filter(Boolean);
+  return parts.length ? ` (${rEscape(parts.join(" · "))})` : "";
 }
 
 /* 공급사에 물을 것인지. 번호 확보가 필요하거나, 추가 확인 가운데 공급사에 요청할 일이거나,

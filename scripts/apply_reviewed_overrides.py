@@ -83,6 +83,7 @@ def load_reviewed_json(path: Path) -> list[dict[str, Any]]:
                 f"Row {index}: invalid or missing reviewStatus "
                 f"({status!r}). Allowed: {', '.join(sorted(VALID_REVIEW_STATUSES))}."
             )
+        errors.extend(f"Row {index}: {problem}" for problem in edited_field_problems(item))
         validated.append(item)
 
     if errors:
@@ -91,6 +92,60 @@ def load_reviewed_json(path: Path) -> list[dict[str, Any]]:
         raise ValueError(f"Validation failed:\n{preview}{suffix}")
 
     return validated
+
+
+VALID_GHS = {f"GHS0{n}" for n in range(1, 10)}
+VALID_SIGNALS = {"", "위험", "경고", "해당없음"}
+PRECAUTION_GROUPS = ("prevention", "response", "storage", "disposal")
+
+
+def edited_field_problems(item: dict[str, Any]) -> list[str]:
+    """review.html 에서 고칠 수 있는 칸의 꼴을 본다. 틀린 꼴이 사이트까지 가지 않게."""
+    problems: list[str] = []
+    for field in ("hazardStatements", "ppeCandidates"):
+        value = item.get(field)
+        if value is not None and not (isinstance(value, list) and all(isinstance(v, str) for v in value)):
+            problems.append(f"{field} must be a list of text lines.")
+    hazards = item.get("hazardStatements") or []
+    if isinstance(hazards, list):
+        for line in hazards:
+            if isinstance(line, str) and line.strip().startswith("P") and line.strip()[1:4].isdigit():
+                problems.append(f"P statement in hazardStatements: {line[:40]!r}")
+    precautions = item.get("precautionaryStatements")
+    if precautions is not None:
+        if not isinstance(precautions, dict):
+            problems.append("precautionaryStatements must be an object.")
+        else:
+            for group, lines in precautions.items():
+                if group not in PRECAUTION_GROUPS or not isinstance(lines, list):
+                    problems.append(f"precautionaryStatements.{group} must be one of {PRECAUTION_GROUPS} with a list.")
+    for field in ("labelGhsCodes", "ghsCodes"):
+        codes = item.get(field)
+        if codes is not None and (not isinstance(codes, list) or any(code not in VALID_GHS for code in codes)):
+            problems.append(f"{field} must list GHS01~GHS09 only: {codes!r}")
+    if item.get("signalWordCandidate", "") not in VALID_SIGNALS:
+        problems.append(f"signalWordCandidate must be one of {sorted(VALID_SIGNALS)}.")
+    for entry in item.get("reviewLog") or []:
+        if not isinstance(entry, dict) or not entry.get("field") or not entry.get("at"):
+            problems.append("reviewLog entries need field and at.")
+            break
+    return problems
+
+
+def print_edits(overrides: list[dict[str, Any]]) -> None:
+    """review.html 에서 고친 것(reviewLog)을 한 줄씩 보인다. 반영 전에 눈으로 본다."""
+    rows = [(item, entry) for item in overrides for entry in item.get("reviewLog") or []]
+    if not rows:
+        return
+    print(f"\n고친 기록 {len(rows)}건")
+    for item, entry in rows[-30:]:
+        name = item.get("productNameCandidate") or str(item.get("sourcePdfPath", "")).split("/")[-1]
+        before, after = entry.get("before"), entry.get("after")
+        size = (lambda v: f"{len(v)}줄" if isinstance(v, list) else repr(v))
+        evidence = f"원문 {entry['page']}쪽" if entry.get("page") else "쪽 미기재"
+        print(f"- {str(entry.get('at', ''))[:10]} {entry.get('reviewer') or '검토자 미기재'} · {name[:30]} · "
+              f"{entry.get('field')} {size(before)} → {size(after)} · {evidence}"
+              f"{'' if entry.get('pdfSha256') else ' · PDF 지문 없음'}")
 
 
 def summarize(overrides: list[dict[str, Any]]) -> Counter[str]:
@@ -142,6 +197,7 @@ def main() -> int:
       overrides = load_reviewed_json(args.input)
       counts = summarize(overrides)
       print_summary(counts)
+      print_edits(overrides)
 
       if args.dry_run:
           print("\nDry-run mode: no files were changed.")

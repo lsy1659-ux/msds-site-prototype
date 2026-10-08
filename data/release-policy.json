@@ -1,0 +1,4 @@
+{
+  "about": "공개 배포 기준. 제품 수가 바뀌면 여기 한 곳만 고친다. scripts/validate_public_release.py(CI 포함)와 scripts/prepare_release.py 가 읽는다.",
+  "expectedProducts": 218
+}

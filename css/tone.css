@@ -2672,3 +2672,138 @@
     color: #000000;
   }
 }
+
+/* 원문 안에서 응급조치와 H·P 문구가 어긋날 때(js/safety-notes.js) */
+.first-aid-conflict {
+  margin: 0 0 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--tone-warning-line);
+  border-left: 3px solid var(--tone-warning);
+  border-radius: 6px;
+  background: var(--tone-warning-bg);
+  color: var(--tone-ink);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* 검토 화면: 문구 직접 고치기 */
+.review-block-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.review-edit-button {
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid var(--tone-line-strong);
+  border-radius: 6px;
+  background: var(--tone-surface);
+  color: var(--tone-accent);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.review-detail-block.is-editing {
+  border-color: var(--tone-accent);
+  box-shadow: 0 0 0 3px var(--tone-primary-soft);
+}
+
+.review-editor {
+  display: grid;
+  gap: 10px;
+}
+
+.review-edit-field {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 0.875rem;
+}
+
+.review-edit-field > span,
+.review-edit-field > legend {
+  color: var(--tone-muted);
+  font-weight: 600;
+}
+
+.review-edit-field textarea,
+.review-edit-field select,
+.review-edit-evidence input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--tone-line-strong);
+  border-radius: 6px;
+  background: var(--tone-surface);
+  color: var(--tone-ink);
+  font: inherit;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.review-edit-ghs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 4px 12px;
+}
+
+.review-edit-hint {
+  margin: 0;
+  color: var(--tone-muted);
+  font-size: 0.8125rem;
+}
+
+.review-edit-evidence {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 8px;
+}
+
+.review-edit-evidence label {
+  display: grid;
+  gap: 4px;
+  font-size: 0.8125rem;
+  color: var(--tone-muted);
+}
+
+.review-edit-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.review-change-block {
+  border-left: 4px solid var(--tone-warning);
+}
+
+.review-change-list,
+.review-change-log {
+  margin: 0;
+  padding-left: 1.1em;
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.review-change-list del,
+.review-change-list ins {
+  display: block;
+  margin: 2px 0;
+  padding: 1px 6px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.review-change-list del {
+  background: var(--tone-danger-bg);
+  color: var(--tone-danger);
+  text-decoration: line-through;
+}
+
+.review-change-list ins {
+  background: var(--tone-primary-soft);
+  color: var(--tone-accent);
+}

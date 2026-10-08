@@ -2859,7 +2859,7 @@ function renderDetail(product) {
 
     ${renderNotClassifiedNotice(product)}
 
-    ${renderFirstAidSection(product)}
+    ${renderFirstAidSection(product, detailData)}
 
     ${product.previousVersions?.length ? detailSection("개정 이력 · 이전본", renderRevisionHistory(product.previousVersions), "detail-block-history") : ""}
 
@@ -4897,14 +4897,16 @@ function renderProductShortcuts() {
   host.hidden = !html;
 }
 
+// 즐겨찾기·최근 본 제품도 검색에서 고른 것과 똑같이 요약판(그림문자·보호구)부터 보여 준다.
+// 전에는 상세정보로 바로 내려가서, 같은 제품인데 여는 길에 따라 처음 보이는 곳이 달랐다.
 function openShortcutProduct(productId) {
   if (!findProductById(productId)) return;
   if (state.selectedId !== productId) resetPdfPreviewState();
   state.selectedId = productId;
   updateProductUrl(productId);
-  state.selectionCollapsed = false;
+  state.selectionCollapsed = true;
   render();
-  document.querySelector(".detail-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  bringSummaryIntoView();
 }
 
 function bindProductShortcuts() {
@@ -5189,9 +5191,15 @@ const FIRST_AID_SECTIONS = [
 const FIRST_AID_VISIBLE = 2;
 
 // 사고 순간에 26쪽 PDF에서 4항을 찾게 하지 않으려고 화면 위쪽에 따로 둔다.
-function renderFirstAidSection(product) {
+function renderFirstAidSection(product, detailData = {}) {
   const firstAid = product?.firstAid;
   if (!firstAid || typeof firstAid !== "object") return "";
+  // 원문 안에서 응급조치와 H·P 문구가 어긋나면(구토) 그 칸 바로 위에 알린다(js/safety-notes.js).
+  const vomit = window.MsdsSafety?.vomitConflict({
+    hazards: detailData.hazardStatements || product.hazardStatements,
+    precautions: detailData.precautionaryStatements || product.precautionaryStatements,
+    ingestion: firstAid.ingestion
+  });
   const blocks = FIRST_AID_SECTIONS
     .map((section) => {
       const items = Array.isArray(firstAid[section.key]) ? firstAid[section.key] : [];
@@ -5200,6 +5208,7 @@ function renderFirstAidSection(product) {
       const rest = items.slice(FIRST_AID_VISIBLE);
       return `<article class="first-aid-block is-${escapeAttribute(section.key)}">
           <h4><span class="first-aid-icon" aria-hidden="true">${window.uiIcon ? window.uiIcon(section.icon) : ""}</span>${escapeHtml(section.label)}</h4>
+          ${section.key === "ingestion" && vomit ? `<p class="first-aid-conflict" role="note">${escapeHtml(window.MsdsSafety.vomitNotice(vomit))}</p>` : ""}
           <ul>${shown.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
           ${rest.length ? `
             <details class="first-aid-more">
