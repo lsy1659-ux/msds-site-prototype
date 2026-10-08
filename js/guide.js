@@ -24,6 +24,10 @@ const GUIDE_OVERRIDE_SOURCES = [
   "data/msds-overrides.public.json"
 ];
 
+// 조회 화면처럼 ?dataMode=public 이면 로컬 파일을 건너뛰고 공개 자료만 읽는다(점검·확인용).
+const PUBLIC_DATA_ONLY = new URLSearchParams(window.location.search).get("dataMode") === "public";
+const notLocal = (source) => !PUBLIC_DATA_ONLY || !source.includes(".local.");
+
 const GUIDE_GHS = {
   GHS01: { label: "폭발성", icon: "assets/ghs/ghs01.svg" },
   GHS02: { label: "인화성", icon: "assets/ghs/ghs02.svg" },
@@ -399,7 +403,7 @@ function renderSheetCard(product) {
           <img src="${GUIDE_GHS[code].icon}" alt="${guideEscape(GUIDE_GHS[code].label)}">
           <figcaption>${guideEscape(GUIDE_GHS[code].label)}</figcaption>
         </figure>`).join("")
-    : `<p class="guide-blank-line">${blankMark()}</p>`;
+    : `<p class="guide-blank-line">그림문자 없음</p>`;
 
   return `
     <article class="guide-card" data-guide-id="${guideEscape(product.id)}">
@@ -426,7 +430,8 @@ function renderSheetCard(product) {
         <h3><b>②</b> 건강 및 환경에 대한 유해성, 물리적 위험성</h3>
         <div class="guide-hazard-top">
           <div class="guide-pictograms">${pictograms}</div>
-          ${signal ? `<p class="guide-signal${signal === "위험" ? " is-danger" : ""}">${guideEscape(signal)}</p>` : ""}
+          ${signal ? `<p class="guide-signal${signal === "위험" ? " is-danger" : ""}">${guideEscape(signal)}</p>`
+            : (product.hazardNotClassified || String(product.signalWord || "").trim() === "해당없음") ? `<p class="guide-signal is-none">신호어 없음</p>` : ""}
         </div>
         <h4>유해 · 위험문구</h4>
         ${renderList(hazards)}
@@ -747,8 +752,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   bindGuideEvents();
 
   const [products, overrides] = await Promise.all([
-    loadFirstAvailable(GUIDE_DATA_SOURCES, guideCoerceList),
-    loadFirstAvailable(GUIDE_OVERRIDE_SOURCES, (data) => (Array.isArray(data) ? data : []))
+    loadFirstAvailable(GUIDE_DATA_SOURCES.filter(notLocal), guideCoerceList),
+    loadFirstAvailable(GUIDE_OVERRIDE_SOURCES.filter(notLocal), (data) => (Array.isArray(data) ? data : []))
   ]);
 
   const overrideByFile = new Map();

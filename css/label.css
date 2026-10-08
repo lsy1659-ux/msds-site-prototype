@@ -1237,3 +1237,10 @@ select:focus-visible {
   background: var(--surface-2, #1e2b28);
   color: #9beed4;
 }
+
+/* 분류 대상이 아니거나 신호어가 없는 분류: 빈칸이 아니라 "신호어 없음"으로 */
+.label-signal.is-none {
+  color: #5d6865;
+  font-size: 1rem;
+  font-weight: 700;
+}

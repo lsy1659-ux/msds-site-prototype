@@ -169,8 +169,10 @@ def check_rules(products, by_file, register):
         if signal == "경고" and danger:
             add("신호어", "높음", f"신호어가 '경고'인데 '위험'에만 쓰는 {', '.join(danger)} 이(가) 있음")
 
+        # 그림문자가 하나도 없는 제품도 본다. 전에는 빠져서 2차이형제(S6) 경고표지가
+        # '그림문자가 붙지 않는 분류'로 나간 것을 못 잡았다.
         missing = sorted(required_pictograms(h) - view["ghs"])
-        if missing and view["ghs"]:
+        if missing:
             add("그림문자", "보통", "H코드가 요구하는 그림문자가 없음: "
                 + ", ".join(f"{g}({GHS_NAMES[g]})" for g in missing))
 

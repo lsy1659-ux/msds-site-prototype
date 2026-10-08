@@ -12067,12 +12067,48 @@
     "revisionDateCandidate": "2011-07-04",
     "signalWordCandidate": "위험",
     "ghsSource": "section2_classification_fallback",
-    "labelGhsCodes": [],
-    "labelGhsPictograms": [],
-    "classificationGhsCodes": [],
-    "classificationGhsPictograms": [],
-    "ghsCodes": [],
-    "ghsPictograms": [],
+    "labelGhsCodes": [
+      "GHS02",
+      "GHS08"
+    ],
+    "labelGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
+      }
+    ],
+    "classificationGhsCodes": [
+      "GHS02",
+      "GHS08"
+    ],
+    "classificationGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
+      }
+    ],
+    "ghsCodes": [
+      "GHS02",
+      "GHS08"
+    ],
+    "ghsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
+      }
+    ],
     "hazardStatements": [
       "H220 극인화성 가스",
       "H222 극인화성 에어로졸",

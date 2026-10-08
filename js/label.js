@@ -2,7 +2,7 @@
  *
  * 고용노동부 고시가 요구하는 6개 항목(명칭·그림문자·신호어·유해위험문구·
  * 예방조치문구·공급자정보)을 조회 화면과 같은 공개 데이터에서 그대로 가져와
- * 인쇄용으로 배치한다. 값이 비어 있으면 감추지 않고 "확인 필요"로 드러낸다.
+ * 인쇄용으로 배치한다. 값이 비어 있으면 화면에만 빈 칸을 알리고 종이에는 빈칸으로 둔다.
  */
 
 const LABEL_DATA_SOURCES = [
@@ -17,6 +17,10 @@ const LABEL_OVERRIDE_SOURCES = [
   "data/msds-overrides.local.json",
   "data/msds-overrides.public.json"
 ];
+
+// 조회 화면처럼 ?dataMode=public 이면 로컬 파일을 건너뛰고 공개 자료만 읽는다(점검·확인용).
+const PUBLIC_DATA_ONLY = new URLSearchParams(window.location.search).get("dataMode") === "public";
+const notLocal = (source) => !PUBLIC_DATA_ONLY || !source.includes(".local.");
 
 const GHS_PICTOGRAMS = {
   GHS01: { label: "폭발성", icon: "assets/ghs/ghs01.svg" },
@@ -54,7 +58,7 @@ function labelCoerceList(payload) {
 }
 
 async function loadLabelProducts() {
-  for (const source of LABEL_DATA_SOURCES) {
+  for (const source of LABEL_DATA_SOURCES.filter(notLocal)) {
     try {
       const response = await fetch(source, { cache: "no-cache" });
       if (!response.ok) continue;
@@ -68,7 +72,7 @@ async function loadLabelProducts() {
 }
 
 async function loadLabelOverrides() {
-  for (const source of LABEL_OVERRIDE_SOURCES) {
+  for (const source of LABEL_OVERRIDE_SOURCES.filter(notLocal)) {
     try {
       const response = await fetch(source, { cache: "no-cache" });
       if (!response.ok) continue;
@@ -158,12 +162,14 @@ function isNotClassified(product) {
 
 function renderPictograms(codes, product) {
   if (!codes.length) {
-    if (isNotClassified(product)) {
-      return `<div class="label-pictograms is-empty">${noneNotice("분류 대상 아님")}</div>`;
+    // 그림문자가 붙는 유해문구(H220 등)가 있는데 비어 있으면 자료가 빠진 것이다. "없음"이라고
+    // 찍으면 틀린 표지가 된다(2차이형제 S6). 화면에만 빈 칸을 알리고 기본 목록에서 뺀다.
+    if (!isNotClassified(product) && needsPictogram(product)) {
+      return `<div class="label-pictograms is-empty">${missingNotice("그림문자")}</div>`;
     }
-    // 유해문구가 있는데 그림문자만 없으면, 그림문자가 붙지 않는 분류다.
-    if (cleanStatements(product?.hazardStatements).length) {
-      return `<div class="label-pictograms is-empty">${noneNotice("그림문자가 붙지 않는 분류")}</div>`;
+    // 분류 대상이 아니거나, 그림문자가 없는 분류(H412 등)만 있으면 그림문자가 없는 것이 맞다.
+    if (isNotClassified(product) || cleanStatements(product?.hazardStatements).length) {
+      return `<div class="label-pictograms is-empty"><span class="label-none">그림문자 없음</span></div>`;
     }
     return `<div class="label-pictograms is-empty">${missingNotice("그림문자")}</div>`;
   }
@@ -235,7 +241,27 @@ function getQuantity(productId) {
 
 function isPrintable(product) {
   if (isNotClassified(product)) return true;
-  return cleanStatements(product.hazardStatements).length > 0;
+  if (!cleanStatements(product.hazardStatements).length) return false;
+  // 유해문구가 그림문자를 요구하는데 그림문자가 비어 있으면 붙일 수 없는 표지다.
+  return !(needsPictogram(product) && !getPictogramCodes(product).length);
+}
+
+/* H코드 → 그림문자가 붙는 분류인지. 「화학물질의 분류·표시 및 물질안전보건자료에 관한 기준」
+ * 별표 2 기준(scripts/audit_safety_consistency.py PICTOGRAM_FOR 와 같은 목록).
+ * H227·H229·H303·H313·H316·H320·H333·H402·H412·H413 처럼 그림문자가 없는 분류만 있으면 거짓. */
+const PICTOGRAM_H_CODES = new Set([
+  "H200", "H201", "H202", "H203", "H204", "H240", "H241",
+  "H220", "H221", "H222", "H223", "H224", "H225", "H226", "H228", "H242", "H250", "H251", "H252", "H260", "H261",
+  "H270", "H271", "H272", "H280", "H281", "H290", "H314", "H318",
+  "H300", "H301", "H310", "H311", "H330", "H331",
+  "H302", "H312", "H332", "H315", "H317", "H319", "H335", "H336",
+  "H304", "H334", "H340", "H341", "H350", "H351", "H360", "H361", "H370", "H371", "H372", "H373",
+  "H400", "H410", "H411"
+]);
+
+function needsPictogram(product) {
+  const text = cleanStatements(product?.hazardStatements).join(" ");
+  return [...text.matchAll(/H\d{3}/g)].some((match) => PICTOGRAM_H_CODES.has(match[0]));
 }
 
 function applyLabelFilter() {
@@ -347,7 +373,10 @@ function renderLabelSheet() {
     const nameClass = nameLength > 70 ? " is-verylong" : nameLength > 36 ? " is-long" : "";
     const face = `${legalNote}<h2 class="label-name${nameClass}">${labelEscape(product.productName)}</h2>
         ${renderPictograms(codes, product)}
-        ${signal ? `<p class="label-signal${signal === "위험" ? " is-danger" : ""}">${labelEscape(signal)}</p>` : `<p class="label-signal label-missing no-print">신호어 칸이 비어 있음</p>`}
+        ${signal ? `<p class="label-signal${signal === "위험" ? " is-danger" : ""}">${labelEscape(signal)}</p>`
+          : (isNotClassified(product) || word === "해당없음")
+            ? `<p class="label-signal is-none">신호어 없음</p>`
+            : `<p class="label-signal label-missing no-print">신호어 칸이 비어 있음</p>`}
         ${body}`;
 
     // 같은 표지를 여러 장 붙일 일이 잦다. 화면에는 한 장만 두고

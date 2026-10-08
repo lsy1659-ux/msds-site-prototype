@@ -258,7 +258,7 @@ try {
 
   await page.size(1280, 900);
   await check("관리요령: 고른 것이 있을 때만 '고른 … 인쇄'가 눌린다", async () => {
-    await page.go(`${BASE}/guide.html?product=msds-033`);
+    await page.go(`${BASE}/guide.html?dataMode=public&product=msds-033`);
     await page.until("document.querySelector('#guidePrint') && !document.querySelector('#guidePrint').disabled");
     await page.eval("document.querySelector('#guideClear').click();");
     await page.until("document.querySelector('#guidePrint').disabled");
@@ -267,10 +267,24 @@ try {
   });
 
   await check("관리요령 화면·인쇄 면에 불안한 말이 없다", async () => {
-    await page.go(`${BASE}/guide.html?product=msds-033`);
+    await page.go(`${BASE}/guide.html?dataMode=public&product=msds-033`);
     await page.until("document.querySelector('.guide-card')");
     const found = await uneasyOn();
     expect(found.length === 0, found.join(", "));
+  });
+
+  await check("경고표지: 2차이형제(S6)는 원문대로 그림문자 2개(인화성·건강유해성)", async () => {
+    await page.go(`${BASE}/label.html?dataMode=public&product=msds-077`);
+    await page.until("document.querySelector('[data-label-id=\"msds-077\"] .label-pictograms')");
+    const pics = await page.eval("return [...document.querySelectorAll('[data-label-id=\"msds-077\"] .label-pictogram figcaption')].map((e) => e.textContent);");
+    expect(pics.length === 2 && pics.includes("인화성") && pics.includes("건강유해성"), pics.join(","));
+  });
+
+  await check("경고표지: 분류 대상이 아닌 제품은 '그림문자 없음'", async () => {
+    await page.go(`${BASE}/label.html?dataMode=public&product=msds-064`);
+    await page.until("document.querySelector('[data-label-id=\"msds-064\"] .label-pictograms')");
+    const text = await page.eval("return document.querySelector('[data-label-id=\"msds-064\"] .label-pictograms').textContent.trim();");
+    expect(text === "그림문자 없음", text);
   });
 
   await check("경고표지: 처음에는 '고른 표지 인쇄'를 누를 수 없다", async () => {

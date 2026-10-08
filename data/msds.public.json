@@ -18129,7 +18129,16 @@
         "specialHealthCheckTarget": ""
       }
     ],
-    "ghsPictograms": [],
+    "ghsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
+      }
+    ],
     "hazardStatements": [],
     "precautionaryStatements": {
       "prevention": [
@@ -18184,7 +18193,25 @@
     "msdsNoLegalBasis": "산업안전보건법 제110조제1항 — 제104조 분류기준에 해당하는 화학물질·혼합물(물질안전보건자료대상물질)을 제조·수입하려는 자는 MSDS 를 작성해 제출; 시행규칙 제157조 — 제조·수입 전 공단 물질안전보건자료시스템에 전자 제출; 시행규칙 제160조제1항 — 제공 시 시스템 제출 때 부여된 번호를 MSDS 에 반영; 법률 제16272호 부칙 제7조·제8조, 시행규칙(고용노동부령 제272호) 부칙 제9조·제10조 — 기존 MSDS 제출·제공 기한 2022.1.16~2026.1.16 (모두 경과)",
     "msdsNoCheckedOn": "2026-09-23",
     "signalWord": "위험",
-    "msdsNoKind": "산업용 혼합물"
+    "msdsNoKind": "산업용 혼합물",
+    "ghsCodes": [
+      "GHS02",
+      "GHS08"
+    ],
+    "classificationGhsCodes": [
+      "GHS02",
+      "GHS08"
+    ],
+    "classificationGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
+      }
+    ]
   },
   {
     "id": "msds-078",

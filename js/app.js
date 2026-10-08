@@ -4560,7 +4560,9 @@ function renderGhsList(product, size) {
 
 function renderGhsListFromItems(items, size, usePdfFallback = false) {
   const list = normalizeGhsList(Array.isArray(items) ? { ghsPictograms: items || [] } : (items || {}));
-  if (!list.length) return `<span class="no-ghs">${usePdfFallback ? "MSDS 원본 2항 참조" : "그림문자 없음"}</span>`;
+  // 그림문자가 요구되는데 빠진 자료는 점검(scripts/audit_safety_consistency.py)이 막으므로,
+  // 여기까지 비어 있으면 그림문자가 없는 제품이다. 경고표지·관리요령과 같은 말을 쓴다.
+  if (!list.length) return `<span class="no-ghs">그림문자 없음</span>`;
   return list.map((item) => renderGhsPictogram(item, size)).join("");
 }
 

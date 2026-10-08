@@ -64,6 +64,10 @@ class SafetyConsistencyTests(unittest.TestCase):
         self.assertEqual(repairs["msds-pdf-52d86cde38911013"]["after"], ["GHS05"])
         self.assertIn("GHS07", repairs["msds-pdf-a26053814f066ef9"]["after"])
         self.assertIn("GHS07", repairs["msds-pdf-838acfd9993bcf72"]["after"])
+        # 그림문자가 비어 경고표지가 '그림문자가 붙지 않는 분류'로 나가던 2차이형제(S6)
+        self.assertEqual(repairs["msds-077"]["after"], ["GHS02", "GHS08"])
+        product = next(p for p in self.products if p["id"] == "msds-077")
+        self.assertEqual(product.get("ghsCodes"), ["GHS02", "GHS08"])
         missing = [f for f in self.findings if f["rule"] == "그림문자" and not f["acknowledged"]]
         self.assertEqual(missing, [], "H코드가 요구하는 그림문자가 빠진 제품: " + ", ".join(f["productName"] for f in missing))
 
