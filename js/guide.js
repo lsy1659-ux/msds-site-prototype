@@ -383,12 +383,14 @@ function renderSheetCard(product) {
   const handling = getHandlingItems(product, used);
   const ppe = getPpeItems(product);
   const aid = getEmergencyItems(product, used);
-  // 원문 응급조치(삼켰을 때)와 H·P 문구가 어긋나면 종이에도 표시한다. 문장은 바꾸지 않는다.
+  // 삼켰을 때 응급조치와 H·P 문구가 다르게 적힌 MSDS 는 같은 MSDS 의 대응 문구(P301·P331)를
+  // 바로 아래에 함께 싣는다. 문장은 바꾸지 않는다.
   const vomit = window.MsdsSafety?.vomitConflict({
     hazards: product.hazardStatements,
     precautions: product.precautionaryStatements,
     ingestion: (product.firstAid || {}).ingestion
   });
+  const vomitRelated = vomit ? window.MsdsSafety.ingestionStatements(product.precautionaryStatements) : [];
   const contacts = splitContacts(product.emergencyContact);
 
   const pictograms = codes.length
@@ -454,9 +456,9 @@ function renderSheetCard(product) {
         <section class="guide-block">
           <h3><b>⑤</b> 응급조치 및 사고 대응</h3>
           ${aid.length ? `<ul class="guide-aid-list">${aid.map((group) => `
-            <li><b>${guideEscape(group.label)}</b> ${guideEscape(group.text)}${group.label === "삼켰을 때" && vomit ? " ※" : ""}</li>`).join("")}
+            <li><b>${guideEscape(group.label)}</b> ${guideEscape(group.text)}</li>${group.label === "삼켰을 때" && vomitRelated.length ? `
+            <li><b>삼켰을 때 대응 문구</b> ${guideEscape(vomitRelated.join(" "))}</li>` : ""}`).join("")}
           </ul>` : `<p class="guide-blank-line">${blankMark()}</p>`}
-          ${vomit ? `<p class="guide-aid-conflict">※ ${guideEscape(window.MsdsSafety.vomitNotice(vomit))}</p>` : ""}
         </section>
       </div>
 
@@ -464,8 +466,8 @@ function renderSheetCard(product) {
         <div class="guide-qr" data-guide-qr="${guideEscape(product.id)}"></div>
         <div class="guide-qr-text">
           <strong>물질안전보건자료(MSDS) 조회</strong>
-          <p>QR코드를 스캔하여 해당 제품의 최신 MSDS를 확인하십시오.</p>
-          <p class="guide-qr-caution">이 게시물은 요약본입니다. 작업 전 MSDS 원문을 반드시 확인하십시오.</p>
+          <p>QR코드를 스캔하면 해당 제품의 MSDS 원본을 볼 수 있습니다.</p>
+          <p class="guide-qr-caution">이 게시물은 MSDS 요약본입니다.</p>
         </div>
       </section>
 

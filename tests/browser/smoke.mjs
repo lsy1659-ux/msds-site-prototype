@@ -185,9 +185,19 @@ try {
     expect(ppe.length === 4 && ppe.includes("보호장갑"), `보호구 ${ppe.join(",")}`);
   });
 
-  await check("응급조치(삼켰을 때)에 원문 확인 중 표시", async () => {
-    const note = await page.eval("return document.querySelector('.first-aid-conflict')?.textContent || '';");
-    expect(note.includes("P331") && note.includes("공급사"), `표시: ${note.slice(0, 60)}`);
+  await check("응급조치(삼켰을 때) 옆에 같은 MSDS 의 대응 문구(P331)", async () => {
+    const note = await page.eval("return document.querySelector('.first-aid-related')?.textContent || '';");
+    expect(note.includes("P331"), `표시: ${note.slice(0, 60)}`);
+  });
+
+  // 공식 사이트다. 외부 사람이 보면 자료를 의심하게 되는 말은 화면에 없어야 한다.
+  const UNEASY = ["확인 필요", "확인 권장", "확인 중", "미확인", "검토 필요", "검토필요", "공급사", "참고용",
+    "자동 추출", "맞지 않", "년 경과", "원문 확인", "반드시 확인"];
+  const uneasyOn = async () => page.eval(`const text = document.body.innerText;
+    return ${JSON.stringify(UNEASY)}.filter((word) => text.includes(word));`);
+  await check("조회 화면에 불안한 말이 없다", async () => {
+    const found = await uneasyOn();
+    expect(found.length === 0, found.join(", "));
   });
 
   await check("경고표지·관리요령 탭이 고른 제품을 이어받는다", async () => {
@@ -254,6 +264,13 @@ try {
     await page.until("document.querySelector('#guidePrint').disabled");
     const all = await page.eval("return document.querySelector('#guidePrintAll').textContent;");
     expect(/보이는 전체 \d+건 인쇄/.test(all), all);
+  });
+
+  await check("관리요령 화면·인쇄 면에 불안한 말이 없다", async () => {
+    await page.go(`${BASE}/guide.html?product=msds-033`);
+    await page.until("document.querySelector('.guide-card')");
+    const found = await uneasyOn();
+    expect(found.length === 0, found.join(", "));
   });
 
   await check("경고표지: 처음에는 '고른 표지 인쇄'를 누를 수 없다", async () => {

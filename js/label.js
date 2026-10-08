@@ -142,7 +142,8 @@ function getPrecautionList(product) {
 }
 
 function missingNotice(text) {
-  return `<span class="label-missing">확인 필요 — MSDS 원문에서 ${labelEscape(text)}을(를) 확인하세요</span>`;
+  // 화면에서만 빈 칸을 알린다. 종이에는 빈칸으로 나간다(공식 표지에 '확인 필요'를 찍지 않는다).
+  return `<span class="label-missing no-print">${labelEscape(text)} 칸이 비어 있음</span>`;
 }
 
 function noneNotice(text) {
@@ -309,7 +310,7 @@ function renderLabelSheet() {
           ${renderSupplier(product)}
           ${qr}
         </div>
-        <p class="label-compact-note">상세 유해·위험성 및 예방조치 사항은 QR코드 또는 MSDS를 확인하십시오.</p>`;
+        <p class="label-compact-note">상세 유해·위험성 및 예방조치 사항은 QR코드 또는 MSDS를 참고하십시오.</p>`;
     } else if (compact) {
       // 유해·위험 문구는 임의로 고르지 않고 모두 싣는다. 대신 두 단으로 좁혀 담는다.
       body = `<div class="label-two-col">
@@ -346,7 +347,7 @@ function renderLabelSheet() {
     const nameClass = nameLength > 70 ? " is-verylong" : nameLength > 36 ? " is-long" : "";
     const face = `${legalNote}<h2 class="label-name${nameClass}">${labelEscape(product.productName)}</h2>
         ${renderPictograms(codes, product)}
-        <p class="label-signal${signal === "위험" ? " is-danger" : ""}">${labelEscape(signal || "신호어 확인 필요")}</p>
+        ${signal ? `<p class="label-signal${signal === "위험" ? " is-danger" : ""}">${labelEscape(signal)}</p>` : `<p class="label-signal label-missing no-print">신호어 칸이 비어 있음</p>`}
         ${body}`;
 
     // 같은 표지를 여러 장 붙일 일이 잦다. 화면에는 한 장만 두고
@@ -426,7 +427,11 @@ function updateLabelStatus() {
   const picked = labelState.selected.size;
   const parts = [`전체 ${labelState.products.length}건 중 ${labelState.filtered.length}건 표시`];
   parts.push(picked ? `고른 제품 ${picked}건(찾기를 바꿔도 남습니다)` : "고른 제품 없음");
-  if (notPrintable) parts.push(`원문 확인 필요 ${notPrintable}건은 제외됨`);
+  if (notPrintable) {
+    parts.push(labelState.onlyPrintable
+      ? `표지 항목이 비어 있는 ${notPrintable}건은 목록에서 뺐습니다`
+      : `표지 항목이 비어 있는 ${notPrintable}건 포함`);
+  }
   labelElements.status.textContent = parts.join(" · ");
 }
 

@@ -1,10 +1,11 @@
-/* 안전문구끼리 어긋나는 것을 화면·관리요령에 알린다. 원문 문장은 바꾸지 않는다.
+/* 응급조치(삼켰을 때)와 같은 MSDS 의 대응 문구를 나란히 보인다. 원문 문장은 바꾸지 않는다.
  *
  * 노루오토코팅 도료·희석제 14건은 원문 제2항에 H304(삼켜서 기도로 유입되면 치명적)와
  * 예방조치 P331(토하게 하지 마시오)가 있는데, 제4항 응급조치(먹었을 때)는 "구토를
  * 시키시오"다. 사이트가 잘못 읽은 것이 아니라 원문이 그렇다(2026-10-08 PDF 확인).
- * 문장을 고쳐 쓰지 않고, 서로 다르다는 것과 공급사에 확인 중이라는 것을 바로 옆에
- * 적는다. 같은 규칙을 scripts/audit_safety_consistency.py 가 쓴다.
+ * 공식 화면이라 "어긋난다·확인 중" 같은 말은 쓰지 않고, 그 MSDS 가 적은 삼켰을 때
+ * 대응 문구(P301·P331)를 응급조치 바로 옆에 함께 싣는다. 공급사 확인은 관리대장
+ * (관리자 화면)에서 한다. 같은 규칙을 scripts/audit_safety_consistency.py 가 쓴다.
  */
 (function (global) {
   "use strict";
@@ -37,13 +38,10 @@
     return reasons.length ? { reasons, sentence: sentence.trim() } : null;
   }
 
-  // 현장에 보일 한 줄. 원문 예방조치(P331)를 따르라고만 하고 새 조치를 지어 넣지 않는다.
-  function vomitNotice(conflict) {
-    if (!conflict) return "";
-    return `원문 확인 중: 같은 원문에 ${conflict.reasons.join(", ")} 문구도 있어 `
-      + `"${conflict.sentence.replace(/[.\s]+$/, "")}"와 서로 맞지 않습니다. 공급사에 최신판 확인을 요청했습니다. `
-      + "확인 전까지는 원문 예방조치대로 토하게 하지 말고 즉시 119·의료기관에 연락하세요.";
+  // 같은 MSDS 의 삼켰을 때 대응 문구(P301…, P331). 글은 원문 그대로다.
+  function ingestionStatements(precautions) {
+    return texts(precautions).filter((line) => /P301|P331/.test(line)).map((line) => line.trim());
   }
 
-  global.MsdsSafety = { vomitConflict, vomitNotice };
+  global.MsdsSafety = { vomitConflict, ingestionStatements };
 })(window);

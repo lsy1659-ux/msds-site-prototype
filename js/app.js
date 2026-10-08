@@ -964,8 +964,8 @@ async function loadProducts() {
     const localData = await fetchProducts(APP_CONFIG.localDataUrl);
     if (localData) {
       return {
-        mode: "로컬 자동 추출 데이터 모드",
-        publicNotice: "자동 추출 요약은 참고용이며 작업 전 MSDS PDF 원문을 우선 확인하세요.",
+        mode: "로컬 자료",
+        publicNotice: "",
         products: applyOverrides(localData.map(normalizeProduct), pdfLookupData.overrides),
         ...pdfLookupData
       };
@@ -975,7 +975,7 @@ async function loadProducts() {
   const publicData = await fetchProducts(APP_CONFIG.publicDataUrl);
   if (publicData) {
     return {
-      mode: "공개 운영 데이터 모드",
+      mode: "공개 자료",
       publicNotice: "",
       products: applyOverrides(publicData.map(normalizeProduct), pdfLookupData.overrides),
       ...pdfLookupData
@@ -986,7 +986,7 @@ async function loadProducts() {
     const sampleData = await fetchProducts(APP_CONFIG.sampleDataUrl);
     if (sampleData) {
       return {
-        mode: "샘플 데이터 모드",
+        mode: "샘플 자료",
         publicNotice: "샘플 데이터 화면입니다. 실제 운영자료로 사용하지 마세요.",
         products: applyOverrides(sampleData.map(normalizeProduct), pdfLookupData.overrides),
         ...pdfLookupData
@@ -1268,7 +1268,7 @@ function createPdfOnlyProduct(item, index, override = null) {
     fileName
   });
   const relativePath = item.relativePath || item.pdfPath || fileName;
-  const supplierName = cleanPdfSupplierName(override?.supplierCandidate) || supplierFromPath(relativePath) || "업체 미확인";
+  const supplierName = cleanPdfSupplierName(override?.supplierCandidate) || supplierFromPath(relativePath) || "기타 업체";
   const revisionDate = cleanPdfRevisionDate(override?.revisionDateCandidate);
 
   return normalizeProduct({
@@ -1366,7 +1366,7 @@ function getDisplaySupplierName(product = {}) {
     product.companyName
   ];
   const directName = candidates.map(cleanCompanyDisplayName).find(Boolean);
-  return directName || getCompanyFromProductPath(product) || cleanCompanyDisplayName(product.siteLabel) || "업체 미확인";
+  return directName || getCompanyFromProductPath(product) || cleanCompanyDisplayName(product.siteLabel) || "기타 업체";
 }
 
 function normalizeSupplierDisplay(value) {
@@ -2320,7 +2320,7 @@ function updateReleaseMetaDisplay() {
     .filter(Boolean)
     .sort()
     .at(-1) || "";
-  const cutoff = meta.dataCutoffDate || meta.dataGeneratedAt || meta.generatedAt || latestProductDate || "확인 필요";
+  const cutoff = meta.dataCutoffDate || meta.dataGeneratedAt || meta.generatedAt || latestProductDate || "-";
   const commit = String(meta.commitSha || meta.commit || "").slice(0, 8);
   const version = meta.version || commit || "검증 정보 없음";
   if (elements.datasetCutoffDate) elements.datasetCutoffDate.textContent = String(cutoff).slice(0, 10);
@@ -2407,7 +2407,7 @@ function renderSelectionList(results, hasQuery, canShowCandidates) {
         <button class="selection-item ${product.id === state.selectedId ? "is-selected" : ""}" type="button" data-product-id="${escapeAttribute(product.id)}" aria-pressed="${product.id === state.selectedId ? "true" : "false"}">
           ${product.id === state.selectedId ? `<span class="selection-check" aria-hidden="true">✓</span>` : ""}
           <span class="selection-name text-break clamp-2">${renderNameDifference(product.productName, lookalikes.get(product.id))}</span>
-          ${lookalikes.has(product.id) ? `<span class="lookalike-note">비슷한 이름 ${lookalikes.get(product.id).count}개 · 칠한 부분 확인</span>` : ""}
+          ${lookalikes.has(product.id) ? `<span class="lookalike-note">비슷한 이름 ${lookalikes.get(product.id).count}개</span>` : ""}
           <span class="selection-meta text-muted-path clamp-2">${escapeHtml(metaTextFor(product))}</span>
           <span class="selection-identity clamp-2 ${lookalikes.has(product.id) ? "is-emphasized" : ""}">${escapeHtml(getProductIdentityLine(product))}</span>
           ${renderProductStatusRow(product)}
@@ -2473,17 +2473,17 @@ function renderSelectionList(results, hasQuery, canShowCandidates) {
 
 function getProductIdentityLine(product = {}) {
   const casNo = (product.components || []).map((component) => component.casNo).find(Boolean) || "";
-  const revisionDate = cleanPdfRevisionDate(product.revisionDate) || "개정일 미확인";
+  const revisionDate = cleanPdfRevisionDate(product.revisionDate);
   return [
     product.msdsNo ? `MSDS ${product.msdsNo}` : "",
     casNo ? `CAS ${casNo}` : "",
-    `최종 ${revisionDate}`
+    revisionDate ? `최종 ${revisionDate}` : ""
   ].filter(Boolean).join(" · ");
 }
 
 function getProductReviewMeta(product = {}) {
-  if (hasProductAutomaticSummary(product)) return { label: "자동 추출 요약", className: "is-reviewed" };
-  return { label: "PDF 원문 확인", className: "is-review-needed" };
+  if (hasProductAutomaticSummary(product)) return { label: "MSDS 요약", className: "is-reviewed" };
+  return { label: "MSDS 원본", className: "is-review-needed" };
 }
 
 function renderProductReviewBadge(product = {}) {
@@ -2558,8 +2558,8 @@ function buildProductGroups(products = []) {
       products: groupProducts.slice().sort((a, b) => String(a.productName || "").localeCompare(String(b.productName || ""), "ko"))
     }))
     .sort((a, b) => {
-      if (a.name === "업체 미확인") return 1;
-      if (b.name === "업체 미확인") return -1;
+      if (a.name === "기타 업체") return 1;
+      if (b.name === "기타 업체") return -1;
       return a.name.localeCompare(b.name, "ko");
     });
 }
@@ -2620,14 +2620,14 @@ function renderFullProductItem(product, index, lookalikes = new Map()) {
   const metaText = [
     product.useCategory || product.recommendedUse || "",
     casText !== "CAS No. 미확인" ? casText : ""
-  ].filter(Boolean).join(" · ") || (isPdfBased ? "MSDS 원본 기준" : "용도 미확인");
+  ].filter(Boolean).join(" · ") || "MSDS 원본 기준";
 
   return `
     <button class="full-product-item ${isPdfBased ? "is-pdf-based" : ""} ${product.id === state.selectedId ? "is-selected" : ""}" type="button" data-product-id="${escapeAttribute(product.id)}" aria-pressed="${product.id === state.selectedId ? "true" : "false"}">
       ${product.id === state.selectedId ? `<span class="full-product-check" aria-hidden="true">✓</span>` : ""}
       <span class="full-product-number">${index + 1}</span>
       <span class="full-product-main">
-        <strong title="${escapeAttribute(product.productName)}">${product.productName ? renderNameDifference(product.productName, lookalikes.get(product.id)) : "제품명 미확인"}</strong>
+        <strong title="${escapeAttribute(product.productName)}">${product.productName ? renderNameDifference(product.productName, lookalikes.get(product.id)) : "-"}</strong>
         <span>${escapeHtml(metaText)}</span>
       </span>
       <span class="full-product-tags">
@@ -2647,7 +2647,7 @@ function renderPoster(product) {
       <div class="selection-placeholder" role="status">
         <div>
           <strong>${state.dataLoadError ? "MSDS 자료를 불러오지 못했습니다." : "제품을 먼저 검색하고 선택하세요."}</strong>
-          <p>${state.dataLoadError ? escapeHtml(state.dataLoadError) : "제품명·제품코드·CAS No.를 확인한 뒤 정확한 제품을 선택해야 안전정보가 표시됩니다."}</p>
+          <p>${state.dataLoadError ? escapeHtml(state.dataLoadError) : "제품명·제품코드·CAS No.로 정확한 제품을 고르면 안전정보가 표시됩니다."}</p>
         </div>
       </div>
     `;
@@ -2672,7 +2672,7 @@ function renderPoster(product) {
         <h2 title="${escapeAttribute(product.productName)}">${escapeHtml(product.productName)}</h2>
         ${product.fileName ? `<p title="${escapeAttribute(product.fileName)}">${escapeHtml(product.fileName)}</p>` : ""}
       </div>
-      <span class="hazard-badge ${getSignalBadgeClass(posterData.signalBadge)}">${escapeHtml(posterData.signalBadge)}</span>
+      ${posterData.signalBadge ? `<span class="hazard-badge ${getSignalBadgeClass(posterData.signalBadge)}">${escapeHtml(posterData.signalBadge)}</span>` : ""}
       ${renderFavoriteToggle(product)}
     </div>
     <div class="poster-ghs-row">
@@ -2680,8 +2680,8 @@ function renderPoster(product) {
     </div>
     ${posterData.summaryBlocked ? `
       <section class="poster-summary-blocked" role="alert">
-        <strong>자동 추출 요약 없음</strong>
-        <p>이 제품은 자동 추출 요약이 충분하지 않습니다. 작업 전 MSDS PDF 원문을 확인하세요.</p>
+        <strong>MSDS 원본</strong>
+        <p>이 제품의 안전정보는 MSDS 원본에서 볼 수 있습니다.</p>
         <div class="poster-pdf-actions">
           ${renderOriginalPdfButton(pdfInfo, "poster")}
           ${renderPdfPreviewButton(pdfInfo, "poster")}
@@ -2713,9 +2713,9 @@ function getPosterData(product) {
     return {
       statusClass: "is-review-needed",
       showReviewStrip: true,
-      reviewBadge: "PDF 원문 확인",
-      reviewMessage: "자동 추출 요약이 없어 MSDS PDF 원문을 직접 확인해야 합니다.",
-      signalBadge: "원본 확인",
+      reviewBadge: "MSDS 원본",
+      reviewMessage: "이 제품의 안전정보는 MSDS 원본에서 볼 수 있습니다.",
+      signalBadge: "",
       ghsPictograms: [],
       hazardStatements: [],
       precautionaryStatements: {},
@@ -2724,8 +2724,7 @@ function getPosterData(product) {
       hazardTitle: "유해·위험 문구",
       precautionTitle: "예방조치 문구",
       footerNotice: [
-        "이 제품은 자동 추출된 요약 안전정보가 충분하지 않습니다.",
-        "작업 전 MSDS 원본 전체 내용을 반드시 확인하세요."
+        "이 제품의 안전정보는 MSDS 원본에서 볼 수 있습니다."
       ],
       sourcePdfPath: override?.sourcePdfPath || "",
       showSourcePdfPath: false,
@@ -2739,9 +2738,9 @@ function getPosterData(product) {
     return {
       statusClass: "is-reviewed",
       showReviewStrip: showReviewStatus,
-      reviewBadge: "자동 추출 요약",
-      reviewMessage: "참고용 요약정보이며 작업 전 MSDS PDF 원문을 우선 확인하세요.",
-      signalBadge: resolveSignalWord(product) || "원본 확인",
+      reviewBadge: "MSDS 요약",
+      reviewMessage: "MSDS 원본을 요약한 안전정보입니다.",
+      signalBadge: resolveSignalWord(product) || "",
       ghsPictograms,
       hazardStatements: override.hazardStatements || [],
       precautionaryStatements: override.precautionaryStatements || {},
@@ -2766,8 +2765,8 @@ function getPosterData(product) {
     statusClass: hasProductSummary ? "" : "is-unregistered-summary",
     showReviewStrip: !hasProductSummary && showUnregisteredStatus,
     reviewBadge: hasProductSummary ? "" : "MSDS 원본 기준",
-    reviewMessage: hasProductSummary ? "" : "정식 MSDS PDF를 확인하세요.",
-    signalBadge: resolveSignalWord(product) || "원본 확인",
+    reviewMessage: hasProductSummary ? "" : "MSDS 원본에서 볼 수 있습니다.",
+    signalBadge: resolveSignalWord(product) || "",
     ghsCodes: normalizeGhsCodeList(product.ghsCodes || product.ghsPictograms || []),
     ghsPictograms: normalizeGhsList(product),
     hazardStatements: product.hazardStatements || [],
@@ -2877,7 +2876,7 @@ function hasAnySummary(ghsPictograms = [], hazardStatements = [], precautions = 
 function renderDetail(product) {
   if (!product) {
     elements.detailPanel.className = "detail-panel empty-detail";
-    elements.detailPanel.innerHTML = `<p>${state.dataLoadError ? escapeHtml(state.dataLoadError) : "제품을 선택하면 검토 상태와 원본 MSDS를 확인할 수 있습니다."}</p>`;
+    elements.detailPanel.innerHTML = `<p>${state.dataLoadError ? escapeHtml(state.dataLoadError) : "제품을 선택하면 상세 안전정보와 MSDS 원본이 표시됩니다."}</p>`;
     return;
   }
 
@@ -2939,7 +2938,7 @@ function renderDetail(product) {
       ` : ""}
     `, "detail-block-worker-caution") : detailSection("작업자 주의 포인트", renderPdfOnlySummaryNotice(pdfInfo), "detail-block-worker-caution")}
 
-    ${detailSection("MSDS 원본자료 필수 확인", `
+    ${detailSection("MSDS 원본", `
       ${renderPdfPreview(pdfInfo)}
     `, "detail-block-pdf")}
   `;
@@ -2957,7 +2956,7 @@ const COMPONENT_FLAG_COLUMNS = [
 
 function renderComponentTable(components = []) {
   if (!components.length) {
-    return `<p class="component-empty">자동 추출된 구성성분 정보가 없습니다. 원본 PDF를 확인하세요.</p>`;
+    return `<p class="component-empty">구성성분은 MSDS 원본 3항에 있습니다.</p>`;
   }
   const filled = (value) => String(value || "").trim();
   // 이름도 함유량도 표시도 없는 줄("CAS 없음 · CAS 미기재 · -")은 읽을 것이 없어 뺀다.
@@ -2971,7 +2970,7 @@ function renderComponentTable(components = []) {
   const rows = components.filter((component) => !isPlaceholderRow(component));
   const droppedCount = components.length - rows.length;
   if (!rows.length) {
-    return `<p class="component-empty">성분명이 확인된 구성성분이 없습니다. 원본 PDF 3항을 확인하세요.</p>`;
+    return `<p class="component-empty">구성성분은 MSDS 원본 3항에 있습니다.</p>`;
   }
   const flagColumns = COMPONENT_FLAG_COLUMNS.filter((column) => rows.some((component) => filled(component[column.key])));
   const hiddenLabels = COMPONENT_FLAG_COLUMNS.filter((column) => !flagColumns.includes(column)).map((column) => column.label);
@@ -2979,7 +2978,7 @@ function renderComponentTable(components = []) {
   return `
     <div class="component-table-wrap">
       <table class="component-table">
-        <caption>자동 추출된 구성성분 참고정보</caption>
+        <caption>구성성분 및 함유량</caption>
         <thead>
           <tr>
             <th scope="col">화학물질명</th>
@@ -2991,9 +2990,9 @@ function renderComponentTable(components = []) {
         <tbody>
           ${rows.map((component) => `
             <tr>
-              <th scope="row" data-label="화학물질명">${escapeHtml(filled(component.chemicalName) || "미확인")}</th>
-              ${cell("CAS No.", component.casNo, "미확인")}
-              ${cell("함유량(%)", component.content, "미확인")}
+              <th scope="row" data-label="화학물질명">${escapeHtml(filled(component.chemicalName) || "-")}</th>
+              ${cell("CAS No.", component.casNo)}
+              ${cell("함유량(%)", component.content)}
               ${flagColumns.map((column) => cell(column.label, component[column.key])).join("")}
             </tr>
           `).join("")}
@@ -3001,7 +3000,7 @@ function renderComponentTable(components = []) {
       </table>
     </div>
     <p class="component-legend">
-      ${flagColumns.length ? "○ 해당 · - 원문 표시 없음. " : ""}${hiddenLabels.length ? `${escapeHtml(hiddenLabels.join("·"))} 표시는 이 자료에 없습니다. ` : ""}${droppedCount ? `내용이 없는 줄 ${droppedCount}개는 뺐습니다. ` : ""}법적 해당 여부는 원문 15항(법적 규제현황)을 확인하세요.
+      ${flagColumns.length ? "○ 해당 · - 표시 없음. " : ""}법적 규제현황은 MSDS 원본 15항에 있습니다.
     </p>
   `;
 }
@@ -3036,9 +3035,9 @@ function renderSelectedProductBar(product, detailData, pdfInfo, summaryAvailable
 function renderPdfOnlySummaryNotice(pdfInfo) {
   return `
     <div class="unreviewed-summary-notice" role="note">
-      <strong>자동 추출 요약이 없습니다.</strong>
-      <p>이 제품의 안전정보는 MSDS PDF 원문을 기준으로 확인하세요.</p>
-      <span>선택 제품 상단의 MSDS 미리보기를 이용하세요.</span>
+      <strong>MSDS 원본</strong>
+      <p>이 제품의 안전정보는 MSDS 원본에서 볼 수 있습니다.</p>
+      <span>선택 제품 상단의 'PDF 미리보기'로 열 수 있습니다.</span>
     </div>
   `;
 }
@@ -3054,13 +3053,13 @@ function renderBackToFullListButton() {
 
 function renderRevisionHistory(versions = []) {
   return `
-    <div class="revision-history-notice">이전본은 이력 확인용입니다. 현장 작업에는 위에 표시된 최신본을 사용하세요.</div>
+    <div class="revision-history-notice">이전본은 이력 보관용입니다. 현장 작업에는 위에 표시된 최신본을 사용하세요.</div>
     <ul class="revision-history-list">
       ${versions.map((version) => {
         const displayPath = normalizePdfDisplayPath(version.pdfPath || version.fileName);
         return `
           <li>
-            <span><strong>${escapeHtml(version.revisionDate || "개정일 미확인")}</strong> · ${escapeHtml(version.fileName || "이전 MSDS")}</span>
+            <span><strong>${escapeHtml(version.revisionDate || "-")}</strong> · ${escapeHtml(version.fileName || "이전 MSDS")}</span>
             ${displayPath ? `<span class="revision-history-reference">이전본 참고</span>` : ""}
           </li>
         `;
@@ -3158,14 +3157,14 @@ function buildWorkerCautionPoints(product, detailData) {
   addCautionIf(groups.fireStorage, text, ["인화", "고온", "직사광선", "화기", "보관", "storage"], "인화성 물질은 고온, 직사광선, 화기 근처에 보관하지 마세요.");
   addCautionIf(groups.fireStorage, text, ["밀폐", "용기", "폐기", "disposal"], "사용 후 용기는 밀폐하여 지정 장소에 보관하세요.");
 
-  addCautionIf(groups.legal, text, ["관리대상", "작업환경측정", "특수건강진단"], "관리대상 유해물질 여부를 확인하세요.");
-  addCautionIf(groups.legal, text, ["작업환경측정", "특수건강진단"], "작업환경측정 및 특수건강진단 대상 여부를 확인하세요.");
-  addCautionIf(groups.legal, text, ["cas", "casno", "관리대상", "성분"], "성분정보와 CAS No.로 관리대상 여부를 확인하세요.");
+  addCautionIf(groups.legal, text, ["관리대상", "작업환경측정", "특수건강진단"], "관리대상 유해물질 해당 여부는 성분정보 표에 있습니다.");
+  addCautionIf(groups.legal, text, ["작업환경측정", "특수건강진단"], "작업환경측정·특수건강진단 대상 여부는 성분정보 표에 있습니다.");
+  addCautionIf(groups.legal, text, ["cas", "casno", "관리대상", "성분"], "성분별 CAS No.와 함유량은 성분정보 표에 있습니다.");
 
   const totalCount = Object.values(groups).reduce((sum, items) => sum + items.length, 0);
   if (!totalCount) {
     return {
-      emptyMessage: "현재 데이터만으로 자동 주의 포인트를 충분히 생성하기 어렵습니다. 정식 MSDS PDF를 확인하세요.",
+      emptyMessage: "작업 시 주의사항은 MSDS 원본 7·8항에서 볼 수 있습니다.",
       sections: []
     };
   }
@@ -3177,7 +3176,7 @@ function buildWorkerCautionPoints(product, detailData) {
       { key: "ppe", title: "보호구 착용사항", items: groups.ppe },
       { key: "ventilation", title: "환기 및 노출관리", items: groups.ventilation },
       { key: "fireStorage", title: "화재·보관 관리", items: groups.fireStorage },
-      { key: "legal", title: "법적관리 확인사항", items: groups.legal }
+      { key: "legal", title: "법적 관리 사항", items: groups.legal }
     ].map((section) => ({
       ...section,
       items: section.items.slice(0, 5)
@@ -3199,11 +3198,11 @@ function renderWorkerCautionPoints(cautionData) {
     items: (sectionMap.get(card.key)?.items || []).slice(0, 5)
   })).filter((card) => card.items.length);
   if (!cards.length) {
-    return `<div class="unreviewed-summary-notice"><strong>자동 생성된 작업자 주의 포인트가 없습니다.</strong><p>${escapeHtml(cautionData.emptyMessage || "작업 전 원본 MSDS를 확인하세요.")}</p></div>`;
+    return `<div class="unreviewed-summary-notice"><strong>작업자 주의 포인트</strong><p>${escapeHtml(cautionData.emptyMessage || "작업 시 주의사항은 MSDS 원본에서 볼 수 있습니다.")}</p></div>`;
   }
   return `
     <div class="worker-caution-premium">
-      <p class="worker-caution-note">MSDS 낱말로 자동으로 고른 참고사항입니다. 제품별 공식 지시를 대체하지 않으며 PDF 원문이 우선입니다.</p>
+      <p class="worker-caution-note">MSDS 내용을 바탕으로 정리한 작업 시 주의사항입니다.</p>
       <div class="worker-caution-card-grid">
         ${cards.map((card) => `
           <article class="worker-caution-card is-${escapeAttribute(card.key)}">
@@ -3265,11 +3264,11 @@ function getWorkerCautionCards() {
     {
       key: "legal",
       icon: "clipboard",
-      title: "법적관리 확인사항",
+      title: "법적 관리 사항",
       defaultItems: [
-        "관리대상 유해물질 여부를 확인하세요.",
-        "작업환경측정 및 특수건강진단 대상 여부를 확인하세요.",
-        "성분정보와 CAS No.로 관리대상 여부를 확인하세요."
+        "관리대상 유해물질 해당 여부는 성분정보 표에 있습니다.",
+        "작업환경측정·특수건강진단 대상 여부는 성분정보 표에 있습니다.",
+        "성분별 CAS No.와 함유량은 성분정보 표에 있습니다."
       ]
     }
   ];
@@ -3291,19 +3290,18 @@ function workerCautionIconSvg(type = "shield") {
 /* 번호가 비었을 때 "정보 없음" 이라고만 하면 진짜 누락인지 법적으로 필요 없는
  * 것인지 가려지지 않는다. 관리대장이 정한 상태를 같이 보여 준다. */
 const MSDS_NO_STATUS_LABELS = {
-  required: "확보 중 — 공급사에 번호가 적힌 최신 MSDS 요청",
   not_required: "필요 없음",
-  submission_exempt: "제출 면제(시험용 시약)",
-  pending: "확인 중"
+  submission_exempt: "제출 면제(시험용 시약)"
 };
 
 function describeMsdsNo(product) {
   const number = String(product.msdsNo || "").trim();
   const status = product.msdsNoStatus;
-  if (number) return status === "pending" ? `${number} (원본 대조 중)` : number;
-  if (product.msdsNoAsWritten) return `원문 표기 ${product.msdsNoAsWritten} (번호 꼴 확인 중)`;
+  // 확보 중·대조 중 같은 내부 진행 상황은 공식 화면에 내지 않는다(관리대장에서 본다).
+  if (number) return number;
+  if (product.msdsNoAsWritten) return product.msdsNoAsWritten;
   const label = MSDS_NO_STATUS_LABELS[status];
-  if (!label) return "정보 없음";
+  if (!label) return "-";
   return status === "not_required" && product.msdsNoKind ? `${label} — ${product.msdsNoKind}` : label;
 }
 
@@ -3323,7 +3321,7 @@ function summarizeItems(items = [], limit = 3, separator = ", ") {
 
 function limitList(items = [], limit = 5) {
   if (!Array.isArray(items) || items.length <= limit) return items || [];
-  return [...items.slice(0, limit), `외 ${items.length - limit}건은 PDF 원본에서 확인하세요.`];
+  return [...items.slice(0, limit), `외 ${items.length - limit}건은 MSDS 원본에 있습니다.`];
 }
 
 function hasPrecautionSummary(precautions = {}) {
@@ -3442,7 +3440,7 @@ function renderPdfPreview(pdfInfo) {
     return `
       <div class="pdf-preview is-missing">
         <p class="pdf-message">파일명 정보가 없어 PDF 자동 연결이 어렵습니다.</p>
-        <div class="pdf-frame-placeholder">파일명 정보를 확인하세요.</div>
+        <div class="pdf-frame-placeholder">MSDS 원본은 담당부서에 문의하세요.</div>
       </div>
     `;
   }
@@ -3455,7 +3453,7 @@ function renderPdfPreview(pdfInfo) {
         <span class="info-label">예상 경로</span>
         <span class="info-value">${escapeHtml(pdfInfo.displayPath)}</span>
       </div>
-      <div class="pdf-frame-placeholder">담당부서에 원본 PDF 등록을 요청하세요.</div>
+      <div class="pdf-frame-placeholder">MSDS 원본은 담당부서에 문의하세요.</div>
     </div>
     `;
   }
@@ -3466,14 +3464,6 @@ function renderPdfPreview(pdfInfo) {
   const inlineOpen = state.pdfPreview.path === pdfInfo.encodedPath && state.pdfPreview.status !== "idle";
   return `
     <div class="pdf-preview is-connected pdf-confirm-panel">
-      <div class="pdf-confirm-alert">
-        <span class="pdf-confirm-alert-icon">${pdfPanelIconSvg("alert")}</span>
-        <div class="pdf-confirm-alert-copy">
-          <strong>작업 전 반드시 원본 MSDS 전체 내용을 확인하세요.</strong>
-          <span>요약 정보만으로는 모든 위험성과 안전조치 사항을 충분히 파악할 수 없습니다.</span>
-        </div>
-        <span class="pdf-confirm-alert-art">${pdfPanelIconSvg("document")}</span>
-      </div>
       <div class="pdf-viewer-shell">
         ${renderPdfPreviewBody(pdfInfo)}
       </div>
@@ -4246,7 +4236,7 @@ function renderDetailList(items) {
   const moreCount = displayItems.length - visible.length;
   return `
     <ul class="detail-list">${visible.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-    ${moreCount > 0 ? `<p class="summary-note">외 ${moreCount}건은 PDF 원본에서 확인하세요.</p>` : ""}
+    ${moreCount > 0 ? `<p class="summary-note">외 ${moreCount}건은 MSDS 원본에 있습니다.</p>` : ""}
   `;
 }
 
@@ -4304,7 +4294,7 @@ function renderPrecautionCards(precautions, isCandidate = false) {
     `;
   }).join("");
 
-  return groups ? `<div class="precaution-card-list">${groups}</div>` : `<p class="empty-text">원본 MSDS 예방조치 항목을 확인하세요.</p>`;
+  return groups ? `<div class="precaution-card-list">${groups}</div>` : `<p class="empty-text">예방조치 문구는 MSDS 원본 2항에 있습니다.</p>`;
 }
 
 function isNarrowScreen() {
@@ -4427,7 +4417,7 @@ function renderPpeCards(ppe = { items: [], unspecified: false }) {
   const items = ppe.items || [];
   if (!items.length) {
     return ppe.unspecified
-      ? `<p class="ppe-unspecified">원문에 보호구 종류가 적혀 있지 않습니다. MSDS 8항(노출방지 및 개인보호구)을 확인하세요.</p>`
+      ? `<p class="ppe-unspecified">보호구는 MSDS 원본 8항(노출방지 및 개인보호구)에 따릅니다.</p>`
       : `<p class="empty-text">등록된 보호구 정보가 없습니다.</p>`;
   }
   return `
@@ -4556,20 +4546,13 @@ function buildDateSummary(issueDate, revisionDate) {
   const parts = [];
   if (issue && issue !== "-" && issue !== "정보 없음") parts.push(`최초 작성일: ${issue}`);
   if (revision && revision !== "-" && revision !== "정보 없음") {
-    parts.push(`최종 개정일: ${revision}${describeRevisionAge(revision)}`);
+    parts.push(`최종 개정일: ${revision}`);
   }
   return parts.join(" / ");
 }
 
-// 개정 후 얼마나 지났는지 보여 준다. 오래된 자료인지 판단할 근거가 화면에 없으면
-// 공급업체에 최신본을 요청해야 할 제품을 가려낼 수 없다.
-function describeRevisionAge(revision) {
-  const parsed = Date.parse(`${revision}T00:00:00`);
-  if (Number.isNaN(parsed)) return "";
-  const years = Math.floor((Date.now() - parsed) / (365.25 * 24 * 60 * 60 * 1000));
-  if (years < 1) return "";
-  return years >= 5 ? ` (${years}년 경과 · 최신본 확인 권장)` : ` (${years}년 경과)`;
-}
+// 개정 후 지난 해수("6년 경과 · 최신본 확인 권장")는 공식 화면에서 뺐다. 외부에서 보면
+// 자료가 낡았다는 말로 읽힌다. 최신본 관리는 관리대장(관리자 화면)에서 한다.
 
 function renderGhsList(product, size) {
   return renderGhsListFromItems(product, size);
@@ -4577,7 +4560,7 @@ function renderGhsList(product, size) {
 
 function renderGhsListFromItems(items, size, usePdfFallback = false) {
   const list = normalizeGhsList(Array.isArray(items) ? { ghsPictograms: items || [] } : (items || {}));
-  if (!list.length) return `<span class="no-ghs">${usePdfFallback ? "PDF 원본 확인 필요" : "GHS 정보 없음"}</span>`;
+  if (!list.length) return `<span class="no-ghs">${usePdfFallback ? "MSDS 원본 2항 참조" : "그림문자 없음"}</span>`;
   return list.map((item) => renderGhsPictogram(item, size)).join("");
 }
 
@@ -5062,7 +5045,7 @@ function setupOfflineNotice() {
   notice.setAttribute("role", "status");
   notice.setAttribute("aria-live", "polite");
   notice.hidden = true;
-  notice.innerHTML = '<strong>오프라인</strong><span>저장해 둔 자료를 보고 있습니다. 작업 전 최신본인지 확인하세요.</span>';
+  notice.innerHTML = '<strong>오프라인</strong><span>저장해 둔 자료를 보고 있습니다(인터넷 연결 없음).</span>';
   document.body.appendChild(notice);
 
   const sync = () => { notice.hidden = navigator.onLine; };
@@ -5198,7 +5181,7 @@ function describeOfflineState(status) {
   const version = currentDataVersion();
   const changed = Boolean(status.savedAt && status.savedVersion && version && status.savedVersion !== version);
   if (status.total && status.cached >= status.total) {
-    return { tone: "is-ok", text: `전체 저장됨 · 저장일 ${status.savedAt || "확인 안 됨"}` };
+    return { tone: "is-ok", text: `전체 저장됨 · 저장일 ${status.savedAt || "-"}` };
   }
   if (status.savedAt && (changed || status.cached < status.total)) {
     return {
@@ -5237,7 +5220,7 @@ async function renderOfflinePanel(message = "") {
     <dl class="offline-panel-facts">
       <div><dt>저장된 원본</dt><dd>${status.cached} / ${status.total}건</dd></div>
       <div><dt>마지막 저장</dt><dd>${escapeHtml(status.savedAt || "없음")}</dd></div>
-      <div><dt>지금 자료판</dt><dd>${escapeHtml(version || "확인 중")}</dd></div>
+      <div><dt>지금 자료판</dt><dd>${escapeHtml(version || "불러오는 중")}</dd></div>
     </dl>
     ${note}
     <div class="offline-panel-actions">
@@ -5299,12 +5282,15 @@ const FIRST_AID_VISIBLE = 2;
 function renderFirstAidSection(product, detailData = {}) {
   const firstAid = product?.firstAid;
   if (!firstAid || typeof firstAid !== "object") return "";
-  // 원문 안에서 응급조치와 H·P 문구가 어긋나면(구토) 그 칸 바로 위에 알린다(js/safety-notes.js).
+  // 삼켰을 때 응급조치와 H·P 문구가 다르게 적힌 MSDS(구토)는 같은 MSDS 의 대응 문구를
+  // 그 칸에 함께 싣는다(js/safety-notes.js). 원문 문장은 그대로 둔다.
+  const precautions = detailData.precautionaryStatements || product.precautionaryStatements;
   const vomit = window.MsdsSafety?.vomitConflict({
     hazards: detailData.hazardStatements || product.hazardStatements,
-    precautions: detailData.precautionaryStatements || product.precautionaryStatements,
+    precautions,
     ingestion: firstAid.ingestion
   });
+  const vomitRelated = vomit ? window.MsdsSafety.ingestionStatements(precautions) : [];
   const blocks = FIRST_AID_SECTIONS
     .map((section) => {
       const items = Array.isArray(firstAid[section.key]) ? firstAid[section.key] : [];
@@ -5313,7 +5299,7 @@ function renderFirstAidSection(product, detailData = {}) {
       const rest = items.slice(FIRST_AID_VISIBLE);
       return `<article class="first-aid-block is-${escapeAttribute(section.key)}">
           <h4><span class="first-aid-icon" aria-hidden="true">${window.uiIcon ? window.uiIcon(section.icon) : ""}</span>${escapeHtml(section.label)}</h4>
-          ${section.key === "ingestion" && vomit ? `<p class="first-aid-conflict" role="note">${escapeHtml(window.MsdsSafety.vomitNotice(vomit))}</p>` : ""}
+          ${section.key === "ingestion" && vomitRelated.length ? `<div class="first-aid-related"><b>같은 MSDS의 대응 문구</b>${vomitRelated.map((line) => `<p>${escapeHtml(line)}</p>`).join("")}</div>` : ""}
           <ul>${shown.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
           ${rest.length ? `
             <details class="first-aid-more">
@@ -5326,7 +5312,7 @@ function renderFirstAidSection(product, detailData = {}) {
     .join("");
   if (!blocks) return "";
   return detailSection("응급조치 요령", `
-    <p class="first-aid-note">사고 시 아래 조치를 먼저 하고, 이어서 MSDS 원문과 의료진 안내를 확인하세요.</p>
+    <p class="first-aid-note">사고 시 아래 조치를 하고 의료진의 안내를 따르세요.</p>
     <div class="first-aid-grid">${blocks}</div>
   `, "detail-block-first-aid");
 }

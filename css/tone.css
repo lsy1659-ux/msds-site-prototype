@@ -799,10 +799,10 @@
   min-height: 0;
   margin: 0 0 12px;
   padding: 10px 14px;
-  border: 1px solid var(--tone-warning-line);
-  border-left: 4px solid var(--tone-warning);
+  border: 1px solid var(--tone-line);
+  border-left: 4px solid var(--tone-accent);
   border-radius: var(--tone-radius-sm);
-  background: var(--tone-warning-bg);
+  background: var(--tone-surface);
   box-shadow: none;
 }
 
@@ -812,7 +812,7 @@
 }
 
 :root .msds-required-banner strong {
-  color: var(--tone-warning);
+  color: var(--tone-accent);
   font-size: 0.9375rem;
   font-weight: 650;
 }
@@ -2678,17 +2678,27 @@
   }
 }
 
-/* 원문 안에서 응급조치와 H·P 문구가 어긋날 때(js/safety-notes.js) */
-.first-aid-conflict {
+/* 삼켰을 때: 같은 MSDS 의 대응 문구를 함께 싣는다(js/safety-notes.js) */
+.first-aid-related {
   margin: 0 0 8px;
   padding: 8px 10px;
-  border: 1px solid var(--tone-warning-line);
-  border-left: 3px solid var(--tone-warning);
   border-radius: 6px;
-  background: var(--tone-warning-bg);
+  background: var(--tone-soft);
   color: var(--tone-ink);
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   line-height: 1.5;
+}
+
+.first-aid-related b {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--tone-muted);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.first-aid-related p {
+  margin: 0;
 }
 
 /* 검토 화면: 문구 직접 고치기 */

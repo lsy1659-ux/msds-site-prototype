@@ -3,17 +3,17 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="제품별 물질안전보건자료와 현장 안전정보를 조회하고 원본 MSDS를 확인하는 사이트입니다.">
+    <meta name="description" content="제품별 물질안전보건자료와 현장 안전정보를 조회하고 원본 MSDS를 열람하는 사이트입니다.">
     <title>물질안전보건자료(MSDS) 안전정보 조회</title>
-    <link rel="manifest" href="manifest.webmanifest?v=20261008-4">
+    <link rel="manifest" href="manifest.webmanifest?v=20261008-5">
     <meta name="theme-color" content="#0f5f4f">
     <link rel="icon" href="assets/icons/icon-192.png" sizes="192x192" type="image/png">
     <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="MSDS">
-    <link rel="stylesheet" href="css/style.css?v=20261008-4">
-    <link rel="stylesheet" href="css/topbar.css?v=20261008-4">
-    <link rel="stylesheet" href="css/tone.css?v=20261008-4">
+    <link rel="stylesheet" href="css/style.css?v=20261008-5">
+    <link rel="stylesheet" href="css/topbar.css?v=20261008-5">
+    <link rel="stylesheet" href="css/tone.css?v=20261008-5">
     <!-- 글꼴은 ESH 와 같은 Pretendard. 신호가 약해도 첫 화면을 막지 않게 나중에 붙이고,
          못 받으면 맑은 고딕으로 그대로 보인다. -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'">
@@ -101,16 +101,16 @@
               </button>
             </div>
           </div>
-          <p class="header-note">제품명, 물질명, 용도, CAS No.로 검색하고 작업 전 안전정보와 원문자료를 확인하세요.</p>
+          <p class="header-note">제품명, 물질명, 용도, CAS No.로 검색해 안전정보와 MSDS 원본을 볼 수 있습니다.</p>
           <div id="currentSelection" class="current-selection" role="status" aria-live="polite">선택된 제품이 없습니다.</div>
           <dl class="dataset-meta" aria-label="사이트 데이터 정보">
             <div>
               <dt>데이터 기준일</dt>
-              <dd id="datasetCutoffDate">확인 중</dd>
+              <dd id="datasetCutoffDate">불러오는 중</dd>
             </div>
             <div>
               <dt>배포 버전</dt>
-              <dd id="siteVersion">확인 중</dd>
+              <dd id="siteVersion">불러오는 중</dd>
             </div>
           </dl>
         </div>
@@ -130,7 +130,7 @@
           </div>
           <div class="mode-badges">
             <span class="safety-badge">조회 전용</span>
-            <span id="dataMode" class="data-mode">데이터 확인 중</span>
+            <span id="dataMode" class="data-mode">불러오는 중</span>
           </div>
         </div>
 
@@ -188,7 +188,6 @@
         </details>
 
         <div id="emptySearchGuide" class="empty-search-guide">
-          <p>검색 후 핵심 안전정보를 확인하고, 하단 MSDS 원본자료를 반드시 확인하세요.</p>
           <div class="quick-search" aria-label="대표 분류 검색">
             <button type="button" data-query="신너">신너</button>
             <button type="button" data-query="페인트">페인트</button>
@@ -211,9 +210,9 @@
         </div>
       </section>
 
-      <section class="msds-required-banner" aria-label="MSDS 원본자료 필수 확인">
-        <strong>MSDS 원본자료 필수 확인</strong>
-        <span>요약정보 확인 후, 작업 전에는 MSDS 원본자료 전체 내용을 반드시 확인하세요.</span>
+      <section class="msds-required-banner" aria-label="MSDS 원본 안내">
+        <strong>MSDS 요약</strong>
+        <span>이 화면은 MSDS 요약이며, 전체 내용은 아래 MSDS 원본에서 볼 수 있습니다.</span>
       </section>
 
       <section class="board-layout" aria-label="MSDS 안전정보">
@@ -223,7 +222,7 @@
             <div class="selection-placeholder" role="status">
               <div>
                 <strong>제품을 먼저 검색하고 선택하세요.</strong>
-                <p>제품을 선택하기 전에는 안전정보를 표시하지 않습니다. 제품명·제품코드·CAS No.를 확인한 뒤 정확한 제품을 선택하세요.</p>
+                <p>제품명·제품코드·CAS No.로 정확한 제품을 고르면 안전정보가 표시됩니다.</p>
               </div>
             </div>
           </div>
@@ -233,7 +232,7 @@
           <div class="section-heading">
             <div>
               <h2 id="detailTitle">상세 안전정보</h2>
-              <p class="section-subtitle">제품 기본정보, 성분정보, 작업자 주의사항, MSDS 원본자료를 확인하세요.</p>
+              <p class="section-subtitle">제품 기본정보, 응급조치, 성분정보, 작업 시 주의사항, MSDS 원본</p>
             </div>
           </div>
           <div id="detailPanel" class="detail-panel empty-detail">
@@ -258,15 +257,15 @@
       </footer>
     </main>
 
-    <script src="js/page-transition.js?v=20261008-4" defer></script>
-    <script src="js/csv-export.js?v=20261008-4" defer></script>
-    <script src="js/ppe-rules.js?v=20261008-4" defer></script>
-    <script src="js/safety-notes.js?v=20261008-4" defer></script>
-    <script src="js/ui-icons.js?v=20261008-4" defer></script>
-    <script src="js/handoff.js?v=20261008-4" defer></script>
-    <script src="js/app.js?v=20261008-4" defer></script>
-    <script src="vendor/qrcode.min.js?v=20261008-4"></script>
-    <script src="js/site-qr.js?v=20261008-4" defer></script>
-    <script src="js/admin-gate.js?v=20261008-4" defer></script>
+    <script src="js/page-transition.js?v=20261008-5" defer></script>
+    <script src="js/csv-export.js?v=20261008-5" defer></script>
+    <script src="js/ppe-rules.js?v=20261008-5" defer></script>
+    <script src="js/safety-notes.js?v=20261008-5" defer></script>
+    <script src="js/ui-icons.js?v=20261008-5" defer></script>
+    <script src="js/handoff.js?v=20261008-5" defer></script>
+    <script src="js/app.js?v=20261008-5" defer></script>
+    <script src="vendor/qrcode.min.js?v=20261008-5"></script>
+    <script src="js/site-qr.js?v=20261008-5" defer></script>
+    <script src="js/admin-gate.js?v=20261008-5" defer></script>
   </body>
 </html>
