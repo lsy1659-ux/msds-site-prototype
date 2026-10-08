@@ -80,16 +80,19 @@ def p_codes_in(precautions) -> set[str]:
 
 def required_pictograms(h_codes: set[str]) -> set[str]:
     needed = {PICTOGRAM_FOR[c] for c in h_codes if c in PICTOGRAM_FOR}
-    # 우선순위: 해골(GHS06)이 있으면 급성독성 느낌표를 빼고, 부식성(GHS05)이 있으면
-    # 피부·눈 자극 느낌표를 뺀다. 남는 느낌표 근거가 없으면 GHS07 은 필수가 아니다.
+    # 우선순위(고시 경고표지 작성방법, UN GHS 1.4.10.5.3.1):
+    #   해골(GHS06)이 있으면 느낌표(GHS07)는 붙이지 않는다.
+    #   부식성(GHS05)이 있으면 피부·눈 자극 느낌표를 뺀다.
+    #   호흡기 과민성(H334, GHS08)이 있으면 피부 과민·피부·눈 자극 느낌표를 뺀다.
+    # 남는 느낌표 근거가 없으면 GHS07 은 필수가 아니다.
     if "GHS07" in needed:
         reasons = {c for c in h_codes if PICTOGRAM_FOR.get(c) == "GHS07"}
         if "GHS06" in needed:
-            reasons -= {"H302", "H312", "H332"}
+            reasons = set()
         if "GHS05" in needed:
             reasons -= {"H315", "H319"}
-        if "GHS08" in needed and "H334" in h_codes:
-            reasons -= {"H317"}
+        if "H334" in h_codes:
+            reasons -= {"H315", "H317", "H319"}
         if not reasons:
             needed.discard("GHS07")
     return needed
@@ -223,19 +226,26 @@ def check_evidence(products, register):
 
 
 def check_pdf(products, by_file):
-    """화면 문장이 원본 PDF 글자층에 있는지. 띄어쓰기·문장부호는 빼고 맞춘다."""
+    """화면 문장이 원본 PDF 글자층에 있는지. 띄어쓰기·문장부호는 빼고 맞춘다.
+
+    글꼴이 깨진 PDF("싞호어")는 msds-content-repairs.json verified.brokenFont 표로 글자를 되돌린 뒤 맞춘다.
+    """
     sys.path.insert(0, str(ROOT / "scripts"))
     import msds_pdf_text as T  # noqa: E402
 
+    repairs_path = ROOT / "data" / "msds-content-repairs.json"
+    verified = json.loads(repairs_path.read_text(encoding="utf-8")).get("verified", {}) if repairs_path.exists() else {}
     findings = []
     for product in products:
         path = ROOT / str(product.get("pdfPath") or "")
         if not path.is_file() or product.get("hazardNotClassified"):
             continue
         try:
-            pdf = normalize("".join(T.page_texts(path)))
+            raw = "".join(T.page_texts(path))
         except Exception:  # 읽히지 않는 PDF 는 건너뛴다
             continue
+        table = (verified.get(product["id"]) or {}).get("brokenFont") or {}
+        pdf = normalize("".join(table.get(ch, ch) for ch in raw))
         view = shown(product, by_file.get(product.get("fileName"), {}))
         lines = [("유해·위험문구", t) for t in view["hazards"]]
         lines += [("예방조치문구", t) for group in (view["precautions"] or {}).values() for t in group or []]

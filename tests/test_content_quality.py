@@ -16,7 +16,8 @@ import normalize_public_content as N  # noqa: E402
 import sync_pdf_library  # noqa: E402
 
 CODE = re.compile(r"[HP]\d{3}")
-LABEL_HEAD = re.compile(r"^\s*(?:[-•·▪]|예방|대응|저장|폐기|유해\s*[·ㆍᆞ·•,]?\s*위험\s*문구)")
+# "폐기물 관련 법령에 따라…" 처럼 낱말 일부인 것은 머리글이 아니다(코드 없는 MSDS 의 예방조치문구).
+LABEL_HEAD = re.compile(r"^\s*(?:[-•·▪]|(?:예방|대응|저장|폐기)(?![가-힣])|유해\s*[·ㆍᆞ·•,]?\s*위험\s*문구)")
 
 
 def load(name):

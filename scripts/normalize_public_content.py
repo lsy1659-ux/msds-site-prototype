@@ -23,6 +23,8 @@
             머리글·꼬리글 빼기, 중간에서 잘린 문구를 원문 문구로 채우기(꼴을 고른 뒤 비교),
             앞뒤가 잘린 응급조치를 원문 문단으로 바꾸기(지금 줄이 모두 원문 문단 안에 있을 때만). 지금 값이 적어 둔 '고치기 전' 값과 같을 때만 바꿔, 다른 곳에서
             이미 고쳤으면 건드리지 않는다.
+  원문 대조  repairs 의 verified. 2026-10-08 전체 대조에서 원문 PDF 와 줄마다(그림은 눈으로) 맞춘
+            유해·위험문구·예방조치문구·응급조치와 글꼴이 깨진 글자 표. 다른 고침이 끝난 뒤 맨 끝에 둔다.
   hazardBadge 칸을 뺀다. 신호어가 아닌데 228건 중 180건에 일괄로 "위험"이 들어 있어
             신호어로 오해받았다. 신호어는 signalWord 하나만 쓴다.
 """
@@ -587,7 +589,86 @@ def normalize_content(
         report["uncodedDropped"] += drop_uncoded_precautions(override, owner.get(id(override)))
     complete_statements(products, overrides, repairs, report)
     fix_spacing(products, overrides, report)
+    apply_verified(products, overrides, repairs, report)
     return products, overrides, report
+
+
+def _same(a: Any, b: Any) -> bool:
+    """빈칸만 다른 같은 값인지(목록·칸 묶음 모두)."""
+    if isinstance(a, dict) or isinstance(b, dict):
+        a, b = a or {}, b or {}
+        return all(_same(a.get(k), b.get(k)) for k in set(a) | set(b))
+    return [_flat(x) for x in a or []] == [_flat(x) for x in b or []]
+
+
+def _map_text(value: Any, table: dict[str, str]) -> Any:
+    if isinstance(value, str):
+        return "".join(table.get(ch, ch) for ch in value)
+    if isinstance(value, list):
+        return [_map_text(x, table) for x in value]
+    if isinstance(value, dict):
+        return {k: _map_text(x, table) for k, x in value.items()}
+    return value
+
+
+def apply_verified(products: list[dict[str, Any]], overrides: list[dict[str, Any]],
+                   repairs: dict[str, Any], report: dict[str, Any]) -> None:
+    """2026-10-08 전체 대조에서 원문 PDF 와 한 줄씩 맞춰 본 값. 다른 고침이 모두 끝난 뒤 맨 끝에 둔다.
+
+    - brokenFont  글꼴이 깨진 PDF 에서 읽힌 글자("싞호어", "심핚")를 제 글자로. 같은 PDF 안에서
+                  깨진 글자 → 제 글자가 늘 하나로 맞는 것만 적었다. 제품·추출 후보의 모든 글에 쓴다.
+    - hazardStatements · precautionaryStatements · firstAid.<칸>
+                  {"before", "after"}. 지금 값이 before 와 같을 때만(빈칸 무시) after 로 바꾼다.
+                  추출 후보(overrides)는 그 값이 before·beforeOverride 이거나 비어 있을 때 함께 바꾼다
+                  (화면은 후보를 먼저 본다).
+    """
+    by_id = {p.get("id"): p for p in products}
+    report.setdefault("verified", [])
+    for pid, fix in (repairs.get("verified") or {}).items():
+        product = by_id.get(pid)
+        if not product:
+            continue
+        linked = _matching_overrides(overrides, product)
+        changed = False
+        table = fix.get("brokenFont") or {}
+        if table:
+            for record in [product] + linked:
+                for key, value in list(record.items()):
+                    mapped = _map_text(value, table)
+                    if mapped != value:
+                        record[key] = mapped
+                        changed = True
+        # 앞 단계(띄어쓰기 고침 등)가 after 의 빈칸만 바꿔 놓았으면 적어 둔 글 그대로 되돌린다.
+        for field in ("hazardStatements", "precautionaryStatements"):
+            change = fix.get(field)
+            if not change:
+                continue
+            if _same(product.get(field), change.get("after")):
+                product[field] = deepcopy(change.get("after"))
+            elif _same(product.get(field), change.get("before")):
+                product[field] = deepcopy(change.get("after"))
+                changed = True
+            for override in linked:
+                current = override.get(field)
+                if _same(current, change.get("before")) or _same(current, change.get("beforeOverride")) \
+                        or _same(current, change.get("after")) or not any(
+                        (current or {}).values() if isinstance(current, dict) else current or []):
+                    override[field] = deepcopy(change.get("after"))
+        aid = product.get("firstAid") if isinstance(product.get("firstAid"), dict) else None
+        for key, change in (fix.get("firstAid") or {}).items():
+            if aid is None:
+                aid = product["firstAid"] = {}
+            if _same(aid.get(key), change.get("after")):
+                if change.get("after"):
+                    aid[key] = list(change["after"])
+            elif _same(aid.get(key), change.get("before")):
+                if change.get("after"):
+                    aid[key] = list(change["after"])
+                else:
+                    aid.pop(key, None)
+                changed = True
+        if changed:
+            report["verified"].append(pid)
 
 
 def write_json(path: Path, data: Any) -> None:
@@ -618,6 +699,7 @@ def main() -> int:
     print(f"응급조치 원문 문단으로 {report['firstAidSourced']}")
     print(f"띄어쓰기 고침         {report['spacingFixed']}")
     print(f"hazardBadge 뺌       {report['hazardBadgeRemoved']}")
+    print(f"원문 한 줄씩 대조 반영 {len(report.get('verified', []))}")
     if args.write:
         write_json(PRODUCTS_PATH, products)
         write_json(OVERRIDES_PATH, overrides)

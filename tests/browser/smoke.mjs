@@ -280,6 +280,18 @@ try {
     expect(pics.length === 2 && pics.includes("인화성") && pics.includes("건강유해성"), pics.join(","));
   });
 
+  await check("경고표지: 백양퐁은 원문대로 느낌표 1개와 유해·위험문구(코드 없는 문장)", async () => {
+    await page.go(`${BASE}/label.html?dataMode=public&product=msds-155`);
+    await page.until("document.querySelector('[data-label-id=\"msds-155\"] .label-pictograms')");
+    const pics = await page.eval("return [...document.querySelectorAll('[data-label-id=\"msds-155\"] .label-pictogram figcaption')].map((e) => e.textContent);");
+    expect(pics.length === 1 && pics[0] === "유해/자극성", pics.join(","));
+    // 기본 크기(100mL 이하 간이표시)는 문구를 싣지 않으므로 일반용기로 바꿔 본다.
+    await page.eval("const s = document.querySelector('#labelSize'); s.value = 'medium'; s.dispatchEvent(new Event('change')); return true;");
+    await page.until("document.querySelector('[data-label-id=\"msds-155\"]')?.textContent.includes('유해·위험 문구')");
+    const text = await page.eval("return document.querySelector('[data-label-id=\"msds-155\"]').textContent;");
+    expect(text.includes("삼키면 유해함"), "유해·위험문구 없음");
+  });
+
   await check("경고표지: 분류 대상이 아닌 제품은 '그림문자 없음'", async () => {
     await page.go(`${BASE}/label.html?dataMode=public&product=msds-064`);
     await page.until("document.querySelector('[data-label-id=\"msds-064\"] .label-pictograms')");

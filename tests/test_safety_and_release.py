@@ -72,6 +72,95 @@ class SafetyConsistencyTests(unittest.TestCase):
         self.assertEqual(missing, [], "H코드가 요구하는 그림문자가 빠진 제품: " + ", ".join(f["productName"] for f in missing))
 
 
+class FullVerificationTests(unittest.TestCase):
+    """2026-10-08 전체 대조. 218건 그림문자는 원문 2항 그림을 눈으로, 문구·응급조치는 원문 글과 줄마다 맞췄다.
+
+    고친 값은 data/msds-content-repairs.json 의 verified·ghsCodes 에 원문 PDF·확인일·까닭과 함께 있다.
+    """
+
+    BROKEN = set("싞늒맊홖젂핚짂갂숚렦맋핛젗벖첛얶옦젘앆젃")
+    JUNK = re.compile(r"SARAYA|CO\.,?\s*LTD|SAFETY DATA SHEET|PRODUCT\s*NAME|Date (?:revised|prepared)|페이지\s*\d|"
+                      r"\(\s*\d+\s*/\s*\d+\s*\)|물질\s*안전\s*보건\s*자료|^\s*[마바]\s*\.\s|신호어\s*[:：]", re.I)
+
+    @classmethod
+    def setUpClass(cls):
+        cls.products, cls.by_file, cls.register = audit.load()
+        cls.by_id = {p["id"]: p for p in cls.products}
+        cls.repairs = json.loads((ROOT / "data" / "msds-content-repairs.json").read_text(encoding="utf-8"))
+
+    def shown(self, pid):
+        product = self.by_id[pid]
+        return audit.shown(product, self.by_file.get(product.get("fileName"), {}))
+
+    def test_verified_text_is_what_the_screen_shows(self):
+        for pid, fix in self.repairs["verified"].items():
+            view, product = self.shown(pid), self.by_id[pid]
+            if "hazardStatements" in fix:
+                self.assertEqual(view["hazards"], fix["hazardStatements"]["after"], pid)
+            if "precautionaryStatements" in fix:
+                for group, lines in fix["precautionaryStatements"]["after"].items():
+                    self.assertEqual((view["precautions"] or {}).get(group) or [], lines, f"{pid} {group}")
+            for key, change in (fix.get("firstAid") or {}).items():
+                self.assertEqual((product.get("firstAid") or {}).get(key) or [], change["after"], f"{pid} {key}")
+
+    def test_no_broken_font_characters(self):
+        for name in ("msds.public.json", "msds-overrides.public.json"):
+            text = (ROOT / "data" / name).read_text(encoding="utf-8")
+            self.assertFalse(set(text) & self.BROKEN, f"{name} 에 글꼴이 깨진 글자가 남았다")
+
+    def test_no_page_headers_or_company_names_in_safety_text(self):
+        bad = []
+        for product in self.products:
+            view = self.shown(product["id"])
+            lines = list(view["hazards"]) + [x for g in (view["precautions"] or {}).values() for x in g or []]
+            lines += [x for g in (product.get("firstAid") or {}).values() for x in g or []]
+            bad += [f"{product['productName']}: {x[:40]}" for x in lines if self.JUNK.search(str(x))]
+        self.assertEqual(bad, [])
+
+    def test_gas_first_aid_follows_the_source(self):
+        """프로판·부탄 MSDS 에 없는 '구토를 유발하지 마시오'가 응급조치에 들어가 있었다."""
+        propane = self.by_id["msds-pdf-53b098ac5f0be241"]["firstAid"]
+        self.assertEqual(propane["ingestion"], ["긴급 의료조치를 받으시오"])
+        for pid in ("msds-pdf-53b098ac5f0be241", "msds-pdf-5e875f5e2847e4d0"):
+            text = json.dumps(self.by_id[pid]["firstAid"], ensure_ascii=False)
+            self.assertNotIn("구토를 유발하지", text, pid)
+
+    def test_broken_font_product_restored(self):
+        """TH0261(N): 글꼴이 깨진 PDF 라 유해·위험문구·예방조치·응급조치가 통째로 빠져 있었다."""
+        view = self.shown("msds-009")
+        self.assertEqual(len(view["hazards"]), 13)
+        self.assertGreaterEqual(sum(len(x) for x in view["precautions"].values()), 33)
+        self.assertEqual(set(self.by_id["msds-009"]["firstAid"]), {"eye", "skin", "inhalation", "ingestion", "note"})
+        self.assertEqual(self.by_id["msds-009"]["ghsCodes"], ["GHS02", "GHS07", "GHS08"])
+
+    def test_first_aid_lines_start_where_the_source_does(self):
+        self.assertTrue(self.by_id["msds-162"]["firstAid"]["eye"][0].startswith("즉시 오염된 눈은"))
+        self.assertTrue(self.by_id["msds-156"]["firstAid"]["eye"][0].startswith("즉시 충분한 양의"))
+        self.assertTrue(self.by_id["msds-157"]["firstAid"]["eye"][0].startswith("즉시 많은 양의"))
+        self.assertTrue(self.by_id["msds-131"].get("firstAid"), "아세톤 응급조치가 비어 있다")
+
+    def test_pictogram_precedence(self):
+        """고시 우선순위: 해골이 있으면 느낌표를 붙이지 않고, 부식성이 있으면 피부·눈 자극 느낌표를 붙이지 않는다."""
+        self.assertEqual(audit.required_pictograms({"H331", "H315", "H336"}), {"GHS06"})
+        self.assertEqual(audit.required_pictograms({"H290", "H315"}), {"GHS05"})
+        self.assertEqual(audit.required_pictograms({"H334", "H317"}), {"GHS08"})
+        self.assertEqual(audit.required_pictograms({"H302", "H318"}), {"GHS05", "GHS07"})
+
+    def test_skull_with_exclamation_only_where_supplier_was_asked(self):
+        both = [p["id"] for p in self.products if {"GHS06", "GHS07"} <= set(p.get("ghsCodes") or [])]
+        for pid in both:
+            self.assertTrue(self.register.get(pid, {}).get("sourceIssue"), f"{pid}: 해골·느낌표를 함께 두는 까닭이 관리대장에 없다")
+
+    def test_pictogram_fixes_from_the_full_review(self):
+        ghs = {p["id"]: p.get("ghsCodes") for p in self.products}
+        self.assertEqual(ghs["msds-013"], ["GHS02", "GHS06", "GHS08"])
+        self.assertEqual(ghs["msds-154"], ["GHS05", "GHS07", "GHS09"])
+        self.assertEqual(ghs["msds-160"], ["GHS05", "GHS08"])
+        self.assertEqual(ghs["msds-167"], ["GHS05", "GHS07", "GHS09"])
+        for pid in ("msds-pdf-d53b862679ad3157", "msds-pdf-d353876f24b4839c", "msds-pdf-d462ab4576452226", "msds-pdf-f60438c81a0521d8"):
+            self.assertEqual(ghs[pid], ["GHS07"], pid)
+
+
 class DateReaderTests(unittest.TestCase):
     def test_revision_history_that_continues_on_the_next_page(self):
         text = ("다. 개정횟수 및 최종 개정일자 :\n 16차/2019.01.16, 20차/2022.04.06,\n\n"
