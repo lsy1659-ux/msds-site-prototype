@@ -523,6 +523,7 @@ function bindElements() {
 function bindEvents() {
   // 화면 전환은 다른 기능이 어떻게 되든 먼저 살려 둔다.
   setupThemeToggle();
+  setupTextSizeToggle();
 
   elements.searchInput.addEventListener("input", (event) => {
     state.query = event.target.value;
@@ -878,6 +879,12 @@ function handleQuickScroll(target) {
     document.querySelector("#detail-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
     return;
   }
+  // 사고 때 긴 요약판을 지나지 않고 응급조치로 바로 간다. 응급조치가 없는 제품은 상세로.
+  if (target === "firstAid") {
+    (document.querySelector("#first-aid-section") || document.querySelector("#detail-section"))
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
   if (target === "components") {
     document.querySelector("#ingredient-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
     return;
@@ -897,6 +904,7 @@ function getScrollProgressSections() {
     { key: "search", element: document.querySelector("#search-section") },
     { key: "summary", element: document.querySelector("#safety-summary-section") },
     { key: "detail", element: document.querySelector("#detail-section") },
+    { key: "firstAid", element: document.querySelector("#first-aid-section") },
     { key: "components", element: document.querySelector("#ingredient-section") },
     { key: "caution", element: document.querySelector("#worker-note-section") },
     { key: "pdf", element: document.querySelector("#msds-original-section") }
@@ -2386,6 +2394,7 @@ function renderSelectionList(results, hasQuery, canShowCandidates) {
     product.category || product.useCategory,
     getDisplaySupplierName(product)
   ].filter(Boolean).join(" · ");
+  const lookalikes = findLookalikes(results);
   elements.selectionList.innerHTML = `
     <div class="result-range ${viewModeClass}">
       <span>${state.showAllResults
@@ -2397,9 +2406,10 @@ function renderSelectionList(results, hasQuery, canShowCandidates) {
       ${visibleResults.map((product) => `
         <button class="selection-item ${product.id === state.selectedId ? "is-selected" : ""}" type="button" data-product-id="${escapeAttribute(product.id)}" aria-pressed="${product.id === state.selectedId ? "true" : "false"}">
           ${product.id === state.selectedId ? `<span class="selection-check" aria-hidden="true">✓</span>` : ""}
-          <span class="selection-name text-break clamp-2">${escapeHtml(product.productName)}</span>
+          <span class="selection-name text-break clamp-2">${renderNameDifference(product.productName, lookalikes.get(product.id))}</span>
+          ${lookalikes.has(product.id) ? `<span class="lookalike-note">비슷한 이름 ${lookalikes.get(product.id).count}개 · 칠한 부분 확인</span>` : ""}
           <span class="selection-meta text-muted-path clamp-2">${escapeHtml(metaTextFor(product))}</span>
-          <span class="selection-identity clamp-2">${escapeHtml(getProductIdentityLine(product))}</span>
+          <span class="selection-identity clamp-2 ${lookalikes.has(product.id) ? "is-emphasized" : ""}">${escapeHtml(getProductIdentityLine(product))}</span>
           ${renderProductStatusRow(product)}
           <span class="selection-card-footer">
             ${product.__searchReason ? `<span class="selection-match-reason">${escapeHtml(product.__searchReason)}</span>` : ""}
@@ -2509,7 +2519,7 @@ function renderFullProductList() {
               <span>${group.products.length}개 제품</span>
             </header>
             <div class="product-company-list ${viewModeClass}">
-              ${group.products.map((product, index) => renderFullProductItem(product, index)).join("")}
+              ${group.products.map((product, index) => renderFullProductItem(product, index, groupLookalikes(group.products))).join("")}
             </div>
           </section>
         `).join("")}
@@ -2558,7 +2568,47 @@ function getProductCompanyName(product) {
   return getDisplaySupplierName(product);
 }
 
-function renderFullProductItem(product, index) {
+/* 이름이 비슷한 제품(앞 6글자 이상, 짧은 이름의 30% 이상이 같음)을 찾는다. 색상·차종만 다른 도료가
+ * 줄지어 있어 잘못 고르기 쉽다. 다른 부분을 칠하고 업체·개정일을 같이 보이게 한다. */
+function findLookalikes(products = []) {
+  const names = products.map((product) => String(product.productName || ""));
+  const found = new Map();
+  products.forEach((product, i) => {
+    let count = 0;
+    let prefix = 0;
+    names.forEach((other, j) => {
+      if (i === j || !other) return;
+      const common = commonPrefixLength(names[i], other);
+      if (common >= 6 && common >= Math.min(names[i].length, other.length) * 0.3) {
+        count += 1;
+        prefix = Math.max(prefix, common);
+      }
+    });
+    if (count) found.set(product.id, { count, prefix });
+  });
+  return found;
+}
+
+const lookalikeCache = new WeakMap();
+function groupLookalikes(products) {
+  if (!lookalikeCache.has(products)) lookalikeCache.set(products, findLookalikes(products));
+  return lookalikeCache.get(products);
+}
+
+function commonPrefixLength(a, b) {
+  const limit = Math.min(a.length, b.length);
+  let i = 0;
+  while (i < limit && a[i].toLowerCase() === b[i].toLowerCase()) i += 1;
+  return i;
+}
+
+function renderNameDifference(name = "", lookalike = null) {
+  const text = String(name || "");
+  if (!lookalike || lookalike.prefix >= text.length) return escapeHtml(text);
+  return `${escapeHtml(text.slice(0, lookalike.prefix))}<mark class="name-diff">${escapeHtml(text.slice(lookalike.prefix))}</mark>`;
+}
+
+function renderFullProductItem(product, index, lookalikes = new Map()) {
   const pdfInfo = buildPdfInfo(product);
   const isPdfBased = Boolean(product.dataSource === "msds_pdf" || product.isPdfAbsorbed);
   const casItems = (product.components || [])
@@ -2577,7 +2627,7 @@ function renderFullProductItem(product, index) {
       ${product.id === state.selectedId ? `<span class="full-product-check" aria-hidden="true">✓</span>` : ""}
       <span class="full-product-number">${index + 1}</span>
       <span class="full-product-main">
-        <strong title="${escapeAttribute(product.productName)}">${escapeHtml(product.productName || "제품명 미확인")}</strong>
+        <strong title="${escapeAttribute(product.productName)}">${product.productName ? renderNameDifference(product.productName, lookalikes.get(product.id)) : "제품명 미확인"}</strong>
         <span>${escapeHtml(metaText)}</span>
       </span>
       <span class="full-product-tags">
@@ -3740,7 +3790,8 @@ function renderPdfViewerShell(mount) {
       </div>
       <form class="pdf-viewer-group is-search" data-pdf-search-form role="search" aria-label="PDF 원문에서 찾기">
         <input class="pdf-search-input" type="search" data-pdf-search-input placeholder="원문에서 찾기 (예: 15. 법적)" aria-label="PDF 원문에서 찾을 말" autocomplete="off">
-        <button class="pdf-viewer-button" type="submit">찾기</button>
+        <button class="pdf-viewer-button" type="button" data-pdf-search-prev aria-label="이전 찾은 곳">‹</button>
+        <button class="pdf-viewer-button" type="submit" aria-label="다음 찾은 곳">찾기 ›</button>
         <span class="pdf-search-status" data-pdf-search-status role="status" aria-live="polite"></span>
       </form>
     </div>
@@ -3767,6 +3818,12 @@ function renderPdfViewerShell(mount) {
       if (!form) return;
       event.preventDefault();
       searchPdfText(mount, form.querySelector("[data-pdf-search-input]")?.value || "");
+    });
+    mount.addEventListener("click", (event) => {
+      const prev = event.target.closest?.("[data-pdf-search-prev]");
+      if (!prev) return;
+      const form = prev.closest("[data-pdf-search-form]");
+      searchPdfText(mount, form?.querySelector("[data-pdf-search-input]")?.value || "", -1);
     });
     mount.dataset.viewerScrollBound = "true";
   }
@@ -3810,7 +3867,7 @@ function updatePdfViewerControls(mount) {
 /* 원문에서 찾기. 쪽마다 글자를 뽑아 그 말이 든 쪽으로 옮겨 간다. 같은 말로
  * 다시 찾으면 다음 쪽으로 간다. 한글 PDF 는 띄어쓰기가 깨진 것이 많아
  * 빈칸을 빼고 맞춘다. 쪽 안의 위치까지 칠하지는 않는다. */
-async function searchPdfText(mount, rawQuery) {
+async function searchPdfText(mount, rawQuery, step = 1) {
   const viewer = getPdfViewerStateForMount(mount);
   const status = mount.querySelector("[data-pdf-search-status]");
   const say = (text) => { if (status) status.textContent = text; };
@@ -3846,9 +3903,15 @@ async function searchPdfText(mount, rawQuery) {
     say(viewer.pageTexts.every((text) => !text) ? "글자가 없는 PDF(스캔본)라 찾을 수 없습니다." : "찾는 말이 없습니다.");
     return;
   }
-  viewer.search.at = (viewer.search.at + 1) % hits.length;
+  // 같은 말로 다시 찾으면 다음(‹ 는 앞) 쪽으로. 처음 찾을 때는 첫 쪽부터.
+  viewer.search.at = viewer.search.at < 0 ? 0 : (viewer.search.at + step + hits.length) % hits.length;
   const page = hits[viewer.search.at];
-  say(`${page}쪽 · ${viewer.search.at + 1}/${hits.length}곳`);
+  say(`${page}쪽 · 찾은 쪽 ${viewer.search.at + 1}/${hits.length}`);
+  const shown = mount.querySelector(`[data-pdf-page-number="${page}"] .textLayer`);
+  if (shown) {
+    highlightPdfMatches(shown, needle);
+    return;
+  }
   viewer.currentPage = page;
   await renderAllPdfPages(mount, { page, offsetRatio: 0 });
 }
@@ -3989,11 +4052,52 @@ async function renderPdfPageIntoStage(stage, pageNumber, renderToken, mountOverr
   canvas.setAttribute("aria-label", `${preview.title || "PDF"} ${pageNumber}쪽 미리보기`);
   context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
 
+  // 캔버스 위에 투명한 글자층을 얹는다. 원문 글자를 길게 눌러 고르고 복사할 수 있고,
+  // 원문에서 찾은 말을 칠해 보일 수 있다. 글자층이 실패해도 그림은 그대로 보인다.
+  const canvasWrap = document.createElement("div");
+  canvasWrap.className = "pdf-js-canvas-wrap";
+  canvasWrap.appendChild(canvas);
   pageWrap.appendChild(pageLabel);
-  pageWrap.appendChild(canvas);
+  pageWrap.appendChild(canvasWrap);
   stage.appendChild(pageWrap);
   await page.render({ canvasContext: context, viewport }).promise;
   if (renderToken !== preview.renderToken) return;
+  try {
+    const pdfjs = await loadPdfJsModule();
+    const layer = document.createElement("div");
+    layer.className = "textLayer";
+    layer.style.setProperty("--scale-factor", String(viewport.scale));
+    canvasWrap.appendChild(layer);
+    await new pdfjs.TextLayer({ textContentSource: await page.getTextContent(), container: layer, viewport }).render();
+    if (renderToken !== preview.renderToken) return;
+    highlightPdfMatches(layer, preview.search?.needle || "");
+  } catch (error) {
+    // 글자층 없이도 볼 수 있다.
+  }
+}
+
+/* 찾은 말을 글자층에서 칠한다. 한글 PDF 는 글자마다 조각이 따로인 일이 많아
+ * 조각을 이어 붙인 글에서 찾고, 걸친 조각을 모두 칠한다. 빈칸은 빼고 맞춘다. */
+function highlightPdfMatches(layer, needle) {
+  layer.querySelectorAll(".highlight").forEach((span) => span.classList.remove("highlight"));
+  if (!needle) return;
+  const spans = [...layer.querySelectorAll("span")].filter((span) => span.textContent);
+  let joined = "";
+  const owners = [];
+  spans.forEach((span, index) => {
+    const text = span.textContent.toLowerCase().replace(/\s+/g, "");
+    joined += text;
+    for (let i = 0; i < text.length; i += 1) owners.push(index);
+  });
+  let first = null;
+  for (let at = joined.indexOf(needle); at !== -1; at = joined.indexOf(needle, at + needle.length)) {
+    for (let i = at; i < at + needle.length; i += 1) {
+      const span = spans[owners[i]];
+      span.classList.add("highlight");
+      first = first || span;
+    }
+  }
+  first?.scrollIntoView?.({ block: "center", inline: "nearest" });
 }
 
 function capturePdfScrollPosition(mount, viewer = null) {
@@ -4389,6 +4493,7 @@ function summaryItem(label, value, tone) {
 
 function detailSection(title, content, extraClass = "") {
   const sectionIds = {
+    "detail-block-first-aid": "first-aid-section",
     "detail-block-components": "ingredient-section",
     "detail-block-worker-caution": "worker-note-section",
     "detail-block-pdf": "msds-original-section"
@@ -5280,6 +5385,34 @@ function applyTheme(theme) {
   if (icon) icon.innerHTML = window.uiIcon ? window.uiIcon(dark ? "sun" : "moon") : "";
   if (label) label.textContent = dark ? "밝은 화면" : "어두운 화면";
   button.title = dark ? "밝은 화면으로 바꾸기" : "어두운 화면으로 바꾸기";
+}
+
+/* 큰 글자 보기. 장갑 낀 채 폰을 멀리 들고 보는 현장을 위해 본문 글자를 한 단계 키운다.
+ * 색·배치는 그대로 두고 글자 크기(rem 기준)만 바꾼다. 브라우저에 기억한다. */
+const TEXT_SIZE_KEY = "msds.textSize.v1";
+
+function setupTextSizeToggle() {
+  const sync = () => {
+    const large = document.documentElement.getAttribute("data-text-size") === "large";
+    document.querySelectorAll("[data-text-size-toggle]").forEach((button) => {
+      button.setAttribute("aria-pressed", String(large));
+      const label = button.querySelector(".text-size-label");
+      if (label) label.textContent = large ? "보통 글자" : "큰 글자";
+    });
+  };
+  // 테마 단추처럼 문서에서 받는다. 앞 단계가 실패해도 단추는 눌린다.
+  document.addEventListener("click", (event) => {
+    const button = event.target instanceof Element ? event.target.closest("[data-text-size-toggle]") : null;
+    if (!button) return;
+    event.preventDefault();
+    const large = document.documentElement.getAttribute("data-text-size") !== "large";
+    if (large) document.documentElement.setAttribute("data-text-size", "large");
+    else document.documentElement.removeAttribute("data-text-size");
+    try { window.localStorage.setItem(TEXT_SIZE_KEY, large ? "large" : "normal"); } catch (error) { /* 저장소 차단 */ }
+    sync();
+    schedulePdfRefit();
+  });
+  sync();
 }
 
 function setupThemeToggle() {

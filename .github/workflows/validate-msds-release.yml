@@ -36,6 +36,15 @@ jobs:
       - name: Run unit tests
         run: python -m unittest discover -s tests -p "test_*.py"
 
+      # 실제 브라우저(헤드리스 Chrome)로 검색·요약판·PDF·인쇄 단추·폰 폭을 눌러 본다.
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Browser smoke test
+        run: node tests/browser/smoke.mjs
+
       - name: Screen files carry a fresh asset version
         run: python scripts/bump_asset_version.py --check
 

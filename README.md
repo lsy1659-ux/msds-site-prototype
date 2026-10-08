@@ -2,13 +2,13 @@
 
 현장 작업자가 QR코드로 접속해 MSDS 핵심 안전정보를 빠르게 확인하는 조회용 프로토타입입니다.
 
-현재 상태는 GitHub Pages 실제 MSDS PDF 미리보기 공개 운영 완료입니다. 공개 URL은 <https://lsy1659-ux.github.io/msds-site-prototype/> 이며, 공개 화면은 `data/msds.public.json`, `data/msds-overrides.public.json`, `pdf/` 폴더의 대표 PDF 224개를 사용해 실제 제품 검색, 상세정보 표시, 사이트 내부 전체 페이지 PDF 미리보기를 제공합니다. 로컬 실행 화면은 `data/msds.local.json`, `data/msds-overrides.local.json`이 있으면 그 파일을 우선 사용합니다.
+현재 상태는 GitHub Pages 실제 MSDS PDF 미리보기 공개 운영 완료입니다. 공개 URL은 <https://lsy1659-ux.github.io/msds-site-prototype/> 이며, 공개 화면은 `data/msds.public.json`, `data/msds-overrides.public.json`, `pdf/` 폴더의 PDF 240개(제품 218건과 그 이전본)를 사용해 실제 제품 검색, 상세정보 표시, 사이트 내부 PDF 미리보기를 제공합니다. 제품 수 기준은 `data/release-policy.json` 한 곳에 둡니다. 로컬 실행 화면은 `data/msds.local.json`, `data/msds-overrides.local.json`이 있으면 그 파일을 우선 사용합니다.
 
 공개 운영 확인 결과 `data/msds.public.json`과 `data/msds-overrides.public.json` 접근은 정상이고, `data/msds.local.json`, `data/msds-overrides.local.json`, `reports/*.local.*` 파일은 공개 URL에서 404로 비공개 상태를 유지합니다. 실제 엑셀, `data/raw/`, `data/original/`, `.env`도 계속 GitHub에 올리지 않습니다.
 
 화면은 검색 중심 현장 조회형 UI입니다. 처음부터 전체 제품 목록을 길게 보여주지 않고, 검색어를 입력하거나 분류 버튼을 눌렀을 때 후보 제품을 소형 선택 리스트로 표시합니다.
 
-좁은 화면과 모바일에서는 검색 영역, 제품 선택, 현장 요약판, 상세정보, 성분정보, 작업자 주의 포인트, PDF 미리보기 순서의 1열 흐름으로 표시됩니다. 넓은 PC 화면에서는 현장 요약판과 상세정보가 2단으로 배치됩니다.
+좁은 화면과 모바일에서는 검색 영역, 제품 선택, 현장 요약판(그림문자 → 보호구 → 유해·위험문구 → 예방조치), 상세정보, 응급조치, 성분정보, 작업자 주의 포인트, PDF 미리보기 순서의 1열 흐름으로 표시됩니다. 제품을 고르면 후보 목록이 접히고 요약판으로 옮겨 갑니다. 아래 바로가기(검색·요약·상세·응급·성분·주의·원본)로 바로 갈 수 있고, 머리글의 `큰 글자`로 본문 글자를 키울 수 있습니다. 넓은 PC 화면에서는 현장 요약판과 상세정보가 2단으로 배치됩니다.
 
 작업자 주의 포인트는 브라우저 안의 로컬 규칙으로만 정리합니다. 사이트 사용 중 OpenAI 또는 외부 AI API를 호출하지 않으며, 별도 API 토큰도 사용하지 않습니다.
 
@@ -391,6 +391,45 @@ local report에는 실제 제품/PDF 정보가 들어갈 수 있으므로 GitHub
 
 현재 `.gitignore` 설정으로 엑셀 파일, `data/raw/`, `data/original/`, `data/msds.local.json`, `data/*.local.json`, reports local 파일은 GitHub에 올라가지 않도록 제외되어 있습니다. 단, `pdf/` 폴더 안의 PDF는 GitHub Pages 공개 운영을 위해 추적할 수 있습니다.
 
+## 안전문구 점검과 공급사 확인
+
+추출이 됐다고 내용이 맞는 것은 아닙니다. 화면에 나가는 값끼리 어긋나는 것을 점검합니다.
+
+```
+py scripts/audit_safety_consistency.py            규칙 점검(구토·신호어·그림문자·문구 짝, 원문 확인 뒤 PDF 바뀜)
+py scripts/audit_safety_consistency.py --pdf      원본 PDF 글자층에 그 문장이 있는지도(몇 분)
+py scripts/repair_from_pdf.py                     원문과 대조해 고칠 것 보기(--write · --write-register 로 반영)
+```
+
+걸린 것은 원문을 눈으로 봅니다. 사이트가 잘못 읽었으면 `repair_from_pdf.py`·`data/msds-content-repairs.json`
+(그림문자는 `ghsCodes` 에 눈으로 확인한 것만)으로 고칩니다. **원문 자체가 이상하면 문장을 고치지 않고**
+`data/msds-register.json` 그 제품에 `sourceIssue`(우리 메모)·`sourceIssueAsk`(공급사에 물을 말)·
+`sourceIssueEvidence`(확인일·원문 쪽·PDF SHA-256)를 적습니다. 관리대장 화면 `요청 문안 복사`로 공급사에 최신판을
+요청합니다. 테스트는 관리대장에 안 적힌 '높음'(구토·신호어 어긋남)이 있거나, 원문 확인을 적은 뒤 PDF 가
+바뀌었으면 실패합니다.
+
+2026-10-08 기준 공급사 확인 중: 노루오토코팅 14건(H304·P331 과 "구토를 시키시오" 가 원문 안에서 어긋남 —
+조회 응급조치와 관리요령 ⑤에 "원문 확인 중" 한 줄이 붙음, `js/safety-notes.js`), S-308.16N 신호어,
+질소(대덕가스) H280 문구, be chef 주방세제 경고표지 항목.
+
+## 검토 화면에서 문구 고치기
+
+`review.html`(로컬 실행 `start_msds_review.bat`)에서 유해위험문구·예방조치·PPE·실제 표지 그림문자·신호어를
+`고치기`로 바로 고칩니다. 저장할 때 원문 쪽과 검토자를 적어야 하고, 그 항목의 `reviewLog` 에 날짜·검토자·쪽·
+그때 PDF 지문·바꾸기 전과 뒤가 남습니다. 화면에는 원래→지금이 줄 단위로 보입니다. `수정 JSON 다운로드` 한 파일은
+`py scripts/apply_reviewed_overrides.py --input <파일> --dry-run` 으로 꼴 검사와 고친 기록을 본 뒤 반영합니다.
+
+## 배포 안전장치
+
+- 화면 파일(js·css·html)을 고치면 `py scripts/bump_asset_version.py` 로 판 번호를 올립니다. `sw.js` 의
+  `SHELL_FINGERPRINT` 가 화면 파일 지문이라, 올리지 않으면 테스트·CI 가 실패합니다. `prepare_release.py` 는
+  바뀌었을 때만 올립니다.
+- CI(`.github/workflows/validate-msds-release.yml`)는 `.md` 말고 무엇이 바뀌어도 돕니다. 단위 테스트, 판 번호,
+  공개 자료 검증, 그리고 실제 브라우저 점검을 합니다.
+- 실제 브라우저 점검: `node tests/browser/smoke.mjs` (Node 22 + Chrome, 따로 설치할 것 없음). 검색→선택, 요약판
+  그림문자·보호구, 응급조치 원문 확인 표시, 탭 이어받기, PDF 쪽 이동·찾기·칠하기, 어두운 화면, 폰 폭 밀림,
+  응급 바로가기, 큰 글자, 인쇄 단추, 오프라인 칸을 눌러 봅니다.
+
 ## 디자인 수정 위치
 
 화면 디자인은 아래 두 파일에서 수정합니다.
@@ -758,11 +797,11 @@ H-code statements are kept in the hazard statement area, P-code statements are k
 
 현장용 로컬 실행 방법은 OneDrive 운영문서 폴더의 `현장용 로컬 실행 가이드`를 확인하세요. 비개발자는 프로젝트 폴더의 `start_msds_site.bat` 파일을 더블클릭해 현장 검색용 화면을 실행하면 됩니다.
 
-GitHub Pages 인터넷 배포는 OneDrive 운영문서 폴더의 `GitHub Pages 인터넷 배포 가이드`를 기준으로 합니다. 공개 URL은 <https://lsy1659-ux.github.io/msds-site-prototype/> 입니다. GitHub Pages 실제 MSDS PDF 미리보기 공개 운영은 완료되었고, 공개 사이트는 `data/msds.public.json`, `data/msds-overrides.public.json`, `pdf/` 폴더의 대표 PDF 224개를 사용합니다. 실제 엑셀, raw 데이터, original 데이터, `.env`, local JSON, reports local 파일은 GitHub에 올리지 않습니다. 실제 현장 사용은 여전히 `start_msds_site.bat` 로컬 실행을 기준으로 할 수 있습니다.
+GitHub Pages 인터넷 배포는 OneDrive 운영문서 폴더의 `GitHub Pages 인터넷 배포 가이드`를 기준으로 합니다. 공개 URL은 <https://lsy1659-ux.github.io/msds-site-prototype/> 입니다. GitHub Pages 실제 MSDS PDF 미리보기 공개 운영은 완료되었고, 공개 사이트는 `data/msds.public.json`, `data/msds-overrides.public.json`, `pdf/` 폴더의 PDF 240개를 사용합니다. 실제 엑셀, raw 데이터, original 데이터, `.env`, local JSON, reports local 파일은 GitHub에 올리지 않습니다. 실제 현장 사용은 여전히 `start_msds_site.bat` 로컬 실행을 기준으로 할 수 있습니다.
 
-모바일 브라우저에서 PDF가 자동 다운로드되는 것을 막기 위해 PDF 원본은 페이지 로드나 제품 선택 직후 자동 삽입하지 않습니다. 사용자가 `PDF 미리보기` 버튼을 누른 경우에만 PDF.js로 사이트 안에 미리보기를 표시합니다. 현재 최소 수정안은 CDN PDF.js를 사용하므로 인터넷 연결이 필요합니다. 더 안정적인 운영이 필요하면 `vendor/pdfjs/` 또는 `lib/pdfjs/`에 PDF.js 정적 파일을 포함하고 `js/app.js`의 PDF.js 경로를 내부 경로로 바꿉니다.
+모바일 브라우저에서 PDF가 자동 다운로드되는 것을 막기 위해 PDF 원본은 페이지 로드나 제품 선택 직후 자동 삽입하지 않습니다. 사용자가 `PDF 미리보기` 버튼을 누른 경우에만 PDF.js로 사이트 안에 미리보기를 표시합니다. PDF.js(4.10)는 `vendor/pdf.mjs`·`vendor/pdf.worker.mjs` 로 저장소에 들어 있어 오프라인에서도 열립니다.
 
-PDF.js 미리보기는 전체 페이지를 세로로 렌더링해 사이트 안에서 스크롤로 확인하는 방식입니다. 확대, 축소, 폭맞춤을 사용할 수 있습니다. PDF는 GitHub Pages에 공개되어 있으므로 주소를 직접 알면 기술적으로 다운로드를 완전히 막을 수는 없지만, 사이트 UI에서는 다운로드나 새 탭 열기를 제공하지 않고 내부 미리보기를 기본 흐름으로 사용합니다.
+PDF.js 미리보기는 한 번에 한 쪽을 그립니다. 처음·이전·다음·마지막, 쪽 번호 직접 입력, 확대·축소·폭맞춤(폰을 돌리거나 창 폭이 바뀌면 다시 맞춤), 원문에서 찾기(찾은 말을 칠하고 ‹ › 로 앞뒤 쪽 이동)를 쓸 수 있습니다. 캔버스 위에 투명한 글자층이 있어 원문 글자를 골라 복사할 수 있습니다. PDF는 GitHub Pages에 공개되어 있으므로 주소를 직접 알면 기술적으로 다운로드를 완전히 막을 수는 없지만, 사이트 UI에서는 다운로드나 새 탭 열기를 제공하지 않고 내부 미리보기를 기본 흐름으로 사용합니다.
 
 공개용 데이터 생성:
 

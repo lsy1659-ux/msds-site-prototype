@@ -177,13 +177,35 @@ function renderTodo() {
         <summary><strong>${rEscape(supplier)}</strong><span>${rows.length}건</span>
           <span class="register-todo-kinds">${[...new Set(rows.map((r) => r.sourceIssue && !["required", "pending"].includes(r.status) ? "원문 확인" : r.statusLabel))].map(rEscape).join(" · ")}</span></summary>
         <ul>${rows.map((row) => `<li>${rEscape(row.name)} <span class="register-sub">${rEscape(row.kind || row.statusLabel)}</span>
-          ${row.sourceIssue ? `<span class="register-issue">원문 확인: ${rEscape(row.sourceIssue)}${evidenceText(row)}</span>` : ""}</li>`).join("")}</ul>
+          ${row.sourceIssue ? `<span class="register-issue">원문 확인: ${rEscape(row.sourceIssue)}${evidenceText(row)}</span>` : ""}
+          ${row.sourceIssueEvidence?.sha256 ? `<span class="register-recheck" data-recheck-pdf="${rEscape(row.pdf)}" data-recheck-sha="${rEscape(row.sourceIssueEvidence.sha256)}" hidden>원문 PDF 가 바뀌었습니다 — 새 판에서 풀렸는지 다시 보세요</span>` : ""}</li>`).join("")}</ul>
         ${needs.length ? `<p class="register-todo-need"><b>받을 것</b> ${needs.map(rEscape).join(" / ")}</p>` : ""}
         ${rows.some(askable) ? `<p class="register-todo-need"><button type="button" class="substance-button" data-request-copy="${index}">요청 문안 복사</button>
           <span class="register-sub">메일·메신저에 붙여 쓰는 문안입니다. 여기서 보내지는 않습니다.</span></p>`
           : `<p class="register-todo-need register-sub">우리 쪽에서 확인할 일입니다(라벨·용도 확인).</p>`}
       </details>`;
   }).join("") || '<p class="register-empty">남은 할 일이 없습니다.</p>';
+  checkChangedSourcePdfs(registerElements.todo);
+}
+
+/* 원문 확인을 적은 뒤 같은 자리에 새 PDF 가 들어왔는지 본다. 브라우저에서 PDF 지문(SHA-256)을
+ * 내어 관리대장에 적힌 지문과 대 본다. 다르면 "다시 보세요" 를 띄운다. 공급사가 고친 새 판이면
+ * 관리대장의 sourceIssue 를 지우고, 그대로면 근거를 새 PDF 로 적는다. */
+async function checkChangedSourcePdfs(root = document) {
+  if (!window.crypto?.subtle) return;
+  const marks = [...root.querySelectorAll("[data-recheck-pdf]")];
+  for (const mark of marks) {
+    try {
+      const path = mark.dataset.recheckPdf.split("/").map(encodeURIComponent).join("/");
+      const response = await fetch(path, { cache: "no-store" });
+      if (!response.ok) continue;
+      const digest = await window.crypto.subtle.digest("SHA-256", await response.arrayBuffer());
+      const sha = [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("");
+      mark.hidden = sha === mark.dataset.recheckSha;
+    } catch (error) {
+      // 못 읽으면 표시하지 않는다.
+    }
+  }
 }
 
 /* 원문 확인의 근거. "2026-10-08 확인 · 원문 4쪽" */

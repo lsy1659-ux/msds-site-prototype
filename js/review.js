@@ -275,6 +275,7 @@ function renderReviewDetail() {
     </section>
 
     ${renderChangeSummary(override, index)}
+    ${lastReviewedSha(override) ? `<p class="review-recheck" data-review-recheck hidden>이 항목을 고친 뒤 원문 PDF 가 바뀌었습니다. 검토완료여도 새 판과 다시 대조하세요.</p>` : ""}
     <div class="review-compare">
     <div class="review-compare-fields">
     ${reviewSection("기본 후보", `
@@ -316,6 +317,14 @@ function renderReviewDetail() {
   reviewElements.detail.querySelectorAll("[data-review-nav]").forEach((button) => {
     button.addEventListener("click", () => moveReviewSelection(button.dataset.reviewNav));
   });
+
+  // 고친 기록의 PDF 지문과 지금 PDF 를 대 본다. 다르면 다시 보라고 띄운다.
+  const recheck = reviewElements.detail.querySelector("[data-review-recheck]");
+  if (recheck) {
+    pdfSha256(override).then((sha) => {
+      if (sha && recheck.isConnected) recheck.hidden = sha === lastReviewedSha(override);
+    });
+  }
 
   reviewElements.detail.querySelectorAll("[data-review-edit]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -1012,4 +1021,13 @@ function renderChangeSummary(override, index) {
       ${log ? `<p class="summary-note">최근 기록</p><ul class="review-change-log">${log}</ul>` : ""}
     </section>
   `;
+}
+
+// 마지막으로 고칠 때 본 PDF 의 지문.
+function lastReviewedSha(override) {
+  const log = Array.isArray(override?.reviewLog) ? override.reviewLog : [];
+  for (let i = log.length - 1; i >= 0; i -= 1) {
+    if (log[i]?.pdfSha256) return log[i].pdfSha256;
+  }
+  return "";
 }

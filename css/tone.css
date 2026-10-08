@@ -1851,6 +1851,11 @@
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.16);
 }
 
+.pdf-viewer-group.is-search .pdf-viewer-button {
+  flex: none;
+  white-space: nowrap;
+}
+
 .pdf-search-status {
   color: var(--tone-muted);
   font-size: 0.8125rem;
@@ -2806,4 +2811,163 @@
 .review-change-list ins {
   background: var(--tone-primary-soft);
   color: var(--tone-accent);
+}
+
+/* 아래 바로가기: 일곱 칸. 응급은 빨간 번호로 눈에 띄게 */
+@media (max-width: 767px) {
+  :root #scrollQuickNav.scroll-quick-nav {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+}
+
+:root #scrollQuickNav.scroll-quick-nav button.is-first-aid span {
+  background: var(--tone-danger);
+  color: #ffffff;
+}
+
+/* 큰 글자 보기 */
+html[data-text-size="large"] {
+  font-size: 112.5%;
+}
+
+:root .header-tools {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.text-size-icon {
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+:root .text-size-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 0 11px;
+  border: 1px solid var(--tone-on-brand-line);
+  border-radius: var(--tone-radius-sm);
+  background: var(--tone-on-brand-fill);
+  color: var(--tone-on-brand);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+:root .text-size-toggle:hover {
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+:root .text-size-toggle[aria-pressed="true"] {
+  border-color: var(--tone-mint);
+  background: rgba(111, 224, 191, 0.22);
+}
+
+@media (max-width: 767px) {
+  :root .header-tools .theme-toggle,
+  :root .header-tools .text-size-toggle {
+    padding: 0 9px;
+  }
+}
+
+/* PDF 글자층(pdf.js TextLayer). 글자는 투명하고 고르기·복사·찾은 곳 칠하기에만 쓴다. */
+.pdf-js-canvas-wrap {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
+
+.pdf-js-canvas-wrap .textLayer {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+  opacity: 1;
+  line-height: 1;
+  text-align: initial;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  forced-color-adjust: none;
+  transform-origin: 0 0;
+  z-index: 1;
+}
+
+.pdf-js-canvas-wrap .textLayer :is(span, br) {
+  position: absolute;
+  color: transparent;
+  white-space: pre;
+  cursor: text;
+  transform-origin: 0% 0%;
+}
+
+.pdf-js-canvas-wrap .textLayer .highlight {
+  margin: -1px;
+  padding: 1px;
+  border-radius: 2px;
+  background: rgba(255, 196, 0, 0.45);
+}
+
+.pdf-js-canvas-wrap .textLayer ::selection {
+  background: rgba(37, 99, 235, 0.3);
+}
+
+.pdf-js-canvas-wrap .textLayer br::selection {
+  background: transparent;
+}
+
+.pdf-js-canvas-wrap .textLayer .endOfContent {
+  display: block;
+  position: absolute;
+  inset: 100% 0 0;
+  z-index: 0;
+  cursor: default;
+  user-select: none;
+}
+
+/* 이름 비슷한 제품: 다른 부분을 칠하고 업체·개정일 줄을 또렷하게 */
+.name-diff {
+  padding: 0 2px;
+  border-radius: 3px;
+  background: rgba(255, 196, 0, 0.35);
+  color: inherit;
+}
+
+[data-theme="dark"] .name-diff {
+  background: rgba(240, 180, 84, 0.3);
+}
+
+.lookalike-note {
+  display: block;
+  color: var(--tone-warning);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+:root .selection-identity.is-emphasized {
+  color: var(--tone-ink);
+  font-weight: 600;
+}
+
+/* 원문 PDF 가 바뀌어 다시 볼 것(관리대장·검토 화면) */
+.register-recheck,
+.review-recheck {
+  display: block;
+  margin: 4px 0;
+  padding: 6px 10px;
+  border-left: 3px solid var(--tone-danger);
+  border-radius: 4px;
+  background: var(--tone-danger-bg);
+  color: var(--tone-danger);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.register-recheck[hidden],
+.review-recheck[hidden] {
+  display: none;
 }
