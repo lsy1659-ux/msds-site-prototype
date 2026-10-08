@@ -60,14 +60,15 @@ async function launchChrome() {
     "--headless=new", "--disable-gpu", "--no-first-run", "--no-default-browser-check",
     `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`, "about:blank"
   ], { stdio: "ignore" });
-  for (let i = 0; i < 50; i += 1) {
+  // GitHub 러너에서 첫 실행이 10초를 넘긴 적이 있다(2026-10-08). 30초까지 기다린다.
+  for (let i = 0; i < 150; i += 1) {
     try {
       const res = await fetch(`http://127.0.0.1:${port}/json/version`);
       if (res.ok) return { proc, port, profile };
     } catch (error) { /* 아직 안 떴다 */ }
     await sleep(200);
   }
-  throw new Error("Chrome 이 뜨지 않았다.");
+  throw new Error("Chrome 이 30초 안에 뜨지 않았다.");
 }
 
 class Page {
