@@ -16,6 +16,10 @@ from dataclasses import asdict, dataclass
 from datetime import date, datetime, timezone
 from pathlib import Path, PurePosixPath
 from typing import Any, Iterable
+try:
+    from scripts.cas_numbers import CAS_SHAPE, valid_cas, extract_cas
+except ImportError:
+    from cas_numbers import CAS_SHAPE, valid_cas, extract_cas
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -357,6 +361,19 @@ def validate_msds_register(root: Path, products: list[dict[str, Any]], result: "
     return retired_pdfs
 
 
+def validate_cas_fields(result: ValidationResult, record: dict[str, Any], subject: str, candidate: bool = False) -> None:
+    for ingredient in record.get("ingredients") or []:
+        cas = str(ingredient.get("casNo") or "").strip()
+        if CAS_SHAPE.fullmatch(cas):
+            if not valid_cas(cas):
+                result.add("warning" if candidate else "error", "CAS_NUMBER_INVALID", "CAS 체크 숫자가 유효하지 않다.", f"{subject}: {cas}")
+        elif re.search(r"[0-9]+-[0-9]+-[0-9]+", cas):
+            tokens = [x.strip() for x in re.split(r"[,;/]", cas)]
+            if not all(valid_cas(token) for token in tokens):
+                # 기존 자료에는 CAS 외 식별번호도 이 칸에 있다. 근거 없이 번호를 고치지 않는다.
+                result.add("warning", "CAS_FIELD_NOT_STANDARD", "CAS 전체 토큰 꼴이 아닌 식별값이다. 원문 확인 필요.", f"{subject}: {cas}")
+
+
 def validate_public_release(
     root: Path,
     products_path: Path = DEFAULT_PRODUCTS,
@@ -441,6 +458,7 @@ def validate_public_release(
             product_ids[normalized_id] = subject
 
         pdf_value = product.get("pdfPath")
+        validate_cas_fields(result, product, subject)
         pdf_target, pdf_error = validate_pdf_path(root, pdf_value)
         if pdf_error:
             result.add("error", pdf_error, "Product PDF path is missing, unsafe, or unavailable.", subject)
@@ -561,6 +579,7 @@ def validate_public_release(
     # Validate public override isolation and every override PDF path.
     for override in overrides:
         subject = override_labels[id(override)]
+        validate_cas_fields(result, override, subject, candidate=True)
         _, pdf_error = validate_pdf_path(root, override.get("sourcePdfPath"))
         if pdf_error:
             result.add("error", f"OVERRIDE_{pdf_error}", "Override PDF path is invalid.", subject)

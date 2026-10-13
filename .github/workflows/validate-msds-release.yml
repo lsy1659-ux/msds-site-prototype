@@ -43,7 +43,9 @@ jobs:
           node-version: "22"
 
       - name: Browser smoke test
-        run: node tests/browser/smoke.mjs
+        run: |
+          node tests/browser/data-regressions.mjs
+          node tests/browser/smoke.mjs
 
       - name: Screen files carry a fresh asset version
         run: python scripts/bump_asset_version.py --check

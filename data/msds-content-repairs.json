@@ -11834,7 +11834,8 @@
       "verifiedBy": [
         "원문 2.2.3 예방조치문구 6개가 사이트에 없었음",
         "원문 4항 흡입·먹었을 때·의사 주의사항 칸이 사이트에 없었음",
-        "원문 3항 성분표(CAS·함유량)가 사이트와 달랐음"
+        "원문 3항 성분표(CAS·함유량)가 사이트와 달랐음",
+        "2026-10-13 원문 1쪽 제조자 한일루켐(주), 공급자 정보는 제조자 정보와 동일. 2항 눈 자극 문구가 공급자 후보로 잘못 추출됨."
       ],
       "precautionaryStatements": {
         "before": {
@@ -11979,7 +11980,16 @@
             "specialHealthExam": ""
           }
         ]
-      }
+      },
+      "fields": {
+        "supplier": {
+          "before": "나.눈에대한영향:약간의자극을줄수있음.",
+          "beforeOverride": "나.눈에대한영향:약간의자극을줄수있음.",
+          "after": "한일루켐(주)"
+        }
+      },
+      "supplierCheckedOn": "2026-10-13",
+      "supplierCheckedSha256": "d462ab4576452226813c9b1749731929228a4f1453163cbe662a7aa1e338e9f0"
     },
     "msds-pdf-f60438c81a0521d8": {
       "pdf": "pdf/한일루켐(그리스)/한일루켐_GHP PCG 0 MSDS.pdf",
@@ -13607,5 +13617,40 @@
         }
       }
     }
-  }
+  },
+  "ingredientIdentifiers": [
+    {
+      "productId": "msds-004",
+      "chemicalName": "Hexane, 1,6-diisocyanato-, homopolymer, di-alkyl malonate- and alkyl acetoacetate- blocked, iso-alkyl(C=4-8) alkyl(C=1-5) alkyl(C=4-8) esters",
+      "beforeCas": "2028-08-3",
+      "sourceIdentifier": "T-2023-00604(2028-08-30)",
+      "pdf": "pdf/01_ 도장/KCC/KCC_MSDS_UT5731-UMA(GGM).pdf",
+      "page": 3,
+      "checkedOn": "2026-10-13",
+      "sha256": "92bba3e4f28df357d34fea0a33909b4420aea518dbf5e829bbf2e9001a5afb5a",
+      "verifiedBy": "원문 3쪽 CAS 번호 또는 식별번호 칸에는 T-2023-00604(2028-08-30)가 기재되어 있고 표준 CAS 번호는 표기되어 있지 않음. 성분명·함유량은 유지."
+    },
+    {
+      "productId": "msds-005",
+      "chemicalName": "Hexane, 1,6-diisocyanato-, homopolymer, di-alkyl malonate- and alkyl acetoacetate- blocked, iso-alkyl(C=4-8) alkyl(C=1-5) alkyl(C=4-8) esters",
+      "beforeCas": "2028-08-3",
+      "sourceIdentifier": "T-2023-00604(2028-08-30)",
+      "pdf": "pdf/01_ 도장/KCC/KCC_MSDS_UT5731-ZRM(GGM).pdf",
+      "page": 3,
+      "checkedOn": "2026-10-13",
+      "sha256": "56e7064df01edcaee916f74454e807643437b6c9a063454fa1bddc1670040e6b",
+      "verifiedBy": "원문 3쪽 CAS 번호 또는 식별번호 칸에는 T-2023-00604(2028-08-30)가 기재되어 있고 표준 CAS 번호는 표기되어 있지 않음. 성분명·함유량은 유지."
+    },
+    {
+      "productId": "msds-012",
+      "chemicalName": "Hexane, 1,6-diisocyanato-, homopolymer, di-alkyl malonate- and alkyl acetoacetate- blocked, iso-alkyl(C=4-8) alkyl(C=1-5) alkyl(C=4-8) esters",
+      "beforeCas": "2028-08-3",
+      "sourceIdentifier": "T-2023-00604(2028-08-30)",
+      "pdf": "pdf/01_ 도장/KCC/KCC_MSDS_UT5731-SRM(GGM)(FRT).pdf",
+      "page": 3,
+      "checkedOn": "2026-10-13",
+      "sha256": "b5fe1644fda96eb7eb0eb64012690d0f5edfb0d080a6df9cc014c387ec5018a0",
+      "verifiedBy": "원문 3쪽 CAS 번호 또는 식별번호 칸에는 T-2023-00604(2028-08-30)가 기재되어 있고 표준 CAS 번호는 표기되어 있지 않음. 성분명·함유량은 유지."
+    }
+  ]
 }

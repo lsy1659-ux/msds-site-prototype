@@ -426,6 +426,17 @@ def apply_repairs(products: list[dict[str, Any]], overrides: list[dict[str, Any]
                   repairs: dict[str, Any], report: dict[str, Any]) -> None:
     by_id = {p.get("id"): p for p in products}
 
+    for fix in repairs.get("ingredientIdentifiers") or []:
+        product = by_id.get(fix.get("productId"))
+        if product is None:
+            continue
+        for record in [product] + _matching_overrides(overrides, product):
+            for row in record.get("ingredients") or []:
+                if row.get("casNo") == fix["beforeCas"] or (
+                    not row.get("casNo") and row.get("chemicalName") == fix["chemicalName"]
+                ):
+                    row["casNo"] = ""
+                    row["sourceIdentifier"] = fix["sourceIdentifier"]
     for pid, fix in (repairs.get("firstAid") or {}).items():
         product = by_id.get(pid)
         if not product:
@@ -661,6 +672,12 @@ def apply_verified(products: list[dict[str, Any]], overrides: list[dict[str, Any
             if current == str(change.get("before") or "").strip() and current != change.get("after"):
                 product[field] = change.get("after")
                 changed = True
+            if field == "supplier" and "beforeOverride" in change:
+                for override in linked:
+                    candidate = str(override.get("supplierCandidate") or "").strip()
+                    allowed = [str(change.get(k) or "").strip() for k in ("before", "beforeOverride", "after")]
+                    if not candidate or candidate in allowed:
+                        override["supplierCandidate"] = change["after"]
         change = fix.get("ingredients")
         if change:
             def rows(items):

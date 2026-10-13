@@ -9,6 +9,10 @@ import re
 from collections import Counter
 
 from pypdf import PdfReader
+try:
+    from scripts.cas_numbers import CAS_TOKEN, SOURCE_IDENTIFIER, extract_cas, join_identifier_date
+except ImportError:
+    from cas_numbers import CAS_TOKEN, SOURCE_IDENTIFIER, extract_cas, join_identifier_date
 
 CODE = re.compile(r"[HP]\d{3}[A-Za-z]?(?:\s*\+\s*[HP]\d{3}[A-Za-z]?)*")
 HANGUL = re.compile(r"[가-힣]")
@@ -17,7 +21,7 @@ STOP_LINE = re.compile(
     r"^[\s·ㆍ∙•\-▪]*(?:[OoＯ○●◎]\s|[가나다라마바사아자차카타파하]\s*[.．]|\d+(?:\.\d+)*\s*[.．]|예방|대응|저장|폐기|신\s*호\s*어|그림\s*문자"
     r"|심볼|유해|해당\s*없음|자료\s*없음)|분류\s*기준에\s*포함되지\s*않는|NFPA|\(GHS\s*KR\)")
 CATEGORY = re.compile(r"구분\s*[:：]?\s*\d")
-CAS = re.compile(r"\b\d{2,7}-\d{2}-\d\b")
+CAS = CAS_TOKEN
 AMOUNT = re.compile(r"(\d+(?:\.\d+)?)\s*[~\-–]\s*(\d+(?:\.\d+)?)|([<>≤≥]\s*\d+(?:\.\d+)?)|(?<![\d\-.])(\d+(?:\.\d+)?)\s*%")
 # 절 제목. 번호와 제목이 함께 있어야 절 머리로 본다. 본문에 "응급조치" 가 나와도 걸리지 않게.
 SECTION_TITLES = {
@@ -304,12 +308,13 @@ LABEL_ONLY = re.compile(r"^(?:번호|물질명|이명|관용명|화학물질명|
 def parse_ingredients(lines, junk):
     """3항의 성분 줄. CAS 가 있는 줄은 CAS 로, 영업비밀 줄은 그 표기로 행을 만든다."""
     rows, pending = [], []
-    body = [flat(l) for l in lines]
+    body = [flat(l) for l in join_identifier_date("\n".join(lines)).splitlines()]
     body = [l for l in body if not skip(l, junk)]
     for line in body:
-        cases = CAS.findall(line)
+        cases = extract_cas(line)
         secret = re.search(r"영업\s*비밀", line)
-        if not cases and not secret:
+        identifier = SOURCE_IDENTIFIER.search(line)
+        if not cases and not secret and not identifier:
             if rows and not rows[-1]["content"]:
                 amt = AMOUNT.search(line)
                 labelled = re.match(r"^함유량", line)
@@ -318,8 +323,8 @@ def parse_ingredients(lines, junk):
                     continue
             pending.append(line)
             continue
-        for cas in cases or ["영업비밀"]:
-            head, _, tail = line.partition(cas if cases else secret.group(0))
+        for cas in cases or (["영업비밀"] if secret else [""]):
+            head, _, tail = line.partition(cas if cases else secret.group(0) if secret else identifier.group(0))
             amt = AMOUNT.search(tail)
             in_head = None if amt else AMOUNT.search(head)
             name = re.sub(r"\((?:CAS|KE)[-\s]*No\.?\)|CAS\s*번호|번호\s*CAS|식별번호|CAS", " ", head)
@@ -335,6 +340,8 @@ def parse_ingredients(lines, junk):
             name = tidy_text(re.sub(r"[(（]\s*$", "", tidy_text(name)))
             hit = amt or in_head
             rows.append({"casNo": cas, "sourceName": name, "content": amount_text(hit, line) if hit else ""})
+            if identifier and not cases:
+                rows[-1]["sourceIdentifier"] = identifier.group(0)
         pending = []
     return rows
 

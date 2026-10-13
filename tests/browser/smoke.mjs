@@ -214,7 +214,7 @@ try {
 
   await check("경고표지·관리요령 탭이 고른 제품을 이어받는다", async () => {
     const tabs = await page.eval("return [...document.querySelectorAll('.top-bar-tab')].map((a) => a.getAttribute('href'));");
-    expect(tabs.includes("label.html?product=msds-033") && tabs.includes("guide.html?product=msds-033"), tabs.join(" "));
+    expect(['label.html','guide.html'].every(name=>tabs.some(href=>href.startsWith(name+'?') && new URL(href,BASE).searchParams.get('product')==='msds-033' && new URL(href,BASE).searchParams.get('dataMode')==='public')),tabs.join(' '));
   });
 
   await check("PDF 미리보기: 열기·쪽 번호로 이동·원문에서 찾기", async () => {
@@ -437,6 +437,51 @@ try {
     } finally {
       await page.send("Emulation.setEmulatedMedia", { media: "screen" });
     }
+  });
+
+  await check("관리요령: 긴 원문 응급조치가 7개 제품의 표시·인쇄에서 빠지지 않는다", async () => {
+    await page.size(1280, 900);
+    for (const id of ['msds-131','msds-138','msds-078','msds-085','msds-087','msds-pdf-37736004f8e3d7b1','msds-pdf-25117e7770dfe7d6']) {
+      await page.go(`${BASE}/guide.html?dataMode=public&product=${id}`);
+      await page.until(`document.querySelector('[data-guide-id="${id}"]')`);
+      const missing=await page.eval(`const p=guideState.products.find(p=>p.id==='${id}');
+        const text=document.querySelector('[data-guide-id="${id}"]').textContent;
+        return ['eye','skin','inhalation','ingestion'].filter(k=>p.firstAid?.[k]?.[0] && !text.includes(p.firstAid[k][0]));`);
+      expect(!missing.length, `${id}: ${missing.join(',')}`);
+      await page.send('Emulation.setEmulatedMedia',{media:'print'});
+      try {
+        const inside=await page.eval(`const card=document.querySelector('[data-guide-id="${id}"]');
+          return [...card.querySelectorAll('.guide-aid-list')].every(node=>node.getBoundingClientRect().bottom<=card.getBoundingClientRect().bottom+1);`);
+        expect(inside,`${id}: 인쇄 응급조치가 카드 밖으로 넘침`);
+        if (id==='msds-131' && ARTIFACTS) {
+          await page.eval("document.querySelectorAll('[data-guide-qr]').forEach(drawGuideQr); await document.fonts.ready;");
+          const {data}=await page.send('Page.printToPDF',{printBackground:true,preferCSSPageSize:true});
+          writeFileSync(join(ARTIFACTS,'acetone-guide-a4.pdf'),Buffer.from(data,'base64'));
+        }
+      } finally {await page.send('Emulation.setEmulatedMedia',{media:'screen'});}
+      if (id==='msds-131' && ARTIFACTS) {
+        await screenshot('acetone-guide');
+      }
+    }
+  });
+
+  await check("경고표지 전체 219개 선택이 관리요령 탭으로 모두 전달된다", async () => {
+    await page.go(`${BASE}/label.html?dataMode=public`);
+    await page.until("labelState.products.length===219");
+    await page.eval("document.querySelector('#labelSelectAll').click();");
+    const href=await page.eval("return document.querySelector('a.top-bar-tab[href^=\"guide.html\"]').href;");
+    expect(href.length < 1800 && href.includes('selection='),href);
+    await page.go(href);
+    await page.until("guideState.selected.size>0");
+    const count=await page.eval("return guideState.selected.size;");
+    expect(count===219,`전달 ${count}개`);
+  });
+
+  await check("PN3084: 원문 비분류의 그림문자·신호어 없음이 표시된다", async () => {
+    await page.go(`${BASE}/label.html?dataMode=public&product=msds-pdf-f6d25ab4aeeced6d`);
+    await page.until("document.querySelector('[data-label-id=\"msds-pdf-f6d25ab4aeeced6d\"]')");
+    const text=await page.eval("return document.querySelector('[data-label-id=\"msds-pdf-f6d25ab4aeeced6d\"]').textContent;");
+    expect(text.includes('PN3084') && text.includes('그림문자 없음') && text.includes('신호어 없음'),text);
   });
 
   await check("오프라인 저장 칸에 지금 자료판이 보인다", async () => {

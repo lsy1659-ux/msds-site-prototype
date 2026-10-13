@@ -916,11 +916,12 @@
       },
       {
         "chemicalName": "Hexane, 1,6-diisocyanato-, homopolymer, di-alkyl malonate- and alkyl acetoacetate- blocked, iso-alkyl(C=4-8) alkyl(C=1-5) alkyl(C=4-8) esters",
-        "casNo": "2028-08-3",
+        "casNo": "",
         "content": "1~6",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "T-2023-00604(2028-08-30)"
       },
       {
         "chemicalName": "2-뷰톡시에탄올, 아세테이트",
@@ -1209,11 +1210,12 @@
       },
       {
         "chemicalName": "Hexane, 1,6-diisocyanato-, homopolymer, di-alkyl malonate- and alkyl acetoacetate- blocked, iso-alkyl(C=4-8) alkyl(C=1-5) alkyl(C=4-8) esters",
-        "casNo": "2028-08-3",
+        "casNo": "",
         "content": "1~6",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "T-2023-00604(2028-08-30)"
       },
       {
         "chemicalName": "n-헵테인",
@@ -3090,11 +3092,12 @@
       },
       {
         "chemicalName": "Hexane, 1,6-diisocyanato-, homopolymer, di-alkyl malonate- and alkyl acetoacetate- blocked, iso-alkyl(C=4-8) alkyl(C=1-5) alkyl(C=4-8) esters",
-        "casNo": "2028-08-3",
+        "casNo": "",
         "content": "1~6",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "T-2023-00604(2028-08-30)"
       },
       {
         "chemicalName": "알루미늄",
@@ -41139,7 +41142,7 @@
     "fileName": "GHP PCG EP 0(그리스).pdf",
     "pdfPath": "pdf/한일루켐(그리스)/GHP PCG EP 0(그리스).pdf",
     "recommendedUse": "",
-    "supplier": "나.눈에대한영향:약간의자극을줄수있음.",
+    "supplier": "한일루켐(주)",
     "issueDate": "2004-05-21",
     "revisionDate": "2022-09-05",
     "emergencyContact": "긴급연락 전화번호 : 055) 345-9990~1 / FAX : 345-9993",

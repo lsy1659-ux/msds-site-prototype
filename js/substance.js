@@ -108,6 +108,10 @@ function cleanCas(raw) {
   const text = String(raw || "").trim().replace(/^CAS\s*(No\.?|번호)?\s*[:.]?\s*/i, "");
   if (!CAS_SHAPE.test(text)) return "";
   if (NOT_A_CAS.some((word) => text.toLowerCase().includes(word))) return "";
+  const digits = text.replace(/-/g, "");
+  const check = [...digits.slice(0, -1)].reverse()
+    .reduce((sum, digit, index) => sum + Number(digit) * (index + 1), 0) % 10;
+  if (check !== Number(digits.at(-1))) return "";
   return text;
 }
 
@@ -132,7 +136,8 @@ function buildSubstances(products) {
         productName: product.productName || "",
         supplier: product.supplier || "",
         content: String(ingredient.content || "").trim(),
-        writtenName: name
+        writtenName: name,
+        sourceIdentifier: String(ingredient.sourceIdentifier || "")
       };
       const cas = cleanCas(ingredient.casNo);
       if (!cas) {

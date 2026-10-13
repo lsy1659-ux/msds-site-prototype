@@ -152,40 +152,17 @@ function guideProductUrl(product) {
   return base.toString();
 }
 
-/* 원문 추출이 실패해 한 칸에 수백 자가 통째로 들어간 제품이 있다.
- * 그대로 실으면 게시물이 글씨 벽이 된다. 문장 끝에서 쪼개고, 그래도
- * 긴 것은 잘라 낸다. 지어내지 않고 자르기만 한다. */
-const ITEM_MAX_LENGTH = 90;
-
-// 문장이 끝나는 자리에서 자른다. 마침표가 없는 원문도 있어 어미로 가른다.
-const SENTENCE_SPLIT = /(?<=(?:시오|하십시오|합니다|됩니다|있음|없음|금연)\.?)(?=\S)|(?<=\.)\s+/;
-
-// 목차나 다른 절 제목이 섞여 들어온 조각은 지시문이 아니다.
-const NOT_INSTRUCTION = /신호어|그림\s*문자|유해\s*[·ㆍ]?\s*위험\s*문구|예방조치\s*문구|구성성분|^\s*[○●◎]|^\s*\d{1,2}\s*[.．]/;
-const INSTRUCTION_END = /(시오|마시오|하십시오|주십시오|금연|없음|있음)\.?$/;
-
-function splitLongText(raw) {
-  if (raw.length <= ITEM_MAX_LENGTH) return [raw];
-  // 한 칸에 절 전체가 들어온 경우다. 쪼갠 뒤 지시문만 남긴다.
-  return raw
-    .split(SENTENCE_SPLIT)
-    .map((part) => part.replace(/^[-•○\s]+/, "").trim())
-    .filter((part) => part && !NOT_INSTRUCTION.test(part) && INSTRUCTION_END.test(part));
-}
-
+// 등록된 원문 문구를 길이·어미로 버리지 않는다. 빈 줄·앞의 목록 기호·중복만 정리한다.
 function cleanList(items, limit) {
   const seen = new Set();
   const out = [];
   for (const item of Array.isArray(items) ? items : []) {
     const raw = String(item || "").replace(/^[-•○\s]+/, "").trim();
     if (!raw) continue;
-    for (let text of splitLongText(raw)) {
-      if (text.length > ITEM_MAX_LENGTH) text = text.slice(0, ITEM_MAX_LENGTH).trim() + "…";
-      if (!text || seen.has(text)) continue;
-      seen.add(text);
-      out.push(text);
-      if (limit && out.length >= limit) return out;
-    }
+    if (seen.has(raw)) continue;
+    seen.add(raw);
+    out.push(raw);
+    if (limit && out.length >= limit) return out;
   }
   return out;
 }

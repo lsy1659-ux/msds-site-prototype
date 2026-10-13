@@ -19,6 +19,10 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
+try:
+    from scripts.cas_numbers import CAS_TOKEN, SOURCE_IDENTIFIER, extract_cas, join_identifier_date
+except ImportError:
+    from cas_numbers import CAS_TOKEN, SOURCE_IDENTIFIER, extract_cas, join_identifier_date
 
 
 DEFAULT_INPUT = Path("pdf/PN3021.pdf")
@@ -37,7 +41,7 @@ except Exception as exc:  # pragma: no cover - depends on local env
     PdfReader = None  # type: ignore[assignment]
     PDF_IMPORT_ERROR = str(exc)
 
-CAS_RE = re.compile(r"\b\d{2,7}-\d{2}-\d\b")
+CAS_RE = CAS_TOKEN
 DATE_RE = re.compile(r"\b((?:19|20)\d{2})[.\-/년]\s?(\d{1,2})[.\-/월]\s?(\d{1,2})\s?일?\b")
 CONTENT_RE = re.compile(
     r"\b\d{1,3}(?:\.\d+)?\s*(?:~|∼|～|–|—|to)\s*\d{1,3}(?:\.\d+)?\s*(?:미만)?\s*%?"
@@ -445,16 +449,19 @@ def split_precautions(lines: list[str]) -> dict[str, list[str]]:
 
 
 def extract_ingredients(section3: str) -> list[dict[str, str]]:
-    lines = clean_lines(section3)
+    lines = clean_lines(join_identifier_date(section3))
     ingredients: list[dict[str, str]] = []
     for index, line in enumerate(lines):
-        cas_numbers = CAS_RE.findall(line)
-        if not cas_numbers:
+        cas_numbers = extract_cas(line)
+        identifier = SOURCE_IDENTIFIER.search(line)
+        if not cas_numbers and not identifier:
             continue
         same_line_content = CONTENT_RE.search(line)
         forward_context = " ".join(lines[index: min(len(lines), index + 2)])
         content_match = same_line_content or CONTENT_RE.search(forward_context)
         chemical = clean_line(CAS_RE.sub("", line))
+        if identifier:
+            chemical = clean_line(chemical.replace(identifier.group(0), ""))
         chemical = clean_line(CONTENT_RE.sub("", chemical))
         chemical = re.sub(r"(CAS|No\.?|함유량|성분|명칭)", "", chemical, flags=re.IGNORECASE)
         chemical = clean_line(chemical)
@@ -467,10 +474,12 @@ def extract_ingredients(section3: str) -> list[dict[str, str]]:
         ingredients.append(
             {
                 "chemicalName": chemical,
-                "casNo": cas_numbers[0],
+                "casNo": cas_numbers[0] if cas_numbers else "",
                 "content": content,
             }
         )
+        if identifier and not cas_numbers:
+            ingredients[-1]["sourceIdentifier"] = identifier.group(0)
     return dedupe_ingredients(ingredients)
 
 

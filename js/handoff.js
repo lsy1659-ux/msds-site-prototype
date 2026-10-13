@@ -12,7 +12,13 @@
   "use strict";
 
   const PAGES = ["index.html", "label.html", "guide.html"];
-  const MAX_IDS = 40;
+  const MAX_QUERY_LENGTH = 1800;
+  const STORAGE_PREFIX = "msds.handoff.v1.";
+  let lastStored = null;
+
+  function uniqueIds(ids) {
+    return [...new Set((ids || []).filter(id => typeof id === "string").map(id => id.trim()).filter(Boolean))];
+  }
 
   function currentPage() {
     const name = global.location.pathname.split("/").pop() || "index.html";
@@ -25,11 +31,34 @@
       .flatMap((value) => String(value || "").split(","))
       .map((value) => value.trim())
       .filter(Boolean);
-    return [...new Set(ids)];
+    const token = params.get("selection") || "";
+    if (/^[a-z0-9-]{1,80}$/i.test(token)) {
+      try {
+        const stored = JSON.parse(global.sessionStorage.getItem(STORAGE_PREFIX + token) || "null");
+        if (Array.isArray(stored)) ids.push(...uniqueIds(stored));
+      } catch (error) { /* 저장소가 없거나 잘못된 기록이면 직접 전달된 ID를 유지한다. */ }
+    }
+    return uniqueIds(ids);
   }
 
   function carry(ids) {
-    const list = [...new Set((ids || []).filter(Boolean))].slice(0, MAX_IDS);
+    const list = uniqueIds(ids);
+    const query = `product=${list.map(encodeURIComponent).join(",")}`;
+    let token = "";
+    if (query.length > MAX_QUERY_LENGTH) {
+      try {
+        const signature = JSON.stringify(list);
+        if (lastStored?.signature === signature && global.sessionStorage.getItem(STORAGE_PREFIX + lastStored.token) === signature) {
+          token = lastStored.token;
+        } else {
+          token = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
+          global.sessionStorage.setItem(STORAGE_PREFIX + token, signature);
+          // 쓰기가 허용된 것처럼 보여도 저장되지 않는 브라우저가 있다.
+          if (global.sessionStorage.getItem(STORAGE_PREFIX + token) !== signature) throw new Error("selection storage unavailable");
+          lastStored = {signature, token};
+        }
+      } catch (error) { token = ""; /* 전체 URL로 넘긴다. 저장소 실패를 이유로 선택을 자르지 않는다. */ }
+    }
     const here = currentPage();
     document.querySelectorAll("a.top-bar-tab[href], a[data-handoff][href]").forEach((tab) => {
       const href = tab.getAttribute("href") || "";
@@ -37,7 +66,10 @@
       if (!PAGES.includes(page) || page === here) return;
       if (href.includes("offline=1")) return;
       const send = page === "index.html" ? (list.length === 1 ? list : []) : list;
-      tab.setAttribute("href", send.length ? `${page}?product=${send.map(encodeURIComponent).join(",")}` : page);
+      const mode = new URLSearchParams(global.location.search).get("dataMode");
+      const query = send.length ? (send.length > 1 && token ? `selection=${encodeURIComponent(token)}` : `product=${send.map(encodeURIComponent).join(",")}`) : "";
+      const next = [query, mode === "public" ? "dataMode=public" : ""].filter(Boolean).join("&");
+      tab.setAttribute("href", next ? `${page}?${next}` : page);
     });
   }
 
