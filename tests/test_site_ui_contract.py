@@ -167,6 +167,19 @@ class SiteUiContractTests(unittest.TestCase):
                 self.assertEqual(former.get(pid), entry["replacedBy"], entry.get("productName"))
         self.assertIn("(product.formerIds || []).includes(requestedId)", self.app_source)
 
+    def test_small_bottle_label_size(self):
+        """박카스병 같은 작은 병용 100mL 초과 축소형(92 x 64mm, A4 세로 8장)과 넘칠 때 글자 줄이기."""
+        html = (ROOT / "label.html").read_text(encoding="utf-8")
+        js = (ROOT / "js" / "label.js").read_text(encoding="utf-8")
+        css = (ROOT / "css" / "label.css").read_text(encoding="utf-8")
+        self.assertIn('<option value="bottle">', html)
+        self.assertIn('"label-size-small label-size-bottle"', js)
+        self.assertIn("function fitBottleLabels", js)
+        self.assertIn("grid-template-columns: repeat(2, 92mm);", css)
+        self.assertIn("grid-auto-rows: 64mm;", css)
+        # 어두운 화면에서 인쇄해도 종이 바탕이 검게 나오지 않는다
+        self.assertIn("color-scheme: light;", css)
+
     def test_replacement_history_matches_the_register(self):
         """최신판으로 바꾼 이력은 관리대장의 구판·새 판과 맞아야 한다.
 

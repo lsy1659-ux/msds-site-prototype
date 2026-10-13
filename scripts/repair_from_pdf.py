@@ -477,6 +477,9 @@ def main() -> int:
             "firstAidText": _merge_keys(old.get("firstAidText"), {r["id"]: r["firstAidText"] for r in aid_texts}),
             "firstAidSource": _merge_keys(old.get("firstAidSource"), {r["id"]: r["firstAidSource"] for r in sourced}),
         }
+        # 이 스크립트가 모르는 칸(다른 작업이 넣은 'verified' 같은 손 대조 결과)은 그대로 둔다.
+        # 2026-10-13: 모르는 칸을 버리고 새로 써서 'verified' 4천여 줄이 지워질 뻔했다.
+        repairs = {**old, **repairs}   # 칸 순서도 예전대로
         with REPAIRS_PATH.open("w", encoding="utf-8", newline="\n") as file:
             file.write(json.dumps(repairs, ensure_ascii=False, indent=2) + "\n")
         print(f"적었다: {REPAIRS_PATH.relative_to(ROOT).as_posix()}")

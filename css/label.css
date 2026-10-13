@@ -733,6 +733,45 @@ select:focus-visible {
   .label-size-tall .label-supplier h3 { font-size: 6pt; }
   .label-size-tall .label-supplier p { font-size: 5.6pt; line-height: 1.22; }
   .label-size-tall .label-qr { width: 20mm; height: 20mm; }
+
+  /* ── 100mL 초과 · 작은 병 축소형 (가로형 뒤에 와야 이긴다) ── */
+  .label-size-bottle { --label-card-w: 92mm; --label-card-h: 64mm; }
+  .label-size-bottle .label-card {
+    height: calc(64mm + 9mm);
+    padding: calc(9mm + 2mm) 2.6mm 2mm;
+  }
+}
+
+/* ── 100mL 초과 · 작은 병 축소형 ────────────────────────────
+ * 박카스병처럼 둘레가 짧은 병에 감아 붙이는 92 x 64mm. 가로형(136 x 84mm)은
+ * 병 둘레보다 길고, 그림문자 옆과 문구 아래가 비었다. 신호어를 그림문자
+ * 옆으로 올리고 문구를 바로 이어 붙여 빈자리를 줄인다. 문구가 많아 칸을
+ * 넘치면 글자를 조금씩 줄인다(fitBottleLabels, --fit). 화면 미리보기와
+ * 인쇄에 같이 쓴다. 가로형 규칙(.label-size-small …)보다 앞서도록 시트 클래스까지 붙인다.
+ * 폰처럼 좁은 화면은 실제 크기로 못 보여 주므로 가로형과 같이 내용에 맞춰 편다. */
+@media print, screen and (min-width: 901px) {
+  .label-sheet.label-size-bottle .label-card {
+  --fit: 1;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto 1fr auto;
+  column-gap: 2mm;
+  row-gap: 0.7mm;
+}
+  .label-sheet.label-size-bottle .label-name { grid-column: 1 / -1; font-size: calc(8.5pt * var(--fit)); }
+  .label-sheet.label-size-bottle .label-name.is-long { font-size: calc(7pt * var(--fit)); line-height: 1.15; }
+  .label-sheet.label-size-bottle .label-name.is-verylong { font-size: calc(5.5pt * var(--fit)); line-height: 1.12; }
+  .label-sheet.label-size-bottle .label-pictograms { grid-column: 1; gap: 1.2mm; }
+  .label-sheet.label-size-bottle .label-signal { grid-column: 2; align-self: center; margin: 0; font-size: calc(10pt * var(--fit)); }
+  .label-sheet.label-size-bottle .label-two-col { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; gap: 2.4mm; }
+  .label-sheet.label-size-bottle .label-compact-foot { grid-column: 1 / -1; align-items: end; padding-top: 0.8mm; border-top: 0.3mm solid #999; }
+  .label-sheet.label-size-bottle .label-pictogram img { width: calc(7mm * var(--fit)); height: calc(7mm * var(--fit)); }
+  .label-sheet.label-size-bottle .label-pictogram figcaption { font-size: calc(3.8pt * var(--fit)); }
+  .label-sheet.label-size-bottle .label-block h3 { font-size: calc(5.2pt * var(--fit)); margin-bottom: 0.3mm; }
+  .label-sheet.label-size-bottle .label-block ul { padding-left: 2.2mm; font-size: calc(4.5pt * var(--fit)); line-height: 1.12; }
+  .label-sheet.label-size-bottle .label-block-note { font-size: calc(4.2pt * var(--fit)); line-height: 1.12; }
+  .label-sheet.label-size-bottle .label-supplier h3 { font-size: calc(5pt * var(--fit)); }
+  .label-sheet.label-size-bottle .label-supplier p { font-size: calc(4.4pt * var(--fit)); line-height: 1.15; }
+  .label-sheet.label-size-bottle .label-qr { width: 12mm; height: 12mm; }
 }
 
 
@@ -841,6 +880,14 @@ select:focus-visible {
  * ══════════════════════════════════════════════════════════ */
 
 @media print {
+  /* 어두운 화면(dark)으로 보던 PC 에서 인쇄하면 color-scheme: dark 때문에 종이 바탕(여백)이
+   * 검게 찍혔다. 인쇄는 늘 밝은 바탕으로. */
+  :root,
+  [data-theme="dark"] {
+    color-scheme: light;
+    background: #ffffff;
+  }
+
   body {
     margin: 0;
     background: #ffffff;
@@ -1243,4 +1290,25 @@ select:focus-visible {
   color: #5d6865;
   font-size: 1rem;
   font-weight: 700;
+}
+
+@media print {
+  /* ── 100mL 초과 · 작은 병 축소형: A4 세로에 2 x 4 = 8장 (92 x 64mm) ── */
+  body[data-label-page="bottle"] {
+    page: auto;
+  }
+
+  .label-sheet.label-size-bottle {
+    grid-template-columns: repeat(2, 92mm);
+    grid-auto-rows: 64mm;
+    justify-content: center;
+    gap: 3mm 4mm;
+  }
+
+  .label-sheet.label-size-bottle .label-card {
+    height: 64mm;
+    padding: 2mm 2.6mm;
+    overflow: hidden;
+    border-width: 0.4mm;
+  }
 }

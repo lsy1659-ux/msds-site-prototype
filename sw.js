@@ -11,9 +11,9 @@
  *  - PDF: 열어본 것만 캐시. 전체는 80MB가 넘어 미리 담지 않는다.
  */
 
-const CACHE_VERSION = "msds-20261008-9";
+const CACHE_VERSION = "msds-20261013-1";
 // 화면 파일 지문. scripts/bump_asset_version.py 가 적는다. 손으로 고치지 않는다.
-const SHELL_FINGERPRINT = "36c21851681b8511";
+const SHELL_FINGERPRINT = "0f56476bb0252204";
 const SHELL_CACHE = `${CACHE_VERSION}-shell`;
 const DATA_CACHE = `${CACHE_VERSION}-data`;
 const PDF_CACHE = `${CACHE_VERSION}-pdf`;

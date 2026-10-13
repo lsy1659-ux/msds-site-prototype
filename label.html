@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
     <title>MSDS 경고표지 만들기</title>
-    <link rel="stylesheet" href="css/label.css?v=20261008-9">
-    <link rel="stylesheet" href="css/topbar.css?v=20261008-9">
-    <link rel="stylesheet" href="css/tone.css?v=20261008-9">
+    <link rel="stylesheet" href="css/label.css?v=20261013-1">
+    <link rel="stylesheet" href="css/topbar.css?v=20261013-1">
+    <link rel="stylesheet" href="css/tone.css?v=20261013-1">
     <script>
       // 조회 화면에서 고른 화면 설정을 이 페이지에도 적용한다.
       try {
@@ -92,6 +92,7 @@
               <option value="mini" selected>소형용기 100mL 이하 (간이표시)</option>
               <option value="small">소분용기 100mL 초과 (2단 압축 · 가로형)</option>
               <option value="tall">소분용기 100mL 초과 (2단 압축 · 세로형)</option>
+              <option value="bottle">소분용기 100mL 초과 (작은 병 축소형 · 92×64mm)</option>
               <option value="medium">일반용기 (A5 정도)</option>
               <option value="large">드럼통 (A4 정도)</option>
             </select>
@@ -136,6 +137,8 @@
           그보다 큰 소분용기는 유해·위험문구를 모두 넣되 2단으로 압축합니다.
           2단 압축은 가로형과 세로형 두 가지입니다. 가로형은 A4 가로 한 장에 넉 장(136×84mm),
           세로형은 A4 세로 한 장에 넉 장(92.5×125mm)이 나오고 세로형이 글자가 더 큽니다.
+          박카스병처럼 작은 병에는 작은 병 축소형(92×64mm, A4 세로 한 장에 여덟 장)을 쓰세요.
+          문구가 많은 제품은 칸에 맞게 글자가 조금 작아집니다.
           100mL 이하 간이표시는 A4 세로 한 장에 여섯 장(92.5×81mm)입니다.
           모든 표지에 전체 MSDS로 가는 QR을 넣습니다.
         </p>
@@ -148,12 +151,12 @@
       <section id="labelSheet" class="label-sheet label-size-mini" aria-label="경고표지 목록"></section>
     </main>
 
-    <script src="vendor/qrcode.min.js?v=20261008-9"></script>
-    <script src="js/page-transition.js?v=20261008-9" defer></script>
-    <script src="js/pick-assist.js?v=20261008-9" defer></script>
-    <script src="js/handoff.js?v=20261008-9" defer></script>
-    <script src="js/label.js?v=20261008-9" defer></script>
-    <script src="js/site-qr.js?v=20261008-9" defer></script>
-    <script src="js/admin-gate.js?v=20261008-9" defer></script>
+    <script src="vendor/qrcode.min.js?v=20261013-1"></script>
+    <script src="js/page-transition.js?v=20261013-1" defer></script>
+    <script src="js/pick-assist.js?v=20261013-1" defer></script>
+    <script src="js/handoff.js?v=20261013-1" defer></script>
+    <script src="js/label.js?v=20261013-1" defer></script>
+    <script src="js/site-qr.js?v=20261013-1" defer></script>
+    <script src="js/admin-gate.js?v=20261013-1" defer></script>
   </body>
 </html>

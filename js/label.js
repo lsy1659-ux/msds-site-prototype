@@ -296,8 +296,9 @@ function applyLabelFilter() {
 function applyLabelSize() {
   if (labelElements.sheet) {
     // 세로형은 가로형의 화면 배치를 그대로 쓰고 인쇄 규격만 덧입힌다.
-    const sizeClass = labelState.size === "tall"
-      ? "label-size-small label-size-tall"
+    // 작은 병 축소형(bottle)도 가로형 본문에 크기·배치만 덧입힌다.
+    const sizeClass = labelState.size === "tall" ? "label-size-small label-size-tall"
+      : labelState.size === "bottle" ? "label-size-small label-size-bottle"
       : `label-size-${labelState.size}`;
     labelElements.sheet.className = `label-sheet ${sizeClass}`;
   }
@@ -321,7 +322,7 @@ function renderLabelSheet() {
   const mini = size === "mini";      // 100mL 이하: 고시가 허용하는 간이표시
   // 100mL 초과 소분용기는 2단으로 압축한다. 가로형(small)과 세로형(tall)은
   // 본문이 같고 인쇄 규격만 다르다.
-  const compact = size === "small" || size === "tall";
+  const compact = size === "small" || size === "tall" || size === "bottle";
 
   sheet.innerHTML = drawList.map((product) => {
     const checked = labelState.selected.has(product.id);
@@ -411,6 +412,7 @@ function renderLabelSheet() {
   }
 
   if (mini || compact) watchLabelQr(sheet);
+  if (size === "bottle") fitBottleLabels(sheet);
 
   updateLabelStatus();
 }
@@ -429,6 +431,31 @@ function visibleLabelProducts() {
 }
 
 let labelQrWatcher = null;
+
+/* 작은 병 축소형(92 x 64mm)은 칸이 작아 문구가 많은 제품(0278(HMC) 유해·위험문구 13개)은 넘친다.
+ * 넘치는 표지만 글자를 5%씩 줄여 칸 안에 담는다(70%까지). 문구를 빼지는 않는다.
+ * 화면 미리보기와 인쇄물은 칸 안쪽 크기가 같으므로 화면에서 잰 값을 인쇄에도 쓴다.
+ * 인쇄할 때만 꺼내는 사본(is-copy)은 화면에서 잴 수 없어 원본 값을 그대로 옮긴다. */
+const BOTTLE_FIT_MIN = 0.7;
+
+function fitBottleLabels(sheet) {
+  const run = () => {
+    sheet.querySelectorAll(".label-card:not(.is-copy)").forEach((card) => {
+      if (!card.clientHeight) return;
+      let fit = 1;
+      card.style.setProperty("--fit", "1");
+      while (card.scrollHeight > card.clientHeight + 1 && fit > BOTTLE_FIT_MIN) {
+        fit = Math.round((fit - 0.05) * 100) / 100;
+        card.style.setProperty("--fit", String(fit));
+      }
+      card.classList.toggle("is-overflowing", card.scrollHeight > card.clientHeight + 1);
+      sheet.querySelectorAll(`.label-card.is-copy[data-label-id="${CSS.escape(card.dataset.labelId)}"]`)
+        .forEach((copy) => copy.style.setProperty("--fit", String(fit)));
+    });
+  };
+  window.requestAnimationFrame(run);
+  document.fonts?.ready?.then(run);
+}
 
 function drawLabelQr(slot) {
   if (!slot || slot.dataset.drawn === "1" || typeof qrcode !== "function") return;

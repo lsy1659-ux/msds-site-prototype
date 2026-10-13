@@ -4137,6 +4137,37 @@
       "source": "http://www.taekyungeco.co.kr/resources/common/msds_file/business_file/아세틸렌.pdf",
       "replaces": "msds-pdf-f566b59f33deed0f",
       "datesCheckedSha256": "5e370ce0d72c9b619e7e7c0d60924607ffa7f9ebd84c424d38b67a7dab1eaa92"
+    },
+    "msds-pdf-3cf931eec9be742d": {
+      "productName": "DR-174 BU3(SP2-CAR)",
+      "supplier": "(주)노루비케미칼",
+      "status": "required",
+      "msdsNo": "",
+      "kind": "산업용 혼합물",
+      "reason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF(2021-01-13 개정, (주)노루비케미칼)에는 번호가 없음",
+      "basis": [
+        "L110",
+        "R157",
+        "R160",
+        "BU"
+      ],
+      "need": "공급사의 번호 기재 최신 MSDS",
+      "action": "노루오토코팅에 최신 MSDS 요청 (기아1공장 범퍼 수정장 사용)",
+      "checkedOn": "2026-10-13",
+      "signalWord": "위험",
+      "signalSource": "pdf1",
+      "issueDate": "2019-03-21",
+      "revisionDate": "2021-01-13",
+      "datesCheckedSha256": "3cf931eec9be742d69835e3b0dd34afb555bd43122eb412c351a9440ba83bd7e",
+      "sourceIssue": "원문 제2항의 H304(삼켜서 기도로 유입되면 치명적)·예방조치 P331(토하게 하지 마시오)와 제4항 '먹었을 때: 구토를 시키시오'가 서로 어긋남. 사이트·관리요령은 원문 문장을 그대로 두고 같은 MSDS 의 대응 문구(P301·P331)를 응급조치 옆에 함께 실었음. 공급사에 최신판 확인 요청",
+      "sourceIssueAsk": "제2항에 H304(흡인 유해성)와 예방조치 P331(토하게 하지 마시오)가 있는데, 제4항 응급조치(먹었을 때)는 '구토를 시키시오'로 되어 있어 서로 맞지 않아 보입니다. 최신판 MSDS 확인 부탁드립니다.",
+      "sourceIssueEvidence": {
+        "checkedOn": "2026-10-13",
+        "pdf": "pdf/01_ 도장/NAC(노루오토코팅)/DR-174 BU3(SP2-CAR).pdf",
+        "sha256": "3cf931eec9be742d69835e3b0dd34afb555bd43122eb412c351a9440ba83bd7e",
+        "page": 4,
+        "rule": "구토"
+      }
     }
   },
   "history": [
@@ -8960,6 +8991,23 @@
       "note": "원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음",
       "labelReprint": true,
       "labelReprintReason": "원문 전체 대조로 바뀜: 공급자"
+    },
+    {
+      "date": "2026-10-13",
+      "action": "새로 등록",
+      "productName": "DR-174 BU3(SP2-CAR)",
+      "supplier": "(주)노루비케미칼",
+      "oldId": "msds-pdf-3cf931eec9be742d",
+      "newId": "msds-pdf-3cf931eec9be742d",
+      "oldFile": "pdf/01_ 도장/NAC(노루오토코팅)/DR-174 BU3(SP2-CAR).pdf",
+      "newFile": "pdf/01_ 도장/NAC(노루오토코팅)/DR-174 BU3(SP2-CAR).pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "",
+      "oldRevision": "",
+      "newRevision": "2021-01-13",
+      "source": "원본 보관함 01_ 도장/NAC(노루오토코팅)",
+      "sha256": "3cf931eec9be742d69835e3b0dd34afb555bd43122eb412c351a9440ba83bd7e",
+      "note": "기아1공장 범퍼 수정장 화학물질 목록의 도료(BU3). 그림문자는 원문 2항 그림을 눈으로 확인(GHS02·07·08). 원문에 MSDS 번호 없음 → 확보 필요"
     }
   ]
 }
