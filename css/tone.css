@@ -2311,6 +2311,11 @@
     padding: 0 0 4px;
     border: 0;
     font-size: 0.9375rem;
+    /* PC 표의 성분명 칸은 한 줄(nowrap)이다. 카드로 펴면 그대로 이어받아
+     * "Substituted-alkyl(C=1-7) methacrylate polymer …" 같은 긴 영문 성분명이 1,300px 로 뻗고,
+     * 폰 브라우저가 그 폭에 맞춰 화면 전체를 줄여 왼쪽에 몰려 보였다(2026-10-13). 카드에서는 줄을 바꾼다. */
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   :root .component-table td,
