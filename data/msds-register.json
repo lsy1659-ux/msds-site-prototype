@@ -991,7 +991,20 @@
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
       "signalSource": "pdf1",
-      "datesCheckedSha256": "dbb779e2cab5cbb9211e5c19e15699eea470f4074ac5546beb5f228ac7ad27f6"
+      "datesCheckedSha256": "dbb779e2cab5cbb9211e5c19e15699eea470f4074ac5546beb5f228ac7ad27f6",
+      "msdsUseAdvice": {
+        "aliases": [
+          "MRM",
+          "RM",
+          "마그마 레드 매트",
+          "마그마 매트 레드"
+        ],
+        "note": "무광 칼라 MRM(마그마 레드 매트)는 별도 MSDS가 없으며, 공급사 안내에 따라 기존 OVR 칼라의 MSDS를 사용합니다.",
+        "source": "공급사 회신(사용자 전달)",
+        "sourceDate": null,
+        "recordedOn": "2026-10-13",
+        "originalText": "무광 칼라인 MRM, ISM 칼라에 대한 MSDS가 존재하지 않습니다.\n\n기존에 발송드린 OVR과 ISG 칼라에 대한 MSDS로 사용하시면 됩니다."
+      }
     },
     "msds-061": {
       "productName": "아크렉스 아이보리 실버 [ISG](A203-S7058)",
@@ -1005,7 +1018,20 @@
       "checkedOn": "2026-09-23",
       "signalWord": "위험",
       "signalSource": "pdf1",
-      "datesCheckedSha256": "72ebbc266e93440d341a9558c67b53d3c3b599e951be5a750fb12b71a56db938"
+      "datesCheckedSha256": "72ebbc266e93440d341a9558c67b53d3c3b599e951be5a750fb12b71a56db938",
+      "msdsUseAdvice": {
+        "aliases": [
+          "ISM",
+          "SM",
+          "아이보리 실버 매트",
+          "아이보리 매트 실버"
+        ],
+        "note": "무광 칼라 ISM(아이보리 실버 매트)는 별도 MSDS가 없으며, 공급사 안내에 따라 기존 ISG 칼라의 MSDS를 사용합니다.",
+        "source": "공급사 회신(사용자 전달)",
+        "sourceDate": null,
+        "recordedOn": "2026-10-13",
+        "originalText": "무광 칼라인 MRM, ISM 칼라에 대한 MSDS가 존재하지 않습니다.\n\n기존에 발송드린 OVR과 ISG 칼라에 대한 MSDS로 사용하시면 됩니다."
+      }
     },
     "msds-062": {
       "productName": "아크렉스 아이스버그 그린 [IEG](A203-G7033)",
@@ -9008,6 +9034,40 @@
       "source": "원본 보관함 01_ 도장/NAC(노루오토코팅)",
       "sha256": "3cf931eec9be742d69835e3b0dd34afb555bd43122eb412c351a9440ba83bd7e",
       "note": "기아1공장 범퍼 수정장 화학물질 목록의 도료(BU3). 그림문자는 원문 2항 그림을 눈으로 확인(GHS02·07·08). 원문에 MSDS 번호 없음 → 확보 필요"
+    },
+    {
+      "date": "2026-10-13",
+      "action": "무광 칼라 MSDS 사용 안내 기록",
+      "productName": "아크렉스 마그마 레드 [OVR](A203-R7054)",
+      "supplier": "KNK코팅스",
+      "oldId": "msds-060",
+      "newId": "msds-060",
+      "oldMsdsNo": "AA00586-0000000459",
+      "newMsdsNo": "AA00586-0000000459",
+      "oldRevision": "2025-03-26",
+      "newRevision": "2025-03-26",
+      "oldFile": "pdf/01_ 도장/KNK/아크렉스 마그마 레드 (OVR) A203R7054.pdf",
+      "newFile": "pdf/01_ 도장/KNK/아크렉스 마그마 레드 (OVR) A203R7054.pdf",
+      "note": "무광 칼라 MRM(마그마 레드 매트)는 별도 MSDS가 없으며, 공급사 안내에 따라 기존 OVR 칼라의 MSDS를 사용합니다. 기록일은 사이트 등록일이며, 공급사 회신일은 확인 필요.",
+      "source": "공급사 회신 문구(사용자 전달)",
+      "sha256": "dbb779e2cab5cbb9211e5c19e15699eea470f4074ac5546beb5f228ac7ad27f6"
+    },
+    {
+      "date": "2026-10-13",
+      "action": "무광 칼라 MSDS 사용 안내 기록",
+      "productName": "아크렉스 아이보리 실버 [ISG](A203-S7058)",
+      "supplier": "KNK코팅스",
+      "oldId": "msds-061",
+      "newId": "msds-061",
+      "oldMsdsNo": "AA00586-0000000460",
+      "newMsdsNo": "AA00586-0000000460",
+      "oldRevision": "2025-03-25",
+      "newRevision": "2025-03-25",
+      "oldFile": "pdf/01_ 도장/KNK/아크렉스 아이보리 실버 (ISG)A203S7058.pdf",
+      "newFile": "pdf/01_ 도장/KNK/아크렉스 아이보리 실버 (ISG)A203S7058.pdf",
+      "note": "무광 칼라 ISM(아이보리 실버 매트)는 별도 MSDS가 없으며, 공급사 안내에 따라 기존 ISG 칼라의 MSDS를 사용합니다. 기록일은 사이트 등록일이며, 공급사 회신일은 확인 필요.",
+      "source": "공급사 회신 문구(사용자 전달)",
+      "sha256": "72ebbc266e93440d341a9558c67b53d3c3b599e951be5a750fb12b71a56db938"
     }
   ]
 }

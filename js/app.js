@@ -1903,6 +1903,7 @@ function getEditDistance(a, b) {
 }
 
 function getProductSearchFields(product = {}) {
+  const adviceAliases = Array.isArray(product.msdsUseAdvice?.aliases) ? product.msdsUseAdvice.aliases : [];
   const componentItems = [
     ...(Array.isArray(product.components) ? product.components : []),
     ...(Array.isArray(product.ingredients) ? product.ingredients : [])
@@ -1938,8 +1939,8 @@ function getProductSearchFields(product = {}) {
   ].join(" "));
 
   return {
-    productNames: getUniqueSearchValues([product.productName]),
-    productCodes: codeCandidates,
+    productNames: getUniqueSearchValues([product.productName, ...adviceAliases]),
+    productCodes: getUniqueSearchValues([...codeCandidates, ...adviceAliases.filter((value) => /^[A-Z0-9-]{2,12}$/i.test(value))]),
     erpNames: getUniqueSearchValues([product.erpName]),
     fileNames: getUniqueSearchValues(fileNames),
     metaFields: getUniqueSearchValues([
@@ -2873,6 +2874,16 @@ function hasAnySummary(ghsPictograms = [], hazardStatements = [], precautions = 
     || Object.values(precautions || {}).some((items) => Array.isArray(items) && items.length);
 }
 
+function renderMsdsUseAdvice(product = {}) {
+  const advice = product.msdsUseAdvice;
+  if (!advice?.note) return "";
+  const sourceDate = advice.sourceDate ? `회신일 ${advice.sourceDate}` : "회신일 확인 필요";
+  return detailSection("공급사 MSDS 사용 안내", `
+    <p>${escapeHtml(advice.note)}</p>
+    <p class="summary-note">${escapeHtml(advice.source || "공급사 안내")} · ${escapeHtml(sourceDate)}${advice.recordedOn ? ` · 기록일 ${escapeHtml(advice.recordedOn)}` : ""}</p>
+  `, "detail-block-msds-use-advice");
+}
+
 function renderDetail(product) {
   if (!product) {
     elements.detailPanel.className = "detail-panel empty-detail";
@@ -2891,6 +2902,7 @@ function renderDetail(product) {
   elements.detailPanel.innerHTML = `
     ${renderBackToFullListButton()}
     ${renderSelectedProductBar(product, detailData, pdfInfo, summaryAvailable)}
+    ${renderMsdsUseAdvice(product)}
     ${detailSection("제품 기본정보", `
       <div class="info-grid detail-info-grid">
         ${detailItem("제품명", detailData.productName, "tag", "is-highlight")}

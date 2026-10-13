@@ -192,6 +192,14 @@ def apply_register(
         product["msdsNoLegalBasis"] = _legal_text(entry.get("basis") or [], legal)
         product["msdsNoCheckedOn"] = entry.get("checkedOn", "")
 
+        # 공급사가 안내한 다른 칼라의 MSDS 사용 근거. 원문 안전정보와 별도로 두고,
+        # 공개 자료를 다시 만들어도 관리대장에 남긴 안내를 유지한다.
+        advice = entry.get("msdsUseAdvice")
+        if isinstance(advice, dict) and advice.get("note"):
+            product["msdsUseAdvice"] = deepcopy(advice)
+        else:
+            product.pop("msdsUseAdvice", None)
+
         # 원문과 다르게 들어간 날짜를 바로잡는다. 원문에서 확인한 날짜만 관리대장에 적는다.
         # 확인한 PDF 의 해시를 같이 적어 두었으니, 그 자리에 다른 PDF 가 들어왔으면
         # 옛 날짜로 덮어쓰지 않는다.

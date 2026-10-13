@@ -15640,7 +15640,20 @@
     "msdsNoStatus": "verified",
     "msdsNoReason": "사이트 번호 = 원본 PDF 번호",
     "msdsNoLegalBasis": "시행규칙 제160조제1항 — 제공 시 시스템 제출 때 부여된 번호를 MSDS 에 반영",
-    "msdsNoCheckedOn": "2026-09-23"
+    "msdsNoCheckedOn": "2026-09-23",
+    "msdsUseAdvice": {
+      "aliases": [
+        "MRM",
+        "RM",
+        "마그마 레드 매트",
+        "마그마 매트 레드"
+      ],
+      "note": "무광 칼라 MRM(마그마 레드 매트)는 별도 MSDS가 없으며, 공급사 안내에 따라 기존 OVR 칼라의 MSDS를 사용합니다.",
+      "source": "공급사 회신(사용자 전달)",
+      "sourceDate": null,
+      "recordedOn": "2026-10-13",
+      "originalText": "무광 칼라인 MRM, ISM 칼라에 대한 MSDS가 존재하지 않습니다.\n\n기존에 발송드린 OVR과 ISG 칼라에 대한 MSDS로 사용하시면 됩니다."
+    }
   },
   {
     "id": "msds-061",
@@ -15953,7 +15966,20 @@
     "msdsNoStatus": "verified",
     "msdsNoReason": "사이트 번호 = 원본 PDF 번호",
     "msdsNoLegalBasis": "시행규칙 제160조제1항 — 제공 시 시스템 제출 때 부여된 번호를 MSDS 에 반영",
-    "msdsNoCheckedOn": "2026-09-23"
+    "msdsNoCheckedOn": "2026-09-23",
+    "msdsUseAdvice": {
+      "aliases": [
+        "ISM",
+        "SM",
+        "아이보리 실버 매트",
+        "아이보리 매트 실버"
+      ],
+      "note": "무광 칼라 ISM(아이보리 실버 매트)는 별도 MSDS가 없으며, 공급사 안내에 따라 기존 ISG 칼라의 MSDS를 사용합니다.",
+      "source": "공급사 회신(사용자 전달)",
+      "sourceDate": null,
+      "recordedOn": "2026-10-13",
+      "originalText": "무광 칼라인 MRM, ISM 칼라에 대한 MSDS가 존재하지 않습니다.\n\n기존에 발송드린 OVR과 ISG 칼라에 대한 MSDS로 사용하시면 됩니다."
+    }
   },
   {
     "id": "msds-062",
