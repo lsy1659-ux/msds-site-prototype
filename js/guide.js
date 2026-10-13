@@ -24,9 +24,10 @@ const GUIDE_OVERRIDE_SOURCES = [
   "data/msds-overrides.public.json"
 ];
 
-// 조회 화면처럼 ?dataMode=public 이면 로컬 파일을 건너뛰고 공개 자료만 읽는다(점검·확인용).
-const PUBLIC_DATA_ONLY = new URLSearchParams(window.location.search).get("dataMode") === "public";
-const notLocal = (source) => !PUBLIC_DATA_ONLY || !source.includes(".local.");
+// 공개 사이트와 ?dataMode=public 은 공개 자료만 읽는다. 실패해도 샘플을 인쇄하지 않는다.
+const PUBLIC_DATA_ONLY = new URLSearchParams(window.location.search).get("dataMode") === "public"
+  || !["localhost", "127.0.0.1", ""].includes(window.location.hostname);
+const notLocal = (source) => !PUBLIC_DATA_ONLY || source.includes(".public.");
 
 const GUIDE_GHS = {
   GHS01: { label: "폭발성", icon: "assets/ghs/ghs01.svg" },
@@ -498,7 +499,8 @@ function applyGuideFilter() {
   let list = !needle
     ? [...guideState.products]
     : guideState.products.filter((product) => guideNormalize([
-        product.productName, product.supplier, product.category, product.useCategory, product.msdsNo
+        product.productName, product.supplier, product.category, product.useCategory, product.msdsNo,
+        ...(Array.isArray(product.msdsUseAdvice?.aliases) ? product.msdsUseAdvice.aliases : [])
       ].join(" ")).includes(needle));
   if (guideState.onlyPostable) list = list.filter(isPostable);
   guideState.filtered = list;
@@ -700,8 +702,7 @@ function bindGuideEvents() {
     if (!count) return;
     if (count > 1 && !window.confirm(`화면에 보이는 관리요령 ${count}건을 모두 인쇄합니다. ${count}장이 나갑니다. 계속할까요?`)) return;
     // 고른 것만 남기는 인쇄 규칙을 잠시 끄고, 보이는 것을 모두 그린 뒤 인쇄한다.
-    guideState.onlySelected = false;
-    applyGuideFilter();
+    // '고른 것만 보기'도 현재 목록이다. 인쇄할 때 그 범위를 풀지 않는다.
     guideState.renderCount = guideState.filtered.length;
     renderGuideSheet();
     syncGuideSelection();
@@ -768,6 +769,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     .sort((a, b) => String(a.productName).localeCompare(String(b.productName), "ko"));
 
   if (!guideState.products.length) {
+    syncGuidePrintButtons();
     guideElements.status.textContent = "제품 데이터를 불러오지 못했습니다.";
     guideElements.sheet.innerHTML = '<p class="guide-empty-list">제품 데이터를 불러오지 못했습니다.</p>';
     return;

@@ -18,9 +18,10 @@ const LABEL_OVERRIDE_SOURCES = [
   "data/msds-overrides.public.json"
 ];
 
-// 조회 화면처럼 ?dataMode=public 이면 로컬 파일을 건너뛰고 공개 자료만 읽는다(점검·확인용).
-const PUBLIC_DATA_ONLY = new URLSearchParams(window.location.search).get("dataMode") === "public";
-const notLocal = (source) => !PUBLIC_DATA_ONLY || !source.includes(".local.");
+// 공개 사이트와 ?dataMode=public 은 공개 자료만 읽는다. 실패해도 샘플을 인쇄하지 않는다.
+const PUBLIC_DATA_ONLY = new URLSearchParams(window.location.search).get("dataMode") === "public"
+  || !["localhost", "127.0.0.1", ""].includes(window.location.hostname);
+const notLocal = (source) => !PUBLIC_DATA_ONLY || source.includes(".public.");
 
 const GHS_PICTOGRAMS = {
   GHS01: { label: "폭발성", icon: "assets/ghs/ghs01.svg" },
@@ -286,7 +287,8 @@ function applyLabelFilter() {
   let list = !needle
     ? [...labelState.products]
     : labelState.products.filter((product) => labelNormalize([
-        product.productName, product.supplier, product.category, product.useCategory, product.msdsNo
+        product.productName, product.supplier, product.category, product.useCategory, product.msdsNo,
+        ...(Array.isArray(product.msdsUseAdvice?.aliases) ? product.msdsUseAdvice.aliases : [])
       ].join(" ")).includes(needle));
   // 조회 화면에서 넘겨받았거나 고른 제품은 표지 항목이 덜 차 있어도 보여 준다(안 보이면 왜 없는지 모른다).
   if (labelState.onlyPrintable) list = list.filter((product) => isPrintable(product) || labelState.selected.has(product.id));
@@ -699,8 +701,7 @@ function bindLabelEvents() {
     if (!count) return;
     if (count > 1 && !window.confirm(`화면에 보이는 표지 ${count}건을 모두 인쇄합니다. 계속할까요?`)) return;
     // 고른 것만 남기는 인쇄 규칙을 잠시 끄고, 보이는 것을 모두 그린 뒤 인쇄한다.
-    labelState.onlySelected = false;
-    applyLabelFilter();
+    // '고른 것만 보기'도 현재 목록이다. 인쇄할 때 그 범위를 풀지 않는다.
     labelState.renderCount = labelState.filtered.length;
     renderLabelSheet();
     syncLabelSelection();
@@ -715,10 +716,11 @@ function bindLabelEvents() {
     // 골라 둔 제품인데도 빠진다. 빠지는 게 있으면 먼저 전부 불러온다.
     const picked = labelState.selected.size;
     if (!picked) return;
-    const missing = picked
-      && [...labelState.selected].some((id) => !labelState.filtered.some((product) => product.id === id));
+    const drawn = new Set([...labelElements.sheet.querySelectorAll('.label-card:not(.is-copy)')]
+      .map((card) => card.dataset.labelId));
+    const missing = [...labelState.selected].some((id) => !drawn.has(id));
     // 고른 것은 화면 아래쪽에 있어도 함께 그려 두므로(visibleLabelProducts),
-    // 찾기로 걸러져 빠진 것만 다시 불러오면 된다.
+    // 찾기나 아직 그리지 않은 목록 때문에 빠진 표지는 인쇄 전에 채운다.
     if (missing) {
       labelState.onlySelected = true;
       applyLabelFilter();
@@ -767,6 +769,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     .sort((a, b) => String(a.productName).localeCompare(String(b.productName), "ko"));
 
   if (!labelState.products.length) {
+    syncLabelPrintButtons();
     labelElements.status.textContent = "제품 데이터를 불러오지 못했습니다.";
     labelElements.sheet.innerHTML = '<p class="label-empty">제품 데이터를 불러오지 못했습니다.</p>';
     return;

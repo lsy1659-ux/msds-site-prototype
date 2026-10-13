@@ -270,6 +270,27 @@ REGISTER_STATUSES = {"verified", "required", "not_required", "submission_exempt"
 KOSHA_MSDS_NO = re.compile(r"^[A-Z]{2}\d{5}-\d{10}$")
 
 
+def validate_msds_use_advice(advice: Any, result: ValidationResult, subject: str) -> None:
+    """공급사 안내의 형식·출처만 검증한다. 대응 관계의 적합성은 판정하지 않는다."""
+    if advice is None:
+        return
+    if not isinstance(advice, dict):
+        result.add("error", "MSDS_USE_ADVICE_INVALID", "공급사 사용 안내는 객체여야 한다.", subject)
+        return
+    for field in ("note", "source", "recordedOn"):
+        if not isinstance(advice.get(field), str) or not advice[field].strip():
+            result.add("error", "MSDS_USE_ADVICE_FIELD_MISSING", f"공급사 안내의 {field}가 비어 있다.", subject)
+    aliases = advice.get("aliases")
+    if not isinstance(aliases, list) or not aliases or any(
+        not isinstance(alias, str) or not alias.strip() for alias in aliases
+    ):
+        result.add("error", "MSDS_USE_ADVICE_ALIASES_INVALID", "검색명은 비어 있지 않은 문자열 목록이어야 한다.", subject)
+    elif len({alias.strip().casefold() for alias in aliases}) != len(aliases):
+        result.add("error", "MSDS_USE_ADVICE_ALIASES_DUPLICATE", "공급사 안내에 중복 검색명이 있다.", subject)
+    for field in ("sourceDate", "recordedOn"):
+        validate_date_field(result, advice, field, subject)
+
+
 def validate_msds_register(root: Path, products: list[dict[str, Any]], result: "ValidationResult") -> set[str]:
     """MSDS 번호 관리대장(data/msds-register.json)과 공개 데이터가 맞는지 본다.
 
@@ -292,6 +313,7 @@ def validate_msds_register(root: Path, products: list[dict[str, Any]], result: "
     legal = register.get("legalBasis") or {}
     retired_pdfs: set[str] = set()
     for pid, entry in entries.items():
+        validate_msds_use_advice(entry.get("msdsUseAdvice"), result, f"register:{pid}")
         status = entry.get("status")
         if status not in REGISTER_STATUSES:
             result.add("error", "MSDS_REGISTER_STATUS_INVALID", f"상태 값이 틀렸다: {status}", pid)
@@ -313,6 +335,7 @@ def validate_msds_register(root: Path, products: list[dict[str, Any]], result: "
 
     for product in products:
         pid = product.get("id")
+        validate_msds_use_advice(product.get("msdsUseAdvice"), result, str(pid))
         entry = entries.get(pid)
         number = str(product.get("msdsNo") or "").strip()
         if number and not KOSHA_MSDS_NO.match(number):
@@ -323,6 +346,9 @@ def validate_msds_register(root: Path, products: list[dict[str, Any]], result: "
             continue
         if entry.get("status") == "retired":
             result.add("error", "MSDS_REGISTER_RETIRED_STILL_PUBLISHED", "구판으로 정한 제품이 아직 목록에 있다.", pid)
+        if product.get("msdsUseAdvice") != entry.get("msdsUseAdvice"):
+            result.add("error", "MSDS_USE_ADVICE_OUT_OF_SYNC",
+                       "공개 데이터의 공급사 안내가 관리대장과 다르다. 안내를 다시 반영해야 한다.", pid)
         if number != str(entry.get("msdsNo") or "").strip():
             result.add("error", "MSDS_REGISTER_NUMBER_OUT_OF_SYNC",
                        "공개 데이터 번호가 관리대장과 다르다. scripts/apply_msds_register.py --write 를 돌린다.", pid)

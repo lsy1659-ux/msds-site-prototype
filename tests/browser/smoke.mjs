@@ -13,7 +13,7 @@
 // CHROME 환경변수로 Chrome 위치를 줄 수 있다. 없으면 흔한 자리를 찾아본다.
 
 import { spawn } from "node:child_process";
-import { createReadStream, existsSync, mkdtempSync, rmSync, statSync } from "node:fs";
+import { createReadStream, existsSync, mkdirSync, mkdtempSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { tmpdir } from "node:os";
 import { extname, join, normalize, resolve } from "node:path";
@@ -156,11 +156,21 @@ function expect(value, message) {
 }
 
 const server = await startServer();
-const BASE = `http://127.0.0.1:${server.address().port}`;
+// 배포 후에는 같은 회귀 경로를 실제 공개 주소에서 읽기 전용으로 확인할 수 있다.
+const BASE = (process.env.MSDS_SMOKE_BASE || `http://127.0.0.1:${server.address().port}`).replace(/\/$/, "");
 // 로컬 PC 에는 공개되지 않는 로컬 자료가 있다. 공개 자료로 맞춰 본다.
 const INDEX = `${BASE}/index.html?dataMode=public`;
 const chrome = await launchChrome();
 const page = await Page.open(chrome.port);
+const ARTIFACTS = process.env.MSDS_SMOKE_ARTIFACTS;
+if (ARTIFACTS) mkdirSync(ARTIFACTS, { recursive: true });
+async function screenshot(name) {
+  if (!ARTIFACTS) return;
+  // 화면 진입 애니메이션과 부드러운 스크롤이 끝난 모습을 기록한다.
+  await sleep(1200);
+  const { data } = await page.send("Page.captureScreenshot", { format: "png" });
+  writeFileSync(join(ARTIFACTS, `${name}.png`), Buffer.from(data, "base64"));
+}
 
 try {
   console.log(`MSDS 화면 점검 (${BASE})`);
@@ -177,6 +187,7 @@ try {
     await page.until("document.querySelector('.selection-collapsed-card')");
     const title = await page.eval("return document.querySelector('.poster-product-title h2')?.textContent || '';");
     expect(title.includes("TC-317"), `요약판 제목: ${title}`);
+    await screenshot("desktop-summary");
   });
 
   await check("TC-317 요약판: 그림문자 3개, 보호구 4개(보호장갑 포함)", async () => {
@@ -244,6 +255,7 @@ try {
     await page.until("document.querySelector('#scrollQuickNav [data-scroll-target=\"firstAid\"]')");
     await page.eval("document.querySelector('#scrollQuickNav [data-scroll-target=\"firstAid\"]').click();");
     await page.until("Math.abs(document.querySelector('.detail-block-first-aid').getBoundingClientRect().top) < 160", 5000);
+    await screenshot("mobile-first-aid");
   });
 
   await check("큰 글자 보기를 켜면 본문 글자가 커지고 저장된다", async () => {
@@ -316,10 +328,152 @@ try {
     expect(await page.eval("return document.querySelector('#labelPrint').disabled;"), "눌린다");
   });
 
+  await check("경고표지: 전체 선택 뒤 화면 아래 표지도 모두 인쇄한다", async () => {
+    await page.go(`${BASE}/label.html?dataMode=public`);
+    await page.until("document.querySelector('#labelStatus')?.textContent.includes('건')");
+    const count = await page.eval(`return labelState.filtered.length;`);
+    expect(count > 12, "가상 목록보다 많은 제품이 필요하다");
+    await page.eval(`window.print = () => { window.printedIds = [...document.querySelectorAll('.label-card.is-selected:not(.is-copy)')].map((c) => c.dataset.labelId); };
+      document.querySelector('#labelSelectAll').click();
+      document.querySelector('#labelPrint').click();`);
+    await page.until("Array.isArray(window.printedIds)");
+    const actual = await page.eval("return window.printedIds.length;");
+    expect(actual === count, `선택 ${count}건 / 인쇄 ${actual}건`);
+  });
+
+  for (const kind of ["label", "guide"]) {
+    await check(`${kind}: 고른 것만 보기에서 전체 인쇄는 그 제품만 포함한다`, async () => {
+      await page.go(`${BASE}/${kind}.html?dataMode=public&product=msds-033`);
+      await page.until(`document.querySelector('#${kind}Print') && !document.querySelector('#${kind}Print').disabled`);
+      await page.eval(`window.confirm = () => true;
+        window.print = () => { window.printedIds = [...document.querySelectorAll('.${kind}-card:not(.is-copy)')].map((c) => c.dataset.${kind}Id); };
+        const toggle = document.querySelector('#${kind}OnlySelected');
+        if (toggle.getAttribute('aria-pressed') !== 'true') toggle.click();
+        document.querySelector('#${kind}PrintAll').click();`);
+      await page.until("Array.isArray(window.printedIds)");
+      const actual = await page.eval("return window.printedIds;");
+      expect(actual.length === 1 && actual[0] === "msds-033", `인쇄 대상 ${actual.length}건`);
+    });
+
+    await check(`${kind}: 공급사 안내 검색명 MRM·ISM이 원문 제품으로 연결된다`, async () => {
+      await page.go(`${BASE}/${kind}.html?dataMode=public`);
+      await page.until(`document.querySelector('#${kind}Status')?.textContent.includes('건')`);
+      for (const [alias, id] of [["MRM", "msds-060"], ["ISM", "msds-061"]]) {
+        await page.eval(`const input = document.querySelector('#${kind}Search'); input.value = '${alias}'; input.dispatchEvent(new Event('input', { bubbles: true }));`);
+        const match = await page.eval(`return { card: Boolean(document.querySelector('[data-${kind}-id="${id}"]')), suggestion: document.querySelector('.pick-assist')?.textContent || '' };`);
+        expect(match.card && match.suggestion.includes(alias === "MRM" ? "OVR" : "ISG"), JSON.stringify(match));
+      }
+    });
+
+    await check(`${kind}: 키보드로 검색 제안을 선택하고 닫힌 상태를 알린다`, async () => {
+      await page.eval(`const input = document.querySelector('#${kind}Search');
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));`);
+      const active = await page.eval(`const input = document.querySelector('#${kind}Search');
+        return { expanded: input.getAttribute('aria-expanded'), option: document.getElementById(input.getAttribute('aria-activedescendant'))?.getAttribute('aria-selected') };`);
+      expect(active.expanded === "true" && active.option === "true", JSON.stringify(active));
+      await page.eval(`document.querySelector('#${kind}Search').dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));`);
+      const picked = await page.eval(`return { closed: document.querySelector('#${kind}Search').getAttribute('aria-expanded'), picked: document.querySelector('[data-${kind}-id="msds-061"]')?.classList.contains('is-selected') };`);
+      expect(picked.closed === "false" && picked.picked, JSON.stringify(picked));
+    });
+
+    await check(`${kind}: 공개 자료가 실패하면 샘플 표지 없이 인쇄를 막는다`, async () => {
+      await page.send("Network.enable");
+      await page.send("Network.setBypassServiceWorker", { bypass: true });
+      await page.send("Network.setBlockedURLs", { urls: ["*msds.public.json*"] });
+      try {
+        await page.go(`${BASE}/${kind}.html?dataMode=public`);
+        await page.until(`document.querySelector('#${kind}Status')?.textContent.includes('불러오지 못')`);
+        const state = await page.eval(`return { cards: document.querySelectorAll('.${kind}-card').length, blocked: document.querySelector('#${kind}Print').disabled && document.querySelector('#${kind}PrintAll').disabled };`);
+        expect(state.cards === 0 && state.blocked, JSON.stringify(state));
+      } finally {
+        await page.send("Network.setBlockedURLs", { urls: [] });
+        await page.send("Network.setBypassServiceWorker", { bypass: false });
+      }
+    });
+  }
+
+  await check("긴 제품명·성분명: 320·390px 폰에서도 화면 폭을 넘지 않는다", async () => {
+    for (const width of [320, 390]) {
+      await page.size(width, 844, true);
+      await page.go(INDEX);
+      await page.until("state.products.length > 0");
+      const overflow = await page.eval(`const ingredientLength = p => Math.max(0, ...(p.ingredients || p.components || []).map(c => String(c.chemicalName || '').length));
+        const candidates = [...new Set([
+          ...[...state.products].sort((a,b) => b.productName.length - a.productName.length).slice(0,3),
+          ...[...state.products].sort((a,b) => ingredientLength(b) - ingredientLength(a)).slice(0,3)
+        ].map(p => p.id))];
+        const failures = [];
+        for (const id of candidates) {
+          state.selectedId = id; render();
+          await new Promise(ok => requestAnimationFrame(() => requestAnimationFrame(ok)));
+          if (document.documentElement.scrollWidth > window.innerWidth + 1) failures.push({id, width: document.documentElement.scrollWidth, viewport: window.innerWidth});
+        }
+        document.querySelector('.detail-block-components')?.scrollIntoView();
+        return failures;`);
+      expect(overflow.length === 0, JSON.stringify(overflow));
+    }
+    await screenshot("mobile-long-ingredients");
+  });
+
+  await check("작은 병 라벨: 어두운 화면에서도 92×64mm 표지 8개를 흰 바탕으로 인쇄한다", async () => {
+    await page.size(1280, 900);
+    await page.go(`${BASE}/label.html?dataMode=public&product=msds-033`);
+    await page.until("document.querySelector('[data-label-id=\"msds-033\"]')");
+    await page.eval(`document.documentElement.dataset.theme = 'dark';
+      const size = document.querySelector('#labelSize'); size.value = 'bottle'; size.dispatchEvent(new Event('change'));
+      const qty = document.querySelector('[data-label-qty="msds-033"]'); qty.value = 8; qty.dispatchEvent(new Event('change', { bubbles: true }));
+      document.querySelectorAll('[data-label-qr]').forEach(drawLabelQr);
+      await document.fonts.ready;`);
+    await sleep(250);
+    await page.send("Emulation.setEmulatedMedia", { media: "print" });
+    try {
+      const cards = await page.eval(`return [...document.querySelectorAll('.label-card.is-selected')].map(c => {
+        const r = c.getBoundingClientRect(), s = getComputedStyle(c);
+        return { width: r.width, height: r.height, background: s.backgroundColor, overflow: c.scrollHeight > c.clientHeight + 1, qr: Boolean(c.querySelector('.label-qr svg')) };
+      });`);
+      expect(cards.length === 8 && cards.every(c => Math.abs(c.width - 92 * 96 / 25.4) < 1 && Math.abs(c.height - 64 * 96 / 25.4) < 1 && c.background === "rgb(255, 255, 255)" && !c.overflow && c.qr), JSON.stringify(cards));
+      const { data } = await page.send("Page.printToPDF", { printBackground: true, preferCSSPageSize: true, displayHeaderFooter: false });
+      if (ARTIFACTS) writeFileSync(join(ARTIFACTS, "bottle-labels-a4.pdf"), Buffer.from(data, "base64"));
+    } finally {
+      await page.send("Emulation.setEmulatedMedia", { media: "screen" });
+    }
+  });
+
   await check("오프라인 저장 칸에 지금 자료판이 보인다", async () => {
     await page.go(`${INDEX}&offline=1`);
     await page.until("(document.querySelector('#offlinePanel')?.textContent || '').includes('지금 자료판')");
   });
+
+  if (process.env.MSDS_CHECK_PUBLIC === "1") {
+    await check("공개 사이트: 219개 제품과 최신 MRM·ISM 공급사 안내가 실제로 표시된다", async () => {
+      const PUBLIC = "https://lsy1659-ux.github.io/msds-site-prototype/";
+      await page.go(PUBLIC);
+      await page.until("document.querySelectorAll('.quick-search button').length > 0", 30000);
+      await page.until("state.products.length > 0 || state.dataLoadError", 30000);
+      const count = await page.eval("return state.products.length;");
+      expect(count === 219, `공개 제품 ${count}개`);
+      for (const [alias, id, code] of [["MRM", "msds-060", "OVR"], ["ISM", "msds-061", "ISG"]]) {
+        await page.eval(`const input = document.querySelector('#searchInput'); input.value = '${alias}'; input.dispatchEvent(new Event('input', { bubbles: true }));`);
+        await page.until(`document.querySelector('.selection-item[data-product-id="${id}"]')`);
+        await page.eval(`document.querySelector('.selection-item[data-product-id="${id}"]').click();`);
+        const detail = await page.eval("return document.querySelector('.detail-block-msds-use-advice')?.textContent || '';");
+        expect(detail.includes(alias) && detail.includes(code) && detail.includes("2026-10-13"), detail);
+      }
+      await screenshot("public-supplier-advice");
+    });
+  }
+
+  if (process.env.MSDS_EXPECT_ASSET_VERSION) {
+    await check("화면 자산과 서비스워커 판 번호가 기대값과 일치한다", async () => {
+      await page.go(INDEX);
+      await page.until("state.products.length > 0", 30000);
+      const versions = await page.eval(`const asset = document.querySelector('script[src^="js/app.js"]');
+        const sw = await (await fetch('sw.js', { cache: 'reload' })).text();
+        return { asset: new URL(asset.src).searchParams.get('v'), cache: sw.match(/const CACHE_VERSION = "([^\"]+)"/)?.[1] };`);
+      const expected = process.env.MSDS_EXPECT_ASSET_VERSION;
+      expect(versions.asset === expected && versions.cache === `msds-${expected}`, JSON.stringify(versions));
+    });
+  }
 
   await check("화면 오류(스크립트 예외) 없음", async () => {
     const errors = page.errors.filter((text) => text && !/favicon|Failed to load resource|ServiceWorker|Transition was skipped/i.test(text));
@@ -334,5 +488,6 @@ try {
 }
 
 const failed = results.filter((r) => !r.ok);
+if (ARTIFACTS) writeFileSync(join(ARTIFACTS, "results.json"), JSON.stringify(results, null, 2));
 console.log(`\n${results.length - failed.length}/${results.length} 통과`);
 process.exit(failed.length ? 1 : 0);

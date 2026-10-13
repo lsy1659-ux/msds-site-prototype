@@ -30,8 +30,14 @@
 
     const box = document.createElement("div");
     box.className = "pick-assist";
+    box.id = `${input.id}-suggestions`;
     box.setAttribute("role", "listbox");
+    box.setAttribute("aria-label", "제품 검색 제안");
     box.hidden = true;
+    input.setAttribute("role", "combobox");
+    input.setAttribute("aria-autocomplete", "list");
+    input.setAttribute("aria-controls", box.id);
+    input.setAttribute("aria-expanded", "false");
 
     // 칸 바로 아래에 띄운다. 칸을 감싸는 label 이 기준이 된다.
     const anchor = input.closest("label") || input.parentElement;
@@ -44,16 +50,21 @@
     function close() {
       box.hidden = true;
       active = -1;
+      input.setAttribute("aria-expanded", "false");
+      input.removeAttribute("aria-activedescendant");
     }
 
     function draw() {
       const needle = normalize(input.value);
       matches = [];
+      active = -1;
+      input.removeAttribute("aria-activedescendant");
       if (needle.length >= 1) {
         const seen = new Set();
         for (const product of getProducts()) {
           const name = String(product.productName || "");
-          const hay = normalize([name, product.supplier, product.msdsNo].join(" "));
+          const hay = normalize([name, product.supplier, product.msdsNo,
+            ...(Array.isArray(product.msdsUseAdvice?.aliases) ? product.msdsUseAdvice.aliases : [])].join(" "));
           if (!hay.includes(needle) || seen.has(name)) continue;
           seen.add(name);
           matches.push(product);
@@ -64,11 +75,13 @@
 
       box.innerHTML = matches.map((product, index) => `
         <button type="button" class="pick-assist-item" role="option"
+          id="${escapeHtml(box.id)}-option-${index}"
           aria-selected="${index === active}" data-pick-index="${index}">
           <span>${escapeHtml(product.productName)}</span>
           <b>${escapeHtml(product.supplier || "")}</b>
         </button>`).join("");
       box.hidden = false;
+      input.setAttribute("aria-expanded", "true");
     }
 
     function choose(index) {
@@ -93,6 +106,8 @@
           item.classList.toggle("is-active", index === active);
           item.setAttribute("aria-selected", String(index === active));
         });
+        const option = box.querySelector(`[data-pick-index="${active}"]`);
+        if (option) input.setAttribute("aria-activedescendant", option.id);
         return;
       }
       if (event.key === "Enter" && active >= 0) {

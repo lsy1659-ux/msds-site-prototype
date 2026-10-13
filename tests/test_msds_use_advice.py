@@ -3,6 +3,7 @@
 from copy import deepcopy
 import json
 from pathlib import Path
+from tempfile import TemporaryDirectory
 import sys
 import unittest
 
@@ -10,9 +11,54 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from apply_msds_register import apply_register
+from validate_public_release import ValidationResult, validate_msds_register, validate_msds_use_advice
 
 
 class MsdsUseAdviceTests(unittest.TestCase):
+    def valid_advice(self):
+        return {"aliases": ["MRM"], "note": "공급사 사용 안내", "source": "공급사 회신",
+                "sourceDate": None, "recordedOn": "2026-10-13"}
+
+    def test_unknown_reply_date_is_allowed_without_invention(self):
+        advice = self.valid_advice()
+        result = ValidationResult()
+        validate_msds_use_advice(advice, result, "sample")
+        self.assertEqual(result.errors, [])
+        self.assertIsNone(advice["sourceDate"])
+
+    def test_missing_source_invalid_aliases_and_dates_are_blocked(self):
+        cases = [("source", ""), ("aliases", "MRM"), ("aliases", ["MRM", None]),
+                 ("aliases", ["MRM", "mrm"]), ("recordedOn", ""),
+                 ("recordedOn", "2026-02-30"), ("sourceDate", "어제")]
+        for field, value in cases:
+            with self.subTest(field=field, value=value):
+                advice = self.valid_advice()
+                advice[field] = value
+                result = ValidationResult()
+                validate_msds_use_advice(advice, result, "sample")
+                self.assertTrue(result.errors)
+
+    def test_malformed_advice_is_reported_without_crashing(self):
+        for advice in ("MRM", [], 123):
+            with self.subTest(advice=advice):
+                result = ValidationResult()
+                validate_msds_use_advice(advice, result, "sample")
+                self.assertEqual(result.errors[0].code, "MSDS_USE_ADVICE_INVALID")
+
+    def test_changed_or_removed_register_advice_requires_public_data_update(self):
+        advice = self.valid_advice()
+        product = {"id": "sample", "msdsUseAdvice": advice}
+        for current in (None, {**advice, "aliases": ["ISM"]}):
+            with self.subTest(current=current), TemporaryDirectory() as directory:
+                root = Path(directory)
+                (root / "data").mkdir()
+                entry = {"status": "pending", "msdsUseAdvice": current}
+                (root / "data/msds-register.json").write_text(
+                    json.dumps({"products": {"sample": entry}}), encoding="utf-8")
+                result = ValidationResult()
+                validate_msds_register(root, [product], result)
+                self.assertIn("MSDS_USE_ADVICE_OUT_OF_SYNC", {issue.code for issue in result.errors})
+
     def test_rebuild_preserves_advice_without_changing_source_msds_fields(self):
         register = json.loads((ROOT / "data/msds-register.json").read_text(encoding="utf-8"))
         products = json.loads((ROOT / "data/msds.public.json").read_text(encoding="utf-8"))
