@@ -170,10 +170,7 @@ class SiteUiContractTests(unittest.TestCase):
     def test_long_ingredient_names_wrap_on_phones(self):
         """폰 성분 카드에서 긴 영문 성분명이 한 줄로 뻗으면 화면 전체가 줄어 왼쪽에 몰린다(2026-10-13 DR-174 SWP)."""
         tone = (ROOT / "css" / "tone.css").read_text(encoding="utf-8")
-        block = tone[tone.index(":root .component-table tbody th {"):]
-        block = block[:block.index("}")]
-        self.assertIn("white-space: normal;", block)
-        self.assertIn("overflow-wrap: anywhere;", block)
+        self.assertRegex(tone, r":root \.component-table tbody th \{[^}]*white-space: normal;[^}]*overflow-wrap: anywhere;")
 
     def test_small_bottle_label_size(self):
         """박카스병 같은 작은 병용 100mL 초과 축소형(92 x 64mm, A4 세로 8장)과 넘칠 때 글자 줄이기."""
