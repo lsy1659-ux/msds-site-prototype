@@ -149,6 +149,7 @@ function guideProductUrl(product) {
   const base = new URL(".", window.location.href);
   base.searchParams.set("product", product.id);
   base.searchParams.set("q", product.productName);
+  if (new URLSearchParams(window.location.search).get("dataMode") === "public") base.searchParams.set("dataMode", "public");
   return base.toString();
 }
 

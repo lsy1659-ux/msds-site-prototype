@@ -119,6 +119,7 @@ function buildProductUrl(productId) {
   base.searchParams.set("product", productId);
   const product = labelState.products.find((item) => item.id === productId);
   if (product?.productName) base.searchParams.set("q", product.productName);
+  if (new URLSearchParams(window.location.search).get("dataMode") === "public") base.searchParams.set("dataMode", "public");
   return base.toString();
 }
 

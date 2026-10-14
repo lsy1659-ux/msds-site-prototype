@@ -65,3 +65,53 @@ for(const backend of [storage,{setItem(){throw new Error('quota')},getItem(){thr
   assert.deepEqual(Array.from(e.win.MsdsHandoff.requested()),[]);
 }
 console.log(`${products.length}개 선택 전달 / URL 길이 / 저장소 차단 fallback / 한 제품·오프라인 링크: PASS`);
+
+// 오래된 QR은 이름으로 복구하되 여러 후보에서 첫 제품을 추정 선택하지 않는다.
+const appSource=readFileSync(join(ROOT,'js/app.js'),'utf8');
+function sourceFunction(name,next){
+  const start=appSource.indexOf(`function ${name}(`),end=appSource.indexOf(`function ${next}(`,start);
+  assert.ok(start>=0&&end>start,`${name}: production function missing`);
+  return appSource.slice(start,end);
+}
+const lookupWindow={location:{search:''}},lookupState={};
+const lookupInput={value:''};
+const lookupContext=vm.createContext({window:lookupWindow,state:lookupState,elements:{searchInput:lookupInput},URLSearchParams});
+vm.runInContext(sourceFunction('normalizeSearchText','normalizeGhsCode')+sourceFunction('getRequestedProductId','updateProductUrl'),lookupContext);
+const lookup=vm.runInContext('getRequestedProductId',lookupContext);
+const variants=[{id:'a',productName:'DR-174 RED',formerIds:['former-a']},{id:'b',productName:'DR-174 BLUE'},{id:'c',productName:'Unique #1 (100%)'}];
+const cases=[
+  ['?product=a&q=unknown',variants,'a'],
+  ['?product=former-a',variants,'a'],
+  ['?product=missing',variants,null],
+  ['?product=missing&q=DR-174',variants,null],
+  ['?product=missing&q=DR-174+RED',variants,'a'],
+  ['?product=missing&q=Unique',variants,'c'],
+  ['?product=missing&q=not-found',variants,null],
+  ['?product=missing&q=same',[{id:'a',productName:'same'},{id:'b',productName:'same'}],null],
+  ['?product=missing&q=same',[{id:'a',productName:'same'},{id:'b',productName:'same extra'}],'a']
+];
+for(const[query,items,expected]of cases){
+  lookupWindow.location.search=query;lookupState.publicNotice='';lookupState.query='';lookupInput.value='';
+  assert.equal(lookup(items),expected,query);
+  if(query.includes('q=DR-174')&&expected===null)assert.ok(lookupState.publicNotice.includes('여러')&&lookupInput.value==='DR-174');
+}
+console.log(`QR 대체 검색 ${cases.length}개: 유효 ID·이전 ID·유일 후보 보존 / 복수 후보 자동 선택 차단: PASS`);
+
+const labelContext=vm.createContext({window:{location:{href:'http://localhost/label.html',search:'',hostname:'localhost'}},document:{addEventListener(){}},URLSearchParams,URL,console,testProducts:products});
+vm.runInContext(readFileSync(join(ROOT,'js/label.js'),'utf8'),labelContext);
+vm.runInContext('labelState.products=testProducts',labelContext);
+const labelQr=vm.runInContext('buildProductUrl',labelContext);
+const guideQr=vm.runInContext('guideProductUrl',context);
+const qrProduct=products.find(p=>p.productName.includes('#'));
+assert.ok(qrProduct,'Special-character product fixture missing');
+for(const mode of ['?dataMode=public','']){
+  labelContext.window.location.search=mode;context.window.location.search=mode;
+  context.window.location.href=`http://localhost/guide.html${mode}`;
+  for(const href of [labelQr(qrProduct.id),guideQr(qrProduct)]){
+    const target=new URL(href);
+    assert.equal(target.searchParams.get('product'),qrProduct.id);
+    assert.equal(target.searchParams.get('q'),qrProduct.productName);
+    assert.equal(target.searchParams.get('dataMode'),mode?'public':null);
+  }
+}
+console.log('라벨·관리요령 QR: 특수문자 제품명·공개/기본 자료 모드 보존: PASS');

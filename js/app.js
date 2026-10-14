@@ -775,13 +775,15 @@ function getRequestedProductId(products = []) {
 
   if (wantedName) {
     const needle = normalizeSearchText(wantedName);
-    const exact = products.find((product) => normalizeSearchText(product.productName) === needle);
-    const loose = exact || products.find((product) => normalizeSearchText(product.productName).includes(needle));
-    if (loose) {
+    const exact = products.filter((product) => normalizeSearchText(product.productName) === needle);
+    const matches = exact.length ? exact : products.filter((product) => normalizeSearchText(product.productName).includes(needle));
+    if (matches.length === 1) {
       state.publicNotice = `인쇄물의 QR이 가리키던 번호가 바뀌어, 제품명 "${wantedName}"으로 찾았습니다.`;
-      return loose.id;
+      return matches[0].id;
     }
-    state.publicNotice = `인쇄물의 QR이 가리키는 제품("${wantedName}")을 찾지 못했습니다. 이름으로 다시 찾아보세요.`;
+    state.publicNotice = matches.length > 1
+      ? `인쇄물의 QR에 적힌 제품명("${wantedName}")이 여러 제품과 일치합니다. 검색 결과에서 해당 제품을 골라주세요.`
+      : `인쇄물의 QR이 가리키는 제품("${wantedName}")을 찾지 못했습니다. 이름으로 다시 찾아보세요.`;
     state.query = wantedName;
     if (elements.searchInput) elements.searchInput.value = wantedName;
     return null;
@@ -3061,6 +3063,7 @@ function renderComponentTable(components = []) {
 function renderSelectedProductBar(product, detailData, pdfInfo, summaryAvailable) {
   const phone = String(product.emergencyContact || "").match(/(?:\+?82[-\s]?)?0\d{1,2}[-\s]\d{3,4}[-\s]\d{4}/)?.[0] || "";
   const telHref = phone ? phone.replace(/[^+\d]/g, "") : "";
+  const modeQuery = new URLSearchParams(window.location.search).get("dataMode") === "public" ? "&dataMode=public" : "";
   return `
     <section class="selected-product-bar ${summaryAvailable ? "is-reviewed" : "is-review-needed"}" aria-label="선택 제품 핵심정보">
       <div class="selected-product-bar-main">
@@ -3076,8 +3079,8 @@ function renderSelectedProductBar(product, detailData, pdfInfo, summaryAvailable
       </div>
       <div class="selected-product-bar-print">
         <span>인쇄용</span>
-        <a href="label.html?product=${encodeURIComponent(product.id)}">경고표지 만들기</a>
-        <a href="guide.html?product=${encodeURIComponent(product.id)}">관리요령(A4) 만들기</a>
+        <a href="label.html?product=${encodeURIComponent(product.id)}${modeQuery}">경고표지 만들기</a>
+        <a href="guide.html?product=${encodeURIComponent(product.id)}${modeQuery}">관리요령(A4) 만들기</a>
       </div>
     </section>
   `;
