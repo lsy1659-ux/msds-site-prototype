@@ -25,6 +25,10 @@ import subprocess
 import sys
 from datetime import date
 from pathlib import Path
+try:
+    from scripts.release_write_guard import preserve_files
+except ImportError:
+    from release_write_guard import preserve_files
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -49,17 +53,20 @@ def main() -> int:
     args = parser.parse_args()
     count = expected_products()
 
-    run("관리대장 반영", "scripts/apply_msds_register.py", "--write")
-    run("문구 꼴·PDF 대조 보완", "scripts/normalize_public_content.py", "--write")
-    if not args.no_bump:
-        # 화면 파일(js·css·html)이 바뀌었을 때만 올린다. 자료만 바뀐 배포에서 괜히 올리면
-        # 현장 폰이 화면 파일을 통째로 다시 받는다.
-        run("화면 판 번호 올리기", "scripts/bump_asset_version.py", "--if-changed")
-    run("테스트", "-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py")
-    run("배포 목록 다시 만들기", "scripts/validate_public_release.py", "--expected-products", count,
-        "--write-manifest", "data/release-manifest.json", "--data-cutoff-date", date.today().isoformat())
-    run("CI 와 같은 검증", "scripts/validate_public_release.py", "--expected-products", count,
-        "--check-manifest", "data/release-manifest.json")
+    outputs = [ROOT / name for name in (
+        "data/msds.public.json", "data/msds-overrides.public.json", "data/release-manifest.json",
+        "index.html", "guide.html", "label.html", "register.html", "substance.html", "sw.js")]
+    with preserve_files(outputs):
+        run("관리대장 반영", "scripts/apply_msds_register.py", "--write")
+        run("문구 꼴·PDF 대조 보완", "scripts/normalize_public_content.py", "--write")
+        if not args.no_bump:
+            # 화면 파일이 바뀌었을 때만 판 번호를 올린다.
+            run("화면 판 번호 올리기", "scripts/bump_asset_version.py", "--if-changed")
+        run("테스트", "-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py")
+        run("배포 목록 다시 만들기", "scripts/validate_public_release.py", "--expected-products", count,
+            "--write-manifest", "data/release-manifest.json", "--data-cutoff-date", date.today().isoformat())
+        run("CI 와 같은 검증", "scripts/validate_public_release.py", "--expected-products", count,
+            "--check-manifest", "data/release-manifest.json")
     print(f"\n모두 통과했습니다(제품 {count}건). 이제 커밋하고 올리면 됩니다.")
     print("제품 수가 바뀌었으면 data/release-policy.json 의 expectedProducts 를 고치세요.")
     return 0

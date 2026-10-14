@@ -2,21 +2,27 @@ from __future__ import annotations
 
 import json
 import re
+import tempfile
 from copy import deepcopy
 from datetime import date
 from pathlib import Path
 from typing import Any
+from pypdf import PdfReader
 
 # 사람이 확인한 번호·신호어·비해당·구판 정리는 관리대장에 있다. 로컬 데이터로
 # 다시 만들 때마다 그것을 덮어써야 고친 것이 되돌아가지 않는다.
 # 문구 꼴 고르기와 원본 PDF 대조 보완(응급조치 빈 칸, 깨진 성분 이름, 빠진 유해문구)도
 # 같은 까닭으로 만들 때마다 다시 반영한다.
 try:
-    from scripts.apply_msds_register import apply_register
+    from scripts.apply_msds_register import apply_register, follow_renames, load_renames
     from scripts.normalize_public_content import normalize_content
+    from scripts.release_write_guard import write_json_pair
+    from scripts.validate_public_release import validate_public_release, policy_expected_products
 except ImportError:  # py scripts/build_public_data.py 로 부를 때
-    from apply_msds_register import apply_register
+    from apply_msds_register import apply_register, follow_renames, load_renames
     from normalize_public_content import normalize_content
+    from release_write_guard import write_json_pair
+    from validate_public_release import validate_public_release, policy_expected_products
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -507,6 +513,9 @@ def carry_forward_public_only(
     except (OSError, json.JSONDecodeError, ValueError):
         return built, []
 
+    existing = deepcopy(existing)
+    follow_renames(existing, load_renames())
+
     built_keys: set[str] = set()
     for record in built:
         built_keys |= public_record_keys(record, path_fields)
@@ -530,6 +539,49 @@ def carry_forward_public_only(
     return built + carried, labels
 
 
+def validate_build_inputs(products: list[dict[str, Any]], overrides: list[dict[str, Any]]) -> None:
+    """Do not turn a missing/unreadable original into a successful public update."""
+    for product in normalize_products(products, normalize_overrides(overrides)):
+        pdf_error = validate_pdf_path(product.get("pdfPath"), ROOT)
+        if pdf_error:
+            raise ValueError(f"{pdf_error}: {product.get('id')} / {product.get('pdfPath')}")
+        source = ROOT / product["pdfPath"]
+        try:
+            with source.open('rb') as stream:
+                reader = PdfReader(stream)
+                if not len(reader.pages):
+                    raise ValueError("PDF has no pages")
+                for page in reader.pages:
+                    page.get_object()
+        except Exception as error:
+            raise ValueError(f"PDF_FILE_UNREADABLE: {product.get('id')} / {product['pdfPath']}") from error
+
+
+def validate_stable_ids(products: list[dict[str, Any]]) -> None:
+    if not PUBLIC_PRODUCTS_PATH.exists():
+        return
+    existing = deepcopy(coerce_list(read_json(PUBLIC_PRODUCTS_PATH), "products"))
+    follow_renames(existing, load_renames())
+    by_pdf: dict[str, set[str]] = {}
+    for product in existing:
+        key = normalize_key(product.get("pdfPath"))
+        if key:
+            by_pdf.setdefault(key, set()).add(str(product.get("id") or ""))
+    for product in products:
+        ids = by_pdf.get(normalize_key(product.get("pdfPath")))
+        if ids and str(product.get("id") or "") not in ids:
+            raise ValueError(f"PRODUCT_ID_CHANGED_FOR_PDF: {product.get('pdfPath')} / {product.get('id')}")
+
+
+def reject_failed_extractions(products: list[dict[str, Any]], overrides: list[dict[str, Any]]) -> None:
+    normalized = normalize_overrides(overrides)
+    lookup = build_override_lookup(normalized)
+    for product in normalize_products(products, normalized):
+        override = find_matching_override(product, lookup) or {}
+        if override.get("extractStatus") == "text_extract_failed":
+            raise ValueError(f"EXTRACTION_INPUT_FAILED: {product.get('id')} / {product.get('pdfPath')}")
+
+
 def main() -> int:
     products_source = read_json(LOCAL_PRODUCTS_PATH)
     overrides_source = read_json(LOCAL_OVERRIDES_PATH)
@@ -537,7 +589,13 @@ def main() -> int:
     products = coerce_list(products_source, "products")
     overrides = coerce_list(overrides_source, "overrides")
 
-    public_products, public_overrides, stats = build_public_records(products, overrides)
+    products, overrides = deepcopy(products), deepcopy(overrides)
+    renames = load_renames()
+    follow_renames(products, renames)
+    follow_renames(overrides, renames)
+    reject_failed_extractions(products, overrides)
+
+    public_products, public_overrides, stats = build_public_records(products, overrides, ROOT)
     public_products, carried_products = carry_forward_public_only(
         public_products, PUBLIC_PRODUCTS_PATH, "products", ("pdfPath", "fileName")
     )
@@ -549,8 +607,23 @@ def main() -> int:
     products_payload = build_payload(products_source, "products", public_products)
     overrides_payload = build_payload(overrides_source, "overrides", public_overrides)
 
-    write_json(PUBLIC_PRODUCTS_PATH, products_payload)
-    write_json(PUBLIC_OVERRIDES_PATH, overrides_payload)
+    validate_build_inputs(public_products, public_overrides)
+    validate_stable_ids(public_products)
+    with tempfile.TemporaryDirectory(prefix=".msds-public-stage-", dir=ROOT) as folder:
+        staged_products = Path(folder) / "products.json"
+        staged_overrides = Path(folder) / "overrides.json"
+        write_json(staged_products, products_payload)
+        write_json(staged_overrides, overrides_payload)
+        validation = validate_public_release(ROOT, products_path=staged_products,
+                                             overrides_path=staged_overrides,
+                                             expected_products=policy_expected_products(ROOT))
+        # Legacy validation reports numeric non-CAS tokens as warnings so an
+        # existing release remains inspectable. A new build must not publish
+        # those tokens into the active CAS field; preserve the old pair instead.
+        blockers = validation.errors + [issue for issue in validation.warnings if issue.code == "CAS_FIELD_NOT_STANDARD"]
+        if blockers:
+            raise ValueError("Public build rejected: " + "; ".join(issue.code for issue in blockers))
+    write_json_pair({PUBLIC_PRODUCTS_PATH: products_payload, PUBLIC_OVERRIDES_PATH: overrides_payload})
 
     print("Public data build complete")
     print(f"- Products: {len(public_products)} -> {PUBLIC_PRODUCTS_PATH.relative_to(ROOT).as_posix()}")
