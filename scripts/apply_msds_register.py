@@ -47,6 +47,8 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTER_PATH = ROOT / "data" / "msds-register.json"
+RENAMES_PATH = ROOT / "data" / "pdf-renames.json"
+PATH_FIELDS = ("pdfPath", "sourcePdfPath", "relativePath", "sourceRelativePath")
 PRODUCTS_PATH = ROOT / "data" / "msds.public.json"
 OVERRIDES_PATH = ROOT / "data" / "msds-overrides.public.json"
 INGREDIENT_LOG_PATH = ROOT / "reports" / "ingredient_repair_log.json"
@@ -133,6 +135,40 @@ def _legal_text(keys: list[str], legal: dict[str, str]) -> str:
     return "; ".join(legal.get(key, key) for key in keys or [])
 
 
+def load_renames() -> dict[str, str]:
+    """사이트 PDF 이름 바꾼 대응표(옛 경로 → 새 경로). 'pdf/' 를 뗀 꼴과 앞에 '/' 를 붙인 꼴도 같이 맞춘다."""
+    if not RENAMES_PATH.exists():
+        return {}
+    renames = json.loads(RENAMES_PATH.read_text(encoding="utf-8")).get("renames") or {}
+    full: dict[str, str] = {}
+    for old, new in renames.items():
+        full[old] = new
+        if old.startswith("pdf/") and new.startswith("pdf/"):
+            full[old[4:]] = new[4:]
+            full["/" + old] = "/" + new
+    return full
+
+
+def follow_renames(records: list[dict[str, Any]], renames: dict[str, str]) -> int:
+    """옛 경로·파일 이름을 새 것으로. 집 PC 로컬 자료처럼 이름 바꾸기 전 경로를 가진 자료도 새 PDF 를 가리키게 한다."""
+    names = {Path(o).name: Path(n).name for o, n in renames.items()}
+    changed = 0
+    for record in records:
+        holders = [record] + ([record["match"]] if isinstance(record.get("match"), dict) else [])
+        for holder in holders:
+            for key in PATH_FIELDS:
+                value = holder.get(key)
+                if isinstance(value, str) and value in renames:
+                    holder[key] = renames[value]
+                    changed += 1
+            value = holder.get("fileName")
+            if isinstance(value, str) and value in names and any(
+                    isinstance(holder.get(k), str) and Path(holder[k]).name == names[value] for k in PATH_FIELDS):
+                holder["fileName"] = names[value]
+                changed += 1
+    return changed
+
+
 def apply_register(
     products: list[dict[str, Any]],
     overrides: list[dict[str, Any]],
@@ -145,7 +181,10 @@ def apply_register(
     legal: dict[str, str] = register.get("legalBasis") or {}
     products = deepcopy(products)
     overrides = deepcopy(overrides)
-    report: dict[str, Any] = {"retired": [], "numbersSet": [], "notClassified": [], "signalChanged": [],
+    # 0. 이름을 바꾼 PDF 를 따라간다(2026-10-14 '회사명_제품명_MSDS_날짜.pdf' 정리).
+    renames = load_renames()
+    renamed = follow_renames(products, renames) + follow_renames(overrides, renames)
+    report: dict[str, Any] = {"renamedPaths": renamed, "retired": [], "numbersSet": [], "notClassified": [], "signalChanged": [],
                               "ingredientsRestored": 0, "missingEntry": [], "datesFixed": [], "datesStale": [],
                               "labelReprint": []}
 

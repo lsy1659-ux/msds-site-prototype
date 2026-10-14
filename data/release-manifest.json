@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "version": "msds-20261014-a43e3409",
-  "generatedAt": "2026-10-14T00:37:20Z",
-  "dataGeneratedAt": "2026-10-14T00:37:20Z",
+  "version": "msds-20261014-2bc4948c",
+  "generatedAt": "2026-10-14T00:54:28Z",
+  "dataGeneratedAt": "2026-10-14T00:54:28Z",
   "dataCutoffDate": "2026-10-14",
   "productCount": 220,
   "pdfCount": 242,
@@ -10,18 +10,18 @@
   "pdfOnlyCount": 0,
   "dataFiles": {
     "data/msds.public.json": {
-      "bytes": 1967917,
-      "sha256": "e70534f88a8de21dfd1f0a33c11f4aac3344e88502c709a27f4f15bfcd83b8ce"
+      "bytes": 1977269,
+      "sha256": "eebefe5ff0aee91481ff1942a1c1ab259fcf40b59acb2cd79990716723f5ff30"
     },
     "data/msds-overrides.public.json": {
-      "bytes": 1125142,
-      "sha256": "fb959d6fc614d49c53436d9924d49b83a84fba2aa325eaa59b2eb6e0effee630"
+      "bytes": 1143774,
+      "sha256": "3bf75502f89b65fedff157aeb1814f80ffa1b7b855fde9fa5ce4d12e48369f19"
     }
   },
   "pdfLibrary": {
     "count": 242,
     "totalBytes": 90243248,
-    "sha256": "28fc5d932757f4b5acf2f0f402468cf2b617a46375c900ce86f5c11cb7063299"
+    "sha256": "b86d4424edb22f3306906352b8dce102fb68ca0efb8bb1ce8b959f70275ebe69"
   },
   "validation": {
     "errorCount": 0,

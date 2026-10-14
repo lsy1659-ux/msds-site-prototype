@@ -74,6 +74,16 @@ py scripts/extract_signal_words.py --write    신호어를 원문에서 다시 �
 py scripts/apply_msds_register.py --write     관리대장을 사이트 데이터에 반영
 ```
 
+**원본 PDF 파일 이름 규칙(2026-10-14):** `회사명_제품명_MSDS_날짜.pdf` (예: `NAC_DR-174 BU3(OV1K-CAR)_MSDS_20250619.pdf`).
+회사명은 `data/company-short-names.json` 의 짧은 이름(노루오토코팅 → NAC, KNK코팅스 → KNK, 케이씨씨 → KCC …), 날짜는 최종 개정일,
+없으면 최초 작성일, 둘 다 없으면 `날짜없음`. 규칙은 `scripts/pdf_names.py` 한 곳에 있다. 원본 보관함과 사이트가 같은 이름을 쓴다.
+옛 이름 → 새 이름은 `data/pdf-renames.json` 에 있고, `apply_msds_register.py` 가 사이트 자료를 만들 때마다 옛 경로를 새 경로로 바꿔
+집 PC 로컬 자료가 옛 경로여도 깨지지 않는다. 보관함 쪽 기록은 보관함 맨 위 `MSDS_파일이름정리_YYYYMMDD.csv`.
+
+**새 MSDS 를 받으면** 공급사가 준 이름(예: `PUJ004341 (KR).pdf`) 그대로 보관함에 넣고 "정리해줘" 하면 된다: 내용 확인 →
+위 규칙으로 이름 바꾸기 → 사이트 등록(같은 제품의 새 판이면 교체, 제품명이 달라 같은 판이라 단정할 수 없으면 구판은 남기고
+관리대장 `oldVersion` 으로 '구판' 표시) → 구판 PDF 는 `_구버전 보관(이력)` → `MSDS_교체이력.csv`.
+
 **최신판으로 바꿀 때**는 새 PDF 를 같은 폴더에 `제품명_MSDS_YYYYMMDD.pdf` 로 넣고 새 제품으로 등록한 뒤,
 구판 항목을 `retired`·`replacedBy` 로 두고 `history` 에 한 줄 남깁니다. 원본 보관함(OneDrive `00_ 캠스 MSDS`)에서는
 구판을 지우지 않고 `_구버전 보관(이력)\같은 하위 경로` 로 옮기고, 보관함 맨 위 `MSDS_교체이력.csv` 에 같은 줄을
