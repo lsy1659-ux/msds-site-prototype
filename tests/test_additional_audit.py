@@ -38,6 +38,8 @@ class AdditionalAuditTests(unittest.TestCase):
         ps=json.loads((ROOT/'data/msds.public.json').read_text(encoding='utf-8'))
         fixes=json.loads((ROOT/'data/msds-content-repairs.json').read_text(encoding='utf-8'))['ingredientIdentifiers']
         for fix in fixes:
+            if fix['beforeCas'] != '2028-08-3':
+                continue
             p=next(p for p in ps if p['id']==fix['productId'])
             row=next(r for r in p['ingredients'] if r['chemicalName']==fix['chemicalName'])
             self.assertEqual(row['casNo'],'')

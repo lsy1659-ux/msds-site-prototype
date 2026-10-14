@@ -522,6 +522,61 @@ try {
     });
   }
 
+  await check("별도 식별번호와 원문 CAS 오류가 구분되어 표시되고 검색된다", async () => {
+    await page.go(INDEX);
+    await page.until(`state.products.length === ${EXPECTED}`);
+    for (const [query,id,expected] of [["2015-3-7140","msds-051","원문 식별번호: 2015-3-7140"],["9000-11-07","msds-171","원문 CAS 오류: 9000-11-07"]]) {
+      await page.eval(`const input=document.querySelector('#searchInput');input.value=${JSON.stringify(query)};input.dispatchEvent(new Event('input',{bubbles:true}));`);
+      await page.until(`document.querySelector('.selection-item[data-product-id="${id}"]')`);
+      await page.eval(`document.querySelector('.selection-item[data-product-id="${id}"]').click();`);
+      await page.until(`document.body.innerText.includes(${JSON.stringify(expected)})`);
+    }
+    await page.eval("document.querySelector('.component-table').scrollIntoView({block:'center'});");
+    const identifierWidth=await page.eval("return [...document.querySelectorAll('.component-table td[data-label=\"원문 식별값\"]')].find(e=>e.textContent.includes('9000-11-07')).getBoundingClientRect().width;");
+    expect(identifierWidth>=180,`원문 식별값 열 ${identifierWidth}px`);
+    const overlaps=await page.eval(`return [...document.querySelectorAll('.component-table tbody th')].filter(cell=>{
+      const range=document.createRange();range.selectNodeContents(cell);const edge=cell.getBoundingClientRect().right;
+      return [...range.getClientRects()].some(rect=>rect.right>edge+2);
+    }).map(cell=>cell.textContent);`);
+    expect(overlaps.length===0,`성분명이 CAS 칸으로 겹침: ${overlaps.join(',')}`);
+    await screenshot('source-cas-error');
+    await page.size(320,820,true);
+    const overflow=await page.eval("return document.documentElement.scrollWidth-window.innerWidth;");
+    expect(overflow<=2,`식별값 표가 폰 화면을 ${overflow}px 넘음`);
+    await screenshot('source-cas-error-mobile');
+  });
+  await check("GHP 공급자 근거와 EP 0/EP 00 제품 대응 보류가 조회 화면에 보인다", async () => {
+    await page.go(`${INDEX}&product=msds-pdf-d462ab4576452226`);
+    await page.until("document.body.innerText.includes('연결 PDF의 공급자')");
+    const text=await page.eval("return document.body.innerText;");
+    expect(text.includes('EP 00') && text.includes('실물 제품의 대응 관계는 확인 필요'),text.slice(-1000));
+  });
+  await check("대장 원문 미확인 상태가 조회 정규화와 표시에 보존된다", async () => {
+    await page.go(INDEX);
+    await page.until(`state.products.length===${EXPECTED}`);
+    const label=await page.eval(`const fixture=normalizeProduct({id:'fixture',productName:'fixture',ingredients:[{chemicalName:'fixture',casNo:'',sourceIdentifier:'KE-08612',sourceIdentifierStatus:'unverified_register',content:'1'}]});
+      const product=state.products.find(p=>p.id==='msds-105');product.components=fixture.components;
+      const input=document.querySelector('#searchInput');input.value=product.productName;input.dispatchEvent(new Event('input',{bubbles:true}));
+      return fixture.components[0].sourceIdentifierStatus;`);
+    expect(label==='unverified_register',label);
+    await page.until("document.querySelector('.selection-item[data-product-id=\"msds-105\"]')");
+    await page.eval("document.querySelector('.selection-item[data-product-id=\"msds-105\"]').click();");
+    await page.until("document.body.innerText.includes('기존 대장 식별값(원문 미확인): KE-08612')");
+  });
+  await check("BU3 구판 표시와 최신판 이동이 공개 자료 모드를 유지한다", async () => {
+    await page.go(`${INDEX}&product=msds-pdf-3cf931eec9be742d`);
+    await page.until("document.querySelector('.old-version-link')");
+    const old = await page.eval(`return {text:document.body.innerText, href:document.querySelector('.old-version-link').href};`);
+    expect(old.text.includes('구판입니다'), old.text.slice(-1200));
+    const target = new URL(old.href);
+    expect(target.searchParams.get('product') === 'msds-pdf-f5a05b27dd78d893' && target.searchParams.get('dataMode') === 'public', old.href);
+    await screenshot('bu3-old-version');
+    await page.eval("document.querySelector('.old-version-link').click();");
+    await page.until("typeof APP_CONFIG !== 'undefined' && typeof state !== 'undefined' && state.selectedId === 'msds-pdf-f5a05b27dd78d893' && document.body.innerText.includes('AA00875-4156004341')");
+    const latest = await page.eval(`return {mode:APP_CONFIG.runtimeMode, text:document.body.innerText, id:state.products.find(p=>p.id==='msds-pdf-f5a05b27dd78d893')?.id};`);
+    expect(latest.mode === 'public' && latest.id && latest.text.includes('OV1K-CAR'), JSON.stringify(latest));
+    await screenshot('bu3-latest-version');
+  });
   await check("화면 오류(스크립트 예외) 없음", async () => {
     const errors = page.errors.filter((text) => text && !/favicon|Failed to load resource|ServiceWorker|Transition was skipped/i.test(text));
     expect(errors.length === 0, errors.slice(0, 3).join(" | "));

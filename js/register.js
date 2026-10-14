@@ -67,6 +67,7 @@ function buildRows(register, products) {
       product,
       name: entry.productName || product?.productName || id,
       supplier: entry.supplier || product?.supplier || "",
+      supplierEvidence: entry.supplierEvidence || null,
       number: entry.msdsNo || "",
       asWritten: entry.msdsNoAsWritten || "",
       docNo: entry.supplierDocNo || "",
@@ -146,7 +147,7 @@ function renderTable() {
   registerElements.body.innerHTML = rows.map((row) => `
     <tr class="is-${row.status}">
       <td class="register-name">${nameCell(row)}</td>
-      <td>${rEscape(row.supplier)}</td>
+      <td>${rEscape(row.supplier)}${row.supplierEvidence?.scope === "linked_pdf" ? '<span class="register-sub">연결 PDF의 공급자 · 실물 제품 대응 확인 필요</span>' : ''}</td>
       <td class="register-number">${numberCell(row)}</td>
       <td><span class="register-status is-${row.status}">${rEscape(row.statusLabel)}</span>
         ${row.kind ? `<span class="register-sub">${rEscape(row.kind)}</span>` : ""}

@@ -230,6 +230,8 @@ def apply_register(
         product["msdsNoReason"] = entry.get("reason", "")
         product["msdsNoLegalBasis"] = _legal_text(entry.get("basis") or [], legal)
         product["msdsNoCheckedOn"] = entry.get("checkedOn", "")
+        if entry.get("supplierEvidence"):
+            product["supplierEvidence"] = deepcopy(entry["supplierEvidence"])
 
         # 공급사가 안내한 다른 칼라의 MSDS 사용 근거. 원문 안전정보와 별도로 두고,
         # 공개 자료를 다시 만들어도 관리대장에 남긴 안내를 유지한다.

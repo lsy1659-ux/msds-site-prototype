@@ -137,7 +137,9 @@ function buildSubstances(products) {
         supplier: product.supplier || "",
         content: String(ingredient.content || "").trim(),
         writtenName: name,
-        sourceIdentifier: String(ingredient.sourceIdentifier || "")
+        sourceIdentifier: String(ingredient.sourceIdentifier || ""),
+        sourceIdentifierStatus: String(ingredient.sourceIdentifierStatus || ""),
+        sourceCasNo: String(ingredient.sourceCasNo || "")
       };
       const cas = cleanCas(ingredient.casNo);
       if (!cas) {
@@ -246,7 +248,7 @@ function orphanBlock() {
     <a class="substance-use" href="index.html?product=${encodeURIComponent(row.productId)}&q=${encodeURIComponent(row.productName)}">
       <span class="substance-use-name">${escapeHtml(row.writtenName || "(원본에 이름 없음)")}</span>
       <span class="substance-use-supplier">${escapeHtml(row.productName)}</span>
-      <span class="substance-use-content">${escapeHtml(row.casRaw)}</span>
+      <span class="substance-use-content">${escapeHtml(row.casRaw || (row.sourceCasNo ? `원문 CAS 오류: ${row.sourceCasNo} · 공급사 확인 필요` : row.sourceIdentifier ? `${row.sourceIdentifierStatus === 'unverified_register' ? '기존 대장 식별값(원문 미확인)' : '원문 식별번호'}: ${row.sourceIdentifier}` : ""))}</span>
     </a>`).join("");
   return `
     <section class="substance-orphans">

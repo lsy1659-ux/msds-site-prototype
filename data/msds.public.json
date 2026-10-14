@@ -12496,11 +12496,12 @@
       },
       {
         "chemicalName": "Carbomonocyclecarboxylicanhydride polymer(...)",
-        "casNo": "2015-3-7140",
+        "casNo": "",
         "content": "0.1 - 2",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "2015-3-7140"
       },
       {
         "chemicalName": "POLYESTER RESIN",
@@ -12576,27 +12577,30 @@
       },
       {
         "chemicalName": "Hexanedioic acid, polymer with 2,2-dimethyl-1,3-pr",
-        "casNo": "Z1412-001140*주1",
+        "casNo": "",
         "content": "10 - 20",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-001140*주1"
       },
       {
         "chemicalName": "Methyl methacrylate-N-(hydroxymethyl)acrylamide-ac",
-        "casNo": "Z1412-008811*주2",
+        "casNo": "",
         "content": "2 - 5",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-008811*주2"
       },
       {
         "chemicalName": "Hexanedioic acid, polymer with 2-ethyl-2-(hydroxym",
-        "casNo": "Z1412-009742*주3",
+        "casNo": "",
         "content": "0.1 - 2",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-009742*주3"
       }
     ],
     "signalWord": "위험",
@@ -12935,27 +12939,30 @@
       },
       {
         "chemicalName": "Hexanedioic acid, polymer with 2,2-dimethyl-1,3-pr",
-        "casNo": "Z1412-001140(*주1)",
+        "casNo": "",
         "content": "10 - 20",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-001140(*주1)"
       },
       {
         "chemicalName": "Methyl methacrylate-N-(hydroxymethyl)acrylamide-ac",
-        "casNo": "Z1412-008811(*주2)",
+        "casNo": "",
         "content": "2 - 5",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-008811(*주2)"
       },
       {
         "chemicalName": "Hexanedioic acid, polymer with 2-ethyl-2-(hydroxym",
-        "casNo": "Z1412-009742(*주3)",
+        "casNo": "",
         "content": "0.1 - 2",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-009742(*주3)"
       }
     ],
     "signalWord": "위험",
@@ -13304,27 +13311,30 @@
       },
       {
         "chemicalName": "Hexanedioic acid, polymer with 2,2-dimethyl-1,3-pr",
-        "casNo": "Z1412-001140(*주1)",
+        "casNo": "",
         "content": "10 - 20",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-001140(*주1)"
       },
       {
         "chemicalName": "Methyl methacrylate-N-(hydroxymethyl)acrylamide-ac",
-        "casNo": "Z1412-008811(*주2)",
+        "casNo": "",
         "content": "2 - 5",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-008811(*주2)"
       },
       {
         "chemicalName": "Hexanedioic acid, polymer with 2-ethyl-2-(hydroxym",
-        "casNo": "Z1412-009742(*주3)",
+        "casNo": "",
         "content": "0.1 - 2",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-009742(*주3)"
       }
     ],
     "signalWord": "위험",
@@ -13609,19 +13619,21 @@
       },
       {
         "chemicalName": "Methyl methacrylate-N-(hydroxymethyl)acrylamide-ac",
-        "casNo": "Z1412-008811*주1)",
+        "casNo": "",
         "content": "5 - 10",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-008811*주1)"
       },
       {
         "chemicalName": "Styrene polymer with n-Butyl methacrylate, 2-Oxepa",
-        "casNo": "Z1412-008820*주2)",
+        "casNo": "",
         "content": "10 - 20",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-008820*주2)"
       }
     ],
     "signalWord": "위험",
@@ -14240,27 +14252,30 @@
       },
       {
         "chemicalName": "Hexanedioic acid, polymer with 2,2-dimethyl-1,3-pr",
-        "casNo": "Z1412-001140(*주1)",
+        "casNo": "",
         "content": "10 - 20",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-001140(*주1)"
       },
       {
         "chemicalName": "Methyl methacrylate-N-(hydroxymethyl)acrylamide-ac",
-        "casNo": "Z1412-008811(*주2)",
+        "casNo": "",
         "content": "2 - 5",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-008811(*주2)"
       },
       {
         "chemicalName": "Hexanedioic acid, polymer with 2-ethyl-2-(hydroxym",
-        "casNo": "Z1412-009742(*주3)",
+        "casNo": "",
         "content": "0.1 - 2",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-009742(*주3)"
       }
     ],
     "signalWord": "위험",
@@ -14522,11 +14537,12 @@
       },
       {
         "chemicalName": "Carbomonocyclecarboxylicanhydride polymer(...)",
-        "casNo": "2015-3-7140",
+        "casNo": "",
         "content": "2 - 5",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "2015-3-7140"
       },
       {
         "chemicalName": "수산화알류미늄(Aluminium hydroxide)",
@@ -14626,27 +14642,30 @@
       },
       {
         "chemicalName": "Hexanedioic acid, polymer with 2,2-dimethyl-1,3-pr",
-        "casNo": "Z1412-001140(*주1)",
+        "casNo": "",
         "content": "10 - 20",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-001140(*주1)"
       },
       {
         "chemicalName": "Methyl methacrylate-N-(hydroxymethyl)acrylamide-ac",
-        "casNo": "Z1412-008811(*주2)",
+        "casNo": "",
         "content": "2 - 5",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-008811(*주2)"
       },
       {
         "chemicalName": "Hexanedioic acid, polymer with 2-ethyl-2-(hydroxym",
-        "casNo": "Z1412-009742(*주3)",
+        "casNo": "",
         "content": "0.1 - 2",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-009742(*주3)"
       }
     ],
     "signalWord": "위험",
@@ -14902,19 +14921,21 @@
       },
       {
         "chemicalName": "Neodecanoic acid, 2-oxiranylmethyl ester, polymer",
-        "casNo": "Z1412-001157(*주1)",
+        "casNo": "",
         "content": "10 - 20",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-001157(*주1)"
       },
       {
         "chemicalName": "Styrene polymer with n-Butyl methacrylate, 2-Oxepa",
-        "casNo": "Z1412-008820(*주2)",
+        "casNo": "",
         "content": "10 - 20",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-008820(*주2)"
       }
     ],
     "signalWord": "위험",
@@ -15163,19 +15184,21 @@
       },
       {
         "chemicalName": "Styrene polymer with iso-Butyl methacrylate, 2-Et",
-        "casNo": "Z1412-008806",
+        "casNo": "",
         "content": "30 - 40",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-008806"
       },
       {
         "chemicalName": "Styrene polymer with n-Butyl acrylate, t-Butyl met",
-        "casNo": "Z1412-008821",
+        "casNo": "",
         "content": "10 - 20",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-008821"
       }
     ],
     "signalWord": "위험",
@@ -16196,11 +16219,12 @@
       },
       {
         "chemicalName": "Methyl methacrylate-N-(hydroxymethyl)acrylamide-ac",
-        "casNo": "Z1412-008811(*주1)",
+        "casNo": "",
         "content": "0.1 - 2",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-008811(*주1)"
       }
     ],
     "signalWord": "위험",
@@ -16517,11 +16541,12 @@
       },
       {
         "chemicalName": "Methyl methacrylate-N-(hydroxymethyl)acrylamide-ac",
-        "casNo": "Z1412-008811(*주-1)",
+        "casNo": "",
         "content": "5 - 10",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "Z1412-008811(*주-1)"
       }
     ],
     "signalWord": "위험",
@@ -19644,19 +19669,21 @@
     "ingredients": [
       {
         "chemicalName": "2,6-디-tert-부틸-P-크레졸",
-        "casNo": "KE-03079",
+        "casNo": "",
         "content": "0.1~<0.25",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "KE-03079"
       },
       {
         "chemicalName": "NAPHTHALENESULFONIC ACID, DINONYL-, CALCIUM SALT",
-        "casNo": "KE-11963",
+        "casNo": "",
         "content": "0.1~<1",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "KE-11963"
       },
       {
         "chemicalName": "PHOSPHORODITHIOIC ACID, MIXED O,O-BIS(2-ETHYL HEXYL AND ISO-BU) ESTERS, ZINC SALTS",
@@ -19734,19 +19761,21 @@
     "ingredients": [
       {
         "chemicalName": "포스포릭산 에스테르, 아민염",
-        "casNo": "99-3-1171",
+        "casNo": "",
         "content": "0.1~<1",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "99-3-1171"
       },
       {
         "chemicalName": "아연 디티오포스페이트",
-        "casNo": "KE-28667",
+        "casNo": "",
         "content": "1~2.5",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "KE-28667"
       }
     ],
     "ghsPictograms": [],
@@ -19816,11 +19845,12 @@
     "ingredients": [
       {
         "chemicalName": "LONG-CHAIN ALKENYL AMINE",
-        "casNo": "KE-26433",
+        "casNo": "",
         "content": "0.01~<0.025",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "KE-26433"
       }
     ],
     "ghsPictograms": [],
@@ -19890,27 +19920,30 @@
     "ingredients": [
       {
         "chemicalName": "벤젠아민, N-페닐-, 2,4,4-트리메틸펜텐과의 반응 생성물",
-        "casNo": "KE-28307",
+        "casNo": "",
         "content": "1~<5",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "KE-28307"
       },
       {
         "chemicalName": "NAPHTHENIC ACIDS, ZINC SALTS",
-        "casNo": "KE-35560",
+        "casNo": "",
         "content": "0.1~<1",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "KE-35560"
       },
       {
         "chemicalName": "아연 디알킬 디티오포스페이트",
-        "casNo": "KE-28665",
+        "casNo": "",
         "content": "1~<2.5",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "KE-28665"
       }
     ],
     "ghsPictograms": [],
@@ -29902,11 +29935,12 @@
       },
       {
         "chemicalName": "Alkylolammonium Salt",
-        "casNo": "701-048-1",
+        "casNo": "",
         "content": "0.1 - 0.2",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceIdentifier": "701-048-1"
       }
     ],
     "ghsPictograms": [],
@@ -34639,11 +34673,13 @@
       },
       {
         "chemicalName": "카르복시메틸셀룰로오스나트륨",
-        "casNo": "9000-11-07",
+        "casNo": "",
         "content": "0.1~0.5",
         "managementTarget": "",
         "workplaceMonitoringTarget": "",
-        "specialHealthCheckTarget": ""
+        "specialHealthCheckTarget": "",
+        "sourceCasNo": "9000-11-07",
+        "casSourceIssue": "원문 자체의 CAS번호 오류. 성진켐 정정본 확인 필요. 대체 CAS 미확정."
       },
       {
         "chemicalName": "수산화나트륨",
@@ -41270,6 +41306,16 @@
     "msdsNoLegalBasis": "산업안전보건법 제110조제1항 — 제104조 분류기준에 해당하는 화학물질·혼합물(물질안전보건자료대상물질)을 제조·수입하려는 자는 MSDS 를 작성해 제출; 시행규칙 제157조 — 제조·수입 전 공단 물질안전보건자료시스템에 전자 제출; 시행규칙 제160조제1항 — 제공 시 시스템 제출 때 부여된 번호를 MSDS 에 반영; 법률 제16272호 부칙 제7조·제8조, 시행규칙(고용노동부령 제272호) 부칙 제9조·제10조 — 기존 MSDS 제출·제공 기한 2022.1.16~2026.1.16 (모두 경과); 고시 제13조제2항·제3항 — 분류기준 비해당 물질은 서면 통보, 통보받은 자는 사업장 내 비치",
     "msdsNoCheckedOn": "2026-09-23",
     "msdsNoKind": "구형 서식(분류 없음)",
+    "supplierEvidence": {
+      "scope": "linked_pdf",
+      "pdf": "pdf/한일루켐(그리스)/한일루켐_GHP PCG EP 0(그리스)_MSDS_20220905.pdf",
+      "page": 1,
+      "sha256": "d462ab4576452226813c9b1749731929228a4f1453163cbe662a7aa1e338e9f0",
+      "checkedOn": "2026-10-14",
+      "sourceProductName": "GHP PCG EP 00",
+      "productIdentityStatus": "pending",
+      "note": "현재 연결 PDF에 기재된 공급자. 사이트/파일명 EP 0와 원문 EP 00의 실물 대응·동일성은 미확정."
+    },
     "labelReprint": {
       "date": "2026-10-08",
       "reason": "원문 전체 대조로 바뀜: 그림문자 +GHS07; 예방조치문구"
@@ -41426,39 +41472,31 @@
     "ppeSummary": "",
     "ingredients": [
       {
-        "chemicalName": "IRGAFOS 168",
-        "casNo": "31570-04-4",
-        "content": "0.1~1",
+        "chemicalName": "Polypropylene",
+        "casNo": "9003-07-0",
+        "content": "8~12",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "Tetrahydroxybenzophene",
-        "casNo": "167078-06-0",
-        "content": "0.1~1",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "에틸렌-프로필렌 공중합체(ETHYLENE-PROPYLENE COPOLYMER)",
+        "chemicalName": "Ethylene-Propylene copolymer",
         "casNo": "9010-79-1",
-        "content": "0.1~1",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "Butene, polymer with ethene Polyolefin elastomer,",
-        "casNo": "25087-34-7",
         "content": "50~60",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "활석(석면 불포함)",
+        "chemicalName": "1-Butene, polymer with ethene",
+        "casNo": "25087-34-7",
+        "content": "10~15",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "Talc, Non-asbestis form",
         "casNo": "14807-96-6",
         "content": "15~20",
         "controlledSubstance": "",
@@ -41466,9 +41504,17 @@
         "specialHealthExam": ""
       },
       {
-        "chemicalName": "Polypropane",
-        "casNo": "9003-07-0",
-        "content": "15~20",
+        "chemicalName": "Second Antioxidant (2,4-DI-TERT-BUTYLPHENOL PHOSPHITE)",
+        "casNo": "31570-04-4",
+        "content": "0.1~1",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "Hindered Amine Compound",
+        "casNo": "167078-06-0",
+        "content": "0.1~1",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
         "specialHealthExam": ""
@@ -41546,281 +41592,18 @@
     "ppeSummary": "",
     "ingredients": [
       {
-        "chemicalName": "수소처리된 중질 파라핀 증류액 (석유) 수소처리된 중질 파라핀 증류",
+        "chemicalName": "수소처리된 중질 파라핀 증류액(석유)",
         "casNo": "64742-54-7",
-        "content": "0~4",
+        "content": "98~99",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
+        "specialHealthExam": "",
+        "sourceIdentifier": "KE-12546"
       },
       {
-        "chemicalName": "액 (석유)",
-        "casNo": "CAS 미기재",
-        "content": ">5000",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "사용전에 경고 특성을 고려하시오.",
-        "casNo": "CAS 미기재",
-        "content": ">5000",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "방독마스크(직결식 소형, 유기 화합물용)",
-        "casNo": "CAS 미기재",
-        "content": ">5.53",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "공기여과식 호흡보호구(유기 화합물용 정화통 및 전면형)",
-        "casNo": "CAS 미기재",
-        "content": ">5000",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "미지농도 또는 기타 생명이나 건강에 급박한 위험이 있는 경우 : 송기마스크(복합식 에어라인 마스크), 공기호흡기(전면형)",
-        "casNo": "CAS 미기재",
-        "content": ">5000",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "눈 보호",
-        "casNo": "CAS 미기재",
-        "content": ">5000",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "해당물질에 직접적인 노출 또는 노출 가능성이 있는 경우, 한국산업안전보건공단 인증을 받은 화학물질용 보안경을 착용할 것.",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "나. 적절한 공학적 관리",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "가스, 증기, 미스트, 흄 또는 분진이 발산되는 작업장에 대하여는 공기 중에 이들 함유농도가 보건상 유해한 정도를 초과하지 않기",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "를 권장함",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "다. 개인 보호구",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "호흡기 보호",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "해당물질에 직접적인 노출 또는 노출 가능성이 있는 경우, 한국산업안전보건공단 인증을 받은 방독마스크를 착용할 것.",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "호흡보호는 최소농도부터 최대농도까지 분류됨.",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "국내노출기준",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "ACGIH노출기준",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "refined)",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "생물학적 노출기준",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "누출여부를 주기적으로 점검하시오.",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "직접적으로 열을 가하지 마시오.",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "직사광선을 피하시오.",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "정전기를 방지하고 보일러 등의 열원근처나 가연물 주위는 피해서 보관하시오.",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "8. 노출방지 및 개인보호구",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "가. 화학물질의 노출기준, 생물학적 노출기준 등",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "가. 안전취급요령",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "통풍이 잘 되는 장소에서만 취급하시오.",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "모든 안전 주의를 읽고 이해하기 전에는 취급하지 마시오.",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "나. 안전한 저장 방법",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "누출된 물질의 처분을 위해 적당한 용기에 수거하시오.",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "소량 누출 : 모래 또는 다른 비가연성 물질을 사용하여 흡수시키시오.",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "용매를 닦아내시오.",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "추후 처리를 위해 제방을 축조하시오.",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "7. 취급 및 저장 방법",
-        "casNo": "CAS 미기재",
-        "content": "",
-        "controlledSubstance": "",
-        "workEnvironmentMeasurement": "",
-        "specialHealthExam": ""
-      },
-      {
-        "chemicalName": "나. 환경을 보호하기 위해 필요한 조치사항",
-        "casNo": "CAS 미기재",
-        "content": "",
+        "chemicalName": "영업비밀 1",
+        "casNo": "영업비밀",
+        "content": "0.1~1",
         "controlledSubstance": "",
         "workEnvironmentMeasurement": "",
         "specialHealthExam": ""

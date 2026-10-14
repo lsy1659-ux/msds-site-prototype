@@ -364,6 +364,10 @@ def validate_msds_register(root: Path, products: list[dict[str, Any]], result: "
 def validate_cas_fields(result: ValidationResult, record: dict[str, Any], subject: str, candidate: bool = False) -> None:
     for ingredient in record.get("ingredients") or []:
         cas = str(ingredient.get("casNo") or "").strip()
+        if ingredient.get("sourceCasNo"):
+            result.add("warning", "SOURCE_CAS_ERROR", "원문 CAS 오류값을 별도로 보존했다. 공급사 정정본 확인 필요.", f"{subject}: {ingredient['sourceCasNo']}")
+            if cas:
+                result.add("error", "SOURCE_CAS_ERROR_IN_ACTIVE_CAS", "원문 오류값과 정상 CAS 필드를 동시에 채울 수 없다.", subject)
         if CAS_SHAPE.fullmatch(cas):
             if not valid_cas(cas):
                 result.add("warning" if candidate else "error", "CAS_NUMBER_INVALID", "CAS 체크 숫자가 유효하지 않다.", f"{subject}: {cas}")

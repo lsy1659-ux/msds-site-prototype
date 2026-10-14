@@ -28070,9 +28070,52 @@
     },
     "ingredients": [
       {
-        "chemicalName": "함량(%)비고MineralOil64741-96-464742-54-764742-10-56-1075-805-10Additive106-14-91310-66- 3-51-21-24.",
-        "casNo": "3128-37-0",
-        "content": ""
+        "chemicalName": "Mineral Oil",
+        "casNo": "64741-96-4",
+        "content": "6-10",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "Mineral Oil",
+        "casNo": "64742-54-7",
+        "content": "75-80",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "Mineral Oil",
+        "casNo": "64742-10-5",
+        "content": "5-10",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "Additive",
+        "casNo": "106-14-9",
+        "content": "3-5",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "Additive",
+        "casNo": "1310-66-3",
+        "content": "1-2",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "Additive",
+        "casNo": "128-37-0",
+        "content": "1-2",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
       }
     ],
     "ppeCandidates": [],
@@ -28112,34 +28155,52 @@
     },
     "ingredients": [
       {
-        "chemicalName": "IRGAFOS 168",
-        "casNo": "31570-04-4",
-        "content": "0.1~1"
-      },
-      {
-        "chemicalName": "Tetrahydroxybenzophene",
-        "casNo": "167078-06-0",
-        "content": "0.1~1"
-      },
-      {
-        "chemicalName": "에틸렌-프로필렌 공중합체(ETHYLENE-PROPYLENE COPOLYMER)",
-        "casNo": "9010-79-1",
-        "content": "0.1~1"
-      },
-      {
-        "chemicalName": "Butene, polymer with ethene Polyolefin elastomer,",
-        "casNo": "25087-34-7",
-        "content": "50~60"
-      },
-      {
-        "chemicalName": "활석(석면 불포함)",
-        "casNo": "14807-96-6",
-        "content": "15~20"
-      },
-      {
-        "chemicalName": "Polypropane",
+        "chemicalName": "Polypropylene",
         "casNo": "9003-07-0",
-        "content": "15~20"
+        "content": "8~12",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "Ethylene-Propylene copolymer",
+        "casNo": "9010-79-1",
+        "content": "50~60",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "1-Butene, polymer with ethene",
+        "casNo": "25087-34-7",
+        "content": "10~15",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "Talc, Non-asbestis form",
+        "casNo": "14807-96-6",
+        "content": "15~20",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "Second Antioxidant (2,4-DI-TERT-BUTYLPHENOL PHOSPHITE)",
+        "casNo": "31570-04-4",
+        "content": "0.1~1",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
+      },
+      {
+        "chemicalName": "Hindered Amine Compound",
+        "casNo": "167078-06-0",
+        "content": "0.1~1",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
       }
     ],
     "ppeCandidates": [
@@ -28183,9 +28244,21 @@
     },
     "ingredients": [
       {
-        "chemicalName": "/ KE-12546",
+        "chemicalName": "수소처리된 중질 파라핀 증류액(석유)",
         "casNo": "64742-54-7",
-        "content": "0 ~ 4"
+        "content": "98~99",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": "",
+        "sourceIdentifier": "KE-12546"
+      },
+      {
+        "chemicalName": "영업비밀 1",
+        "casNo": "영업비밀",
+        "content": "0.1~1",
+        "controlledSubstance": "",
+        "workEnvironmentMeasurement": "",
+        "specialHealthExam": ""
       }
     ],
     "ppeCandidates": [

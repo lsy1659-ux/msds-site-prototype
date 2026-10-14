@@ -32,6 +32,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 from copy import deepcopy
@@ -430,13 +431,31 @@ def apply_repairs(products: list[dict[str, Any]], overrides: list[dict[str, Any]
         product = by_id.get(fix.get("productId"))
         if product is None:
             continue
+        if fix.get("sha256"):
+            pdf = ROOT / str(fix.get("pdf") or "")
+            if not pdf.is_file() or hashlib.sha256(pdf.read_bytes()).hexdigest() != fix["sha256"]:
+                continue
         for record in [product] + _matching_overrides(overrides, product):
             for row in record.get("ingredients") or []:
-                if row.get("casNo") == fix["beforeCas"] or (
-                    not row.get("casNo") and row.get("chemicalName") == fix["chemicalName"]
+                source_field = fix.get("sourceField", "sourceIdentifier")
+                source_value = fix.get("sourceValue", fix.get("sourceIdentifier", ""))
+                if row.get("chemicalName") == fix["chemicalName"] and (
+                    row.get("casNo") == fix["beforeCas"] or (
+                        not row.get("casNo") and row.get(source_field, "") in ("", source_value)
+                    )
                 ):
                     row["casNo"] = ""
-                    row["sourceIdentifier"] = fix["sourceIdentifier"]
+                    row[source_field] = source_value
+                    if fix.get("sourceIssue"):
+                        row["casSourceIssue"] = fix["sourceIssue"]
+    for fix in repairs.get("overrideIngredients") or []:
+        product = by_id.get(fix.get("productId"))
+        pdf = ROOT / str(fix.get("pdf") or "")
+        if not product or not pdf.is_file() or hashlib.sha256(pdf.read_bytes()).hexdigest() != fix.get("sha256"):
+            continue
+        for record in _matching_overrides(overrides, product):
+            if record.get("ingredients") in (fix.get("before"), fix.get("after")):
+                record["ingredients"] = deepcopy(fix["after"])
     for pid, fix in (repairs.get("firstAid") or {}).items():
         product = by_id.get(pid)
         if not product:
@@ -640,6 +659,10 @@ def apply_verified(products: list[dict[str, Any]], overrides: list[dict[str, Any
         product = by_id.get(pid)
         if not product:
             continue
+        if fix.get("sha256"):
+            pdf = ROOT / str(fix.get("pdf") or "")
+            if not pdf.is_file() or hashlib.sha256(pdf.read_bytes()).hexdigest() != fix["sha256"]:
+                continue
         linked = _matching_overrides(overrides, product)
         changed = False
         table = fix.get("brokenFont") or {}

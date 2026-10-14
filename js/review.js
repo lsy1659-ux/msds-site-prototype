@@ -561,13 +561,15 @@ function renderPrecautionCandidates(precautions) {
 
 function renderIngredientCandidates(ingredients) {
   if (!ingredients.length) return `<p class="summary-note">성분/CAS 후보 없음</p>`;
+  const hasIdentifiers = ingredients.some((ingredient) => ingredient.sourceIdentifier || ingredient.sourceCasNo);
   return `
     <div class="component-table-wrap">
-      <table class="component-table review-component-table">
+      <table class="component-table review-component-table${hasIdentifiers ? ' component-table--identifiers' : ''}">
         <thead>
           <tr>
             <th>화학물질명</th>
             <th>CAS No.</th>
+            ${hasIdentifiers ? '<th>원문 식별값</th>' : ''}
             <th>함유량</th>
           </tr>
         </thead>
@@ -576,6 +578,7 @@ function renderIngredientCandidates(ingredients) {
             <tr>
               <td>${escapeHtml(ingredient.chemicalName || "")}</td>
               <td>${escapeHtml(ingredient.casNo || "")}</td>
+              ${hasIdentifiers ? `<td>${escapeHtml(ingredient.sourceCasNo ? `원문 CAS 오류: ${ingredient.sourceCasNo} · 공급사 확인 필요` : ingredient.sourceIdentifier ? `${ingredient.sourceIdentifierStatus === 'unverified_register' ? '기존 대장 식별값(원문 미확인)' : '원문 식별번호'}: ${ingredient.sourceIdentifier}` : "")}</td>` : ''}
               <td>${escapeHtml(ingredient.content || "")}</td>
             </tr>
           `).join("")}

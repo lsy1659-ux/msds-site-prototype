@@ -36,6 +36,8 @@ FIELD_ALIASES = {
     "revisionDate": ["개정일", "개정 일자", "최종개정일"],
     "chemicalName": ["화학물질명", "화학 물질명", "물질명", "성분명"],
     "casNo": ["CAS No.", "CAS No", "CAS 번호", "CAS"],
+    "sourceIdentifier": ["원문 식별번호 / 원문 오류값"],
+    "casSourceIssue": ["식별값 확인 상태"],
     "content": ["함유량(%)", "함유량", "함량", "함량(%)"],
     "managementTarget": ["관리대상 유해물질", "관리대상유해물질", "관리대상 여부"],
     "workplaceMonitoringTarget": ["작업환경측정 대상", "작업환경측정대상", "작업환경측정"],
@@ -134,7 +136,7 @@ def make_product(raw: dict[str, str], row_index: int) -> dict[str, Any]:
 def make_ingredient(raw: dict[str, str]) -> dict[str, str] | None:
     if not (raw.get("chemicalName") or raw.get("casNo") or raw.get("content")):
         return None
-    return {
+    ingredient = {
         "chemicalName": raw.get("chemicalName", ""),
         "casNo": raw.get("casNo", ""),
         "content": raw.get("content", ""),
@@ -142,6 +144,19 @@ def make_ingredient(raw: dict[str, str]) -> dict[str, str] | None:
         "workplaceMonitoringTarget": raw.get("workplaceMonitoringTarget", ""),
         "specialHealthCheckTarget": raw.get("specialHealthCheckTarget", ""),
     }
+    identifier = raw.get("sourceIdentifier", "")
+    issue = raw.get("casSourceIssue", "")
+    if identifier:
+        ingredient["casNo"] = ""
+        if "원문 CAS" in issue and "오류" in issue:
+            ingredient["sourceCasNo"] = identifier
+            ingredient["casSourceIssue"] = issue
+        else:
+            ingredient["sourceIdentifier"] = identifier
+            if "원문 대응 미확인" in issue:
+                ingredient["sourceIdentifierStatus"] = "unverified_register"
+                ingredient["casSourceIssue"] = issue
+    return ingredient
 
 
 def row_to_raw(row, field_to_column: dict[str, int]) -> dict[str, str]:

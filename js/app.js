@@ -1098,6 +1098,7 @@ function normalizeProduct(product) {
     useCategory: product.useCategory || product.category || "",
     recommendedUse: product.recommendedUse || "",
     supplier: product.supplier || "",
+    supplierEvidence: product.supplierEvidence || null,
     emergencyContact: product.emergencyContact || "",
     hazardSummary: product.hazardSummary || product.hazardClassification || "",
     dangerousGoods: product.dangerousGoods || "",
@@ -1120,6 +1121,10 @@ function normalizeProduct(product) {
     components: ingredients.map((ingredient) => ({
       chemicalName: ingredient.chemicalName || "",
       casNo: ingredient.casNo || "",
+      sourceIdentifier: ingredient.sourceIdentifier || "",
+      sourceIdentifierStatus: ingredient.sourceIdentifierStatus || "",
+      sourceCasNo: ingredient.sourceCasNo || "",
+      casSourceIssue: ingredient.casSourceIssue || "",
       content: ingredient.content || "",
       controlledSubstance: ingredient.controlledSubstance || ingredient.managementTarget || "",
       workEnvironmentMeasurement: ingredient.workEnvironmentMeasurement || ingredient.workplaceMonitoringTarget || "",
@@ -1752,6 +1757,8 @@ function buildSearchSource(product) {
     .map((component) => [
       component.chemicalName,
       component.casNo,
+      component.sourceIdentifier,
+      component.sourceCasNo,
       component.content,
       component.controlledSubstance,
       component.workEnvironmentMeasurement,
@@ -1909,7 +1916,7 @@ function getProductSearchFields(product = {}) {
     ...(Array.isArray(product.ingredients) ? product.ingredients : [])
   ];
   const componentNames = componentItems.map((component) => component.chemicalName);
-  const casNumbers = componentItems.map((component) => component.casNo).filter(Boolean);
+  const casNumbers = componentItems.flatMap((component) => [component.casNo, component.sourceIdentifier, component.sourceCasNo]).filter(Boolean);
   const hazardStatements = [
     ...(Array.isArray(product.hazardStatements) ? product.hazardStatements : []),
     ...(Array.isArray(product.pdfSummaryOverride?.hazardStatements) ? product.pdfSummaryOverride.hazardStatements : [])
@@ -2875,6 +2882,12 @@ function hasAnySummary(ghsPictograms = [], hazardStatements = [], precautions = 
     || Object.values(precautions || {}).some((items) => Array.isArray(items) && items.length);
 }
 
+function renderSupplierEvidence(product = {}) {
+  const evidence = product.supplierEvidence;
+  if (evidence?.scope !== "linked_pdf") return "";
+  return `<p class="register-sub">연결 PDF의 공급자입니다. 원문 제품명 ${escapeHtml(evidence.sourceProductName || "")}과 실물 제품의 대응 관계는 확인 필요합니다.</p>`;
+}
+
 /* 최신판이 따로 있는데 지우지 않고 남긴 구판(관리대장 oldVersion). 목록·검색·상세에 '구판' 을 붙여
  * 최신판 대신 고르는 일이 없게 하고, 상세에서 최신판으로 바로 넘어가게 한다. */
 function renderOldVersionBadge(product = {}) {
@@ -2885,7 +2898,9 @@ function renderOldVersionBadge(product = {}) {
 function renderOldVersionNotice(product = {}) {
   const marker = product.oldVersion;
   if (!marker) return "";
-  const target = marker.newId ? `index.html?product=${encodeURIComponent(marker.newId)}` : "";
+  const params = new URLSearchParams({ product: marker.newId || "" });
+  if (new URLSearchParams(window.location.search).get("dataMode") === "public") params.set("dataMode", "public");
+  const target = marker.newId ? `index.html?${params}` : "";
   return detailSection("구판입니다", `
     <p>${escapeHtml(marker.note || "이 MSDS 는 구판입니다.")}</p>
     ${target ? `<p><a class="old-version-link" href="${escapeAttribute(target)}">최신판 보기${marker.newName ? ` — ${escapeHtml(marker.newName)}` : ""}</a></p>` : ""}
@@ -2923,6 +2938,7 @@ function renderDetail(product) {
     ${renderSelectedProductBar(product, detailData, pdfInfo, summaryAvailable)}
     ${renderOldVersionNotice(product)}
     ${renderMsdsUseAdvice(product)}
+    ${renderSupplierEvidence(product)}
     ${detailSection("제품 기본정보", `
       <div class="info-grid detail-info-grid">
         ${detailItem("제품명", detailData.productName, "tag", "is-highlight")}
@@ -3006,15 +3022,17 @@ function renderComponentTable(components = []) {
   }
   const flagColumns = COMPONENT_FLAG_COLUMNS.filter((column) => rows.some((component) => filled(component[column.key])));
   const hiddenLabels = COMPONENT_FLAG_COLUMNS.filter((column) => !flagColumns.includes(column)).map((column) => column.label);
+  const hasIdentifiers = rows.some((component) => component.sourceIdentifier || component.sourceCasNo);
   const cell = (label, value, fallback = "-") => `<td data-label="${escapeAttribute(label)}">${escapeHtml(filled(value) || fallback)}</td>`;
   return `
     <div class="component-table-wrap">
-      <table class="component-table">
+      <table class="component-table${hasIdentifiers ? ' component-table--identifiers' : ''}">
         <caption>구성성분 및 함유량</caption>
         <thead>
           <tr>
             <th scope="col">화학물질명</th>
             <th scope="col">CAS No.</th>
+            ${hasIdentifiers ? '<th scope="col">원문 식별값</th>' : ''}
             <th scope="col">함유량(%)</th>
             ${flagColumns.map((column) => `<th scope="col">${escapeHtml(column.label)}</th>`).join("")}
           </tr>
@@ -3024,6 +3042,7 @@ function renderComponentTable(components = []) {
             <tr>
               <th scope="row" data-label="화학물질명">${escapeHtml(filled(component.chemicalName) || "-")}</th>
               ${cell("CAS No.", component.casNo)}
+              ${hasIdentifiers ? cell("원문 식별값", component.sourceCasNo ? `원문 CAS 오류: ${component.sourceCasNo} · 공급사 확인 필요` : component.sourceIdentifier ? `${component.sourceIdentifierStatus === 'unverified_register' ? '기존 대장 식별값(원문 미확인)' : '원문 식별번호'}: ${component.sourceIdentifier}` : "") : ''}
               ${cell("함유량(%)", component.content)}
               ${flagColumns.map((column) => cell(column.label, component[column.key])).join("")}
             </tr>

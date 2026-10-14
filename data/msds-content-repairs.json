@@ -13585,15 +13585,119 @@
     },
     "msds-pdf-3b92d1fa1c9a3177": {
       "pdf": "pdf/현대ep/현대EP_SUPOL HR530U_MSDS_20231010.pdf",
-      "checkedOn": "2026-10-08",
+      "checkedOn": "2026-10-14",
       "verifiedBy": [
-        "원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음"
+        "원문 1항 공급자 정보(회사명·주소·긴급전화)가 사이트에 없거나 달랐음",
+        "원문 2쪽 제3항 표 시각 대조. 여섯 행 또는 두 행 복구. 안전문구·법정 대상은 변경하지 않음."
       ],
       "fields": {
         "supplierAddress": {
           "before": "",
           "after": "1221-32 Daehoman-ro, Seokmun-myeon, Dangjin-si, Chungcheongnam-do, KOREA"
         }
+      },
+      "sha256": "3b92d1fa1c9a31777a92a707a8be86cabf5e73f19ab80270fc49ea7aa218db4b",
+      "ingredients": {
+        "before": [
+          {
+            "chemicalName": "IRGAFOS 168",
+            "casNo": "31570-04-4",
+            "content": "0.1~1",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "Tetrahydroxybenzophene",
+            "casNo": "167078-06-0",
+            "content": "0.1~1",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "에틸렌-프로필렌 공중합체(ETHYLENE-PROPYLENE COPOLYMER)",
+            "casNo": "9010-79-1",
+            "content": "0.1~1",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "Butene, polymer with ethene Polyolefin elastomer,",
+            "casNo": "25087-34-7",
+            "content": "50~60",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "활석(석면 불포함)",
+            "casNo": "14807-96-6",
+            "content": "15~20",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "Polypropane",
+            "casNo": "9003-07-0",
+            "content": "15~20",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          }
+        ],
+        "after": [
+          {
+            "chemicalName": "Polypropylene",
+            "casNo": "9003-07-0",
+            "content": "8~12",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "Ethylene-Propylene copolymer",
+            "casNo": "9010-79-1",
+            "content": "50~60",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "1-Butene, polymer with ethene",
+            "casNo": "25087-34-7",
+            "content": "10~15",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "Talc, Non-asbestis form",
+            "casNo": "14807-96-6",
+            "content": "15~20",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "Second Antioxidant (2,4-DI-TERT-BUTYLPHENOL PHOSPHITE)",
+            "casNo": "31570-04-4",
+            "content": "0.1~1",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "Hindered Amine Compound",
+            "casNo": "167078-06-0",
+            "content": "0.1~1",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          }
+        ]
       }
     },
     "msds-pdf-37736004f8e3d7b1": {
@@ -13664,6 +13768,317 @@
           "after": "충청남도 당진시 신평면 당진항만로 45"
         }
       }
+    },
+    "msds-pdf-48f0afe382fbccab": {
+      "pdf": "pdf/현대오일뱅크(주)/현대오일뱅크_MK XTeer Therm 46S_MSDS_20190524.pdf",
+      "checkedOn": "2026-10-14",
+      "sha256": "48f0afe382fbccab1bc8210d51cb2cab6cbd0534dcf2d021aa7b00b958e3d350",
+      "verifiedBy": [
+        "원문 2쪽 제3항 표 시각 대조. 여섯 행 또는 두 행 복구. 안전문구·법정 대상은 변경하지 않음."
+      ],
+      "ingredients": {
+        "before": [
+          {
+            "chemicalName": "수소처리된 중질 파라핀 증류액 (석유) 수소처리된 중질 파라핀 증류",
+            "casNo": "64742-54-7",
+            "content": "0~4",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "액 (석유)",
+            "casNo": "CAS 미기재",
+            "content": ">5000",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "사용전에 경고 특성을 고려하시오.",
+            "casNo": "CAS 미기재",
+            "content": ">5000",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "방독마스크(직결식 소형, 유기 화합물용)",
+            "casNo": "CAS 미기재",
+            "content": ">5.53",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "공기여과식 호흡보호구(유기 화합물용 정화통 및 전면형)",
+            "casNo": "CAS 미기재",
+            "content": ">5000",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "미지농도 또는 기타 생명이나 건강에 급박한 위험이 있는 경우 : 송기마스크(복합식 에어라인 마스크), 공기호흡기(전면형)",
+            "casNo": "CAS 미기재",
+            "content": ">5000",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "눈 보호",
+            "casNo": "CAS 미기재",
+            "content": ">5000",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "해당물질에 직접적인 노출 또는 노출 가능성이 있는 경우, 한국산업안전보건공단 인증을 받은 화학물질용 보안경을 착용할 것.",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "나. 적절한 공학적 관리",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "가스, 증기, 미스트, 흄 또는 분진이 발산되는 작업장에 대하여는 공기 중에 이들 함유농도가 보건상 유해한 정도를 초과하지 않기",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "를 권장함",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "다. 개인 보호구",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "호흡기 보호",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "해당물질에 직접적인 노출 또는 노출 가능성이 있는 경우, 한국산업안전보건공단 인증을 받은 방독마스크를 착용할 것.",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "호흡보호는 최소농도부터 최대농도까지 분류됨.",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "국내노출기준",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "ACGIH노출기준",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "refined)",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "생물학적 노출기준",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "누출여부를 주기적으로 점검하시오.",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "직접적으로 열을 가하지 마시오.",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "직사광선을 피하시오.",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "정전기를 방지하고 보일러 등의 열원근처나 가연물 주위는 피해서 보관하시오.",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "8. 노출방지 및 개인보호구",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "가. 화학물질의 노출기준, 생물학적 노출기준 등",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "가. 안전취급요령",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "통풍이 잘 되는 장소에서만 취급하시오.",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "모든 안전 주의를 읽고 이해하기 전에는 취급하지 마시오.",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "나. 안전한 저장 방법",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "누출된 물질의 처분을 위해 적당한 용기에 수거하시오.",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "소량 누출 : 모래 또는 다른 비가연성 물질을 사용하여 흡수시키시오.",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "용매를 닦아내시오.",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "추후 처리를 위해 제방을 축조하시오.",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "7. 취급 및 저장 방법",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          },
+          {
+            "chemicalName": "나. 환경을 보호하기 위해 필요한 조치사항",
+            "casNo": "CAS 미기재",
+            "content": "",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          }
+        ],
+        "after": [
+          {
+            "chemicalName": "수소처리된 중질 파라핀 증류액(석유)",
+            "casNo": "64742-54-7",
+            "content": "98~99",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": "",
+            "sourceIdentifier": "KE-12546"
+          },
+          {
+            "chemicalName": "영업비밀 1",
+            "casNo": "영업비밀",
+            "content": "0.1~1",
+            "controlledSubstance": "",
+            "workEnvironmentMeasurement": "",
+            "specialHealthExam": ""
+          }
+        ]
+      }
     }
   },
   "ingredientIdentifiers": [
@@ -13699,6 +14114,618 @@
       "checkedOn": "2026-10-13",
       "sha256": "b5fe1644fda96eb7eb0eb64012690d0f5edfb0d080a6df9cc014c387ec5018a0",
       "verifiedBy": "원문 3쪽 CAS 번호 또는 식별번호 칸에는 T-2023-00604(2028-08-30)가 기재되어 있고 표준 CAS 번호는 표기되어 있지 않음. 성분명·함유량은 유지."
+    },
+    {
+      "productId": "msds-051",
+      "chemicalName": "Carbomonocyclecarboxylicanhydride polymer(...)",
+      "beforeCas": "2015-3-7140",
+      "sourceValue": "2015-3-7140",
+      "pdf": "pdf/01_ 도장/KNK/KNK_듀프렉스 그래비티 그레이[MGG](A203-C7071)_MSDS_20210927.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "17fcd66feba1a3a30b1f761dad38f22526cadb4f2e012ca157b94c0032c5ea8a",
+      "verifiedBy": "원문 제3항 표를 시각 대조. 성분명·함유량·법정 대상 표시 보존. 식별번호 체계나 대체 CAS를 추정하지 않음.",
+      "sourceField": "sourceIdentifier"
+    },
+    {
+      "productId": "msds-057",
+      "chemicalName": "Carbomonocyclecarboxylicanhydride polymer(...)",
+      "beforeCas": "2015-3-7140",
+      "sourceValue": "2015-3-7140",
+      "pdf": "pdf/01_ 도장/KNK/KNK_듀프렉스 플루톤 블루[PLU](A203-K7077)_MSDS_20220331.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "b2ba4b0f021d1d899bc4305bc3d0e15e0e3dea9e8a5c30fa227c4dd97db016c2",
+      "verifiedBy": "원문 제3항 표를 시각 대조. 성분명·함유량·법정 대상 표시 보존. 식별번호 체계나 대체 CAS를 추정하지 않음.",
+      "sourceField": "sourceIdentifier"
+    },
+    {
+      "productId": "msds-086",
+      "chemicalName": "포스포릭산 에스테르, 아민염",
+      "beforeCas": "99-3-1171",
+      "sourceValue": "99-3-1171",
+      "pdf": "pdf/00_ 사출/MOBIL코리아/모빌코리아_MOBILUX EP 0_MSDS_20210330.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "c7476935ee46db595ecbbbb982171b7c287dfe7e2f60fc105ead03742659cbb4",
+      "verifiedBy": "원문 제3항 표를 시각 대조. 성분명·함유량·법정 대상 표시 보존. 식별번호 체계나 대체 CAS를 추정하지 않음.",
+      "sourceField": "sourceIdentifier"
+    },
+    {
+      "productId": "msds-086",
+      "chemicalName": "아연 디티오포스페이트",
+      "beforeCas": "KE-28667",
+      "sourceValue": "KE-28667",
+      "pdf": "pdf/00_ 사출/MOBIL코리아/모빌코리아_MOBILUX EP 0_MSDS_20210330.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "c7476935ee46db595ecbbbb982171b7c287dfe7e2f60fc105ead03742659cbb4",
+      "verifiedBy": "원문 제3항 표를 시각 대조. 성분명·함유량·법정 대상 표시 보존. 식별번호 체계나 대체 CAS를 추정하지 않음.",
+      "sourceField": "sourceIdentifier"
+    },
+    {
+      "productId": "msds-141",
+      "chemicalName": "Alkylolammonium Salt",
+      "beforeCas": "701-048-1",
+      "sourceValue": "701-048-1",
+      "pdf": "pdf/3M/3M_3M™ 피네스잇™ 폴리시 - 최종 마감재(28796, 84224, 82877, 82878, 88753)_MSDS_20210715.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "112b8f05f42b859d5f15749c362437c33f24236e06d2c5d108871b68e64ed29e",
+      "verifiedBy": "원문 제3항 표를 시각 대조. 성분명·함유량·법정 대상 표시 보존. 식별번호 체계나 대체 CAS를 추정하지 않음.",
+      "sourceField": "sourceIdentifier"
+    },
+    {
+      "productId": "msds-171",
+      "chemicalName": "카르복시메틸셀룰로오스나트륨",
+      "beforeCas": "9000-11-07",
+      "sourceValue": "9000-11-07",
+      "pdf": "pdf/식당/성진켐_be chef. clean 주방세제 알뜰형_MSDS_20240521.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "487f12c34983daf7709f5a8066c388a813483bc9b085dee00f100df396899b8c",
+      "verifiedBy": "원문 제3항 표를 시각 대조. 성분명·함유량·법정 대상 표시 보존. 식별번호 체계나 대체 CAS를 추정하지 않음.",
+      "sourceField": "sourceCasNo",
+      "sourceIssue": "원문 자체의 CAS번호 오류. 성진켐 정정본 확인 필요. 대체 CAS 미확정."
+    },
+    {
+      "productId": "msds-051",
+      "chemicalName": "Hexanedioic acid, polymer with 2,2-dimethyl-1,3-pr",
+      "beforeCas": "Z1412-001140*주1",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-001140*주1",
+      "pdf": "pdf/01_ 도장/KNK/KNK_듀프렉스 그래비티 그레이[MGG](A203-C7071)_MSDS_20210927.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "17fcd66feba1a3a30b1f761dad38f22526cadb4f2e012ca157b94c0032c5ea8a",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-051",
+      "chemicalName": "Methyl methacrylate-N-(hydroxymethyl)acrylamide-ac",
+      "beforeCas": "Z1412-008811*주2",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-008811*주2",
+      "pdf": "pdf/01_ 도장/KNK/KNK_듀프렉스 그래비티 그레이[MGG](A203-C7071)_MSDS_20210927.pdf",
+      "page": 3,
+      "checkedOn": "2026-10-14",
+      "sha256": "17fcd66feba1a3a30b1f761dad38f22526cadb4f2e012ca157b94c0032c5ea8a",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-051",
+      "chemicalName": "Hexanedioic acid, polymer with 2-ethyl-2-(hydroxym",
+      "beforeCas": "Z1412-009742*주3",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-009742*주3",
+      "pdf": "pdf/01_ 도장/KNK/KNK_듀프렉스 그래비티 그레이[MGG](A203-C7071)_MSDS_20210927.pdf",
+      "page": 3,
+      "checkedOn": "2026-10-14",
+      "sha256": "17fcd66feba1a3a30b1f761dad38f22526cadb4f2e012ca157b94c0032c5ea8a",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-052",
+      "chemicalName": "Hexanedioic acid, polymer with 2,2-dimethyl-1,3-pr",
+      "beforeCas": "Z1412-001140(*주1)",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-001140(*주1)",
+      "pdf": "pdf/01_ 도장/KNK/KNK_듀프렉스 그래비티그레이 [KDG](A203-C7060)_MSDS_20221208.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "ba17241504b0a7d9263ee7e3eff9f49a5148045be83c4967de1cf7e2a4a6f990",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-052",
+      "chemicalName": "Methyl methacrylate-N-(hydroxymethyl)acrylamide-ac",
+      "beforeCas": "Z1412-008811(*주2)",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-008811(*주2)",
+      "pdf": "pdf/01_ 도장/KNK/KNK_듀프렉스 그래비티그레이 [KDG](A203-C7060)_MSDS_20221208.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "ba17241504b0a7d9263ee7e3eff9f49a5148045be83c4967de1cf7e2a4a6f990",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-052",
+      "chemicalName": "Hexanedioic acid, polymer with 2-ethyl-2-(hydroxym",
+      "beforeCas": "Z1412-009742(*주3)",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-009742(*주3)",
+      "pdf": "pdf/01_ 도장/KNK/KNK_듀프렉스 그래비티그레이 [KDG](A203-C7060)_MSDS_20221208.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "ba17241504b0a7d9263ee7e3eff9f49a5148045be83c4967de1cf7e2a4a6f990",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-053",
+      "chemicalName": "Hexanedioic acid, polymer with 2,2-dimethyl-1,3-pr",
+      "beforeCas": "Z1412-001140(*주1)",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-001140(*주1)",
+      "pdf": "pdf/01_ 도장/KNK/KNK_듀프렉스 그래비티그레이 [KDT-GP2](A203-C7066)_MSDS_20221208.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "c4a10c7318a3a91b421113277f439ca273898d82b74b4b0f7f9f168075aabdc1",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-053",
+      "chemicalName": "Methyl methacrylate-N-(hydroxymethyl)acrylamide-ac",
+      "beforeCas": "Z1412-008811(*주2)",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-008811(*주2)",
+      "pdf": "pdf/01_ 도장/KNK/KNK_듀프렉스 그래비티그레이 [KDT-GP2](A203-C7066)_MSDS_20221208.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "c4a10c7318a3a91b421113277f439ca273898d82b74b4b0f7f9f168075aabdc1",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-053",
+      "chemicalName": "Hexanedioic acid, polymer with 2-ethyl-2-(hydroxym",
+      "beforeCas": "Z1412-009742(*주3)",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-009742(*주3)",
+      "pdf": "pdf/01_ 도장/KNK/KNK_듀프렉스 그래비티그레이 [KDT-GP2](A203-C7066)_MSDS_20221208.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "c4a10c7318a3a91b421113277f439ca273898d82b74b4b0f7f9f168075aabdc1",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-054",
+      "chemicalName": "Methyl methacrylate-N-(hydroxymethyl)acrylamide-ac",
+      "beforeCas": "Z1412-008811*주1)",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-008811*주1)",
+      "pdf": "pdf/01_ 도장/KNK/KNK_듀프렉스 언블리치드 아이보리 [NES](A203-X7020)_MSDS_20260303.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "13820dc912bae958924a456f970a2cce9eab28c6dad2e8d9834e3f15abcdd543",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-054",
+      "chemicalName": "Styrene polymer with n-Butyl methacrylate, 2-Oxepa",
+      "beforeCas": "Z1412-008820*주2)",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-008820*주2)",
+      "pdf": "pdf/01_ 도장/KNK/KNK_듀프렉스 언블리치드 아이보리 [NES](A203-X7020)_MSDS_20260303.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "13820dc912bae958924a456f970a2cce9eab28c6dad2e8d9834e3f15abcdd543",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-056",
+      "chemicalName": "Hexanedioic acid, polymer with 2,2-dimethyl-1,3-pr",
+      "beforeCas": "Z1412-001140(*주1)",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-001140(*주1)",
+      "pdf": "pdf/01_ 도장/KNK/KNK_듀프렉스 인페르노레드 [AJR](A203-R7038)_MSDS_20221208.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "905b6b40a93cc4398729fe80ea42f523551217b3411cb6dd88f0aebc62d9d810",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-056",
+      "chemicalName": "Methyl methacrylate-N-(hydroxymethyl)acrylamide-ac",
+      "beforeCas": "Z1412-008811(*주2)",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-008811(*주2)",
+      "pdf": "pdf/01_ 도장/KNK/KNK_듀프렉스 인페르노레드 [AJR](A203-R7038)_MSDS_20221208.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "905b6b40a93cc4398729fe80ea42f523551217b3411cb6dd88f0aebc62d9d810",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-056",
+      "chemicalName": "Hexanedioic acid, polymer with 2-ethyl-2-(hydroxym",
+      "beforeCas": "Z1412-009742(*주3)",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-009742(*주3)",
+      "pdf": "pdf/01_ 도장/KNK/KNK_듀프렉스 인페르노레드 [AJR](A203-R7038)_MSDS_20221208.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "905b6b40a93cc4398729fe80ea42f523551217b3411cb6dd88f0aebc62d9d810",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-057",
+      "chemicalName": "Hexanedioic acid, polymer with 2,2-dimethyl-1,3-pr",
+      "beforeCas": "Z1412-001140(*주1)",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-001140(*주1)",
+      "pdf": "pdf/01_ 도장/KNK/KNK_듀프렉스 플루톤 블루[PLU](A203-K7077)_MSDS_20220331.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "b2ba4b0f021d1d899bc4305bc3d0e15e0e3dea9e8a5c30fa227c4dd97db016c2",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-057",
+      "chemicalName": "Methyl methacrylate-N-(hydroxymethyl)acrylamide-ac",
+      "beforeCas": "Z1412-008811(*주2)",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-008811(*주2)",
+      "pdf": "pdf/01_ 도장/KNK/KNK_듀프렉스 플루톤 블루[PLU](A203-K7077)_MSDS_20220331.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "b2ba4b0f021d1d899bc4305bc3d0e15e0e3dea9e8a5c30fa227c4dd97db016c2",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-057",
+      "chemicalName": "Hexanedioic acid, polymer with 2-ethyl-2-(hydroxym",
+      "beforeCas": "Z1412-009742(*주3)",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-009742(*주3)",
+      "pdf": "pdf/01_ 도장/KNK/KNK_듀프렉스 플루톤 블루[PLU](A203-K7077)_MSDS_20220331.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "b2ba4b0f021d1d899bc4305bc3d0e15e0e3dea9e8a5c30fa227c4dd97db016c2",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-058",
+      "chemicalName": "Neodecanoic acid, 2-oxiranylmethyl ester, polymer",
+      "beforeCas": "Z1412-001157(*주1)",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-001157(*주1)",
+      "pdf": "pdf/01_ 도장/KNK/KNK_소프렉스#500 무광투명 [G-30](K806-A4005)_MSDS_20221209.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "b30df47a3a767e489ecbeaf0c1f8871f04000e9265f1c51ce80471f50d2989a4",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-058",
+      "chemicalName": "Styrene polymer with n-Butyl methacrylate, 2-Oxepa",
+      "beforeCas": "Z1412-008820(*주2)",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-008820(*주2)",
+      "pdf": "pdf/01_ 도장/KNK/KNK_소프렉스#500 무광투명 [G-30](K806-A4005)_MSDS_20221209.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "b30df47a3a767e489ecbeaf0c1f8871f04000e9265f1c51ce80471f50d2989a4",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-059",
+      "chemicalName": "Styrene polymer with iso-Butyl methacrylate, 2-Et",
+      "beforeCas": "Z1412-008806",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-008806",
+      "pdf": "pdf/01_ 도장/KNK/KNK_소프렉스#500 크리어 [DL](K806-A0070)_MSDS_20221209.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "3422678a01ddd910ec6d08a34ecf4cfd5827b73df8e435653f7c153b37d353b1",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-059",
+      "chemicalName": "Styrene polymer with n-Butyl acrylate, t-Butyl met",
+      "beforeCas": "Z1412-008821",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-008821",
+      "pdf": "pdf/01_ 도장/KNK/KNK_소프렉스#500 크리어 [DL](K806-A0070)_MSDS_20221209.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "3422678a01ddd910ec6d08a34ecf4cfd5827b73df8e435653f7c153b37d353b1",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-062",
+      "chemicalName": "Methyl methacrylate-N-(hydroxymethyl)acrylamide-ac",
+      "beforeCas": "Z1412-008811(*주1)",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-008811(*주1)",
+      "pdf": "pdf/01_ 도장/KNK/KNK_아크렉스 아이스버그 그린 [IEG](A203-G7033)_MSDS_20250325.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "12022903ac8d1563f666b978a827b8a25f9eb9f533d7fb51f4f4aada388ea878",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-063",
+      "chemicalName": "Methyl methacrylate-N-(hydroxymethyl)acrylamide-ac",
+      "beforeCas": "Z1412-008811(*주-1)",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "Z1412-008811(*주-1)",
+      "pdf": "pdf/01_ 도장/KNK/KNK_아크렉스 프로스트 블루 [EBB](A203-K7079)_MSDS_20250326.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "8054b0065723a02625a6c342ba95157254f6b9132462fee305ce358a8fd0ede3",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-085",
+      "chemicalName": "2,6-디-tert-부틸-P-크레졸",
+      "beforeCas": "KE-03079",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "KE-03079",
+      "pdf": "pdf/00_ 사출/MOBIL코리아/모빌코리아_MOBIL DTE 25_MSDS_20210318.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "9bbe400e5a0ad778788753b4eda0af61522c5e59a0b7c0491426641946cf1fe9",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-085",
+      "chemicalName": "NAPHTHALENESULFONIC ACID, DINONYL-, CALCIUM SALT",
+      "beforeCas": "KE-11963",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "KE-11963",
+      "pdf": "pdf/00_ 사출/MOBIL코리아/모빌코리아_MOBIL DTE 25_MSDS_20210318.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "9bbe400e5a0ad778788753b4eda0af61522c5e59a0b7c0491426641946cf1fe9",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-087",
+      "chemicalName": "LONG-CHAIN ALKENYL AMINE",
+      "beforeCas": "KE-26433",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "KE-26433",
+      "pdf": "pdf/00_ 사출/MOBIL코리아/모빌코리아_SPARTAN EP 220_MSDS_20220613.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "7e9d4c333aa68e2402be70c371f946eb2d13052b1acdf9a0cbbb2408002a9717",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-088",
+      "chemicalName": "벤젠아민, N-페닐-, 2,4,4-트리메틸펜텐과의 반응 생성물",
+      "beforeCas": "KE-28307",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "KE-28307",
+      "pdf": "pdf/00_ 사출/MOBIL코리아/모빌코리아_MOBILGREASE XHP 222_MSDS_20210927.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "69ca51ec1165764724b7b0f4eec027b2f388e3aa5151e854aedac8dcb5fffd3c",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-088",
+      "chemicalName": "NAPHTHENIC ACIDS, ZINC SALTS",
+      "beforeCas": "KE-35560",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "KE-35560",
+      "pdf": "pdf/00_ 사출/MOBIL코리아/모빌코리아_MOBILGREASE XHP 222_MSDS_20210927.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "69ca51ec1165764724b7b0f4eec027b2f388e3aa5151e854aedac8dcb5fffd3c",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    },
+    {
+      "productId": "msds-088",
+      "chemicalName": "아연 디알킬 디티오포스페이트",
+      "beforeCas": "KE-28665",
+      "sourceField": "sourceIdentifier",
+      "sourceValue": "KE-28665",
+      "pdf": "pdf/00_ 사출/MOBIL코리아/모빌코리아_MOBILGREASE XHP 222_MSDS_20210927.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "69ca51ec1165764724b7b0f4eec027b2f388e3aa5151e854aedac8dcb5fffd3c",
+      "verifiedBy": "원문에 같은 식별값이 있음을 대조. 원문 기호/주석을 보존하고 CAS 필드와 분리. 성분명·함유량·법정 대상 표시 불변."
+    }
+  ],
+  "overrideIngredients": [
+    {
+      "productId": "msds-pdf-f60438c81a0521d8",
+      "pdf": "pdf/한일루켐(그리스)/한일루켐_GHP PCG 0_MSDS_20121029.pdf",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "sha256": "f60438c81a0521d879237320e904b099bb26dc26f5c5d9ab1481a954521a303b",
+      "before": [
+        {
+          "chemicalName": "함량(%)비고MineralOil64741-96-464742-54-764742-10-56-1075-805-10Additive106-14-91310-66- 3-51-21-24.",
+          "casNo": "3128-37-0",
+          "content": ""
+        }
+      ],
+      "after": [
+        {
+          "chemicalName": "Mineral Oil",
+          "casNo": "64741-96-4",
+          "content": "6-10",
+          "controlledSubstance": "",
+          "workEnvironmentMeasurement": "",
+          "specialHealthExam": ""
+        },
+        {
+          "chemicalName": "Mineral Oil",
+          "casNo": "64742-54-7",
+          "content": "75-80",
+          "controlledSubstance": "",
+          "workEnvironmentMeasurement": "",
+          "specialHealthExam": ""
+        },
+        {
+          "chemicalName": "Mineral Oil",
+          "casNo": "64742-10-5",
+          "content": "5-10",
+          "controlledSubstance": "",
+          "workEnvironmentMeasurement": "",
+          "specialHealthExam": ""
+        },
+        {
+          "chemicalName": "Additive",
+          "casNo": "106-14-9",
+          "content": "3-5",
+          "controlledSubstance": "",
+          "workEnvironmentMeasurement": "",
+          "specialHealthExam": ""
+        },
+        {
+          "chemicalName": "Additive",
+          "casNo": "1310-66-3",
+          "content": "1-2",
+          "controlledSubstance": "",
+          "workEnvironmentMeasurement": "",
+          "specialHealthExam": ""
+        },
+        {
+          "chemicalName": "Additive",
+          "casNo": "128-37-0",
+          "content": "1-2",
+          "controlledSubstance": "",
+          "workEnvironmentMeasurement": "",
+          "specialHealthExam": ""
+        }
+      ],
+      "verifiedBy": "원문 2쪽 여섯 성분 행 대조. 3128-37-0은 행 접힘 추출 오류, 마지막 Additive는 128-37-0/1-2."
+    },
+    {
+      "productId": "msds-pdf-3b92d1fa1c9a3177",
+      "pdf": "pdf/현대ep/현대EP_SUPOL HR530U_MSDS_20231010.pdf",
+      "sha256": "3b92d1fa1c9a31777a92a707a8be86cabf5e73f19ab80270fc49ea7aa218db4b",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "before": [
+        {
+          "chemicalName": "IRGAFOS 168",
+          "casNo": "31570-04-4",
+          "content": "0.1~1"
+        },
+        {
+          "chemicalName": "Tetrahydroxybenzophene",
+          "casNo": "167078-06-0",
+          "content": "0.1~1"
+        },
+        {
+          "chemicalName": "에틸렌-프로필렌 공중합체(ETHYLENE-PROPYLENE COPOLYMER)",
+          "casNo": "9010-79-1",
+          "content": "0.1~1"
+        },
+        {
+          "chemicalName": "Butene, polymer with ethene Polyolefin elastomer,",
+          "casNo": "25087-34-7",
+          "content": "50~60"
+        },
+        {
+          "chemicalName": "활석(석면 불포함)",
+          "casNo": "14807-96-6",
+          "content": "15~20"
+        },
+        {
+          "chemicalName": "Polypropane",
+          "casNo": "9003-07-0",
+          "content": "15~20"
+        }
+      ],
+      "after": [
+        {
+          "chemicalName": "Polypropylene",
+          "casNo": "9003-07-0",
+          "content": "8~12",
+          "controlledSubstance": "",
+          "workEnvironmentMeasurement": "",
+          "specialHealthExam": ""
+        },
+        {
+          "chemicalName": "Ethylene-Propylene copolymer",
+          "casNo": "9010-79-1",
+          "content": "50~60",
+          "controlledSubstance": "",
+          "workEnvironmentMeasurement": "",
+          "specialHealthExam": ""
+        },
+        {
+          "chemicalName": "1-Butene, polymer with ethene",
+          "casNo": "25087-34-7",
+          "content": "10~15",
+          "controlledSubstance": "",
+          "workEnvironmentMeasurement": "",
+          "specialHealthExam": ""
+        },
+        {
+          "chemicalName": "Talc, Non-asbestis form",
+          "casNo": "14807-96-6",
+          "content": "15~20",
+          "controlledSubstance": "",
+          "workEnvironmentMeasurement": "",
+          "specialHealthExam": ""
+        },
+        {
+          "chemicalName": "Second Antioxidant (2,4-DI-TERT-BUTYLPHENOL PHOSPHITE)",
+          "casNo": "31570-04-4",
+          "content": "0.1~1",
+          "controlledSubstance": "",
+          "workEnvironmentMeasurement": "",
+          "specialHealthExam": ""
+        },
+        {
+          "chemicalName": "Hindered Amine Compound",
+          "casNo": "167078-06-0",
+          "content": "0.1~1",
+          "controlledSubstance": "",
+          "workEnvironmentMeasurement": "",
+          "specialHealthExam": ""
+        }
+      ],
+      "verifiedBy": "제3항 외의 응급·취급·노출 행이 성분에 섞인 추출을 원문 제3항 표로 선택 복구."
+    },
+    {
+      "productId": "msds-pdf-48f0afe382fbccab",
+      "pdf": "pdf/현대오일뱅크(주)/현대오일뱅크_MK XTeer Therm 46S_MSDS_20190524.pdf",
+      "sha256": "48f0afe382fbccab1bc8210d51cb2cab6cbd0534dcf2d021aa7b00b958e3d350",
+      "page": 2,
+      "checkedOn": "2026-10-14",
+      "before": [
+        {
+          "chemicalName": "/ KE-12546",
+          "casNo": "64742-54-7",
+          "content": "0 ~ 4"
+        }
+      ],
+      "after": [
+        {
+          "chemicalName": "수소처리된 중질 파라핀 증류액(석유)",
+          "casNo": "64742-54-7",
+          "content": "98~99",
+          "controlledSubstance": "",
+          "workEnvironmentMeasurement": "",
+          "specialHealthExam": "",
+          "sourceIdentifier": "KE-12546"
+        },
+        {
+          "chemicalName": "영업비밀 1",
+          "casNo": "영업비밀",
+          "content": "0.1~1",
+          "controlledSubstance": "",
+          "workEnvironmentMeasurement": "",
+          "specialHealthExam": ""
+        }
+      ],
+      "verifiedBy": "제3항 외의 응급·취급·노출 행이 성분에 섞인 추출을 원문 제3항 표로 선택 복구."
     }
   ]
 }
