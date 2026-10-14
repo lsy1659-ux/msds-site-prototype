@@ -64,4 +64,4 @@ for(const backend of [storage,{setItem(){throw new Error('quota')},getItem(){thr
   e.win.location.search='?selection=broken';
   assert.deepEqual(Array.from(e.win.MsdsHandoff.requested()),[]);
 }
-console.log('219개 선택 전달 / URL 길이 / 저장소 차단 fallback / 한 제품·오프라인 링크: PASS');
+console.log(`${products.length}개 선택 전달 / URL 길이 / 저장소 차단 fallback / 한 제품·오프라인 링크: PASS`);

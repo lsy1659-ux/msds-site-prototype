@@ -13,13 +13,15 @@
 // CHROME 환경변수로 Chrome 위치를 줄 수 있다. 없으면 흔한 자리를 찾아본다.
 
 import { spawn } from "node:child_process";
-import { createReadStream, existsSync, mkdirSync, mkdtempSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { createReadStream, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { tmpdir } from "node:os";
 import { extname, join, normalize, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = resolve(fileURLToPath(new URL("../..", import.meta.url)));
+// 제품 수는 배포 기준(data/release-policy.json) 한 곳에서 읽는다. 숫자를 박아 두면 제품을 하나 더할 때마다 점검이 깨진다.
+const EXPECTED = JSON.parse(readFileSync(join(ROOT, "data", "release-policy.json"), "utf8")).expectedProducts;
 const TYPES = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".mjs": "text/javascript",
   ".css": "text/css", ".json": "application/json", ".pdf": "application/pdf", ".svg": "image/svg+xml",
   ".png": "image/png", ".webmanifest": "application/manifest+json", ".txt": "text/plain" };
@@ -465,16 +467,16 @@ try {
     }
   });
 
-  await check("경고표지 전체 219개 선택이 관리요령 탭으로 모두 전달된다", async () => {
+  await check(`경고표지 전체 ${EXPECTED}개 선택이 관리요령 탭으로 모두 전달된다`, async () => {
     await page.go(`${BASE}/label.html?dataMode=public`);
-    await page.until("labelState.products.length===219");
+    await page.until(`labelState.products.length===${EXPECTED}`);
     await page.eval("document.querySelector('#labelSelectAll').click();");
     const href=await page.eval("return document.querySelector('a.top-bar-tab[href^=\"guide.html\"]').href;");
     expect(href.length < 1800 && href.includes('selection='),href);
     await page.go(href);
     await page.until("guideState.selected.size>0");
     const count=await page.eval("return guideState.selected.size;");
-    expect(count===219,`전달 ${count}개`);
+    expect(count===EXPECTED,`전달 ${count}개`);
   });
 
   await check("PN3084: 원문 비분류의 그림문자·신호어 없음이 표시된다", async () => {
@@ -490,13 +492,13 @@ try {
   });
 
   if (process.env.MSDS_CHECK_PUBLIC === "1") {
-    await check("공개 사이트: 219개 제품과 최신 MRM·ISM 공급사 안내가 실제로 표시된다", async () => {
+    await check(`공개 사이트: ${EXPECTED}개 제품과 최신 MRM·ISM 공급사 안내가 실제로 표시된다`, async () => {
       const PUBLIC = "https://lsy1659-ux.github.io/msds-site-prototype/";
       await page.go(PUBLIC);
       await page.until("document.querySelectorAll('.quick-search button').length > 0", 30000);
       await page.until("state.products.length > 0 || state.dataLoadError", 30000);
       const count = await page.eval("return state.products.length;");
-      expect(count === 219, `공개 제품 ${count}개`);
+      expect(count === EXPECTED, `공개 제품 ${count}개`);
       for (const [alias, id, code] of [["MRM", "msds-060", "OVR"], ["ISM", "msds-061", "ISG"]]) {
         await page.eval(`const input = document.querySelector('#searchInput'); input.value = '${alias}'; input.dispatchEvent(new Event('input', { bubbles: true }));`);
         await page.until(`document.querySelector('.selection-item[data-product-id="${id}"]')`);
