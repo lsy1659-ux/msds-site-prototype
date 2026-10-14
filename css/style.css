@@ -10060,3 +10060,35 @@ select:focus-visible {
   background: #157a63;
   color: #ffffff;
 }
+
+/* 구판 표시 — 최신판이 따로 있는데 남겨 둔 MSDS(관리대장 oldVersion) */
+.old-version-badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 7px;
+  border: 1px solid #c2410c;
+  border-radius: 999px;
+  background: #fff1e6;
+  color: #9a3412;
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.5;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+[data-theme="dark"] .old-version-badge {
+  border-color: #fb923c;
+  background: #3a2414;
+  color: #fdba74;
+}
+
+.detail-block-old-version {
+  border-color: rgba(194, 65, 12, 0.45);
+  background: #fff7f0;
+}
+
+[data-theme="dark"] .detail-block-old-version {
+  background: #2a1d13;
+}

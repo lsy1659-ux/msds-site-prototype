@@ -200,6 +200,18 @@ def apply_register(
         else:
             product.pop("msdsUseAdvice", None)
 
+        # 최신판이 따로 들어왔지만 구판도 목록에 남겨 두는 제품(제품명 뒤 차종 표시가 달라 같은 판이라고
+        # 단정할 수 없을 때). 지우는 retired 와 달리 그대로 보이되 화면·검색에 '구판' 을 붙인다.
+        old_version = entry.get("oldVersion")
+        if isinstance(old_version, dict) and old_version.get("newId"):
+            marker = deepcopy(old_version)
+            newer = by_id.get(marker["newId"]) or {}
+            if newer.get("productName"):
+                marker["newName"] = newer["productName"]
+            product["oldVersion"] = marker
+        else:
+            product.pop("oldVersion", None)
+
         # 원문과 다르게 들어간 날짜를 바로잡는다. 원문에서 확인한 날짜만 관리대장에 적는다.
         # 확인한 PDF 의 해시를 같이 적어 두었으니, 그 자리에 다른 PDF 가 들어왔으면
         # 옛 날짜로 덮어쓰지 않는다.

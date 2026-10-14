@@ -84,6 +84,8 @@ function buildRows(register, products) {
       sourceIssueAsk: entry.sourceIssueAsk || "",
       // 무엇을 보고 적었는지(확인일·원문 쪽·PDF 지문). 같은 자리에 새 PDF 가 오면 다시 봐야 한다.
       sourceIssueEvidence: entry.sourceIssueEvidence || null,
+      // 최신판을 따로 받았지만 목록에 남긴 구판. 할 일에는 올리지 않는다.
+      oldVersion: entry.oldVersion || null,
       replacement,
       pdf: product?.pdfPath || "",
       haystack: rNormalize([entry.productName, entry.supplier, entry.msdsNo, entry.supplierDocNo, entry.kind].join(" "))
@@ -162,7 +164,7 @@ function renderTable() {
 function renderTodo() {
   const groups = new Map();
   registerState.rows
-    .filter((row) => row.status === "required" || row.status === "pending" || row.sourceIssue)
+    .filter((row) => (row.status === "required" || row.status === "pending" || row.sourceIssue) && !row.oldVersion)
     .forEach((row) => {
       const key = row.supplier || "공급사 불명";
       if (!groups.has(key)) groups.set(key, []);

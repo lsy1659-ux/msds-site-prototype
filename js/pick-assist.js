@@ -77,7 +77,7 @@
         <button type="button" class="pick-assist-item" role="option"
           id="${escapeHtml(box.id)}-option-${index}"
           aria-selected="${index === active}" data-pick-index="${index}">
-          <span>${escapeHtml(product.productName)}</span>
+          <span>${escapeHtml(product.productName)}${product.oldVersion ? ` <em class="old-version-badge">구판</em>` : ""}</span>
           <b>${escapeHtml(product.supplier || "")}</b>
         </button>`).join("");
       box.hidden = false;

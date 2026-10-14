@@ -1944,6 +1944,7 @@ function getProductSearchFields(product = {}) {
     erpNames: getUniqueSearchValues([product.erpName]),
     fileNames: getUniqueSearchValues(fileNames),
     metaFields: getUniqueSearchValues([
+      product.oldVersion ? "구판" : "",
       product.category,
       product.useCategory,
       product.recommendedUse,
@@ -2407,7 +2408,7 @@ function renderSelectionList(results, hasQuery, canShowCandidates) {
       ${visibleResults.map((product) => `
         <button class="selection-item ${product.id === state.selectedId ? "is-selected" : ""}" type="button" data-product-id="${escapeAttribute(product.id)}" aria-pressed="${product.id === state.selectedId ? "true" : "false"}">
           ${product.id === state.selectedId ? `<span class="selection-check" aria-hidden="true">✓</span>` : ""}
-          <span class="selection-name text-break clamp-2">${renderNameDifference(product.productName, lookalikes.get(product.id))}</span>
+          <span class="selection-name text-break clamp-2">${renderNameDifference(product.productName, lookalikes.get(product.id))}${renderOldVersionBadge(product)}</span>
           ${lookalikes.has(product.id) ? `<span class="lookalike-note">비슷한 이름 ${lookalikes.get(product.id).count}개</span>` : ""}
           <span class="selection-meta text-muted-path clamp-2">${escapeHtml(metaTextFor(product))}</span>
           <span class="selection-identity clamp-2 ${lookalikes.has(product.id) ? "is-emphasized" : ""}">${escapeHtml(getProductIdentityLine(product))}</span>
@@ -2628,7 +2629,7 @@ function renderFullProductItem(product, index, lookalikes = new Map()) {
       ${product.id === state.selectedId ? `<span class="full-product-check" aria-hidden="true">✓</span>` : ""}
       <span class="full-product-number">${index + 1}</span>
       <span class="full-product-main">
-        <strong title="${escapeAttribute(product.productName)}">${product.productName ? renderNameDifference(product.productName, lookalikes.get(product.id)) : "-"}</strong>
+        <strong title="${escapeAttribute(product.productName)}">${product.productName ? renderNameDifference(product.productName, lookalikes.get(product.id)) : "-"}${renderOldVersionBadge(product)}</strong>
         <span>${escapeHtml(metaText)}</span>
       </span>
       <span class="full-product-tags">
@@ -2874,6 +2875,24 @@ function hasAnySummary(ghsPictograms = [], hazardStatements = [], precautions = 
     || Object.values(precautions || {}).some((items) => Array.isArray(items) && items.length);
 }
 
+/* 최신판이 따로 있는데 지우지 않고 남긴 구판(관리대장 oldVersion). 목록·검색·상세에 '구판' 을 붙여
+ * 최신판 대신 고르는 일이 없게 하고, 상세에서 최신판으로 바로 넘어가게 한다. */
+function renderOldVersionBadge(product = {}) {
+  if (!product.oldVersion) return "";
+  return ` <span class="old-version-badge" title="${escapeAttribute(product.oldVersion.note || "구판입니다")}">구판</span>`;
+}
+
+function renderOldVersionNotice(product = {}) {
+  const marker = product.oldVersion;
+  if (!marker) return "";
+  const target = marker.newId ? `index.html?product=${encodeURIComponent(marker.newId)}` : "";
+  return detailSection("구판입니다", `
+    <p>${escapeHtml(marker.note || "이 MSDS 는 구판입니다.")}</p>
+    ${target ? `<p><a class="old-version-link" href="${escapeAttribute(target)}">최신판 보기${marker.newName ? ` — ${escapeHtml(marker.newName)}` : ""}</a></p>` : ""}
+    ${marker.recordedOn ? `<p class="summary-note">기록일 ${escapeHtml(marker.recordedOn)}</p>` : ""}
+  `, "detail-block-old-version");
+}
+
 function renderMsdsUseAdvice(product = {}) {
   const advice = product.msdsUseAdvice;
   if (!advice?.note) return "";
@@ -2902,6 +2921,7 @@ function renderDetail(product) {
   elements.detailPanel.innerHTML = `
     ${renderBackToFullListButton()}
     ${renderSelectedProductBar(product, detailData, pdfInfo, summaryAvailable)}
+    ${renderOldVersionNotice(product)}
     ${renderMsdsUseAdvice(product)}
     ${detailSection("제품 기본정보", `
       <div class="info-grid detail-info-grid">
@@ -3026,7 +3046,7 @@ function renderSelectedProductBar(product, detailData, pdfInfo, summaryAvailable
     <section class="selected-product-bar ${summaryAvailable ? "is-reviewed" : "is-review-needed"}" aria-label="선택 제품 핵심정보">
       <div class="selected-product-bar-main">
         ${renderProductReviewBadge(product)}
-        <strong>${escapeHtml(detailData.productName)}</strong>
+        <strong>${escapeHtml(detailData.productName)}${renderOldVersionBadge(product)}</strong>
         <span>${escapeHtml(getProductIdentityLine(product))}</span>
       </div>
       <div class="selected-product-bar-actions">
@@ -4685,7 +4705,8 @@ function buildSearchSuggestionPool() {
           if (type.weight < existing.type.weight) existing.type = type;
           return;
         }
-        seen.set(normalized, { text, normalized, initials: getKoreanInitials(normalized), type, count: 1 });
+        seen.set(normalized, { text, normalized, initials: getKoreanInitials(normalized), type, count: 1,
+          oldVersion: type.key === "productNames" && Boolean(product.oldVersion) && text === product.productName });
       });
     });
   });
@@ -4704,7 +4725,7 @@ function getSearchSuggestions(query) {
     if (entry.normalized === needle) return;
     const at = byInitials ? entry.initials.indexOf(initialNeedle) : entry.normalized.indexOf(needle);
     if (at < 0) return;
-    matches.push({ text: entry.text, type: entry.type, count: entry.count, at });
+    matches.push({ text: entry.text, type: entry.type, count: entry.count, at, oldVersion: entry.oldVersion });
   });
   matches.sort((a, b) => (
     (a.at === 0 ? 0 : 1) - (b.at === 0 ? 0 : 1)
@@ -4754,7 +4775,7 @@ function renderSearchAssist() {
     return `<li role="presentation">
         <button type="button" class="search-assist-item${isActive ? " is-active" : ""}" role="option" aria-selected="${isActive}" data-assist-value="${escapeAttribute(item.text)}">
           <span class="search-assist-icon" aria-hidden="true">${icon}</span>
-          <span class="search-assist-text">${label}</span>
+          <span class="search-assist-text">${label}${item.oldVersion ? ` <span class="old-version-badge">구판</span>` : ""}</span>
           ${trailing}
         </button>
       </li>`;

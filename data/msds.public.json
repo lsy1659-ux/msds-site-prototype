@@ -43296,6 +43296,240 @@
     "msdsNoKind": "산업용 혼합물",
     "msdsNoReason": "원문 제2항에 유해성·위험성 분류가 있는 산업용 제품. 제출 유예가 2026.1.16 로 모두 끝나 현재는 번호가 기재된 MSDS 를 받아야 함. 가진 PDF(2021-01-13 개정, (주)노루비케미칼)에는 번호가 없음",
     "msdsNoLegalBasis": "산업안전보건법 제110조제1항 — 제104조 분류기준에 해당하는 화학물질·혼합물(물질안전보건자료대상물질)을 제조·수입하려는 자는 MSDS 를 작성해 제출; 시행규칙 제157조 — 제조·수입 전 공단 물질안전보건자료시스템에 전자 제출; 시행규칙 제160조제1항 — 제공 시 시스템 제출 때 부여된 번호를 MSDS 에 반영; 법률 제16272호 부칙 제7조·제8조, 시행규칙(고용노동부령 제272호) 부칙 제9조·제10조 — 기존 MSDS 제출·제공 기한 2022.1.16~2026.1.16 (모두 경과)",
-    "msdsNoCheckedOn": "2026-10-13"
+    "msdsNoCheckedOn": "2026-10-13",
+    "oldVersion": {
+      "newId": "msds-pdf-f5a05b27dd78d893",
+      "note": "구판입니다. 최신판은 DR-174 BU3(OV1K-CAR) — (주)노루오토코팅, 2025-06-19 개정, MSDS 번호 AA00875-4156004341.",
+      "recordedOn": "2026-10-14",
+      "newName": "DR-174 BU3(OV1K-CAR)"
+    }
+  },
+  {
+    "id": "msds-pdf-f5a05b27dd78d893",
+    "productName": "DR-174 BU3(OV1K-CAR)",
+    "msdsNo": "AA00875-4156004341",
+    "fileName": "노루오토코팅_DR-174 BU3(OV1K-CAR)_MSDS_20250619.pdf",
+    "pdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/노루오토코팅_DR-174 BU3(OV1K-CAR)_MSDS_20250619.pdf",
+    "relativePath": "01_ 도장/NAC(노루오토코팅)/노루오토코팅_DR-174 BU3(OV1K-CAR)_MSDS_20250619.pdf",
+    "category": "유성 페인트",
+    "recommendedUse": "자동차 부품용 BASECOAT 도료",
+    "supplier": "노루오토코팅",
+    "siteLabel": "",
+    "issueDate": "2019-03-21",
+    "revisionDate": "2025-06-19",
+    "emergencyContact": "정보제공 및 긴급연락처 : 031-8059-9500 김태광",
+    "supplierAddress": "경기도 화성시 장안면 장안공단7길 28",
+    "hazardClassification": "인화성액체(flammable liquids) 구분 3 급성독성(acute toxicity) 흡입 구분4(증기) 발암성(carcinogenicity) 구분2 생식독성(reproductive toxicity) 구분2 심한 눈 손상/눈 자극성물질(serious eye damage/eye irritation) 구분2A 특정 표적장기 독성물질(1 회노출) 구분3 (호흡기 자극) 특정 표적장기 독성물질(반복노출) 구분1 특정 표적장기 독성물질(반복노출) 구분2 피부 부식성/자극성물질(skin corrosion/irritation) 구분2 흡인유해성(aspiration hazard) 구분1 수생 환경유해성 만성 구분3 급성독성 경구 구분5 급성독성 경피 구분5",
+    "dangerousGoods": "제4류 제2석유류(비수용성액체) (지정수량 1,000리터)",
+    "ppeSummary": "유기용제용 호흡용 보호구, 보안경, 불투과성 보호장갑, 보호의",
+    "ingredients": [
+      {
+        "chemicalName": "자일렌 Xylene",
+        "casNo": "1330-20-7",
+        "content": "21~31"
+      },
+      {
+        "chemicalName": "Substituted-alkyl(C=1-7) methacrylate polymer with alkyl(C=1-6) methacrylate, alkyl acrylate and alkenyl(C=1-7)carbomonocycle, t-alkyl ethylperalkanoate(C=2-8)-initiated",
+        "casNo": "CAS 미기재",
+        "content": "19~29"
+      },
+      {
+        "chemicalName": "톨루엔 Toluene",
+        "casNo": "108-88-3",
+        "content": "20~30"
+      },
+      {
+        "chemicalName": "2-Methyl-2-propenoic acid butyl ester polymer with butyl 2-propenoate, 2-hydroxyethyl 2-methyl-2-propenoate and methyl 2-methyl-2-propenoate",
+        "casNo": "51994-93-5",
+        "content": "5~15"
+      },
+      {
+        "chemicalName": "에틸벤젠 Ethylbenzene",
+        "casNo": "100-41-4",
+        "content": "1~10"
+      },
+      {
+        "chemicalName": "n-뷰틸 아세테이트 n-Butyl acetate",
+        "casNo": "123-86-4",
+        "content": "1~10"
+      },
+      {
+        "chemicalName": "아세트산 에틸 Acetic acid ethyl ester",
+        "casNo": "141-78-6",
+        "content": "1~10"
+      },
+      {
+        "chemicalName": "Substituted-alkyl(C=1-7) methacrylate polymer with alkyl(C=1-6) methacrylate, alkyl methacrylate and alkyl acrylate, t-alkyl ethylperalkanoate(C=2-8)-initiated",
+        "casNo": "CAS 미기재",
+        "content": "1~10"
+      },
+      {
+        "chemicalName": "4-메틸-2-펜탄온 4-Methyl-2-pentanone",
+        "casNo": "108-10-1",
+        "content": "1~10"
+      },
+      {
+        "chemicalName": "메틸 에틸 케톤 Methyl Ethyl Ketone",
+        "casNo": "78-93-3",
+        "content": "1~10"
+      },
+      {
+        "chemicalName": "프로필렌 글라이콜 모노메틸 에테르 아세트산 Propylene glycol methyl ether acetate",
+        "casNo": "108-65-6",
+        "content": "1~10"
+      },
+      {
+        "chemicalName": "카본 블랙 Carbon black",
+        "casNo": "1333-86-4",
+        "content": "0.1~4"
+      }
+    ],
+    "signalWord": "위험",
+    "ghsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
+      }
+    ],
+    "hazardStatements": [
+      "H226 인화성 액체 및 증기",
+      "H332 흡입하면 유해함",
+      "H351 암을 일으킬 것으로 의심됨",
+      "H361 태아 또는 생식능력에 손상을 일으킬 것으로 의심됨",
+      "H319 눈에 심한 자극을 일으킴",
+      "H335+H336 호흡기계 자극을 일으킬 수 있음. 졸음 또는 현기증을 일으킬 수 있음",
+      "H372 장기간 또는 반복노출 되면 신체 중 폐에 손상을 일으킴 (11 항 참조(MSDS)).",
+      "H373 장기간 또는 반복노출 되면 신체 중 간장, 정소, 피부, 호흡기, 혈액, 중추신경계에 손상을 일으킬 수 있음 (11 항 참조(MSDS)).",
+      "H315 피부에 자극을 일으킴",
+      "H304 삼켜서 기도로 유입되면 치명적일 수 있음",
+      "H412 장기적 영향에 의해 수생생물에게 유해함",
+      "H303 삼키면 유해할 수 있음",
+      "H313 피부와 접촉하면 유해할 수 있음"
+    ],
+    "precautionaryStatements": {
+      "prevention": [
+        "P210 열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연",
+        "P223 물에 접촉시키지 마시오",
+        "P240 용기와 수용설비를 접지하시오.",
+        "P241 방폭형(전기·환기·조명)설비를 사용하시오",
+        "P242 스파크가 발생하지 않는 도구를 사용하시오.",
+        "P243 정전기 방지 조치를 취하시오.",
+        "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오.",
+        "P261 분진·흄·가스·미스트·증기·스프레이의 흡입을 피하시오.",
+        "P271 옥외 또는 환기가 잘 되는 곳에서만 취급하시오.",
+        "P201 사용 전 취급 설명서를 확보하시오.",
+        "P202 모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.",
+        "P264 취급 후에는 손 및 접촉 부위를 철저히 씻으시오.",
+        "P260 분진·흄·가스·미스트·증기·스프레이를 흡입하지 마시오.",
+        "P270 이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오.",
+        "P273 환경으로 배출하지 마시오."
+      ],
+      "response": [
+        "P303+P361+P353 피부(또는 머리카락)에 묻으면: 오염된 모든 의류를 즉시 벗으시오.",
+        "피부를 물로 씻으시오(또는 샤워하시오.)",
+        "P370+P378 화재 시: 불을 끄기 위해 적절한 소화제를 사용하시오(5 항 참조).",
+        "P304+P340 흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.",
+        "취하시오.",
+        "P312 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.",
+        "P308+P313 노출되거나 노출이 우려되면: 의학적인 조치·조언을 구하시오.",
+        "P305+P351+P338 눈에 묻으면: 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.",
+        "를 제거하시오. 계속 씻으시오.",
+        "P337+P313 눈에 자극이 지속되면: 의학적인 조치·조언을 구하시오.",
+        "P304+P340 흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을",
+        "P314 불편함을 느끼면 의학적인 조치/조언을 구하시오.",
+        "P302+P352 피부에 묻으면: 다량의 물과 비누로 씻으시오.",
+        "P321 필요한 처치를 하시오.",
+        "P332+P313 피부 자극이 나타나면: 의학적인 조언·주의를 받으시오.",
+        "P362+P364 오염된 의류는 벗고 다시 사용 전 세척하시오.",
+        "P301+P310 삼켰다면: 즉시 의료기관(의사)의 도움을 받으시오.",
+        "P331 토하게 하지 마시오."
+      ],
+      "storage": [
+        "P403+P235 환기가 잘 되는 곳에 보관하고 저온으로 유지하시오.",
+        "P405 잠금장치를 하여 저장하시오.",
+        "P403+P233 환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오"
+      ],
+      "disposal": [
+        "P501 폐기물 관련 법령에 따라 내용물·용기를 폐기하시오"
+      ]
+    },
+    "classificationGhsCodes": [
+      "GHS02",
+      "GHS07",
+      "GHS08"
+    ],
+    "classificationGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
+      }
+    ],
+    "ghsCodes": [
+      "GHS02",
+      "GHS07",
+      "GHS08"
+    ],
+    "ppeCandidates": [
+      "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오."
+    ],
+    "ghsSource": "section2_classification_fallback",
+    "publication": {
+      "summaryMode": "automatic",
+      "summaryAvailable": true,
+      "validationStatus": "automatic",
+      "validationWarnings": []
+    },
+    "dataSource": "msds_pdf",
+    "sourcePdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/노루오토코팅_DR-174 BU3(OV1K-CAR)_MSDS_20250619.pdf",
+    "msdsNoStatus": "verified",
+    "msdsNoReason": "노루오토코팅 회신 최신판(2025-06-19 개정)의 번호. 원문 첫 쪽에서 확인",
+    "msdsNoLegalBasis": "시행규칙 제160조제1항 — 제공 시 시스템 제출 때 부여된 번호를 MSDS 에 반영",
+    "msdsNoCheckedOn": "2026-10-14",
+    "firstAid": {
+      "eye": [
+        "노출된 눈을 많은 양의 깨끗한 흐르는 물로 15 분 이상 행구시오.",
+        "자극, 통증 부기, 눈물 눈부심등 기타 증상 발생시 즉시 병원에 가서 전문의의 처치를 받을 것"
+      ],
+      "skin": [
+        "오염된 피복을 제거하고 노출된 부위를 비누와 물로 충분히 씻으시오.",
+        "자극, 통증등 기타 증상 발생시 전문의에게 노출부위에 대한 진찰을 받으시오.",
+        "15 분 이상 다량의 비누와 물로 씻어내시오. 즉시 의사의 진찰을 받으시오"
+      ],
+      "inhalation": [
+        "노출원으로부터 피하시고 맑은 공기가 있는 곳으로 이동하시오.",
+        "호흡하지 않을 시 인공호흡을 실시하시오.",
+        "물질을 흡입하거나 섭취했을 시 흡입호흡법을 실시하지 마시오.",
+        "일방판막이 장착된 포켓 마스크나 다른 호흡의료기기를 사용하여 인공호흡을 실시하시오.",
+        "호흡이 곤란할 시 산소를 공급하시오.",
+        "오염된 피복과 신발을 제거하고 격리시키시오.",
+        "즉시 전문의의 진료를 받을 것"
+      ],
+      "ingestion": [
+        "구토를 유발해야 하는지에 대해서 의사의 조언을 받으시오",
+        "구토 시는 머리를 엉덩이 아래로 숙여 폐 흡입을 방지할 것.",
+        "즉시 전문의의 진료를 받을 것",
+        "증상에 따라 적절한 의학적 조치를 전문의의로부터 받을 것.",
+        "섭취한 물질의 위 세척을 통한 조기 제거는 출혈이나 관통의 전위 합병증에 대한 고려를 해야 함."
+      ],
+      "note": [
+        "오염상황을 의료관계자에게 알려 그들도 적절한 보호조치를 취하도록 하시오."
+      ]
+    }
   }
 ]

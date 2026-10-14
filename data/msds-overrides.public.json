@@ -29319,5 +29319,205 @@
       "validationStatus": "automatic",
       "validationWarnings": []
     }
+  },
+  {
+    "sourcePdfPath": "pdf/01_ 도장/NAC(노루오토코팅)/노루오토코팅_DR-174 BU3(OV1K-CAR)_MSDS_20250619.pdf",
+    "sourceRelativePath": "01_ 도장/NAC(노루오토코팅)/노루오토코팅_DR-174 BU3(OV1K-CAR)_MSDS_20250619.pdf",
+    "pdfRegistrationType": "pdf_only",
+    "productNameCandidate": "DR-174 BU3 (OV1K-CAR)",
+    "supplierCandidate": "(주)노루오토코팅",
+    "msdsNoCandidate": "AA00875-4156004341",
+    "signalWordCandidate": "위험",
+    "ghsSource": "section2_classification_fallback",
+    "labelGhsCodes": [],
+    "labelGhsPictograms": [],
+    "classificationGhsCodes": [
+      "GHS02",
+      "GHS07",
+      "GHS08"
+    ],
+    "classificationGhsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
+      }
+    ],
+    "ghsCodes": [
+      "GHS02",
+      "GHS07",
+      "GHS08"
+    ],
+    "ghsPictograms": [
+      {
+        "code": "GHS02",
+        "label": "인화성"
+      },
+      {
+        "code": "GHS07",
+        "label": "유해/자극성"
+      },
+      {
+        "code": "GHS08",
+        "label": "건강유해성"
+      }
+    ],
+    "hazardStatements": [
+      "H226 인화성 액체 및 증기",
+      "H332 흡입하면 유해함",
+      "H351 암을 일으킬 것으로 의심됨",
+      "H361 태아 또는 생식능력에 손상을 일으킬 것으로 의심됨",
+      "H319 눈에 심한 자극을 일으킴",
+      "H335+H336 호흡기계 자극을 일으킬 수 있음. 졸음 또는 현기증을 일으킬 수 있음",
+      "H372 장기간 또는 반복노출 되면 신체 중 폐에 손상을 일으킴 (11 항 참조(MSDS)).",
+      "H373 장기간 또는 반복노출 되면 신체 중 간장, 정소, 피부, 호흡기, 혈액, 중추신경계에 손상을 일으킬 수 있음 (11 항 참조(MSDS)).",
+      "H315 피부에 자극을 일으킴",
+      "H304 삼켜서 기도로 유입되면 치명적일 수 있음",
+      "H412 장기적 영향에 의해 수생생물에게 유해함",
+      "H303 삼키면 유해할 수 있음",
+      "H313 피부와 접촉하면 유해할 수 있음"
+    ],
+    "precautionaryStatements": {
+      "prevention": [
+        "P210 열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연",
+        "P223 물에 접촉시키지 마시오",
+        "P240 용기와 수용설비를 접지하시오.",
+        "P241 방폭형(전기·환기·조명)설비를 사용하시오",
+        "P242 스파크가 발생하지 않는 도구를 사용하시오.",
+        "P243 정전기 방지 조치를 취하시오.",
+        "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오.",
+        "P261 분진·흄·가스·미스트·증기·스프레이의 흡입을 피하시오.",
+        "P271 옥외 또는 환기가 잘 되는 곳에서만 취급하시오.",
+        "P201 사용 전 취급 설명서를 확보하시오.",
+        "P202 모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.",
+        "P264 취급 후에는 손 및 접촉 부위를 철저히 씻으시오.",
+        "P260 분진·흄·가스·미스트·증기·스프레이를 흡입하지 마시오.",
+        "P270 이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오.",
+        "P273 환경으로 배출하지 마시오."
+      ],
+      "response": [
+        "P303+P361+P353 피부(또는 머리카락)에 묻으면: 오염된 모든 의류를 즉시 벗으시오.",
+        "P370+P378 화재 시: 불을 끄기 위해 적절한 소화제를 사용하시오(5 항 참조).",
+        "P304+P340 흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.",
+        "P312 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.",
+        "P308+P313 노출되거나 노출이 우려되면: 의학적인 조치·조언을 구하시오.",
+        "P305+P351+P338 눈에 묻으면: 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.",
+        "P337+P313 눈에 자극이 지속되면: 의학적인 조치·조언을 구하시오.",
+        "P304+P340 흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을",
+        "P314 불편함을 느끼면 의학적인 조치/조언을 구하시오.",
+        "P302+P352 피부에 묻으면: 다량의 물과 비누로 씻으시오.",
+        "P321 필요한 처치를 하시오.",
+        "P332+P313 피부 자극이 나타나면: 의학적인 조언·주의를 받으시오.",
+        "P362+P364 오염된 의류는 벗고 다시 사용 전 세척하시오.",
+        "P301+P310 삼켰다면: 즉시 의료기관(의사)의 도움을 받으시오.",
+        "P331 토하게 하지 마시오."
+      ],
+      "storage": [
+        "P403+P235 환기가 잘 되는 곳에 보관하고 저온으로 유지하시오.",
+        "P405 잠금장치를 하여 저장하시오.",
+        "P403+P233 환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오"
+      ],
+      "disposal": [
+        "P501 폐기물 관련 법령에 따라 내용물·용기를 폐기하시오"
+      ]
+    },
+    "ingredients": [
+      {
+        "chemicalName": "자일렌 Xylene",
+        "casNo": "1330-20-7",
+        "content": "21~31"
+      },
+      {
+        "chemicalName": "Substituted-alkyl(C=1-7) methacrylate polymer with alkyl(C=1-6) methacrylate, alkyl acrylate and alkenyl(C=1-7)carbomonocycle, t-alkyl ethylperalkanoate(C=2-8)-initiated",
+        "casNo": "CAS 미기재",
+        "content": "19~29"
+      },
+      {
+        "chemicalName": "톨루엔 Toluene",
+        "casNo": "108-88-3",
+        "content": "20~30"
+      },
+      {
+        "chemicalName": "2-Methyl-2-propenoic acid butyl ester polymer with butyl 2-propenoate, 2-hydroxyethyl 2-methyl-2-propenoate and methyl 2-methyl-2-propenoate",
+        "casNo": "51994-93-5",
+        "content": "5~15"
+      },
+      {
+        "chemicalName": "에틸벤젠 Ethylbenzene",
+        "casNo": "100-41-4",
+        "content": "1~10"
+      },
+      {
+        "chemicalName": "n-뷰틸 아세테이트 n-Butyl acetate",
+        "casNo": "123-86-4",
+        "content": "1~10"
+      },
+      {
+        "chemicalName": "아세트산 에틸 Acetic acid ethyl ester",
+        "casNo": "141-78-6",
+        "content": "1~10"
+      },
+      {
+        "chemicalName": "Substituted-alkyl(C=1-7) methacrylate polymer with alkyl(C=1-6) methacrylate, alkyl methacrylate and alkyl acrylate, t-alkyl ethylperalkanoate(C=2-8)-initiated",
+        "casNo": "CAS 미기재",
+        "content": "1~10"
+      },
+      {
+        "chemicalName": "4-메틸-2-펜탄온 4-Methyl-2-pentanone",
+        "casNo": "108-10-1",
+        "content": "1~10"
+      },
+      {
+        "chemicalName": "메틸 에틸 케톤 Methyl Ethyl Ketone",
+        "casNo": "78-93-3",
+        "content": "1~10"
+      },
+      {
+        "chemicalName": "프로필렌 글라이콜 모노메틸 에테르 아세트산 Propylene glycol methyl ether acetate",
+        "casNo": "108-65-6",
+        "content": "1~10"
+      },
+      {
+        "chemicalName": "카본 블랙 Carbon black",
+        "casNo": "1333-86-4",
+        "content": "0.1~4"
+      }
+    ],
+    "ppeCandidates": [
+      "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오.",
+      "일방판막이 장착된 포켓 마스크나 다른 호흡의료기기를 사용하여 인공호흡을 실시 하시오.",
+      "적절한 보호구를 화재 상황에 따라 사용 할 것.",
+      "다. 화재진압 시 착용할 보호구 및 예방조치",
+      "○ 착용할 보호구 :",
+      "방독마스크 또는 공기호흡기, 방열복, 방열모, 방열장갑, 방열 장화",
+      "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구",
+      "적절한 보호구/보호의/보호장갑",
+      "작업자는 적절한 보호구('8. 노출방지 및 개인보호구' 항 참조)를 착용하여 눈, 피부에의 접",
+      "공학적 관리 및 개인보호구를 참조하여 작업하시오.",
+      "취급시 국소배기 및 환기장치 등을 이용할 것",
+      "8. 노출방지 및 개인보호구",
+      "다. 개인 보호구 :",
+      "호흡용 보호구는 한국산업안전보건공단의 검정을 필할 것.",
+      "미지농도 또는 기타 생명이나 건강에 급박한 위험이 있는 경우: 송기마스크(복합식 에어라인",
+      "마스크), 공기호흡기(전면형)",
+      "미스트 등에 의한 위해가 예상되는 경우 근로자가 보안경을 착용 후 작업하도록 할 것."
+    ],
+    "match": {
+      "fileName": "노루오토코팅_DR-174 BU3(OV1K-CAR)_MSDS_20250619.pdf",
+      "relativePath": "01_ 도장/NAC(노루오토코팅)/노루오토코팅_DR-174 BU3(OV1K-CAR)_MSDS_20250619.pdf"
+    },
+    "publication": {
+      "summaryMode": "automatic",
+      "summaryAvailable": true,
+      "validationStatus": "automatic",
+      "validationWarnings": []
+    }
   }
 ]

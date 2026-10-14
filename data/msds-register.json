@@ -4177,8 +4177,8 @@
         "R160",
         "BU"
       ],
-      "need": "공급사의 번호 기재 최신 MSDS",
-      "action": "노루오토코팅에 최신 MSDS 요청 (기아1공장 범퍼 수정장 사용)",
+      "need": "",
+      "action": "최신판(DR-174 BU3(OV1K-CAR)) 사용. 구판은 참고로 남김(구판 표시)",
       "checkedOn": "2026-10-13",
       "signalWord": "위험",
       "signalSource": "pdf1",
@@ -4193,7 +4193,30 @@
         "sha256": "3cf931eec9be742d69835e3b0dd34afb555bd43122eb412c351a9440ba83bd7e",
         "page": 4,
         "rule": "구토"
+      },
+      "oldVersion": {
+        "newId": "msds-pdf-f5a05b27dd78d893",
+        "note": "구판입니다. 최신판은 DR-174 BU3(OV1K-CAR) — (주)노루오토코팅, 2025-06-19 개정, MSDS 번호 AA00875-4156004341.",
+        "recordedOn": "2026-10-14"
       }
+    },
+    "msds-pdf-f5a05b27dd78d893": {
+      "productName": "DR-174 BU3(OV1K-CAR)",
+      "supplier": "노루오토코팅",
+      "status": "verified",
+      "msdsNo": "AA00875-4156004341",
+      "reason": "노루오토코팅 회신 최신판(2025-06-19 개정)의 번호. 원문 첫 쪽에서 확인",
+      "basis": [
+        "R160"
+      ],
+      "checkedOn": "2026-10-14",
+      "signalWord": "위험",
+      "signalSource": "pdf1",
+      "source": "노루오토코팅 회신(사용자 전달, 원래 파일명 PUJ004341 (KR).pdf)",
+      "replaces": "msds-pdf-3cf931eec9be742d",
+      "issueDate": "2019-03-21",
+      "revisionDate": "2025-06-19",
+      "datesCheckedSha256": "f5a05b27dd78d89352c22ed8f92f6ae761a26436777878498efe2a748084417b"
     }
   },
   "history": [
@@ -9068,6 +9091,23 @@
       "note": "무광 칼라 ISM(아이보리 실버 매트)는 별도 MSDS가 없으며, 공급사 안내에 따라 기존 ISG 칼라의 MSDS를 사용합니다. 기록일은 사이트 등록일이며, 공급사 회신일은 확인 필요.",
       "source": "공급사 회신 문구(사용자 전달)",
       "sha256": "72ebbc266e93440d341a9558c67b53d3c3b599e951be5a750fb12b71a56db938"
+    },
+    {
+      "date": "2026-10-14",
+      "action": "최신판 등록(구판 함께 표시)",
+      "productName": "DR-174 BU3(SP2-CAR) → DR-174 BU3(OV1K-CAR)",
+      "supplier": "(주)노루비케미칼 → 노루오토코팅",
+      "oldId": "msds-pdf-f5a05b27dd78d893",
+      "newId": "msds-pdf-f5a05b27dd78d893",
+      "oldFile": "pdf/01_ 도장/NAC(노루오토코팅)/DR-174 BU3(SP2-CAR).pdf",
+      "newFile": "pdf/01_ 도장/NAC(노루오토코팅)/노루오토코팅_DR-174 BU3(OV1K-CAR)_MSDS_20250619.pdf",
+      "oldMsdsNo": "",
+      "newMsdsNo": "AA00875-4156004341",
+      "oldRevision": "2021-01-13",
+      "newRevision": "2025-06-19",
+      "source": "노루오토코팅 회신(원래 파일명 PUJ004341 (KR).pdf)",
+      "sha256": "f5a05b27dd78d89352c22ed8f92f6ae761a26436777878498efe2a748084417b",
+      "note": "사용자가 BU3 최신본으로 지정. 제품명 뒤 차종 표시(SP2-CAR→OV1K-CAR)와 공급사가 달라 구판을 지우지 않고 '구판' 표시로 남김. 그림문자는 원문 2항 그림을 눈으로 확인(GHS02·07·08). 원본 보관함에서 구판 PDF 는 _구버전 보관(이력) 으로 옮김"
     }
   ]
 }

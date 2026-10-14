@@ -172,6 +172,19 @@ class SiteUiContractTests(unittest.TestCase):
         tone = (ROOT / "css" / "tone.css").read_text(encoding="utf-8")
         self.assertRegex(tone, r":root \.component-table tbody th \{[^}]*white-space: normal;[^}]*overflow-wrap: anywhere;")
 
+    def test_old_version_kept_and_marked(self):
+        """최신판을 받았지만 구판도 남긴 BU3: 구판에 '구판' 표시와 최신판 연결이 붙고, 할 일에서는 빠진다(2026-10-14)."""
+        products = {p["id"]: p for p in json.loads((ROOT / "data" / "msds.public.json").read_text(encoding="utf-8"))}
+        old, new = products["msds-pdf-3cf931eec9be742d"], products["msds-pdf-f5a05b27dd78d893"]
+        self.assertEqual(old["oldVersion"]["newId"], new["id"])
+        self.assertEqual(old["oldVersion"]["newName"], "DR-174 BU3(OV1K-CAR)")
+        self.assertNotIn("oldVersion", new)
+        self.assertEqual(new["msdsNo"], "AA00875-4156004341")
+        self.assertIn("function renderOldVersionBadge", self.app_source)
+        self.assertIn('product.oldVersion ? "구판" : ""', self.app_source)
+        self.assertIn("product.oldVersion", (ROOT / "js" / "pick-assist.js").read_text(encoding="utf-8"))
+        self.assertIn("&& !row.oldVersion", (ROOT / "js" / "register.js").read_text(encoding="utf-8"))
+
     def test_small_bottle_label_size(self):
         """박카스병 같은 작은 병용 100mL 초과 축소형(92 x 64mm, A4 세로 8장)과 넘칠 때 글자 줄이기."""
         html = (ROOT / "label.html").read_text(encoding="utf-8")
